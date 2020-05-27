@@ -20,7 +20,6 @@
             <li class="pure-menu-item"><a href="/category/design.html" class="pure-menu-link">Design</a></li>
             <li class="pure-menu-item"><a href="/category/engineering.html" class="pure-menu-link">Engineering</a></li>
             <li class="pure-menu-item pure-menu-selected"><a href="/category/music.html" class="pure-menu-link">Music</a></li>
-            <li class="pure-menu-item"><a href="/category/openg.html" class="pure-menu-link">openg</a></li>
         </ul>
     </div>
 
@@ -32,7 +31,7 @@
     <a href="/category/music.html" class="category">Music</a><br />
 
     <a class="author" href="/author/vega-deftwing.html">Vega Deftwing</a>
-    &mdash; <abbr title="2020-02-24T21:37:38-06:00">Mon 24 February 2020</abbr>
+    &mdash; <abbr title="2019-07-27T12:00:00-05:00">Sat 27 July 2019</abbr>
 </div>        </div>
     </div>
 
@@ -49,15 +48,18 @@
 
     <div class="entry-content">
         <div class="toc"><span class="toctitle">Table of Contents:</span><ul>
-<li><a href="#preface">Preface</a></li>
-<li><a href="#jumping-in-head-first">Jumping in head first</a></li>
+<li><a href="#chapter-33-music">Chapter 33 - Music</a><ul>
+<li><a href="#getting-started">Getting Started</a></li>
 <li><a href="#theory">Theory</a></li>
 <li><a href="#back-to-vcv-rack">Back To VCV Rack</a></li>
-<li><a href="#methods-of-making-noise">Methods of making noise</a></li>
+<li><a href="#methods-of-making-noise">Methods of making noise</a><ul>
+<li><a href="#fm-synthesis">FM Synthesis</a></li>
 <li><a href="#granular-synthesis">Granular Synthesis</a></li>
 <li><a href="#wavetables">Wavetables</a></li>
 <li><a href="#samples">Samples</a></li>
 <li><a href="#live-input">Live Input</a></li>
+</ul>
+</li>
 <li><a href="#audio-effects">Audio Effects</a><ul>
 <li><a href="#reverb">Reverb</a></li>
 <li><a href="#delay">Delay</a></li>
@@ -76,38 +78,38 @@
 <li><a href="#strings">Strings</a></li>
 <li><a href="#mixing-and-mastering">Mixing and Mastering</a></li>
 <li><a href="#live-code">Live Code</a></li>
-<li><a href="#software">Software</a><ul>
+<li><a href="#software">Software</a></li>
 <li><a href="#daws">DAWs</a></li>
 <li><a href="#vsts">VSTs</a></li>
 <li><a href="#other">Other</a></li>
-</ul>
-</li>
 <li><a href="#hardware">Hardware</a><ul>
 <li><a href="#midi">MIDI</a></li>
+</ul>
+</li>
 <li><a href="#synths">Synths</a></li>
 <li><a href="#audio-interfaces">Audio Interfaces</a></li>
 <li><a href="#headphonesspeakers">Headphones/speakers</a></li>
-</ul>
-</li>
 <li><a href="#list-of-all-link-mentioned">List of All link mentioned</a><ul>
 <li><a href="#software-and-tools">Software and tools</a></li>
 <li><a href="#cool-people">Cool People</a></li>
+</ul>
+</li>
 <li><a href="#other-resources">Other Resources</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<h1 id="preface">Preface</h1>
+<h1 id="chapter-33-music">Chapter 33 - Music</h1>
 <p>Hey there.</p>
-<p>My name is Vega. I know there are plenty of tutorials and ways to learn online be it on YouTube, SkillShare, or online classes provided for free by various universities. The difference here is there is nothing you won't use, no babysitting, and lots of bias as a result of personal experience. My views of things like what sounds bad or what hardware you should buy to learn on will be expressed directly and bluntly. This isn't to say I won't explain my reasoning, just that I'm not going to be apologetic when I say a lot of the audiophile gear is trash or that hating on digital music is misguided - though I will still likely talk about these things.</p>
-<h1 id="jumping-in-head-first">Jumping in head first</h1>
+<p>My name is Vega. I know there are plenty of tutorials and ways to learn online be it on YouTube, SkillShare, or online classes provided for free by various universities. The difference here is there is no bullshit, no babysitting, and lots of bias as a result of personal experience. My views of things like what music software is bad or what equipment you should buy to learn with will be expressed directly and bluntly. This isn't to say I won't explain my reasoning, just that I'm not going to be apologetic when I say a lot of the audiophile gear is trash or that hating on digital music is misguided - though I will still likely talk about these things.</p>
+<h2 id="getting-started">Getting Started</h2>
 <p>Here's the part where I'm supposed to explain how to read music or something boring like that. Really though, that's not why you're here. So let me start by giving you a bit of motivation. In a bit I'll be going though how to use VCV Rack, a free (with paid addons, but those aren't necessary) program for making music. But as we go though each bit is going to look so -basic- that it's hard to see the bigger picture. So, here's that bigger picture: This track was made entirely with VCV rack:</p>
 <iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3503666064/size=small/bgcol=ffffff/linkcol=0687f5/track=3864536185/transparent=true/" seamless><a href="http://vegadeftwing.bandcamp.com/album/content-2">Content by Vega Deftwing</a></iframe>
 
 <p>Alright, with motivation out of the way, let's make some noise! To do that though we're gonna need just a few things:
 Go download VCV Rack from https://vcvrack.com/ and depending on your OS you'll need some sound drivers, MAC guys, sorry, no idea. On Windows you'll want to use ASIO, if you don't know what that is just go grab http://www.asio4all.org/ and use that, on Linux you'll want to use Jack https://wiki.archlinux.org/index.php/JACK_Audio_Connection_Kit. On Linux you may need to use a tool like Catia to actually connect the jack devices together (VCV to System Out)</p>
 <p>Go ahead and fire up VCV and a template patch should have opened up that looks some thing like this:
-<img alt="vcv1default" src="/opmusic/vcv1default.png"></p>
+<img alt="vcv1default" src="../../../../../../../../home/vega/git/local/openg2/content/opmusic/vcv1default.png"></p>
 <p>Windows guys, set your sound device to ASIO and fiddle around until you have sound working, Linux people RTFM, Mac people ヽ( ´¬`)ノ.
 That default patch should respond to input when you mash keys so you can test your sound settings</p>
 <p>Final note on that, sound cards and their drivers/software (asio/jack/etc.) have a few important settings you should know about. First, is the 'buffer size'. Frankly, this isn't all the important to understand from a technical perspective but the gist is the lower the buffer size the lower the latency, and higher the higher the latency (latency is how long it takes for sound to come out after you hit a key and is bad); however, the lower the buffer size the more likely you are to have audio underuns, this makes your sound do this weird robotty sound like it was recorded on an Atari2600, make nasty beeps, or cut out entirely. The size you can set your buffer to will vary depending on the hardware you have in your computer, but generally I can get away with 128 and I'll bump it up to 256 when working on large projects if I notice the above issues. You may need to try up to 512 or 1024 though.</p>
@@ -115,7 +117,7 @@ That default patch should respond to input when you mash keys so you can test yo
 <p>The reason we're starting in VCV rack is it exposes a lot of the raw ideas and fundamentals of how music works behind the scenes, raw frequencies and modulation open to see. In that default patch there we start with a MIDI (Musical Instrument Digital Interface) input which outputs a 'voltage' from the V/oct (Volt per Octave) output, which is fed into an VCO's (Voltage Controlled Oscillator) V/oct input.</p>
 <p>Wait. Big words. Stapphh.</p>
 <p>Alright. I'll backup So VCV rack actually emulates real hardware systems called modular synthesizers. VCV emulates the Eurorack standard of modular synths in particular. Skipping some finer details for a moment, the standard defines one nice thing, and that's the idea of 1 Volt per Octave note control. (If you don't know anything about electronics that's fine, but it might help here) In a real eurorack system the voltage running though the wires can range from -10 to +10Volts. Any wire can really be patched into any hole to get surprising results and all the signals are technically interchangeable, but generally in eurorack there are two categories of signals CV or 'Control Voltage' and 'Audio Rate' signals. The most common form of CV is this V/oct signal, where each volt represents a one octave change. A stable 0v (the same as no input) signal is 'Middle C' or C4 where 'C' is the note and '4' is the octave number. This is only 'generally' the case, but just stick with it for now. When you strike a key on your keyboard VCV is interpreting that keypress as a MIDI event, and converting that MIDI signal to a virtual CV signal. So, if you happen to press the C note on the 4th octave, you'll get... 0v, no change, but if you were to hit the C note one octave higher (C5) the note should be noticeably higher pitch and the output from the V/oct port would be 1V. In fact because of how our music system works, an octave is exactly a doubling in frequency so while 'C4' is 261.63Hz 'C5' is 523.25Hz). If you hit a C#5 note though the output voltage will be  1.08333V because there are 12 notes per octave (A, A#, B, C, C#, D, D#, E, F, F#, G, G#) and 1/12 is .08333 which is added to the 1V from being up one octave from from middle C (C4)</p>
-<p><img alt="Stinkbomb" src="/opmusic/Stinkbomb.jpg"></p>
+<p><img alt="Stinkbomb" src="../../../../../../../../home/vega/git/local/openg2/content/opmusic/Stinkbomb.jpg"></p>
 <blockquote>
 <p>This is Stinkbomb's hardware Eurorack. Real Eurorack hardware is incredibly expensive!</p>
 </blockquote>
@@ -125,30 +127,30 @@ That default patch should respond to input when you mash keys so you can test yo
 <p>Alright, we'll come back to the VCO later, but let's follow the signal path a bit further. The VCO has a wire coming from the Saw wave output into a VCF or 'Voltage Controlled Filter'.</p>
 <p>Filters are a huge part of making good sounding music as often you'll have a good sound but it'll have too much low or high end and you just want to cut it out. This filter actually has 2 outputs, one for a 'High Pass Filter' (HPF) and one for a 'Low Pass Filter' (LPF) as the names imply, a HPF lets high frequencies though and cuts the low end and a LPF cuts the high end but lets the low though. LPFs are generally used more as usually it's more desirable to cut the harsh highs out of a sound than the humming, thumping lows. This is exactly what has been done in the default patch here. The final basic (filters get really complicated) thing you should know about a filter is how they have have a cut-off frequency. That is the point at which the filter starts cutting the sound. This is adjustable, so say with a Low Pass Filter we could set the frequency really low and only let though the lowest frequency sounds or set in nice and open to just cut out the really hissy stuff. We'll talk about more complex stuff like resonance in a bit.</p>
 <p>The need for this may seem a bit weird at first, as if we're playing a note at exactly one frequency, say A at 220Hz, then why would we need to filter out anything? Well, most oscillators and real instruments alike will actually have multiple 'harmonics', that is it will play an A at 220, 440, 880, and so on with decreasing amplitude or even on other frequencies entirely that still have a musical influence on the signal. On the 'VCO-1' Oscillator loaded into the default patch here you can lessen these harmonics by switching the ANLG (Analog) and DIGI (Digital) switch on the right. This is because this oscillator can emulate either an 'ideal' digital oscillator which outputs a clean, sharp signal with less harmonics or an analog signal oscillator which includes a subtle amount of pitch drift and some smoothing of the output wave- of note, usually the analog characteristics, while technically flaws, are desirable.</p>
-<p><img alt="harmonics" src="/opmusic/harmonics.png"></p>
+<p><img alt="harmonics" src="../../../../../../../../home/vega/git/local/openg2/content/opmusic/harmonics.png"></p>
 <blockquote>
 <p>The top VCO is outputting an 'analog' emulating signal while the bottom is in digital mode. Look at how the Triangle output shape on the analog mode is smoothed out compared to the digital mode's sharp edges</p>
 </blockquote>
 <p>You'll also notice there's a third wire running into the filter though- into an input labeled 'freq'. This input modulates the filter's cut off frequency. You wont visually see the knob change but you will hear the filter's cut off change based on the signal applied to this input but only if the 'Freq CV' knob is turned up. The 'Freq CV' knob is what's known as an attenuverter (a portamento of 'Attenuator' and 'Inverter'). This knob, when facing dead center says 'let nothing though' while all the way right lets the full signal (from the freq input) though, and all the way left lets the full signal though but inverts it first. Leaning right but not all the way will 'Attenuate' or weaken the signal first. I think you get the idea.</p>
 <p>So say we put the big 'FREQ' knob dead center, and give the 'FREQ' input jack wire carrying a very slow sine wave that goes between 0 and 10V, and set the 'FREQ CV' knob all the way right: This will bring the cut off higher and higher from it's starting position, and then bring it back to the starting level. If we instead turn the 'FREQ CV' knob all the way left, it'll bring the cut off frequency lower before turning back around and coming to it's starting position. Putting it at a slight lean right will still do the same as we started with, but will have less of an impact, making the sound much less 'jumpy' and tame. Really, that's what attenuverter's are for, taming an input signal.</p>
 <p>Here, I'm showing modulating the filter frequency manually as well as showing what resonance is- it boots the signal right at the cut off frequency</p>
-<p><img alt="filter" src="/gifs/filter.gif"></p>
+<p><img alt="filter" src="../../../../../../../../home/vega/git/local/openg2/content/gifs/filter.gif"></p>
 <p>Here, the input to the cut off frequency is modulated with an 'LFO' or Low Frequency Oscillator, which much like the VCO outputs a simple signal, but in this case the signal is low frequency, usually below human hearing range:</p>
-<p><img alt="lfofilt" src="/gifs/lfofilt.gif"></p>
+<p><img alt="lfofilt" src="../../../../../../../../home/vega/git/local/openg2/content/gifs/lfofilt.gif"></p>
 <p>Alright, that's fine and all, but the cable going input to the 'FREQ' control on the VCF is coming from something called an 'ADSR'</p>
 <p>So the adventure continues. 'ADSR' stands for 'Attack, Decay, Sustain, Release' and it does exactly that. But before we understand the output of an ADSR we have to look at it's input- 'Gate' and 'Retrig'</p>
 <p>'Gates', in modular, are simply a positive (sometimes needing to be 5V or higher) signals that represent that something is happening. Usually, that a key is being held. And that's exactly what's going on here. When you hold a key the 'Gate' output of  the MIDI-&gt;CV module is active. When you release it, the output goes off. You can see this by looking at the green indicator light where the gate output is on the MIDI-&gt;CV module when you hold or release a key. 'Retrig' is similar, though it only outputs a short pulse every time you press a key. This is handy because you may press a second key while already holding one key, meaning the gate output should stay on, but the retrig output will have sent a pulse each time you pressed a key (once when you pressed the key your holding, another time when you press a different key while still holding the original key).</p>
 <p>So, back to the 'ADSR' an ADSR generates a signal that looks like this:</p>
-<p><img alt="adsr" src="/gifs/adsr.gif"></p>
+<p><img alt="adsr" src="../../../../../../../../home/vega/git/local/openg2/content/gifs/adsr.gif"></p>
 <p>That is, voltage will follow this shape over time. The 'Attack' knob sets how long it takes to reach the peak point, the Decay knob set's how long it will take to reach the sustain level, the sustain knob set's at what level the sustain should be held at, and the release knob set's how long the note should take to fade out from the sustain level after the key is released. Take note, the sustain knob controls a level, while the other three control time:</p>
 <p>Alright, so when the ADSR get's a gate signal it'll go though the Attack and Decay stages and wait at the Sustain level until the Gate is released or a Retrig signal is sent telling the ADSR to repeat the Attack and Decay stages.</p>
 <p>So, this output signal is fed to two places, the first is the frequency knob we saw before. This will result in the frequency cutoff going high then coming down to a reasonable level, then cutting down to just low frequencies as a note is released. The other place the signal goes is into the mixer:</p>
 <p>The mixer in this demo patch is super simple. It has 4 inputs, with one output. The sliders let you set the level of each input, and the 'CV' input of each slider let's you externally control the slider. Because the ADSR is fed into this input and the ADSR output is at 0V unless you hit a key the mixer actually mutes the signal until a key is pressed and then lets it play, fading out over the release period. The mixer also has one big volume knob ontop to set the master output volume of all 4 channels combined. Essentially the volume follows this shape of the ADSR signal over time. In times like this, the ADSR signal is called the 'envelope' for the sound. Really, the mixer is just a combination of multiple of a simpler component though, the VCA or Voltage Controlled Amplifier. This name is a bit misleading though, as really VCAs are usually used to bring a sounds volume down, like an attenuator. To show the simplest case I'll hook up a LFO to control a VCA's level, in turn changing the level of the signal passing though:</p>
-<p><img alt="vcavult" src="/gifs/vcavult.gif"></p>
+<p><img alt="vcavult" src="../../../../../../../../home/vega/git/local/openg2/content/gifs/vcavult.gif"></p>
 <p>Also, above you'll see I used a 3rd party oscillator instead of the VCO-1 you've seen so far. Pictured is 'Basal' from the 'Vult-Free' collection of modules available on the VCV library page.</p>
 <p>Finally, the output of just the first channel of the mixer is fed into the scope so that when you press a key you can see the signal your generating. To understan this it's easiest to just drag the cable coming out of the VCO's 'SAW' output to the VCO's 'Sine' Output. Now when you press a key instead of seeing a saw wave you should see a sine wave.</p>
 <p>Finally, I want to mention that at least by default this setup is 'Monophonic' (Mono = One , Phonic = Voice) meaning that even if you hit 2 keys at once you'll only hear the note from the last key you pressed. We'll explore Polyphonic (Many Vocie) and Paraphonic (Para = beside, or side by side) systems later.</p>
-<h1 id="theory">Theory</h1>
+<h2 id="theory">Theory</h2>
 <p>I'm going to be honest. I can't read music and I don't know scales. Why, then, would I in any way think I'm qualified to write anything about music? Well, let me stop you right there, I'm not. I make music for fun. However, I like to think that people enjoy my music and I enjoy listening to it myself as I make it, and though my experience I've picked up a little here and there to make sure things don't sound awful. Furthermore, my background is primarily technically and there's actually an insane amount of overlap with the incredibly technical and music. Fundamentally music is just doing math with frequencies after all.</p>
 <p>Our ears are weird. They're incredibly good at math. We hear things logarithmically, that's why 10watts of speaker output power is only about twice as loud as 1watt and we can tell if two notes are even slightly off a perfect ratio even if we're not thinking about it. (If you hear one tone at 220Hz and another at 441Hz, only 1hz off of correct, you'll probably be able to tell)</p>
 <p>Out ears also like integer devisions of musical ratios- I'm sure you've heard the term 'perfect fifth'. And though our lives our ears get accustomed to hearing and feeling things associated with chord progressions. Even someone whose never written music or tried to learn anything about music theory can pick up on how a chord with more complex ratios creates tension that begs to be resolved to something simper (Think the Duuun-uh of the Jaw's theme).</p>
@@ -158,31 +160,38 @@ That default patch should respond to input when you mash keys so you can test yo
 <p>And honestly? That's about all you need to know. Basically music is math and math makes music.</p>
 <p>Oh, and the circle of fiths is a thing [TODO]</p>
 <p>[TODO] Just V equal Temperment here is confusing</p>
-<h1 id="back-to-vcv-rack">Back To VCV Rack</h1>
+<h2 id="back-to-vcv-rack">Back To VCV Rack</h2>
 <p>Now that we have that mess out of the way let's talk shop and drop back into our rack. This time Let's start with a mostly clean slate. Make sure you can still get sound out, then remove every module except the Audio module. Alrighty, now we can get to business</p>
-<h1 id="methods-of-making-noise">Methods of making noise</h1>
+<p><img alt="phase" src="../../../../../../../../home/vega/git/local/openg2/content/opmusic/phase.png"></p>
+<h2 id="methods-of-making-noise">Methods of making noise</h2>
 <p>[TODO, reorder these]</p>
-<h1 id="granular-synthesis">Granular Synthesis</h1>
-<h1 id="wavetables">Wavetables</h1>
-<h1 id="samples">Samples</h1>
+<h3 id="fm-synthesis">FM Synthesis</h3>
+<p><img alt="DX7 Operators" src="../../../../../../../../home/vega/git/local/openg2/content/opmusic/dx7.jpeg"></p>
+<blockquote>
+<p><a href="https://scsynth.org/t/coding-fm-synthesis-algorithms/1381">Source (Likely originally from the Yahmaha DX7 Manual)</a></p>
+</blockquote>
+<h3 id="granular-synthesis">Granular Synthesis</h3>
+<h3 id="wavetables">Wavetables</h3>
+<h3 id="samples">Samples</h3>
 <p>start, stop, fade, pitch shift, (ableton simpler)</p>
-<h1 id="live-input">Live Input</h1>
+<h3 id="live-input">Live Input</h3>
 <p>quantization, tracking</p>
-<h1 id="audio-effects">Audio Effects</h1>
-<h2 id="reverb">Reverb</h2>
+<h2 id="audio-effects">Audio Effects</h2>
+<h3 id="reverb">Reverb</h3>
 <p>plate, room, gated</p>
-<h2 id="delay">Delay</h2>
+<h3 id="delay">Delay</h3>
 <p>Clock synced</p>
-<h2 id="distortion">Distortion</h2>
+<h3 id="distortion">Distortion</h3>
+<p><a href="https://benmosheron.gitlab.io/blog/2020/04/26/distortion.html">How Distortion Works in Music (Ben Sheron's Blog)</a></p>
 <p>Tube, Bitcrush</p>
-<h2 id="chorus">Chorus</h2>
-<h2 id="flanger">Flanger</h2>
-<h2 id="phaser">Phaser</h2>
-<h2 id="stereo-effects">Stereo Effects</h2>
+<h3 id="chorus">Chorus</h3>
+<h3 id="flanger">Flanger</h3>
+<h3 id="phaser">Phaser</h3>
+<h3 id="stereo-effects">Stereo Effects</h3>
 <p>Panning, Widening</p>
-<h2 id="glitch-granular-and-pitch">Glitch, Granular, and Pitch</h2>
-<h1 id="compression">Compression</h1>
-<p><img alt="compression" src="/gifs/compression.gif"></p>
+<h3 id="glitch-granular-and-pitch">Glitch, Granular, and Pitch</h3>
+<h2 id="compression">Compression</h2>
+<p><img alt="compression" src="../../../../../../../../home/content/home/vega/git/local/openg2/content/gifs/compression.gif"></p>
 <p><audio
     controls
     src="/audio/Compression.mp3">
@@ -190,30 +199,30 @@ That default patch should respond to input when you mash keys so you can test yo
         <code>audio</code> element.
 </audio></p>
 <p>reverb, delay, pan, tremello, overdrive, distortion</p>
-<h1 id="sequencing">Sequencing</h1>
+<h2 id="sequencing">Sequencing</h2>
 <p>random, sample/hold, probability</p>
-<h1 id="midi-effects">MIDI effects</h1>
+<h2 id="midi-effects">MIDI effects</h2>
 <p>Arp, velocity, pitch bend, mod, sustain</p>
-<h1 id="drums">Drums</h1>
+<h2 id="drums">Drums</h2>
 <p>TR808, syth, short ADSR, noise, snare, tom, kick, hat, clap, bell,</p>
-<h1 id="strings">Strings</h1>
+<h2 id="strings">Strings</h2>
 <p>guitar, lute, dulcimer, dual/single string, acoustic, electric, electroacoustic</p>
-<h1 id="mixing-and-mastering">Mixing and Mastering</h1>
+<h2 id="mixing-and-mastering">Mixing and Mastering</h2>
 <p>eq, pan, quadraphonic</p>
-<h1 id="live-code">Live Code</h1>
-<h1 id="software">Software</h1>
+<h2 id="live-code">Live Code</h2>
+<h2 id="software">Software</h2>
 <h2 id="daws">DAWs</h2>
 <h2 id="vsts">VSTs</h2>
 <h2 id="other">Other</h2>
-<h1 id="hardware">Hardware</h1>
-<h2 id="midi">MIDI</h2>
+<h2 id="hardware">Hardware</h2>
+<h3 id="midi">MIDI</h3>
 <p>MPE, aftertouch, vel</p>
 <h2 id="synths">Synths</h2>
 <p>Modular, semi-modular, software</p>
 <h2 id="audio-interfaces">Audio Interfaces</h2>
 <h2 id="headphonesspeakers">Headphones/speakers</h2>
-<h1 id="list-of-all-link-mentioned">List of All link mentioned</h1>
-<h2 id="software-and-tools">Software and tools</h2>
+<h2 id="list-of-all-link-mentioned">List of All link mentioned</h2>
+<h3 id="software-and-tools">Software and tools</h3>
 <p>\$ - Paid
 ! - Require paid software</p>
 <ul>
@@ -233,7 +242,7 @@ https://tidalcycles.org/index.php/Welcome -Tidal- Live coding enviroment
 \\)</span> -Renoise-
 \<span class="math">\( -Reaper
 \\)</span> -FL Studio-</p>
-<h2 id="cool-people">Cool People</h2>
+<h3 id="cool-people">Cool People</h3>
 <p>https://twitter.com/RichardDevine
 https://twitter.com/LOOKMUMNOCMPUTR</p>
 <p>https://t.me/vcvrackchat</p>
@@ -347,7 +356,6 @@ Rob Scallon https://www.youtube.com/watch?v=JeB3JnKp8To&amp;list=FLFMnqfaTa1se1L
         <a href="/category/design.html">Design</a>
         <a href="/category/engineering.html">Engineering</a>
         <a href="/category/music.html">Music</a>
-        <a href="/category/openg.html">openg</a>
         <a href="https://www.patreon.com/deftwing">Vega Deftwing Patreon</a>
         <a href="http://deftwing.us/">Vega Deftwing Personal Page</a>
         <a href="t.me/vegadeftwing">Vega Deftwing Telegram</a>
