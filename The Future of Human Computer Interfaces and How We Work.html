@@ -17,6 +17,7 @@
             <li class="pure-menu-item"></li>
 
             <li class="pure-menu-item pure-menu-selected"><a href="/category/blog.html" class="pure-menu-link">Blog</a></li>
+            <li class="pure-menu-item"><a href="/category/cooking.html" class="pure-menu-link">Cooking</a></li>
             <li class="pure-menu-item"><a href="/category/design.html" class="pure-menu-link">Design</a></li>
             <li class="pure-menu-item"><a href="/category/engineering.html" class="pure-menu-link">Engineering</a></li>
             <li class="pure-menu-item"><a href="/category/music.html" class="pure-menu-link">Music</a></li>
@@ -121,15 +122,15 @@
 <p>All of this would allow for graphs that can vary in complexity and representation based on what is most useful to the user.</p>
 <p>To be extra clear though this primary front-most plane wouldn't have to contain files or web pages, it could be aforementioned programs in the front with data types in the back, or system devices on the main plane (keyboard, mouse, gpu, cpu, mem, usb devices, disks...) with user profiles 'behind' this. I'm not sure <em>why</em> you would do that but the point is that you should be able to. Finally, from the navigation of data side is the idea of letting nodes contain graphs in themselves, Luna and Audulus both have this concept implemented pretty well. It can do a pretty good job of abstracting more complicated structures were desired. To make this clear I mean nodes could contain smaller networks of nodes when 'entered' as a way of reducing outward compelxity when only a higher level view is desired. Ie, if all you care is a car drives that's fine, but inside a 'car' data structure you may find nodes storing data with inputs and outputs for things like an engine, transmission, etc. in the engine node you may see inputs and outputs and data storage for things like pistons firing.This makes it so layers of abstraction can literally be represented visually the same way functions can encompass complex behavior when programming. Again, this is not an original idea. Basically any flow based programming language has some aspect of this.</p>
 <p>Moving on to how individual nodes would be 'defined' they should have a textual and visual representation, sort of like in Luna. This allows for a scalpel to be taken to the things that require it without 'diving into' nodes to the point of confusion where you get n layers of nodes deep in something like the above mentioned car example. Each node, as well as literally every file, program, and data source/sink on the system should be defined with some sort of common data wrapper which is used to generate the nodes structure, I'm imagining something like this:</p>
-<div class="highlight"><pre><span></span><span class="nl">Inputs</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="nl">Inputs</span><span class="p">:</span>
 <span class="nl">Outputs</span><span class="p">:</span>
 <span class="nl">metadata</span><span class="p">:</span>
 <span class="nl">data</span><span class="p">:</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Where a specific example, a .wav may have a wrapper that looks something like this</p>
-<div class="highlight"><pre><span></span><span class="nl">Inputs</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="nl">Inputs</span><span class="p">:</span>
     <span class="n">null</span>
 <span class="nl">Outputs</span><span class="p">:</span>
     <span class="nl">AudioData</span><span class="p">:</span>
@@ -172,11 +173,11 @@
     <span class="mh">0x00001d0</span> <span class="mh">0x6a697473767578777a79848386858887</span>
     <span class="mh">0x00001e0</span> <span class="mh">0x8a899392959497969998a29aa4a3a6a5</span>
     <span class="p">...</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This would initially define one node with an output of type 'AudioData' worth noting, this doesn't actually handle decode, that would be left to another type of node, one that contains a music player most likely. Also, this node would only appear to have one output, but another type of node could be defined like:</p>
-<div class="highlight"><pre><span></span><span class="nl">Inputs</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="nl">Inputs</span><span class="p">:</span>
     <span class="c1">//lamda represent a fuction to be exectued to inorder to build the node, where as something without the lamda is actually a visually represented i/o on the nod</span>
     <span class="err">λ</span><span class="n">input</span> <span class="o">=</span> <span class="n">getinput</span><span class="p">()</span>
     <span class="c1">//declaring an input that can become any type should be possible. I&#39;m not saying this void syntax is good, but this also purly a hypothetical idea at this point.</span>
@@ -192,13 +193,13 @@
     <span class="nl">NodeName</span><span class="p">:</span> <span class="n">input</span><span class="p">.</span><span class="n">NodeType</span> <span class="o">+</span> <span class="s">&quot;Data Splitter&quot;</span>
 <span class="nl">data</span><span class="p">:</span>
     <span class="n">null</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>So that the data output of each channel could be interacted with directly, say to be piped though an EQ or filter first.</p>
 <p>Also, this is actually generic, so it could be used to access the second level of any input, though if someone wanted theres also no reason the header of the wrapper for the wav file couldn't be modified to just remove the original audio data grouping in the first place; however, it would probably need to be regrouped before getting to a decode application. Or the outputs could be defined fictionally meaning the node could be entered and this could just be remapped inside the node visually. Or, even weirder yet this system would let you define your file as separate data structures all together, with one node that functionally one gets it's data from the left channel and another that only got the data from the right. Obviously the options here are infinite but different solutions and approaches are probably better than others, thought that choice is left to the user/developer.  </p>
 <p>One more example just to get this idea defined:</p>
-<div class="highlight"><pre><span></span><span class="nl">Inputs</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="nl">Inputs</span><span class="p">:</span>
     <span class="err">λ</span><span class="n">input</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">hidraw0</span><span class="p">)</span>
     <span class="n">input</span>
 <span class="nl">Outputs</span><span class="p">:</span>
@@ -215,7 +216,7 @@
         <span class="sc">&#39;w&#39;</span><span class="o">:</span><span class="s">&quot;,&quot;</span><span class="p">,</span>
         <span class="p">...</span>
         <span class="s">&quot;/&quot;</span><span class="o">:</span><span class="sc">&#39;z&#39;</span>        
-</pre></div>
+</code></pre></div>
 
 
 <p>Which would be one way of setting up a keyboard and assigining it a Dvorak layout, now, ironically this example probably isn't the best, since that map would make more sense if it were defined as it's own node. Though, to some extent, due to the lamda, it would be since that would make the map fiction be an internal function if you were to 'enter' the node.</p>
@@ -261,6 +262,7 @@
 		<a href='https://webring.xxiivv.com/#random' target='_blank'><img src='https://webring.xxiivv.com/icon.black.svg' style='width:100px;height:100px'/></a>
         <a href="/" title="Opinionated Guides">Opinionated Guides</a>
         <a href="/category/blog.html">Blog</a>
+        <a href="/category/cooking.html">Cooking</a>
         <a href="/category/design.html">Design</a>
         <a href="/category/engineering.html">Engineering</a>
         <a href="/category/music.html">Music</a>

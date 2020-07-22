@@ -17,6 +17,7 @@
             <li class="pure-menu-item"></li>
 
             <li class="pure-menu-item"><a href="/category/blog.html" class="pure-menu-link">Blog</a></li>
+            <li class="pure-menu-item"><a href="/category/cooking.html" class="pure-menu-link">Cooking</a></li>
             <li class="pure-menu-item"><a href="/category/design.html" class="pure-menu-link">Design</a></li>
             <li class="pure-menu-item pure-menu-selected"><a href="/category/engineering.html" class="pure-menu-link">Engineering</a></li>
             <li class="pure-menu-item"><a href="/category/music.html" class="pure-menu-link">Music</a></li>
@@ -762,8 +763,8 @@ Bootloader: The bootloader sits at a special place on the hard drive selected fo
 </blockquote>
 <hr>
 <p><strong>WINDOWS</strong>: open up a command prompt by pressing ctr+r and typing 'cmd' then enter, and we'll need to navigate to the location of the downloaded file it should be named something along the lines of archlinux-20xx.xx.xx-x86_64.iso and be in your Downloads folder. When you open a command prompt on Windows it should start out in your user folder (C:\Users\%username%). To list the folders in this folder you can type 'dir' and press enter. You should, at minimum, see folders like 'Downloads' 'Desktop' and 'Documents' to enter the Downloads folder simply type 'cd Dow' and press tab, the line should auto-complete to 'cd Downloads', then press enter. Now you can type 'certutil -hashfile arch' , press tab to complete it to 'certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso' then add 'sha1' on the end so the finally command looks like</p>
-<div class="highlight"><pre><span></span>certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso sha1
-</pre></div>
+<div class="highlight"><pre><span></span><code>certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso sha1
+</code></pre></div>
 
 
 <blockquote>
@@ -772,8 +773,8 @@ Bootloader: The bootloader sits at a special place on the hard drive selected fo
 <p>So let's look at this command. The first part, certutil, is a program on your computer, '-hashfile' says the next string of text is the name of the file we want to examine, and the last part sha1 is the checksum as mentioned before. Finally, if you go back to https://www.archlinux.org/download/ and look under 'Checksums' you can compare the output of the command you just ran against the SHA1 sum provided to be sure you didn't have any errors in the file. This is mostly a security check as in theory someone could provide a 'bad' version of the OS containing malware, but such a version would produce an incorrect checksum, in practice this is extraordinarily uncommon. Though this does also serve to ensure the download wasn't corrupted in any way either.</p>
 <hr>
 <p><strong>MAC</strong>: open up a terminal by going to the Utilities fore in Applications and open 'Terminal'. The mac terminal is very, very similar to what you'll use in Linux actually, and the commands here are actually identical. You should see something like</p>
-<div class="highlight"><pre><span></span>MacBook:~ username$
-</pre></div>
+<div class="highlight"><pre><span></span><code>MacBook:~ username$
+</code></pre></div>
 
 
 <p>waiting for input.</p>
@@ -828,32 +829,32 @@ Seriously, backup your shit. I've done this countless times and have still manag
 <p><strong>MAC</strong>: Beware, none of the following was writen with a MAC in mind, and as such I strongly recommend you read https://wiki.archlinux.org/index.php/Mac#Installation and look for where my instructions deviate from what's recommended here.</p>
 <hr>
 <p>Now you'll need to power off your computer. Turn it back on and as you do mash the everliving hell out of both f2 and delete (unless you know what key gets you into the UEFI / BIOS settings). This should bring up a menu that either looks super fancy or looks stright out of the 80's. Either is fine. The setting we're looking for is 'Secure Boot' it's probably under a menu called 'Boot' or 'Security'. You'll need to shut this off. In theory secure boot should protect against a nasty kind of virus called a rootkit, in practice it doesn't and only serves to make installing linux more annoying, don't worry, I'm a security nut and am comfortable leaving it off. Exit and save settings, and as your computer boots again mash F11 or whatever key gets you to a boot menu, and select your USB key. If it shows up twice try the first one first, if that doesn't work try the other one. (If you end up back in Windows just restart and go back into the bios settings, go to 'Boot' and reorder the boot menu entries so your flash drive is the first option) The system should boot first to a screen with a few options, pick Arch Linux if you have to or just wait for it to move on. You should, with any luck, see a list of text flash down the screen that looks roughly like</p>
-<div class="highlight"><pre><span></span><span class="o">[</span>OK<span class="o">]</span> doing thing
+<div class="highlight"><pre><span></span><code><span class="o">[</span>OK<span class="o">]</span> doing thing
 <span class="o">[</span>OK<span class="o">]</span> starting thing
 <span class="o">[</span>OK<span class="o">]</span> did thing
-</pre></div>
+</code></pre></div>
 
 
 <blockquote>
 <p>If something comes up as [FAILED] even though you still get to the login prompt, don't worry about it for now</p>
 </blockquote>
 <p>Then, you should be greeted by a minimal prompt that looks like</p>
-<div class="highlight"><pre><span></span>root@archiso ~ <span class="c1">#</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>root@archiso ~ <span class="c1">#</span>
+</code></pre></div>
 
 
 <p>and that's it. Congrats, you've already made massive progress.</p>
 <p>This is arch, but it's not actually installed yet, right now your entire computer is running off the flash drive. So let's get it installed.</p>
 <p>You'll need an internet connection to do anything, if you can connect you computer to the network though ethernet directly, that should be much, much easier than doing things though wifi. If you absolutely must do things though wifi, well, first, really don't. I mean, you can, but's a solid pain. I'm going to assume you're not. Cool.</p>
 <p>If you didn't connect your computer to ethernet before you started arch, the first thing you should type in this prompt is</p>
-<div class="highlight"><pre><span></span>systemctl restart dhcpcd
-</pre></div>
+<div class="highlight"><pre><span></span><code>systemctl restart dhcpcd
+</code></pre></div>
 
 
 <p>this manually restarts the service that asks the network for an IP address, which you need to do since currently the system is in such a minimal state it won't do that automatically.</p>
 <p>Now, try</p>
-<div class="highlight"><pre><span></span>ping archlinux.org
-</pre></div>
+<div class="highlight"><pre><span></span><code>ping archlinux.org
+</code></pre></div>
 
 
 <p>if you see something like '64 bytes from apollo.archlinux.org', congrats! You're online! If not, you may try a different network or wireless if applicable (seriously, it's a pain)</p>
@@ -875,7 +876,7 @@ Output info about filesystems. This option is equivalent to "-o NAME,FSTYPE,LABE
 <p>"-f, --fs ... Output info about filesystems."</p>
 <p>This means we'll be able to see what type of file system is on each block device.</p>
 <p>So, we can use this command to see information like we saw graphically back when we opened disk management in windows, only now with their linux names. In linux each block device is actually stored as a file, as bizarre as that may seem. This file is actually located in the dev folder which sits on top the root folder. The root folder is simply designated by a single '/' so a normal file structure may look like '/home/USERNAME/Documents/office/' and so on. It's worth noting that '/' is actually a folder in itself, it's just the absolute bottom folder, hence it's called the root folder. So the dev folder is located at /dev. In /dev there's a lot of things, but at the moment what we're really concerned about is the storage devices. so, looking at this example output from <code>lsblk</code> you'll see three storage devices /dev/sda /dev/sdb and /dev/nvme0n1</p>
-<div class="highlight"><pre><span></span>vega@linux ~ <span class="c1"># lsblk -f</span>
+<div class="highlight"><pre><span></span><code>vega@linux ~ <span class="c1"># lsblk -f</span>
 NAME    FSTYPE LABEL    UUID                                 FSAVAIL FSUSE% MOUNTPOINT
 sda
 ├─sda1
@@ -890,106 +891,106 @@ nvme0n1
 ├─nvme0n1p2  vfat            E2AB-10F2
 ├─nvme0n1p3  ntfs            DE54B4D854B4B51D
 └─nvme0n1p4
-</pre></div>
+</code></pre></div>
 
 
 <p>What do these mean? Well, most drives in linux are simply designated by a /dev/sdX where x is just the next available letter in the alphabet, though on some newer systems like mine, you may find some blazing fast SSDs actually use that other odd nvme syntax. Both work exactly the same way for what were doing.</p>
 <p>looking at that output again you'll see each device has multiple things under it. For example /dev/sda has /dev/sda1 all the way though /dev/sda4. Each of these are the separate partitions. In this particular example, sda is actually the flash drive we're running off of, so you can see that it is currently where our root file is '/' on /dev/sda1 and that it's an ext4 file system (I'll explain this a bit more in a bit) you'll also see there's another partition that's formatted as fat32 for boot, but all of these are on the flash drive because they're on sda.</p>
 <p>For Simplicity now we're actually going to look at a simpler 'lsblk -f' output with only /dev/sda and sdb. sda is still the boot usb stick you're on, but sdb is now the singular drive in a laptop that has windows installed and available free space in accordance with this guide.</p>
-<div class="highlight"><pre><span></span>root@archiso ~ <span class="c1"># lsblk -f</span>
+<div class="highlight"><pre><span></span><code>root@archiso ~ <span class="c1"># lsblk -f</span>
 
 sdb
 ├─sdb1      ntfs   Recovery 36C8A86BC8A82B57
 ├─sdb2      vfat            E2AB-10F2
 ├─sdb3        ntfs            DE54B4D854B4B51D
 └─sdb4
-</pre></div>
+</code></pre></div>
 
 
 <p>alright, so now on sdb we see there's 4 partitions (sdb1,2,3,4) where in this case we have sdb2 as a ~512Mb vfat partition, sdb3 as a 300Gb NTFs partition, and then that blank partition we made on sdb4. That 512Mb partition contains the bootloader for both windows and soon linux. The larger NTFS file system is where Windows and all your programs documents and other things you've done on your computer in the past live. I hope now it's obvious why I urged backups, as we're about to play around with things a bit.</p>
 <p>We're going to need to make some changes this list tough, as we actually need one more small division in the partition table. run the command</p>
-<div class="highlight"><pre><span></span>root@archiso ~ <span class="c1"># cfdisk /dev/sdb</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>root@archiso ~ <span class="c1"># cfdisk /dev/sdb</span>
+</code></pre></div>
 
 
 <p>this should bring up a strange command line based almost graphical interface which you can used to edit, add, or remove partitions. With that 100Gb (or whatever you chose free space we made earlier), let's divide it into two partitions, one that's 8GB and the other that's just what's left. We're doing this so we have somewhere to put SWAP in a second, but let's get to that later, for now just use your arrow keys and highlight the large empty block and select new, select primary, then make it 8GB, which is 8*1024Mb or 8192, and then select end. Finally write it, then quit. Whew. Bit stressful even for me. Don't worry, Linux get's much much easier, especially when we get our graphical tools back.</p>
 <p>now, run lsblk again. You should see something like</p>
-<div class="highlight"><pre><span></span>root@archiso ~ <span class="c1"># lsblk</span>
+<div class="highlight"><pre><span></span><code>root@archiso ~ <span class="c1"># lsblk</span>
 sdb
 ├─sdb1      ntfs   Recovery 36C8A86BC8A82B57
 ├─sdb2      vfat            E2AB-10F2
 ├─sdb3        ntfs            DE54B4D854B4B51D
 ├─sdb4
 └─sdb5
-</pre></div>
+</code></pre></div>
 
 
 <p>so now we need to format these partitions with a file system. For the root file system, where we're gonna put all the programs, files, and the OS itself we'll use the ext4 file system. It's by far the most common file system for linux. To do this look at the lsblk output and look for the large empty space we left (not the 8Gb space we just made!) and run</p>
-<div class="highlight"><pre><span></span>root@archiso ~ <span class="c1"># mkfs.ext4 /dev/sdxy</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>root@archiso ~ <span class="c1"># mkfs.ext4 /dev/sdxy</span>
+</code></pre></div>
 
 
 <p>where xy is the correct letter and number for your partition, in the above example that's /dev/sdb4, as sdb5 is the 8Gb partition we just made</p>
 <p>alright, that's actually most of the really hard stuff done. Now we need to mount both the file system we just made and the boot filesystem. run:</p>
-<div class="highlight"><pre><span></span>mount /dev/sdbx /mnt
+<div class="highlight"><pre><span></span><code>mount /dev/sdbx /mnt
 mount /dev/sdby /mnt/boot
-</pre></div>
+</code></pre></div>
 
 
 <p>where x is the same as the above x and y is the number of the partition with the windows boot manager. sdby should be roughly 500 megabytes and be vfat, it may appear as 'EFI partiton' in cfdisk if you're unsure.</p>
 <p>Next up we need to install the base of the os to these drives, this is actually pretty easy just run</p>
 <p>[TODO] Arch linux's install has changed a bit since this was written. Now, more arguments are required at install time as the base Linux kernel is no longer included in base. I've changed this here slightly, but it's very likely still missing some things.</p>
-<div class="highlight"><pre><span></span>pacstrap /mnt base base-devel linux systemd
-</pre></div>
+<div class="highlight"><pre><span></span><code>pacstrap /mnt base base-devel linux systemd
+</code></pre></div>
 
 
 <p>then, we need something that tells the system the names of our partitions and how to mount them at boot. Thankfully, the system can generate (most) of this for us, just run</p>
-<div class="highlight"><pre><span></span>genfstab -U /mnt &gt; /mnt/etc/fstab
-</pre></div>
+<div class="highlight"><pre><span></span><code>genfstab -U /mnt &gt; /mnt/etc/fstab
+</code></pre></div>
 
 
 <p>what this command does is looks at the id's of the drives in /mnt (the ones we manually mounted when we ran mount a few commands ago) and redirects those id's and the settings used to mount them (which were default) and writes that output using '&gt;' as a redirect to a file stored in /mnt/etc/fstab. Because /mnt is the location where we mounted the harddrive, it's actually writing a file to the hard drive now, just as pacstrap just did.</p>
 <p>Alright, next we need to use a command that you'll probably never use again- chroot. This changes your root directly to be higher up the chain, effectively cutting off access to lower files, though we need to do this to install our bootloader, again this is easy</p>
-<div class="highlight"><pre><span></span>root@archiso ~ <span class="c1"># arch-chroot /mnt</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>root@archiso ~ <span class="c1"># arch-chroot /mnt</span>
+</code></pre></div>
 
 
 <p>which will change the above to look like: ' root@archiso ~ # ' to ' root@archiso / # ' as that '~' was actually a shorter representation of being in /home/root (there's actually a user nammed root by default, and the user has it's own home directory. It's easy to confused root the user with root the directory, but you'll get it eventually if you don't now that's okay c: )</p>
 <p>now we can install the bootlooder with</p>
-<div class="highlight"><pre><span></span>root@archiso / <span class="c1"># bootctl install</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>root@archiso / <span class="c1"># bootctl install</span>
+</code></pre></div>
 
 
 <p>Now we need to add a bootloader entry for arch. We're going to use a very simple command line text editor called nano. it's sorta like notepad on windows.</p>
-<div class="highlight"><pre><span></span>root@archiso / <span class="c1"># nano /boot/loader/loader.conf</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>root@archiso / <span class="c1"># nano /boot/loader/loader.conf</span>
+</code></pre></div>
 
 
 <p>this will bring up a text editor, it says how to operate it at the bottom (ctr+o to write out = save, crt+x to exit, etc)</p>
 <p>enter, exactly: (Note line 2 says linuZ-linux, that's not a typo, and replace the x with your root partiton)</p>
-<div class="highlight"><pre><span></span>title        Arch Linux
+<div class="highlight"><pre><span></span><code>title        Arch Linux
 linux         /vmlinuz-linux
 initrd         /initramfs-linux.ing
 options     <span class="nv">root</span><span class="o">=</span>/dev/sdbx rw
-</pre></div>
+</code></pre></div>
 
 
 <p>and for our last trick before we reboot save and exit nano with ctr+o, ctl+x then, run</p>
-<div class="highlight"><pre><span></span>root@archiso / <span class="c1"># nano /boot/loader/loader.conf</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>root@archiso / <span class="c1"># nano /boot/loader/loader.conf</span>
+</code></pre></div>
 
 
 <p>and enter</p>
-<div class="highlight"><pre><span></span>timeout <span class="m">3</span>
+<div class="highlight"><pre><span></span><code>timeout <span class="m">3</span>
 default arch
-</pre></div>
+</code></pre></div>
 
 
 <p>then, we're ready to reboot into the new OS!</p>
 <p>run consecutively,</p>
-<div class="highlight"><pre><span></span>root@archiso / <span class="c1"># exit</span>
+<div class="highlight"><pre><span></span><code>root@archiso / <span class="c1"># exit</span>
 root@archiso / <span class="c1"># reboot</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>and pull the flash drive out. If all went well your system should boot to Arch. If it didn't, first make sure it's set to boot to arch in the BIOS/UEFI's boot settings, and then if things are still broken try to figure out why, there are plenty of people in the community willing to help, including me.</p>
@@ -997,62 +998,62 @@ root@archiso / <span class="c1"># reboot</span>
 <p>First things first enter 'root' for the user name, this should let you login.</p>
 <p>then run 'passwd' this will prompt you to set a password. For the love of god don't forget it.</p>
 <p>Next you'll need to set a hostname, this is how your computer id's itself on the network, so might help if you make it something sensible like 'usernamelinux' to do this run</p>
-<div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;mynewawesomehostname&#39;</span> &gt; /etc/hostname
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span> <span class="s1">&#39;mynewawesomehostname&#39;</span> &gt; /etc/hostname
+</code></pre></div>
 
 
 <p>then let's add a user, as using root all the time is very unsafe. To do so run:</p>
 <p>(I recommend using the same password you used for root)</p>
-<div class="highlight"><pre><span></span>useradd -m -G wheel mycrappyusername
+<div class="highlight"><pre><span></span><code>useradd -m -G wheel mycrappyusername
 
 followed by,
 
 passwd mycrappyusername
-</pre></div>
+</code></pre></div>
 
 
 <p>I swear to you we're getting there.</p>
 <p>run</p>
-<div class="highlight"><pre><span></span><span class="nv">EDITOR</span><span class="o">=</span>nano visudo
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">EDITOR</span><span class="o">=</span>nano visudo
+</code></pre></div>
 
 
 <p>then find the line that says</p>
-<div class="highlight"><pre><span></span><span class="c1"># %wheel ALL=(ALL) ALL</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># %wheel ALL=(ALL) ALL</span>
+</code></pre></div>
 
 
 <p>and remove the '#'</p>
 <p>As an explanation, the '#' is turning that line in that file into a comment, in programming it's common practice to use comments to disable sections of code so say we had a program:</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
     <span class="c1">#print(i)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>the <code>#</code> before <code>print(i)</code> is preventing it from actually executing so the output of this would be {1/2,1,3/2,2,5/2} instead of {1,1/2,2,1,3,3/2,4,2,5/2,5}</p>
 <p>Anyway, with that out of the way let's find fix up networking so we can get online and run updates</p>
 <p>run <code>ip link</code> and look for the name of your network interface. If it's a wired adapter it should be enpXsY where X and Y are number, wif is similar but uses wlp instead of enp. To make sure the network brings itself up on each boot let's enable <code>dhcpcd</code> - that service we restarted way back when- on that interface. Just run</p>
-<div class="highlight"><pre><span></span>systemctl <span class="nb">enable</span> dhcpcd@enpXsY.service
+<div class="highlight"><pre><span></span><code>systemctl <span class="nb">enable</span> dhcpcd@enpXsY.service
 
 this <span class="nb">enable</span> it at each boot however we should
 start it now because this is the frist <span class="nb">time</span>
 
 systemctl start hdcpcd@enpXsY.service
-</pre></div>
+</code></pre></div>
 
 
 <p>next up, we should make sure things know what language we speak. Assuming you want to use US english just run</p>
-<div class="highlight"><pre><span></span>locale-gen
+<div class="highlight"><pre><span></span><code>locale-gen
 
 followed by,
 
 localectl set-locale <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
-</pre></div>
+</code></pre></div>
 
 
 <p>Timezones, run each independently</p>
-<div class="highlight"><pre><span></span>tzselect
+<div class="highlight"><pre><span></span><code>tzselect
 
 timedatectl list-timezones
 
@@ -1061,52 +1062,52 @@ timedatectl set-timezone Zone/SubZone
 hwclock -systohc -utc
 
 timedatectl set-ntp <span class="nb">true</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>It's worth noting Linux and Windows use differenent clock standards so every time you reboot between the two windows will messup the clock, to fix it in WINDOWS you can run</p>
-<div class="highlight"><pre><span></span>reg add <span class="s2">&quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot;</span> /v RealTimeIsUniversal /d <span class="m">1</span> /t REG_DWORD /f
-</pre></div>
+<div class="highlight"><pre><span></span><code>reg add <span class="s2">&quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot;</span> /v RealTimeIsUniversal /d <span class="m">1</span> /t REG_DWORD /f
+</code></pre></div>
 
 
 <p>in an admin command prompt</p>
 <p>Alright, we're getting close to graphical stuff now, I swear. Remember that 8Gb partion we made a while ago, time to use it. Now that we're in the full OS the're a good chance the location names of the partitions changed so run <code>lsblk -f</code>  again and figure out where that 8Gb portion is</p>
-<div class="highlight"><pre><span></span>lsblk -f
+<div class="highlight"><pre><span></span><code>lsblk -f
 
 mkswap /dev/sdXY
 
 swapon /dev/sdxy
-</pre></div>
+</code></pre></div>
 
 
 <p>then, we need to edit the fstab file we generated earlier.</p>
 <p>Let's look at what the fstab file looks like right now. We can read a file from the command line without opening it up for editing with <code>cat</code>, so run</p>
-<div class="highlight"><pre><span></span>cat /etc/fstab
-</pre></div>
+<div class="highlight"><pre><span></span><code>cat /etc/fstab
+</code></pre></div>
 
 
 <p>and you can see what it looks like. See all those super long UUID's? We need the right one of those for our new swap area. Thankfully there's an easier way to do this than writing it down on a sticky note.</p>
 <p>if we run <code>lsblk -no UUID /dev/sdxy</code> (obviously substitute x and y) you'll get this UUID, so let's just append it onto the end of the fstab file!</p>
 <p>Remember how we used the '&gt;' character before to write the output of genfstab to /etc/fstab, well you can also use two of that same character to <em>append</em> an output to a file. However, before we do that let's be safe rather than sorry and make a backup of the fstab file by first moving to the /etc directory then making a copy of the file</p>
-<div class="highlight"><pre><span></span><span class="nb">cd</span> /etc
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc
 cp fstab fstab.bak
 lsblk -no UUID /dev/sdxy &gt;&gt; fstab
-</pre></div>
+</code></pre></div>
 
 
 <p>note we didn't need to type /etc/ before each fstab because that's a file in the folder we're already in.</p>
 <p>but we're not done yet. use <code>nano</code> to open up the fstab file and edit it so the last line we just appended looks more like:</p>
-<div class="highlight"><pre><span></span><span class="nv">UUID</span><span class="o">=</span>whateverthisis none swap defaults <span class="m">0</span> <span class="m">0</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">UUID</span><span class="o">=</span>whateverthisis none swap defaults <span class="m">0</span> <span class="m">0</span>
+</code></pre></div>
 
 
 <p>Save and close nano and then to finish up swap all we need to do is edit one more file</p>
-<div class="highlight"><pre><span></span>nano /etc/sysctl.d/99-sysctl.conf
+<div class="highlight"><pre><span></span><code>nano /etc/sysctl.d/99-sysctl.conf
 
 and add the single line
 
 vm.swappiness<span class="o">=</span><span class="m">10</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Alright, lets run an update and reboot!</p>
@@ -1117,52 +1118,52 @@ vm.swappiness<span class="o">=</span><span class="m">10</span>
 <p>Finally, we're going to get a graphical environment running.</p>
 <p>Once the system reboots login with your username, not root. When you type your password <strong>you won't see anything</strong>, but it is actually typing!</p>
 <p>then run:</p>
-<div class="highlight"><pre><span></span>sudo pacman -S xf86-video-vesa mesa
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo pacman -S xf86-video-vesa mesa
+</code></pre></div>
 
 
 <p>This command uses sudo or 'superuser do' because you're now logged in as a user, and as such need admin privileges to install software. This is part of why Linux is so secure. Pacman, again, is just 'package manager' , <code>-S</code> tells pacman to sync the requested packages from the server and the other two things are the two packages we want right now, both are used for video output.</p>
 <p>To install the correct driver for your graphics hardware you can run</p>
-<div class="highlight"><pre><span></span>these next few commands use <span class="s1">&#39;pipe&#39;</span> the character above enter on most US keyboards
+<div class="highlight"><pre><span></span><code>these next few commands use <span class="s1">&#39;pipe&#39;</span> the character above enter on most US keyboards
 
 lspci <span class="p">|</span> grep -i VGA
 
 and <span class="k">if</span> that doesn<span class="err">&#39;</span>t turn up anything
 
 lspci <span class="p">|</span> grep -i 3D
-</pre></div>
+</code></pre></div>
 
 
 <p>to find the vendor of your graphics card. If the output contains NVIDIA run</p>
-<div class="highlight"><pre><span></span>sudo pacman -S xf86-video-nouveau
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo pacman -S xf86-video-nouveau
+</code></pre></div>
 
 
 <p>for INTEL run</p>
-<div class="highlight"><pre><span></span>sudo pacman -S xf86-video-intel
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo pacman -S xf86-video-intel
+</code></pre></div>
 
 
 <p>and for AMD run</p>
-<div class="highlight"><pre><span></span>sudo pacman -S xf86-video-amdgpu
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo pacman -S xf86-video-amdgpu
+</code></pre></div>
 
 
 <p>if you have multiple, it's safe to install both.</p>
 <p>Alright, now we need to install the desktop environment. Because this guide to this point is probably already melting your brain I'll take it easy for a bit and we can install KDE-Plasma.</p>
 <p>KDE Plasma is pretty big though, so we're gonna want to be sure we're using fast mirrors before we do anything else</p>
-<div class="highlight"><pre><span></span>sudo pacman -S reflector
-</pre></div>
+<div class="highlight"><pre><span></span><code>sudo pacman -S reflector
+</code></pre></div>
 
 
 <p>then we're going to temporarily switch to the root account using <code>su</code> all you have to do is type su and enter, then type the password</p>
 <p>now run</p>
-<div class="highlight"><pre><span></span>reflector -c us -n <span class="m">25</span> -f <span class="m">5</span> &gt; /etc/pacmand.d/mirrorlist
-</pre></div>
+<div class="highlight"><pre><span></span><code>reflector -c us -n <span class="m">25</span> -f <span class="m">5</span> &gt; /etc/pacmand.d/mirrorlist
+</code></pre></div>
 
 
 <p>Finally to install Plasma run</p>
-<div class="highlight"><pre><span></span>sudo pacman -S xorg-server xord-utils xorg-xinit xterm plasma kde-applications
+<div class="highlight"><pre><span></span><code>sudo pacman -S xorg-server xord-utils xorg-xinit xterm plasma kde-applications
 
 <span class="k">then</span>
 
@@ -1173,11 +1174,11 @@ amixer sset Master unmute
 and finally, lets see the epic payoff of all the effort
 
 sudo systemctl start ssdm
-</pre></div>
+</code></pre></div>
 
 
 <p>Note that KDE Plasma is fairly large to download and a bit resource intensive. As an alternative if on older hardware</p>
-<div class="highlight"><pre><span></span>sudo pacman -S xorg-server xorg-utils xorg-xinit xterm mate mate-extra lightdm
+<div class="highlight"><pre><span></span><code>sudo pacman -S xorg-server xorg-utils xorg-xinit xterm mate mate-extra lightdm
 
 <span class="k">then</span>
 
@@ -1188,12 +1189,12 @@ amixer sset Master unmute
 and finally, lets see the epic payoff of all the effort
 
 sudo systemctl start lxdm
-</pre></div>
+</code></pre></div>
 
 
 <p>Alright, now you can take a few minutes to get used to how your new computer works, play with settings, etc.</p>
 <p>before you wrap up lets do a tiny bit of houskeeping</p>
-<div class="highlight"><pre><span></span>sudo pacman-key --init
+<div class="highlight"><pre><span></span><code>sudo pacman-key --init
 sudo pacman-key --populate
 sudo pacman -S git --needed
 git clone https://aur.archlinux.org/yay.git
@@ -1202,7 +1203,7 @@ makepkg -Acs
 sudo pacman -U
 yay -S zsh
 chsh -s /bin/zsh
-</pre></div>
+</code></pre></div>
 
 
 <p>from now on you can just open a terminal and type <code>yay</code> followed by your password to run updates.</p>
@@ -1211,51 +1212,52 @@ chsh -s /bin/zsh
 <p>Linux makes development of code particularly easy, so, let's write some code!</p>
 <p>The first language we're going to try out is called python. Python is an interpreted language, meaning each block to be executed can be run one at a time, to show you, let's install it.</p>
 <p>Because we installed yay earlier you could use either that or pacman, but let's just use yay for simplicity. From here on out I'll be coping directly from what my terminal prompt looks like. Yours, for now, probaly looks similar to:</p>
-<div class="highlight"><pre><span></span>username@root /current/folder : <span class="nb">command</span> -to -be executed
-</pre></div>
+<div class="highlight"><pre><span></span><code>username@root /current/folder : <span class="nb">command</span> -to -be executed
+</code></pre></div>
 
 
 <p>However, mine looks like</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae /current folder
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae /current folder
 ╰─➤  <span class="nb">command</span> -to -be -executed
-</pre></div>
+</code></pre></div>
 
 
 <p>so, install python just like we've installed other programs with python or yay</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  yay -S python
-</pre></div>
+</code></pre></div>
 
 
 <p>once that's done you should be able to start the python interpreter by simply typing <code>python</code> and pressing enter. This will give you a new prompt that takes python code as input</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  python
 Python <span class="m">3</span>.7.2 <span class="o">(</span>default, Jan <span class="m">10</span> <span class="m">2019</span>, <span class="m">23</span>:51:51<span class="o">)</span>
 <span class="o">[</span>GCC <span class="m">8</span>.2.1 <span class="m">20181127</span><span class="o">]</span> on linux
 Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for</span> more information.
 &gt;&gt;&gt;
-</pre></div>
+</code></pre></div>
 
 
 <p>the <code>&gt;&gt;&gt;</code> is the prompt asking for input, go ahead and just try <code>1 + 1</code> for now</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="mi">2</span>
-</pre></div>
+</code></pre></div>
 
 
-<p>Okay, who cares though, right? let's try something a bit cooler. Say you wanted to add up all the odd numbers up to 72? This isn't something that's trivial to do on most calculators and would be a real pain by hand, but it's trivial to do in python. The code to run this in python is</p>
-<div class="highlight"><pre><span></span><span class="c1">#note, this is to 73 becasue the range function include the first number and excludes the last</span>
+<p>Okay, who cares though, right? let's try something a bit cooler. Say you wanted to add up all the odd integers up to 72? This isn't something that's trivial to do on most calculators and would be a real pain by hand, but it's trivial to do in python. The code to run this in python is</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#note, this is to 37 because we&#39;re multiplying i by 2 below, so we only have to go until 2*i = 72 or i = 36.</span>
+<span class="c1">#EXCEPT, the range function includes the first number and excludes the last, so we actually use range(1,37)</span>
 <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">73</span><span class="p">):</span>
-    <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">37</span><span class="p">):</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>when you type this in the prompt you'll actually be able to enter multiple lines when you write the for loop. There's no clear way to explain this in text, you'll just have to try it and see how it works, note the way python set up looping is by indentation, so you'll need to press tab when the prompt lets you type the line <code>sum = sum + i</code> so that it's obviously a 'child' of the for loop.</p>
 <p>after you run the print statment you should see the output</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  python
 Python <span class="m">3</span>.7.2 <span class="o">(</span>default, Jan <span class="m">10</span> <span class="m">2019</span>, <span class="m">23</span>:51:51<span class="o">)</span>
 <span class="o">[</span>GCC <span class="m">8</span>.2.1 <span class="m">20181127</span><span class="o">]</span> on linux
@@ -1269,7 +1271,7 @@ Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&
 &gt;&gt;&gt; exit<span class="o">()</span>
 ╭─vega@lyrae ~
 ╰─➤
-</pre></div>
+</code></pre></div>
 
 
 <p>telling us the answer is 2628. To make you feel like a bad ass, you actually just wrote code that's equivalent to this math    </p>
@@ -1277,15 +1279,15 @@ Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&
 <p>   pretty cool right? But that's math? Who cares? Let's do something cool!</p>
 <p>Python code doesn't have to be written in line by line, you can put it an a file and the computer will run that file as a program, so let's do that! But to do that we're gonna need something better than a terminal editor or an equivalent to notepad. There are actually text editors that make writing code much easier. Let's go grab the 'Visual Studio Code' editor. Hopefully by now you know the command! (The name of the package is just <code>code</code>)</p>
 <p>super quick detour: while you can open graphical programs though the start menu down in the lower left hand corner just like on Windows, you can actually open a program directly from the terminal. Interestingly, this can make a program that opens in a new window a 'child process' of the terminal, which is why we normally don't do this. What this normally means is that if you start a program from the terminal - the parent- and then close the terminal, the child process, in this case the graphical program you started, will die too. Strangely, VSCode actually separates itself from it's parent process almost immediately, which is why we can start it from a terminal and then close the terminal and it should stay running. so, let's do that.</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤ code
-</pre></div>
+</code></pre></div>
 
 
 <p>and a new window should pop up. It'll probably open with a few tabs welcoming you, asking if you want to install a theme, if you are okay sending VSCode usage info, etc. Uncheck boxes so these don't come up each time and answer questions as you please. Then, we're going to go up to the top and chose</p>
 <p><code>file -&gt; new file</code>  Then, down at the bottom right of the editor you should see something that says <code>plain text</code> click that and a box will appear asking for the name of the language you're working with. Obviously chose python.</p>
 <p>alright, now we're ready to code! Let's put a bit more interesting of a program in and then we'll talk about what it does line by line. I stole this code from https://matplotlib.org/2.0.2/examples/animation/animate_decay.html</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/bin/python3</span>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
@@ -1330,41 +1332,41 @@ Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&
 <span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">data_gen</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                               <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init_func</span><span class="o">=</span><span class="n">init</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>So you can just copy and paste all of this into VSCode, then use ctrl+s to save it, and let's save it in the Documents folder as test.py - the .py extension is for python files.</p>
 <p>Before we talk about our code, let's see it run!</p>
 <p>Open up a terminal, and run <code>cd Documents</code> to get to your documents folder, <code>ls</code> to see what's in there, then <code>./test.py</code> to run the program.</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤ <span class="nb">cd</span> Documents
 ╭─vega@lyrae ~/Documents
 ╰─➤ ls
 test.py
 ╭─vega@lyrae ~/Documents
 ╰─➤ ./test.py
-</pre></div>
+</code></pre></div>
 
 
 <p>Oops! that probably didn't run. If you look at the errors it will tell you you're missing matplotlib ad numpy, let's go get those</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~/Documents
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~/Documents
 ╰─➤ yay -S python-matplotlib python-numpy
-</pre></div>
+</code></pre></div>
 
 
 <p>Now it should work! run <code>./test.py</code> again, and now you should see a decaying sine wave. Still not exactly something that get's the heart racing, but it does prove the power of programming! The code did all of that in under 50 lines of text!</p>
 <p>Frankly, the code that makes this work is a bit complicated but we can go over some of the important bits</p>
 <p>at the very top there are four important lines:</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/bin/python3</span>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plot</span>
 <span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>the first line uses a shebang <code>#!</code>  followed by python's location, this tells Linux to use python (specifically python3) to run the code underneath, actually, that's the location of the python program we installed earlier. In Linux, most of your programs can be found in /bin</p>
 <p>Next we have a bunch of imports. In most programming lanuges you don't want to reinvent the wheel so you'll use libraries. These are well documented, heavily tested, and optimized blocks of code you can use that you don't really need to understand how work under the hood, only how to use them. Although not used here, the most basic example would be advanced math in the math library, like</p>
-<div class="highlight"><pre><span></span><span class="err">╭─</span><span class="n">vega</span><span class="nd">@lyrae</span> <span class="o">~</span>
+<div class="highlight"><pre><span></span><code><span class="err">╭─</span><span class="n">vega</span><span class="nd">@lyrae</span> <span class="o">~</span>
 <span class="err">╰─➤</span>  <span class="n">python</span>
 <span class="n">Python</span> <span class="mf">3.7</span><span class="o">.</span><span class="mi">2</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Jan</span> <span class="mi">10</span> <span class="mi">2019</span><span class="p">,</span> <span class="mi">23</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">51</span><span class="p">)</span>
 <span class="p">[</span><span class="n">GCC</span> <span class="mf">8.2</span><span class="o">.</span><span class="mi">1</span> <span class="mi">20181127</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux</span>
@@ -1375,29 +1377,29 @@ test.py
 <span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 <span class="mf">16.0</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">exit</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>on line 6 the math library, which gave us access to sin and exponent functions, was imported. We don't know how <code>math.sin()</code> works, but we know it does, and that's fine.</p>
 <p>The same is true for <code>numpy</code> and <code>matplotlib</code> above, both of these are libraries, matplot lib is what handled actually putting the data on the screen, and numpy as can be seen on line 12 of the program:</p>
-<div class="highlight"><pre><span></span><span class="k">yield</span> <span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">yield</span> <span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span>
+</code></pre></div>
 
 
 <p>is used for doing some of the math. Numpy is a common python library used for doing more advanced math really fast, we're not going to worry about that right now though.</p>
 <p>the next thing you should notice is how the code is organized into blocks with <code>def name():</code> like <code>def data_gen(t=0):</code> or <code>def init():</code> these blocks of code are called functions and they let programmers break up code into re-usable pieces or just wrap up a lot of complicated things to make code more readable, for example imagine a function that takes two numbers and does hundreds of lines of complicated math with them (eww)</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mathyMess</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">mathyMess</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">)</span>
     <span class="n">num1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span><span class="n">num2</span><span class="p">)</span>
     <span class="c1"># imagine hundreds more lines here</span>
     <span class="k">return</span> <span class="n">result</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>this would make it so latter in your code anytime you needed to do this math again you could just use</p>
-<div class="highlight"><pre><span></span><span class="n">thing</span> <span class="o">=</span> <span class="n">mathyMess</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">thing</span> <span class="o">=</span> <span class="n">mathyMess</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="n">otherThing</span> <span class="o">=</span> <span class="n">mathyMess</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">finalThing</span> <span class="o">=</span> <span class="n">thing</span> <span class="o">+</span> <span class="n">otherThing</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>this is much, much easier to read than a copy and pasted version without these functions or 'blocks of code' furthermore, if you accidentally made a mistake somewhere in the math in mathyMess you can fix it there rather than in each independent copy individually.</p>
@@ -1413,13 +1415,13 @@ test.py
 <p><img alt="CPUS" src="/openg/cpus.jpg"></p>
 <p>These are CPUS or Central Processing Units. They're the beating heart of your computer, doing the day-to-day number crunching. The rectangular one of one of the first CPU's in the lineage leading up to CPU's like the ones used in desktop's today, with further sucessors shown in order from top left to the bottom right. The metal-capped one at the bottom right, while old, is visulally quite representative of a moden desktop CPU, though the CPUs in a laptop or smart phone do look quite differnt still.</p>
 <p>One of the nifty things we do pretty easily in linux is get information about our hardware directly. Just as when we were installing Arch and we used <code>lsblk</code> to see an overview of the disks on the system, we can use some other tools to find out some other information about the system. Let's start off basic and see what CPU you have. Go ahead and run</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  cat /proc/cpuinfo
-</pre></div>
+</code></pre></div>
 
 
 <p>This is actually just using that same <code>cat</code> command we used before. This time we're using it to read the system generated file that tells us about the processor in this system. I'm going to provide the output from my system for reference:</p>
-<div class="highlight"><pre><span></span>processor       : <span class="m">0</span>
+<div class="highlight"><pre><span></span><code>processor       : <span class="m">0</span>
 vendor_id       : AuthenticAMD
 cpu family      : <span class="m">23</span>
 model           : <span class="m">1</span>
@@ -1446,17 +1448,17 @@ clflush size    : <span class="m">64</span>
 cache_alignment : <span class="m">64</span>
 address sizes   : <span class="m">43</span> bits physical, <span class="m">48</span> bits virtual
 power management: ts ttp tm hwpstate eff_freq_ro <span class="o">[</span><span class="m">13</span><span class="o">]</span> <span class="o">[</span><span class="m">14</span><span class="o">]</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Alright, that's a whole lot of information, let's break it down.</p>
 <p>First of all, almost all modern Central Processing Units (CPUs) have multiple cores, and as with most things in computers the're counted from 0, so on a 4 core computer you'll have cores 0, 1, 2, and 3. Multiple cores simply let your computer do things in parallel, running multiple programs or tasks at the same time</p>
 <p>Next is the vendor ID, family, model, name, and stepping. My processor is an AMD Ryzen 7 1700. There's a pretty good chance your CPU will be made by Intel, and as such the family, model, name, and what not will reflect that. AMD and Intel are practically the only two laptop and desktop CPU providers, though in the feature we'll work with boards that use CPU's made by other manufactures. Really, most of this doesn't matter. Some CPUs are nicer than others, and if you follow the market or care it's easy to get a sense of a CPU's speed just based on it's name, but let's move on for now.</p>
 <p>Next is</p>
-<div class="highlight"><pre><span></span>microcode       : 0x8001137
+<div class="highlight"><pre><span></span><code>microcode       : 0x8001137
 cpu MHz         : <span class="m">2018</span>.119
 cache size      : <span class="m">512</span> KB
-</pre></div>
+</code></pre></div>
 
 
 <p>Each of these things is very important, but I'm going to start with cpu MHz as it's probably the easiest to understand, however, to understand this we'll need to get even a bit lower level than this and learn about the electronic component that changed humanity: the transistor.</p>
@@ -1475,7 +1477,7 @@ cache size      : <span class="m">512</span> KB
 <p>Finally it's worth note that on some systems, primarily high end desktops, you can actually run your processor outside of factor specifications by increasing the maximum clock rate of the processor. Doing this can lead to system stability issues and obviously leads to a higher power usage and heat output though. This process is known as 'overclocking'  as your taking the internal clock of the processor beyond it's rating. My CPU, a Ryzen 1700, has actually been over clocked in order to get 3.8Ghz at all times on all of the cores.</p>
 <h3 id="microcode">Microcode</h3>
 <p>Modern processors are very, very complicated. So complicated in fact that there is a full very tiny computer in your processor. This computer does multiple things, but the main one we'll talk about is the translation between types of machine code. In order to understand this we'll need to look a basic program written in the language 'C'.</p>
-<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
   <span class="n">a</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
@@ -1483,12 +1485,12 @@ cache size      : <span class="m">512</span> KB
   <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>This code first makes two integers, a and b, gives them values, then adds them together and stores the result back into a. Finally, the program returns a 0 to the operating system in order to say "I ran without errors".</p>
 <p>Unlike python which get's converted to something the computer can understand as it executes C is compiled before hand. This makes it so programs written in C are much, much faster than those written in python, though obviously C code is more difficult to write. Compilation is the process of turning a program into a file full of instructions the computer actually understands. This happens in two steps, first the program is turned into assembly code, for the above code this results in an output that looks like</p>
-<div class="highlight"><pre><span></span>        <span class="n">push</span>    <span class="n">rbp</span>
+<div class="highlight"><pre><span></span><code>        <span class="n">push</span>    <span class="n">rbp</span>
         <span class="n">mov</span>     <span class="n">rbp</span><span class="p">,</span> <span class="n">rsp</span>
         <span class="n">mov</span>     <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">rbp</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span> <span class="mi">8</span>
         <span class="n">mov</span>     <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">rbp</span><span class="o">-</span><span class="mi">8</span><span class="p">],</span> <span class="mi">16</span>
@@ -1497,7 +1499,7 @@ cache size      : <span class="m">512</span> KB
         <span class="n">mov</span>     <span class="n">eax</span><span class="p">,</span> <span class="mi">0</span>
         <span class="n">pop</span>     <span class="n">rbp</span>
         <span class="n">ret</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>As you can see, this is incredibly difficult to read to a 'normal' person, so even though we're not there yet.</p>
@@ -1643,11 +1645,11 @@ cache size      : <span class="m">512</span> KB
 <p>Finally I want to point out the voltage. Much like a CPU the voltage a Ram module runs at is important, and needs to be kept very stable. However, it may need bumped up if the RAM is running at a particularly high speed or if it's set higher than factory (overclocked).</p>
 <p>Some RAM actually includes a special memory profile, often called XMPP, which can be applied in the BIOS/UEFI settings to make sure you're getting the absolute best performance out of you RAM before manual overclocking. This may actually overclock your CPU a bit as well as a bit of a side effect.</p>
 <p>There's a program on your system called <code>free</code> which can be used to see how much RAM you have, how much is in use, etc. Let's run free with the -h flag so we can see the amounts with nice units.</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  free -h
               total        used        free      shared  buff/cache   available
 Mem:           31Gi       <span class="m">4</span>.5Gi        23Gi       488Mi       <span class="m">3</span>.3Gi        26Gi
-</pre></div>
+</code></pre></div>
 
 
 <p>You can see I have 32Gb of RAM total (it get's truncated to 31 because it's actually like 31.99, units are weird), with ony 4.5Gb used. Most people complain about Chorme eating all their RAM but the truth is unused RAM is wasted RAM. The OS will manage RAM for you, and if you run out start using swap (that partition we made eariler).</p>
@@ -1680,7 +1682,7 @@ Mem:           31Gi       <span class="m">4</span>.5Gi        23Gi       488Mi  
 <p>Alright, so that's coll and all, but what else can you do?</p>
 <p>Alright, let's move on to seeing the system buses, namely, the pci bus.</p>
 <p>The pci bus is where most of the system's add in cards, controllers, and the like connect. Here's a shortened version of the ouput of <code>lspci</code> from my system</p>
-<div class="highlight"><pre><span></span><span class="m">00</span>:00.0 Host bridge: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> Family 17h <span class="o">(</span>Models 00h-0fh<span class="o">)</span> Root Complex
+<div class="highlight"><pre><span></span><code><span class="m">00</span>:00.0 Host bridge: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> Family 17h <span class="o">(</span>Models 00h-0fh<span class="o">)</span> Root Complex
 <span class="m">00</span>:00.2 IOMMU: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> Family 17h <span class="o">(</span>Models 00h-0fh<span class="o">)</span> I/O Memory Management Unit
 <span class="m">00</span>:01.0 Host bridge: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> Family 17h <span class="o">(</span>Models 00h-1fh<span class="o">)</span> PCIe Dummy Host Bridge
 <span class="m">00</span>:01.1 PCI bridge: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> Family 17h <span class="o">(</span>Models 00h-0fh<span class="o">)</span> PCIe GPP Bridge
@@ -1712,31 +1714,31 @@ Mem:           31Gi       <span class="m">4</span>.5Gi        23Gi       488Mi  
 0f:00.0 Non-Essential Instrumentation <span class="o">[</span><span class="m">1300</span><span class="o">]</span>: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> Zeppelin/Renoir PCIe Dummy Function
 0f:00.2 SATA controller: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> FCH SATA Controller <span class="o">[</span>AHCI mode<span class="o">]</span> <span class="o">(</span>rev <span class="m">51</span><span class="o">)</span>
 0f:00.3 Audio device: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> Family 17h <span class="o">(</span>Models 00h-0fh<span class="o">)</span> HD Audio Controller
-</pre></div>
+</code></pre></div>
 
 
 <p>Alright, clearly there's a lot going on here, and on first glance it doesn't even look all that useful. But let's look deeper. From this output we can see some interesting things. Starting from the top you'll see there's a lot of internal AMD things that are just handling routing, really these probably don't matter. the first interesting things to look at is <code>01:00.0 Non-Volatile memory controller: Phison Electronics Corporation E12 NVMe Controller (rev 01)</code> which is telling me that my super speedy NVMe solid state drive is at the address 01:00.0 on the pci bus and despite being made by a consumer brand (I think mine's a Silicon Power? though I have another that's made by Samsung) the actual controller on the device is made by Phison, a reputable brand for NVMe controllers.</p>
 <p>next thing of note is</p>
-<div class="highlight"><pre><span></span><span class="m">02</span>:00.0 USB controller: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> X370 Series Chipset USB <span class="m">3</span>.1 xHCI Controller <span class="o">(</span>rev <span class="m">02</span><span class="o">)</span>
+<div class="highlight"><pre><span></span><code><span class="m">02</span>:00.0 USB controller: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> X370 Series Chipset USB <span class="m">3</span>.1 xHCI Controller <span class="o">(</span>rev <span class="m">02</span><span class="o">)</span>
 <span class="m">02</span>:00.1 SATA controller: Advanced Micro Devices, Inc. <span class="o">[</span>AMD<span class="o">]</span> X370 Series Chipset SATA Controller <span class="o">(</span>rev <span class="m">02</span><span class="o">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>You can see here that I have a separate controller for my USB 3.1 ports and that it's sharing pci lanes with my sata controller. In theory, this means If I'm working one or both of these really hard, the other may be slower.</p>
 <p>next is:</p>
-<div class="highlight"><pre><span></span><span class="m">07</span>:00.0 USB controller: ASMedia Technology Inc. ASM1143 USB <span class="m">3</span>.1 Host Controller
+<div class="highlight"><pre><span></span><code><span class="m">07</span>:00.0 USB controller: ASMedia Technology Inc. ASM1143 USB <span class="m">3</span>.1 Host Controller
 <span class="m">08</span>:00.0 Ethernet controller: Intel Corporation I211 Gigabit Network Connection <span class="o">(</span>rev <span class="m">03</span><span class="o">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>What's interesting here is I have another 3.1 controller, on an entirely different set of lanes. Really, this is a fault of USB that it's not very clear, this is actually a USB 3.1 gen 2 controller, so each port has a top speed of 10gb/s, compared to the 5gb/s of the other controller.</p>
 <p>You'll also see that my network interface is being handled by an Intel network controller, despite this system having an AMD CPU.</p>
 <p>moving on:</p>
-<div class="highlight"><pre><span></span>0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc. <span class="o">[</span>AMD/ATI<span class="o">]</span> Vega <span class="m">10</span> XL/XT <span class="o">[</span>Radeon RX Vega <span class="m">56</span>/64<span class="o">]</span> <span class="o">(</span>rev c3<span class="o">)</span>
+<div class="highlight"><pre><span></span><code>0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc. <span class="o">[</span>AMD/ATI<span class="o">]</span> Vega <span class="m">10</span> XL/XT <span class="o">[</span>Radeon RX Vega <span class="m">56</span>/64<span class="o">]</span> <span class="o">(</span>rev c3<span class="o">)</span>
 0c:00.1 Audio device: Advanced Micro Devices, Inc. <span class="o">[</span>AMD/ATI<span class="o">]</span> Vega <span class="m">10</span> HDMI Audio <span class="o">[</span>Radeon Vega <span class="m">56</span>/64<span class="o">]</span>
 0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span class="o">[</span>GeForce GTX <span class="m">1060</span> 6GB<span class="o">]</span> <span class="o">(</span>rev a1<span class="o">)</span>
 0d:00.1 Audio device: NVIDIA Corporation GP106 High Definition Audio Controller <span class="o">(</span>rev a1<span class="o">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Here you'll see some devices can actually use multiple IDs for one physical device. both of the 0c:00.x 'devices' are actually for the 'Vega56' graphics card (Often called GPU for graphics processing unit) made by AMD Radeon, while the 0d:00.x devices are for the GTX1060 card made by Nvida that I have in this system as well. Of note, having both of these in one system is exceedingly uncommon, and my use case is strange; however, It is common to see systems which have a gpu integrated into the CPU (which will still appear in this list) and have a separate larger GPU in the system as well.</p>
@@ -1745,7 +1747,7 @@ Mem:           31Gi       <span class="m">4</span>.5Gi        23Gi       488Mi  
 <p><img alt="lstopo2" src="/openg/lstopo.png"></p>
 <p>See all those PCI ids on the right side, those directly correlate with a lot of the above.</p>
 <p>Finally, if you want a lot more information you can run <code>sudo lspci -v</code> to see even more info about anything, for example, here's the output about my GTX1060 GPU:</p>
-<div class="highlight"><pre><span></span>0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span class="o">[</span>GeForce GTX <span class="m">1060</span> 6GB<span class="o">]</span> <span class="o">(</span>rev a1<span class="o">)</span> <span class="o">(</span>prog-if <span class="m">00</span> <span class="o">[</span>VGA controller<span class="o">])</span>
+<div class="highlight"><pre><span></span><code>0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span class="o">[</span>GeForce GTX <span class="m">1060</span> 6GB<span class="o">]</span> <span class="o">(</span>rev a1<span class="o">)</span> <span class="o">(</span>prog-if <span class="m">00</span> <span class="o">[</span>VGA controller<span class="o">])</span>
     Subsystem: Micro-Star International Co., Ltd. <span class="o">[</span>MSI<span class="o">]</span> GP106 <span class="o">[</span>GeForce GTX <span class="m">1060</span> 6GB<span class="o">]</span>
     Flags: bus master, fast devsel, latency <span class="m">0</span>, IRQ <span class="m">78</span>
     Memory at f6000000 <span class="o">(</span><span class="m">32</span>-bit, non-prefetchable<span class="o">)</span> <span class="o">[</span><span class="nv">size</span><span class="o">=</span>16M<span class="o">]</span>
@@ -1764,13 +1766,13 @@ Mem:           31Gi       <span class="m">4</span>.5Gi        23Gi       488Mi  
     Capabilities: <span class="o">[</span><span class="m">900</span><span class="o">]</span> Secondary PCI Express &lt;?&gt;
     Kernel driver in use: nouveau
     Kernel modules: nouveau
-</pre></div>
+</code></pre></div>
 
 
 <p>The most notable thing here is actually at the end:</p>
-<div class="highlight"><pre><span></span>Kernel driver in use: nouveau
+<div class="highlight"><pre><span></span><code>Kernel driver in use: nouveau
 Kernel modules: nouveau
-</pre></div>
+</code></pre></div>
 
 
 <p>tells us I'm using the nouveau driver and kernel modules instead of one of the alternatives on the Nvida card in my system If I wanted to I could switch this over to the proprietary Nvidia driver to get a pretty nice speed boost in some applications.</p>
@@ -1778,12 +1780,12 @@ Kernel modules: nouveau
 <p>I'm not really worried about this because I'm mostly just using the Vega56 card. The nvidia card is there strictly for CUDA support in some workloads.</p>
 </blockquote>
 <p>Much like lspci, there's also <code>lsusb</code>, which as you can imagine, tells us information about the USB devices on the system. I have a LOT of usb devices on this system so I'll just paste in a snippet:</p>
-<div class="highlight"><pre><span></span>Bus <span class="m">002</span> Device <span class="m">001</span>: ID 1d6b:0003 Linux Foundation <span class="m">3</span>.0 root hub
+<div class="highlight"><pre><span></span><code>Bus <span class="m">002</span> Device <span class="m">001</span>: ID 1d6b:0003 Linux Foundation <span class="m">3</span>.0 root hub
 Bus <span class="m">001</span> Device <span class="m">003</span>: ID 0c45:6340 Microdia Camera
 Bus <span class="m">001</span> Device <span class="m">008</span>: ID 28de:1142 Valve Software Wireless Steam Controller
 Bus <span class="m">001</span> Device <span class="m">006</span>: ID 258a:0013
 Bus <span class="m">001</span> Device <span class="m">005</span>: ID 05e3:0745 Genesys Logic, Inc. Logilink CR0012
-</pre></div>
+</code></pre></div>
 
 
 <p>You'll see here that USB hubs, input devices, webcams, etc. all show up. Anything that's hooked up through USB should appear here. The device with ID 258a:0013 isn't really telling us anything though. What we do know is the first part is the USB Vendor ID. This is an ID that vendors of USB devices have to purchase to uniquely id their products.</p>
@@ -1880,9 +1882,9 @@ Bus <span class="m">001</span> Device <span class="m">005</span>: ID 05e3:0745 G
 <p>For working with hard drives in Linux you're best friend is <code>hdparm</code> lets use it to look at some disks. First we need to pick a disk to look at, running <code>lsblk</code> you should be able to see all the disks on your system, and I'll be looking at my main data drive which is a 3.7Tb drive on /dev/sdg</p>
 <p>The first thing we should do is get an idea about the disk usage, to do that I'll go to the mount point of the disk on my system ( it's mounted at /run/media/vega/raid despite the fact it's no longer in a raid array, we'll come back to this)</p>
 <p>so first I'll run <code>df -h</code> , that <code>-h</code> on most Linux commands means to make the output human readable, printing things in terms of Gigabytes or Terabytes etc instead of just a raw byte count.</p>
-<div class="highlight"><pre><span></span>Filesystem      Size  Used Avail Use% Mounted on
+<div class="highlight"><pre><span></span><code>Filesystem      Size  Used Avail Use% Mounted on
 /dev/sdg2       <span class="m">3</span>.7T  <span class="m">2</span>.3T <span class="m">1</span>.5T  <span class="m">62</span>%  /run/media/vega/raid
-</pre></div>
+</code></pre></div>
 
 
 <p>Alright, so I already have the disk 62% used, let's give that a closer look by firing up <code>ncdu</code> at the mount point. This will take a little while to scan, the more files the longer it will take. After spending a few minutes to analyze the disk I'm greeted with this:</p>
@@ -1890,10 +1892,10 @@ Bus <span class="m">001</span> Device <span class="m">005</span>: ID 05e3:0745 G
 <p>From this you should be able to plainly see that the majority of the hard drive is taken up by Archived files, Music, Games, Videos, and Pictures. Pretty Mundane, but I could easily dive into the Archives and see why they're so big and save myself some space</p>
 <p>None of this is really all that interesting though, so what about speed? How fast or slow is the hard drive? Now is where hdparm comes in. Reading the man page you'll find the the <code>-T</code> and <code>-t</code> flags both perform disk read bench marks, one cached reads, the other raw, so let's run <code>sudo hdparm -Tt /dev/sdg</code></p>
 <p>This gives:</p>
-<div class="highlight"><pre><span></span>/dev/sdg:
+<div class="highlight"><pre><span></span><code>/dev/sdg:
  Timing cached reads:   <span class="m">22946</span> MB in  <span class="m">2</span>.00 <span class="nv">seconds</span> <span class="o">=</span> <span class="m">11492</span>.36 MB/sec
  Timing buffered disk reads: <span class="m">556</span> MB in  <span class="m">3</span>.01 <span class="nv">seconds</span> <span class="o">=</span> <span class="m">184</span>.91 MB/sec
-</pre></div>
+</code></pre></div>
 
 
 <p>You should immediately notice that cached reads are absolutely insanely high compared to buffered, in reality it's because it was using RAM for cache, and RAM really is that fast. The reads of bulk data on the other hand? A little under 200MB/sec is actually quite fast for a hard drive. Anything between 1-200 is normal. You'll soon see that compared to SSDs though, this is kind of disappointing.</p>
@@ -1902,9 +1904,9 @@ This begs the obvious question: what are cylinders, heads, and sectors
 [TODO]</p>
 <p>Another thing of note is S.M.A.R.T tests, while not exclusive to hard drives, they're particularly useful for them as most hard drives give a lot of warning signs before failing out right. In
 order to get in-depth S.M.A.R.T info on your drive, you'll likely need to run a test first, after which you can view the results. To do this on Linux you can run</p>
-<div class="highlight"><pre><span></span>yay -S smartmontools
+<div class="highlight"><pre><span></span><code>yay -S smartmontools
 sudo smartctl -i path/to/disk
-</pre></div>
+</code></pre></div>
 
 
 <p>Finally, a quick note about Western Digital Green drives: Linux eats them. Thankfully you can use hdparm to fix this. From the man page:</p>
@@ -1979,7 +1981,7 @@ Optane, NVMe, Sata, technically all flash, Ram disks, different controllers, MLC
 <h1 id="chapter-4-back-to-the-root-of-things">Chapter 4 - Back to the Root of Things</h1>
 <p>We've been using file in /proc and /dev thoughout this, but we never really looked to see what else is in there. Let's do that.</p>
 <p>We'll actually start with /dev</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  <span class="nb">cd</span> /dev
 ╭─vega@lyrae /dev
 ╰─➤  ls -la
@@ -2142,7 +2144,7 @@ crw-------   <span class="m">1</span> root root      <span class="m">10</span>, 
 crw-rw----+  <span class="m">1</span> root video     <span class="m">81</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 video0
 crw-rw----+  <span class="m">1</span> root video     <span class="m">81</span>,   <span class="m">1</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 video1
 crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">5</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 zero
-</pre></div>
+</code></pre></div>
 
 
 <p>Alright, I know what you're thinking.</p>
@@ -2151,11 +2153,11 @@ crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>, 
 <h2 id="permissions">Permissions</h2>
 <p>if you run <code>ls</code> it normally shows you the all the folders, shortcuts, and files in a directory, except it excludes any hidden files. In linux you can make a file or folder hidden simply by naming the folder with a '.' at the beginning, so naming a folder <code>.nsfw</code> will mark it has hidden. Hidden doesn't really mean much though as most file managers allow you to view hidden files/folders by checking a box, and in this case, we can see hidden items by using the -a flag for ls. running <code>man ls</code> you'll see the -a flag just stands for 'all' and does exactly what I've said.</p>
 <p>further down you'll see the '-l' flag gives a "long listing format" which is an almost impressively bad description. This means that on each listing will be displayed like this:</p>
-<div class="highlight"><pre><span></span>Permissions   numOfLinks owner group size month date <span class="nb">time</span> name
+<div class="highlight"><pre><span></span><code>Permissions   numOfLinks owner group size month date <span class="nb">time</span> name
 
 example:
 drwxr-xr-x    <span class="m">2</span> vega vega     <span class="m">4096</span> Jul  <span class="m">7</span>  <span class="m">2018</span> Documents
-</pre></div>
+</code></pre></div>
 
 
 <p>So let's break that up further. Linux permissions are incredibly powerful, and are set up like this</p>
@@ -2176,24 +2178,24 @@ drwxr-xr-x    <span class="m">2</span> vega vega     <span class="m">4096</span>
 <p>To round this off we need to talk about how to change these permissions using <code>chown</code> and <code>chmod</code></p>
 <p><code>chown</code>, as the name implies, changes the owner, note, you need to also have permission to change the owner, so often times this require using <code>sudo</code> as well.</p>
 <p>For example running</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  sudo chown vega:vega someFile
-</pre></div>
+</code></pre></div>
 
 
 <p>would change both the owner and group to me, vega (assuming I exist on your system)</p>
 <p>but what if you want to change every file in a directory?</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  sudo chown -R vega:vega someFolder
-</pre></div>
+</code></pre></div>
 
 
 <p>the -R flag (Recursive) means to apply the change to every sub folder and directory</p>
 <p>Using <code>chmod</code> is pretty easy too, though there are two ways to use it.</p>
 <p>The first, which is easier to understand is with direct flags such as</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  chmod +x on a file to mark it as executable
-</pre></div>
+</code></pre></div>
 
 
 <p>The other uses the octal system to set flags. Octal has 3 bits:</p>
@@ -2254,9 +2256,9 @@ drwxr-xr-x    <span class="m">2</span> vega vega     <span class="m">4096</span>
 </tbody>
 </table>
 <p>Now, you should notice some of those options are nonsenes? being able to write to a file you can't read? being able to execute a file you can't read? In practice this leads to only some of these being used, but I digress to use these in chmod simply run</p>
-<div class="highlight"><pre><span></span>╭─vega@lyrae ~
+<div class="highlight"><pre><span></span><code>╭─vega@lyrae ~
 ╰─➤  chmod <span class="m">764</span> someThing
-</pre></div>
+</code></pre></div>
 
 
 <p>which would set permissions to -rwxrw-r--</p>
@@ -2265,7 +2267,7 @@ drwxr-xr-x    <span class="m">2</span> vega vega     <span class="m">4096</span>
 <p>With all of that out of the way let's finally look at /dev !</p>
 <h2 id="dev-the-devices-folder">/dev, the devices folder</h2>
 <p>Alrighty then, first, a heads up. My /dev folder will have some things yours wont. I'm on a desktop with a lot of hardware, drives, input devices, etc. And I've installed hundreds of programs, some of which interface with the system at a low enough level to necessitate extra files in here. For that reason some are going to be skipped over let's take these in blocks of 10</p>
-<div class="highlight"><pre><span></span>drwxr-xr-x  <span class="m">22</span> root root         <span class="m">4600</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 .
+<div class="highlight"><pre><span></span><code>drwxr-xr-x  <span class="m">22</span> root root         <span class="m">4600</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 .
 drwxr-xr-x  <span class="m">18</span> root root         <span class="m">4096</span> Jan <span class="m">26</span> <span class="m">22</span>:05 ..
 crw-rw-rw-   <span class="m">1</span> root root      <span class="m">10</span>,  <span class="m">56</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 ashmem
 crw-r--r--   <span class="m">1</span> root root      <span class="m">10</span>, <span class="m">235</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 autofs
@@ -2278,7 +2280,7 @@ lrwxrwxrwx   <span class="m">1</span> root root            <span class="m">3</sp
 drwxr-xr-x   <span class="m">2</span> root root         <span class="m">5700</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 char
 crw-------   <span class="m">1</span> root root       <span class="m">5</span>,   <span class="m">1</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 console
 lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">11</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 core -&gt; /proc/kcore
-</pre></div>
+</code></pre></div>
 
 
 <p>Here I've included . and .. in the output for reference, but we'll immediately move on.</p>
@@ -2293,7 +2295,7 @@ lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">11</sp
 <p>'char' is a folder which contains links to a lot of other things in /dev for use with legacy things</p>
 <p>'console' is again a legacy component and is effecively the same as tty, which is always the current terminal. to be explained more when we get to the tty's</p>
 <p>'core' a link to /proc/kcore is a direct way to read memory, used mostly for debugging</p>
-<div class="highlight"><pre><span></span>drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 cpu
+<div class="highlight"><pre><span></span><code>drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 cpu
 crw-rw----   <span class="m">1</span> root realtime  <span class="m">10</span>,  <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 cpu_dma_latency
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>, <span class="m">203</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 cuse
 drwxr-xr-x   <span class="m">8</span> root root          <span class="m">160</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 disk
@@ -2304,7 +2306,7 @@ drwxr-xr-x   <span class="m">3</span> root root          <span class="m">140</sp
 crw-------   <span class="m">1</span> root root     <span class="m">242</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 drm_dp_aux0
 ...
 crw-------   <span class="m">1</span> root root     <span class="m">242</span>,   <span class="m">4</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 drm_dp_aux4
-</pre></div>
+</code></pre></div>
 
 
 <p>'cpu' is a folder which contains a character file named mircocode. If you enable msr it can also allow you to r/w model specific registers. I don't even know what this means. You'll never work on this directly, moving on.</p>
@@ -2314,7 +2316,7 @@ crw-------   <span class="m">1</span> root root     <span class="m">242</span>, 
 <p>'dmmidi' is for MIDI or Musical Instrument Digital Interface devices. I have multiple on this system.</p>
 <p>'dri' contains links to your graphics cards, this is part of the direct rendering manager for video things (3D, games, etc)</p>
 <p>'drm_dp_aux' each represent an output from the GPU, so think of these as the actual cables between the monitor and the computer</p>
-<div class="highlight"><pre><span></span>crw-rw----   <span class="m">1</span> root video     <span class="m">29</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 fb0
+<div class="highlight"><pre><span></span><code>crw-rw----   <span class="m">1</span> root video     <span class="m">29</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 fb0
 lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">13</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 fd -&gt; /proc/self/fd
 crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">7</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 full
 crw-rw-rw-   <span class="m">1</span> root root      <span class="m">10</span>, <span class="m">229</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 fuse
@@ -2328,7 +2330,7 @@ crw-rw----+  <span class="m">1</span> root root     <span class="m">240</span>, 
 ------------------------------------------------------------------------------------
 to make this output shorter I stripped out hidraw <span class="m">7</span>-9
 ------------------------------------------------------------------------------------
-</pre></div>
+</code></pre></div>
 
 
 <p>'fb0' is your framebuffer - I can't do this justice https://www.kernel.org/doc/Documentation/fb/framebuffer.txt, in practice you're unlikely to ever use this, but it's very good to know</p>
@@ -2337,7 +2339,7 @@ to make this output shorter I stripped out hidraw <span class="m">7</span>-9
 <p>'fuse' Filesystems in User Space is a system which allows for interesting virtual drives (think things like GoogleDrive) to be accessible to the native system among other things. This is a very heavily used part of the system and worth a deeper look if you're interested</p>
 <p>'gpiochip' is for general purpose input/output like with exposed pins that can be used on development board such as the raspberry pi</p>
 <p>'hidraw' is for raw communication with Human Interface Devices (mouse, keyboard, gamepad) and allows for custom drivers, like those necessary for RGB backlit keyboards</p>
-<div class="highlight"><pre><span></span>crw-rw----   <span class="m">1</span> root realtime  <span class="m">10</span>, <span class="m">228</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 hpet
+<div class="highlight"><pre><span></span><code>crw-rw----   <span class="m">1</span> root realtime  <span class="m">10</span>, <span class="m">228</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 hpet
 drwxr-xr-x   <span class="m">3</span> root root            <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 hugepages
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>, <span class="m">183</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 hwrng
 lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">12</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 initctl -&gt; /run/initctl
@@ -2348,7 +2350,7 @@ crw-rw-rw-   <span class="m">1</span> root kvm       <span class="m">10</span>, 
 drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 lightnvm
 lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">28</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 log -&gt; /run/systemd/journal/dev-log
 crw-rw----   <span class="m">1</span> root disk      <span class="m">10</span>, <span class="m">237</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 loop-control
-</pre></div>
+</code></pre></div>
 
 
 <p>'hpet' "High Precession Event Timer" is for internal timer-y things</p>
@@ -2362,7 +2364,7 @@ crw-rw----   <span class="m">1</span> root disk      <span class="m">10</span>, 
 <p>'lightnvm' use for NVMe drives</p>
 <p>'log' no shit, access using <code>sudo journalctl</code></p>
 <p>'loop-contol' - http://man7.org/linux/man-pages/man4/loop.4.html, effectively used to mount images or or other file systems to be read as a separate block device</p>
-<div class="highlight"><pre><span></span>drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 mapper
+<div class="highlight"><pre><span></span><code>drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 mapper
 crw-rw----   <span class="m">1</span> root video    <span class="m">239</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 media0
 crw-r-----   <span class="m">1</span> root kmem       <span class="m">1</span>,   <span class="m">1</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 mem
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>,  <span class="m">57</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 memory_bandwidth
@@ -2374,7 +2376,7 @@ drwxrwxrwt   <span class="m">2</span> root root           <span class="m">40</sp
 drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 net
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>,  <span class="m">59</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 network_latency
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>,  <span class="m">58</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 network_throughput
-</pre></div>
+</code></pre></div>
 
 
 <p>'mapper' is primarily used for LVM systems, https://wiki.archlinux.org/index.php/LVM, which is used for more advance disk management but comes with disadvantages in complexity and inter-OS compatibility</p>
@@ -2385,7 +2387,7 @@ crw-------   <span class="m">1</span> root root      <span class="m">10</span>, 
 <p>'mqueue' used for interprocess comunnication</p>
 <p>'net' contains virtual network adapters, will likely contain 'tun' by default, used for interprocess communication in weird ways.</p>
 <p>'network_latency' and 'network_thoughput' is primary used to specify current minimum necessary requirements for the network, used for power saving on wireless adapters</p>
-<div class="highlight"><pre><span></span>crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">3</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 null
+<div class="highlight"><pre><span></span><code>crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">3</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 null
 crw-------   <span class="m">1</span> root root     <span class="m">243</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 nvme0
 brw-rw----   <span class="m">1</span> root disk     <span class="m">259</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 nvme0n1
 brw-rw----   <span class="m">1</span> root disk     <span class="m">259</span>,   <span class="m">1</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 nvme0n1p1
@@ -2397,7 +2399,7 @@ crw-------   <span class="m">1</span> root root      <span class="m">10</span>, 
 crw-rw-rw-   <span class="m">1</span> root tty        <span class="m">5</span>,   <span class="m">2</span> Feb  <span class="m">8</span> <span class="m">16</span>:37 ptmx
 crw-------   <span class="m">1</span> root root     <span class="m">247</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 ptp0
 drwxr-xr-x   <span class="m">2</span> root root            <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 pts
-</pre></div>
+</code></pre></div>
 
 
 <p>'null' literally just discards anything it receives. Useful when a command outputs junk when doing things, and getting rid of the junk. '/dev/null' is referred to regularly in jokes in technical circles</p>
@@ -2409,7 +2411,7 @@ drwxr-xr-x   <span class="m">2</span> root root            <span class="m">0</sp
 <p>'ptmx', pseudo terminal master/slave, used for virtual terminals, like the one's you've been opening in KDE</p>
 <p>'ptp0' precession time protocol, links to realtime clock</p>
 <p>'pts' interval virtual filesystem, used for things like docker. Works closely with 'ptmx'</p>
-<div class="highlight"><pre><span></span>crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">8</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 random
+<div class="highlight"><pre><span></span><code>crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">8</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 random
 crw-rw-r--+  <span class="m">1</span> root rfkill    <span class="m">10</span>,  <span class="m">55</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 rfkill
 lrwxrwxrwx   <span class="m">1</span> root root            <span class="m">4</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 rtc -&gt; rtc0
 crw-rw----   <span class="m">1</span> root realtime <span class="m">250</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 rtc0
@@ -2419,14 +2421,14 @@ brw-rw----   <span class="m">1</span> root disk       <span class="m">8</span>, 
 brw-rw----   <span class="m">1</span> root disk       <span class="m">8</span>,  <span class="m">96</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 sdg
 brw-rw----   <span class="m">1</span> root disk       <span class="m">8</span>,  <span class="m">97</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 sdg1
 brw-rw----   <span class="m">1</span> root disk       <span class="m">8</span>,  <span class="m">98</span> Feb  <span class="m">8</span> <span class="m">16</span>:37 sdg2
-</pre></div>
+</code></pre></div>
 
 
 <p>'random' waits for true randomness and will block things from finishing until enough entropy is generated</p>
 <p>'rfkill' kills all radio transmission on system</p>
 <p>'rtc' real time clock, direct access - we'll talk more about real time clocks and time in networking.</p>
 <p>'sdxn' the 'normal' representation of block devices like HDDs, SSDs, and flash drives to the system. Each number is a partition</p>
-<div class="highlight"><pre><span></span>drwxr-xr-x   <span class="m">4</span> root root           <span class="m">80</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 serial
+<div class="highlight"><pre><span></span><code>drwxr-xr-x   <span class="m">4</span> root root           <span class="m">80</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 serial
 crw-rw----+  <span class="m">1</span> root optical   <span class="m">21</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 sg0
 crw-rw----   <span class="m">1</span> root disk      <span class="m">21</span>,   <span class="m">1</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 sg1
 ...
@@ -2438,7 +2440,7 @@ brw-rw----+  <span class="m">1</span> root optical   <span class="m">11</span>, 
 lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">15</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 stderr -&gt; /proc/self/fd/2
 lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">15</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 stdin -&gt; /proc/self/fd/0
 lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">15</span> Feb  <span class="m">8</span> <span class="m">06</span>:02 stdout -&gt; /proc/self/fd/1
-</pre></div>
+</code></pre></div>
 
 
 <p>'serial' contains references to serial devices by id or path</p>
@@ -2450,7 +2452,7 @@ lrwxrwxrwx   <span class="m">1</span> root root           <span class="m">15</sp
 <p>'<strong>stderr</strong>' is the standard error interface, try <code>echo 1 &gt; /dev/stderr</code> - you should see an error return code depending on your terminal setup</p>
 <p>'<strong>stdin</strong>' is the standard input interface, try <code>echo hello | cp /dev/stdin /dev/stdout</code></p>
 <p>'<strong>stdout</strong> interface, try <code>echo hello &gt; /dev/stdout</code></p>
-<div class="highlight"><pre><span></span>crw-rw-rw-   <span class="m">1</span> root tty        <span class="m">5</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">15</span>:49 tty
+<div class="highlight"><pre><span></span><code>crw-rw-rw-   <span class="m">1</span> root tty        <span class="m">5</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">15</span>:49 tty
 crw--w----   <span class="m">1</span> root tty        <span class="m">4</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 tty0
 ...
 crw--w----   <span class="m">1</span> root tty        <span class="m">4</span>,  <span class="m">63</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 tty63
@@ -2459,7 +2461,7 @@ crw-rw----+  <span class="m">1</span> root tty        <span class="m">4</span>, 
 crw-rw----+  <span class="m">1</span> root uucp       <span class="m">4</span>,  <span class="m">65</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 ttyS1
 crw-rw----+  <span class="m">1</span> root uucp       <span class="m">4</span>,  <span class="m">66</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 ttyS2
 crw-rw----+  <span class="m">1</span> root uucp       <span class="m">4</span>,  <span class="m">67</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 ttyS3
-</pre></div>
+</code></pre></div>
 
 
 <h3 id="ttys-these-are-important">TTY's, these are important:</h3>
@@ -2467,7 +2469,7 @@ crw-rw----+  <span class="m">1</span> root uucp       <span class="m">4</span>, 
 <p>'ttyx' are virtual consoles accessible though <strong>ctrl+alt+fx,</strong> where fx is a function key. You should ben on tty7 by default, go ahead and try it now. Note you may need to hold the 'fn' key as well</p>
 <p>'ttyACMx' or 'ttyUSBx' are attached USB devices that can be accessed as a virtual terminal. This is mostly used for development boards, and we'll be using this later</p>
 <p>'ttySx' are serial port terminals, rarely used outside of scientific or server gear. The physical connector usually looks similar to VGA cable. Your motherboard may well have a serial port header for adding this even if you don't physically see one available on the outside of the case</p>
-<div class="highlight"><pre><span></span>crw-------   <span class="m">1</span> root root      <span class="m">10</span>,  <span class="m">61</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 udmabuf
+<div class="highlight"><pre><span></span><code>crw-------   <span class="m">1</span> root root      <span class="m">10</span>,  <span class="m">61</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 udmabuf
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>, <span class="m">239</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 uhid
 crw-rw-rw-+  <span class="m">1</span> root root      <span class="m">10</span>, <span class="m">223</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 uinput
 crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">9</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 urandom
@@ -2485,7 +2487,7 @@ crw-rw----   <span class="m">1</span> root tty        <span class="m">7</span>, 
 crw-rw----   <span class="m">1</span> root tty        <span class="m">7</span>,  <span class="m">64</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 vcsu
 ...
 crw-rw----   <span class="m">1</span> root tty        <span class="m">7</span>,  <span class="m">71</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 vcsu7
-</pre></div>
+</code></pre></div>
 
 
 <p>'udmabuf' Uniform Direct Memory Access Buffer https://github.com/ikwzm/udmabuf, you probably don't care</p>
@@ -2498,7 +2500,7 @@ crw-rw----   <span class="m">1</span> root tty        <span class="m">7</span>, 
 <p>'vcsx' virtual console memory, used when running a terminal emulator</p>
 <p>'vcax' virtual console stuff</p>
 <p>'vcsux' virtual console stuff</p>
-<div class="highlight"><pre><span></span>drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 vfio
+<div class="highlight"><pre><span></span><code>drwxr-xr-x   <span class="m">2</span> root root           <span class="m">60</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 vfio
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>,  <span class="m">63</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 vga_arbiter
 crw-------   <span class="m">1</span> root root      <span class="m">10</span>, <span class="m">137</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 vhci
 crw-rw----+  <span class="m">1</span> root kvm       <span class="m">10</span>, <span class="m">238</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 vhost-net
@@ -2506,7 +2508,7 @@ crw-------   <span class="m">1</span> root root      <span class="m">10</span>, 
 crw-rw----+  <span class="m">1</span> root video     <span class="m">81</span>,   <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 video0
 crw-rw----+  <span class="m">1</span> root video     <span class="m">81</span>,   <span class="m">1</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 video1
 crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>,   <span class="m">5</span> Feb  <span class="m">8</span> <span class="m">06</span>:03 zero
-</pre></div>
+</code></pre></div>
 
 
 <p>'vfio' is used for passing hardware directly to virtual machines, often massively improving performanec</p>
@@ -2539,9 +2541,9 @@ crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>, 
 <p>you should see something like:</p>
 <p><img alt="2019-02-08-200152_831x306_scrot" src="/openg/2019-02-08-200152_831x306_scrot.png"></p>
 <p>but when we run this in the python terminal:</p>
-<div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
     <span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>and read the stack again we'll see:</p>
@@ -2747,11 +2749,11 @@ crw-rw-rw-   <span class="m">1</span> root root       <span class="m">1</span>, 
 <p>For setting the wallpaper (which you probably wont see much) you can use <code>nitrogen</code> or <code>feh</code></p>
 <p>if you have multiple monitors before setting the wallpaper though you'll probably want to arrange your monitors correctly, for this you can use <code>xrandr</code> , read the man page for more information. You can add the command you use to set up your displays to your i3 config file to apply them at each reboot</p>
 <p>if you have a high resolution monitor and things are small, you may want to look here: https://wiki.archlinux.org/index.php/HiDPI , the best thing from this is to add</p>
-<div class="highlight"><pre><span></span><span class="nv">QT_QPA_PLATFORMTHEME</span><span class="o">=</span>qt5ct
+<div class="highlight"><pre><span></span><code><span class="nv">QT_QPA_PLATFORMTHEME</span><span class="o">=</span>qt5ct
 <span class="nv">QT_AUTO_SCREEN_SCALE_FACTOR</span><span class="o">=</span><span class="m">1</span>
 <span class="nv">GDK_SCALE</span><span class="o">=</span><span class="m">2</span>
 <span class="nv">ELM_SCALE</span><span class="o">=</span><span class="m">1</span>.5
-</pre></div>
+</code></pre></div>
 
 
 <p>to your /etc/enviroment file.</p>
@@ -2862,8 +2864,8 @@ but these clones don't always follow this chart</p>
 <p>[TODO]</p>
 <p>Ranger, THunar, Nautilius, Baobab, Gparted</p>
 <p>if you use Nautilius, you may want to run</p>
-<div class="highlight"><pre><span></span>dconf write /org/gnome/nautilus/preferences/always-use-location-entry <span class="nb">true</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code>dconf write /org/gnome/nautilus/preferences/always-use-location-entry <span class="nb">true</span>
+</code></pre></div>
 
 
 <p>so that the file paths are displayed in full</p>
@@ -2916,7 +2918,7 @@ Write big programs only when it is clear by demonstration that nothing else will
 <h2 id="the-building-blocks-of-programming">The building blocks of programming</h2>
 <p>All programming is just chaining logic, for example using treatments like "if a is b, then make c hold the value of a-3" followed by "if c is negitive then say hello"</p>
 <p>Well, that's actually an easy program</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>
 
@@ -2925,48 +2927,48 @@ Write big programs only when it is clear by demonstration that nothing else will
 
 <span class="k">if</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>you should notice a few weird things here though, namely, on line 5 we used two equal signs to check equality. This is the case in most programming languages because a single equal sign, like is used on the first two lines, is used for assignment that is assigning the value of <code>a</code> to 1 and <code>b</code> to 1 or as on line 6 assigning the value of <code>( a - 3 )</code> to <code>c</code>, because we've already used a single equal sign for assignment, two equal signs is used for checking equality.</p>
 <p>If you follow the logic here, <code>a</code> and <code>b</code> are both 1, so line 4 checks that to be true, so line 5 does happen. Now  c which previously was equal to 1 is now equal to a-3, where a is 1, so c becomes -2. on line 8 we check if c is less than 0, and it is so we print the word 'hello'. Here, you'll notice 'hello' is in quotes. This is because if it were not, that is if it were <code>print(hello)</code> it would try to print the value of the variable 'hello' which since hello isn't defined, wouldn't work. Let's try this in the Python interpreter. You can find install instructions for your operating system here: https://www.python.org/downloads/. If you're on Linux simply type <code>python</code> into the terminal. </p>
 <p>With the Python interpreter open try without quotes: </p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span><span class="nb">print</span><span class="p">(</span><span class="n">hello</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="nb">print</span><span class="p">(</span><span class="n">hello</span><span class="p">)</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;hello&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>As you can see Python failed to print hello because the variable was not defined. Now lets try assigning a value to the hello variable before printing:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">hello</span> <span class="o">=</span> <span class="s2">&quot;Hello World!&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">hello</span> <span class="o">=</span> <span class="s2">&quot;Hello World!&quot;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">hello</span><span class="p">)</span>
 <span class="n">Hello</span> <span class="n">World</span><span class="err">!</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Anything you write to the interpreter can also be added to a file and ran that way. Try saving the examples above to a file called test.py, opening a terminal and running it with <code>python test.py</code>. </p>
 <h3 id="conditions-using-if-elif-and-else">Conditions using <code>if</code>, <code>elif</code> and <code>else</code></h3>
 <p>You often want code only to be executed, if a certain condition is met. For example, take a look at the following code:</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">13</span>
+<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">13</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mi">27</span>
 <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a is bigger&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b is bigger&quot;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Using the <code>if</code> statement, connected with a logical condition, you can control the program flow. In this case, <code>a</code> is smaller than <code>b</code>, so python will skip the code inside of the <code>if</code> case and only execute what is within the <code>else</code> part.</p>
 <p>You can also combine multiple if cases like this:</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a is negative&quot;</span><span class="p">)</span>
 <span class="k">elif</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a is zero&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a is positive&quot;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Using the <code>elif</code> statement, you can check for another condition if the one in the <code>if</code> statement was <code>false</code>.</p>
@@ -2976,36 +2978,36 @@ There are two types of loops: The <code>for</code> and the <code>while</code> lo
 <h4 id="the-for-loop">The <code>for</code> loop</h4>
 <p>The <code>for</code> loop iterates over a list of items and stores the current element in a variable.
 This is especially useful when working with lists, for example.</p>
-<div class="highlight"><pre><span></span><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">fruit</span> <span class="ow">in</span> <span class="n">fruits</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I am eating a &quot;</span> <span class="o">+</span> <span class="n">fruit</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>If you are familiar with loops in other programming languages (such as Java or C), you're probably thinking: "That's not a for loop, that's a for-each!". This is true, in python all for loops are for-each loops. If you want to iterate over a range of numbers, use pythons <code>range()</code> function:</p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <h4 id="the-while-loop">The <code>while</code> loop</h4>
 <p>The <code>for</code> loop is very useful, but sometimes, using the <code>while</code> loop is easier and more straightforward.
 For example, if you want to repeat something until a certain condition is met, using this loop is simple:</p>
-<div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight"><pre><span></span><code><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>You can also combine the condition after the <code>while</code> keyword with an <code>else</code> statement:</p>
-<div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">11</span>
+<div class="highlight"><pre><span></span><code><span class="n">i</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is bigger than 10!&quot;</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>[TODO]
@@ -3023,29 +3025,29 @@ try/catch</p>
 <p>As seen in the example above, the following will print <code>Hello World!</code>:
 <code>print('Hello World!')</code>
 Lets get some input aswell: </p>
-<div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;What</span><span class="se">\&#39;</span><span class="s1">s your name?&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;What</span><span class="se">\&#39;</span><span class="s1">s your name?&#39;</span><span class="p">)</span>
 <span class="c1"># This prints the question. Notice the escape character \ is used to avoid stopping the string. </span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="nb">input</span><span class="p">())</span> 
 <span class="c1"># This will pause the program and wait for user input before printing Hello &lt;input&gt;</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3 id="even-or-odd">Even or Odd</h3>
 <p>Below is an example of a Python script which checks if the input number is odd or even.</p>
-<div class="highlight"><pre><span></span><span class="c1"># A number is even if division by 2 give a remainder of 0.</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># A number is even if division by 2 give a remainder of 0.</span>
 <span class="c1"># If remainder is 1, it is odd number.</span>
 <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter a number: &quot;</span><span class="p">))</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is Even&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
 <span class="k">else</span><span class="p">:</span>
    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is Odd&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3 id="prime-numbers">Prime Numbers</h3>
 <p>Prime number is a number greater than 1 whose only factors are 1 and itself. Few instances of prime numbers include 2, 3, 5, 11. Below is an example of python function which defines whether the given input number is prime or not. </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_prime</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_prime</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
 
@@ -3062,7 +3064,7 @@ Lets get some input aswell: </p>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not a prime number&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3 id="calculating-sine-and-pi">Calculating sine and pi</h3>
@@ -3085,17 +3087,17 @@ articles: NAME, PUBLISHED, TPUB, TEDIT</p>
 <h3 id="lambdas">Lambdas</h3>
 <p>A lambda expression is used to create a a small anonymous function. It can take any number of arguments, but can only have one expression.
 Below is an example of a lambda expression which can be used to compute cube of any given number.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">cube</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">cube</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">cube</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="mi">125</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>And here is the other example of a lambda expression with three arguments.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
 <span class="mi">0</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>threads/ parrallelization(high level only), interupts (actually, let's save this until embbeded), apis,</p>
@@ -3225,7 +3227,7 @@ first checks a 'meta' entry to see if the python code to change a published time
 <p><a href="https://www.youtube.com/watch?v=Z4oYSByyRak&amp;list=WL&amp;index=4&amp;t=0s">Zig: A programming language designed for robustness, optimality, and clarity – Andrew Kelley (YouTube)</a></p>
 <h3 id="crystal">Crystal</h3>
 <p>Crystal's big thing is a Ruby (a very fast to write language) that's compiled and fast. From the home page:</p>
-<div class="highlight"><pre><span></span><span class="c1"># A very basic HTTP server</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># A very basic HTTP server</span>
 <span class="nb">require</span> <span class="s2">&quot;http/server&quot;</span>
 
 <span class="n">server</span> <span class="o">=</span> <span class="no">HTTP</span><span class="o">::</span><span class="no">Server</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">context</span><span class="o">|</span>
@@ -3235,7 +3237,7 @@ first checks a 'meta' entry to see if the python code to change a published time
 
 <span class="nb">puts</span> <span class="s2">&quot;Listening on http://127.0.0.1:8080&quot;</span>
 <span class="n">server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Seriously check it out at https://crystal-lang.org/</p>
@@ -4442,7 +4444,7 @@ https://techcrunch.com/2019/05/10/eyedisk-encrypted-flash-drive-unhackable/,
 <p>So, thinking about that problem, we clearly need data. probably an array of sorts with a bunch of values that have a smoothed relationship when viewing them as height map, then we'd want to look at the transition points between ranges of values.</p>
 <p>Looking up random data generation in python, and you should stumble upon it's noise generation, and see that it uses <a href="https://en.wikipedia.org/wiki/Perlin_noise">Perlin Noise</a>, which upon looking at it should be obvious that it generates exactly what we want. So, looking up an example for that in processing we get to this page: https://processing.org/examples/noise2d.html</p>
 <p>Well, that's already super close, so let's look at that code</p>
-<div class="highlight"><pre><span></span><span class="kt">float</span> <span class="n">increment</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span> <span class="n">increment</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
   <span class="n">size</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">360</span><span class="p">);</span>
@@ -4476,7 +4478,7 @@ https://techcrunch.com/2019/05/10/eyedisk-encrypted-flash-drive-unhackable/,
 
   <span class="n">updatePixels</span><span class="p">();</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Alright, so line by line, it seems that line 1 is just defining a constant. Reading the Processing docs you'll find setup() should contain size() which takes two arguments that are the size of the output window in pixels (x and y) and that draw() is an endlessly looping function that updates that window.</p>
@@ -4978,7 +4980,7 @@ cat File                  # ==&gt; 1234.67890</p>
 <p>*</p>
 <h2 id="git">Git</h2>
 <h2 id="markdown">Markdown</h2>
-<div class="highlight"><pre><span></span># heading1
+<div class="highlight"><pre><span></span><code># heading1
 ## heading2
 ### heading3
 
@@ -5028,7 +5030,7 @@ Here&#39;s a sentence with a footnote. [^1]
 $ may let you type inline math in \LaTeX $, and $$$ for blocks, same as the code syntax
 
 1^2 or 1~2 may let you write super and sub-script text as well.
-</pre></div>
+</code></pre></div>
 
 
 <h1 id="appendix-c-bom">Appendix C - BOM</h1>
@@ -5457,9 +5459,9 @@ Names, Timezones, unicode, maps (Tiwan v china)</p>
 https://arstechnica.com/tech-policy/2018/08/verizon-throttled-fire-departments-unlimited-data-during-calif-wildfire/</p>
 <h2 id="an-nsfw-note">An NSFW Note</h2>
 <p>The 'Hacking' community in particular is usually very clear on sexual liberation/freedoms and given that technically minded people tend to have statistically significantly higher amounts of LGBTQIA+ people, it's relevant to mention. I don't want to go in depth or be your source of sex education, but I do think skipping over this would be doing the community some injustice. As such I'd also like to link to some videos providing sexual education, <a href="https://www.youtube.com/watch?v=L-q-tSHo9Ho&amp;list=FLFMnqfaTa1se1LfbCB3peJQ&amp;index=103&amp;t=0s">The truth about unwanted arousal | Emily Nagoski , YouTube</a></p>
-<div class="highlight"><pre><span></span>TypeError:
+<div class="highlight"><pre><span></span><code>TypeError:
 no implicit conversion of Gender into Boolean
-</pre></div>
+</code></pre></div>
 
 
 <p>Finally, a little less NSFW, the Maker and engineering communities also tend to overlap rather heavily with more artistically minded and sub-culture heavy groups, ranging from those obsessed with comics to anime nerds or furries. I really recommend you do at least a little research into various sub cultures and geek culture to better understand some of the people you'll probably interact with. You might just find something new you enjoy while you're at it.</p>
@@ -5689,6 +5691,7 @@ https://media.ccc.de/v/31c3_-<em>6373</em>-<em>en</em>-<em>saal_6</em>-<em>20141
 		<a href='https://webring.xxiivv.com/#random' target='_blank'><img src='https://webring.xxiivv.com/icon.black.svg' style='width:100px;height:100px'/></a>
         <a href="/" title="Opinionated Guides">Opinionated Guides</a>
         <a href="/category/blog.html">Blog</a>
+        <a href="/category/cooking.html">Cooking</a>
         <a href="/category/design.html">Design</a>
         <a href="/category/engineering.html">Engineering</a>
         <a href="/category/music.html">Music</a>
