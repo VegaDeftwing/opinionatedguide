@@ -163,14 +163,14 @@ That default patch should respond to input when you mash keys so you can test yo
 <h2 id="back-to-vcv-rack">Back To VCV Rack</h2>
 <p>Now that we have that mess out of the way let's talk shop and drop back into our rack. This time Let's start with a mostly clean slate. Make sure you can still get sound out, then remove every module except the Audio module. Alrighty, now we can get to business.</p>
 <p>Let's make a simple generative track, to start with we'll need some drums. Here's what we'll be setting up:</p>
-<p><img alt="drumpatch" src="C:\VegaProductions\openg2\openg2\content\opmusic\drumpatch.png"></p>
+<p><img alt="drumpatch" src="/opmusic/drumpatch.png"></p>
 <p>So first, let's break each module down by function. The uGraph module (2nd on left) is a generative trigger sequencer, it generates drum rhythms for us. It has it's own built in clock, but an external clock signal can be provided (turn the clock knob left until it says <em>Ext.</em> then provide a clock input that's multiplied by the rate specified in the clock res box, in this case it wants 4ppqn or peaks per quarter note, so, if you want to a 120 bpm drum line, you'll want to send a clock signal that's multiplied by 4. Some modules will sync on 1ppqn or 24ppqn, etc. So, just be aware that you may need to multiply your clock signal some times.) though here we'll use the internal clock. This module sends out 6 triggers, where the three 'accent' (Acc) triggers are a strict subset of the main trigger outputs, that is there will only be an output on Acc when there is an output on Trig, but not always. uGraph will generate the three trigger sequences such that the left most trigger output 'fires' the least often and the right most the most often. This works well for setting up a common drum machine with kick, snare, and hat sounds so that the hats are frequent, the snare less so, and the kick a steady beat, but not overpowering. Of course, this isn't how you have to use it, and you can always add more trigger output patterns in VCV simply by sending two uGraph modules the same clock. Again, for now one module is fine. Finally, it's notable that this pattern will repeat, but a new pattern can be selected with the Map X and Map Y knobs.</p>
 <p>Alright, so uGraph is generating the drum triggers, think of it like the human swinging the drum sticks, but with only uGraph in there's nothing to hit. so let's add the basics. Grab a small Nysthi Mixers as pictures 2nd to last above and hook it up to an audio module as well. Then, grab the Erica PicoDrums module and place it in. Now, hook up two of the trigger outputs to the picoDrum's TR1 and TR2 trigger inputs, take the PicoDrums output to the mixer. After turning down the mixer module's master out a bit to make sure you don't play too loud of a sound, hit 'run' on the uGraph module. Currently, both of the drum sounds on the PicoDrum are set to the same sample, so you'll want to move the big 'ctrl' knob at the top to select a different sample on drum1, then switch to drum2 with the switch, and pick a good sample for drum two as well. You should now have a good drum pattern started!</p>
 <p>The problem with the PicoDrum module is that it has some baked in drum sounds that can't be changed (well, okay, the real eurorack version they can be, which actually makes it a good value, but I digress) but the sounds are still samples, that is they're just audio files being trigged to be played back. So, why not use something where we can pick our own sample?</p>
 <p>You'll need some drum samples to get started, so just to get you started here's a decent sample pack: https://soundpacks.com/free-sound-packs/nyc-drum-kit/</p>
 <p>Download, extract, etc. that folder and in VCV place the 'Player' module as pictured above. Right click the module, select 'Load Sample', and use one of the sounds in the folders. You should now be able to trigger the player module and get sound out of it the same as the PicoDrum module. You can mess with some of the controls to get a feel for what you can do with the player Module. If you're having fun with that, you may want to look at the 'Simpliciter' module from Nysthi for an even more advanced sampler (also check the "samples" section below).</p>
 <p>All of this is cool and all, but we're just playing back and manipulating sound files so far, so, let's look at the next type of drum: synthesized drum. Synth drums can be made to sound very close to real drums (this is generally called physical modeling, you'll hear the term a lot more for string synth sounds though) but can give sounds that no real drum would be capable of either. In the patch above I have 'Meta' from starling generating a low bass drum sound, but you can generally tweak synth drums into whatever sound you want, albeit some module will be better at different sounds, for example Vult's 'Trummor' modules excel at kick and bass drums. You can also make synth drums from basically anything just by thinking about the sound a drum makes. Generally, a drum is just a sound with a really sharp attack and a pitch that changes at it releases, so, this, while not the best, is a decent drum sound:</p>
-<p><img alt="SynthDrum" src="C:\VegaProductions\openg2\openg2\content\opmusic\SynthDrum.png"></p>
+<p><img alt="SynthDrum" src="/opmusic/SynthDrum.png"></p>
 <p>anyway, so now the last relevant part of the above patch worth understanding is the slew is just making it so we get a nice envelope generated by the Acc output, that slew is changing the pitch decay time on the synth drum (Meta) so that on accent outputs the low drum lasts a bit longer and has a slightly different sound. Just look at the signal on a scope in VCV if you don't fully get it.</p>
 <p><img alt="phase" src="/opmusic/phase.png"></p>
 <h2 id="methods-of-making-noise">Methods of making noise</h2>
@@ -188,19 +188,19 @@ That default patch should respond to input when you mash keys so you can test yo
 <h3 id="granular-synthesis">Granular Synthesis</h3>
 <h3 id="wavetables">Wavetables</h3>
 <h3 id="samples">Samples</h3>
-<p><img alt="Audacity" src="..\content\opmusic\Audacity.png"></p>
+<p><img alt="Audacity" src="/opmusic/Audacity.png"></p>
 <blockquote>
 <p>a snippet of a .wav file open in audacity</p>
 </blockquote>
-<p><img alt="wavfile" src="..\content\opmusic\wavfile.png"></p>
+<p><img alt="wavfile" src="/opmusic/wavfile.png"></p>
 <blockquote>
 <p>Zoomed in view of the snipped, showing the individual points in the sample</p>
 </blockquote>
-<p><img alt="sampler" src="..\content\opmusic\sampler.png"></p>
+<p><img alt="sampler" src="/opmusic/sampler.png"></p>
 <blockquote>
 <p>Bitwig Studio's Sampler. Here pitch tracking is enabled, making it so the sample can be played sped up or slowed down to pitch chromatically along the keyboard. Bitwig's Sampler is pretty similar to many other samplers in other DAWs like Ableton Live or modules like Simpliciter In VCV rack</p>
 </blockquote>
-<p><img alt="simpliciter" src="C:\VegaProductions\openg2\openg2\content\opmusic\simpliciter.png"></p>
+<p><img alt="simpliciter" src="/opmusic/simpliciter.png"></p>
 <blockquote>
 <p>'Simpliciter' module in VCV rack, a sampler with transient detection, Sound On Sound (SOS) looping, and variable speed (pitch) playback</p>
 </blockquote>
