@@ -62,7 +62,8 @@
 </li>
 <li><a href="#audio-effects">Audio Effects</a><ul>
 <li><a href="#delay">Delay</a></li>
-<li><a href="#phaser">Phaser</a></li>
+<li><a href="#filters-lp-hp-bp-notch">Filters (LP, HP, BP, Notch)</a></li>
+<li><a href="#phaser-all-pass-filter">Phaser (All-Pass Filter)</a></li>
 <li><a href="#reverb">Reverb</a></li>
 <li><a href="#distortion">Distortion</a></li>
 <li><a href="#chorus">Chorus</a></li>
@@ -81,7 +82,10 @@
 <li><a href="#software">Software</a></li>
 <li><a href="#daws">DAWs</a></li>
 <li><a href="#vsts-and-other-plugins">VSTs and other Plugins</a></li>
-<li><a href="#other">Other</a></li>
+<li><a href="#other">Other</a><ul>
+<li><a href="#textures">Textures</a></li>
+</ul>
+</li>
 <li><a href="#hardware">Hardware</a><ul>
 <li><a href="#midi">MIDI</a></li>
 </ul>
@@ -212,16 +216,26 @@ That default patch should respond to input when you mash keys so you can test yo
 <p>Some delays instead of letting you set a delay time or 'tap' a delay tempo in actually synchronize to a clock signal input which lets the delayed repetitions always be in time with the rest of the song.</p>
 <p>Stereo delays many have additional controls as well, most commonly offering a different delay time for the left and right channels. often a 'Ping Pong' mode will also be available where the left and right speaker alternate for the echo'd sound- 'ping' and 'ponging' out each side until the sound cuts out.</p>
 <p>Some delays may also allow for unity or higher feedback, which will cause the delay to be infinite or, if above unity, infinitely grow in volume until it's just a distorted clipping mess. This can actually be a lot of fun to play with.</p>
-<p><img alt="vcv1default" src="/opmusic/chronblob.jpg"></p>
+<p><img alt="Chronoblob" src="/opmusic/chronblob.jpg"></p>
 <blockquote>
 <p>Quick Reference Card for the Chronblob^2 from Alright Devices, http://docs.alrightdevices.com/chronoblob2-manual.pdf </p>
 </blockquote>
 <p>Some delays let you also insert other things into the feedback path. This means you could do things such as having each repetition be progressively more filtered, cutting out more and more high end each time or putting a delay in the delay. (yo dawg, I heard you like delay?).</p>
-<p>Some digital delays and most analog delays (especially bucket brigade delays) can produce interesting sounds if you change the delay time while audio is going through the buffer, resulting in a sort of pitch shift <em>whip</em> sound as the delay catches up or slows down.</p>
-<p>[TODO, granular delay, delay freeze, bbd delay, mention Kurplus Strong, Reverse'd and pitch shifted delay (each buffer affected)]</p>
-<h3 id="phaser">Phaser</h3>
+<p>Some digital delays and most analog delays (especially bucket brigade delays<sup id="fnref:BBD"><a class="footnote-ref" href="#fn:BBD">1</a></sup>) can produce interesting sounds if you change the delay time while audio is going through the buffer, resulting in a sort of pitch shift <em>whip</em> sound as the delay catches up or slows down.</p>
+<p>While not strictly something to do with delay, it's also worth noting that by making delay time very short and having gain near unity, sending a brief trigger (impulse) can make a sound that sounds like a string being plucked. This is called <a href="https://en.wikipedia.org/wiki/Karplus–Strong_string_synthesis">Karplus-Strong Synthesis</a>.</p>
+<p><img alt="Quadravox" src="/opmusic/KarplusStrong.png"></p>
+<blockquote>
+<p>Karplus-Strong Synthesis in VCV rack</p>
+</blockquote>
+<p>Finally, it's worth noting that there are a few interesting features some delays may have, such as letting the delay buffer be frozen to infinitely repeat what was playing at the time (unity gain, ignore input), reverse'd delay - having the initial sound play forward but each repeat play in reverse, pitch shifted delay- having each delay affected by a pitch shift, often done with octave up/down. Often, this pitch shifting is done via Granular Synthesis, as mentioned above. Using granular synthesis does allow for some other interesting options though, such as <a href="https://www.unfilteredaudio.com/collections/plug-ins/products/sandman-pro">Unfiltered Audio's Sandman Pro VST</a>.</p>
+<p><img alt="Quadravox" src="/opmusic/Quadravox.png"></p>
+<blockquote>
+<p>Screenshot of <a href="https://www.eventideaudio.com/products/effects/diatonic-pitch-shift/quadravox">Eventide's Quadravox VST</a>, with pitch shifted delays</p>
+</blockquote>
+<h3 id="filters-lp-hp-bp-notch">Filters (LP, HP, BP, Notch)</h3>
+<h3 id="phaser-all-pass-filter">Phaser (All-Pass Filter)</h3>
 <h3 id="reverb">Reverb</h3>
-<p>plate, room, gated</p>
+<p>plate, room, gated, erbe verb video, convolutional, delay line + allpass, </p>
 <h3 id="distortion">Distortion</h3>
 <p>[Todo, fabfilter distortion video]</p>
 <p><a href="https://benmosheron.gitlab.io/blog/2020/04/26/distortion.html">How Distortion Works in Music (Ben Sheron's Blog)</a></p>
@@ -262,6 +276,7 @@ Compression can mean multiple things when talking about music and sometimes this
 <p>Digital Audio Workstations or 'DAWs' come in many flavors. Some of the more popular include Ableton Live, FL Studio, Bitwig, Reaper, Garage Band, and Studio One, but there are many, many more- including some that are more nieche such as Trackers like Renoise, Sunvox, or Deflemask.</p>
 <h2 id="vsts-and-other-plugins">VSTs and other Plugins</h2>
 <h2 id="other">Other</h2>
+<h3 id="textures">Textures</h3>
 <h2 id="hardware">Hardware</h2>
 <h3 id="midi">MIDI</h3>
 <p>MPE, aftertouch, vel, virtual midi, midi cc v pb v mod v note on/off v sysmsg v OSC v midi2.0</p>
@@ -310,6 +325,14 @@ Rob Scallon https://www.youtube.com/watch?v=JeB3JnKp8To&amp;list=FLFMnqfaTa1se1L
 <h2 id="other-resources">Other Resources</h2>
 <p>https://learningmusic.ableton.com/</p>
 <p>https://codepen.io/teropa/full/bRqYVj/</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:BBD">
+<p>Bucket Brigade Delay is essentially a bunch of capacitors acting as the 'buckets' that are figuratively passed down the chain, moving from one bucket to the next each clock cycle, of course, this clock rate can be changed while it's running. The number of stages in a BBD determines how long of a delay you can get without having a massive determent to quality.&#160;<a class="footnote-backref" href="#fnref:BBD" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
