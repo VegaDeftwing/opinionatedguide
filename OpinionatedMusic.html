@@ -273,7 +273,7 @@ That default patch should respond to input when you mash keys so you can test yo
 <h3 id="granular-synthesis">Granular Synthesis</h3>
 <h2 id="audio-effects">Audio Effects</h2>
 <h3 id="tremolo">Tremolo</h3>
-<p>This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA's CV input like we did here, but turning up the frequency of the LFO-2 module:</p>
+<p>This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA's CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):</p>
 <p><img alt="vcavult" src="/gifs/vcavult.gif"></p>
 <h3 id="vibrato">Vibrato</h3>
 <p>Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as described above, regardless, it's as simple as applying a, typically subtle, pitch 'wobble' into the sound. On a guitar this may be done with a pedal but more simply just by bending the string back and forth with the fingers.</p>
@@ -303,9 +303,14 @@ That default patch should respond to input when you mash keys so you can test yo
 <h3 id="filters-lp-hp-bp-notch">Filters (LP, HP, BP, Notch)</h3>
 <p>https://www.perfectcircuit.com/signal/learning-synthesis-filters</p>
 <h4 id="low-pass-filters">Low Pass Filters</h4>
+<p>Low Pass filters do what you think, they let the low frequencies pass and cut out the high frequencies. As with most filters, this will typically not be a sharp cutoff but instead be a gradual fading of the higher frequencies. Despite this, there is still a point called the cut off frequency, which is defined as the point where the signal is cut by 3db (what this means is discussed below). It's also pretty common for Low pass filters to have some resonance, where the frequency right at the cut off has a bit of a bump, as can be seen in this gif:</p>
+<p><img alt="lfofilt" src="/gifs/filter.gif"></p>
 <h4 id="high-pass-filters">High Pass Filters</h4>
+<p>High pass filters act pretty much the same as low pass filters, except they do they cut the lows and pass the highs. High pass filters are ironically often actually used to give a bump in the bass using the resonant peak.</p>
 <h4 id="band-pass-filters">Band Pass Filters</h4>
+<p>There's two kinds of bandpass filters, one, is a Lowpass and Highpass filter in series, where there's only a band left that can pass giving two potential resonant peaks, and then theres band pass filters which are more 'true' band pass filters that have a resonant peak in the middle.(need to confirm this)</p>
 <h4 id="notch-filters">Notch Filters</h4>
+<p>Again, as the name implies, notch filters create a notch in the sound. Often used to correct for an issue in the sound, such as removing a 60hz hum. In Notch filters the resonance control actually changes how steep the notch is, so low resonance (Low Q) will cause the notch to be wider as the slope isn't very steep, but a high resonance (Q) will let you really pick out a specific frequency.</p>
 <h4 id="comb-filters">Comb Filters</h4>
 <h4 id="all-pass-filters-phaser">All-Pass Filters (Phaser)</h4>
 <h4 id="types-of-filters">Types of Filters</h4>
