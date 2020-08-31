@@ -149,13 +149,17 @@ Another term you might hear are stems. Stems are just separate recordings of eac
 
 > Zoomed in view of the snipped, showing the individual points in the sample
 
-Samples are also, sort of ironically, made of samples. But these words mean two different things in that sentence. The sample of sound is made up digitally of a bunch of different points in a wave, usually captured ~44 thousand times a second- whatever the sampling rate is (commonly 44.1, 48, or 96 [^Nyquist theorm]). This is what gives us the image above, where the originally pretty smooth looking wave, when zoomed in, we can see is made of these discrete points. This is particularly relevant to making music for multiple reasons: 
+Samples are also, sort of ironically, made of samples. But these words mean two different things in that sentence. The sample of sound is made up digitally of a bunch of different points in a wave, usually captured ~44 thousand times a second- whatever the sampling rate is (commonly 44.1, 48, or 96 - You may want to read up on the Nyquist Theorm<a class="ptr">(1)</a>). This is what gives us the image above, where the originally pretty smooth looking wave, when zoomed in, we can see is made of these discrete points. This is particularly relevant to making music for multiple reasons: 
 
 * When change the speed/pitch by a non integer value, we have to 'interpolate' extra points into this.
 * When we slow down or make a sample lower pitch there's only so much data to use, at really low pitches the wave will start to sound sort of low-fi
 * When chopping a sample to start playback at any point, we want to chop at a 0-crossing to avoid a sharp transition (which equates to high pitch sound)
 
-[^Nyquist Theorm]: The [Nyquist-Shannon Sampling Therom](https://en.wikipedia.org/wiki/Nyquist–Shannon_sampling_theorem) , put very basically, just says your sampling rate needs to be twice as high as the highest frequency in your source to be reproduced exactly. Because human hearing ranges roughly from 20 to 20khz, sampling at 40khz or above should be sufficient. Unfortunately, there's more too it than that, especially as generating waves in a virtual synth can benefit in sound quality for various reason from 'oversampling' - running above 44.1 or 48khz. Unfortunately, the higher the sampling rate the more work the computer has to do.
+<ol hidden id="footnotes">
+    <li>The Nyquist-Shannon Sampling Therom <a href="https://en.wikipedia.org/wiki/Nyquist–Shannon_sampling_theorem">(Wikipedia)</a> , put very basically, just says your sampling rate needs to be twice as high as the highest frequency in your source to be reproduced exactly. Because human hearing ranges roughly from 20 to 20khz, sampling at 40khz or above should be sufficient. Unfortunately, there's more too it than that, especially as generating waves in a virtual synth can benefit in sound quality for various reason from 'oversampling' - running above 44.1 or 48khz. Unfortunately, the higher the sampling rate the more work the computer has to do.
+    </li>
+</ol>
+
 
 ![sampler](../opmusic/sampler.png)
 
@@ -570,7 +574,3 @@ https://learningmusic.ableton.com/
 https://codepen.io/teropa/full/bRqYVj/
 
 [Synchronized Swept-Sine: Theory, Application, and Implementation](https://hal.archives-ouvertes.fr/hal-02504321/document)
-
-
-
-[^nyquist]: 
