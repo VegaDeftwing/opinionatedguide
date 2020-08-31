@@ -719,36 +719,36 @@ Literally. the etc folder contains system configuarion files mostly. Remember ba
 [TODO, add chapter links]
 
 Some of the more interesting things in `/etc` are:
-`/ca-certificates/` -- we'll talk about these more in networking [TODO]
-`/conf.d/` -- various system default config files for system services
-`/cron.d/`,`/cron.daily/`,`/cron.hourly/`, etc. are all form the `cronie` package which can be installed then enabled with systemd. Note, systemd timers are a built in way to do the same thing. cron is the 'old' way of doing thing, but is super simple to use
-`/crypttab` is the similar to `/fstab` but for encrypted partitions
-`/cups` is a folder used by `cups`, which is the backend used for printers in linux
-`/dbus-1/` is used by `dbus` which is a backend for interprocess communication in linux
-`/dconf/` is a folder used by `dconf` wich is used to store config settings. `dconf` is a cli tool for changing these settings
-`/gconf/` -- `gconf` is very similar to dconf but outdated. Still used by somethings though.
-`/dnsmasq.conf` is used by `dnsmasq`, which will be discussed in networking [TODO]
-`/default/` stores default configuration files, typically these get overriden elsewhere by the user
-`/dhcp_fingerprint.conf`,`/dhcpcd.conf`,`/dhcpd.conf`, and `/ducpd6.conf` are all part of `dhcpcd` and `dhcp`, used for reciveing DHCP information. This is dicussed further in the networking chapter [TODO]
-`/dkms/framework.conf` is used to configure `dkms` or Dynamic Kernel Module Support which is used to load modules for the kernel without building the kernel from source. In practice this means drivers for various hardware can be loaded even if it's not in the linux source tree. Read more here: https://www.linuxjournal.com/article/6896
-`/envrioment` is a configarating file for pam_env files. Basically, enviroment variables that you want to be loaded at boot can be put here. For example to change the defalut editor used by command line programs you can set `EDITOR=vim` or `EDITOR=nano` or whatever you like here.
-`/ethertypes` is a file listing various ethernet protolcols, we'll come back to this in the networking chapter [TODO]
-`/exports` is used to setup NFS shares, again, in networking [TODO]
-`/firewall.d/`,`/gufw/` are where firewall settings are stored, dependant on the firewall progarm used
-`/fonts/` holds your fonts, go figgure. You'll need to update the font database if you install things manually: https://wiki.archlinux.org/index.php/Fonts#Manual_installation
-`/foremost.conf` is used by the `foremost` package, it contains information about file headers, footers, and data structures for file recovery purposeses. For example, if you have a backup .img file of a failing hdd and need to scan for .jpg file headers to recover images
-`/freeipmi/` contains config files for Intelligent Platform Managment Inferface Modules. We'll talk about this more in servers [TODO], but essentially it's a way to, using server hardware, set BIOS settings, monitor hardware, and turn the system on/off remotely.
-`/freetds/`,`/mysql/`,`/sqlmap.conf`,`/odbc.ini`,`ODBCDataSources`,and `odbcinst.ini` all have to do with databases and database connectivity. [TODO_Ch17]
-`/fstab/` short for file system table contains a table of file systems to be mounted at startup and options they should have. Settings here can dramatically effect fs performance or cause your system not to boot, so make sure you know what you're doing. Even if your system doesn't boot because of something here, you should land in an emrgancy shell where you can edit `/etc/fstab` and fix the mistake
-`/fuse.conf` is the config file for `fuse`, which is dicussed below in file systems.
-`/gdb/gdbinit` -- you probably want to put the global gdb config file at `~/.gdbinit` not here in /etc. `gdb` is discussed more in debugging [TODO_Ch18]
-`/group` is where linux user groups are defined. You probably want to use the `groups`,`groupadd`,`groupdel`,`groupmems`, and `groupmod` commands.
-`/grub.d/` contains config files and boot loader entries for the grub bootloader. Not relevent if you're using systemd boot on a UEFI system
-`/gshadow` contains encrypted passwords for each group. `!!` and `!` both indicated no password, though `!!` is no password has been set before
-`/healthd.conf` used to notify if hardware has an issue (temp, fan, etc) -- provided by `lmsensors`
-`/host.conf` & `/resolv.conf` are used for resolver configuration. More in networking [TODO]
-`/hosts` local host configuration file. Very useful, in networking again [TODO]
-`/httpd/`, and specifically `/httpd/conf/httpd.conf` is used to conigure a local web server like Apache. Refrenced in Networking [TODO] and Servers [TODO]
+* `/ca-certificates/` -- we'll talk about these more in networking [TODO]
+* `/conf.d/` -- various system default config files for system services
+* `/cron.d/`,`/cron.daily/`,`/cron.hourly/`, etc. are all form the `cronie` package which can be installed then enabled with systemd. Note, systemd timers are a built in way to do the same thing. cron is the 'old' way of doing thing, but is super simple to use
+* `/crypttab` is the similar to `/fstab` but for encrypted partitions
+* `/cups` is a folder used by `cups`, which is the backend used for printers in linux
+* `/dbus-1/` is used by `dbus` which is a backend for interprocess communication in linux
+* `/dconf/` is a folder used by `dconf` wich is used to store config settings. `dconf` is a cli tool for changing these settings
+* `/gconf/` -- `gconf` is very similar to dconf but outdated. Still used by somethings though.
+* `/dnsmasq.conf` is used by `dnsmasq`, which will be discussed in networking [TODO]
+* `/default/` stores default configuration files, typically these get overriden elsewhere by the user
+* `/dhcp_fingerprint.conf`,`/dhcpcd.conf`,`/dhcpd.conf`, and `/ducpd6.conf` are all part of `dhcpcd` and `dhcp`, used for reciveing DHCP information. This is dicussed further in the networking chapter [TODO]
+* `/dkms/framework.conf` is used to configure `dkms` or Dynamic Kernel Module Support which is used to load modules for the kernel without building the kernel from source. In practice this means drivers for various hardware can be loaded even if it's not in the linux source tree. Read more here: https://www.linuxjournal.com/article/6896
+* `/envrioment` is a configarating file for pam_env files. Basically, enviroment variables that you want to be loaded at boot can be put here. For example to change the defalut editor used by command line programs you can set `EDITOR=vim` or `EDITOR=nano` or whatever you like here.
+* `/ethertypes` is a file listing various ethernet protolcols, we'll come back to this in the networking chapter [TODO]
+* `/exports` is used to setup NFS shares, again, in networking [TODO]
+* `/firewall.d/`,`/gufw/` are where firewall settings are stored, dependant on the firewall progarm used
+* `/fonts/` holds your fonts, go figgure. You'll need to update the font database if you install things manually: https://wiki.archlinux.org/index.php/Fonts#Manual_installation
+* `/foremost.conf` is used by the `foremost` package, it contains information about file headers, footers, and data structures for file recovery purposeses. For example, if you have a backup .img file of a failing hdd and need to scan for .jpg file headers to recover images
+* `/freeipmi/` contains config files for Intelligent Platform Managment Inferface Modules. We'll talk about this more in servers [TODO], but essentially it's a way to, using server hardware, set BIOS settings, monitor hardware, and turn the system on/off remotely.
+* `/freetds/`,`/mysql/`,`/sqlmap.conf`,`/odbc.ini`,`ODBCDataSources`,and `odbcinst.ini` all have to do with databases and database connectivity. [TODO_Ch17]
+* `/fstab/` short for file system table contains a table of file systems to be mounted at startup and options they should have. Settings here can dramatically effect fs performance or cause your system not to boot, so make sure you know what you're doing. Even if your system doesn't boot because of something here, you should land in an emrgancy shell where you can edit `/etc/fstab` and fix the mistake
+* `/fuse.conf` is the config file for `fuse`, which is dicussed below in file systems.
+* `/gdb/gdbinit` -- you probably want to put the global gdb config file at `~/.gdbinit` not here in /etc. `gdb` is discussed more in debugging [TODO_Ch18]
+* `/group` is where linux user groups are defined. You probably want to use the `groups`,`groupadd`,`groupdel`,`groupmems`, and `groupmod` commands.
+* `/grub.d/` contains config files and boot loader entries for the grub bootloader. Not relevent if you're using systemd boot on a UEFI system
+* `/gshadow` contains encrypted passwords for each group. `!!` and `!` both indicated no password, though `!!` is no password has been set before
+* `/healthd.conf` used to notify if hardware has an issue (temp, fan, etc) -- provided by `lmsensors`
+* `/host.conf` & `/resolv.conf` are used for resolver configuration. More in networking [TODO]
+* `/hosts` local host configuration file. Very useful, in networking again [TODO]
+* `/httpd/`, and specifically `/httpd/conf/httpd.conf` is used to conigure a local web server like Apache. Refrenced in Networking [TODO] and Servers [TODO]
 
 ## /home, /mnt, /run
 

@@ -77,7 +77,7 @@ ELM_SCALE=1.5
 
 to your /etc/enviroment file.
 
-You'll be needing quite a few different utilities beyond this. for a terminal I highly  recomend `deepin-terminal`,  `rxvt-unicode`, or `Alacritty`.
+You'll be needing quite a few different utilities beyond this. for a terminal I highly  recomend `kitty`,  `rxvt-unicode`, or `Alacritty`.
 
 For fonts you'll certainly have your own tastes, but I really like Droid Sans Mono, which is in `ttf-droid`, but `ttf-hack` and `otf-fira-code` are pretty cool too. I also recommend installing `noto-fonts`, `noto-fonts-extra`, and `ttf-font-awesome`. The noto packages will provide coverage for weird characters and font awesome is basically icons saved as a font, and many open source projects use it.
 
