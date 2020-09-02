@@ -29,3 +29,6 @@ What we should do about this:
 * 
 
 [^3]: By 'slow' I'm primarily referring to the lack of or incompetence of consumer data protection law. [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) is definitely a step in the right direction on this; however, that is both only for the EU and was implemented far too late. By 'fast' I had the [CFAA](https://en.wikipedia.org/wiki/Computer_Fraud_and_Abuse_Act) which is wildly considered to be both overreaching and to harsh. Simultaneously, we lack real oversight for consumers. This leads to the total BS situations like Americans saw with the Equifax breach a few years ago.
+
+[TODO]
+Marvel, Pink Floyd, and Minecraft Vs Web comics, indie, and Minetest.

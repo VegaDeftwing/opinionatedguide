@@ -301,6 +301,20 @@ Education, college, prices, highschool homework and personal time, Drugs,
 
 social networking: re: mastodon, tilde.club/town , webrings, IRC, Telegram, etc.
 
+misc todo:
+
+https://www.reddit.com/r/politics/comments/hgt81r/outrage_mounts_over_report_russia_offered/fw6ereb
+
+https://www.reddit.com/r/ThatLookedExpensive/comments/gptu7t/john_connor_doing_his_part_fighting_for_the/frqo31d?utm_source=share&utm_medium=web2x
+
+https://www.reddit.com/r/politics/comments/ff54xc/trump_flatly_admits_hed_leave_americans_stranded/fjwpqub?utm_source=share&utm_medium=web2x
+
+https://www.reddit.com/r/news/comments/eyd0mb/rush_limbaugh_announces_he_has_lung_cancer/fggkmdg?utm_source=share&utm_medium=web2x
+
+https://www.mcsweeneys.net/articles/a-message-from-your-universitys-vice-president-for-magical-thinking
+
+add critism of tiktok, grubhub, Behringer, etc, and avoiding assholes the "A bag of dicks" argument
+
 # Thank you
 
 If you've made it this far I just want to say *thank you*. We need more people to really consider how ethics, politics, and copyright shape the world around us with technology and art as we design it and proceed with it. DeepFakes, Automated driving, and even more mass online censorship are issues we're only going to face more with time and it's people like you who are going to help make sure we take the best path we can. So, from the bottom of my heart, thank you.
