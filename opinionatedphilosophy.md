@@ -1,8 +1,8 @@
+!> This Section of opinionated guides will be getting a massive overhall soon. Content here may not actually reflect my views, and certainly does not reflect the views of all that contribute to the guides. Below is the old version. Much of what is written below will be reconsidered, expanded upon, and redistributed into the seperate chapters below
+
 Hey there.
 
 My name is Vega. This guide is a bit different from the rest. The others may have a fair amount of opinion tossed in (Yes, still hating on Java, Pop Country music, and crappy UX design) but this one is by it's nature going to be a bit more 'preechy'. I think that as somebody educated in complex topics- as engineers tend to be with engineer-y stuff or musicians and artists with copyright- we have a duty to educate others and ourselves with the current and past issues in our respective fields as well as with what we can do personally to just make the world a bit better. So, here goes.
-
-!> This Section of opinionated guides will be getting a massive overhall soon. Content here may not actually reflect my views, and certainly does not reflect the views of all that contribute to the guides.
 
 
 
