@@ -4,25 +4,67 @@
 
 [TODO] Add follow along making a network stack
 
+## Basics
+
+Nodes
+
+Links - Wired and Wireless
+
+​	Guided and Unguided
+
+Applications
+
+End Systems - Hosts & Clients
+
+Routers and Switches
+
+​	forwarding table
+
+Applications and APIs
+
+LAN v WAN
+
+the Packet
+
+​		header
+
+packet switching
+
+​	store and forward - buffering, end to end delay
+
+Packet Loss
+
+Bandwidth V Throughput
+
+​	FDM vs TDM
+
 ## A typical network
 
 [TODO]
 
-Default Gateway, Routes & kernel routing table, subnet mask, ping, traceroute, dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/
+Default Gateway, Routes & kernel routing table, subnet mask, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/
+
+IETF & RFCs
+
+IEEE-SA
 
 The OSI model of networking is
 
 ## 1 - The physical Layer
 
-### Coax, Fiber
+### Coax, Twister Pair, Fiber & More
 
-### Wireless
+### Wireless (Terrestrial and Satellite)
 
-### Hubs, Repeaters
+geostationary vs LEO
+
+### Hubs, Repeaters, Taps
 
 ### Carrier Pidgeon, Can, etc.
 
 ## 2 - Data Link
+
+MAC and LLC
 
 ### Ethernet
 
@@ -82,7 +124,7 @@ The OSI model of networking is
 
 ### HTTP(s)
 
-![Codes](../openg/http-status-codes.png)
+![Codes](./openg/http-status-codes.png)
 
 > https://www.monkeyuser.com/2017/http-status-codes/
 

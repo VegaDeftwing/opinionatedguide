@@ -6,9 +6,11 @@
 
 ## What is an Embedded System?
 
-![pos](../openg/pos.png)
+![pos](./openg/pos.png)
 
 ## PWM, SPI, I2C, What's going on?!
+
+[Driving a PAL TV over RF thanks to PWM harmonics (Hackaday)](https://hackaday.com/2020/08/26/driving-a-pal-tv-over-rf-thanks-to-pwm-harmonics/)
 
 ## Playing around - Hello World and blink
 

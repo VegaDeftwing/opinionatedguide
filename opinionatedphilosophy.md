@@ -197,6 +197,8 @@ Section 230, protecting you in your facebook comments section
 
 #### DMCA (attempting to fix 230)
 
+jailbreaking exception
+
 #### FOSTA/SESTA (Breaking 230)
 
 #### SOPA & PIPA(Trying to break everything)
@@ -218,6 +220,14 @@ Section 230, protecting you in your facebook comments section
 #### HIPAA (attempting to unfuck healthcare a wee bit)
 
 https://www.mnot.net/blog/2020/08/28/for_the_users RFC8890
+
+#### Protecting general computation
+
+#### Encryption and illegal numbers
+
+#### Do you own your hardware? software?
+
+#### Format shifting
 
 ## Localization
 

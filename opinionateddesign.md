@@ -34,6 +34,8 @@ Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
 
 [Scrollbar Blindness (Sven Kadak's Blog)](https://svenkadak.com/blog/scrollbar-blindness)
 
+Figma
+
 ### Pixel Art
 
 [JPixel - editor for pixel art animation and tilesets](https://emad.itch.io/jpixel)
@@ -61,6 +63,8 @@ https://lospec.com/palette-list
 [Apparatus - a hybrid graphics editor / programming environment for creating interactive diagrams](https://github.com/cdglabs/apparatus)
 
 [Tooll.io, node-basde tool for interactive realtime content on the web](http://tooll.io/)
+
+https://github.com/aayars/py-noisemaker
 
 ### Inspirational Artists
 

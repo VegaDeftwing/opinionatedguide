@@ -29,6 +29,8 @@ But, I'm getting off topic, the point of this was to discuss and propose a solut
 
 [TODO...]
 
+![Retrograde complaining about Google](./openg/RetrogradeMastodon.png)
+
 # Something I've written while thinking about this:
 
 >I've posted things like this here before, but I feel like I need to again in light of recent conversations with friends: On Facebook, you are the product and you are you should know what you are funding. I think at this point the Cambridge Analytica scandal[1] is pretty well known, but that is nothing compared to the other things in Facebook's past. At one point Facebook targeted teenagers and filtered their news feed to be mood based which was found to lead to real world mood changes [2]. But even if these things don't bother you, you think Facebook just made a mistake, there's the case of Facebook's content moderation team being paid less than a living wage and being exposed to situations which lead to severe mental illness [3]. Speaking of mental illness, Facebook owned Instagram's recommendation algorithm has been found to recommend pro self-harm content to those most vulnerable, which has actually lead to deaths [4].

@@ -1,12 +1,12 @@
-
-
 # Chapter 11 - High Level Overview of Math, Physics, and Chemistry (Sorry...)
 
-[TODO]
+<iframe width="100%" height="450" src="https://www.youtube.com/embed/g8vHhgh6oM0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+This chapter is, regrettably, necessary for developing your knack. Math, Physics, and Chemistry and fundamental to all engineering fields and while something about each of the three subjects finds a way to make the 16 year old highschooler in us relase a long, exasperated groan. I think this is mostly due to each of these things being taught in a way that takes the fun and interesting parts out and replaces them with trying to learn skills that have largely been outdated by the advent of calculators, computers, and the internet. With that, let's jump into it:
 
 # Chapter 11.1 - Math
 
-some motivation, Klien bottle guy
+some motivation, Klien bottle guy, non-euclidian games, fractals, colatz conjecture, ...
 
 ## 1 - Algebra
 

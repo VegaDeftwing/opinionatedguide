@@ -19,7 +19,7 @@ Programming can seem scary at first but the more you exercise, the easier and mo
 
 ## Python
 
-![python](../openg/python.png ':size=25%')
+![python](./openg/python.png ':size=25%')
 
 [TODO] Why start with python
 

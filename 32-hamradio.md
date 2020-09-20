@@ -2,7 +2,7 @@
 
 # Chapter 32 - Ham Radio
 
-<img src=" ../openg/radioart.png " alt="radioart" style="zoom:50%;" />
+<img src=" ./openg/radioart.png " alt="radioart" style="zoom:50%;" />
 
 > '137Mhz' by u/CashewHut
 
