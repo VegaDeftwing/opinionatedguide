@@ -30,3 +30,6 @@ On the note of media, do your best to ensure that if copyright content is used t
 Other than that, just fork this repo, edit the .md files, and submit a pull request.
 
 If you would like to repeatedly contribute, please open an issue and I'll hapily add you as a contributor to avoid the need for many pull requests.
+
+---
+Opguides site is hosted on Github pages and relies on [Docsify](https://github.com/docsifyjs/docsify/), so a massive thank you to all the contributors over there as well.
