@@ -1,15 +1,15 @@
 # Opinionated Guides
 ### Version 3, Contributions welcome
 
-View the main guide [here - Opinionated Engineering](https://opinionatedguide.github.io/OpinionatedEngineering.html)
+View the main guide [here - Opinionated Engineering](https://opinionatedguide.github.io/#/Engineering)
 
 This repo also contains some other guides, deemed to specific or off topic for the main guide:
 
-[Opinionated Music](https://opinionatedguide.github.io/OpinionatedMusic.html), a guide to music production hardware, software, and theory.
+[Opinionated Music](https://opinionatedguide.github.io/#/opinionatedmusic), a guide to music production hardware, software, and theory.
 
-[Opinionated Design](https://opinionatedguide.github.io/OpinionatedDesign.html), a guide to design and art, online and off.
+[Opinionated Design](https://opinionatedguide.github.io/#/opinionateddesign), a guide to design and art, online and off.
 
-[Opinionated Philosophy](https://opinionatedguide.github.io/OpinionatedDesign.html), a guide to philosophy, politics, and all that jazz.
+[Opinionated Philosophy](https://opinionatedguide.github.io/#/opinionatedphilosophy), a guide to philosophy, politics, and all that jazz.
 
 ---
 #### Purpose:
@@ -20,23 +20,13 @@ There are plenty of 'Awesome Whatever' repos on github, but there's far too much
 
 That, and it's a pretty slick way of taking notes for my own use and finding gaps in my own knowledge ┐( ˘_˘)┌
 
-
 ---
 # Contributing
 
-!> All of this is currently wrong
-
-Written using marktext and vscode, but really use whatever as long as it doesn't cause issues
-OpinionatedEng.md Developed in chapters folder as seprate files, rendered into single file by either **chupdate.sh** when you don't wish to push your changes or **gitupdate.sh** when you do. The only dependancy is the Pelican static site generator which can be found at https://blog.getpelican.com/ and is likely available in your distributions repositories if you use Linux.
-
-The site uses the 'medius' pelican theme from https://blog.getpelican.com/.
-
-Pelican - the static site generator used for this project - can be a bit picky about the markdown file formatting, so if you notice any errors, try to figure out what's causing them, but it's okay to push anyway- just be sure to open an issue
-
-Please do your best to keep image and gif sizes down. The documents are served over a single, static page, so each byte counts.
+Please do your best to keep image and gif sizes down, every byte counts If you're comfortable using `optipng` or `jpegoptim`to reduce file size that'd be nice.
 
 On the note of media, do your best to ensure that if copyright content is used that the owner of the copyright is okay with it. This is a free, educational use project but copyright still applies to us nevertheless.
 
-If you only wish to contribute content and don't want to deal with any of the static site end that's fine, just add content to the necessary .md file and do a git push directly **without** using gitupdate.sh. The next person to use the gitupdate.sh script will be able to merge your changes into the site.
+Other than that, just fork this repo, edit the .md files, and submit a pull request.
 
 If you would like to repeatedly contribute, please open an issue and I'll hapily add you as a contributor to avoid the need for many pull requests.
