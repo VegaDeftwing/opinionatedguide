@@ -16,6 +16,8 @@ Imaginary numbers, systems of equations
 
 http://discrete.openmathbooks.org/dmoi3/
 
+[Math For Programmers (pdf)](https://yurichev.com/writings/Math-for-programmers.pdf)
+
 ## 3 - Trig
 
 ## 4 - Calculus

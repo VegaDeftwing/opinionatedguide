@@ -16,6 +16,10 @@
 
 ## Git
 
+[learngitbranching.js.org](https://learngitbranching.js.org) (more than just branching)
+
+[μGit- DIY Git in python](https://www.leshenko.net/p/ugit/)
+
 
 
 ## Markdown

@@ -10,9 +10,11 @@ Building, fixing, and analyzing circuitry requires the use of a few tools and ap
 
 ### The Multimeter
 
-[TODO]
+<iframe width="1407" height="776" src="https://www.youtube.com/embed/CBah3vz5b-U?list=PLAROrg3NQn7cyu01HpOv5BWo217XWBZu0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-![multimeter](./openg/multimeter.jpg)
+!> note, the above video uses U=IR instead of V=IR like 'normal'. You'd think that engieers could just get along and pick consistent symbols, but, nope. The 'normal' V (voltage) = I (current) * R (Resistance) is often E=IR
+
+[TODO] textual description of all multimeter functions
 
 ## Resistance and the OHM meter
 
@@ -51,6 +53,10 @@ Current, just like voltage, can varry, and in AC circuits usually does. This lea
 The contiuity tester does exactly what it's name implies, it makes sure two points are connected electrically. If you have a piece of metal and put both probes on it it should beep, but if you put the probes on rubber, they clearly will not be. The continutiy tester isn't really much different from the ohm meter in operation, and many will actually dispaly the resistance if there is any. The main use is that it beeps when the resistance is low enough to be confident two points are electrically connected.
 
 #### [TODO] day to day use, why you want one
+
+## OHM's Law
+
+\+ with power wheel
 
 ### The Lab Power Supply
 
