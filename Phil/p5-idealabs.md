@@ -1,6 +1,6 @@
 ## Communal Efforts
 
-![[XKCDTime.png]]
+![xkcd time](../media/xkcdtime.jpg)
 
 ### Shared Spaces
 

@@ -4,7 +4,7 @@
 
 This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA's CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):
 
-![vcavult](../gifs/vcavult.gif)
+![vcavult](../media/vcavult.gif)
 
 ## Vibrato
 
@@ -20,7 +20,7 @@ Stereo delays many have additional controls as well, most commonly offering a di
 
 Some delays may also allow for unity or higher feedback, which will cause the delay to be infinite or, if above unity, infinitely grow in volume until it's just a distorted clipping mess. This can actually be a lot of fun to play with.
 
-![Chronoblob](../opmusic/chronblob.jpg)
+![Chronoblob](../media/chronblob.jpg)
 
 > Quick Reference Card for the Chronblob^2 from Alright Devices, http://docs.alrightdevices.com/chronoblob2-manual.pdf 
 
@@ -32,13 +32,13 @@ Some digital delays and most analog delays (especially bucket brigade delays[^BB
 
 While not strictly something to do with delay, it's also worth noting that by making delay time very short and having gain near unity, sending a brief trigger (impulse) can make a sound that sounds like a string being plucked. This is called [Karplus-Strong Synthesis](https://en.wikipedia.org/wiki/Karplus–Strong_string_synthesis).
 
-![Quadravox](../opmusic/KarplusStrong.png)
+![Quadravox](../media/KarplusStrong.png)
 
 > Karplus-Strong Synthesis in VCV rack
 
 Finally, it's worth noting that there are a few interesting features some delays may have, such as letting the delay buffer be frozen to infinitely repeat what was playing at the time (unity gain, ignore input), reverse'd delay - having the initial sound play forward but each repeat play in reverse, pitch shifted delay- having each delay affected by a pitch shift, often done with octave up/down. Often, this pitch shifting is done via Granular Synthesis, as mentioned above. Using granular synthesis does allow for some other interesting options though, such as [Unfiltered Audio's Sandman Pro VST](https://www.unfilteredaudio.com/collections/plug-ins/products/sandman-pro).
 
-![Quadravox](../opmusic/Quadravox.png)
+![Quadravox](../media/Quadravox.png)
 
 > Screenshot of [Eventide's Quadravox VST](https://www.eventideaudio.com/products/effects/diatonic-pitch-shift/quadravox), with pitch shifted delays
 
@@ -54,7 +54,7 @@ https://www.perfectcircuit.com/signal/learning-synthesis-filters
 
 Low Pass filters do what you think, they let the low frequencies pass and cut out the high frequencies. As with most filters, this will typically not be a sharp cutoff but instead be a gradual fading of the higher frequencies. Despite this, there is still a point called the cut off frequency, which is defined as the point where the signal is cut by 3db (what this means is discussed below). It's also pretty common for Low pass filters to have some resonance, where the frequency right at the cut off has a bit of a bump, as can be seen in this gif:
 
-![lfofilt](../gifs/filter.gif)
+![lfofilt](../media/filter.gif)
 
 #### Slew Limiting
 
@@ -122,7 +122,7 @@ different analog models
 
 ## Phaser
 
-![phase](../opmusic/phase.png)
+![phase](../media/phase.png)
 
 ## Flanger
 
@@ -130,11 +130,11 @@ Flanger works by taking a **very** short delay* which slowly modulated delay tim
 
 *note, that delay, in this context, means an actual time delay, just a buffer that makes sound take longer to get through if that makes sense. Of course, with feedback and mixing the original this will have the same effect as a delay in the 'echo' sense.
 
-![Flanger](../opmusic/Flanger.jpg)
+![Flanger](../media/Flanger.jpg)
 
 > Flanger sort of makes a comb filter sound too, as you can see in the Spectrum Analyzer on the bottom.
 
-![Pyramids](../opmusic/Pyramids.jpg)
+![Pyramids](../media/Pyramids.jpg)
 
 > The '[Pyramids](https://www.earthquakerdevices.com/pyramids)' Flanger pedal from Earthquaker Devices.
 > 
@@ -171,7 +171,7 @@ plate, room, spring, gated, erbe verb video, convolutional, delay line + allpass
 
 ## Compression
 
-![compression](../gifs/compression.gif)
+![compression](../media/compression.gif)
 
 <audio
     controls

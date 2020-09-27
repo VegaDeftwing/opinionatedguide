@@ -317,7 +317,7 @@ Look at Chapter 18 for information on Databases
 
 [Obfuscated C programs: Introduction (YouTube)](https://www.youtube.com/watch?v=rwOI1biZeD8&list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz&index=15&t=0s) Obvuscated C, https://www.ioccc.org/
 
-<img src="./openg/ginny.png" alt="ginny" style="zoom:50%;" />
+<img src="../media/ginny.png" alt="ginny" style="zoom:50%;" />
 
 > Source: https://gist.github.com/munificent/b1bcd969063da3e6c298be070a22b604
 

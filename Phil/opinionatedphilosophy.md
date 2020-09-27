@@ -12,7 +12,7 @@ trolly problem, different philosophical views, etc.
 
 # Diving in head first
 
-![Trans-Istor](../openg/transistor.png)
+![Trans-Istor](./media/transistor.png)
 
 > Img credit, Kokofox @ https://kokoscript.com/
 
@@ -179,7 +179,7 @@ Another important document is "The Conscience of a Hacker" written by "The Mento
 > +++The Mentor+++
 > Racketeers
 
-![respect](../openg/respect.png)
+![respect](../media/respect.png)
 
 Finally, I'd like to make a few notes about online communities, trolling, hate speech, and the like. Clearly the tech industry leans significantly on the liberal/libertarian side; however, most of us also strongly support your right to say whatever you like even if we don't support it. This is particularly frustrating when it comes to large, non-grouped online communities like Twitter or Tumblr where except by blocking, everyone is in the same public sphere instead of isolated. While the isolation can have negative effects too, like echo chambers where false information and hate breed, the smaller communities are also beneficial as they allow for a better sense of community and for individual moderation policies decided by the users instead of awkward rules like [Tumblr's](https://gizmodo.com/tumblrs-porn-filter-flags-its-own-examples-of-permitted-1831151178?utm_source=gizmodo_twitter&utm_medium=socialflow&utm_campaign=socialflow_gizmodo_twitter&fbclid=IwAR2cfAMZ5IpJLINVt6WSuLCcu7KX5D83FQ8F4J-DTxbyJFMZ4704-VxTbN4) [NSFW](https://staff.tumblr.com/post/181199101690/hey-tumblr-a-couple-of-weeks-ago-we-announced-an) ban and the chaos that ensued. Clearly the lines between hate speech and trolling and free speech are a problem online, and frankly the internet is young. We haven't really figured out the right way to handle it yet. Should Twitter have the right to remove the Alt-Right or are they to important of a political forum to deny freedom of speech despite being a public company? Is it ethically okay to use services like Tor for privacy when by doing so you're indirectly helping people get away with things like child ... abuse (I don't want this document getting flagged by something, ironically). Or because the tools are going to exist regardless and criminals will always find another way is it okay? The truth is, it's not black and white, and it's well worth your time to sit down and consider what you are personally okay with and what you think, as a society, we need to change and how we might go about doing that. Personally, I think services like Mastodon which offer security and privacy while keeping individual communities free to handle themselves are the best option, but they're also more complicated. Just know that decision you make online can have real world consequences, and that at the end of the day, there's a human on the other side of that screen.
 
@@ -238,7 +238,7 @@ Names, Timezones, unicode, maps (Tiwan v china)
 
 # Religion
 
-![swearingin](../openg/swearingin.png)
+![swearingin](../media/swearingin.png)
 
 The engineering community is strangely divided, the 'old guard' is actually relatively conservative and professional, but as time has moved forward it's quite the opposite. Unsurprisingly, this correlates with religion as well. The main way this plays into politics is a general hard stance for the separation of church and state. This is in part due to a past of religiously motivated legislation negatively impacting copyright law, but also just generally an understood ideal that is beneficial to democracy. Furthermore, it would probably be worth your time to look into basics of most world religions, as engineering is increasingly a global field where you will have no choice but to work with people from diverse backgrounds across the globe.
 
@@ -261,7 +261,7 @@ Finally, a little less NSFW, the Maker and engineering communities also tend to 
 [TODO, add info about digital sex toys]
 
 Also, because this got a bit heavy for a bit, let's touch on Rule 34. We all know it, but where does it come from? 4Chan of course. Here's the full set:
-![irules](../openg/irules.jpg)
+![irules](../media/irules.jpg)
 
 ## Stalkerware
 

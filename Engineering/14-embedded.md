@@ -6,7 +6,7 @@
 
 ## What is an Embedded System?
 
-![pos](./openg/pos.png)
+![pos](../media/pos.png)
 
 ## PWM, SPI, I2C, What's going on?!
 

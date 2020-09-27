@@ -81,7 +81,7 @@ Though the one I was stressing here was really Ⅳ, you should **always** check 
 
 TLDR: RTFM & STFW http://www.catb.org/esr/faqs/smart-questions.html#rtfm
 
-![Arch Logo](../content/openg/xkcdtime.jpg)
+![Arch Logo](../media/xkcdtime.jpg)
 
 **Finally, **and I can't stress this enough, I think balancing your creativity among other interests and looking for ties between them can lead to more good than any of thing mentioned above. I enjoy playing music, reading, and writing, so I find inspiration in these media. There are countless electrical hardware and software tools that use hands on programming when playing music. In books I find ideas for what an author may have thought only futuristic when written. I never know when my mind will strike similar gold when writing for myself. Find a hobby and bend it to this as you go along. Like photography? Lean about the internals of a camera. Like cars? Look up how the ODB2 interface actually works. Nothing is magic and the internet will likely have answers and give you ways to apply this knowledge that you care about.
 

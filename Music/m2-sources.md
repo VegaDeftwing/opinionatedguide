@@ -2,7 +2,7 @@
 
 ## Samples
 
-![Audacity](../opmusic/Audacity.png)
+![Audacity](../media/Audacity.png)
 
 > a snippet of a .wav file open in audacity
 
@@ -12,7 +12,7 @@ The next kind of sample worth looking at is a loop. These are longer and are usu
 
 Another term you might hear are stems. Stems are just separate recordings of each part of a song - say the vocals as one audio file and the drums as another, these would make up the stems. 
 
-![wavfile](../opmusic/wavfile.png)
+![wavfile](../media/wavfile.png)
 
 > Zoomed in view of the snipped, showing the individual points in the sample
 
@@ -29,7 +29,7 @@ Samples are also, sort of ironically, made of samples. But these words mean two 
 </ol>
 
 
-![sampler](../opmusic/sampler.png)
+![sampler](../media/sampler.png)
 
 > Bitwig Studio's Sampler. Here pitch tracking is enabled, making it so the sample can be played sped up or slowed down to pitch chromatically along the keyboard. Bitwig's Sampler is pretty similar to many other samplers in other DAWs like Ableton Live or modules like Simpliciter In VCV rack
 
@@ -39,7 +39,7 @@ Still in the same section of the window but at the bottom now you'll see two ico
 
 [TODO, a lot to go here]
 
-![simpliciter](../opmusic/simpliciter.png)
+![simpliciter](../media/simpliciter.png)
 
 > 'Simpliciter' module in VCV rack, a sampler with transient detection, Sound On Sound (SOS) looping, and variable speed (pitch) playback
 
@@ -51,7 +51,7 @@ quantization, tracking
 
 ## FM Synthesis
 
-![DX7 Operators](../opmusic/dx7.jpeg)
+![DX7 Operators](../media/dx7.jpeg)
 
 > [Source (Likely originally from the Yahmaha DX7 Manual)](https://scsynth.org/t/coding-fm-synthesis-algorithms/1381)
 
