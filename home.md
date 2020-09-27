@@ -9,7 +9,7 @@ You'll also find some other miscalanious stuff, such as [Interviews](interviews.
 
 The site is mostly maintained by me, Vega:
 
-![box](../openg/box.png)
+![box](../media/box.png)
 
 But I more than welcome contributions. Either submit a pull request or, if you're dedicated to helping a lot, I can add you as a contributor if you get in touch with me (find me most places as Vega Deftwing).
 
