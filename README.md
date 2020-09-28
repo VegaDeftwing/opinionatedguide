@@ -32,4 +32,4 @@ Other than that, just fork this repo, edit the .md files, and submit a pull requ
 If you would like to repeatedly contribute, please open an issue and I'll hapily add you as a contributor to avoid the need for many pull requests.
 
 ---
-Opguides site is hosted on Github pages and relies on [Docsify](https://github.com/docsifyjs/docsify/), so a massive thank you to all the contributors over there as well.
+Opguides site is hosted on Github pages and relies on [Docsify](https://github.com/docsifyjs/docsify/) using the [Docsify Darklight Theme](https://docsify-darklight-theme.boopathikumar.me#/), so a massive thank you to all the contributors that have made OpGuides this easy to maintain!
