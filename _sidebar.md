@@ -83,3 +83,7 @@
 * [**Cooking**](Cooking/opinionatedcooking.md)
 * [**Interviews**](Interviews/interviews.md)
   * [An Interview with Loial Otter](Interviews/loial.md)
+* [**Blog**](Blog/blog.md)
+  * [9/27/2020 - The Year is 19xx](Blog/xx80.md)
+  * [3/25/2019 - Anti Consumer](Blog/AntiConsumer.md) 
+  * [9/15/2018 - Human Computer Interfaces](Blog/HCI.md)
