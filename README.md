@@ -1,15 +1,15 @@
 # Opinionated Guides
 ### Version 3, Contributions welcome
 
-View the main guide [here - Opinionated Engineering](https://opinionatedguide.github.io/#/Engineering)
+View the main guide [here - Opinionated Engineering](https://opinionatedguide.github.io/#/Engineering/Engineering)
 
 This repo also contains some other guides, deemed to specific or off topic for the main guide:
 
-[Opinionated Music](https://opinionatedguide.github.io/#/opinionatedmusic), a guide to music production hardware, software, and theory.
+[Opinionated Music](https://opinionatedguide.github.io/#/Music/opinionatedmusic), a guide to music production hardware, software, and theory.
 
-[Opinionated Design](https://opinionatedguide.github.io/#/opinionateddesign), a guide to design and art, online and off.
+[Opinionated Design](https://opinionatedguide.github.io/#/Design/opinionateddesign), a guide to design and art, online and off.
 
-[Opinionated Philosophy](https://opinionatedguide.github.io/#/opinionatedphilosophy), a guide to philosophy, politics, and all that jazz.
+[Opinionated Philosophy](https://opinionatedguide.github.io/#/Phil/opinionatedphilosophy), a guide to philosophy, politics, and all that jazz.
 
 ---
 #### Purpose:
