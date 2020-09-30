@@ -17,3 +17,16 @@ In an ideal world human kind would be driven forward by more than the initiate d
 > Unless we're willing to do this as a society, and put our money where our mouths are, then we don't get to decide what men and women facing this very personal, very tragic decision choose. If we do want to stop abortion, then put the ugly aborted-fetus posters down and go financially support a teenage mother, go lobby to provide birth control to teenagers, or go ask your own teenage son or daughter if he or she needs birth control. Do something useful, and be reasonable.
 
 Frankly, I think that sums it up pretty well, and truth be told I don't think I really have a right to say more than that.
+
+## Gender
+
+![Trans-Istor](../media/transistor.png)
+
+> Img credit, Kokofox @ https://kokoscript.com/
+
+The 'Hacking' community in particular is usually very clear on sexual liberation/freedoms and given that technically minded people tend to have statistically significantly higher amounts of LGBTQIA+ people, it's relevant to mention. I don't want to go in depth or be your source of sex education, but I do think skipping over this would be doing the community some injustice. As such I'd also like to link to some videos providing sexual education, [The truth about unwanted arousal | Emily Nagoski , YouTube](https://www.youtube.com/watch?v=L-q-tSHo9Ho&list=FLFMnqfaTa1se1LfbCB3peJQ&index=103&t=0s)
+
+```bash
+TypeError:
+no implicit conversion of Gender into Boolean
+```

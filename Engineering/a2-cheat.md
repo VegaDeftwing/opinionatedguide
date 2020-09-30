@@ -16,6 +16,8 @@
 
 ## Git
 
+[./missing-semester - Version Control](https://missing.csail.mit.edu/2020/version-control/)
+
 [learngitbranching.js.org](https://learngitbranching.js.org) (more than just branching)
 
 [μGit- DIY Git in python](https://www.leshenko.net/p/ugit/)

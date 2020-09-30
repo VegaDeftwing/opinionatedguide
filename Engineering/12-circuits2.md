@@ -39,6 +39,12 @@ tubes and how they work
 
 ### IGBT, Mosfets?
 
+#### Tubes
+
+[That Elusive Valve Amp Sound, For Not a Lot! (There has to be a Catch) (hackday.com)](https://hackaday.com/2020/09/01/that-elusive-valve-amp-sound-for-not-a-lot-there-has-to-be-a-catch/)
+
+
+
 ## Integrated Circuits
 
 [TODO]
@@ -127,3 +133,6 @@ At this point I highly recommend *'Practical Electronics for Inventors'* ISBN 97
 https://taleri.files.wordpress.com/2014/02/practical_electronics_for_inventors_-_scherz_paul.pdf
 
 [Hardware isn't generally copyrightable](https://web.archive.org/web/20120114234704/http://wiki.openhardware.org/Hardware_Isn't_Generally_Copyrightable)
+
+[Hackady.io 2020 Circuit Sculuture Challange](https://hackaday.io/contest/174093-2020-circuit-sculpture-challenge)
+

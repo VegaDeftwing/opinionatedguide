@@ -2,6 +2,12 @@
 
 # Appendix A- Using the Linux Shell
 
+[./missing-semester - The Shell](https://missing.csail.mit.edu/2020/course-shell/)
+
+[./missing-semester - Shell Tools and Scripting](https://missing.csail.mit.edu/2020/shell-tools/)
+
+[./missing-semester - Data Wrangling](https://missing.csail.mit.edu/2020/data-wrangling/)
+
 ## The Basic Commands
 
 Of note, while the majority of these commands should be available on nearly any unix system you may use, many of the alternate recommendations may not be.

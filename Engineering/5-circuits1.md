@@ -170,6 +170,10 @@ Passive V Active
 
 How to read logorithmic first
 
+[log-scales demo in uPlot (github)](https://leeoniya.github.io/uPlot/demos/log-scales.html)
+
+
+
 ## Further Reading
 
 [TODO]

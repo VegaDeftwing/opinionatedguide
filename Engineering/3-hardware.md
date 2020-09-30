@@ -643,6 +643,8 @@ Finally, a quick note about Western Digital Green drives: Linux eats them. Thank
 
 [Shouting in the Datacenter (YouTube)](https://www.youtube.com/watch?v=tDacjrSCeq4&list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz)
 
+[Western Digital is trying to redefine the word “RPM” (arstechnica)](https://arstechnica.com/gadgets/2020/09/western-digital-is-trying-to-redefine-the-word-rpm/)
+
 ### SSD
 
 Solid state drives, like HDDs, come in many capacites, speeds, and form factors; however, SSDs come in many, many more than HDDs. The primary two of note at the moment are SATA SSDs and NVMe SSDs. Sata SSDs are typically the same size and shape (though sometimes a bit thinner) as the normal 2.5" laptop hard drive; however, some other standards are used such as mSATA and m.2. Unfortunately, the m.2 spec is slightly confusing, with some drives being SATA based and some being NVMe based, and the m.2 slot itself supporting any mix (just SATA, just NVMe, or both), so when getting a drive you need to be careful that your motherboard's m.2 slot and the drive are compatible.

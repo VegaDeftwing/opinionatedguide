@@ -10,6 +10,8 @@
 
 #### Individualized, shared, and student led
 
+![respect](../media/respect.png)
+
 #### Faster, lower standards
 
 #### Better testing

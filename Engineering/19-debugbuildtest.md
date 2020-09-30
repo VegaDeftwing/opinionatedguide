@@ -6,6 +6,8 @@
 
 ## Debugging
 
+[./missing-semester - Bebugging and Profiling](https://missing.csail.mit.edu/2020/debugging-profiling/)
+
 ### Software Debugging
 
 [TODO]

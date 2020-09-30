@@ -71,3 +71,12 @@ C++ from scratch, JS electron app, Processing creative coding, Python Kivy or si
 
 https://www.riotgames.com/en/urf-academy/curriculum-guide
 
+## Libraries
+
+#### Native GUI
+
+#### Web-based
+
+#### Just plotting some data
+
+[μPlot (Github)](https://leeoniya.github.io/uPlot/)
