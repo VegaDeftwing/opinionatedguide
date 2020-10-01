@@ -13,6 +13,7 @@ psuedo code, bitwise opererators, types, unsigned, signed bit, 1's compliment, 2
 
 ## Some simple programs, in C++
 
+TODO: [30 Seconds of C++ (Github)](https://github.com/Bhupesh-V/30-seconds-of-cpp)
 
 ### Hello World
 
@@ -103,8 +104,6 @@ Cutter, TIS-100, Shenzhen IO,
 [TODO]
 
 source patching, binary patching
-
-## C, C++, Rust, Go, ?
 
 ## File formats
 

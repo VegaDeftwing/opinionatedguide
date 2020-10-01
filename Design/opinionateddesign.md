@@ -2,75 +2,11 @@ Hey there.
 
 My name is Vega. I know there are plenty of tutorials and ways to learn online be it on YouTube, SkillShare, or online classes provided for free by various universities. The difference here is there is no bullshit, no babysitting, and lots of bias as a result of personal experience. My views of things like what cretive software is bad (Adobe) or what equipment you should buy to learn with will be expressed directly and bluntly. This isn't to say I won't explain my reasoning, just that I'm not going to be apologetic when I say things like "non display tablets are trash" - though I will still likely talk about the things I dislike and why.
 
-## Analog Art
-
-## Digital Art
-
-Dark Patterns -- don't be that guy
-
-Screen Considerations
-
-http://rainworldgame.com/
-
-Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
-
-## UI
-
-[Principals of UI, A Thread (zensaiyuki@mastodon.social)](https://mastodon.social/@zensaiyuki/102683452946911475)
-
-### Typography
-
-[Practical Typography Textbook](https://practicaltypography.com/)
-
-### Website Design
-
-[Butalist Web Design, by David Copeland](https://brutalist-web.design/)
-
-[motherfuckingwebsite.com](http://motherfuckingwebsite.com/)
-
-[bettermotherfuckingwebsite.com](http://bettermotherfuckingwebsite.com/)
-
-[thebestmotherfuckingwebsite.website](https://thebestmotherfucking.website/)
-
-[Scrollbar Blindness (Sven Kadak's Blog)](https://svenkadak.com/blog/scrollbar-blindness)
-
-Figma
-
-### Pixel Art
-
-[JPixel - editor for pixel art animation and tilesets](https://emad.itch.io/jpixel)
-
-## Blending the two
-
-
-
-## Links
-
-https://colors.lol/
-
-https://lospec.com/palette-list
-
-[Orions Arm Universe - Collective, shared setting for art and stories](https://www.orionsarm.com/)
-
-### Software
-
-[JPixel - editor for pixel art animation and tilesets](https://emad.itch.io/jpixel)
-
-### Programming
-
-[P5.js](https://p5js.org/)
-
-[Apparatus - a hybrid graphics editor / programming environment for creating interactive diagrams](https://github.com/cdglabs/apparatus)
-
-[Tooll.io, node-basde tool for interactive realtime content on the web](http://tooll.io/)
-
-https://github.com/aayars/py-noisemaker
-
 ### Inspirational Artists
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Added a lot of minor improvements, like camera limits, subtle lighting, dust particles and more <a href="https://twitter.com/hashtag/gamedev?src=hash&amp;ref_src=twsrc%5Etfw">#gamedev</a> <a href="https://twitter.com/hashtag/pixelart?src=hash&amp;ref_src=twsrc%5Etfw">#pixelart</a> <a href="https://twitter.com/hashtag/screenshotsaturday?src=hash&amp;ref_src=twsrc%5Etfw">#screenshotsaturday</a> <a href="https://t.co/KmSYW3iHml">pic.twitter.com/KmSYW3iHml</a></p>&mdash; Luis Moreno Jimenez (@more8bit) <a href="https://twitter.com/more8bit/status/904107654196469761?ref_src=twsrc%5Etfw">September 2, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-https://twitter.com/ShadowDropDev/status/898427789728137220
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Teenage Engineering&#39;s OP-1 Synthesizer modules: <a href="https://t.co/Jx5FEkiGK9">pic.twitter.com/Jx5FEkiGK9</a></p>&mdash; Shadow Drop - R&amp;D (@ShadowDropDev) <a href="https://twitter.com/ShadowDropDev/status/898427789728137220?ref_src=twsrc%5Etfw">August 18, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 [Some really cool pixel art gifs by Mark Ferrari](https://elosilla.tumblr.com/post/84414400172/pixel-art-by-mark-ferrari)
 

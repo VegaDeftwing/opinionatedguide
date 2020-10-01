@@ -172,7 +172,9 @@ Real time clocks, timezones, utc, etc.
 
 ### Nmap
 
-### Scapy
+### Scapy / Kamene
+
+[Kamene](https://kamene.readthedocs.io/en/latest/introduction.html)
 
 ### (G)NS
 
