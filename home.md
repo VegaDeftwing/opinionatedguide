@@ -2,10 +2,10 @@ Welcome to **Opinionated Guides**.
 
 First things first, if it's too bright or dark for your taste, there should be a moon/sun icon on the right that you can click to change the theme.
 
-The biggest section of this page is [Opinionated Engineering](Engineering.md),
-but that isn't to say [Opinionated Music](Music.md), [Opinionated Design](opinionateddesign.md), and [Opinionated Philosophy](opinionatedphilosophy.md) aren't worth checking out too.
+The biggest section of this page is [Opinionated Engineering](Engineering/Engineering),
+but that isn't to say [Opinionated Music](Music/opinionatedmusic), [Opinionated Design](Design/opinionateddesign), and [Opinionated Philosophy](Phil/opinionatedphilosophy) aren't worth checking out too.
 
-You'll also find some other miscalanious stuff, such as [Interviews](interviews.md), and blog posts.
+You'll also find some other miscalanious stuff, such as [Interviews](Interviews/Interviews), and blog posts.
 
 The site is mostly maintained by me, Vega:
 
