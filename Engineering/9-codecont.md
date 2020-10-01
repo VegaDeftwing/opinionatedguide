@@ -83,6 +83,8 @@ Other sources to learn Go:
 
 [Zig: A programming language designed for robustness, optimality, and clarity – Andrew Kelley (YouTube)](https://www.youtube.com/watch?v=Z4oYSByyRak&list=WL&index=4&t=0s)
 
+[Writing a small ray tracer in Rust and Zig](https://nelari.us/post/raytracer_with_rust_and_zig/)
+
 
 
 ### Crystal
@@ -201,6 +203,12 @@ If I missed a language you think I should have mentioned or would like to write 
 ## High Level
 
 [TODO] probably going to need to break this out into it's own chapter
+
+### Python
+
+[Cython](https://cython.org)
+
+> **Cython** is an **optimising static compiler** for both the **[Python](http://www.python.org/about/)** programming language and the extended Cython programming language (based on **Pyrex**). It makes writing C extensions for Python as easy as Python itself.
 
 ### JavaScript
 

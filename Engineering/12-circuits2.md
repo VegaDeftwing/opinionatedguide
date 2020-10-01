@@ -33,6 +33,10 @@ zeener, normal, bipolar
 
 [TODO]
 
+[Transistor Families (JonDent - Blogspot)](https://djjondent.blogspot.com/2019/05/transistor-families.html)
+
+[Bipolar Transistor @ electronics-tutorials.ws](https://www.electronics-tutorials.ws/transistor/tran_1.html)
+
 tubes and how they work
 
 ### PNP V NPN
@@ -42,8 +46,6 @@ tubes and how they work
 #### Tubes
 
 [That Elusive Valve Amp Sound, For Not a Lot! (There has to be a Catch) (hackday.com)](https://hackaday.com/2020/09/01/that-elusive-valve-amp-sound-for-not-a-lot-there-has-to-be-a-catch/)
-
-
 
 ## Integrated Circuits
 
@@ -135,4 +137,6 @@ https://taleri.files.wordpress.com/2014/02/practical_electronics_for_inventors_-
 [Hardware isn't generally copyrightable](https://web.archive.org/web/20120114234704/http://wiki.openhardware.org/Hardware_Isn't_Generally_Copyrightable)
 
 [Hackady.io 2020 Circuit Sculuture Challange](https://hackaday.io/contest/174093-2020-circuit-sculpture-challenge)
+
+[RGB LED, Inductively Powered, Frequency Controlled (Wolf Tronix - YouTube)](https://www.youtube.com/watch?v=3DeOPN1Cl1Y)
 

@@ -262,6 +262,8 @@ Going back to when cache was mentioned though, RAM's primary job is to hold bulk
 
 ### Memory issues and Memtest86:
 
+### Rowhammer
+
 
 
 
@@ -789,4 +791,6 @@ plus, the above lists are by no means exhaustive. Clearly there's no shortage of
 [TODO]
 
 For more information on embedded architectures and in-depth comparisons look at Chapter 14.1. For info on Virtual machines (for hosting Linux or for languages like Java) look to Chapters 8 and 17
+
+[TODO] note on hackintoshes
 
