@@ -42,3 +42,12 @@ no implicit conversion of Gender into Boolean
 [![image-20201006135737079](../media/ohjoy.png ':size=50%')](https://www.ohjoysextoy.com/category/comic/education-comic/page/3/)
 
 > [ohjoysextoy.com](https://www.ohjoysextoy.com/category/comic/education-comic/page/3/)
+>
+> As a Furry myself I do reccomend: https://www.ohjoysextoy.com/furry/
+
+<img src="../media/creepycomments.jpg" style="zoom:50%;" />
+
+> by LadySnakeBite on FurAffinity
+>
+> I also reccomend: [A Handy Guide To Internal Shots (VERY NSFW)](https://www.furaffinity.net/view/23502635/) by her, which is a rant on art feautring cervix penetration.
+
