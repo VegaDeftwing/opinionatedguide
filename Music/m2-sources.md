@@ -39,7 +39,7 @@ Still in the same section of the window but at the bottom now you'll see two ico
 
 [TODO, a lot to go here]
 
-![simpliciter](../media/simpliciter.png)
+![simpliciter](../media/simpliciter.png ':size=50%')
 
 > 'Simpliciter' module in VCV rack, a sampler with transient detection, Sound On Sound (SOS) looping, and variable speed (pitch) playback
 
@@ -51,7 +51,7 @@ quantization, tracking
 
 ## FM Synthesis
 
-![DX7 Operators](../media/dx7.jpeg)
+![DX7 Operators](../media/dx7.jpeg ':size=70%')
 
 > [Source (Likely originally from the Yahmaha DX7 Manual)](https://scsynth.org/t/coding-fm-synthesis-algorithms/1381)
 

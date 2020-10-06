@@ -10,7 +10,7 @@
 
 #### Individualized, shared, and student led
 
-![respect](../media/respect.png)
+![respect](../media/respect.png ':size=70%')
 
 #### Faster, lower standards
 

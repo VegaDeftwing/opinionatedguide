@@ -4,7 +4,7 @@
 
 ### Responsiveness
 
-![dragonphone](../media/dragonphone.jpeg ':size=75%')
+![dragonphone](../media/dragonphone.jpeg ':size=45%')
 
 > [Source](https://twitter.com/kogotsuchidark/status/1313211696677302273/photo/1)
 

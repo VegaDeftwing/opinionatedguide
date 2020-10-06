@@ -66,7 +66,7 @@
   * [9 - Consumerism](Phil/p9-consumerism.md)
   * [10 - Law and Order](Phil/p10-lawandorder.md)
   * [11 - Infrastructure](Phil/p11-Infrastructure.md)
-  * [12 - Religion](phil/p12-Religion.md)
+  * [12 - Religion](Phil/p12-Religion.md)
   * [13 - Sex](Phil/p13-sex.md)
   * [14 - Drugs](Phil/p14-drugs.md)
   * [15 - Foriegn Involment](Phil/p15-foriegn.md)

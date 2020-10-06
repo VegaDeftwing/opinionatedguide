@@ -18,15 +18,27 @@ In an ideal world human kind would be driven forward by more than the initiate d
 
 Frankly, I think that sums it up pretty well, and truth be told I don't think I really have a right to say more than that.
 
+### Birth Control
+
+
+
 ## Gender
 
-![Trans-Istor](../media/transistor.png)
+![Trans-Istor](../media/transistor.png ':size=50%')
 
 > Img credit, Kokofox @ https://kokoscript.com/
 
 The 'Hacking' community in particular is usually very clear on sexual liberation/freedoms and given that technically minded people tend to have statistically significantly higher amounts of LGBTQIA+ people, it's relevant to mention. I don't want to go in depth or be your source of sex education, but I do think skipping over this would be doing the community some injustice. As such I'd also like to link to some videos providing sexual education, [The truth about unwanted arousal | Emily Nagoski , YouTube](https://www.youtube.com/watch?v=L-q-tSHo9Ho&list=FLFMnqfaTa1se1LfbCB3peJQ&index=103&t=0s)
 
-```bash
+```
 TypeError:
 no implicit conversion of Gender into Boolean
 ```
+
+
+
+## Other Resources
+
+[![image-20201006135737079](../media/ohjoy.png ':size=50%')](https://www.ohjoysextoy.com/category/comic/education-comic/page/3/)
+
+> [ohjoysextoy.com](https://www.ohjoysextoy.com/category/comic/education-comic/page/3/)

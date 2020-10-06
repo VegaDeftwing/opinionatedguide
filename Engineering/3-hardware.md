@@ -6,7 +6,7 @@ One of the nifty things about Linux is you don't need to install extra software 
 
 ## The CPU
 
-![CPUS](../media/cpus.jpg)
+![CPUS](../media/cpus.jpg ':size=75%')
 
 These are CPUS or Central Processing Units. They're the beating heart of your computer, doing the day-to-day number crunching. The rectangular one of one of the first CPU's in the lineage leading up to CPU's like the ones used in desktop's today, with further sucessors shown in order from top left to the bottom right. The metal-capped one at the bottom right, while old, is visulally quite representative of a moden desktop CPU, though the CPUs in a laptop or smart phone do look quite differnt still.
 
@@ -67,7 +67,7 @@ Each of these things is very important, but I'm going to start with cpu MHz as i
 
 ### Clock Speed
 
-![transistor](../media/transistor.jpg)
+![transistor](../media/transistor.jpg ':size=75%')
 
 However, to get to that we've gotta go just a bit further down the rabbit hole to the relay. Relays are super simple to understand, they're just a metal switch that is pulled open or closed using another input signal (usually a magnet pulling/pushing the switch closed/open) basically imagine a light switch, where the switch itself is controlled by yet another electrical signal. Relays are slow though, they require a physical metal plate to move to change the connection. Because of this they have limited reliability and worth note they're actually loud. You can hear an audible click of the switch as they change state.
 
@@ -167,7 +167,7 @@ Put simply, just as with adding more Random Access Memory (RAM) to your system, 
 
 Let's take a look. install the `hwloc` package using yay and then run `lstopo` and you should get an output that looks a bit like this
 
-![lstopo](../media/lstopo.png)
+![lstopo](../media/lstopo.png ':size=75%')
 
 The stuff on the right are connections around the system, you can ignore those for now, but see the various cache layers, designated by L3, L2, L1d and L1i, and you can see how each core has it's own cache. Finally, you can see that each core has two processing units? Hey, wait, what's that all about?
 
@@ -195,7 +195,7 @@ the CPU is one of the most power hungry parts of your computer, and as such it d
 
 I very strongly recommend looking into this on any system though, as by default some CPUs will run at the minimum frequency only.
 
-![cpupower](../media/cpupower.png)
+![cpupower](../media/cpupower.png ':size=70%')
 
 We'll talk about delivering power to the CPU in a bit, when we talk about the Voltage Regulation Module (VRM) on the Motherboard.
 
@@ -225,7 +225,7 @@ While support for this will vary depending on your motherboard, you should be ab
 
 The output will probably repeat multiple times, printing once for each physical stick of ram in your system. I actually have 4 sticks, but I'll just be showing one:
 
-![dmiram](../media/dmiram.png)
+![dmiram](../media/dmiram.png ':size=50%')
 
 You should note that many of the things mentioned above can be seen here, though I do want to look at some things here.
 
@@ -306,7 +306,9 @@ Finally, along the top of the back left edge you'll see the metal tops of the ma
 
 So, how do we get any information from the motherboard? Well, in case it wasn't already obvious, the motherboard isn't really one thing. It's more a common interconnect point and routing system than anything; however, it does have some of it's own responsibilities. To start small let's look at one small, but exceedingly import role of the motherboard: fan and temperature control.
 
-To see what your fans are doing on Linux you'll need to grab the package `lm_sensors` with yay, then you can run run `sudo sensors-decect` and mash enter until it's done. After this you should be able to run `sensors` and see an output similar to this one:![sense](../media/sensors.png)
+To see what your fans are doing on Linux you'll need to grab the package `lm_sensors` with yay, then you can run run `sudo sensors-decect` and mash enter until it's done. After this you should be able to run `sensors` and see an output similar to this one:
+
+![sense](../media/sensors.png ':size=60%')
 
 Of note, depending on your system, there's a small chance nothing will be detected at all or that some information will be wrong. Even in my case this is true as my CPU fan is reporting 0 RPM. Actually entering your motherboard's UEFI or BIOS settings may expose more information, but we'll talk about that more later.
 
@@ -467,7 +469,7 @@ Finally, it's notable that the chipset typically acts as a PCIe lane 'splitter' 
 
 ### Expansion slots
 
-![pciep](../media/pciep.jpg)
+![pciep](../media/pciep.jpg ':size=70%')
 
 > Two PCI-e 1x expansion cards, one for USB 3.0 and one for audio. Of note, most motherboards have both functions built in.
 
@@ -690,7 +692,7 @@ Zfs, hardware raid, software raid, emulated hardware (bios), etc.
 
 ## Network Interfaces
 
-![NICS](../media/nics.jpg)
+![NICS](../media/nics.jpg ':size=50%')
 
 Pictured here are three Network Interface cards or a NIC. The three on the left are for WiFi (though some of this form factor may include bluetooth as well) while the one on the right has an ethernet port for wired access. Most computer's will not have a separate card for the wired interface though, as most motherboard's have a wired network interface built in.
 

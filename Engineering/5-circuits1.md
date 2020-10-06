@@ -10,7 +10,7 @@ Building, fixing, and analyzing circuitry requires the use of a few tools and ap
 
 ### The Multimeter
 
-<iframe width="1407" height="776" src="https://www.youtube.com/embed/CBah3vz5b-U?list=PLAROrg3NQn7cyu01HpOv5BWo217XWBZu0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/CBah3vz5b-U?list=PLAROrg3NQn7cyu01HpOv5BWo217XWBZu0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 !> note, the above video uses U=IR instead of V=IR like 'normal'. You'd think that engieers could just get along and pick consistent symbols, but, nope. The 'normal' V (voltage) = I (current) * R (Resistance) is often E=IR
 
@@ -76,11 +76,11 @@ https://en.wikipedia.org/wiki/Arbitrary_waveform_generator
 
 The osciliscope (or OScope or simply Scope) allows you to see an AC signal and how it varies over time as a plot of Voltage on the Y axis and time on the X, Most OScopes will allow you to look at multiple signals at once, with one overlaid on the other. Furthermore, most support X-Y mode, where the plot is actually the voltage of one input as the X axis and the voltage of another as the Y, moving a dot and it's trail around the screen. In fact, this is how the first computer monitors worked:
 
-![Image result for asteroids game](../media/oscopeastroids.jpeg)
+![Image result for asteroids game](../media/oscopeastroids.jpeg ':size=50%')
 
 Modern OScopes look much different than their phosphorescent green ancestors though:
 
-![Image result for oscilloscope](../media/modernscope.jpeg)
+![Image result for oscilloscope](../media/modernscope.jpeg ':size=50%')
 
 However, a decent 'Digital Storage Oscilloscope' or DSO like the one above run a minimum of \$300 at the time of writing, so many hobbyist opt for older scopes like this one:
 

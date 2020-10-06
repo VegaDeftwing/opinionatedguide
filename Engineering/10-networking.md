@@ -124,7 +124,7 @@ MAC and LLC
 
 ### HTTP(s)
 
-![Codes](../media/http-status-codes.png)
+![Codes](../media/http-status-codes.png ':size=50%')
 
 > https://www.monkeyuser.com/2017/http-status-codes/
 

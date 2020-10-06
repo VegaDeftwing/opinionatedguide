@@ -20,7 +20,7 @@ Alright, so why do I want you to install a new OS to begin with? Well, the OS we
 
 Beyond that, there's a degree of respect Linux has for the user that Windows, and to a lesser extent OSX, lack. In Windows 10 ads are being baked into the preinstalled programs from Minesweeper to the Email client, the OS pesters you to use Edge and Bing while simulatiously spying on everything you do. If you attempt to do even remotely system level things it's increasingly easy to get the Frowny Face Blue Screen of Death (BSOD)
 
-![Bsodwindows10](../media/Bsodwindows10.png)
+![Bsodwindows10](../media/Bsodwindows10.png ':size=50%')
 
 Add to this the fact that Microsoft [basically laid off their entire testing department](https://www.google.com/search?q=microsoft lays off testing department), and the [nightmare that windows 10 updates have cause](https://www.howtogeek.com/658194/windows-10s-new-update-is-deleting-peoples-files-again/), [forced online accounts](https://readhacker.news/s/4htmg), or well, just read [this list](https://itvision.altervista.org/why-windows-10-sucks.html). You'll see pretty quickly why most 'nerds' have a pretty deep seeded hatred for Microsoft.
 

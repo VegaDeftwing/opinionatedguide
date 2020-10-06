@@ -6,7 +6,7 @@
 
 ## What is an Embedded System?
 
-![pos](../media/pos.png)
+![pos](../media/pos.png ':size=50%')
 
 ## PWM, SPI, I2C, What's going on?!
 
