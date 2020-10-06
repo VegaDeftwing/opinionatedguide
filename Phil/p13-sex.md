@@ -1,10 +1,14 @@
-## Sex
-
-### Pro-Choice
-
-Abortion, Coersion by economic and social pressure, unwanted arousal, prostitution
+# Sex
 
 In an ideal world human kind would be driven forward by more than the initiate desire to reproduce and bone. Then again, if it weren't for that we wouldn't have evolved to this point where we're capable of reflecting on that irony, in the first place.
+
+## Consent
+
+Coersion by econominc and social pressure, unwanted arousal
+
+## Sex Work and Porn
+
+## Pro-Choice Vs Pro-Life
 
 > I am so tired of this abortion debate and hearing people treat it like a political issue instead of a deeply-personal, medical decision that men and women have to decide under horrible, tragic, heart-breaking circumstances. My husband and my son have long assumed that I'm pro-choice. I've never corrected them, but I'm not exactly. My mother, co-workers and some of my friends have assumed I'm pro-life. I'm actually not pro-life either. I am simply pro-reasonable.
 >
@@ -18,7 +22,7 @@ In an ideal world human kind would be driven forward by more than the initiate d
 
 Frankly, I think that sums it up pretty well, and truth be told I don't think I really have a right to say more than that.
 
-### Birth Control
+## Birth Control
 
 
 

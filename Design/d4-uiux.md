@@ -1,4 +1,4 @@
-## UI
+# UI and UX
 
 [Principals of UI, A Thread (zensaiyuki@mastodon.social)](https://mastodon.social/@zensaiyuki/102683452946911475)
 

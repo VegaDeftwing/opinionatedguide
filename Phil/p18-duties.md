@@ -1,13 +1,13 @@
-## Personal Duties
+# Personal Duties
 
-### Maintaining health
+## Maintaining health
 
-#### Physical
+### Physical
 
-##### Working out
+#### Working out
 
-##### Air quality
+#### Air quality
 
-#### Mental
+### Mental
 
-##### Socialized healthcare
+#### Socialized healthcare

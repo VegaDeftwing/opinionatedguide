@@ -1,5 +1,3 @@
-
-
 # Appendix A- Using the Linux Shell
 
 [./missing-semester - The Shell](https://missing.csail.mit.edu/2020/course-shell/)

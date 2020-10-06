@@ -1,3 +1,7 @@
+# Philosophical Arguments
+
+[TODO]how to construct a phil argument
+
 ## Not simply accepting "Because that's how it is"
 
 I'm writing this at [@292.78](https://minkukel.com/en/clocks/swatch-internet-clock/) on Day 132 of [12,020](https://www.youtube.com/watch?v=czgOWmtGVGs). I'm typing on a Dvorak, split, ortholinear keyboard in a [markdown](https://www.markdownguide.org/basic-syntax/) document using [Arch Linux](https://www.archlinux.org/) instead of M$ Word on Windows, and if you'd like you could view this document using DAT or IPFS or LBRY. I find music off the 12 tone scale interesting, and while I know 432 vs [440hz](https://www.reddit.com/r/AskHistorians/comments/72f7f9/why_was_a_440_as_standard_tuning_included_in_the/), isn't going to open my 3rd eye, listening to microtonal or music made with just intonation is still something interesting to me.

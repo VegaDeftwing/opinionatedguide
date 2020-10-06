@@ -1,6 +1,6 @@
-## War and Foriegn involvment
+# War and Foriegn involvment
 
-Denuclearization
+## Denuclearization
 
 ## Localization
 

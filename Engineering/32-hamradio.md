@@ -1,5 +1,3 @@
-
-
 # Chapter 32 - Ham Radio
 
 <img src=" ../media/radioart.png " alt="radioart" style="zoom:50%;" />

@@ -1,5 +1,3 @@
-
-
 # Chapter 17 - Servers!
 
 [TODO]

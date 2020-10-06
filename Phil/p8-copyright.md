@@ -1,4 +1,4 @@
-## Letting Society Advance Though Art and Innovation
+# Letting Society Advance Though Art and Innovation
 
 I think to further address any issues we first need to look into how these issues have come to exist. In general, as a society advances new issues will arise. Computers and the Internet have shown us just how incredibly things can progress and how amazing un-hindered, open information flow can change the world. The Internet has served as an educational tool of unparalleled utility to my generation and has allowed me to learn things that I otherwise would have never had access to. Of course this also means the same for bad actors. Though acting in bad faith also now have the same unparalleled access to personal information of the masses and individuals can now use their anonymity and an Internet connection to do harm both to individuals via cyberbullying and trolling, but also to businesses as we move to a world that more heavily relies on ecommerce and the digital information they store becomes increasingly sensitive.
 

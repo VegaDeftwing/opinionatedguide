@@ -1,5 +1,3 @@
-
-
 # Chapter 18 - Databases
 
 [TODO]

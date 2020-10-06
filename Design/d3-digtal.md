@@ -1,4 +1,4 @@
-## Digital Art
+# Digital Art
 
 Dark Patterns -- don't be that guy
 

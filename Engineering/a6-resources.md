@@ -1,5 +1,3 @@
-
-
 # Appendix F - Other Great Resources
 
 https://news.ycombinator.com/

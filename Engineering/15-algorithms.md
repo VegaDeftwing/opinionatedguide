@@ -1,5 +1,3 @@
-
-
 # Chapter 15 - Discrete Math and Algorithms
 
 [TODO]

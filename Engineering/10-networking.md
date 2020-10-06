@@ -1,5 +1,3 @@
-
-
 # Chapter 10 - Networking
 
 [TODO] Add follow along making a network stack

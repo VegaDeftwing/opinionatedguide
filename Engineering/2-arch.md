@@ -1,5 +1,3 @@
-
-
 # Chapter 2 - Let's do it then, Installing Arch Linux
 
 ![Arch Logo](../media/archlogo.png ':size=25%')

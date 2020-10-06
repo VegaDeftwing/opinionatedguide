@@ -1,3 +1,5 @@
+# Community
+
 ## Adopting new societal values of acceptance
 
 Furries, internet culture, LGBT, Gender Identity vs need for legal identity

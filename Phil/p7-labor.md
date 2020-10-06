@@ -1,14 +1,14 @@
-## Labor and Compensation
+# Labor and Compensation
 
-### Economic Inequality
+## Economic Inequality
 
-### Monopolies
+## Monopolies
 
-### Unions
+## Unions
 
-### Consumer protections
+## Consumer protections
 
 best intrest
 TOS simplification
 
-### Homelessness
+## Homelessness

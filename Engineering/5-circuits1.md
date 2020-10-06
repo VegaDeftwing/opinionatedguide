@@ -1,5 +1,3 @@
-
-
 # Chapter 5 - Intro to Angry Pixies
 
 [A simple guide to electronic components (YouTube)](https://www.youtube.com/watch?v=6Maq5IyHSuc&list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz)

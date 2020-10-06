@@ -1,5 +1,3 @@
-
-
 # Chapter 7 - Let's write some Code
 
 From https://wiki.xxiivv.com/#development:

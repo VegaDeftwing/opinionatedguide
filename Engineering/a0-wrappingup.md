@@ -1,5 +1,3 @@
-
-
 # Wrapping up - Where to go from here
 
 [TODO]

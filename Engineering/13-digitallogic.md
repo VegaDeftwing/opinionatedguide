@@ -1,5 +1,3 @@
-
-
 # Chapter 13 - Digital Logic
 
 [Todo, insert intro about Minecraft redstone]

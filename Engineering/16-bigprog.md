@@ -1,5 +1,3 @@
-
-
 # Chapter 16 - Writing a larger program
 
 [TODO]

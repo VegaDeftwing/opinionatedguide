@@ -1,5 +1,3 @@
-
-
 # Chapter 12 - Circuits Continued
 
 [TODO]

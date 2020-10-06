@@ -1,5 +1,3 @@
-
-
 # Chapter 1 - The first goal
 
 Every journey needs a place to start, and while many may like to start slow I think a head first approach is best. So that's exactly what we're gonna do. The very first thing we're going to do is install a new operating system (OS) on your computer.

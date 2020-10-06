@@ -1,5 +1,3 @@
-
-
 # Appendix B - Cheat Sheets and quick info
 
 ## Electrical Part Tables

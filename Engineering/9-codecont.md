@@ -1,5 +1,3 @@
-
-
 # Chapter 9 - Finishing up the project
 
 > # Manifesto

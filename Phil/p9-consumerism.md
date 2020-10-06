@@ -1,18 +1,18 @@
-## Consumerism
+# Consumerism
 
-### Enforcing Protections
+## Enforcing Protections
 
-#### Planned obsolescence, Right to repair
+### Planned obsolescence, Right to repair
 
-#### Anti-consumer practices
+### Anti-consumer practices
 
 https://dvt.name/2020/02/24/rfc-lets-disrupt-dating-apps/
 
-#### Advertising
+### Advertising
 
-##### Native Ads
+#### Native Ads
 
-##### Dangerous ads
+#### Dangerous ads
 
 Sugar
 Drugs

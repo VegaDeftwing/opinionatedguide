@@ -1,21 +1,21 @@
-## Education
+# Education
 
-### Freedom of Information
+## Freedom of Information
 
-### Cariculum Changes
+## Cariculum Changes
 
-#### Basic Aid
+### Basic Aid
 
-#### Philosophy
+### Philosophy
 
-#### Individualized, shared, and student led
+### Individualized, shared, and student led
 
 ![respect](../media/respect.png ':size=70%')
 
-#### Faster, lower standards
+### Faster, lower standards
 
-#### Better testing
+### Better testing
 
-### Free College
+## Free College
 
-### Bullying
+## Bullying

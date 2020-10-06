@@ -1,5 +1,3 @@
-
-
 # Chapter 24 - Let's make our own PCB
 
 [TODO]

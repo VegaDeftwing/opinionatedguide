@@ -1,5 +1,3 @@
-
-
 # Chapter 14 - Embedded Systems
 
 [TODO]
