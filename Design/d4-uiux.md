@@ -2,6 +2,12 @@
 
 [Principals of UI, A Thread (zensaiyuki@mastodon.social)](https://mastodon.social/@zensaiyuki/102683452946911475)
 
+### Responsiveness
+
+![dragonphone](../media/dragonphone.jpeg ':size=75%')
+
+> [Source](https://twitter.com/kogotsuchidark/status/1313211696677302273/photo/1)
+
 ### Typography
 
 [Practical Typography Textbook](https://practicaltypography.com/)
