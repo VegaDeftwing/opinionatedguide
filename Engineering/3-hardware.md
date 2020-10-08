@@ -744,6 +744,12 @@ Blower, air flow vs static pressure, fan size liquid, heat pipes, pwm vs DC cont
 
 ## Peripherals
 
+### USB
+
+[TODO] all the annoyences of USB standards
+
+[USB3: why it's a bit harder than USB2](https://lab.ktemkin.com/post/why-is-usb3-harder/)
+
 ### Keyboards
 
 HID or Human Interface Device, is the standard over which most mice, keyboards, and game controllers talk to the computer. Unfortunately, it's also a pretty lame standard. You can't just input arbitrary Unicode or send fancy data back to the keyboard to control fancy RGB lights, because of this it's common to need extra drivers per device

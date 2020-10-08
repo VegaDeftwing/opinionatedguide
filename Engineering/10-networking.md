@@ -48,6 +48,14 @@ IEEE-SA
 
 The OSI model of networking is
 
+In the **TCP/IP** model, the **Physical** and **Data Link** Layers are viewed as a **unified 'Network Acces Layer'**
+
+The **Network Layer** is called the **Internet Layer**
+
+The Transport Layer *stays the same*,
+
+and The **Session, Presentation, and Application** layer are all part of a **larger Application** Layer
+
 ## 1 - The physical Layer
 
 ### Coax, Twister Pair, Fiber & More
@@ -76,7 +84,7 @@ MAC and LLC
 
 ### VLAN
 
-## 3 - Network Layer
+## 3 - Network Layer/IP Layer
 
 ### Packets
 
@@ -85,6 +93,10 @@ MAC and LLC
 ### MAC
 
 ### ICMP, IGMP
+
+### Subnets
+
+![devnullnetwork](../media/devnullnetwork.png ':size=70%')
 
 ## 4 - Transport Layer
 

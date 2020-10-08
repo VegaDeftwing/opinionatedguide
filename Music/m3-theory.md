@@ -18,6 +18,8 @@ Oh, and the circle of fifths is a thing [TODO]
 
 [TODO] Just V equal Temperament here is confusing
 
+[TODO] [Waitbutwhy.com -- Sound](https://waitbutwhy.com/2016/03/sound.html)
+
 ## Song Structure
 
 ### Repition
