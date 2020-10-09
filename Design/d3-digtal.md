@@ -35,3 +35,11 @@ https://lospec.com/palette-list
 https://github.com/aayars/py-noisemaker
 
 [Demo of how Fourier Filtering works](http://bigwww.epfl.ch/demo/ip/demos/FFT-filtering/)
+
+# The Nerdy bits
+
+![ColorBanding](../media/colorbanding.png)
+
+> [Source](https://en.wikipedia.org/wiki/Colour_banding#/media/File:Colour_banding_example01.png)
+
+[Why Dark Video Is A terrible Blocky Mess (YouTube)](https://www.youtube.com/watch?v=h9j89L8eQQk&ab_channel=TomScott)
