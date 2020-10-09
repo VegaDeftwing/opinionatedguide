@@ -181,6 +181,10 @@ https://shellmagic.xyz/
 
 https://wiki.bash-hackers.org/
 
+![b0rk bash erros](../media/basherrorsb0rk.jpeg ':size=70%')
+
+> source: [b0rk on Twitter](https://twitter.com/b0rk) - he's got some cool zines' you can checkout https://wizardzines.com
+
 ## Alternative Shells
 
 When we installed arch we actually changed the default shell from bash to zsh, but there are other options such as fish, csh, and xonsh among others
