@@ -46,6 +46,55 @@ https://ocw.mit.edu/resources/res-6-007-signals-and-systems-spring-2011/
 
 https://en.wikibooks.org/wiki/Signals_and_Systems
 
+## 8 - Probability/Stats
+
+Why, where are these used, etc.
+
+bring up music things, part failure rates, tollerences, etc.
+
+### Basics
+
+Statistical Independence
+
+Conditional probability
+
+Subexperiments & Tree diagrams
+
+Law of total probability
+
+Bayes Rule
+
+Counting methods
+
+combonations and permutations
+
+with or without replacement
+
+### Random Variables
+
+Probability Mass Function (PMF)
+
+Types of RV's
+
+| Distribution Name | PMF  | Mean | Variance |
+| ----------------- | ---- | ---- | -------- |
+| Bernoulli         |      |      |          |
+| Geometric         |      |      |          |
+| Binomial          |      |      |          |
+| Pascal            |      |      |          |
+| Discrete Uniform  |      |      |          |
+| Poisson           |      |      |          |
+
+Cumulative Distribution Function (CDF)
+
+functions of Random Variables
+
+Famlies of continuous RVs
+
+Conditional Probability Mass Fn & Conditional Expected Value
+
+Gaussian Random Variables / Normal RVs (same thing)
+
 # Chapter 11.2 - Physics
 
 ![](../media/Exposure_chart-XKCD.svg)
