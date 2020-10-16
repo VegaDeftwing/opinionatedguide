@@ -8,21 +8,41 @@ http://rainworldgame.com/
 
 Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
 
-### Pixel Art
+### Pixel Art & Ascii art
 
 [JPixel - editor for pixel art animation and tilesets](https://emad.itch.io/jpixel)
+
+[Particle FX Designer](https://codemanu.itch.io/particle-fx-designer)
+
+[Pixatool](https://kronbits.itch.io/pixatool)
+
+[Tilesetter](https://www.tilesetter.org)
+
+[Rexpaint](https://kyzrati.itch.io/rexpaint)
+
+[Dither Machine](https://lunarlabs.itch.io/dither-machine)
+
+[Strike - 1-bit paint tool, primarily for quick sketching or line-drawing.](https://amorphous.itch.io/strike)
+
+## Voxel Art
+
+[MagicaVoxel](https://ephtracy.github.io#ss-carousel_ss)
+
+Minecraft??
 
 ## Links
 
 https://colors.lol/
 
+[ColorTool ($15 Steam)](https://store.steampowered.com/app/948220/ColorTool/)
+
 https://lospec.com/palette-list
 
 ### Software
 
-[JPixel - editor for pixel art animation and tilesets](https://emad.itch.io/jpixel)
-
 [Neat auto lighting/shading software (Github pages site)](https://lllyasviel.github.io/PaintingLight/)
+
+[Geon FX](https://nod.itch.io/geon-fx)
 
 ### Programming
 

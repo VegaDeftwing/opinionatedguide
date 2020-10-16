@@ -20,6 +20,8 @@ Oh, and the circle of fifths is a thing [TODO]
 
 [TODO] [Waitbutwhy.com -- Sound](https://waitbutwhy.com/2016/03/sound.html)
 
+[TODO] [Nanotone Synth](https://dylancassidy.itch.io/nanotone-synth)
+
 ## Song Structure
 
 ### Repition

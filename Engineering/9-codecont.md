@@ -301,7 +301,9 @@ https://en.wikipedia.org/wiki/Esoteric_programming_language
 
 https://esolangs.org
 
+[Brainfuck Designer](https://antfs10.itch.io/brainfuck-designer)
 
+[Puddlelang](https://puddledockgames.itch.io/puddlelang)
 
 ## Graphics Programming
 

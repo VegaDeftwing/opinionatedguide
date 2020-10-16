@@ -38,7 +38,13 @@ Dog Whistle
 
 Queerbaiting/Racebating
 
+Identity Politics:
 
+<img src="../media/thegays.jpg" style="zoom:50%;" />
+
+
+
+> Source: https://www.instagram.com/p/CEpI20ps5wE/
 
 **Sources:**
 
