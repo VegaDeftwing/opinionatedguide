@@ -113,6 +113,8 @@ Gaussian Random Variables / Normal RVs (same thing)
 
 ## 2 - Electromagnetism
 
+![maxwell](../media/maxwellequns.svg)
+
 ## 3 - Relativity and the Quantum
 
 # Chapter 11.3 - Chem
