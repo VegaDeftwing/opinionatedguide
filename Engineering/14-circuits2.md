@@ -1,4 +1,4 @@
-# Chapter 14 - Circuits Continued
+# Chapter 14 - Circuits & Semiconductors
 
 [TODO]
 
