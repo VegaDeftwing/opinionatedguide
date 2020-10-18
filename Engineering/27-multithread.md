@@ -1,4 +1,4 @@
-# Chapter 25 - We've got cores, let's use em'
+# Chapter 27 - We've got cores, let's use em'
 
 [TODO]
 

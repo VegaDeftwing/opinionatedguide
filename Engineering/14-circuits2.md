@@ -1,4 +1,4 @@
-# Chapter 12 - Circuits Continued
+# Chapter 14 - Circuits Continued
 
 [TODO]
 
@@ -8,7 +8,7 @@ Possibly break up this chapter? Transistors, the opamp, etc alone may each justi
 
 That said, I don't want to get to in the mud of transistor physics. I really want to focus on how/when/why to use what, not how they work as the physics is both pretty hard to grasp and not super useful. Still would like to mention that switching is what uses power and like processe size things, but maybe not the chemistry or electron tunneling effects
 
-# Chapter 12.1 - Semiconductors
+# Chapter 14.1 - Semiconductors
 
 ## Diodes, the one way road
 
@@ -70,13 +70,13 @@ https://hackaday.com/2019/05/20/integrated-circuits-can-be-easy-to-understand-wi
 
 potato semi
 
-# Chapter 12.2 - Opamps & Filters
+# Chapter 14.2 - Opamps & Filters
 
 ## Optical Electronics
 
 [TODO]
 
-## Crystal Oscilators
+## Crystal Oscillators
 
 [TODO]
 
@@ -114,13 +114,13 @@ speakers, piezos, amps, mics and pickup patters
 
 ## TODO
 
-add motors, analog meters, various connection standards, radio, flex/pressure sense, grounding (chasis, digital, analog, ground planes, etc.), solar/photo reactive,
+add motors, analog meters, various connection standards, radio, flex/pressure sense, grounding (chassis, digital, analog, ground planes, etc.), solar/photo reactive,
 
 ## Relating AC and Music
 
 [TODO]
 
-Relate back to things like ADRS, Distortion, Reverb / Echo, Decibels (audio), etc. Use VCV RACK
+Relate back to things like ADSR, Distortion, Reverb / Echo, Decibels (audio), etc. Use VCV RACK
 
 
 

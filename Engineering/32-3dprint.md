@@ -1,4 +1,4 @@
-# Chapter 30 - 3D printing, CNC, and making things
+# Chapter 32 - 3D printing, CNC, and making things
 
 [TODO]
 

@@ -1,12 +1,12 @@
-# Chapter 11 - High Level Overview of Math, Physics, and Chemistry (Sorry...)
+# Chapter 11 - Math
 
 <iframe width="100%" height="450" src="https://www.youtube.com/embed/g8vHhgh6oM0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-This chapter is, regrettably, necessary for developing your knack. Math, Physics, and Chemistry and fundamental to all engineering fields and while something about each of the three subjects finds a way to make the 16 year old highschooler in us relase a long, exasperated groan. I think this is mostly due to each of these things being taught in a way that takes the fun and interesting parts out and replaces them with trying to learn skills that have largely been outdated by the advent of calculators, computers, and the internet. With that, let's jump into it:
+The next few chapters are, regrettably, necessary for developing your knack. Math, Physics, and Chemistry and fundamental to all engineering fields and while something about each of the three subjects finds a way to make the 16 year old highschooler in us release a long, exasperated groan. I think this is mostly due to each of these things being taught in a way that takes the fun and interesting parts out and replaces them with trying to learn skills that have largely been outdated by the advent of calculators, computers, and the internet. With that, let's jump into it:
 
-# Chapter 11.1 - Math
+# Chapter 11 - Math
 
-some motivation, Klien bottle guy, non-euclidian games, fractals, colatz conjecture, ...
+some motivation, Klein bottle guy, non-euclidean games, fractals, colatz conjecture, ...
 
 ## 1 - Algebra
 
@@ -58,7 +58,7 @@ Statistical Independence
 
 Conditional probability
 
-Subexperiments & Tree diagrams
+Sub experiments & Tree diagrams
 
 Law of total probability
 
@@ -66,7 +66,7 @@ Bayes Rule
 
 Counting methods
 
-combonations and permutations
+combinations and permutations
 
 with or without replacement
 
@@ -89,50 +89,11 @@ Cumulative Distribution Function (CDF)
 
 functions of Random Variables
 
-Famlies of continuous RVs
+Families of continuous RVs
 
 Conditional Probability Mass Fn & Conditional Expected Value
 
 Gaussian Random Variables / Normal RVs (same thing)
 
-# Chapter 11.2 - Physics
-
-![](../media/Exposure_chart-XKCD.svg)
-
-[Radiocarbon dating (Wikipedia)](https://en.wikipedia.org/wiki/Radiocarbon_dating)
-
-[Cosmic Microwave Background (Wikipedia)](https://en.wikipedia.org/wiki/Cosmic_microwave_background)
-
-[Natural nuclear fission reactor (Wikipedia)](https://en.wikipedia.org/wiki/Natural_nuclear_fission_reactor)
-
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/3WYxF7x"  ><a href="//imgur.com/a/3WYxF7x">The Chernobyl Dice: A quantum random number generator with a nixie tube display</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 
-
-## 1 - Newtonian (assume a spherical cow)
-
-## 2 - Electromagnetism
-
-![maxwell](../media/maxwellequns.svg)
-
-## 3 - Relativity and the Quantum
-
-# Chapter 11.3 - Chem
-
-## 1 - Atomic Structure, Basics of the Table, Bonding
-
-## 2 - Acid/base, Electrochem, Thermochem, Photochem
-
-## 3 - Organic Chemistry
-
-[Yeast that produce PENICILLIN - Whose Gene is it Anyway (YouTube)](https://youtu.be/X4lZo4Ogx-k?t=107)
-
-# Chapter 11.4 - 'The Rest'
-
-## English
-
-[TODO] Because the majority of the Internet and most publications are in English
-
-## Other sources, interesting videos, etc:
-
-- Minute Physics, Thought Emporium, Cody's Lab, 3Blue1Brown

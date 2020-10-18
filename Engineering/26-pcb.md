@@ -1,4 +1,4 @@
-# Chapter 24 - Let's make our own PCB
+# Chapter 26 - Let's make our own PCB
 
 [TODO]
 
@@ -715,9 +715,9 @@ https://llllllll.co/t/pcb-art-artfully-shaped-copper-traces/22027/2
 
 
 
-# Chapter 24.1 - PCB 'Badges'
+# Chapter 26.1 - PCB 'Badges'
 
-![badges](.../media/badges.jpeg)
+![badges](../media/badges.jpeg)
 
 > Source: @AkioOhtori on Twitter
 

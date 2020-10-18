@@ -1,4 +1,4 @@
-# Chapter 23 - Open Source, Licences, and Copyright
+# Chapter 25 - Open Source, Licenses, and Copyright
 
 [TODO]
 

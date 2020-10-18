@@ -1,4 +1,4 @@
-# Chapter 20 - Compilers and Assemblers
+# Chapter 22 - Compilers and Assemblers
 
 [./missing-semester - Metaprogramming](https://missing.csail.mit.edu/2020/metaprogramming/)
 

@@ -1,4 +1,4 @@
-# Chapter 22 - Security
+# Chapter 24 - Security
 
 [./missing-semester - Security](https://missing.csail.mit.edu/2020/security/)
 

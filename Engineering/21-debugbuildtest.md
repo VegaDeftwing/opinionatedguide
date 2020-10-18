@@ -1,4 +1,4 @@
-# Chapter 19 - Debugging, Automated Building and Testing
+# Chapter 21 - Debugging, Automated Building and Testing
 
 ## Automated Building
 
@@ -10,7 +10,7 @@
 
 [TODO]
 
-GDB with Gef, interpreted languages, embeded systems, non-code isssues (boot problems, glitchy behavior), hardware failures, valgrind, various trace programs, print debugging extended
+GDB with Gef, interpreted languages, embedded systems, non-code issues (boot problems, glitchy behavior), hardware failures, valgrind, various trace programs, print debugging extended
 
 ### Debuggers
 
@@ -22,7 +22,7 @@ GDB with Gef, interpreted languages, embeded systems, non-code isssues (boot pro
 
 [CodeChecker using LLVM/Clang (GitHub)](https://github.com/Ericsson/codechecker)
 
-### Hardware Dubugging
+### Hardware Debugging
 
 common interfaces, simulation, serial/print debugging (slow), internal data logging, physical indicators of internal state, hardware to facilitate debugging (LED 'byte')
 

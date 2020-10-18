@@ -1,4 +1,4 @@
-# Chapter 28 - Let's try out programmable logic
+# Chapter 30 - Let's try out programmable logic
 
 [TODO]
 
