@@ -16,9 +16,13 @@
 
 `ssh-keygen` 
 
-you may need to change existing repo to use a git based origin rathen than an https one:
+After you have a key generated, you'll need to add the public key to github,
 
-```
+![keysongithub](../media/gitkeys.png)
+
+you may need to change existing repo to use a git based origin rather than an https one:
+
+```bash
 ╭─vega@lyrae ~/git/local/openg3  ‹master› 
 ╰─➤  git remote -v
 origin	https://github.com/opinionatedguide/opinionatedguide.github.io (fetch)
@@ -56,3 +60,4 @@ https://dhwthompson.com/2019/my-favourite-git-commit
 ![badmetric](../media/badmetric.png)
 
 > ahh, much better. Made using https://github.com/gelstudios/gitfiti, inspired by someone else that wrote the same thing, but I can't find the original.
+
