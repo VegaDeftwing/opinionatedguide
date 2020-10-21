@@ -16,6 +16,21 @@
 
 `ssh-keygen` 
 
+you may need to change existing repo to use a git based origin rathen than an https one:
+
+```
+╭─vega@lyrae ~/git/local/openg3  ‹master› 
+╰─➤  git remote -v
+origin	https://github.com/opinionatedguide/opinionatedguide.github.io (fetch)
+origin	https://github.com/opinionatedguide/opinionatedguide.github.io (push)
+╭─vega@lyrae ~/git/local/openg3  ‹master› 
+╰─➤  git remote set-url origin git@github.com:opinionatedguide/opinionatedguide.github.io.git
+╭─vega@lyrae ~/git/local/openg3  ‹master› 
+╰─➤  git remote -v
+origin	git@github.com:opinionatedguide/opinionatedguide.github.io.git (fetch)
+origin	git@github.com:opinionatedguide/opinionatedguide.github.io.git (push)
+```
+
 [TODO] show graphical git tools
 
 [TODO] comparison of Bit, Git, GithubCLI
