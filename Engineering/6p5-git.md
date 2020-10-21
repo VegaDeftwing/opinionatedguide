@@ -10,7 +10,11 @@
 
 [μGit- DIY Git in python](https://www.leshenko.net/p/ugit/)
 
-[TODO] Show how to setup SSH keys
+[TODO] Show how to setup SSH keys for Git
+
+[SSH keys article on the (Arch Wiki)](https://wiki.archlinux.org/index.php/SSH_keys)
+
+`ssh-keygen` 
 
 [TODO] show graphical git tools
 

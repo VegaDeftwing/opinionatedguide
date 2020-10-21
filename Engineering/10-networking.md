@@ -192,9 +192,33 @@ Real time clocks, timezones, utc, etc.
 
 # Chapter 10.1 - Weird Networking, because why not!
 
-Netsukuku, cjdns + hyperboria, Dat / Beaker, [EVE Online internet](https://blog.benjojo.co.uk/post/eve-online-bgp-internet)
+[cjdns](https://github.com/cjdelisle/cjdns) + [hyperboria](https://hyperboria.net)
+
+[ipfs](https://ipfs.io)
+
+[dat](https://dat.foundation)
+
+[Netsukuku](http://netsukuku.freaknet.org)
+
+[Beaker Browser](https://beakerbrowser.com)
+
+[EVE Online internet](https://blog.benjojo.co.uk/post/eve-online-bgp-internet) from https://blog.benjojo.co.uk, which has a ton of other really, really neat posts, like [The Speed of BGP network propagation](https://blog.benjojo.co.uk/post/speed-of-bgp-network-propagation), or [Hacking Ethernet out of Fibre Channel cards](https://blog.benjojo.co.uk/post/ip-over-fibre-channel-hack)
 
 Software Defined Networking, ActivityPub
 
+[GreenTunnel](https://github.com/SadeghHayeri/GreenTunnel) - "GreenTunnel bypasses DPI (Deep Packet Inspection) systems found in many ISPs (Internet Service Providers) which block access to certain websites."
 
+[Alternative Internet (Github list)](https://github.com/redecentralize/alternative-internet)
+
+[Awesome Mesh (Github list)](https://github.com/moarpepes/awesome-mesh)
+
+[List of tools in the BlackArch repo](https://blackarch.org/tools.html), meant mostly for security research, though obviously many of these are network related and so might give some inspiration or lead to interesting rabbit holes
+
+[Defcon channel (YouTube)](https://www.youtube.com/user/DEFCONConference/videos), DefCon is a security confrence, and naturally that means a lot of network security, including [Including some on hacking sex toys](https://www.youtube.com/watch?v=RnxcPeemHSc&ab_channel=DEFCONConference)
+
+[Why do we use the Linux Kernel's TCP Stack (Julia Evans Blog)](https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/)
+
+[A smol tcp stack (Github)](https://github.com/smoltcp-rs/smoltcp)
+
+[The Cost of CPU Networking on a Host (David Ahern's Blog)](https://people.kernel.org/dsahern/the-cpu-cost-of-networking-on-a-host)
 

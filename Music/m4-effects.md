@@ -143,21 +143,25 @@ Flanger works by taking a **very** short delay* which slowly modulated delay tim
 
 ## Reverb
 
-plate, room, spring, gated, erbe verb video, convolutional, delay line + allpass, 
+plate, room, spring, gated, erbe verb video, convolutional, delay line + allpass, hearing comb filters
 
 ## Distortion
 
+[How Distortion Works in Music (Ben Sheron's Blog)](https://benmosheron.gitlab.io/blog/2020/04/26/distortion.html)
+
 ### Clipping (Soft & Hard)
 
-### Waveshaping and Wavefolding
+### Waveshaping
+
+### Wavefolding
+
+#### Parallel V Serial Wavefolding
 
 ### Drive, and Tubes
 
 ### Bitcrushing & Comparators
 
 [Todo, fabfilter distortion video]
-
-[How Distortion Works in Music (Ben Sheron's Blog)](https://benmosheron.gitlab.io/blog/2020/04/26/distortion.html)
 
 ## Stereo Effects
 

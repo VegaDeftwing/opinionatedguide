@@ -713,7 +713,7 @@ https://llllllll.co/t/pcb-art-artfully-shaped-copper-traces/22027/2
 
 
 
-
+[Let KiCad and Python design your PCB Coils [Hackaday]](https://hackaday.com/2020/10/19/let-kicad-and-python-make-your-coils/)
 
 # Chapter 26.1 - PCB 'Badges'
 
