@@ -191,7 +191,7 @@ The 'Threshold' is what level the compressor has to be over to do anything at al
 
 [Todo, add fabfilter guy video] 
 
-[Todo, Dynamic range compression, Parallel Compression, different analog models (ie Fets)]
+[Todo, Dynamic range compression, Parallel Compression, different analog models (ie Fets v tube v optical)]
 
 reverb, delay, pan, tremello, overdrive, distortion
 

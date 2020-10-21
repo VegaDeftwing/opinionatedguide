@@ -28,3 +28,16 @@
 
 https://dhwthompson.com/2019/my-favourite-git-commit
 
+## Notes on GitHub and competition
+
+[Stop using number of git commits as any metric (u/Sajjon on Reddit)](https://www.reddit.com/r/CryptoCurrency/comments/cub9c2/stop_using_number_of_git_commits_as_any_metric/)
+
+[![trophy](https://github-profile-trophy.vercel.app/?username=vegadeftwing)](https://github.com/ryo-ma/github-profile-trophy)
+
+> generated using https://github.com/ryo-ma/github-profile-trophy, the above are the stats on my github profile
+
+![Vegas git contrib graph](../media/gitcontrib.png)
+
+![badmetric](../media/badmetric.png)
+
+> ahh, much better. Made using https://github.com/gelstudios/gitfiti, inspired by someone else that wrote the same thing, but I can't find the original.
