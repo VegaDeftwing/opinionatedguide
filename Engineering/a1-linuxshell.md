@@ -210,6 +210,8 @@ When we installed arch we actually changed the default shell from bash to zsh, b
   * while much slower than `du` it's great for finding out what's eating storage space
 * [choose](https://github.com/theryangeary/choose)
   * user friendly, simple alternative to awk/cut
+* [echowo](https://fluff.haus/kokoscript/echowo)
+  * alternative to echo, but significantly furrier
 
 ## Useful Non-Stock CLI Tools
 
@@ -330,18 +332,17 @@ While some of these may be included, they're some of the OG addons or tools to m
 * tmux
   
   * multiplex your termianal, open multiple terminals in your terminal, usefull in non-graphicas ttys espically
-
 * vim + extensions (neovim, spacevim, etc)
   
   * the old school text editor meets new school
-
 * GDB + gef
   
   * GDB, the original debugger, has it's faults. GEF, a config file for GDB on steroids, fixes many of them. While originally made for exploit developers, many people use it for everyday debugging
-
 * resh
   
   * replacement for ctrl+r history seach
+* optipng, jpegoptim
+  * Each works with it's respective image format and does some trial-and-error magic to re-compress the file no-lossy-er than it was to save space. No info loss but often a large file size reduction!
 
 ## Common Graphical Linux Utils
 

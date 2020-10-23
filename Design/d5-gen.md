@@ -22,6 +22,7 @@ https://www.reddit.com/r/PlotterArt/
 | [Random Country Generator](https://randomcountrygenerator.com) |                                                              | ![](../media/rcountryg.png)                                  |
 | [World Machine](https://www.world-machine.com/download.php)  | !!!! NOTE THIS IS ONLY FREE FOR NON-COMERCIAL USE !!!        | ![](../media/wmachine.png)                                   |
 | [World Painter](https://www.worldpainter.net)                | This one is for Minecraft, but still potentially useful      | ![worldpainterex](../media/worldpaint.png) SOURCE: https://www.reddit.com/r/ArdaCraft/comments/jaaw0v/a_lake_in_the_ered_luin/ |
+| [DataCombs](https://michaelgames.itch.io/datacombs)          | "3D Map editing utility for use with tabletop games like Dungeons & Dragons and Pathfinder" | ![datacomb](../media/datacomb.jpg)                           |
 
 ### Languages
 
@@ -40,13 +41,42 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 
 
-# Generative Eyes
+## Generative Textures and Geometry
+
+|                                                              |                                                              |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Forsynthia](https://github.com/johnalexandergreene/Forsythia) |                                                              | ![forsynthia](../media/forsynthia.png)                       |
+| [Noisemaker](https://noisemaker.readthedocs.io/en/latest/#usage) | Noise maker can make a ton of generative art pieces, as you can see at the right, this is a small sampling using a few of the included presets. | ![](../media/nm1.png ':size=25%')![](../media/nm2.png ':size=25%') ![](../media/nm3.png ':size=25%') |
+
+
+
+
+
+## Pixel Sorting
+
+![](../media/pixelsorting.png ':size=20%')
+
+> [Source](https://www.reddit.com/r/pixelsorting/comments/jeor0y/just_messing_around_with_datamoshing_and_pixel/) - [u/Hunter_timeFR](https://www.reddit.com/user/Hunter_timeFR/) on Reddit
+
+[r/pixelsorting (Reddit)](https://www.reddit.com/r/pixelsorting/)
+
+[PixelSorting using Processing (Github)](https://github.com/jeffThompson/PixelSorting)
+
+[python pixelsort, with masks (Github)](https://github.com/satyarth/pixelsort)
+
+[Python again, but with animation support (Github)](https://github.com/rkargon/pixelsorter)
+
+## Generative Eyes
 
 https://www.reddit.com/r/generative/comments/j4uati/iris/
 https://www.reddit.com/r/generative/comments/jabwl8/greye/
 https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
+## Livecoding visuals
 
+[TODO]
+
+https://github.com/ojack/hydra
 
 ## Scripting/Generative tools IN other tools
 

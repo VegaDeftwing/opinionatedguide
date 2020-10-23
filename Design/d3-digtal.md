@@ -24,6 +24,8 @@ Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
 
 [Strike - 1-bit paint tool, primarily for quick sketching or line-drawing.](https://amorphous.itch.io/strike)
 
+[Noodle, 1-bit browser based art tool](https://github.com/hundredrabbits/Noodle)
+
 ## Voxel Art
 
 [MagicaVoxel](https://ephtracy.github.io#ss-carousel_ss)

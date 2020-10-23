@@ -102,6 +102,8 @@ MAC and LLC
 
 ### TCP
 
+#### QUIC
+
 ### UDP
 
 ## 5 - Session Layer
@@ -132,11 +134,13 @@ MAC and LLC
 
 ## 7 - Application Layer
 
-### HTTP(s)
+### HTTP(s) 
 
 ![Codes](../media/http-status-codes.png ':size=50%')
 
 > https://www.monkeyuser.com/2017/http-status-codes/
+
+http1 vs 2 v 3
 
 ### FTP
 

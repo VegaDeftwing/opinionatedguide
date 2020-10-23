@@ -37,15 +37,39 @@ origin	git@github.com:opinionatedguide/opinionatedguide.github.io.git (push)
 
 [TODO] show graphical git tools
 
+https://desktop.github.com
+
+https://aurees.com
+
+https://gitfiend.com
+
+http://cong.tools (Windows only)
+
+https://gitahead.github.io/gitahead.com/
+
+https://github.com/FredrikNoren/ungit
+
+https://gitextensions.github.io (Windows only)
+
+https://tortoisegit.org/download/ (Windows only)
+
 [TODO] comparison of Bit, Git, GithubCLI
 
 [TODO] .gitignores
 
 [TODO] show `git log --all --graph --decorate --oneline` and adding it to the gitconfig
 
+[TODO] git diff
+
+https://github.com/dandavison/delta
+
 [TODO] Git on not-github, diy hosting
 
 https://dhwthompson.com/2019/my-favourite-git-commit
+
+[TODO] Files Git works with
+
+https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/
 
 ## Notes on GitHub and competition
 

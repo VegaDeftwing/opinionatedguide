@@ -12,6 +12,8 @@ Encryption, Tradgedy of the commons
 
 ### Small and connected
 
+[You May be Using Mastodon Wrong (Carlos Fenollosa Blog)](https://cfenollosa.com/blog/you-may-be-using-mastodon-wrong.html)
+
 #### Echo Chambers
 
 #### Data and fact driven sharing

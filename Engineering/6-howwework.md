@@ -56,7 +56,7 @@ Finally you'll want a runner/application launcher. While i3-demu is included, I 
 
 To further make i3 reasonable to use you'll want a few more things:
 
-`compton` is a composite manager. This is used to allow application to have some transparency, prevent screen tearing, and do slight effects, like but a shadow behind windows.
+`picom` is a composite manager. This is used to allow application to have some transparency, prevent screen tearing, and do slight effects, like but a shadow behind windows.
 
 `lxappearance-gtk3` can be used to set the theme used by various graphical applications. I use [Sweet](https://www.gnome-look.org/p/1253385/) but there are nearly endless options
 
@@ -78,6 +78,8 @@ to your /etc/enviroment file.
 You'll be needing quite a few different utilities beyond this. for a terminal I highly  recomend `kitty`,  `rxvt-unicode`, or `Alacritty`.
 
 For fonts you'll certainly have your own tastes, but I really like Droid Sans Mono, which is in `ttf-droid`, but `ttf-hack` and `otf-fira-code` are pretty cool too. I also recommend installing `noto-fonts`, `noto-fonts-extra`, and `ttf-font-awesome`. The noto packages will provide coverage for weird characters and font awesome is basically icons saved as a font, and many open source projects use it.
+
+inside your i3 config file you may want to set specific actions to take place based on a window's name (bind all social applications to a social workspace for example) to do this you'll need to get the windows class using a tool like `xprop`
 
 If you're looking for more ways to make your setup the best it can be or config files you can steal from check out  [r/unixporn](https://www.reddit.com/r/unixporn).
 
@@ -249,6 +251,8 @@ so that the file paths are displayed in full
 
 [TODO]
 
+[Masterplan](https://solarlune.itch.io/masterplan)
+
 Libreoffice
 
 Krita
@@ -288,3 +292,7 @@ Vivaldi, Firefox, Syncthing, Beaker, IPFS, IRC - irssi, Telegram, Etherape, Wire
 **Shell Scripts**
 
 [TODO]
+
+# Tools for accessibility
+
+https://joshwcomeau.com/accessibility/hands-free-coding/

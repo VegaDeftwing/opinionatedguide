@@ -758,7 +758,7 @@ HID or Human Interface Device, is the standard over which most mice, keyboards, 
 
 5pin din, PS2, USB
 
-
+[What Happens When (Github)](https://github.com/alex/what-happens-when)
 
 # Chapter 3.1 - How to know what to buy
 

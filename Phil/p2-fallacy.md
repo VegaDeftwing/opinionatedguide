@@ -4,6 +4,8 @@ If you've been on the internet for more than about a quarter of a second, you've
 
 ---
 
+[Argumentum ad populum](https://en.wikipedia.org/wiki/Argumentum_ad_populum)
+
 [Argument to moderation](https://en.wikipedia.org/wiki/Argument_to_moderation)
 
 Inflation of conflict – arguing that, if experts in a field of knowledge disagree on a certain point within that field, no conclusion can be reached or that the legitimacy of that field of knowledge is questionable.
