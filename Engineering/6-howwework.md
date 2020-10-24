@@ -30,7 +30,7 @@ Vim, with Spacevim (spacevim.org) ontop is a very powerful tool.
 
 Vim can do everything you could ever dream of, and probably a bit more, and with spacevim ontop, it's a powerhouse. Unfortunately, vim is regularly the butt end of a joke becaue of how nutoriously difficult it is to get the hang of. For that reason I'm going to link a mini tutorial here: https://www.openvim.com/, and link https://spacevim.org/documentation
 
-Graphically I recommend Visual Studio Code with Platform IO, Bracket Pair Colorizer 2, and GitLens
+Graphically I recommend Visual Studio Code with Platform IO, Bracket Pair Colorizer 2, and GitLens. If you're looking for more extensions than that, there's also a version of Asciiflow for VSCode, pleanty of extensions for live rendering (live-p5, glsl-canvas, Processing Language)
 
 This gives you a pretty kick butt editor on bar with most full Integrated Development Environments or IDEs. I recommend you try out IDEs, especially if for some unholy reason you want to write in Java, but otherwise this will do fine.
 
@@ -274,6 +274,8 @@ Feh, nomacs
 Wine
 
 Boxes- vm
+
+[asciiflow](http://asciiflow.com)
 
 **Package managment**
 

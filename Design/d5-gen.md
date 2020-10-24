@@ -78,6 +78,14 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 https://github.com/ojack/hydra
 
+[Thixels by Ramsey Nasser (Github, Linux Only)](https://github.com/nasser/thixels)
+
+[The Force (Github)](https://github.com/shawnlawson/The_Force)
+
+## Creative Coding (Non Live)
+
+[HackadayU Creative Code with Casey Hunt (YouTube)](https://www.youtube.com/playlist?list=PL_tws4AXg7att6rxtRNsGa36fOoRtdKJV)
+
 ## Scripting/Generative tools IN other tools
 
 [TODO] blender scripting

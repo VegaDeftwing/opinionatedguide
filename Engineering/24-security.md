@@ -9,3 +9,14 @@
 focus on how to write secure programs, protect hardware, etc.
 
 ESDA is bad
+
+
+
+## Cryptography
+
+[A furry writes about Cryptography but trust me you should actually read this](https://soatok.blog/2020/10/23/solving-for-why-furry-blogging-about-cryptography/)
+
+## Hashing
+
+Note there's generall two 'classes' of hashing- hashing for cryptograhic security (Passwords) and for just general usage, the cryptograhic ones typically are siginicantly more computationally intensive to make it harder to brute force all possible keys. Also most cryptograhpic hashing algorithms go to much greater lengths to avoid collisions. Also, salting is relevent here: [Salting (Wikipedia)](https://en.wikipedia.org/wiki/Salt_(cryptography))
+

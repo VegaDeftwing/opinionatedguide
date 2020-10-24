@@ -164,6 +164,14 @@ While not technically a programming language, I wanted to bring it up and encour
 
 
 
+### Vult
+
+[Vult Language Homepage](https://www.vult-dsp.com/vult-language)
+
+"The Vult Language is a transcompiler to write high-performance DSP code"
+
+
+
 ### Call for Contribution
 
 If I missed a language you think I should have mentioned or would like to write a nice guide to your language of choice to be included in this Opinionated Guide please submit a pull request. I'd love to expand the Rust, Go, and Zig sections significantly!
