@@ -1,14 +1,12 @@
 # Digital Art
 
-Dark Patterns -- don't be that guy
-
 Screen Considerations
 
 http://rainworldgame.com/
 
-Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
-
 ### Pixel Art & Ascii art
+
+Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
 
 [JPixel - editor for pixel art animation and tilesets](https://emad.itch.io/jpixel)
 
@@ -46,17 +44,7 @@ https://lospec.com/palette-list
 
 [Geon FX](https://nod.itch.io/geon-fx)
 
-### Programming
 
-[P5.js](https://p5js.org/)
-
-[Apparatus - a hybrid graphics editor / programming environment for creating interactive diagrams](https://github.com/cdglabs/apparatus)
-
-[Tooll.io, node-basde tool for interactive realtime content on the web](http://tooll.io/)
-
-https://github.com/aayars/py-noisemaker
-
-[Demo of how Fourier Filtering works](http://bigwww.epfl.ch/demo/ip/demos/FFT-filtering/)
 
 # The Nerdy bits
 
@@ -65,3 +53,19 @@ https://github.com/aayars/py-noisemaker
 > [Source](https://en.wikipedia.org/wiki/Colour_banding#/media/File:Colour_banding_example01.png)
 
 [Why Dark Video Is A terrible Blocky Mess (YouTube)](https://www.youtube.com/watch?v=h9j89L8eQQk&ab_channel=TomScott)
+
+
+
+[Demo of how Fourier Filtering works](http://bigwww.epfl.ch/demo/ip/demos/FFT-filtering/)
+
+
+
+[Color Emulation of the GameBoy](https://byuu.net/video/color-emulation/)
+
+
+
+[Hello hsluv - blog post about how hsluv works](https://austinjones.onfabrik.com/blog/hello-hsluv)
+
+
+
+[Graphics & Palettes - Super Nintendo Entertainment System Features Pt. 01 (YouTube)](https://www.youtube.com/watch?v=57ibhDU2SAI&ab_channel=RetroGameMechanicsExplained)

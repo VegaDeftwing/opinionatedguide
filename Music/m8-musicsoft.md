@@ -14,7 +14,25 @@ https://metasyn.github.io/learn-orca/
 
 [Cassetter for ORCA](https://person0b.itch.io/cassetter)
 
+### Other
 
+[Extempore Lang](https://extemporelang.github.io) - "Extempore is a programming language and runtime environment designed to support **cyberphysical programming**"
+
+[FoxDot - Livecoding with Python](https://foxdot.org)
+
+[Siren (Github)](https://github.com/cannc4/Siren/)
+
+[Tweakable](https://tweakable.org)
+
+[Overtone - Live Code](http://overtone.github.io)
+
+[Mosaic](https://mosaic.d3cod3.org)
+
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/464702127" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+
+> Mosaic in action
+
+[TidalCycles](https://tidalcycles.org/index.php/Welcome) and [Krill](https://github.com/Mdashdotdashn/krill)
 
 ## Software
 
@@ -27,6 +45,10 @@ http://write.flossmanuals.net/pure-data/introduction2/
 ## DAWs
 
 Digital Audio Workstations or 'DAWs' come in many flavors. Some of the more popular include Ableton Live, FL Studio, Bitwig, Reaper, Garage Band, and Studio One, but there are many, many more- including some that are more nieche such as Trackers like Renoise, Sunvox, or Deflemask.
+
+[Oscistudio](https://oscilloscopemusic.com/oscistudio.php)
+
+[How To Ableton Like a Pro (YouTube)](https://www.youtube.com/watch?v=W8CMgThLpHc&list=WL&index=176&t=0s&ab_channel=DylanTallchief)
 
 ### VSTs and other Plugins
 

@@ -25,3 +25,6 @@
 [Scrollbar Blindness (Sven Kadak's Blog)](https://svenkadak.com/blog/scrollbar-blindness)
 
 Figma
+
+### Dark Patterns
+

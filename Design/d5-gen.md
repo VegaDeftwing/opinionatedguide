@@ -47,6 +47,8 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Forsynthia](https://github.com/johnalexandergreene/Forsythia) |                                                              | ![forsynthia](../media/forsynthia.png)                       |
 | [Noisemaker](https://noisemaker.readthedocs.io/en/latest/#usage) | Noise maker can make a ton of generative art pieces, as you can see at the right, this is a small sampling using a few of the included presets. | ![](../media/nm1.png ':size=25%')![](../media/nm2.png ':size=25%') ![](../media/nm3.png ':size=25%') |
+| [Noisey-Shapes (Github)](https://github.com/cnfrancis/noisey-shapes) | "Making the computer draw weird shapes using basic trigonometry and different species of randomness(noise)" | ![Noisey-Shapes](https://github.com/cnfrancis/noisey-shapes/raw/main/images_/ea89c1c7_3_turns.png?raw=true) |
+| [Superformula SVG](https://jasonwebb.github.io/SuperformulaSVG-for-web/) | [Github repo](https://github.com/jasonwebb/SuperformulaSVG-for-web) | ![](../media/superformula.svg)                               |
 
 
 
@@ -72,19 +74,129 @@ https://www.reddit.com/r/generative/comments/j4uati/iris/
 https://www.reddit.com/r/generative/comments/jabwl8/greye/
 https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
+
+
+<iframe width="100%" height="450" src="https://www.youtube.com/embed/6avJHaC3C2U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
 ## Livecoding visuals
 
-[TODO]
+[r/livecoding (Reddit)](https://www.reddit.com/r/livecoding/)
 
-https://github.com/ojack/hydra
+[Toplap.org - a site all about live coding](https://toplap.org)
+
+
+
+[Tidal Cycles](https://tidalcycles.org/index.php/Welcome)
+
+<iframe "50%" height="220" src="https://www.youtube.com/embed/Vomnc9R-7mw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+> Video of Tidal Cycles in action
+
+
+
+[Praxislive](https://www.praxislive.org)
+
+
+
+[Mosaic](https://mosaic.d3cod3.org)
+
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/464702127" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+
+> Mosaic in action
+
+
+
+[p5-live, live coding for p5.js (Github)](https://github.com/yangsu/p5-live)
+
+
+
+[hydra (Github)](https://github.com/ojack/hydra)
+
+
+
+[Zerobrane Studio](https://studio.zerobrane.com) and [Moonlet](https://github.com/elihugarret/Moonlet)
+
+
+
+[LiveCodeLab](https://livecodelab.net)
+
+<img src="https://livecodelab.net/images/screenshots/ScreenShot7.png" alt="LiveCodeLab" style="zoom:67%;" />
+
+> A screenshot showing LiveCodeLab
+
+
 
 [Thixels by Ramsey Nasser (Github, Linux Only)](https://github.com/nasser/thixels)
 
+
+
+[Gibber.cc](https://gibber.cc)
+
+
+
+[Ronin (Github)](https://github.com/hundredrabbits/Ronin)
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I was making on a little LISP environment to automate some graphical tasks, like batch resizing pictures, or cropping things(I don&#39;t have photoshop) — But the tool has been repurposed by <a href="https://twitter.com/local_guru?ref_src=twsrc%5Etfw">@local_guru</a> and <a href="https://twitter.com/electret_?ref_src=twsrc%5Etfw">@electret_</a> into a kind of livecoding repl. <a href="https://t.co/xeG38ezltY">https://t.co/xeG38ezltY</a> <a href="https://t.co/6MJyLhjOfl">pic.twitter.com/6MJyLhjOfl</a></p>&mdash; Devine Lu Linvega (@neauoire) <a href="https://twitter.com/neauoire/status/1152481692193419267?ref_src=twsrc%5Etfw">July 20, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+> One of the firist videos of Ronin
+
+
+
 [The Force (Github)](https://github.com/shawnlawson/The_Force)
+
+
+
+[Tooll.io, node-basde tool for interactive realtime content on the web](http://tooll.io/)
+
+
+
+[Kodelife - Realtime GPU shader editor](https://hexler.net/products/kodelife)
+
+<img src="https://hexler.net/gfx/_software/kodelife-screens-10.png" alt="kodelife" style="zoom:50%;" />
+
+> Picture of KodeLife
+
+
+
+[Cables.gl (beta)](https://cables.gl)
+
+
+
+[Nimp (Github)](https://github.com/dan335/nimp)
+
+
+
+[vvvv](https://vvvv.org)
+
+![vvvv](https://vvvv.org/sites/default/files/imagecache/large/images/vvvv_Propaganda_NEU_00_1.png)
+
+!> Heads up VVVV requires a licence for comercial use that is rather expensive
+
+
 
 ## Creative Coding (Non Live)
 
 [HackadayU Creative Code with Casey Hunt (YouTube)](https://www.youtube.com/playlist?list=PL_tws4AXg7att6rxtRNsGa36fOoRtdKJV)
+
+* [Processing Language](https://processing.org)
+  * [Hype Framework](https://www.hypeframework.com)
+  * [P5.js](https://p5js.org/) - Processing can run P5.js scripts, you can also live code p5.js with some VSCode extensions as mentioned above
+
+[StructureSynth](http://structuresynth.sourceforge.net/index.php)
+
+[Nodebox](https://www.nodebox.net/node/) (appears to be more for data visulization?)
+
+[ANSIedad](https://github.com/gabochi/ANSIedad)
+
+![ANSIedad](https://raw.githubusercontent.com/gabochi/ANSIedad/master/demo.gif?raw=true)
+
+
+
+[Apparatus - a hybrid graphics editor / programming environment for creating interactive diagrams](https://github.com/cdglabs/apparatus)
+
+
 
 ## Scripting/Generative tools IN other tools
 
@@ -93,3 +205,11 @@ https://github.com/ojack/hydra
 [Sorcar for Blender - procedural modeling node-based system](https://aachman98.itch.io/sorcar)
 
 [Krita SeExpr](https://docs.krita.org/en/reference_manual/layers_and_masks/fill_layer_generators/seexpr.html?highlight=seexpr)
+
+![Kritas SeExpr](https://docs.krita.org/en/_images/SeExpr_editor.png)
+
+> SeExpr in Krita
+
+# Some inspiration
+
+[Python + Quantum Research = Art + Saving 1000s hours of CPU time (Reddit)](https://www.reddit.com/r/dataisbeautiful/comments/eaap3p/python_quantum_research_art_saving_1000s_hours_of/)

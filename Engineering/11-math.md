@@ -24,6 +24,10 @@ http://discrete.openmathbooks.org/dmoi3/
 
 3b1b: [The Essence of Calculus, Chapter 1 (YouTube, Series)](https://www.youtube.com/watch?v=WUvTyaaNkzM)
 
+[The Exponential Function is a Miracle (Mark Dominus)](https://blog.plover.com/math/exponential.html)
+
+
+
 ## 5 - Differential Equations
 
 3b1b: [Differential equations, studying the unsolvable (YouTube, Series)](https://www.youtube.com/watch?v=p_di4Zn4wz4)

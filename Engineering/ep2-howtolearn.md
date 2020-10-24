@@ -20,3 +20,5 @@ but note, you should keep in mind the standard warning that comes when first usi
 > 1) Respect the privacy of others.
 > 2) Think before you type.
 > 3) With great power comes great responsibility.
+
+[How to learn things at 1000x the speed (Pranay Prakash)](https://pranay.gp/how-to-learn-things-at-1000x-the-speed)
