@@ -213,3 +213,9 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 # Some inspiration
 
 [Python + Quantum Research = Art + Saving 1000s hours of CPU time (Reddit)](https://www.reddit.com/r/dataisbeautiful/comments/eaap3p/python_quantum_research_art_saving_1000s_hours_of/)
+
+[Generative Constellations (Reddit)](https://www.reddit.com/r/generative/comments/dynx25/constellations/) 
+
+> Seriously, the two above pieces are some of my absolute favorite pieces. I think about them a lot.
+
+[Grant Custer's Feed](https://feed.grantcuster.com) + [Constraint.systems](https://constraint.systems)
