@@ -10,7 +10,7 @@ https://www.reddit.com/r/PlotterArt/
 
 ### World generation
 
-| Name & Link                                                  | Purpose                                                      | Screenshot                                                   |
+| Name & Link                                                  | Purpose / Description                                        | Screenshot                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [roberthodgin - meander](http://roberthodgin.com/project/meander) | Generative maps of how rivers meander, not the tool, but at least it's the process | ![Meander](../media/meander.jpg)                             |
 | [Map Generator](https://matthewtarbutton.itch.io/map-generator) | A tool for building custom maps, envisioned for use in tabletop roleplaying games. | ![mapgen](../media/mapgen.png)                               |
@@ -44,7 +44,7 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 ## Generative Textures and Geometry
 
-|                                                              |                                                              |                                                              |
+| Name & Link                                                  | Purpose / Description                                        | Screenshot / Demo                                            |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Forsynthia](https://github.com/johnalexandergreene/Forsythia) |                                                              | ![forsynthia](../media/forsynthia.png)                       |
 | [Noisemaker](https://noisemaker.readthedocs.io/en/latest/#usage) | Noise maker can make a ton of generative art pieces, as you can see at the right, this is a small sampling using a few of the included presets. | ![](../media/nm1.jpg ':size=25%')![](../media/nm2.jpg ':size=25%') ![](../media/nm3.jpg ':size=25%') |
@@ -123,38 +123,47 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 | [Nimp (Github)](https://github.com/dan335/nimp)              | "Node-Based Image Manipulation Program"                      | ![](https://camo.githubusercontent.com/aed66b47b44341290fd233e55bf4abc02768ea85/68747470733a2f2f6e696d702e6170702f7374617469632f73637265656e73686f74732f73637265656e73686f7430332e4a5047) |
 | [vvvv](https://vvvv.org) - Heads up VVVV requires a licence for comercial use that is rather expensive | "vvvv is a hybrid visual/textual live-programming environment for easy prototyping and development. It is designed to facilitate the handling of large media environments with physical interfaces, real-time motion graphics, audio and video that can interact with many users simultaneously." | ![vvvv](https://vvvv.org/sites/default/files/imagecache/large/images/vvvv_Propaganda_NEU_00_1.png) |
 | [TouchDesigner](https://derivative.ca) (Free, but 600 USD for Commercial licence) | "TouchDesigner is a visual development platform that equips you with the tools you need to create stunning realtime projects and rich user experiences.  Whether you're creating interactive media systems, architectural projections, live music visuals, or rapid-prototyping your latest ideas, TouchDesigner is the platform that can do it all." | <video controls width="640">    <source src="../media/neurotouchdesigner.mp4"            type="video/mp4"> </video> <br><p> Video courtesy of [Neurotypique](https://www.youtube.com/channel/UC4oBI5piGMznFMZdtEC0FhA) </p> |
+| [Nodes](https://nodes.io)                                    | Not Yet Publiclly Released                                   | <video width="640" poster="assets/video-cover.jpg" src="https://player.vimeo.com/external/348671633.hd.mp4?s=d2d3dd176a1ddbb28c78bb0fb3e007ee10704c1b&amp;profile_id=174" class="w-100" autoplay="" loop="" playsinline="" muted=""></video> |
 
 ## Creative Coding (Non Live)
 
 [HackadayU Creative Code with Casey Hunt (YouTube)](https://www.youtube.com/playlist?list=PL_tws4AXg7att6rxtRNsGa36fOoRtdKJV)
 
-* [Processing Language](https://processing.org)
-  * [Hype Framework](https://www.hypeframework.com)
-  * [P5.js](https://p5js.org/) - Processing can run P5.js scripts, you can also live code p5.js with some VSCode extensions as mentioned above
+| Name & Link                                                  | Purpose / Description                                        | Screenshot / Demo Link                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Processing Language](https://processing.org)                | "Processing is a flexible software sketchbook and a language for learning how to code within the context of the visual arts." | <iframe title="vimeo-player" src="https://player.vimeo.com/video/140600280" width="640" height="360" frameborder="0" allowfullscreen></iframe> |
+| [Hype Framework](https://www.hypeframework.com)              | "This is a collection of processing.org classes that performs heavy lifting tasks while using a minimal amount of code writing" | This site is really weird? It seems to be emedding vimeo videos of static images, regardless, still worth checking out |
+| [P5.js](https://p5js.org/)                                   | "p5.js is a JavaScript library for creative coding, with a focus on making coding accessible and inclusive for artists, designers, educators, beginners, and anyone else!" --- Processing can run P5.js scripts, you can also live code p5.js with some VSCode extensions as mentioned above | <iframe width="640" height="360" src="https://www.youtube.com/embed/HerCR8bw_GE?list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> |
+| [three.js](https://threejs.org)                              | "Three.js is a lightweight cross-browser JavaScript library/API used to create and display animated 3D computer graphics on a Web browser. Three.js scripts may be used in conjunction with the HTML5 canvas element, SVG or WebGL." | [Three.js examples from Free Frontend](https://freefrontend.com/three-js-examples/) and [on the Three.js site itself](https://threejs.org/examples/) |
+| [paper.js](http://paperjs.org/about/)                        | "Paper.js is an open source vector graphics scripting framework that runs on top of the HTML5 Canvas" | [Paper.js examples](http://paperjs.org/examples/nyan-rainbow/) |
+| [rune.js](https://runemadsen.github.io/rune.js/)             | "a JavaScript library for programming graphic design systems with SVG in both the browser or node.js" | Move your mouse over the image on the homepage               |
+| [rough.js](https://roughjs.com)                              | "a small (<9kB gzipped) graphics library that lets you draw in a *sketchy*, *hand-drawn-like*, style." | ![roughjs example](https://roughjs.com/images/cap.png)       |
+| [StructureSynth](http://structuresynth.sourceforge.net/index.php) | "Structure Synth is a cross-platform application for generating 3D structures by specifying a design grammar" | ![](http://structuresynth.sourceforge.net/images/ss1.jpg)    |
+| [OpenFrameworks](https://openframeworks.cc)                  | openFrameworks is an open source C++ toolkit for creative coding. | <iframe title="vimeo-player" src="https://player.vimeo.com/video/74124094" width="640" height="360" frameborder="0" allowfullscreen></iframe> |
+| [openrndr](https://openrndr.org)                             | "In short, OPENRNDR is a tool to create tools. It is an open source framework for creative coding, written in Kotlin for the Java VM that simplifies writing real-time interactive software" | pleanty of examples on the site                              |
+| [Cinder](https://www.libcinder.org)                          | "Cinder is a free and open source library for professional-quality creative coding in C++." | pleanty of examples on the site                              |
+| [Context Free](https://www.contextfreeart.org)               | "Context Free is a program that generates images from written instructions called a grammar. The program follows the instructions in a few seconds to create images that can contain millions of shapes." | ![](https://glyphic.s3.amazonaws.com/cfa/gallery/uploads/81/0d/810d02128464264536b6e3b71bff7332//full_3498.jpg?5)<img alt="creative commons icon" src="https://i.creativecommons.org/l/by-nc-sa/3.0//88x31.png" style="image-rendering: pixelated;"> **Agneya **by [**thijs**](https://www.contextfreeart.org/gallery/search.php?by=thijs) |
+| [Nannou](https://github.com/nannou-org/nannou)               | a creative coding frame work for Rust                        | ![](https://camo.githubusercontent.com/47242f5abfba5e6536e88d9ba33d66a19079ca94/68747470733a2f2f692e696d6775722e636f6d2f6c6d345249344e2e676966) ![](https://camo.githubusercontent.com/0e2a41870e5f421b24b912e70a08c7fdeb37e304/68747470733a2f2f692e696d6775722e636f6d2f67616957485a582e676966) |
+| [Valora](https://paytonturnage.gitbook.io/valora/)           | Another creative coding framework for Rust                   | ![](https://gblobscdn.gitbook.com/assets%2F-Lw1VWDRh9_wPSAWr8kv%2F-M51LUdWgcmABW_iSJDI%2F-M51LaXRFO0JLuIVbJfo%2Fimage.png?alt=media&token=1e4f8e4b-da2e-4dc3-af67-61d1d0d15fe7)[curtain](https://paytonturnage.gitbook.io/valora/gallery) by turnage, 2020 |
+| [immense](https://github.com/turnage/immense)                | A Rust library for describing 3D meshes with simple composable rules. ```rule![     tf![         Tf::saturation(0.8),         Tf::hue(160.0),         Replicate::n(36, vec![Tf::rz(10.0), Tf::ty(0.1)]),         Replicate::n(36, vec![Tf::ry(10.0), Tf::tz(1.2), Tf::hue(3.4)]),     ] => cube() ]``` is all that's needed to generate the example on the right | ![](https://camo.githubusercontent.com/2b6b66d2f42672a91cf9ce527d4250c83d2f837d/68747470733a2f2f692e696d6775722e636f6d2f31456d696b345a2e706e67) |
+| [ANSIedad](https://github.com/gabochi/ANSIedad)              |                                                              | ![ANSIedad](https://raw.githubusercontent.com/gabochi/ANSIedad/master/demo.gif?raw=true) |
 
-[StructureSynth](http://structuresynth.sourceforge.net/index.php)
+## Data Visulization
 
-[Nodebox](https://www.nodebox.net/node/) (appears to be more for data visulization?)
-
-[Nannou - a creative coding frame work for Rust](https://github.com/nannou-org/nannou)
-
-[ANSIedad](https://github.com/gabochi/ANSIedad)
-
-![ANSIedad](https://raw.githubusercontent.com/gabochi/ANSIedad/master/demo.gif?raw=true)
-
-
-
-[Apparatus - a hybrid graphics editor / programming environment for creating interactive diagrams](https://github.com/cdglabs/apparatus)
-
-
+| Name & Link                                       | Purpose / Description                                        | Screenshot / Demo                                            |
+| ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Nodebox](https://www.nodebox.net/node/)          | "NodeBox makes it easy to do data visualisations, generative design and complex production challenges." | ![](https://www.nodebox.net/media/node/features-dataviz.png) |
+| [d3js](https://d3js.org)                          | "**D3.js** is a JavaScript library for manipulating documents based on data. **D3** helps you bring data to life using HTML, SVG, and CSS." | The homepage has a ton of live demos                         |
+| [Apparatus](https://github.com/cdglabs/apparatus) | a hybrid graphics editor / programming environment for creating interactive diagrams | ![](https://camo.githubusercontent.com/a9a89d5ee037527373c5b50f0867e5d5ab9c59b4/687474703a2f2f617072742e75732f6173736574732f75736167652e706e67) |
 
 ## Scripting/Generative tools IN other tools
 
-| Name & Link                                                  | Purpose                                           | Screenshot                                                   |
-| ------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
-| [Sorcar for Blender](https://aachman98.itch.io/sorcar)       | procedural modeling node-based system for Blender |                                                              |
-|                                                              |                                                   |                                                              |
-| [Krita SeExpr](https://docs.krita.org/en/reference_manual/layers_and_masks/fill_layer_generators/seexpr.html?highlight=seexpr) |                                                   | ![Kritas SeExpr](https://docs.krita.org/en/_images/SeExpr_editor.png) |
+| Name & Link                                                  | Purpose                                                      | Screenshot                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Blender python API](https://docs.blender.org/api/current/info_overview.html#:~:text=Python%20in%20Blender&text=Blender%20provides%20its%20Python%20modules,import%20the%20modules%20to%20work.) |                                                              |                                                              |
+| [Sorcar for Blender](https://aachman98.itch.io/sorcar)       | procedural modeling node-based system for Blender            |                                                              |
+| [Adobe Extend Script](http://docs.aenhancers.com/introduction/overview/) | "A script is a series of commands that tells an application to perform a series of operations. You can use scripts in most Adobe applications to automate repetitive tasks, perform complex calculations, and even use some functionality not directly exposed through the graphical user interface." |                                                              |
+| [Krita SeExpr](https://docs.krita.org/en/reference_manual/layers_and_masks/fill_layer_generators/seexpr.html?highlight=seexpr) | Fills the layer with a pattern specified through Disney Animation’s [**SeExpr** expression language](https://wdas.github.io/SeExpr). - note that this is for **FILL layers** in krita | ![Kritas SeExpr](https://docs.krita.org/en/_images/SeExpr_editor.png) |
 
 ## Super resolution, frame interpolation, and other effects
 
@@ -172,7 +181,17 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 [Pixatool](https://kronbits.itch.io/pixatool) ($15) - convert 'normal' art into pixel art
 
+[picbreeder](http://picbreeder.org) - "Picbreeder is a collaborative art application based on an idea called *evolutionary art*, which is a technique that allows pictures to be bred almost like animals. For example, you can evolve a butterfly into a bat by selecting parents that look like bats"
+
 [Geon FX](https://nod.itch.io/geon-fx) ($10) - Particle effects generator/editor
+
+
+
+## For Plotters
+
+[vpype](https://github.com/abey79/vpype) - aims to be the one-stop-shop, Swiss Army knife for producing plotter-ready vector graphics. Here are, for illustration, a few examples of what it can do:
+
+
 
 ## Other tools
 
@@ -191,3 +210,5 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 > Seriously, the two above pieces are some of my absolute favorite pieces. I think about them a lot.
 
 [Grant Custer's Feed](https://feed.grantcuster.com) + [Constraint.systems](https://constraint.systems)
+
+[Shadertoy](https://www.shadertoy.com/browse)
