@@ -40,8 +40,6 @@ https://lospec.com/palette-list
 
 ### Software
 
-[Neat auto lighting/shading software (Github pages site)](https://lllyasviel.github.io/PaintingLight/)
-
 [Geon FX](https://nod.itch.io/geon-fx)
 
 

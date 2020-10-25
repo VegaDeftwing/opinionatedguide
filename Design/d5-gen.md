@@ -15,6 +15,7 @@ https://www.reddit.com/r/PlotterArt/
 | [roberthodgin - meander](http://roberthodgin.com/project/meander) | Generative maps of how rivers meander, not the tool, but at least it's the process | ![Meander](../media/meander.jpg)                             |
 | [Map Generator](https://matthewtarbutton.itch.io/map-generator) | A tool for building custom maps, envisioned for use in tabletop roleplaying games. | ![mapgen](../media/mapgen.png)                               |
 | [One Page Dungeon](https://watabou.itch.io/one-page-dungeon) |                                                              | ![](../media/gdungeon.png)                                   |
+| [Dungeon Scrawl](https://probabletrain.itch.io/dungeon-scrawl) | https://dungeonscrawl.com/docs/#/                            | ![](../media/dscrawl.png)                                    |
 | [Fantasy City Generator](https://watabou.itch.io/medieval-fantasy-city-generator) | This application generates a random medieval city layout of a requested size. The generation method is rather arbitrary, the goal is to produce a nice looking map, not an accurate model of a city. | ![](../media/fcitygen.png)                                   |
 | [Fantasy Map Generator](https://azgaar.github.io/Fantasy-Map-Generator/) | make a map with tons of customization options including some about the culture and regions | ![fmapgen](../media/fmapgen.png)                             |
 | [Space Creator](https://github.com/erdavids/Space-Creator)   | Make a lil' solar system                                     | ![space creator](../media/spacec.png)                        |
@@ -67,6 +68,8 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 [python pixelsort, with masks (Github)](https://github.com/satyarth/pixelsort)
 
 [Python again, but with animation support (Github)](https://github.com/rkargon/pixelsorter)
+
+[Pixsort for Adobe After Effects ($15)](https://wunkolo.itch.io/pixsort)
 
 ## Generative Eyes
 
@@ -188,6 +191,8 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 [Nodebox](https://www.nodebox.net/node/) (appears to be more for data visulization?)
 
+[Nannou - a creative coding frame work for Rust](https://github.com/nannou-org/nannou)
+
 [ANSIedad](https://github.com/gabochi/ANSIedad)
 
 ![ANSIedad](https://raw.githubusercontent.com/gabochi/ANSIedad/master/demo.gif?raw=true)
@@ -209,6 +214,28 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 ![Kritas SeExpr](https://docs.krita.org/en/_images/SeExpr_editor.png)
 
 > SeExpr in Krita
+
+## AI image better-ers
+
+[Drain-App](https://grisk.itch.io/dain-app)
+
+!> Drain-App only runs on computers with Nvidia GPUs
+
+> Dain-App is a free app that let you take any form of media like movies, stop-motion, anime, cartoons, sprites, etc and interpolate new frames, generating a bigger frame-rate from the original file.
+
+[Waifu-2x](http://waifu2x.udp.jp) - "Single-Image Super-Resolution for Anime-Style Art using Deep Convolutional Neural Networks. And it supports photo."
+
+> Think of this like CSI style zoom-and-enhance. It works super well, even on non anime images.
+
+[Neat auto lighting/shading software (Github pages site)](https://lllyasviel.github.io/PaintingLight/)
+
+## Other tools
+
+### Sound Design
+
+!> There's a LOT more tools listed in the music chapters, but there's some more 'for animation' tools here:
+
+[rfxgen](https://raylibtech.itch.io/rfxgen)
 
 # Some inspiration
 

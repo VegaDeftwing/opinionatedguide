@@ -279,11 +279,35 @@ Just don't think you should use these to write efficient, safe code.
 
 https://en.wikipedia.org/wiki/Esoteric_programming_language
 
+[Awesome Esolangs (Github)](https://github.com/angrykoala/awesome-esolangs)
+
 https://esolangs.org
 
 [Brainfuck Designer](https://antfs10.itch.io/brainfuck-designer)
 
+[Piet](https://www.dangermouse.net/esoteric/piet.html)
+
 [Puddlelang](https://puddledockgames.itch.io/puddlelang)
+
+[Blancmange](https://github.com/Welcome-To-Robins-Repo/blancmange)
+
+[RETURN](https://github.com/molarmanful/RETURN)
+
+[Moonstroke](https://github.com/Moonstroke/3d/)
+
+[Nandlang](https://github.com/Jellonator/Nandlang)
+
+[bitman](https://github.com/molarmanful/bitman)
+
+[Spiral](https://esolangs.org/wiki/Spiral)
+
+[Tree](https://esolangs.org/wiki/Tree)
+
+[Ziim](https://esolangs.org/wiki/Ziim)
+
+[SendStuff](https://esolangs.org/wiki/SendStuff) (unimplemented)
+
+[PowerPoint is Turing Complete](https://www.andrew.cmu.edu/user/twildenh/PowerPointTM/Paper.pdf)
 
 ## Graphics Programming
 
