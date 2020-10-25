@@ -16,13 +16,13 @@ https://www.reddit.com/r/PlotterArt/
 | [Map Generator](https://matthewtarbutton.itch.io/map-generator) | A tool for building custom maps, envisioned for use in tabletop roleplaying games. | ![mapgen](../media/mapgen.png)                               |
 | [One Page Dungeon](https://watabou.itch.io/one-page-dungeon) |                                                              | ![](../media/gdungeon.png)                                   |
 | [Dungeon Scrawl](https://probabletrain.itch.io/dungeon-scrawl) | https://dungeonscrawl.com/docs/#/                            | ![](../media/dscrawl.png)                                    |
-| [Fantasy City Generator](https://watabou.itch.io/medieval-fantasy-city-generator) | This application generates a random medieval city layout of a requested size. The generation method is rather arbitrary, the goal is to produce a nice looking map, not an accurate model of a city. | ![](../media/fcitygen.png)                                   |
-| [Fantasy Map Generator](https://azgaar.github.io/Fantasy-Map-Generator/) | make a map with tons of customization options including some about the culture and regions | ![fmapgen](../media/fmapgen.png)                             |
+| [Fantasy City Generator](https://watabou.itch.io/medieval-fantasy-city-generator) | This application generates a random medieval city layout of a requested size. The generation method is rather arbitrary, the goal is to produce a nice looking map, not an accurate model of a city. | ![](../media/fcitygen.jpg)                                   |
+| [Fantasy Map Generator](https://azgaar.github.io/Fantasy-Map-Generator/) | make a map with tons of customization options including some about the culture and regions | ![fmapgen](../media/fmapgen.jpg)                             |
 | [Space Creator](https://github.com/erdavids/Space-Creator)   | Make a lil' solar system                                     | ![space creator](../media/spacec.png)                        |
 | [Genbrush](https://mavichist.itch.io/genbrush) $15           |                                                              | <iframe width="347" height="195" src="https://www.youtube.com/embed/oF7b-uTiz74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> |
 | [Random Country Generator](https://randomcountrygenerator.com) |                                                              | ![](../media/rcountryg.png)                                  |
-| [World Machine](https://www.world-machine.com/download.php)  | !!!! NOTE THIS IS ONLY FREE FOR NON-COMERCIAL USE !!!        | ![](../media/wmachine.png)                                   |
-| [World Painter](https://www.worldpainter.net)                | This one is for Minecraft, but still potentially useful      | ![worldpainterex](../media/worldpaint.png) SOURCE: https://www.reddit.com/r/ArdaCraft/comments/jaaw0v/a_lake_in_the_ered_luin/ |
+| [World Machine](https://www.world-machine.com/download.php)  | !!!! NOTE THIS IS ONLY FREE FOR NON-COMERCIAL USE !!!        | ![](../media/wmachine.jpg)                                   |
+| [World Painter](https://www.worldpainter.net)                | This one is for Minecraft, but still potentially useful      | ![worldpainterex](../media/worldpaint.jpg) SOURCE: https://www.reddit.com/r/ArdaCraft/comments/jaaw0v/a_lake_in_the_ered_luin/ |
 | [DataCombs](https://michaelgames.itch.io/datacombs)          | "3D Map editing utility for use with tabletop games like Dungeons & Dragons and Pathfinder" | ![datacomb](../media/datacomb.jpg)                           |
 
 ### Languages
@@ -47,7 +47,7 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 |                                                              |                                                              |                                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Forsynthia](https://github.com/johnalexandergreene/Forsythia) |                                                              | ![forsynthia](../media/forsynthia.png)                       |
-| [Noisemaker](https://noisemaker.readthedocs.io/en/latest/#usage) | Noise maker can make a ton of generative art pieces, as you can see at the right, this is a small sampling using a few of the included presets. | ![](../media/nm1.png ':size=25%')![](../media/nm2.png ':size=25%') ![](../media/nm3.png ':size=25%') |
+| [Noisemaker](https://noisemaker.readthedocs.io/en/latest/#usage) | Noise maker can make a ton of generative art pieces, as you can see at the right, this is a small sampling using a few of the included presets. | ![](../media/nm1.jpg ':size=25%')![](../media/nm2.jpg ':size=25%') ![](../media/nm3.jpg ':size=25%') |
 | [Noisey-Shapes (Github)](https://github.com/cnfrancis/noisey-shapes) | "Making the computer draw weird shapes using basic trigonometry and different species of randomness(noise)" | ![Noisey-Shapes](https://github.com/cnfrancis/noisey-shapes/raw/main/images_/ea89c1c7_3_turns.png?raw=true) |
 | [Superformula SVG](https://jasonwebb.github.io/SuperformulaSVG-for-web/) | [Github repo](https://github.com/jasonwebb/SuperformulaSVG-for-web) | ![](../media/superformula.svg)                               |
 
@@ -57,7 +57,7 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 ## Pixel Sorting
 
-![](../media/pixelsorting.png ':size=20%')
+![](../media/pixelsorting.jpg ':size=20%')
 
 > [Source](https://www.reddit.com/r/pixelsorting/comments/jeor0y/just_messing_around_with_datamoshing_and_pixel/) - [u/Hunter_timeFR](https://www.reddit.com/user/Hunter_timeFR/) on Reddit
 
@@ -78,7 +78,7 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 | [Apophysis](https://sourceforge.net/projects/apophysis/)     | Fractal Flames                        |                              |
 | [Mandelbulb 3d & Mandelbulber](https://www.mandelbulb.com)   |                                       |                              |
 | [ifs Fractal Generator](https://sirxemic.github.io/ifs-animator/) |                                       | ![](../media/ifsfractal.png) |
-| [Fractorium](http://fractorium.com)                          | A GPU-Accelerated Fractal Flame Edito |                              |
+| [Fractorium](http://fractorium.com)                          | A GPU-Accelerated Fractal Flame Edito | ![](../media/fractorium.jpg) |
 | [Chaotica](https://www.chaoticafractals.com) (various pricing for resolution/animation) |                                       |                              |
 
 
@@ -122,6 +122,7 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 | [Cables.gl (beta)](https://cables.gl)                        |                                                              |                                                              |
 | [Nimp (Github)](https://github.com/dan335/nimp)              |                                                              |                                                              |
 | [vvvv](https://vvvv.org) - Heads up VVVV requires a licence for comercial use that is rather expensive |                                                              | ![vvvv](https://vvvv.org/sites/default/files/imagecache/large/images/vvvv_Propaganda_NEU_00_1.png) |
+| [TouchDesigner](https://derivative.ca) (Free, but **$600** for Commercial licence) |                                                              |                                                              |
 
 ## Creative Coding (Non Live)
 
