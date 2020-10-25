@@ -34,6 +34,8 @@ https://metasyn.github.io/learn-orca/
 
 [TidalCycles](https://tidalcycles.org/index.php/Welcome) and [Krill](https://github.com/Mdashdotdashn/krill)
 
+[Zerobrane Studio](https://studio.zerobrane.com) and [Moonlet](https://github.com/elihugarret/Moonlet)
+
 ## Software
 
 ### VCV Rack
