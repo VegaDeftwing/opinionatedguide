@@ -167,23 +167,14 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 ## Super resolution, frame interpolation, and other effects
 
-[Drain-App](https://grisk.itch.io/dain-app)
-
-!> Drain-App only runs on computers with Nvidia GPUs
-
-> Dain-App is a free app that let you take any form of media like movies, stop-motion, anime, cartoons, sprites, etc and interpolate new frames, generating a bigger frame-rate from the original file.
-
-[Waifu-2x](http://waifu2x.udp.jp) - "Single-Image Super-Resolution for Anime-Style Art using Deep Convolutional Neural Networks. And it supports photo."
-
-> Think of this like CSI style zoom-and-enhance. It works super well, even on non anime images.
-
-[Neat auto lighting/shading software (Github pages site)](https://lllyasviel.github.io/PaintingLight/)
-
-[Pixatool](https://kronbits.itch.io/pixatool) ($15) - convert 'normal' art into pixel art
-
-[picbreeder](http://picbreeder.org) - "Picbreeder is a collaborative art application based on an idea called *evolutionary art*, which is a technique that allows pictures to be bred almost like animals. For example, you can evolve a butterfly into a bat by selecting parents that look like bats"
-
-[Geon FX](https://nod.itch.io/geon-fx) ($10) - Particle effects generator/editor
+| Name & Link                                                  | Purpose                                                      | Screenshot / Demo                                            |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Waifu-2x](http://waifu2x.udp.jp)                            | "Image Super-Resolution for Anime-style art using Deep Convolutional Neural Networks. And it supports photo." - Works well on most things, not just anime art. The link is for a site where you can try it out online, but if you need to run it a lot you should probably run it locally. If you do I recomend [this version](https://github.com/nihui/waifu2x-ncnn-vulkan) is it's compatible with basically any modern GPU | ![](https://raw.githubusercontent.com/nagadomi/waifu2x/master/images/slide.png) |
+| [Drain-App](https://grisk.itch.io/dain-app)                  | Dain-App is a free app that let you take any form of media like movies, stop-motion, anime, cartoons, sprites, etc and interpolate new frames, generating a bigger frame-rate from the original file. **NOTE: drain-app only runs on systems with an NVDIA GPU** |                                                              |
+| [Neat auto lighting/shading software (Github pages site)](https://lllyasviel.github.io/PaintingLight/) | "[...]. Based on this observation, we design an algorithm to both estimate the density of strokes in a digital painting using color geometry, and then generate novel lighting effects by mimicking artists' coarse-to-fine workflow." | ![](https://lllyasviel.github.io/PaintingLight/index_files/paintlight_title.jpg) artwork traced by ToS2P from an artwork by David Revoy under CC-BY license, www.peppercarrot.com |
+| [Pixatool](https://kronbits.itch.io/pixatool) (15 USD)       | convert 'normal' art into pixel art                          | ![](https://img.itch.zone/aW1hZ2UvMTkxNjgxLzEwNzY5MDkuZ2lm/794x1000/I4T9rN.gif) |
+| [picbreeder](http://picbreeder.org)                          | "Picbreeder is a collaborative art application based on an idea called *evolutionary art*, which is a technique that allows pictures to be bred almost like animals. For example, you can evolve a butterfly into a bat by selecting parents that look like bats" |                                                              |
+| [Geon FX](https://nod.itch.io/geon-fx) (10 USD)              | Particle effects generator/editor                            | ![](https://img.itch.zone/aW1hZ2UvOTcyMjYvNDU1Mjk5LmdpZg==/794x1000/MUP83%2B.gif) |
 
 
 
