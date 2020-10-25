@@ -21,7 +21,7 @@ https://www.reddit.com/r/PlotterArt/
 | [Space Creator](https://github.com/erdavids/Space-Creator)   | Make a lil' solar system                                     | ![space creator](../media/spacec.png)                        |
 | [Genbrush](https://mavichist.itch.io/genbrush) 15 USD        |                                                              | <iframe width="347" height="195" src="https://www.youtube.com/embed/oF7b-uTiz74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> |
 | [Random Country Generator](https://randomcountrygenerator.com) |                                                              | ![](../media/rcountryg.png)                                  |
-| [World Machine](https://www.world-machine.com/download.php)  | !!!! NOTE THIS IS ONLY FREE FOR NON-COMERCIAL USE !!!        | ![](../media/wmachine.jpg)                                   |
+| [World Machine](https://www.world-machine.com/download.php)  | NOTE: This is only **free** for **non-commercial use**       | ![](../media/wmachine.jpg)                                   |
 | [World Painter](https://www.worldpainter.net)                | This one is for Minecraft, but still potentially useful      | ![worldpainterex](../media/worldpaint.jpg) SOURCE: https://www.reddit.com/r/ArdaCraft/comments/jaaw0v/a_lake_in_the_ered_luin/ |
 | [DataCombs](https://michaelgames.itch.io/datacombs)          | "3D Map editing utility for use with tabletop games like Dungeons & Dragons and Pathfinder" | ![datacomb](../media/datacomb.jpg)                           |
 
