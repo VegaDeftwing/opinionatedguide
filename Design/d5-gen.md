@@ -19,7 +19,7 @@ https://www.reddit.com/r/PlotterArt/
 | [Fantasy City Generator](https://watabou.itch.io/medieval-fantasy-city-generator) | This application generates a random medieval city layout of a requested size. The generation method is rather arbitrary, the goal is to produce a nice looking map, not an accurate model of a city. | ![](../media/fcitygen.jpg)                                   |
 | [Fantasy Map Generator](https://azgaar.github.io/Fantasy-Map-Generator/) | make a map with tons of customization options including some about the culture and regions | ![fmapgen](../media/fmapgen.jpg)                             |
 | [Space Creator](https://github.com/erdavids/Space-Creator)   | Make a lil' solar system                                     | ![space creator](../media/spacec.png)                        |
-| [Genbrush](https://mavichist.itch.io/genbrush) $15           |                                                              | <iframe width="347" height="195" src="https://www.youtube.com/embed/oF7b-uTiz74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> |
+| [Genbrush](https://mavichist.itch.io/genbrush) 15 USD        |                                                              | <iframe width="347" height="195" src="https://www.youtube.com/embed/oF7b-uTiz74" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> |
 | [Random Country Generator](https://randomcountrygenerator.com) |                                                              | ![](../media/rcountryg.png)                                  |
 | [World Machine](https://www.world-machine.com/download.php)  | !!!! NOTE THIS IS ONLY FREE FOR NON-COMERCIAL USE !!!        | ![](../media/wmachine.jpg)                                   |
 | [World Painter](https://www.worldpainter.net)                | This one is for Minecraft, but still potentially useful      | ![worldpainterex](../media/worldpaint.jpg) SOURCE: https://www.reddit.com/r/ArdaCraft/comments/jaaw0v/a_lake_in_the_ered_luin/ |
@@ -27,13 +27,15 @@ https://www.reddit.com/r/PlotterArt/
 
 ### Languages
 
-| Name & Link                                                  | Purpose | Screenshot                 |
-| ------------------------------------------------------------ | ------- | -------------------------- |
-| [Procedural Runes](https://jakofranko.github.io/procedural-runes/) |         | ![](../media/prunes.png)   |
-| [Glyph](https://github.com/nik282000/glyph)                  |         | ![](../media/glpyh.png)    |
-| [Glyph Generator](https://madequa.itch.io/glyph-generator)   |         | ![](../media/glyphgen.png) |
+| Name & Link                                                  | Screenshot                 |
+| ------------------------------------------------------------ | -------------------------- |
+| [Procedural Runes](https://jakofranko.github.io/procedural-runes/) | ![](../media/prunes.png)   |
+| [Glyph](https://github.com/nik282000/glyph)                  | ![](../media/glpyh.png)    |
+| [Glyph Generator](https://madequa.itch.io/glyph-generator)   | ![](../media/glyphgen.png) |
 
-[Huge Playlist on Constructed Languages (YouTube)](https://www.youtube.com/watch?v=97RsfY2ODw0&list=PLuYLhuXt4HrQqnfSceITmv6T_drx1hN84&index=33)
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/97RsfY2ODw0?list=PLuYLhuXt4HrQqnfSceITmv6T_drx1hN84" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+[Huge Playlist on Constructed Languages ( Conlang Critic on YouTube)](https://www.youtube.com/watch?v=97RsfY2ODw0&list=PLuYLhuXt4HrQqnfSceITmv6T_drx1hN84&index=33)
 
 Some more cool examples, but lacking code:
 
@@ -46,8 +48,8 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 | Name & Link                                                  | Purpose / Description                                        | Screenshot / Demo                                            |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Forsynthia](https://github.com/johnalexandergreene/Forsythia) |                                                              | ![forsynthia](../media/forsynthia.png)                       |
-| [Noisemaker](https://noisemaker.readthedocs.io/en/latest/#usage) | Noise maker can make a ton of generative art pieces, as you can see at the right, this is a small sampling using a few of the included presets. | ![](../media/nm1.jpg ':size=25%')![](../media/nm2.jpg ':size=25%') ![](../media/nm3.jpg ':size=25%') |
+| [Forsynthia](https://github.com/johnalexandergreene/Forsythia) | Check out [these(1)](https://github.com/johnalexandergreene/Geom_Kisrhombille) [pages (2)](https://github.com/johnalexandergreene/Forsythia/tree/master/app/grammarEditor) for more information | ![forsynthia](../media/forsynthia.png)                       |
+| [Noisemaker](https://noisemaker.readthedocs.io/en/latest/#usage) | Noise maker can make a ton of generative art pieces, as you can see at the right, this is a small sampling using a few of the included presets. Can be a pain to get to run as it needs Tensorflow | ![](../media/nm1.jpg ':size=25%')![](../media/nm2.jpg ':size=25%') ![](../media/nm3.jpg ':size=25%') |
 | [Noisey-Shapes (Github)](https://github.com/cnfrancis/noisey-shapes) | "Making the computer draw weird shapes using basic trigonometry and different species of randomness(noise)" | ![Noisey-Shapes](https://github.com/cnfrancis/noisey-shapes/raw/main/images_/ea89c1c7_3_turns.png?raw=true) |
 | [Superformula SVG](https://jasonwebb.github.io/SuperformulaSVG-for-web/) | [Github repo](https://github.com/jasonwebb/SuperformulaSVG-for-web) | ![](../media/superformula.svg)                               |
 
@@ -57,7 +59,7 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 ## Pixel Sorting
 
-![](../media/pixelsorting.jpg ':size=20%')
+![](../media/pixelsorting.jpg ':size=40%')
 
 > [Source](https://www.reddit.com/r/pixelsorting/comments/jeor0y/just_messing_around_with_datamoshing_and_pixel/) - [u/Hunter_timeFR](https://www.reddit.com/user/Hunter_timeFR/) on Reddit
 
@@ -69,7 +71,7 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 [Python again, but with animation support (Github)](https://github.com/rkargon/pixelsorter)
 
-[Pixsort for Adobe After Effects ($15)](https://wunkolo.itch.io/pixsort)
+[Pixsort for Adobe After Effects (15 USD)](https://wunkolo.itch.io/pixsort)
 
 ## Fractal Art
 
@@ -142,7 +144,7 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 | [OpenFrameworks](https://openframeworks.cc)                  | openFrameworks is an open source C++ toolkit for creative coding. | <iframe title="vimeo-player" src="https://player.vimeo.com/video/74124094" width="640" height="360" frameborder="0" allowfullscreen></iframe> |
 | [openrndr](https://openrndr.org)                             | "In short, OPENRNDR is a tool to create tools. It is an open source framework for creative coding, written in Kotlin for the Java VM that simplifies writing real-time interactive software" | pleanty of examples on the site                              |
 | [Cinder](https://www.libcinder.org)                          | "Cinder is a free and open source library for professional-quality creative coding in C++." | pleanty of examples on the site                              |
-| [Context Free](https://www.contextfreeart.org)               | "Context Free is a program that generates images from written instructions called a grammar. The program follows the instructions in a few seconds to create images that can contain millions of shapes." | ![](https://glyphic.s3.amazonaws.com/cfa/gallery/uploads/81/0d/810d02128464264536b6e3b71bff7332//full_3498.jpg?5)<img alt="creative commons icon" src="https://i.creativecommons.org/l/by-nc-sa/3.0//88x31.png" style="image-rendering: pixelated;"> **Agneya **by [**thijs**](https://www.contextfreeart.org/gallery/search.php?by=thijs) |
+| [Context Free](https://www.contextfreeart.org)               | "Context Free is a program that generates images from written instructions called a grammar. The program follows the instructions in a few seconds to create images that can contain millions of shapes." | ![](https://glyphic.s3.amazonaws.com/cfa/gallery/uploads/81/0d/810d02128464264536b6e3b71bff7332//full_3498.jpg?5)<img alt="creative commons icon" src="https://i.creativecommons.org/l/by-nc-sa/3.0//88x31.png" style="image-rendering: pixelated;"> **Agneya** by [**thijs**](https://www.contextfreeart.org/gallery/search.php?by=thijs) |
 | [Nannou](https://github.com/nannou-org/nannou)               | a creative coding frame work for Rust                        | ![](https://camo.githubusercontent.com/47242f5abfba5e6536e88d9ba33d66a19079ca94/68747470733a2f2f692e696d6775722e636f6d2f6c6d345249344e2e676966) ![](https://camo.githubusercontent.com/0e2a41870e5f421b24b912e70a08c7fdeb37e304/68747470733a2f2f692e696d6775722e636f6d2f67616957485a582e676966) |
 | [Valora](https://paytonturnage.gitbook.io/valora/)           | Another creative coding framework for Rust                   | ![](https://gblobscdn.gitbook.com/assets%2F-Lw1VWDRh9_wPSAWr8kv%2F-M51LUdWgcmABW_iSJDI%2F-M51LaXRFO0JLuIVbJfo%2Fimage.png?alt=media&token=1e4f8e4b-da2e-4dc3-af67-61d1d0d15fe7)[curtain](https://paytonturnage.gitbook.io/valora/gallery) by turnage, 2020 |
 | [immense](https://github.com/turnage/immense)                | A Rust library for describing 3D meshes with simple composable rules. ```rule![     tf![         Tf::saturation(0.8),         Tf::hue(160.0),         Replicate::n(36, vec![Tf::rz(10.0), Tf::ty(0.1)]),         Replicate::n(36, vec![Tf::ry(10.0), Tf::tz(1.2), Tf::hue(3.4)]),     ] => cube() ]``` is all that's needed to generate the example on the right | ![](https://camo.githubusercontent.com/2b6b66d2f42672a91cf9ce527d4250c83d2f837d/68747470733a2f2f692e696d6775722e636f6d2f31456d696b345a2e706e67) |
