@@ -10,6 +10,8 @@ Inktober, Swordvember, Smaugust
 
 # Game Design
 
+https://www.riotgames.com/en/urf-academy/curriculum-guide
+
 ## Engines & Frameworks
 
 ### Both 2d and 3d

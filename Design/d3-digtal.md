@@ -1,5 +1,41 @@
 # Digital Art
 
+## Raster, Vector, Pixel, Voxel, ASCII, Mesh, Fractal, Generative,
+
+**Projection Mapping, Creative Code, ...**
+
+### Raster Art
+
+#### Pixel Art
+
+### Vector Art
+
+inkscape
+
+dotgrid
+
+### 3D Art
+
+#### Meshes
+
+blender
+
+#### Voxel Art
+
+magicavoxel, minecraft
+
+### Generative Art
+
+#### Fractals
+
+#### Creative Code
+
+### Ascii Art
+
+### Projection Mapping
+
+
+
 Screen Considerations
 
 http://rainworldgame.com/
@@ -9,6 +45,8 @@ http://rainworldgame.com/
 Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
 
 [JPixel - editor for pixel art animation and tilesets](https://emad.itch.io/jpixel)
+
+[Hexels](https://marmoset.co/hexels/) ($49)
 
 [Particle FX Designer](https://codemanu.itch.io/particle-fx-designer)
 
@@ -30,17 +68,13 @@ Pixel Art Tutorial from @saint11 https://saint11.org/blog/pixel-art-tutorials/
 
 Minecraft??
 
-## Links
+## Color Palette Tools
 
 https://colors.lol/
 
 [ColorTool ($15 Steam)](https://store.steampowered.com/app/948220/ColorTool/)
 
 https://lospec.com/palette-list
-
-### Software
-
-[Geon FX](https://nod.itch.io/geon-fx)
 
 
 

@@ -65,10 +65,6 @@ C++ from scratch, JS electron app, Processing creative coding, Python Kivy or si
 
 [Tracy - "A real time, nanosecond resolution, remote telemetry, hybrid frame and sampling profiler for games and other applications"](https://bitbucket.org/wolfpld/tracy/src/master/)
 
-## Making Games
-
-https://www.riotgames.com/en/urf-academy/curriculum-guide
-
 ## Libraries
 
 #### Native GUI

@@ -21,4 +21,6 @@ but note, you should keep in mind the standard warning that comes when first usi
 > 2) Think before you type.
 > 3) With great power comes great responsibility.
 
+Other things:
+
 [How to learn things at 1000x the speed (Pranay Prakash)](https://pranay.gp/how-to-learn-things-at-1000x-the-speed)

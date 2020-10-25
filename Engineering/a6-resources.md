@@ -97,7 +97,10 @@ https://github.com/netspooky/Simple-Virtual-CPU
 ## Books and Papers
 
 https://github.com/EbookFoundation/free-programming-books#readme
-https://scihub.org/
+
+!> You may want to use a VPN for the following:
+
+https://scihub.org/ & http://libgen.rs
 
 ## Blogs
 

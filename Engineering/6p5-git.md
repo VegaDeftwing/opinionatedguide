@@ -18,7 +18,7 @@
 
 After you have a key generated, you'll need to add the public key to github,
 
-![keysongithub](../media/gitkeys.png)
+<img src="../media/gitkeys.png" alt="keysongithub" style="zoom:50%;" />
 
 you may need to change existing repo to use a git based origin rather than an https one:
 
@@ -79,9 +79,9 @@ https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/
 
 > generated using https://github.com/ryo-ma/github-profile-trophy, the above are the stats on my github profile
 
-![Vegas git contrib graph](../media/gitcontrib.png)
+<img src="../media/gitcontrib.png" alt="Vegas git contrib graph" style="zoom:50%;" />
 
-![badmetric](../media/badmetric.png)
+<img src="../media/badmetric.png" alt="badmetric" style="zoom:50%;" />
 
 > ahh, much better. Made using https://github.com/gelstudios/gitfiti, inspired by someone else that wrote the same thing, but I can't find the original.
 

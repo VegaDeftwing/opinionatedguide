@@ -71,6 +71,18 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 [Pixsort for Adobe After Effects ($15)](https://wunkolo.itch.io/pixsort)
 
+## Fractal Art
+
+| Name & Link                                                  | Purpose                               | Screenshot                   |
+| ------------------------------------------------------------ | ------------------------------------- | ---------------------------- |
+| [Apophysis](https://sourceforge.net/projects/apophysis/)     | Fractal Flames                        |                              |
+| [Mandelbulb 3d & Mandelbulber](https://www.mandelbulb.com)   |                                       |                              |
+| [ifs Fractal Generator](https://sirxemic.github.io/ifs-animator/) |                                       | ![](../media/ifsfractal.png) |
+| [Fractorium](http://fractorium.com)                          | A GPU-Accelerated Fractal Flame Edito |                              |
+| [Chaotica](https://www.chaoticafractals.com) (various pricing for resolution/animation) |                                       |                              |
+
+
+
 ## Generative Eyes
 
 https://www.reddit.com/r/generative/comments/j4uati/iris/
@@ -91,93 +103,25 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 
 
-[Tidal Cycles](https://tidalcycles.org/index.php/Welcome)
-
-<iframe "50%" height="220" src="https://www.youtube.com/embed/Vomnc9R-7mw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-> Video of Tidal Cycles in action
-
-
-
-[Praxislive](https://www.praxislive.org)
-
-
-
-[Mosaic](https://mosaic.d3cod3.org)
-
-<iframe title="vimeo-player" src="https://player.vimeo.com/video/464702127" width="640" height="360" frameborder="0" allowfullscreen></iframe>
-
-> Mosaic in action
-
-
-
-[p5-live, live coding for p5.js (Github)](https://github.com/yangsu/p5-live)
-
-
-
-[hydra (Github)](https://github.com/ojack/hydra)
-
-
-
-[Zerobrane Studio](https://studio.zerobrane.com) and [Moonlet](https://github.com/elihugarret/Moonlet)
-
-
-
-[LiveCodeLab](https://livecodelab.net)
-
-<img src="https://livecodelab.net/images/screenshots/ScreenShot7.png" alt="LiveCodeLab" style="zoom:67%;" />
-
-> A screenshot showing LiveCodeLab
-
-
-
-[Thixels by Ramsey Nasser (Github, Linux Only)](https://github.com/nasser/thixels)
-
-
-
-[Gibber.cc](https://gibber.cc)
-
-
-
-[Ronin (Github)](https://github.com/hundredrabbits/Ronin)
-
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I was making on a little LISP environment to automate some graphical tasks, like batch resizing pictures, or cropping things(I don&#39;t have photoshop) — But the tool has been repurposed by <a href="https://twitter.com/local_guru?ref_src=twsrc%5Etfw">@local_guru</a> and <a href="https://twitter.com/electret_?ref_src=twsrc%5Etfw">@electret_</a> into a kind of livecoding repl. <a href="https://t.co/xeG38ezltY">https://t.co/xeG38ezltY</a> <a href="https://t.co/6MJyLhjOfl">pic.twitter.com/6MJyLhjOfl</a></p>&mdash; Devine Lu Linvega (@neauoire) <a href="https://twitter.com/neauoire/status/1152481692193419267?ref_src=twsrc%5Etfw">July 20, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-> One of the firist videos of Ronin
-
-
-
-[The Force (Github)](https://github.com/shawnlawson/The_Force)
-
-
-
-[Tooll.io, node-basde tool for interactive realtime content on the web](http://tooll.io/)
-
-
-
-[Kodelife - Realtime GPU shader editor](https://hexler.net/products/kodelife)
-
-<img src="https://hexler.net/gfx/_software/kodelife-screens-10.png" alt="kodelife" style="zoom:50%;" />
-
-> Picture of KodeLife
-
-
-
-[Cables.gl (beta)](https://cables.gl)
-
-
-
-[Nimp (Github)](https://github.com/dan335/nimp)
-
-
-
-[vvvv](https://vvvv.org)
-
-![vvvv](https://vvvv.org/sites/default/files/imagecache/large/images/vvvv_Propaganda_NEU_00_1.png)
-
-!> Heads up VVVV requires a licence for comercial use that is rather expensive
-
-
+| Name & Link                                                  | Purpsoe                                                      | Screenshot / Demo                                            |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Tidal Cycles](https://tidalcycles.org/index.php/Welcome)    |                                                              | <iframe width="50%" height="220" src="https://www.youtube.com/embed/Vomnc9R-7mw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> |
+| [Praxislive](https://www.praxislive.org)                     |                                                              |                                                              |
+| [Rectitude](https://lbarret.itch.io/rectitude)               |                                                              | <iframe width="640" height="360" src="https://www.youtube.com/embed/pWKpevPKxUQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> |
+| [Mosaic](https://mosaic.d3cod3.org)                          |                                                              | <iframe title="vimeo-player" src="https://player.vimeo.com/video/464702127" width="640" height="360" frameborder="0" allowfullscreen></iframe> |
+| [p5-live (Github)](https://github.com/yangsu/p5-live)        | live coding for p5.js - you'll probably want the VS Code Extension |                                                              |
+| [hydra (Github)](https://github.com/ojack/hydra)             |                                                              |                                                              |
+| [Zerobrane Studio](https://studio.zerobrane.com) and [Moonlet](https://github.com/elihugarret/Moonlet) |                                                              |                                                              |
+| [LiveCodeLab](https://livecodelab.net)                       |                                                              | ![](https://livecodelab.net/images/screenshots/ScreenShot7.png) |
+| [Thixels by Ramsey Nasser (Github, Linux Only)](https://github.com/nasser/thixels) |                                                              |                                                              |
+| [Gibber.cc](https://gibber.cc)                               |                                                              |                                                              |
+| [Ronin (Github)](https://github.com/hundredrabbits/Ronin)    |                                                              | <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I was making on a little LISP environment to automate some graphical tasks, like batch resizing pictures, or cropping things(I don&#39;t have photoshop) — But the tool has been repurposed by <a href="https://twitter.com/local_guru?ref_src=twsrc%5Etfw">@local_guru</a> and <a href="https://twitter.com/electret_?ref_src=twsrc%5Etfw">@electret_</a> into a kind of livecoding repl. <a href="https://t.co/xeG38ezltY">https://t.co/xeG38ezltY</a> |
+| [The Force (Github)](https://github.com/shawnlawson/The_Force) |                                                              |                                                              |
+| [Tooll.io](http://tooll.io/)                                 | node-basde tool for interactive realtime content on the web  |                                                              |
+| [Kodelife - Realtime GPU shader editor](https://hexler.net/products/kodelife) |                                                              | ![](https://hexler.net/gfx/_software/kodelife-screens-10.png) |
+| [Cables.gl (beta)](https://cables.gl)                        |                                                              |                                                              |
+| [Nimp (Github)](https://github.com/dan335/nimp)              |                                                              |                                                              |
+| [vvvv](https://vvvv.org) - Heads up VVVV requires a licence for comercial use that is rather expensive |                                                              | ![vvvv](https://vvvv.org/sites/default/files/imagecache/large/images/vvvv_Propaganda_NEU_00_1.png) |
 
 ## Creative Coding (Non Live)
 
@@ -205,17 +149,13 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 ## Scripting/Generative tools IN other tools
 
-[TODO] blender scripting
+| Name & Link                                                  | Purpose                                           | Screenshot                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
+| [Sorcar for Blender](https://aachman98.itch.io/sorcar)       | procedural modeling node-based system for Blender |                                                              |
+|                                                              |                                                   |                                                              |
+| [Krita SeExpr](https://docs.krita.org/en/reference_manual/layers_and_masks/fill_layer_generators/seexpr.html?highlight=seexpr) |                                                   | ![Kritas SeExpr](https://docs.krita.org/en/_images/SeExpr_editor.png) |
 
-[Sorcar for Blender - procedural modeling node-based system](https://aachman98.itch.io/sorcar)
-
-[Krita SeExpr](https://docs.krita.org/en/reference_manual/layers_and_masks/fill_layer_generators/seexpr.html?highlight=seexpr)
-
-![Kritas SeExpr](https://docs.krita.org/en/_images/SeExpr_editor.png)
-
-> SeExpr in Krita
-
-## AI image better-ers
+## Super resolution, frame interpolation, and other effects
 
 [Drain-App](https://grisk.itch.io/dain-app)
 
@@ -228,6 +168,10 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 > Think of this like CSI style zoom-and-enhance. It works super well, even on non anime images.
 
 [Neat auto lighting/shading software (Github pages site)](https://lllyasviel.github.io/PaintingLight/)
+
+[Pixatool](https://kronbits.itch.io/pixatool) ($15) - convert 'normal' art into pixel art
+
+[Geon FX](https://nod.itch.io/geon-fx) ($10) - Particle effects generator/editor
 
 ## Other tools
 
