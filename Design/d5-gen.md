@@ -73,13 +73,14 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 ## Fractal Art
 
-| Name & Link                                                  | Purpose                               | Screenshot                   |
-| ------------------------------------------------------------ | ------------------------------------- | ---------------------------- |
-| [Apophysis](https://sourceforge.net/projects/apophysis/)     | Fractal Flames                        |                              |
-| [Mandelbulb 3d & Mandelbulber](https://www.mandelbulb.com)   |                                       |                              |
-| [ifs Fractal Generator](https://sirxemic.github.io/ifs-animator/) |                                       | ![](../media/ifsfractal.png) |
-| [Fractorium](http://fractorium.com)                          | A GPU-Accelerated Fractal Flame Edito | ![](../media/fractorium.jpg) |
-| [Chaotica](https://www.chaoticafractals.com) (various pricing for resolution/animation) |                                       |                              |
+| Name & Link                                                  | Purpose                               | Screenshot                                                   |
+| ------------------------------------------------------------ | ------------------------------------- | ------------------------------------------------------------ |
+| [Apophysis](https://sourceforge.net/projects/apophysis/)     | Fractal Flames                        |                                                              |
+| [Mandelbulber](https://www.mandelbulber.com)                 |                                       | ![](../media/mandelbulber.jpg)                               |
+| [Mandelbulb3D](https://mb3d.overwhale.com)                   |                                       |                                                              |
+| [ifs Fractal Generator](https://sirxemic.github.io/ifs-animator/) |                                       | ![](../media/ifsfractal.png)                                 |
+| [Fractorium](http://fractorium.com)                          | A GPU-Accelerated Fractal Flame Edito | ![](../media/fractorium.jpg)                                 |
+| [Chaotica](https://www.chaoticafractals.com) (various pricing for resolution/animation) |                                       | I'd love to post a picture from someone here, but it seem the community using this software is very, very picky about copyright and just, I don't want to deal with that. Anyway, it's probably the best looking of the options here honestly, I really recomend looking into it. regardless, here are some good examples ([click me](https://www.deviantart.com/technochroma/art/The-Jupiter-Event-812511507), [or me](https://www.chaoticafractals.com/content/ant-queen)) |
 
 
 
