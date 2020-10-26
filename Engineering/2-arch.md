@@ -102,7 +102,7 @@ While this guide should lead you though step by step, it may be helpful to follo
 
 despite the technically complexity to get to it, the best place for Arch Linux support, even for installation, is in the IRC (Internet Relay Chat) channel #archlinux on Freenode. https://wiki.archlinux.org/index.php/Arch_IRC_channels
 
-Obviously if you need this you'll need IRC open on a differnt device than the one you're installing from. There are plenty of IRC clients available for any platform though.
+Obviously if you need this you'll need IRC open on a different device than the one you're installing from. There are plenty of IRC clients available for any platform though.
 
 !>☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠☠
 Seriously, **backup your shit.** I've done this countless times and have still managed to accidentally wipe a drive. There's a good chance you're about to completely murder your windows install. This is a necssary evil to learn, and I assure you'll be happy you've done all this, but this next bit is actual hell for people. I'm sorry it gets so bad so early. I promise it's worth it, okay?
