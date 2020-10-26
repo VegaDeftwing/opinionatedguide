@@ -4,11 +4,17 @@ In an ideal world human kind would be driven forward by more than the initiate d
 
 ## Consent
 
-Coersion by econominc and social pressure, unwanted arousal
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/L-q-tSHo9Ho" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+[TODO] Coersion by econominc and social pressure
 
 ## Sex Work and Porn
 
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/1DZfUzxZ2VU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Pro-Choice Vs Pro-Life
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/c2PAajlHbnU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 > I am so tired of this abortion debate and hearing people treat it like a political issue instead of a deeply-personal, medical decision that men and women have to decide under horrible, tragic, heart-breaking circumstances. My husband and my son have long assumed that I'm pro-choice. I've never corrected them, but I'm not exactly. My mother, co-workers and some of my friends have assumed I'm pro-life. I'm actually not pro-life either. I am simply pro-reasonable.
 >

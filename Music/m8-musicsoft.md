@@ -1,81 +1,66 @@
 # Music Software
 
-## Live Code
+## Live Coding Tools
 
-### Sonic Pi
+| Name & Link                                                  | Description                                                  | Screenshot / Demo                                            |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [SonicPi](https://sonic-pi.net/tutorial)                     |                                                              |                                                              |
+| <li> [ORCA](https://github.com/hundredrabbits/Orca) </li><li> [Cassetter for ORCA](https://person0b.itch.io/cassetter) </li><li>todo,</li> | https://metasyn.github.io/learn-orca/                        |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+| [Mutateful](https://github.com/carrierdown/mutate4l) **Requires Ableton Live** | "enables live coding in Ableton Live's session view. Set up transformations that trigger whenever a source clip is changed, including arpeggiation, shuffling, and ratcheting/retriggering." |                                                              |
+| [Pure-Data](http://write.flossmanuals.net/pure-data/introduction2/) and [Purr Data (a better fork)](https://agraef.github.io/purr-data/) |                                                              |                                                              |
+| [Zerobrane Studio](https://studio.zerobrane.com) and [Moonlet](https://github.com/elihugarret/Moonlet) |                                                              |                                                              |
+| [Krill](https://github.com/Mdashdotdashn/krill)              | Krill is a livecoding environment inspired from [TidalCycles](https://tidalcycles.org/). |                                                              |
+| [TidalCycles](https://tidalcycles.org/index.php/Welcome)     |                                                              |                                                              |
+| [Mosaic](https://mosaic.d3cod3.org)                          |                                                              | <iframe title="vimeo-player" src="https://player.vimeo.com/video/464702127" width="640" height="360" frameborder="0" allowfullscreen></iframe> |
+| [Overtone - Live Code](http://overtone.github.io)            |                                                              |                                                              |
+| [Tweakable](https://tweakable.org)                           |                                                              |                                                              |
+| [Siren (Github)](https://github.com/cannc4/Siren/)           | Tracker meets livecode                                       |                                                              |
+| [FoxDot](https://foxdot.org)                                 | Livecoding with Python                                       |                                                              |
+| [Extempore Lang](https://extemporelang.github.io)            | "Extempore is a programming language and runtime environment designed to support **cyberphysical programming**" |                                                              |
 
-https://sonic-pi.net/tutorial
+## DAWs and almost-daws
 
-### ORCΛ
+| Name & Link                                                | Description | Screenshot / Demo |
+| ---------------------------------------------------------- | ----------- | ----------------- |
+| [VCV Rack](https://vcvrack.com/)                           |             |                   |
+| Reaper                                                     |             |                   |
+| Bitwig-Studio                                              |             |                   |
+| Audacity                                                   |             |                   |
+| Renoise                                                    |             |                   |
+| Deflemask                                                  |             |                   |
+| Sunvox                                                     |             |                   |
+| FL-Studio                                                  |             |                   |
+| [Oscistudio](https://oscilloscopemusic.com/oscistudio.php) |             |                   |
+| Ableton Live                                               |             |                   |
+| Reason                                                     |             |                   |
+| GarageBand                                                 |             |                   |
+| Pro Tools                                                  |             |                   |
 
-https://github.com/hundredrabbits/Orca
+**NOTE: this list is far from exhaustive. Instead, I've tried to list the main ones and some that I think are particularly cool.**
 
-https://metasyn.github.io/learn-orca/
+Digital Audio Workstations or 'DAWs' come in many flavors, so let's look at the differences between the above in depth [TODO]
 
-[Cassetter for ORCA](https://person0b.itch.io/cassetter)
-
-### Other
-
-[Extempore Lang](https://extemporelang.github.io) - "Extempore is a programming language and runtime environment designed to support **cyberphysical programming**"
-
-[FoxDot - Livecoding with Python](https://foxdot.org)
-
-[Siren (Github)](https://github.com/cannc4/Siren/)
-
-[Tweakable](https://tweakable.org)
-
-[Overtone - Live Code](http://overtone.github.io)
-
-[Mosaic](https://mosaic.d3cod3.org)
-
-<iframe title="vimeo-player" src="https://player.vimeo.com/video/464702127" width="640" height="360" frameborder="0" allowfullscreen></iframe>
-
-> Mosaic in action
-
-[TidalCycles](https://tidalcycles.org/index.php/Welcome) and [Krill](https://github.com/Mdashdotdashn/krill)
-
-[Zerobrane Studio](https://studio.zerobrane.com) and [Moonlet](https://github.com/elihugarret/Moonlet)
-
-## Software
-
-### VCV Rack
-
-### Pure Data
-
-http://write.flossmanuals.net/pure-data/introduction2/
-
-## DAWs
-
-Digital Audio Workstations or 'DAWs' come in many flavors. Some of the more popular include Ableton Live, FL Studio, Bitwig, Reaper, Garage Band, and Studio One, but there are many, many more- including some that are more nieche such as Trackers like Renoise, Sunvox, or Deflemask.
-
-[Oscistudio](https://oscilloscopemusic.com/oscistudio.php)
+Trackers, vs non liner, vs modular, etc.
 
 [How To Ableton Like a Pro (YouTube)](https://www.youtube.com/watch?v=W8CMgThLpHc&list=WL&index=176&t=0s&ab_channel=DylanTallchief)
 
 ### VSTs and other Plugins
 
-[Signalizer, an amazing VST Oscilliscope, Vectorscope, and general analysis tool for thats free](https://www.jthorborg.com/index.html?ipage=signalizer)
+#### Free
 
+| Name & Link                                                  | Description                                                  | Screenshot |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ---------- |
+| [Signalizer VST](https://www.jthorborg.com/index.html?ipage=signalizer) | An amazing VST Oscilliscope, Vectorscope, and general analysis tool |            |
+|                                                              |                                                              |            |
+|                                                              |                                                              |            |
+|                                                              |                                                              |            |
+|                                                              |                                                              |            |
+|                                                              |                                                              |            |
+|                                                              |                                                              |            |
 
-Todo, imported from old version of opMusic:
-
-\$ - Paid
-! - Require paid software
-
-* - Has paid features
-
-https://github.com/cannc4/Siren -Siren- Tracker meets live coding
-https://tidalcycles.org/index.php/Welcome -Tidal- Live coding enviroment
-! https://github.com/carrierdown/mutate4l -Mutate4l- Live coding in Ableton Live
--ORCΛ- Live Coding in a game-of-life esque edditor
-
-\* https://vcvrack.com/ -VCV Rack- Modular Synth Software
-\* https://www.modulargrid.net/ -Modular Grid- an online tool for dreaming about hardware setups
-
-\$ -Abletone Live-
-\$ -Renoise-
-\$ -Reaper
-\$ -FL Studio-
+#### Paid
 
 
 

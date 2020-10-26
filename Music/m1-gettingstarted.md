@@ -10,7 +10,7 @@ Go download VCV Rack from https://vcvrack.com/ and depending on your OS you'll n
 Go ahead and fire up VCV and a template patch should have opened up that looks some thing like this:
 ![vcv1default](../media/vcv1default.png)
 
-Windows guys, set your sound device to ASIO and fiddle around until you have sound working, Linux people RTFM, Mac people ヽ( ´¬`)ノ.
+Windows guys, set your sound device to ASIO and fiddle around until you have sound working, Linux people RTFM, Mac people ... Something something CoreAudio I think? IDK. Ask someone that knows apple I guess. 
 That default patch should respond to input when you mash keys so you can test your sound settings (assuming the MIDI-CV module is set to QWERTY keyboard as in the above screenshot and an audio device has been selected)
 
 Final note on that, sound cards and their drivers/software (asio/jack/etc.) have a few important settings you should know about. First, is the 'buffer size'. Frankly, this isn't all the important to understand from a technical perspective but the gist is the lower the buffer size the lower the latency, and higher the higher the latency (latency is how long it takes for sound to come out after you hit a key and is bad); however, the lower the buffer size the more likely you are to have audio under runs, this makes your sound do this weird robotty sound like it was recorded on an Atari2600, make nasty beeps, or cut out entirely. The size you can set your buffer to will vary depending on the hardware you have in your computer, but generally I can get away with 128 and I'll bump it up to 256 when working on large projects if I notice the above issues. You may need to try up to 512 or 1024 though.

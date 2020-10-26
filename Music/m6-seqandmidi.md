@@ -8,4 +8,5 @@ random, sample/hold, probability, piano rolls, trackers, AI based, euclidian, tr
 
 # MIDI effects
 
-Arp, velocity, pitch bend, mod, sustain, generative,
+Arp, velocity, pitch bend, mod, sustain, generative, legatto
+

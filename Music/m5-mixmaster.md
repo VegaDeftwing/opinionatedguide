@@ -11,4 +11,4 @@ talk about loudness and spotify
 
 # Mixing and Mastering
 
-eq, pan, quadraphonic
+eq, pan, quadraphonic+

@@ -74,8 +74,6 @@ https://www.reddit.com/r/politics/comments/ff54xc/trump_flatly_admits_hed_leave_
 
 https://www.reddit.com/r/news/comments/eyd0mb/rush_limbaugh_announces_he_has_lung_cancer/fggkmdg?utm_source=share&utm_medium=web2x
 
-https://www.mcsweeneys.net/articles/a-message-from-your-universitys-vice-president-for-magical-thinking
-
 add critism of tiktok, grubhub, Behringer, etc, and avoiding assholes the "A bag of dicks" argument
 
 

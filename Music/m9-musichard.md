@@ -22,6 +22,10 @@ MPE, aftertouch, vel, virtual midi, midi cc v pb v mod v note on/off v sysmsg v 
 
 [TODO Quadraphonic, Atmos, 5.1, etc]
 
+## Eurorack
+
+[Modular Grid](https://www.modulargrid.net/) an online tool for dreaming about hardware setups (Eurorack, Guitar Pedals, and a few other modular formats)
+
 ## Cool Hardware
 
 [Blokas Midihub](https://blokas.io/midihub/)

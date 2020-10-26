@@ -287,13 +287,17 @@ https://esolangs.org
 
 [Piet](https://www.dangermouse.net/esoteric/piet.html)
 
+![](../media/piethw.png)
+
+> Hello World implimented in Piet ([Source](https://commons.wikimedia.org/wiki/File:Hello_world_piet.png))
+
 [Puddlelang](https://puddledockgames.itch.io/puddlelang)
 
 [Blancmange](https://github.com/Welcome-To-Robins-Repo/blancmange)
 
 [RETURN](https://github.com/molarmanful/RETURN)
 
-[Moonstroke](https://github.com/Moonstroke/3d/)
+[Moonstroke - 3d](https://github.com/Moonstroke/3d/)
 
 [Nandlang](https://github.com/Jellonator/Nandlang)
 
@@ -301,9 +305,59 @@ https://esolangs.org
 
 [Spiral](https://esolangs.org/wiki/Spiral)
 
+```
+0@v*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v
+*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^
+v
+^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v=
+***^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^
+*
+**********v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^##
+*^v*^v*^v*^v*^v*^v*^v*^v*^v#######################
+v
+^*v^*v^*v^**************v^*v^*v^*v^*v^*v^**********
+#########^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v****
+#
+###############v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*
+                         v*^v*^v*^v**************^v
+ ====               X    @
+ i:vX==:====     u@vX=@v i!  ==XX  ===v^==
+    X vs.vuv     @===        s=vv=X=$v=  v
+                             =X     X =  #
+                                    ===@v@X
+```
+
+> ROT13 implimented in Spiral
+
 [Tree](https://esolangs.org/wiki/Tree)
 
+```
+      ^
+    ^^|^^
+   ^^\|/^^
+   H^ |/^^^
+     \| e
+      |/
+   ol~|
+     \|
+  , 32|
+   \/ |
+    \ |  W
+ l   \| /
+ \  d |/  o
+  \/ !|r /  
+   \/ |\/
+    \ |/
+     \|
+```
+
+> Hello World implimented in Tree
+
 [Ziim](https://esolangs.org/wiki/Ziim)
+
+<img src="../media/ziimhw.png" style="zoom:50%;" />
+
+> Hello World implimented in Ziim
 
 [SendStuff](https://esolangs.org/wiki/SendStuff) (unimplemented)
 

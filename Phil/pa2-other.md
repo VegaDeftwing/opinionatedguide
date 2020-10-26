@@ -26,6 +26,8 @@
 
 [Five Geek Social Fallacies](http://www.plausiblydeniable.com/opinion/gsf.html)
 
+[A message from your university's VP for magical thinking](https://www.mcsweeneys.net/articles/a-message-from-your-universitys-vice-president-for-magical-thinking)
+
 # Thank you
 
 If you've made it this far I just want to say *thank you*. We need more people to really consider how ethics, politics, and copyright shape the world around us with technology and art as we design it and proceed with it. DeepFakes, Automated driving, and even more mass online censorship are issues we're only going to face more with time and it's people like you who are going to help make sure we take the best path we can. So, from the bottom of my heart, thank you.
