@@ -36,7 +36,7 @@
   * [30 - Let's Try out Programmable Logic](Engineering/30-fpga1.md)
   * [31 - Let's Make our own SOC](Engineering/31-fpga2.md)
   * [32 - 3D Printing, CNC, and Making Things](Engineering/32-3dprint.md)
-  * [33 - Fine, I'll take about AI/ML](Engineering/33-aiml.md)
+  * [33 - Fine, I'll talk about AI/ML](Engineering/33-aiml.md)
   * [34 - Ham Radio](Engineering/34-hamradio.md)
   * [A0 - Wrapping Up](Engineering/a0-wrappingup.md)
   * [A1 - Using The Linux Shell](Engineering/a1-linuxshell.md)
