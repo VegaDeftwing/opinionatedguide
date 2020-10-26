@@ -73,6 +73,8 @@ https://www.reddit.com/r/generative/comments/d5zeca/generative_glyphs/
 
 [Pixsort for Adobe After Effects (15 USD)](https://wunkolo.itch.io/pixsort)
 
+[GenerateMe (Github)](https://github.com/tsulej/GenerateMe) - lots of glitch effects
+
 ## Fractal Art
 
 | Name & Link                                                  | Purpose                               | Screenshot                     |
@@ -126,6 +128,7 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 | [vvvv](https://vvvv.org) - Heads up VVVV requires a licence for comercial use that is rather expensive | "vvvv is a hybrid visual/textual live-programming environment for easy prototyping and development. It is designed to facilitate the handling of large media environments with physical interfaces, real-time motion graphics, audio and video that can interact with many users simultaneously." | ![vvvv](https://vvvv.org/sites/default/files/imagecache/large/images/vvvv_Propaganda_NEU_00_1.png) |
 | [TouchDesigner](https://derivative.ca) (Free, but 600 USD for Commercial licence) | "TouchDesigner is a visual development platform that equips you with the tools you need to create stunning realtime projects and rich user experiences.  Whether you're creating interactive media systems, architectural projections, live music visuals, or rapid-prototyping your latest ideas, TouchDesigner is the platform that can do it all." | <video controls width="640">    <source src="../media/neurotouchdesigner.mp4"            type="video/mp4"> </video> <br><p> Video courtesy of [Neurotypique](https://www.youtube.com/channel/UC4oBI5piGMznFMZdtEC0FhA) </p> |
 | [Nodes](https://nodes.io)                                    | Not Yet Publiclly Released                                   | <video width="640" poster="assets/video-cover.jpg" src="https://player.vimeo.com/external/348671633.hd.mp4?s=d2d3dd176a1ddbb28c78bb0fb3e007ee10704c1b&amp;profile_id=174" class="w-100" autoplay="" loop="" playsinline="" muted=""></video> |
+| [Cyril (Github)](https://github.com/cyrilcode/cyril), [Main site](http://cyrilcode.com) | The Cyril programming language is designed for fast prototyping of visualisations and live coding visuals. | ![](https://miro.medium.com/max/1400/1*4SaWjEs62NUN_Ti-FU_Iwg.png) |
 
 ## Creative Coding (Non Live)
 
@@ -149,6 +152,9 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 | [Valora](https://paytonturnage.gitbook.io/valora/)           | Another creative coding framework for Rust                   | ![](https://gblobscdn.gitbook.com/assets%2F-Lw1VWDRh9_wPSAWr8kv%2F-M51LUdWgcmABW_iSJDI%2F-M51LaXRFO0JLuIVbJfo%2Fimage.png?alt=media&token=1e4f8e4b-da2e-4dc3-af67-61d1d0d15fe7)[curtain](https://paytonturnage.gitbook.io/valora/gallery) by turnage, 2020 |
 | [immense](https://github.com/turnage/immense)                | A Rust library for describing 3D meshes with simple composable rules. ```rule![     tf![         Tf::saturation(0.8),         Tf::hue(160.0),         Replicate::n(36, vec![Tf::rz(10.0), Tf::ty(0.1)]),         Replicate::n(36, vec![Tf::ry(10.0), Tf::tz(1.2), Tf::hue(3.4)]),     ] => cube() ]``` is all that's needed to generate the example on the right | ![](https://camo.githubusercontent.com/2b6b66d2f42672a91cf9ce527d4250c83d2f837d/68747470733a2f2f692e696d6775722e636f6d2f31456d696b345a2e706e67) |
 | [ANSIedad](https://github.com/gabochi/ANSIedad)              |                                                              | ![ANSIedad](https://raw.githubusercontent.com/gabochi/ANSIedad/master/demo.gif?raw=true) |
+| [ASCII Generator](https://github.com/uvipen/ASCII-generator) |                                                              | ![](https://github.com/uvipen/ASCII-generator/raw/master/demo/input.jpg)![](https://github.com/uvipen/ASCII-generator/raw/master/demo/output_simple_white_200.jpg) |
+| [ShaderGif](https://github.com/antoineMoPa/shadergif)        | You can make gifs with shaders (glsl) and Javascript (either with raw canvas or with the coder-friendly p5.js library). | ![](https://github.com/antoineMoPa/shadergif/raw/master/public/screenshot.png?v=1) |
+| [ShaderView](https://github.com/josephwilk/shaderview)       | "Shaderview is an app for creating visuals using OpenGl Shaders and it uses OSC messages to communicate changes in state. For example when live coding music you could send an OSC message when the drum sample played and in turn your shader could do something with that signal, like flashing of white." | ![](https://camo.githubusercontent.com/44a7056e9b091dd6517bd926d52f4354594cb3cd/68747470733a2f2f7062732e7477696d672e636f6d2f6d656469612f434c565568466a5777414537644a502e706e673a736d616c6c) |
 
 ## Data Visulization
 
@@ -171,7 +177,7 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 | Name & Link                                                  | Purpose                                                      | Screenshot / Demo                                            |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Waifu-2x](http://waifu2x.udp.jp)                            | "Image Super-Resolution for Anime-style art using Deep Convolutional Neural Networks. And it supports photo." - Works well on most things, not just anime art. The link is for a site where you can try it out online, but if you need to run it a lot you should probably run it locally. If you do I recomend [this version](https://github.com/nihui/waifu2x-ncnn-vulkan) is it's compatible with basically any modern GPU | ![](https://raw.githubusercontent.com/nagadomi/waifu2x/master/images/slide.png) |
+| [Waifu-2x](http://waifu2x.udp.jp)                            | "Image Super-Resolution for Anime-style art using Deep Convolutional Neural Networks. And it supports photo." - Works well on most things, not just anime art. The link is for a site where you can try it out online, but if you need to run it a lot you should probably run it locally. If you do I recomend [this version](https://github.com/nihui/waifu2x-ncnn-vulkan) is it's compatible with basically any modern GPU. You may also want to check out [Waifu2x-Extension-GUI](https://github.com/AaronFeng753/Waifu2x-Extension-GUI). | ![](https://raw.githubusercontent.com/nagadomi/waifu2x/master/images/slide.png) |
 | [Drain-App](https://grisk.itch.io/dain-app)                  | Dain-App is a free app that let you take any form of media like movies, stop-motion, anime, cartoons, sprites, etc and interpolate new frames, generating a bigger frame-rate from the original file. **NOTE: drain-app only runs on systems with an NVDIA GPU** |                                                              |
 | [Neat auto lighting/shading software (Github pages site)](https://lllyasviel.github.io/PaintingLight/) | "[...]. Based on this observation, we design an algorithm to both estimate the density of strokes in a digital painting using color geometry, and then generate novel lighting effects by mimicking artists' coarse-to-fine workflow." | ![](https://lllyasviel.github.io/PaintingLight/index_files/paintlight_title.jpg) artwork traced by ToS2P from an artwork by David Revoy under CC-BY license, www.peppercarrot.com |
 | [Pixatool](https://kronbits.itch.io/pixatool) (15 USD)       | convert 'normal' art into pixel art                          | ![](https://img.itch.zone/aW1hZ2UvMTkxNjgxLzEwNzY5MDkuZ2lm/794x1000/I4T9rN.gif) |
@@ -205,3 +211,5 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 [Grant Custer's Feed](https://feed.grantcuster.com) + [Constraint.systems](https://constraint.systems)
 
 [Shadertoy](https://www.shadertoy.com/browse)
+
+[generated.space](https://generated.space)

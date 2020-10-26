@@ -85,6 +85,8 @@ Note, `&>` redirects both stderr and stdout
 
 * pipes ( | ) and [nammed pipes](https://www.networkworld.com/article/3251853/why-use-named-pipes-on-linux.html)
 
+[pv - Pipe Viewer](http://www.ivarch.com/programs/pv.shtml)
+
 Finally, the weirdest and rarely used `<>` operator can be used to directly attch file descriptions and read/write files dirctly, this is rearely used as it's kind of a pita, but if you need to script something advanced it's available. Stollen from the above advanced link:
 
 > [j]<>filename

@@ -42,3 +42,4 @@ https://www.riotgames.com/en/urf-academy/curriculum-guide
 
 [noeuclid by CNLohr](https://github.com/cnlohr/noeuclid) - A Non-euclidean GPU Raytraced Engine
 
+[euclider](https://github.com/Limeth/euclider) - A higher-dimensional "non-euclidean" ray tracing prototype written in Rust.

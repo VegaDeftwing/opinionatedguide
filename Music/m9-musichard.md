@@ -32,6 +32,9 @@ MPE, aftertouch, vel, virtual midi, midi cc v pb v mod v note on/off v sysmsg v 
 
 [Novation LaunchPad X](https://novationmusic.com/en/launch/launchpad-x)
 
+- [launchpad.py](https://github.com/FMMT666/launchpad.py) - python library for the Novation Launchpad Line
+- [r_cycle](https://github.com/Focusrite-Novation/r_cycle) for Pure Data Library *most Launchpads
+
 [T1 Algorithmic Midi Sequencer](https://www.kickstarter.com/projects/torsoelectronics/t-1-expressive-algorithmic-midi-sequencing)
 
 [Sixtyfour pixels MIDI controlled relay](https://six4pix.net/product/relayswitcher/)

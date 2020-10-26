@@ -1,5 +1,7 @@
 # What's Needed at a high level?
 
+https://github.com/ianzhao05/textshot
+
 https://bellard.org/bpg/
 
 https://github.com/SolarLune/masterplan
