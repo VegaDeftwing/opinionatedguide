@@ -213,3 +213,7 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 [Shadertoy](https://www.shadertoy.com/browse)
 
 [generated.space](https://generated.space)
+
+
+
+[META: Hacker News Submission on this page, with a bit of discussion](https://news.ycombinator.com/item?id=24889333)
