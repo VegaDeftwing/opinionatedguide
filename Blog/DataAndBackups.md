@@ -11,6 +11,7 @@ But today, today I want to rant about digital data storage- formats, backups, an
   * MTP needs to die a very painful death
 * All the best formats are a pain in the ass
   * format shifting sucks, opening them sucks, patents suck
+  * https://bellard.org/bpg/
 * People use some really, really shit formats
 * A lot of formats are needlessly complicated and not human or computer readable to anyone but the software vendor
 * Data get's compressed, saved, and recompressed (ref xkcd)

@@ -2,8 +2,6 @@
 
 [TOC]
 
-
-
 # The Way We Interact With Computers Sucks.
 
 **What do you see when you sit down to work?** My guess is a desk pressed against a wall, maybe a few shelves, one, maybe two monitors in front of you, and a keyboard and mouse dominating the work area of your desk. How do you access information? Do you simply Google something and if it's not on the first page give up? How do you get reliable information when you have a question? How do you interpret results that you find? How do you store information you've collected? How do you filter information to get exactly what you're looking for?
@@ -14,7 +12,7 @@ I think we, as individuals and as business, need to invest more in our work spac
 
 # HCI?
 
-**Human Computer Interaction** is an interesting topic to me. So many people spend a crazy amount of time in front of a screen , you'd think we'd have some *damn* good hardware and software to use while we further deepen the permanent butt-shaped indentation into our seats, but alas, instead most people use *ˢʰᵘᵈᵈᵉʳ* Windows.
+**Human Computer Interaction** or [HCI](https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction) is an interesting topic to me. So many people spend a crazy amount of time in front of a screen , you'd think we'd have some *damn* good hardware and software to use while we further deepen the permanent butt-shaped indentation into our seats, but alas, instead most people use *ˢʰᵘᵈᵈᵉʳ* Windows.
 
 Back in late 2018 I wrote the first version of this post, now accessible [here](/Blog/HCI); **However,** basically everything in there has been restated here but better. Since then I've talked to many others about this, read *many* other blog posts, and just generally done a lot of new things with computers and learned a lot, so here's HCI2: Electric Boogaloo.
 
@@ -267,6 +265,14 @@ Not file-compression but volume-compression. the 'make loud sounds quieter and q
 
 Not all systems will be able to do this live without completely shitting the bed because of lack of processing power, but as our graphics cards are now including specific hardware for doing AI/ML based computation, there's no reason we sholudn't be using in the OS for the sake of grabbing the text out of all audio that goes in or out of the system. (of course, storing it securely and locally, nobody wants to wiretap themselves)
 
+**Why is Audio and Video Not Routable?**
+
+Alright, so this is mostly a dig at Windows, where everything is Garbage. Mac has CoreAudio which is pretty cool, and Linux can mostly do this for audio via [Jack Audio](https://jackaudio.org/faq/about.html) and work is being done to make something for both audio and video with [Pipewire](https://pipewire.org).
+
+[TODO example pic of catia and pipewire]
+
+The reason this is necessary is with routable audio and video you can do things like route your webcam's video first though software that does some video effects, then to a recording program and to a streaming program easily. Sure, this can be done anyway right now, but it often means creating a 'virtual' webcam in the middle, and this scenario was already a fairly basic one. If you add in the aforementioned limiting and compressing as options you can see where this starts to matter. 
+
 ### Your Displays Suck
 
 [TODO : Eink displays, display tech, non-pixel displays are good]
@@ -353,11 +359,13 @@ Next up is **dynamic range**, or how deep the blacks are and how vivid the white
 
 ### Lighting
 
+[TODO] warms vs cool, brightness, ambi-light
+
 ### CO2
 
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/1Nh_vxpycEA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Alright, so after seeing this I went out and got a [CO2 meter](https://www.co2meter.com/collections/desktop/products/co2mini-co2-indoor-air-quality-monitor). I watched it get above **2000ppm** regularly. I took steps to lower it and now, honestly, I do feel better. Maybe that's placebo, maybe it's not.
+Alright, so after seeing this I went out and got a [CO2 meter](https://www.co2meter.com/collections/desktop/products/co2mini-co2-indoor-air-quality-monitor). I watched it get above **2000ppm** regularly. I took steps to lower it and now, honestly, I do feel better.
 
 ## Finding Information Sucks
 
@@ -367,11 +375,21 @@ Alright, so after seeing this I went out and got a [CO2 meter](https://www.co2me
 
 ### Transferring Your Profile Sucks
 
-### Authentication Sucks
+ AnIdiotOnTheNet's Comment on [This Hacker New's Submission - 'Re-Thinking the Desktop OS'](https://news.ycombinator.com/item?id=24783387)
+
+> [...]
+>
+> 5) Switchable "user profiles" instead of "user accounts", which are an artifact of giant shared computer systems. User profile just contains personalized settings and can be located anywhere, including removable media so you can take yours to other computers. If you want to keep things safe from others, encrypt them. Otherwise there are no permissions except those applied to applications themselves.
 
 ## Accessing Information Sucks
 
 ### Local Backups By Default
+
+# Authentication Sucks
+
+File Permissions
+
+user/password/2factor
 
 ## Storing Information Sucks
 
@@ -418,7 +436,13 @@ With destructive or irreversible actions, such as deletion (not recycling), give
 
 > Bobby Mikul, Times Square :CC0 -- [Source](https://www.publicdomainpictures.net/en/browse-author.php?a=2185)
 
+### Updates after Draw
 
+re-arranging menus
+
+### Everything needs to be more damn responsive
+
+*Fuck your 𝒻𝒶𝓃𝒸𝓎 animations.*
 
 ## Creating New Information Sucks
 
@@ -432,59 +456,91 @@ I think I've generally made the case that our tools suck so far, but here's wher
 
 
 
-# Okay, So you hate everything? What can we do better?
+# What's Else Is Needed?
 
+## Script all the things! But Not Like That™
 
-
-
-
-# What's Needed at a high level?
-
-https://science.slashdot.org/story/20/10/26/2140202/no-implants-needed-for-precise-control-deep-into-the-brain
-
-https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction
-
-https://pipewire.org
-
-https://bellard.org/bpg/
-
-https://github.com/SolarLune/masterplan
-
-https://dynamicland.org
-
-http://screenl.es
-
-https://mmcthrow-musings.blogspot.com/2020/04/a-proposal-for-flexible-composable.html
-
-like 300x more damn responsive
-
-https://desktopneo.com
-
-https://apse.io
-
-https://techcrunch.com/2017/10/18/atlas-informatics-calls-it-quits-after-less-than-a-year/, https://www.producthunt.com/posts/atlas-recall
-
-https://hookproductivity.com
+Visual Programming but still supporting text based programming, natural language scripting
 
 everything is a file/folder (inc. full programs)
 
-not updating things after the initial draw
+## Optional Security
 
-better permissions systems
+Temple OS philosophy
 
- AnIdiotOnTheNet on https://news.ycombinator.com/item?id=24783387  " ... 
+## Backwards Compatibility via Compatibility Layers
 
-5) Switchable "user profiles" instead of "user accounts", which are an artifact of giant shared computer systems. User profile just contains personalized settings and can be located anywhere, including removable media so you can take yours to other computers. If you want to keep things safe from others, encrypt them. Otherwise there are no permissions except those applied to applications themselves.
+ AnIdiotOnTheNet's Comment on [This Hacker New's Submission - 'Re-Thinking the Desktop OS'](https://news.ycombinator.com/item?id=24783387)
 
-6) Sound *and video* should be routable like you see in DAWs. Plug outputs into inputs, add filters, split, mix, etc. This is of course scriptable so you can make it do what you want on arbitrary events.
+> [...]
+>
+> 7) Backwards compatibility should be a high priority, but accomplished via shim layers and/or emulation and/or vms when clean breaks are necessary. A wide array of such should be included with the OS from the beginning. In 2020, there is no excuse for not being able to run old software."
+
+Excel date bug
+
+No reason we shouldn't be able to run very old shit, but also no reason to use that as an excuse against moving forward.
+
+Hardware compatibility via FPGA modules
+
+## Network Transparency
+
+## Software that breaks the mold
+
+https://github.com/SolarLune/masterplan
+
+
+
+
+
+
 
 7) Backwards compatibility should be a high priority, but accomplished via shim layers and/or emulation and/or vms when clean breaks are necessary. A wide array of such should be included with the OS from the beginning. In 2020, there is no excuse for not being able to run old software."
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Why can’t you easily search all of the text you read on any screen (desktop + mobile) over the past day?<br><br>It’s strange how much obvious, low-hanging fruit of this form still exists.</p>&mdash; Patrick Collison (@patrickc) <a href="https://twitter.com/patrickc/status/953011978217205760?ref_src=twsrc%5Etfw">January 15, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-# What's Needed to support that at a low level?
+# What points contradict
+
+having low level access and having high level functionality.
+
+latency/speed vs things that are inheritly heavy
+
+customizeability vs default inclusion -> microsoft browser choice window
+
+everything is in the browser now anyway?
+
+
 
 # What do we already have?
+
+
+
+# What Might Radically Change Things?
+
+## Brain Computer Interfaces
+
+https://science.slashdot.org/story/20/10/26/2140202/no-implants-needed-for-precise-control-deep-into-the-brain
+
+# Other hardware and software pushing things forward
+
+https://hookproductivity.com -- Link all the things
+
+https://techcrunch.com/2017/10/18/atlas-informatics-calls-it-quits-after-less-than-a-year/ - search all the things
+
+https://apse.io -- a photographic memory of all the text that goes across your screen
+
+https://desktopneo.com -- a UI mockup for a better system
+
+http://screenl.es/why.html -- the Screenless Office
+
+https://dynamicland.org -- computing that works with the enviroment
+
+https://arcan-fe.com/2020/02/10/leveraging-the-display-server-to-improve-debugging/ - it's in the URL
+
+
+
+# Other people that have ranted about similar things, but usually a bit more politely
+
+https://mmcthrow-musings.blogspot.com/2020/04/a-proposal-for-flexible-composable.html
 
 <ol hidden id="footnotes">
 <li>alright, so, yes they're still expensive as all hell, but like if you go DIY then I think they're mostly attainable to most people. I'm sure there's a bit of privlidge talking there, but ╮(─▽─)╭</li>
