@@ -1,3 +1,14 @@
+# Vue demo
+
+<div id="main">hello {{ msg }}</div>
+
+<script>
+  new Vue({
+    el: '#main',
+    data: { msg: 'Vue' }
+  })
+</script>
+
 As a sort of key for navigating this site you'll probably see things like this:
 
 * Bulleted lists
@@ -110,3 +121,13 @@ Markdown can be wrapped in html to apply theming or do other things:
 - Abc
 
 </details>
+
+
+
+[cinwell website](https://en.wikipedia.org/wiki/Webring ':include :type=iframe width=100% height=400px')
+
+
+
+<script src="//unpkg.com/mermaid/dist/mermaid.js"></script>
+<script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"> 
+<script>mermaid.initialize({ startOnLoad: true });</script>

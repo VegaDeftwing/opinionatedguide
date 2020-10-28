@@ -83,7 +83,7 @@ inside your i3 config file you may want to set specific actions to take place ba
 
 If you're looking for more ways to make your setup the best it can be or config files you can steal from check out  [r/unixporn](https://www.reddit.com/r/unixporn).
 
-## The Physical Enviroment & Hardware
+## The Physical Environment & Hardware
 
 ![penv](../media/physicalenv.jpg)
 
