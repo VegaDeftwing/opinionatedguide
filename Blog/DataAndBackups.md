@@ -6,6 +6,7 @@ Okay, yes, the current political climate, the idea of Software As a Service, and
 
 But today, today I want to rant about digital data storage- formats, backups, and the like.
 
+* Archival is a pain in the ass
 * No good backup software
 * Phone<->PC is the fucking worst
   * MTP needs to die a very painful death
