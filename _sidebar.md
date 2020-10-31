@@ -87,7 +87,6 @@
   * [4 - UI/UX](Design/d4-uiux.md)
   * [5 - Generative Tools](Design/d5-gen.md)
   * [A1 - Other Resources](Design/da1-other.md)
-* [**Cooking**](Cooking/opinionatedcooking.md)
 * [**Interviews**](Interviews/interviews.md)
   * [An Interview with Loial Otter](Interviews/loial.md)
 * [**Blog**](Blog/blog.md)
