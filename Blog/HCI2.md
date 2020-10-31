@@ -14,7 +14,7 @@ I think we, as individuals and as business, need to invest more in our work spac
 
 **Human Computer Interaction** or [HCI](https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction) is an interesting topic to me. So many people spend a crazy amount of time in front of a screen , you'd think we'd have some *damn* good hardware and software to use while we further deepen the permanent butt-shaped indentation into our seats, but alas, instead most people use *ˢʰᵘᵈᵈᵉʳ* Windows.
 
-Back in late 2018 I wrote the first version of this post, now accessible [here](https://opinionatedguide.github.io#/Blog/HCI); **However,** basically everything in there has been restated here but better. Since then I've talked to many others about this, read *many* other blog posts, and just generally done a lot of new things with computers and learned a lot, so here's HCI2: Electric Boogaloo.
+Back in late 2018 I wrote the first version of this post and basically everything in there has been restated here but better. Since then I've talked to many others about this, read *many* other blog posts, and just generally done a lot of new things with computers and learned a lot, so here's HCI2: Electric Boogaloo.
 
 # Why What we have sucks
 
@@ -188,15 +188,21 @@ What if everything you did was an actionable input? What if you could finger-dru
 
 I think https://dynamicland.org has a lot of interesting thoughts on this idea and if this vision of the future interests you, you should check it out.
 
+[ReacTable](https://www.youtube.com/watch?v=Mgy1S8qymx0&ab_channel=ReacTj) is another interesting concept in the relm of pyhsical computing
+
 **Game Controllers**
 
-**Scanners (Tags and Documents)**
+Re everything above. Something something make sure they're rechargeable, ergonomic, and simply fun to use. My award for Not Sucking™ goes to the Steam Controller and my award for Best For People With Three Hands™ goes to the N64 Controller.
 
+**RFID Tags**
 
+I have RFID tags from Dangerous Things in each hand, I have an RFID based access card for my University, and my parking lot uses RFID tags for entry. Ignoring the obvious security problems with RFID authentication, It's also just not great to have people carry around a card when their phones can already act as an RFID device anyway, it just makes for a very mis-placeable access token which seems rather stupid.
 
+**Document Scanners**
 
+I will not take this opportunity to rant about printers, no matter how much I want to.
 
-
+To keep this short: Higher default DPI, options to output via OCR (Optical Character Recognition) directly to the document so you don't have to even store the original document, built in de-noising (remove the dust specs), live scanning of paper via camera for things like helping with math.
 
 **What's worse is half this shit already exists, and it is shit.**
 
@@ -208,7 +214,13 @@ Want to look up $LaTeX$ Symbols? [Done.](https://detexify.kirelabs.org/classify.
 
 Did you get a gaming, racing chair that cost like $65 off of ebay? Yeah, you'll regret that one soon enough.
 
+Even if you got a normal office chair, if it wasn't exorbinantly expensive it probably sucks. I did like two weeks of stressing about finding something good and thankfully finally got a good recomendation from a friend, but otherwise it's like $500 SteelCase chair or having a bolt poke though the butt-foam until it's leaving a premanent identation.
 
+It's not like we even *need* innovation here, (as proven by the influx of hot garbage 'gaming' chairs) we just need something affordable that's not garbage or plauged by fake reviews or reviews from another product attached to the new listing (Fix your shit amazon.)
+
+But, I'm here to talk about the future, so what do I think can be better than anything I've even seen? Well, a good start would be threshold latches. Nicer office chairs often have a lock for allowing leaning back or not, but it'd be great if it was 'locked' until a pressure threshold so you can lean back and streach without un-locking and necessiting re-adjusting the chair, a sort of temorary un-lock done by just leaning back harder.
+
+But the biggest reason your chair sucks? It's a chair. I'm not advocating for a treadmill desk, or sitting on one of those big ball things, I'm simply saying having the only reasonable way of interacting with our second-brains being in a seated, unmoving position does nasty things to our bodies. While it would make more sense to adapt our peripherals and input methods, it's worth considering how we may re-shape our seats to work with us. A little while ago ["I built a lay down desk"](https://blog.luap.info/drafts/i-built-a-lay-down-desk.html?hnn) was trending on Hacker News, and it's something I'd considered before too, but I want to think bigger: What if our desk and chair acted as one piece of furniture, one that was flexible between sitting, laying, and standing positions, and the chair bent to an appropiate shape to match the position of the desk? [Design doesn't have to be static](https://youtu.be/xN9hTo3iR6A?t=182).
 
 ### Your Desk Sucks
 
@@ -276,8 +288,6 @@ More practically though, as mentioned before, it's ideal if the mouse and keyboa
 
 ### Your Audio Sucks
 
-[TODO] https://github.com/jaakkopasanen/AutoEq
-
 There's a huge range of audio systems. You might not be able to have speakers at all and have to use headphones, maybe you have an awesome setup running [Dolby Atmos](https://en.wikipedia.org/wiki/Dolby_Atmos) like [Deadmau5's](https://www.magneticmag.com/2016/05/deadmau5-shows-off-the-completion-of-his-new-home-studio-finally/) where the room and speakers have been engineered he can virtually drop an instrument on the sound stage wherever he wants.
 
 But nothing like that is even needed in order to make things suck less.
@@ -306,7 +316,11 @@ Alright, so this is mostly a dig at Windows, where everything is Garbage. Mac ha
 
 [TODO example pic of catia and pipewire]
 
-The reason this is necessary is with routable audio and video you can do things like route your webcam's video first though software that does some video effects, then to a recording program and to a streaming program easily. Sure, this can be done anyway right now, but it often means creating a 'virtual' webcam in the middle, and this scenario was already a fairly basic one. If you add in the aforementioned limiting and compressing as options you can see where this starts to matter. 
+The reason this is necessary is with routable audio and video you can do things like route your webcam's video first though software that does some video effects, then to a recording program and to a streaming program easily. Sure, this can be done anyway right now, but it often means creating a 'virtual' webcam in the middle, and this scenario was already a fairly basic one. If you add in the aforementioned limiting and compressing as options you can see where this starts to matter.
+
+**Why are we not calibrating our audio devices?**
+
+[TODO] https://github.com/jaakkopasanen/AutoEq
 
 ### Your Displays Suck
 
@@ -467,7 +481,7 @@ With destructive or irreversible actions, such as deletion (not recycling), give
 
 > Bobby Mikul, Times Square :CC0 -- [Source](https://www.publicdomainpictures.net/en/browse-author.php?a=2185)
 
-### Updates after Draw
+### Updates after Initial Draw
 
 re-arranging menus
 
@@ -519,11 +533,25 @@ Hardware compatibility via FPGA modules
 
 ## Network Transparency
 
+
+
+## The Ability to go Back In Time
+
+updates, file changes, or just scrolling on a screen - a refresh sholud let you return to the previous state, past notifications should be accessible 
+
+## Open Sensors and Generators
+
+SDRs, new IO options (something shittier than USB, cheap, and extendible), open IOT
+
+
+
 ## Software that breaks the mold
 
 https://github.com/SolarLune/masterplan
 
+### Hardware for Open Expirimentation
 
+Microfluid computers, diode logic, GPIO
 
 
 
@@ -535,11 +563,25 @@ https://github.com/SolarLune/masterplan
 
 # What points contradict
 
-having low level access and having high level functionality.
+* **Having Low Level Access and High Level Useability.**
 
-latency/speed vs things that are inheritly heavy
+Yeah, this is always a problem. It's always been the dream to be able to describe in 'natural language' what you want and to have the computer parse what you want, infering intent, and do whatever you want for you, but naturally, this will never be totally possible. This point is only conflicting in the sense that it can be overwhelming- if a user has access to work in something as high as natural language and can manipulate those insturctions all the way down an the assembly level, that's a lot of open space. Ideally, each layer of the abstarction would be open to tinker and modify for the sake of getting the solution to work correctly, to pipe data around at any level, or to add functionality in it's most natural language: Some tasks are better suited to describing what's needed in english, some are easier to do down in the dirt.
 
-customizeability vs default inclusion -> microsoft browser choice window
+Making everything open this way may sound complicated, but if the UI were presented right it could just be a stack of abstraction that propagates up and down. Changing the assembly could change the source could change the natural language description. Better, the cost of this could be lowered if each layer is only shown and edit-able at request, and that layer just bypassed until needed. Of course, this would mean being able to to make a set of languages that can be can go from higher level to lower level yet have a middle language introduced mid-stack without changing the meaning. This is complicated. It's like asking for a fast python interpreter that can be ran directly or spit out C, then have that C code be editable with it's changes reflected back into the python code. I'm aware of how complicated of a problem that is. Add a natural language description above the python level in the above and it just got much, much more complicated. Still, I think this is something we should aim for.
+
+* **Latency/Speed vs Things That Are Inheritly Heavy**
+
+I'm asking for a lot of inclusion of AI/ML tech into the OS and day-to-day use, yet also asking for much, much faster response times in general. To some extent, hardware with dedicated silicon for AI/ML will make this better, but regardless, there's no way around how much this conflicts. I think the only way to fix this is to recognize what latency is and isn't acceptable.
+
+As mentioned above in **Presentation of Information -> Updates after Initial Draw**, there are some things that are particualy agregious to the user from a UI timing perspective. Waitinig on the computer sucks, sure, but having to **babysit** the computer while you wait on a prompt that could easily be given pre-emptively or make sure a task doesn't time out is completly unacceptable.
+
+But even just directly looking at speed and latency, there's still a ton of room for improvement. Why does the root file system not retain at least an index of other file systems to let you browse while a HDD spins up or a network connection is established? Why do so many damn things have   *s u c h   l o n g*   animations that have to complete before the user can continue? But most of all can we *please* stop building programs with electron or other things that are just full browsers for one program? Use literally anything else. The best way to lower latency is to use as little code as possible, good data structures, good libraries, and good tools. I said it contradicts to keep latency down when doing things that are heavy, but a lot can be done to make so much of what we use day to day substantially lighter to begin with with no loss in functionality. I understand why projects use Electron, but if you must please just use Flutter or Neutralino or Sciter or Ultralight even a game engine. Just, not something so heavy unless you need it? Please?
+
+* **Customizeability vs Default Inclusion**
+
+Microsoft browser choice windows
+
+
 
 ## Everything is in the browser now anyway?
 
@@ -572,6 +614,8 @@ Microsoft has been spending a lot of time changing to the new UI, and their calc
 
 
 # What Might Radically Change Things?
+
+## Body Modification and Bio-Engineering
 
 ## Brain Computer Interfaces
 
