@@ -48,6 +48,8 @@ Identity Politics:
 
 > Source: https://www.instagram.com/p/CEpI20ps5wE/
 
+[Doomscrolling](https://en.wikipedia.org/wiki/Doomscrolling)
+
 **Sources:**
 
 https://en.wikipedia.org/wiki/List_of_fallacies

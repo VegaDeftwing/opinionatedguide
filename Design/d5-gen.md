@@ -163,6 +163,7 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 | [Nodebox](https://www.nodebox.net/node/)          | "NodeBox makes it easy to do data visualisations, generative design and complex production challenges." | ![](https://www.nodebox.net/media/node/features-dataviz.png) |
 | [d3js](https://d3js.org)                          | "**D3.js** is a JavaScript library for manipulating documents based on data. **D3** helps you bring data to life using HTML, SVG, and CSS." | The homepage has a ton of live demos                         |
 | [Apparatus](https://github.com/cdglabs/apparatus) | a hybrid graphics editor / programming environment for creating interactive diagrams | ![](https://camo.githubusercontent.com/a9a89d5ee037527373c5b50f0867e5d5ab9c59b4/687474703a2f2f617072742e75732f6173736574732f75736167652e706e67) |
+| [Vega-Lite](https://vega.github.io/vega-lite/)    | "**Vega-Lite** is a high-level grammar of interactive graphics. It provides a concise, declarative JSON syntax to create an expressive range of visualizations for data analysis and presentation." | ![](../media/vegalite.png)                                   |
 
 ## Scripting/Generative tools IN other tools
 

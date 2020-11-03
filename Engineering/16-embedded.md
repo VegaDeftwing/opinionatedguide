@@ -32,6 +32,8 @@ talk about scheduling (CFS, etc)
 
 [Of Course It Leaks!](https://groups.google.com/forum/message/raw?msg=comp.lang.ada/E9bNCvDQ12k/1tezW24ZxdAJ)
 
+["The Simplest of Pseudo Random Number Generators" - Hackaday](https://hackaday.com/2019/04/23/the-simplest-of-pseudo-random-number-generators/)
+
 # Chapter 14.1 - Embedded Hardware comparison
 
 [TODO, Pi V RockPi4 V Arduinos V x86, ref architecture information from chapter 3.3]

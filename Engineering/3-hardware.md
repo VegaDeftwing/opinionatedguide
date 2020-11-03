@@ -209,6 +209,10 @@ china trying to make their own silicon, apple to own CPU, etc.
 
 https://www.agner.org/forum/viewtopic.php?f=1&t=6
 
+## Otherthings done by the CPU:
+
+The CPU has a lot of dedicated hardware inside for specific functions, for example many CPUs have a dedicated hardware random number generator.
+
 ## RAM
 
 ![RAM](../media/ram.jpg)
@@ -554,6 +558,10 @@ Finally, it should be noted the iGPUs share system memory for graphics memory, w
 > [Source](https://en.wikichip.org/wiki/amd/microarchitectures/zen)
 
 Moving on to graphics cards, Looking above at the stacks of graphics cards above, you'll probably notice that a graphics card is basically just a full separate motherboard and processor on a card. Really, this is pretty accurate, as there is a separate compute device (the GPU), ram (GDDR or HBM), and io (fan control, etc.) on the board. Of course, the Graphics card can't really be used as a full separate computer, but thinking about it as such isn't entirely wrong either. In fact, graphics cards really harken back to much older systems where it was common to add a math co-processor chip along side the CPU to make some mathematical operations faster.
+
+**Further reading on GPU hardware:**
+
+["World's Simplest TTL VGA circuit?" - George Foot on Hackaday](https://hackaday.io/project/175434-worlds-simplest-ttl-vga-circuit)
 
 ### Hardware Accelerated Decode
 
