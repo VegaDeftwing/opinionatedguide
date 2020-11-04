@@ -212,6 +212,9 @@ When we installed arch we actually changed the default shell from bash to zsh, b
   * while much slower than `du` it's great for finding out what's eating storage space
 * [choose](https://github.com/theryangeary/choose)
   * user friendly, simple alternative to awk/cut
+* [ripgrep](https://github.com/BurntSushi/ripgrep)
+  * "ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files. ripgrep has first class support on Windows, macOS and Linux, with binary downloads available for [every release](https://github.com/BurntSushi/ripgrep/releases). ripgrep is similar to other popular search tools like The Silver Searcher, ack and grep."
+  * **TLDR**: Search into your text files really fast with regex support.
 * [echowo](https://fluff.haus/kokoscript/echowo)
   * alternative to echo, but significantly furrier
 

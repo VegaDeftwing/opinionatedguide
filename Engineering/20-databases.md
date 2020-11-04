@@ -14,8 +14,6 @@
 
 
 
-Oracle (Which bought Java from Sun Microsystems and made the first comercially available implimention of SQL) spent an ever living fuck ton of money to put it infront of everyone
-
 [TODO] SQL, full CRUD, joins, the works
 
 [TODO, like, all of it. Need SQL vs Non Relational too]
