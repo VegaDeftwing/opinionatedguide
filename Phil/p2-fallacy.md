@@ -40,6 +40,8 @@ Dog Whistle
 
 Queerbaiting/Racebating
 
+[Self-Censorship](https://en.wikipedia.org/wiki/Self-censorship)
+
 Identity Politics:
 
 <img src="../media/thegays.jpg" style="zoom:50%;" />
@@ -49,6 +51,8 @@ Identity Politics:
 > Source: https://www.instagram.com/p/CEpI20ps5wE/
 
 [Doomscrolling](https://en.wikipedia.org/wiki/Doomscrolling)
+
+[Chilling Effect](https://en.wikipedia.org/wiki/Chilling_effect)
 
 **Sources:**
 

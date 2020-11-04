@@ -43,3 +43,12 @@ https://www.riotgames.com/en/urf-academy/curriculum-guide
 [noeuclid by CNLohr](https://github.com/cnlohr/noeuclid) - A Non-euclidean GPU Raytraced Engine
 
 [euclider](https://github.com/Limeth/euclider) - A higher-dimensional "non-euclidean" ray tracing prototype written in Rust.
+
+[Bevy](https://bevyengine.org/news/bevy-0-3/) - "A refreshingly simple data-driven game engine built in Rust
+Free and Open Source Forever!"
+
+## Interesting ideas
+
+### Procedural Animation:
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Did you like it?<br><br>Another creature made using only Procedural Animation<br>with a focus on 3D Navigation. We call it the Tetrad.<br><br>Big Stuff Coming Soon👀👀<br><br>🧬Follow us here for more🧬: <a href="https://twitter.com/SynthSelection?ref_src=twsrc%5Etfw">@SynthSelection</a><a href="https://twitter.com/hashtag/madewithunity?src=hash&amp;ref_src=twsrc%5Etfw">#madewithunity</a> <a href="https://twitter.com/hashtag/unity?src=hash&amp;ref_src=twsrc%5Etfw">#unity</a> <a href="https://twitter.com/hashtag/indiegamedev?src=hash&amp;ref_src=twsrc%5Etfw">#indiegamedev</a> <a href="https://twitter.com/hashtag/gamedev?src=hash&amp;ref_src=twsrc%5Etfw">#gamedev</a> <a href="https://twitter.com/hashtag/indiedev?src=hash&amp;ref_src=twsrc%5Etfw">#indiedev</a> <a href="https://twitter.com/hashtag/SyntheticSelection?src=hash&amp;ref_src=twsrc%5Etfw">#SyntheticSelection</a> <a href="https://t.co/FatzMuyyc6">pic.twitter.com/FatzMuyyc6</a></p>&mdash; Makan Gilani (@Makan_Gilani) <a href="https://twitter.com/Makan_Gilani/status/1321495500575641602?ref_src=twsrc%5Etfw">October 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

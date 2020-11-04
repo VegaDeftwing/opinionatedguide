@@ -145,6 +145,9 @@ If you're interested, check out [Red's 'Getting Started' page](https://www.red-l
 
 ### Java & Kotlin
 
+!> This is Opinionated Guides, so let me be clear, I really, **really** hate Java. It's a langage that didn't even become popular on it's own merit, instead Sun Microsystem paid a [fuck ton](https://www.theregister.com/2003/06/09/sun_preps_500m_java_brand/) of money to push it- hence the **"3 Billion Devices Run Java"** Thing. I'm hopeful (albeit probably naively) that Oracle (Which bought Java from Sun) making Java a mess of licencesing as the 'main' Java Virtual Machine goes [paid (Read on Wikipedia)](https://en.wikipedia.org/wiki/Java_(programming_language)) and [suing Google](https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.) will be the nail in the cofin for education using it and that it will die out with time.
+[Criticism of Java (Wikipedia)](https://en.wikipedia.org/wiki/Criticism_of_Java)
+
 don't.
 but, here's why not to use Java:
 

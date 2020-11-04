@@ -23,6 +23,7 @@
   * [17 - Discrete Math and Algorithms](Engineering/17-algorithms.md)
   * [18 - Writing a Larger Program](Engineering/18-bigprog.md)
   * [19 - Servers!](Engineering/19-servers.md)
+  * [19 - "The Cloud"](Engineering/19p5-cloud.md)
   * [20 - Databases](Engineering/20-databases.md)
   * [21 - Debugging, Automated Building and Testing](Engineering/21-debugbuildtest.md)
   * [22 - Compilers and Assemblers](Engineering/22-compileassemble.md)
