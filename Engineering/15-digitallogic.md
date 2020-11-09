@@ -42,6 +42,14 @@ SR, Dl, edge triggering, Dff, Tff, JKff,
 
 ### Counters
 
+## Making Some Circuits
+
+There's a ton of simulators out there for making simple circuits educationally, but most sorta suck, so I'm going to delve right into something fun: Minecraft
+
+> If you don't own MineCraft and can't afford it, [MineTest](https://www.minetest.net) with [mesecons](https://content.minetest.net/packages/Jeija/mesecons/) is an option. It's... not great. (sorry MineTest team, I still love what you're doing <3 ) But it is Open Source. If you're using Arch Linux (and updates haven't broken things since writing) you should be able to install `MineTest` from the community repo and `mesecons-git` from the AUR.
+
+[Minetest Circuit Challange](https://www.youtube.com/watch?v=nI8Q1bqT8QU&ab_channel=LiveOverflow)
+
 ## More Digital Logic resources
 
 We'll come back to look at more complex digital logic in chapter 28 "Let's try out programmable logic" and **29 "Let's make our own SOC"** , but if you're hungry for even more, here are some resources

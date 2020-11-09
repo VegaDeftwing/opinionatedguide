@@ -28,7 +28,9 @@
 
 ## Key-Value (Memcached, Redis)
 
-## Graph Databases (Neo4j)
+## Graph Databases (Neo4j, GraphQL?)
+
+[Why not use GraphQL?](https://wundergraph.com/blog/why_not_use_graphql)
 
 ## Document-Oriented Database (Couchbase)
 

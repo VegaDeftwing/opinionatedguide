@@ -215,6 +215,8 @@ https://www.reddit.com/r/generative/comments/epja3d/mycelium/
 
 [generated.space](https://generated.space)
 
+[Echo/printf to write images in 5 LoC with zero libraries or headers (Vidar's Blog)](https://www.vidarholen.net/contents/blog/?p=904)
+
 
 
 [META: Hacker News Submission on this page, with a bit of discussion](https://news.ycombinator.com/item?id=24889333)

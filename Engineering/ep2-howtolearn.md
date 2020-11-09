@@ -8,6 +8,16 @@ To quote someone much smarted than myself:
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Tips to really Master Something<br>1. Move away from basics as quickly as possible<br>2. Constantly expose yourself to stuff you don&#39;t understand and later revisit what you thought you understood (but actually didn&#39;t)<br>3. Do cross-disciplinary research to develop a deeper understanding <a href="https://t.co/vHm223qoYe">https://t.co/vHm223qoYe</a></p>&mdash; LiveOverflow 🔴 (@LiveOverflow) <a href="https://twitter.com/LiveOverflow/status/1037296510583689216?ref_src=twsrc%5Etfw">September 5, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+You should also constantly be looking for how to break, modify, or look into how things work. For example, try right clicking on this sentence and select `Inspect`, like this:
+
+<img src="../media/inspectElement.png" alt="inspectElement" style="zoom:50%; border: 5px solid #555;" />
+
+<p hidden> <b> OwO, What's this? </b> <p>
+
+You should see a `<p hidden>` element, try editing it to remove the word hidden, then the text from that elment should appear above this.  (this sometimes doesn't work correctly right away, so you might have to right click and inspect twice, but then you should see the HTML source for this section of the page)
+
+But try to take this lesson elsewhere, try renaming a .docx (word) file to a .zip and extracting it, or looking though the ventalation of your electronics to see if you can see what makes them tick, whatever. Curiosity is my primary incentive to learn, and often taking a peak into the innards of electronics or code or machines can reveal a lot.
+
 Finally, there's
 
 > **Cunningham's Law** states "the best way to get the right answer on the internet is not to ask a question; it's to post the wrong answer." ([source](https://meta.wikimedia.org/wiki/Cunningham's_Law))

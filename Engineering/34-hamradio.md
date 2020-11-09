@@ -23,3 +23,7 @@ https://newhams.info/2017/02/17/rf-connector-types/
 [So You Got an SDR (Twitch, DefCon28)](https://www.twitch.tv/videos/703442337) [(Youtube, Defcon28)](https://www.youtube.com/watch?v=wDMsh7TJuqw)
 
 [2200-meter band (Wikipedia)](https://en.wikipedia.org/wiki/2200-meter_band)
+
+[Monitor Airplane Traffic with a Raspberry Pi and SDR](https://brianchristner.io/monitor-airplane-traffic-with-a-raspberry-pi/)
+
+?> I've actually set this up using a HackRF and Rock64. It's pretty neat. Just be aware the ADS-b, the radio signals you'll be picking up to do this, are very line-of-sight so you might need to plop the antenna on your roof or something.

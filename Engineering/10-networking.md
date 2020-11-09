@@ -90,6 +90,8 @@ MAC and LLC
 
 ### IPV4, IPV6
 
+[IPV6 is a total nightmare](https://teknikaldomain.me/post/ipv6-is-a-total-nightmare/) & [Hacker News comments on this blog post](https://news.ycombinator.com/item?id=24994587) (note, I don't agree with everything here, just providing it as another person's comments)
+
 ### MAC
 
 ### ICMP, IGMP

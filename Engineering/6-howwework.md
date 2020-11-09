@@ -4,7 +4,7 @@
 
 In the world of programming, embedded development, and electrical debugging you will inevitably need to understand how to use a terminal/command line at some point. While the text only interface can look intimidating, it has some clear advantages, namely it's significantly faster to use the cli or 'command line interface' version of many tools. Because of the nature of this book you will be using the terminal frequently, so for convince sake information on using it effectively has been moved to Appendix A, though I highly recommend you read though it now.
 
-I highly recommend getting autojump setup early as it makes navigating around the terminal much faster, furthermore, bat makes reading code though cat not suck and tldr will save you time when you forget how to use tar, set these up early if nothing eles.
+I also highly recommend getting autojump (`j`) setup early as it makes navigating around the terminal much faster, furthermore, `bat` makes reading code though cat not suck and `tldr` will save you time when you forget how to use `tar`, set these up early if nothing else.
 
 ## Heads up,
 
@@ -30,7 +30,7 @@ Vim, with Spacevim (spacevim.org) ontop is a very powerful tool.
 
 Vim can do everything you could ever dream of, and probably a bit more, and with spacevim ontop, it's a powerhouse. Unfortunately, vim is regularly the butt end of a joke becaue of how nutoriously difficult it is to get the hang of. For that reason I'm going to link a mini tutorial here: https://www.openvim.com/, and link https://spacevim.org/documentation
 
-Graphically I recommend Visual Studio Code with Platform IO, Bracket Pair Colorizer 2, and GitLens. If you're looking for more extensions than that, there's also a version of Asciiflow for VSCode, pleanty of extensions for live rendering (live-p5, glsl-canvas, Processing Language)
+Graphically I recommend Visual Studio Code with Platform IO<a class="ptr">(1)</a>, Bracket Pair Colorizer 2, and GitLens. If you're looking for more extensions than that, there's also a version of Asciiflow for VSCode, pleanty of extensions for live rendering (live-p5, glsl-canvas, Processing Language)
 
 This gives you a pretty kick butt editor on bar with most full Integrated Development Environments or IDEs. I recommend you try out IDEs, especially if for some unholy reason you want to write in Java, but otherwise this will do fine.
 
@@ -298,3 +298,7 @@ Vivaldi, Firefox, Syncthing, Beaker, IPFS, IRC - irssi, Telegram, Etherape, Wire
 # Tools for accessibility
 
 https://joshwcomeau.com/accessibility/hands-free-coding/
+
+<ol hidden id="footnotes">
+<li>PlatfromIO is for working with embedded hardware like Arduino or STM32, etc. Unfortunately, it opens an annoying screen at start up. This can be disabled, but at least in the past this has caused other issues for me. If you do work with embedded hardware though it's still by far the best option as the normal ArduinoIDE is absolute trash.</li>
+</ol>

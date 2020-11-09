@@ -15,6 +15,22 @@ From https://wiki.xxiivv.com/#development:
 
 Programming can seem scary at first but the more you exercise, the easier and more exciting it gets. After all, practice makes perfect! :)
 
+## Starting Minimal
+
+https://tixy.land - very minimal start, just looking at math and plotting basically. This abstracts basically everything out.
+
+[TODO] I want to start here instead of python, need to research which one to start with. I like pico-8, but it's paid and I'd like to keep OpGuides accessible. Tic-80 appears to be the most common otherwise? Pyxel looks good too though and would lead into python nicely? ... ╮(─▽─)╭
+
+https://github.com/Gigoteur/UnicornConsole
+
+https://tic80.com
+
+https://liko-12.github.io#/
+
+https://github.com/kitao/pyxel
+
+https://www.lexaloffle.com/pico-8.php (and https://www.lexaloffle.com/voxatron.php)
+
 ## Python
 
 ![python](../media/python.png ':size=25%')

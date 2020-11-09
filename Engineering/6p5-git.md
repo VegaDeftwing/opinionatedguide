@@ -71,6 +71,10 @@ https://dhwthompson.com/2019/my-favourite-git-commit
 
 https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/
 
+[TODO] Not commiting private info to Git
+
+[What will happen when you commit secrets to a public Git repo? ](https://tinysubversions.com/spooler/?url=https://twitter.com/andrzejdyjak/status/1324360914812940293)
+
 ## Notes on GitHub and competition
 
 [Stop using number of git commits as any metric (u/Sajjon on Reddit)](https://www.reddit.com/r/CryptoCurrency/comments/cub9c2/stop_using_number_of_git_commits_as_any_metric/)
@@ -85,3 +89,20 @@ https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/
 
 > ahh, much better. Made using https://github.com/gelstudios/gitfiti, inspired by someone else that wrote the same thing, but I can't find the original.
 
+## Other Version Control Systems
+
+!> Git is by far the most used VCS out there. If you want to use something else I encourge you to try it and learn it, but realize if the point is to work with others it might be a pain
+
+[TODO]
+
+Subversion
+
+Mercurial
+
+CVS
+
+Fossil
+
+## Weird Git
+
+https://radicle.xyz

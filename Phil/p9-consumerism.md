@@ -1,5 +1,9 @@
 # Consumerism
 
+## We buy too much shit
+
+TODO: individually wrapped wastes of money for holidays makes me feel gross
+
 ## Enforcing Protections
 
 ### Planned obsolescence, Right to repair
@@ -16,6 +20,10 @@ https://dvt.name/2020/02/24/rfc-lets-disrupt-dating-apps/
 
 Sugar
 Drugs
+
+# Credit
+
+[App lets banks lock your financed phone if you default on payment](https://www.xda-developers.com/google-device-lock-controller-banks-payments/)
 
 # Accelerating Change and Information Overload
 

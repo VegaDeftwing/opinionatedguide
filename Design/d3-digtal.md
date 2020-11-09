@@ -14,6 +14,8 @@ inkscape
 
 dotgrid
 
+[SVGPathEditor](https://yqnn.github.io/svg-path-editor/) ([Github](https://github.com/Yqnn/svg-path-editor))
+
 ### 3D Art
 
 #### Meshes
