@@ -21,11 +21,11 @@ https://tixy.land - very minimal start, just looking at math and plotting basica
 
 [TODO] I want to start here instead of python, need to research which one to start with. I like pico-8, but it's paid and I'd like to keep OpGuides accessible. Tic-80 appears to be the most common otherwise? Pyxel looks good too though and would lead into python nicely? ... ╮(─▽─)╭
 
-https://github.com/Gigoteur/UnicornConsole
+https://tic80.com , https://steemit.com/programming/@crypticwyrm/tic-80-learn-to-program-games-using-javascript-or-lua-on-a-fantasy-computer-simulating-old-school-game-programming - still $5 for pro.
 
-https://tic80.com
+https://medium.com/@G05P3L/fantasy-console-wars-a-guide-to-the-biggest-players-in-retrogamings-newest-trend-56bbe948474d
 
-https://liko-12.github.io#/
+https://paladin-t.github.io/b8/
 
 https://github.com/kitao/pyxel
 
