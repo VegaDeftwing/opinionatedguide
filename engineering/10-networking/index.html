@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 10 - Networking #  [TODO] Add follow along making a network stack
+Basics #  Nodes
+Links - Wired and Wireless
+​	Guided and Unguided
+Applications
+End Systems - Hosts &amp; Clients
+Routers and Switches
+​	forwarding table
+Applications and APIs
+LAN v WAN
+the Packet
+​	header
+packet switching
+​	store and forward - buffering, end to end delay
+Packet Loss
+Bandwidth V Throughput
+​	FDM vs TDM">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 10 - Networking #  [TODO] Add follow along making a network stack
+Basics #  Nodes
+Links - Wired and Wireless
+​	Guided and Unguided
+Applications
+End Systems - Hosts &amp; Clients
+Routers and Switches
+​	forwarding table
+Applications and APIs
+LAN v WAN
+the Packet
+​	header
+packet switching
+​	store and forward - buffering, end to end delay
+Packet Loss
+Bandwidth V Throughput
+​	FDM vs TDM" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="opinionatedguide.github.io/engineering/10-networking/" />
+
+<title>10 Networking | Opinionated Guides</title>
+<link rel="manifest" href="/opinionatedguide.github.io/manifest.json">
+<link rel="icon" href="/opinionatedguide.github.io/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/opinionatedguide.github.io/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
+<script defer src="/opinionatedguide.github.io/en.search.min.c58918c268a5439c3bedcf5f5ffa50b13ad271fe159aaf23d3c33e32d8e45e21.js" integrity="sha256-xYkYwmilQ5w77c9fX/pQsTrScf4Vmq8j08M&#43;MtjkXiE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/opinionatedguide.github.io"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <hr>
+<p><a href="opinionatedguide.github.io/home/"><strong>HOME</strong></a></p>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/engineering/"><strong>Engineering</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/ep1-community/">Ⅰ - Community</a></li>
+<li><a href="opinionatedguide.github.io/engineering/ep2-howtolearn/">Ⅱ - Learn How to Learn</a></li>
+<li><a href="opinionatedguide.github.io/engineering/1-firstgoal/">1 - The First Goal</a></li>
+<li><a href="opinionatedguide.github.io/engineering/2-arch/">2 - Let&rsquo;s do it then, Installing Arch Linux</a></li>
+<li><a href="opinionatedguide.github.io/engineering/3-hardware/">3 - Into The Hardware</a></li>
+<li><a href="opinionatedguide.github.io/engineering/4-linuxdirtree/">4 - Back to the -Root- of Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/5-circuits1/">5 - Circuits, an Introduction</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6-howwework/">6 - Let&rsquo;s Work on -How- we work</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6p5-git/">6½ - Git</a></li>
+<li><a href="opinionatedguide.github.io/engineering/7-codeintro/">7 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="opinionatedguide.github.io/engineering/8-lowlvl/">8 - Low Level Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9-codecont/">9 - Finishing up the Project</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9p5-languages/">9½ - Programming Languages</a></li>
+<li><a href="opinionatedguide.github.io/engineering/10-networking/"class=active>10 - Networking</a></li>
+<li><a href="opinionatedguide.github.io/engineering/11-math/">11 - Math</a></li>
+<li><a href="opinionatedguide.github.io/engineering/12-physics/">12 - Physics</a></li>
+<li><a href="opinionatedguide.github.io/engineering/13-chem/">13 - Chemistry</a></li>
+<li><a href="opinionatedguide.github.io/engineering/14-circuits2/">14 - Circuits &amp; Semiconductors</a></li>
+<li><a href="opinionatedguide.github.io/engineering/15-digitallogic/">15 - Digital Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/16-embedded/">16 - Embedded Systems</a></li>
+<li><a href="opinionatedguide.github.io/engineering/17-algorithms/">17 - Discrete Math and Algorithms</a></li>
+<li><a href="opinionatedguide.github.io/engineering/18-bigprog/">18 - Writing a Larger Program</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19-servers/">19 - Servers!</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19p5-cloud/">19 - &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="opinionatedguide.github.io/engineering/20-databases/">20 - Databases</a></li>
+<li><a href="opinionatedguide.github.io/engineering/21-debugbuildtest/">21 - Debugging, Automated Building and Testing</a></li>
+<li><a href="opinionatedguide.github.io/engineering/22-compileassemble/">22 - Compilers and Assemblers</a></li>
+<li><a href="opinionatedguide.github.io/engineering/23-exploitation/">23 - Exploitation</a></li>
+<li><a href="opinionatedguide.github.io/engineering/24-security/">24 - Security</a></li>
+<li><a href="opinionatedguide.github.io/engineering/25-fosscopyright/">25 - Open Source, Licences, and Copyright</a></li>
+<li><a href="opinionatedguide.github.io/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+<li><a href="opinionatedguide.github.io/engineering/27-multithread/">27 - We&rsquo;ve Got Cores, Let&rsquo;s use &lsquo;em</a></li>
+<li><a href="opinionatedguide.github.io/engineering/28-guiprog/">28 - Graphical Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></li>
+<li><a href="opinionatedguide.github.io/engineering/30-fpga1/">30 - Let&rsquo;s Try out Programmable Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/31-fpga2/">31 - Let&rsquo;s Make our own SOC</a></li>
+<li><a href="opinionatedguide.github.io/engineering/32-3dprint/">32 - 3D Printing, CNC, and Making Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/33-aiml/">33 - Fine, I&rsquo;ll talk about AI/ML</a></li>
+<li><a href="opinionatedguide.github.io/engineering/34-hamradio/">34 - Ham Radio</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a0-wrappingup/">A0 - Wrapping Up</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a2-cheat/">A2 - Cheat Sheets and Quick Info</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a3-bom/">A3 - Bill Of Materials</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a4-politics/">A4 - Moved to Opinioned Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a6-resources/">A6 - Other Great Resources</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a7-history/">A7 - History</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a8-oddthings/">A8 - Odd Things</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/music/opmusic-intro/"><strong>Music</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/music/music-getting-started/">1 - Getting Started</a></li>
+<li><a href="opinionatedguide.github.io/music/sound-sources/">2 - Sound Sources</a></li>
+<li><a href="opinionatedguide.github.io/music/theory/">3 - Theory</a></li>
+<li><a href="opinionatedguide.github.io/music/effects/">4 - Effects</a></li>
+<li><a href="opinionatedguide.github.io/music/mix-and-master/">5 - Mixing &amp; Mastering</a></li>
+<li><a href="opinionatedguide.github.io/music/sequencing-and-midi/">6 - Arrangment - Sequencing &amp; MIDI</a></li>
+<li><a href="opinionatedguide.github.io/music/instruments/">7 - Instruments</a></li>
+<li><a href="opinionatedguide.github.io/music/music-software/">8 - Software</a></li>
+<li><a href="opinionatedguide.github.io/music/music-hardware/">9 - Hardware</a></li>
+<li><a href="opinionatedguide.github.io/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/opphil-old/"><strong>Philosophy</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/basic-phil/">1 - Basic Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/phil/fallacies/">2 - Logical Fallacies</a></li>
+<li><a href="opinionatedguide.github.io/phil/arguments/">3 - Arguments</a></li>
+<li><a href="opinionatedguide.github.io/phil/community/">4 - Community Efforts</a></li>
+<li><a href="opinionatedguide.github.io/phil/idea-labs/">5 - Community Idea Labs</a></li>
+<li><a href="opinionatedguide.github.io/phil/education/">6 - Education</a></li>
+<li><a href="opinionatedguide.github.io/phil/labor/">7 - Labor and Compensation</a></li>
+<li><a href="opinionatedguide.github.io/phil/copyright/">8 - Copyright</a></li>
+<li><a href="opinionatedguide.github.io/phil/consumerism/">9 - Consumerism</a></li>
+<li><a href="opinionatedguide.github.io/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="opinionatedguide.github.io/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="opinionatedguide.github.io/phil/religon/">12 - Religion</a></li>
+<li><a href="opinionatedguide.github.io/phil/sex/">13 - Sex</a></li>
+<li><a href="opinionatedguide.github.io/phil/drugs/">14 - Drugs</a></li>
+<li><a href="opinionatedguide.github.io/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="opinionatedguide.github.io/phil/voting/">16 - Voting</a></li>
+<li><a href="opinionatedguide.github.io/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="opinionatedguide.github.io/phil/duties/">18 - Duties</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-misc/">19 - Misc</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-and-the-internet/">A1 - Politics &amp; The Internet</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-other/">A2 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/design/design-intro/"><strong>Design</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/design/basics/">1 - Basics of Art</a></li>
+<li><a href="opinionatedguide.github.io/design/analog-design/">2 - Analog Art</a></li>
+<li><a href="opinionatedguide.github.io/design/digital-design/">3 - Digital Art</a></li>
+<li><a href="opinionatedguide.github.io/design/ui/">4 - UI/UX</a></li>
+<li><a href="opinionatedguide.github.io/design/generative-art/">5 - Generative Tools</a></li>
+<li><a href="opinionatedguide.github.io/design/design-other/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/interviews/"><strong>Interviews</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/loial/">An Interview with Loial Otter</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/other/"><strong>Other</strong></a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="opinionatedguide.github.io/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/opinionatedguide.github.io/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>10 Networking</strong>
+
+  <label for="toc-control">
+    
+    <img src="/opinionatedguide.github.io/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basics">Basics</a></li>
+    <li><a href="#a-typical-network">A typical network</a></li>
+    <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
+      <ul>
+        <li><a href="#coax-twister-pair-fiber--more">Coax, Twister Pair, Fiber &amp; More</a></li>
+        <li><a href="#wireless-terrestrial-and-satellite">Wireless (Terrestrial and Satellite)</a></li>
+        <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
+        <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
+      </ul>
+    </li>
+    <li><a href="#2---data-link">2 - Data Link</a>
+      <ul>
+        <li><a href="#ethernet">Ethernet</a></li>
+        <li><a href="#ppp">PPP</a></li>
+        <li><a href="#switch">Switch</a></li>
+        <li><a href="#bridge">Bridge</a></li>
+        <li><a href="#frames">Frames</a></li>
+        <li><a href="#vlan">VLAN</a></li>
+      </ul>
+    </li>
+    <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
+      <ul>
+        <li><a href="#packets">Packets</a></li>
+        <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
+        <li><a href="#mac">MAC</a></li>
+        <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
+        <li><a href="#subnets">Subnets</a></li>
+      </ul>
+    </li>
+    <li><a href="#4---transport-layer">4 - Transport Layer</a>
+      <ul>
+        <li><a href="#tcp">TCP</a></li>
+        <li><a href="#udp">UDP</a></li>
+      </ul>
+    </li>
+    <li><a href="#5---session-layer">5 - Session Layer</a>
+      <ul>
+        <li><a href="#authentication">Authentication</a></li>
+        <li><a href="#sockets">Sockets</a></li>
+        <li><a href="#apis">API&rsquo;s</a></li>
+        <li><a href="#netbios">NetBios</a></li>
+        <li><a href="#pap">PAP</a></li>
+        <li><a href="#rpc">RPC</a></li>
+        <li><a href="#smb">SMB</a></li>
+        <li><a href="#socks">SOCKS</a></li>
+      </ul>
+    </li>
+    <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
+      <ul>
+        <li><a href="#tls">TLS</a></li>
+        <li><a href="#ssl">SSL</a></li>
+        <li><a href="#imap">IMAP</a></li>
+      </ul>
+    </li>
+    <li><a href="#7---application-layer">7 - Application Layer</a>
+      <ul>
+        <li><a href="#https">HTTP(s)</a></li>
+        <li><a href="#ftp">FTP</a></li>
+        <li><a href="#dns">DNS</a></li>
+        <li><a href="#ssh">SSH</a></li>
+        <li><a href="#irc">IRC</a></li>
+        <li><a href="#email-smtp">EMail (SMTP)</a></li>
+        <li><a href="#upnp">UPNP</a></li>
+        <li><a href="#ntp">NTP</a></li>
+        <li><a href="#telnet">Telnet</a></li>
+        <li><a href="#nfs">NFS</a></li>
+      </ul>
+    </li>
+    <li><a href="#time">Time</a></li>
+    <li><a href="#vpns">VPNs</a>
+      <ul>
+        <li><a href="#openvpn">OpenVPN</a></li>
+        <li><a href="#wireguard">Wireguard</a></li>
+      </ul>
+    </li>
+    <li><a href="#networking-tools">Networking Tools</a>
+      <ul>
+        <li><a href="#etherape">Etherape</a></li>
+        <li><a href="#wireshark">Wireshark</a></li>
+        <li><a href="#nmap">Nmap</a></li>
+        <li><a href="#scapy--kamene">Scapy / Kamene</a></li>
+        <li><a href="#gns">(G)NS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-10---networking">
+  Chapter 10 - Networking
+  <a class="anchor" href="#chapter-10---networking">#</a>
+</h1>
+<p>[TODO] Add follow along making a network stack</p>
+<h2 id="basics">
+  Basics
+  <a class="anchor" href="#basics">#</a>
+</h2>
+<p>Nodes</p>
+<p>Links - Wired and Wireless</p>
+<p>​	Guided and Unguided</p>
+<p>Applications</p>
+<p>End Systems - Hosts &amp; Clients</p>
+<p>Routers and Switches</p>
+<p>​	forwarding table</p>
+<p>Applications and APIs</p>
+<p>LAN v WAN</p>
+<p>the Packet</p>
+<p>​		header</p>
+<p>packet switching</p>
+<p>​	store and forward - buffering, end to end delay</p>
+<p>Packet Loss</p>
+<p>Bandwidth V Throughput</p>
+<p>​	FDM vs TDM</p>
+<h2 id="a-typical-network">
+  A typical network
+  <a class="anchor" href="#a-typical-network">#</a>
+</h2>
+<p>[TODO]</p>
+<p>Default Gateway, Routes &amp; kernel routing table, subnet mask, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, <a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/</a></p>
+<p>IETF &amp; RFCs</p>
+<p>IEEE-SA</p>
+<p>The OSI model of networking is</p>
+<p>In the <strong>TCP/IP</strong> model, the <strong>Physical</strong> and <strong>Data Link</strong> Layers are viewed as a <strong>unified &lsquo;Network Acces Layer&rsquo;</strong></p>
+<p>The <strong>Network Layer</strong> is called the <strong>Internet Layer</strong></p>
+<p>The Transport Layer <em>stays the same</em>,</p>
+<p>and The <strong>Session, Presentation, and Application</strong> layer are all part of a <strong>larger Application</strong> Layer</p>
+<h2 id="1---the-physical-layer">
+  1 - The physical Layer
+  <a class="anchor" href="#1---the-physical-layer">#</a>
+</h2>
+<h3 id="coax-twister-pair-fiber--more">
+  Coax, Twister Pair, Fiber &amp; More
+  <a class="anchor" href="#coax-twister-pair-fiber--more">#</a>
+</h3>
+<h3 id="wireless-terrestrial-and-satellite">
+  Wireless (Terrestrial and Satellite)
+  <a class="anchor" href="#wireless-terrestrial-and-satellite">#</a>
+</h3>
+<p>geostationary vs LEO</p>
+<h3 id="hubs-repeaters-taps">
+  Hubs, Repeaters, Taps
+  <a class="anchor" href="#hubs-repeaters-taps">#</a>
+</h3>
+<h3 id="carrier-pidgeon-can-etc">
+  Carrier Pidgeon, Can, etc.
+  <a class="anchor" href="#carrier-pidgeon-can-etc">#</a>
+</h3>
+<h2 id="2---data-link">
+  2 - Data Link
+  <a class="anchor" href="#2---data-link">#</a>
+</h2>
+<p>MAC and LLC</p>
+<h3 id="ethernet">
+  Ethernet
+  <a class="anchor" href="#ethernet">#</a>
+</h3>
+<h3 id="ppp">
+  PPP
+  <a class="anchor" href="#ppp">#</a>
+</h3>
+<h3 id="switch">
+  Switch
+  <a class="anchor" href="#switch">#</a>
+</h3>
+<h3 id="bridge">
+  Bridge
+  <a class="anchor" href="#bridge">#</a>
+</h3>
+<h3 id="frames">
+  Frames
+  <a class="anchor" href="#frames">#</a>
+</h3>
+<h3 id="vlan">
+  VLAN
+  <a class="anchor" href="#vlan">#</a>
+</h3>
+<h2 id="3---network-layerip-layer">
+  3 - Network Layer/IP Layer
+  <a class="anchor" href="#3---network-layerip-layer">#</a>
+</h2>
+<h3 id="packets">
+  Packets
+  <a class="anchor" href="#packets">#</a>
+</h3>
+<h3 id="ipv4-ipv6">
+  IPV4, IPV6
+  <a class="anchor" href="#ipv4-ipv6">#</a>
+</h3>
+<p><a href="https://teknikaldomain.me/post/ipv6-is-a-total-nightmare/">IPV6 is a total nightmare</a> &amp; <a href="https://news.ycombinator.com/item?id=24994587">Hacker News comments on this blog post</a> (note, I don&rsquo;t agree with everything here, just providing it as another person&rsquo;s comments)</p>
+<h3 id="mac">
+  MAC
+  <a class="anchor" href="#mac">#</a>
+</h3>
+<h3 id="icmp-igmp">
+  ICMP, IGMP
+  <a class="anchor" href="#icmp-igmp">#</a>
+</h3>
+<h3 id="subnets">
+  Subnets
+  <a class="anchor" href="#subnets">#</a>
+</h3>
+<p><img src="/devnullnetwork.png" alt="devnullnetwork" title=":size=70%"/></p>
+<h2 id="4---transport-layer">
+  4 - Transport Layer
+  <a class="anchor" href="#4---transport-layer">#</a>
+</h2>
+<h3 id="tcp">
+  TCP
+  <a class="anchor" href="#tcp">#</a>
+</h3>
+<h4 id="quic">
+  QUIC
+  <a class="anchor" href="#quic">#</a>
+</h4>
+<h3 id="udp">
+  UDP
+  <a class="anchor" href="#udp">#</a>
+</h3>
+<h2 id="5---session-layer">
+  5 - Session Layer
+  <a class="anchor" href="#5---session-layer">#</a>
+</h2>
+<h3 id="authentication">
+  Authentication
+  <a class="anchor" href="#authentication">#</a>
+</h3>
+<h3 id="sockets">
+  Sockets
+  <a class="anchor" href="#sockets">#</a>
+</h3>
+<h3 id="apis">
+  API&rsquo;s
+  <a class="anchor" href="#apis">#</a>
+</h3>
+<h3 id="netbios">
+  NetBios
+  <a class="anchor" href="#netbios">#</a>
+</h3>
+<h3 id="pap">
+  PAP
+  <a class="anchor" href="#pap">#</a>
+</h3>
+<h3 id="rpc">
+  RPC
+  <a class="anchor" href="#rpc">#</a>
+</h3>
+<h3 id="smb">
+  SMB
+  <a class="anchor" href="#smb">#</a>
+</h3>
+<h3 id="socks">
+  SOCKS
+  <a class="anchor" href="#socks">#</a>
+</h3>
+<h2 id="6---presentation-layer">
+  6 - Presentation Layer
+  <a class="anchor" href="#6---presentation-layer">#</a>
+</h2>
+<h3 id="tls">
+  TLS
+  <a class="anchor" href="#tls">#</a>
+</h3>
+<h3 id="ssl">
+  SSL
+  <a class="anchor" href="#ssl">#</a>
+</h3>
+<h3 id="imap">
+  IMAP
+  <a class="anchor" href="#imap">#</a>
+</h3>
+<h2 id="7---application-layer">
+  7 - Application Layer
+  <a class="anchor" href="#7---application-layer">#</a>
+</h2>
+<h3 id="https">
+  HTTP(s)
+  <a class="anchor" href="#https">#</a>
+</h3>
+<p><img src="/http-status-codes.png" alt="Codes" title=":size=50%"/></p>
+<blockquote>
+<p><a href="https://www.monkeyuser.com/2017/http-status-codes/">https://www.monkeyuser.com/2017/http-status-codes/</a></p>
+</blockquote>
+<p>http1 vs 2 v 3</p>
+<h3 id="ftp">
+  FTP
+  <a class="anchor" href="#ftp">#</a>
+</h3>
+<h3 id="dns">
+  DNS
+  <a class="anchor" href="#dns">#</a>
+</h3>
+<h4 id="dhcp">
+  DHCP
+  <a class="anchor" href="#dhcp">#</a>
+</h4>
+<h3 id="ssh">
+  SSH
+  <a class="anchor" href="#ssh">#</a>
+</h3>
+<h3 id="irc">
+  IRC
+  <a class="anchor" href="#irc">#</a>
+</h3>
+<h3 id="email-smtp">
+  EMail (SMTP)
+  <a class="anchor" href="#email-smtp">#</a>
+</h3>
+<h3 id="upnp">
+  UPNP
+  <a class="anchor" href="#upnp">#</a>
+</h3>
+<h3 id="ntp">
+  NTP
+  <a class="anchor" href="#ntp">#</a>
+</h3>
+<h3 id="telnet">
+  Telnet
+  <a class="anchor" href="#telnet">#</a>
+</h3>
+<h3 id="nfs">
+  NFS
+  <a class="anchor" href="#nfs">#</a>
+</h3>
+<h2 id="time">
+  Time
+  <a class="anchor" href="#time">#</a>
+</h2>
+<p>Real time clocks, timezones, utc, etc.</p>
+<h2 id="vpns">
+  VPNs
+  <a class="anchor" href="#vpns">#</a>
+</h2>
+<h3 id="openvpn">
+  OpenVPN
+  <a class="anchor" href="#openvpn">#</a>
+</h3>
+<h3 id="wireguard">
+  Wireguard
+  <a class="anchor" href="#wireguard">#</a>
+</h3>
+<p><a href="https://www.wireguard.com/quickstart/">Wireguard Quickstart page</a></p>
+<p><a href="https://wiki.archlinux.org/index.php/WireGuard">Wireguard entry on the (Arch Wiki)</a></p>
+<h4 id="tailscale">
+  Tailscale
+  <a class="anchor" href="#tailscale">#</a>
+</h4>
+<h2 id="networking-tools">
+  Networking Tools
+  <a class="anchor" href="#networking-tools">#</a>
+</h2>
+<h3 id="etherape">
+  Etherape
+  <a class="anchor" href="#etherape">#</a>
+</h3>
+<h3 id="wireshark">
+  Wireshark
+  <a class="anchor" href="#wireshark">#</a>
+</h3>
+<h3 id="nmap">
+  Nmap
+  <a class="anchor" href="#nmap">#</a>
+</h3>
+<h3 id="scapy--kamene">
+  Scapy / Kamene
+  <a class="anchor" href="#scapy--kamene">#</a>
+</h3>
+<p><a href="https://kamene.readthedocs.io/en/latest/introduction.html">Kamene</a></p>
+<h3 id="gns">
+  (G)NS
+  <a class="anchor" href="#gns">#</a>
+</h3>
+<h1 id="chapter-101---weird-networking-because-why-not">
+  Chapter 10.1 - Weird Networking, because why not!
+  <a class="anchor" href="#chapter-101---weird-networking-because-why-not">#</a>
+</h1>
+<p><a href="https://github.com/cjdelisle/cjdns">cjdns</a> + <a href="https://hyperboria.net">hyperboria</a></p>
+<p><a href="https://ipfs.io">ipfs</a></p>
+<p><a href="https://dat.foundation">dat</a></p>
+<p><a href="http://netsukuku.freaknet.org">Netsukuku</a></p>
+<p><a href="https://beakerbrowser.com">Beaker Browser</a></p>
+<p><a href="https://blog.benjojo.co.uk/post/eve-online-bgp-internet">EVE Online internet</a> from <a href="https://blog.benjojo.co.uk">https://blog.benjojo.co.uk</a>, which has a ton of other really, really neat posts, like <a href="https://blog.benjojo.co.uk/post/speed-of-bgp-network-propagation">The Speed of BGP network propagation</a>, or <a href="https://blog.benjojo.co.uk/post/ip-over-fibre-channel-hack">Hacking Ethernet out of Fibre Channel cards</a></p>
+<p>Software Defined Networking, ActivityPub</p>
+<p><a href="https://github.com/SadeghHayeri/GreenTunnel">GreenTunnel</a> - &ldquo;GreenTunnel bypasses DPI (Deep Packet Inspection) systems found in many ISPs (Internet Service Providers) which block access to certain websites.&rdquo;</p>
+<p><a href="https://github.com/redecentralize/alternative-internet">Alternative Internet (Github list)</a></p>
+<p><a href="https://github.com/moarpepes/awesome-mesh">Awesome Mesh (Github list)</a></p>
+<p><a href="https://blackarch.org/tools.html">List of tools in the BlackArch repo</a>, meant mostly for security research, though obviously many of these are network related and so might give some inspiration or lead to interesting rabbit holes</p>
+<p><a href="https://www.youtube.com/user/DEFCONConference/videos">Defcon channel (YouTube)</a>, DefCon is a security confrence, and naturally that means a lot of network security, including <a href="https://www.youtube.com/watch?v=RnxcPeemHSc&amp;ab_channel=DEFCONConference">Including some on hacking sex toys</a></p>
+<p><a href="https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/">Why do we use the Linux Kernel&rsquo;s TCP Stack (Julia Evans Blog)</a></p>
+<p><a href="https://github.com/smoltcp-rs/smoltcp">A smol tcp stack (Github)</a></p>
+<p><a href="https://people.kernel.org/dsahern/the-cpu-cost-of-networking-on-a-host">The Cost of CPU Networking on a Host (David Ahern&rsquo;s Blog)</a></p>
+<p><a href="https://tools.ietf.org/id/draft-cheshire-tcp-over-udp-00.html">Encapsulation of TCP over UDP</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/opinionatedguide/OpGuidesHugoSrc/tree/main/content//Engineering/10-networking.md" target="_blank" rel="noopener">
+      <img src="/opinionatedguide.github.io/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.black.svg" style="width:100px;height:100px"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#basics">Basics</a></li>
+    <li><a href="#a-typical-network">A typical network</a></li>
+    <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
+      <ul>
+        <li><a href="#coax-twister-pair-fiber--more">Coax, Twister Pair, Fiber &amp; More</a></li>
+        <li><a href="#wireless-terrestrial-and-satellite">Wireless (Terrestrial and Satellite)</a></li>
+        <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
+        <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
+      </ul>
+    </li>
+    <li><a href="#2---data-link">2 - Data Link</a>
+      <ul>
+        <li><a href="#ethernet">Ethernet</a></li>
+        <li><a href="#ppp">PPP</a></li>
+        <li><a href="#switch">Switch</a></li>
+        <li><a href="#bridge">Bridge</a></li>
+        <li><a href="#frames">Frames</a></li>
+        <li><a href="#vlan">VLAN</a></li>
+      </ul>
+    </li>
+    <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
+      <ul>
+        <li><a href="#packets">Packets</a></li>
+        <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
+        <li><a href="#mac">MAC</a></li>
+        <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
+        <li><a href="#subnets">Subnets</a></li>
+      </ul>
+    </li>
+    <li><a href="#4---transport-layer">4 - Transport Layer</a>
+      <ul>
+        <li><a href="#tcp">TCP</a></li>
+        <li><a href="#udp">UDP</a></li>
+      </ul>
+    </li>
+    <li><a href="#5---session-layer">5 - Session Layer</a>
+      <ul>
+        <li><a href="#authentication">Authentication</a></li>
+        <li><a href="#sockets">Sockets</a></li>
+        <li><a href="#apis">API&rsquo;s</a></li>
+        <li><a href="#netbios">NetBios</a></li>
+        <li><a href="#pap">PAP</a></li>
+        <li><a href="#rpc">RPC</a></li>
+        <li><a href="#smb">SMB</a></li>
+        <li><a href="#socks">SOCKS</a></li>
+      </ul>
+    </li>
+    <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
+      <ul>
+        <li><a href="#tls">TLS</a></li>
+        <li><a href="#ssl">SSL</a></li>
+        <li><a href="#imap">IMAP</a></li>
+      </ul>
+    </li>
+    <li><a href="#7---application-layer">7 - Application Layer</a>
+      <ul>
+        <li><a href="#https">HTTP(s)</a></li>
+        <li><a href="#ftp">FTP</a></li>
+        <li><a href="#dns">DNS</a></li>
+        <li><a href="#ssh">SSH</a></li>
+        <li><a href="#irc">IRC</a></li>
+        <li><a href="#email-smtp">EMail (SMTP)</a></li>
+        <li><a href="#upnp">UPNP</a></li>
+        <li><a href="#ntp">NTP</a></li>
+        <li><a href="#telnet">Telnet</a></li>
+        <li><a href="#nfs">NFS</a></li>
+      </ul>
+    </li>
+    <li><a href="#time">Time</a></li>
+    <li><a href="#vpns">VPNs</a>
+      <ul>
+        <li><a href="#openvpn">OpenVPN</a></li>
+        <li><a href="#wireguard">Wireguard</a></li>
+      </ul>
+    </li>
+    <li><a href="#networking-tools">Networking Tools</a>
+      <ul>
+        <li><a href="#etherape">Etherape</a></li>
+        <li><a href="#wireshark">Wireshark</a></li>
+        <li><a href="#nmap">Nmap</a></li>
+        <li><a href="#scapy--kamene">Scapy / Kamene</a></li>
+        <li><a href="#gns">(G)NS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,1 +1,0 @@
-This section is made up of personal blog posts that don't really fit elsewhere. Some older blog posts from past sites of mine have been integreated into other parts of OpGuides. If there's specefic content you're looking for that you can no longer find or would like to chat please just shoot me a message on Telegram or Twitter or whatever.

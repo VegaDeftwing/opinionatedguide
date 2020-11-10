@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Effects" />
+<meta property="og:description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="opinionatedguide.github.io/music/effects/" />
+
+<title>Effects | Opinionated Guides</title>
+<link rel="manifest" href="/opinionatedguide.github.io/manifest.json">
+<link rel="icon" href="/opinionatedguide.github.io/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/opinionatedguide.github.io/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
+<script defer src="/opinionatedguide.github.io/en.search.min.c58918c268a5439c3bedcf5f5ffa50b13ad271fe159aaf23d3c33e32d8e45e21.js" integrity="sha256-xYkYwmilQ5w77c9fX/pQsTrScf4Vmq8j08M&#43;MtjkXiE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/opinionatedguide.github.io"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <hr>
+<p><a href="opinionatedguide.github.io/home/"><strong>HOME</strong></a></p>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/engineering/"><strong>Engineering</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/ep1-community/">Ⅰ - Community</a></li>
+<li><a href="opinionatedguide.github.io/engineering/ep2-howtolearn/">Ⅱ - Learn How to Learn</a></li>
+<li><a href="opinionatedguide.github.io/engineering/1-firstgoal/">1 - The First Goal</a></li>
+<li><a href="opinionatedguide.github.io/engineering/2-arch/">2 - Let&rsquo;s do it then, Installing Arch Linux</a></li>
+<li><a href="opinionatedguide.github.io/engineering/3-hardware/">3 - Into The Hardware</a></li>
+<li><a href="opinionatedguide.github.io/engineering/4-linuxdirtree/">4 - Back to the -Root- of Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/5-circuits1/">5 - Circuits, an Introduction</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6-howwework/">6 - Let&rsquo;s Work on -How- we work</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6p5-git/">6½ - Git</a></li>
+<li><a href="opinionatedguide.github.io/engineering/7-codeintro/">7 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="opinionatedguide.github.io/engineering/8-lowlvl/">8 - Low Level Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9-codecont/">9 - Finishing up the Project</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9p5-languages/">9½ - Programming Languages</a></li>
+<li><a href="opinionatedguide.github.io/engineering/10-networking/">10 - Networking</a></li>
+<li><a href="opinionatedguide.github.io/engineering/11-math/">11 - Math</a></li>
+<li><a href="opinionatedguide.github.io/engineering/12-physics/">12 - Physics</a></li>
+<li><a href="opinionatedguide.github.io/engineering/13-chem/">13 - Chemistry</a></li>
+<li><a href="opinionatedguide.github.io/engineering/14-circuits2/">14 - Circuits &amp; Semiconductors</a></li>
+<li><a href="opinionatedguide.github.io/engineering/15-digitallogic/">15 - Digital Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/16-embedded/">16 - Embedded Systems</a></li>
+<li><a href="opinionatedguide.github.io/engineering/17-algorithms/">17 - Discrete Math and Algorithms</a></li>
+<li><a href="opinionatedguide.github.io/engineering/18-bigprog/">18 - Writing a Larger Program</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19-servers/">19 - Servers!</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19p5-cloud/">19 - &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="opinionatedguide.github.io/engineering/20-databases/">20 - Databases</a></li>
+<li><a href="opinionatedguide.github.io/engineering/21-debugbuildtest/">21 - Debugging, Automated Building and Testing</a></li>
+<li><a href="opinionatedguide.github.io/engineering/22-compileassemble/">22 - Compilers and Assemblers</a></li>
+<li><a href="opinionatedguide.github.io/engineering/23-exploitation/">23 - Exploitation</a></li>
+<li><a href="opinionatedguide.github.io/engineering/24-security/">24 - Security</a></li>
+<li><a href="opinionatedguide.github.io/engineering/25-fosscopyright/">25 - Open Source, Licences, and Copyright</a></li>
+<li><a href="opinionatedguide.github.io/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+<li><a href="opinionatedguide.github.io/engineering/27-multithread/">27 - We&rsquo;ve Got Cores, Let&rsquo;s use &lsquo;em</a></li>
+<li><a href="opinionatedguide.github.io/engineering/28-guiprog/">28 - Graphical Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></li>
+<li><a href="opinionatedguide.github.io/engineering/30-fpga1/">30 - Let&rsquo;s Try out Programmable Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/31-fpga2/">31 - Let&rsquo;s Make our own SOC</a></li>
+<li><a href="opinionatedguide.github.io/engineering/32-3dprint/">32 - 3D Printing, CNC, and Making Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/33-aiml/">33 - Fine, I&rsquo;ll talk about AI/ML</a></li>
+<li><a href="opinionatedguide.github.io/engineering/34-hamradio/">34 - Ham Radio</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a0-wrappingup/">A0 - Wrapping Up</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a2-cheat/">A2 - Cheat Sheets and Quick Info</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a3-bom/">A3 - Bill Of Materials</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a4-politics/">A4 - Moved to Opinioned Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a6-resources/">A6 - Other Great Resources</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a7-history/">A7 - History</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a8-oddthings/">A8 - Odd Things</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/music/opmusic-intro/"><strong>Music</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/music/music-getting-started/">1 - Getting Started</a></li>
+<li><a href="opinionatedguide.github.io/music/sound-sources/">2 - Sound Sources</a></li>
+<li><a href="opinionatedguide.github.io/music/theory/">3 - Theory</a></li>
+<li><a href="opinionatedguide.github.io/music/effects/"class=active>4 - Effects</a></li>
+<li><a href="opinionatedguide.github.io/music/mix-and-master/">5 - Mixing &amp; Mastering</a></li>
+<li><a href="opinionatedguide.github.io/music/sequencing-and-midi/">6 - Arrangment - Sequencing &amp; MIDI</a></li>
+<li><a href="opinionatedguide.github.io/music/instruments/">7 - Instruments</a></li>
+<li><a href="opinionatedguide.github.io/music/music-software/">8 - Software</a></li>
+<li><a href="opinionatedguide.github.io/music/music-hardware/">9 - Hardware</a></li>
+<li><a href="opinionatedguide.github.io/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/opphil-old/"><strong>Philosophy</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/basic-phil/">1 - Basic Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/phil/fallacies/">2 - Logical Fallacies</a></li>
+<li><a href="opinionatedguide.github.io/phil/arguments/">3 - Arguments</a></li>
+<li><a href="opinionatedguide.github.io/phil/community/">4 - Community Efforts</a></li>
+<li><a href="opinionatedguide.github.io/phil/idea-labs/">5 - Community Idea Labs</a></li>
+<li><a href="opinionatedguide.github.io/phil/education/">6 - Education</a></li>
+<li><a href="opinionatedguide.github.io/phil/labor/">7 - Labor and Compensation</a></li>
+<li><a href="opinionatedguide.github.io/phil/copyright/">8 - Copyright</a></li>
+<li><a href="opinionatedguide.github.io/phil/consumerism/">9 - Consumerism</a></li>
+<li><a href="opinionatedguide.github.io/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="opinionatedguide.github.io/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="opinionatedguide.github.io/phil/religon/">12 - Religion</a></li>
+<li><a href="opinionatedguide.github.io/phil/sex/">13 - Sex</a></li>
+<li><a href="opinionatedguide.github.io/phil/drugs/">14 - Drugs</a></li>
+<li><a href="opinionatedguide.github.io/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="opinionatedguide.github.io/phil/voting/">16 - Voting</a></li>
+<li><a href="opinionatedguide.github.io/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="opinionatedguide.github.io/phil/duties/">18 - Duties</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-misc/">19 - Misc</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-and-the-internet/">A1 - Politics &amp; The Internet</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-other/">A2 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/design/design-intro/"><strong>Design</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/design/basics/">1 - Basics of Art</a></li>
+<li><a href="opinionatedguide.github.io/design/analog-design/">2 - Analog Art</a></li>
+<li><a href="opinionatedguide.github.io/design/digital-design/">3 - Digital Art</a></li>
+<li><a href="opinionatedguide.github.io/design/ui/">4 - UI/UX</a></li>
+<li><a href="opinionatedguide.github.io/design/generative-art/">5 - Generative Tools</a></li>
+<li><a href="opinionatedguide.github.io/design/design-other/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/interviews/"><strong>Interviews</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/loial/">An Interview with Loial Otter</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/other/"><strong>Other</strong></a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="opinionatedguide.github.io/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/opinionatedguide.github.io/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Effects</strong>
+
+  <label for="toc-control">
+    
+    <img src="/opinionatedguide.github.io/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tremolo">Tremolo</a></li>
+    <li><a href="#vibrato">Vibrato</a></li>
+    <li><a href="#delay">Delay</a></li>
+    <li><a href="#loopers">Loopers</a></li>
+    <li><a href="#filters-lp-hp-bp-notch">Filters (LP, HP, BP, Notch)</a>
+      <ul>
+        <li><a href="#low-pass-filters">Low Pass Filters</a></li>
+        <li><a href="#high-pass-filters">High Pass Filters</a></li>
+        <li><a href="#band-pass-filters">Band Pass Filters</a></li>
+        <li><a href="#notch-filters">Notch Filters</a></li>
+        <li><a href="#comb-filters">Comb Filters</a></li>
+        <li><a href="#all-pass-filters-phaser">All-Pass Filters (Phaser)</a></li>
+        <li><a href="#types-of-filters">Types of Filters</a></li>
+        <li><a href="#slope-pole-zero-plots-db">Slope, Pole-Zero plots, dB</a></li>
+        <li><a href="#filter-resonance-q">Filter Resonance (Q)</a></li>
+        <li><a href="#autowah">AutoWah</a></li>
+      </ul>
+    </li>
+    <li><a href="#equalizers">Equalizers</a>
+      <ul>
+        <li><a href="#parametric">Parametric</a></li>
+        <li><a href="#fixed-filter-banks">Fixed Filter Banks</a></li>
+      </ul>
+    </li>
+    <li><a href="#phaser">Phaser</a></li>
+    <li><a href="#flanger">Flanger</a></li>
+    <li><a href="#chorus">Chorus</a></li>
+    <li><a href="#reverb">Reverb</a></li>
+    <li><a href="#distortion">Distortion</a>
+      <ul>
+        <li><a href="#clipping-soft--hard">Clipping (Soft &amp; Hard)</a></li>
+        <li><a href="#waveshaping">Waveshaping</a></li>
+        <li><a href="#wavefolding">Wavefolding</a></li>
+        <li><a href="#drive-and-tubes">Drive, and Tubes</a></li>
+        <li><a href="#bitcrushing--comparators">Bitcrushing &amp; Comparators</a></li>
+      </ul>
+    </li>
+    <li><a href="#stereo-effects">Stereo Effects</a>
+      <ul>
+        <li><a href="#panning">Panning</a></li>
+        <li><a href="#widening">Widening</a></li>
+      </ul>
+    </li>
+    <li><a href="#noise-gating">Noise Gating</a></li>
+    <li><a href="#limiting">Limiting</a></li>
+    <li><a href="#compression">Compression</a></li>
+    <li><a href="#vocoders">Vocoders</a></li>
+    <li><a href="#glitch-granular-and-pitch">Glitch, Granular, and Pitch</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="audio-effects">
+  Audio Effects
+  <a class="anchor" href="#audio-effects">#</a>
+</h1>
+<h2 id="tremolo">
+  Tremolo
+  <a class="anchor" href="#tremolo">#</a>
+</h2>
+<p>This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):</p>
+<p><img src="/vcavult.gif" alt="vcavult" /></p>
+<h2 id="vibrato">
+  Vibrato
+  <a class="anchor" href="#vibrato">#</a>
+</h2>
+<p>Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as described above, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound. On a guitar this may be done with a pedal but more simply just by bending the string back and forth with the fingers.</p>
+<h2 id="delay">
+  Delay
+  <a class="anchor" href="#delay">#</a>
+</h2>
+<p>Delay is basically echo. Take a sound in, and repeat it it it. Normally the main controls on a delay are &lsquo;Time&rsquo;, which controls how long of a delay there is before each repeat, &lsquo;Feedback&rsquo; which controls how much the level is reduced each time the delay repeats (and in turn, how many audible repetitions there are), and &lsquo;Dry/Wet&rsquo; which controls how the signal is blended, entirely dry will have no delay, entirely wet may even miss the initial sound adding a weird latency before you hear what you&rsquo;re playing. Some delays have additional controls, obviously I can&rsquo;t cover every possible delay, but I&rsquo;ll try to cover most:</p>
+<p>Some delays instead of letting you set a delay time or &lsquo;tap&rsquo; a delay tempo in actually synchronize to a clock signal input which lets the delayed repetitions always be in time with the rest of the song.</p>
+<p>Stereo delays many have additional controls as well, most commonly offering a different delay time for the left and right channels. often a &lsquo;Ping Pong&rsquo; mode will also be available where the left and right speaker alternate for the echo&rsquo;d sound- &lsquo;ping&rsquo; and &lsquo;ponging&rsquo; out each side until the sound cuts out.</p>
+<p>Some delays may also allow for unity or higher feedback, which will cause the delay to be infinite or, if above unity, infinitely grow in volume until it&rsquo;s just a distorted clipping mess. This can actually be a lot of fun to play with.</p>
+<p><img src="/chronblob.jpg" alt="Chronoblob" /></p>
+<blockquote>
+<p>Quick Reference Card for the Chronblob^2 from Alright Devices, <a href="http://docs.alrightdevices.com/chronoblob2-manual.pdf">http://docs.alrightdevices.com/chronoblob2-manual.pdf</a></p>
+</blockquote>
+<p>Some delays let you also insert other things into the feedback path. This means you could do things such as having each repetition be progressively more filtered, cutting out more and more high end each time or putting a delay in the delay. (yo dawg, I heard you like delay?).</p>
+<p>Some digital delays and most analog delays (especially bucket brigade delays<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>) can produce interesting sounds if you change the delay time while audio is going through the buffer, resulting in a sort of pitch shift <em>whip</em> sound as the delay catches up or slows down.</p>
+<p>While not strictly something to do with delay, it&rsquo;s also worth noting that by making delay time very short and having gain near unity, sending a brief trigger (impulse) can make a sound that sounds like a string being plucked. This is called <a href="https://en.wikipedia.org/wiki/Karplus%e2%80%93Strong_string_synthesis">Karplus-Strong Synthesis</a>.</p>
+<p><img src="/KarplusStrong.png" alt="Quadravox" /></p>
+<blockquote>
+<p>Karplus-Strong Synthesis in VCV rack</p>
+</blockquote>
+<p>Finally, it&rsquo;s worth noting that there are a few interesting features some delays may have, such as letting the delay buffer be frozen to infinitely repeat what was playing at the time (unity gain, ignore input), reverse&rsquo;d delay - having the initial sound play forward but each repeat play in reverse, pitch shifted delay- having each delay affected by a pitch shift, often done with octave up/down. Often, this pitch shifting is done via Granular Synthesis, as mentioned above. Using granular synthesis does allow for some other interesting options though, such as <a href="https://www.unfilteredaudio.com/collections/plug-ins/products/sandman-pro">Unfiltered Audio&rsquo;s Sandman Pro VST</a>.</p>
+<p><img src="/Quadravox.png" alt="Quadravox" /></p>
+<blockquote>
+<p>Screenshot of <a href="https://www.eventideaudio.com/products/effects/diatonic-pitch-shift/quadravox">Eventide&rsquo;s Quadravox VST</a>, with pitch shifted delays</p>
+</blockquote>
+<h2 id="loopers">
+  Loopers
+  <a class="anchor" href="#loopers">#</a>
+</h2>
+<p>Loopers are most commonly seen in hardware and can be seen as a sort of mix between samplers and delays. Essentially you just tap in when you start playing, play what you want, then tap out, then, the loop of whatever you played will play back to you. There may be additional settings, such as a half speed effect.</p>
+<h2 id="filters-lp-hp-bp-notch">
+  Filters (LP, HP, BP, Notch)
+  <a class="anchor" href="#filters-lp-hp-bp-notch">#</a>
+</h2>
+<p><a href="https://www.perfectcircuit.com/signal/learning-synthesis-filters">https://www.perfectcircuit.com/signal/learning-synthesis-filters</a></p>
+<h3 id="low-pass-filters">
+  Low Pass Filters
+  <a class="anchor" href="#low-pass-filters">#</a>
+</h3>
+<p>Low Pass filters do what you think, they let the low frequencies pass and cut out the high frequencies. As with most filters, this will typically not be a sharp cutoff but instead be a gradual fading of the higher frequencies. Despite this, there is still a point called the cut off frequency, which is defined as the point where the signal is cut by 3db (what this means is discussed below). It&rsquo;s also pretty common for Low pass filters to have some resonance, where the frequency right at the cut off has a bit of a bump, as can be seen in this gif:</p>
+<p><img src="/filter.gif" alt="lfofilt" /></p>
+<h4 id="slew-limiting">
+  Slew Limiting
+  <a class="anchor" href="#slew-limiting">#</a>
+</h4>
+<h4 id="effect-on-square-waves">
+  Effect on Square Waves
+  <a class="anchor" href="#effect-on-square-waves">#</a>
+</h4>
+<h4 id="low-shelf-filters">
+  Low Shelf Filters
+  <a class="anchor" href="#low-shelf-filters">#</a>
+</h4>
+<h3 id="high-pass-filters">
+  High Pass Filters
+  <a class="anchor" href="#high-pass-filters">#</a>
+</h3>
+<p>High pass filters act pretty much the same as low pass filters, except they do they cut the lows and pass the highs. High pass filters are ironically often actually used to give a bump in the bass using the resonant peak.</p>
+<h3 id="band-pass-filters">
+  Band Pass Filters
+  <a class="anchor" href="#band-pass-filters">#</a>
+</h3>
+<p>There&rsquo;s two kinds of bandpass filters, one, is a Lowpass and Highpass filter in series, where there&rsquo;s only a band left that can pass giving two potential resonant peaks, and then theres band pass filters which are more &lsquo;true&rsquo; band pass filters that have a resonant peak in the middle.(need to confirm this)</p>
+<h3 id="notch-filters">
+  Notch Filters
+  <a class="anchor" href="#notch-filters">#</a>
+</h3>
+<p>Again, as the name implies, notch filters create a notch in the sound. Often used to correct for an issue in the sound, such as removing a 60hz hum. In Notch filters the resonance control actually changes how steep the notch is, so low resonance (Low Q) will cause the notch to be wider as the slope isn&rsquo;t very steep, but a high resonance (Q) will let you really pick out a specific frequency.</p>
+<h3 id="comb-filters">
+  Comb Filters
+  <a class="anchor" href="#comb-filters">#</a>
+</h3>
+<h3 id="all-pass-filters-phaser">
+  All-Pass Filters (Phaser)
+  <a class="anchor" href="#all-pass-filters-phaser">#</a>
+</h3>
+<h3 id="types-of-filters">
+  Types of Filters
+  <a class="anchor" href="#types-of-filters">#</a>
+</h3>
+<h4 id="state-variable-steiner-parker">
+  State Variable (Steiner-Parker)
+  <a class="anchor" href="#state-variable-steiner-parker">#</a>
+</h4>
+<h4 id="transistor-ladder">
+  Transistor Ladder
+  <a class="anchor" href="#transistor-ladder">#</a>
+</h4>
+<h4 id="diode-ladder">
+  Diode Ladder
+  <a class="anchor" href="#diode-ladder">#</a>
+</h4>
+<h4 id="sallen-key">
+  Sallen-Key
+  <a class="anchor" href="#sallen-key">#</a>
+</h4>
+<h4 id="operational-transconductance-amplifiers-ota-filters">
+  Operational Transconductance Amplifiers (OTA Filters)
+  <a class="anchor" href="#operational-transconductance-amplifiers-ota-filters">#</a>
+</h4>
+<p>CEM3320</p>
+<h4 id="chebbychev">
+  Chebbychev
+  <a class="anchor" href="#chebbychev">#</a>
+</h4>
+<h4 id="sem">
+  SEM
+  <a class="anchor" href="#sem">#</a>
+</h4>
+<h4 id="wasp">
+  Wasp
+  <a class="anchor" href="#wasp">#</a>
+</h4>
+<h4 id="formant-filters">
+  Formant Filters
+  <a class="anchor" href="#formant-filters">#</a>
+</h4>
+<h4 id="polivoks">
+  Polivoks
+  <a class="anchor" href="#polivoks">#</a>
+</h4>
+<h3 id="slope-pole-zero-plots-db">
+  Slope, Pole-Zero plots, dB
+  <a class="anchor" href="#slope-pole-zero-plots-db">#</a>
+</h3>
+<p>different analog models</p>
+<h3 id="filter-resonance-q">
+  Filter Resonance (Q)
+  <a class="anchor" href="#filter-resonance-q">#</a>
+</h3>
+<h4 id="pinging-filters">
+  Pinging Filters
+  <a class="anchor" href="#pinging-filters">#</a>
+</h4>
+<h4 id="self-oscilation">
+  Self Oscilation
+  <a class="anchor" href="#self-oscilation">#</a>
+</h4>
+<h3 id="autowah">
+  AutoWah
+  <a class="anchor" href="#autowah">#</a>
+</h3>
+<h2 id="equalizers">
+  Equalizers
+  <a class="anchor" href="#equalizers">#</a>
+</h2>
+<h3 id="parametric">
+  Parametric
+  <a class="anchor" href="#parametric">#</a>
+</h3>
+<h3 id="fixed-filter-banks">
+  Fixed Filter Banks
+  <a class="anchor" href="#fixed-filter-banks">#</a>
+</h3>
+<h2 id="phaser">
+  Phaser
+  <a class="anchor" href="#phaser">#</a>
+</h2>
+<p><img src="/phase.png" alt="phase" /></p>
+<h2 id="flanger">
+  Flanger
+  <a class="anchor" href="#flanger">#</a>
+</h2>
+<p>Flanger works by taking a <strong>very</strong> short delay* which slowly modulated delay time and mixing this back with the original signal. This will result in some phase cancellation effects and give a similar sound to a phaser. The delay time modulation rate and depth, and delay feedback are the most commonly exposed controls. Flanger is probably most commonly used as an effect on guitar.</p>
+<p>*note, that delay, in this context, means an actual time delay, just a buffer that makes sound take longer to get through if that makes sense. Of course, with feedback and mixing the original this will have the same effect as a delay in the &lsquo;echo&rsquo; sense.</p>
+<p><img src="/Flanger.jpg" alt="Flanger" /></p>
+<blockquote>
+<p>Flanger sort of makes a comb filter sound too, as you can see in the Spectrum Analyzer on the bottom.</p>
+</blockquote>
+<p><img src="/Pyramids.jpg" alt="Pyramids" /></p>
+<blockquote>
+<p>The &lsquo;<a href="https://www.earthquakerdevices.com/pyramids">Pyramids</a>&rsquo; Flanger pedal from Earthquaker Devices.</p>
+</blockquote>
+<h2 id="chorus">
+  Chorus
+  <a class="anchor" href="#chorus">#</a>
+</h2>
+<h2 id="reverb">
+  Reverb
+  <a class="anchor" href="#reverb">#</a>
+</h2>
+<p>plate, room, spring, gated, erbe verb video, convolutional, delay line + allpass, hearing comb filters</p>
+<h2 id="distortion">
+  Distortion
+  <a class="anchor" href="#distortion">#</a>
+</h2>
+<p><a href="https://benmosheron.gitlab.io/blog/2020/04/26/distortion.html">How Distortion Works in Music (Ben Sheron&rsquo;s Blog)</a></p>
+<h3 id="clipping-soft--hard">
+  Clipping (Soft &amp; Hard)
+  <a class="anchor" href="#clipping-soft--hard">#</a>
+</h3>
+<h3 id="waveshaping">
+  Waveshaping
+  <a class="anchor" href="#waveshaping">#</a>
+</h3>
+<h3 id="wavefolding">
+  Wavefolding
+  <a class="anchor" href="#wavefolding">#</a>
+</h3>
+<h4 id="parallel-v-serial-wavefolding">
+  Parallel V Serial Wavefolding
+  <a class="anchor" href="#parallel-v-serial-wavefolding">#</a>
+</h4>
+<h3 id="drive-and-tubes">
+  Drive, and Tubes
+  <a class="anchor" href="#drive-and-tubes">#</a>
+</h3>
+<h3 id="bitcrushing--comparators">
+  Bitcrushing &amp; Comparators
+  <a class="anchor" href="#bitcrushing--comparators">#</a>
+</h3>
+<p>[Todo, fabfilter distortion video]</p>
+<h2 id="stereo-effects">
+  Stereo Effects
+  <a class="anchor" href="#stereo-effects">#</a>
+</h2>
+<h3 id="panning">
+  Panning
+  <a class="anchor" href="#panning">#</a>
+</h3>
+<h3 id="widening">
+  Widening
+  <a class="anchor" href="#widening">#</a>
+</h3>
+<h2 id="noise-gating">
+  Noise Gating
+  <a class="anchor" href="#noise-gating">#</a>
+</h2>
+<h2 id="limiting">
+  Limiting
+  <a class="anchor" href="#limiting">#</a>
+</h2>
+<h2 id="compression">
+  Compression
+  <a class="anchor" href="#compression">#</a>
+</h2>
+<p><img src="/compression.gif" alt="compression" /></p>
+<p><audio
+controls
+src="{static}/audio/Compression.mp3">
+Your browser does not support the
+<code>audio</code> element.
+</audio>
+Compression can mean multiple things when talking about music and sometimes this makes talking about it sometimes confusing. Usually, when talking about compression the meaning is for compression that changes the <em>dynamics</em> of the audio, making loud sounds quieter and quiet sounds louder sort of ~squishing~ the sound. The other, unrealetd, definiton of compression is data compression, for example .mp3 vs .wav. We&rsquo;ll go into that later.</p>
+<p>Usually compression has a few basic attributes that are relevent:</p>
+<p>The &lsquo;Threshold&rsquo; is what level the compressor has to be over to do anything at all. &lsquo;Attack&rsquo; is the time it takes for the signal to be affected. All compressors will have some minimum attack time if they&rsquo;re happening live (there are some compressors with &lsquo;Lookahead&rsquo; that solve this problem) which lets the transients (sharp changes) of louder sounds, like the start of a drum hit, get through to some extent, but more attack will let more of the drum transient through. Tune to taste, release is similar idea, but controls how the compressor behaves as it falls below the treshold, letting the compressor fade out with a given time instead of having a sharp cut. Compressors can be used to make drums really stand out, give guitars a longer sustained sound, or just glue the mix together better.</p>
+<p>[Todo, add fabfilter guy video]</p>
+<p>[Todo, Dynamic range compression, Parallel Compression, different analog models (ie Fets v tube v optical)]</p>
+<p>reverb, delay, pan, tremello, overdrive, distortion</p>
+<h2 id="vocoders">
+  Vocoders
+  <a class="anchor" href="#vocoders">#</a>
+</h2>
+<h2 id="glitch-granular-and-pitch">
+  Glitch, Granular, and Pitch
+  <a class="anchor" href="#glitch-granular-and-pitch">#</a>
+</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Bucket Brigade Delay is essentially a bunch of capacitors acting as the &lsquo;buckets&rsquo; that are figuratively passed down the chain, moving from one bucket to the next each clock cycle, of course, this clock rate can be changed while it&rsquo;s running. The number of stages in a BBD determines how long of a delay you can get without having a massive determent to quality. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/opinionatedguide/OpGuidesHugoSrc/tree/main/content//Music/m4-effects.md" target="_blank" rel="noopener">
+      <img src="/opinionatedguide.github.io/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.black.svg" style="width:100px;height:100px"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tremolo">Tremolo</a></li>
+    <li><a href="#vibrato">Vibrato</a></li>
+    <li><a href="#delay">Delay</a></li>
+    <li><a href="#loopers">Loopers</a></li>
+    <li><a href="#filters-lp-hp-bp-notch">Filters (LP, HP, BP, Notch)</a>
+      <ul>
+        <li><a href="#low-pass-filters">Low Pass Filters</a></li>
+        <li><a href="#high-pass-filters">High Pass Filters</a></li>
+        <li><a href="#band-pass-filters">Band Pass Filters</a></li>
+        <li><a href="#notch-filters">Notch Filters</a></li>
+        <li><a href="#comb-filters">Comb Filters</a></li>
+        <li><a href="#all-pass-filters-phaser">All-Pass Filters (Phaser)</a></li>
+        <li><a href="#types-of-filters">Types of Filters</a></li>
+        <li><a href="#slope-pole-zero-plots-db">Slope, Pole-Zero plots, dB</a></li>
+        <li><a href="#filter-resonance-q">Filter Resonance (Q)</a></li>
+        <li><a href="#autowah">AutoWah</a></li>
+      </ul>
+    </li>
+    <li><a href="#equalizers">Equalizers</a>
+      <ul>
+        <li><a href="#parametric">Parametric</a></li>
+        <li><a href="#fixed-filter-banks">Fixed Filter Banks</a></li>
+      </ul>
+    </li>
+    <li><a href="#phaser">Phaser</a></li>
+    <li><a href="#flanger">Flanger</a></li>
+    <li><a href="#chorus">Chorus</a></li>
+    <li><a href="#reverb">Reverb</a></li>
+    <li><a href="#distortion">Distortion</a>
+      <ul>
+        <li><a href="#clipping-soft--hard">Clipping (Soft &amp; Hard)</a></li>
+        <li><a href="#waveshaping">Waveshaping</a></li>
+        <li><a href="#wavefolding">Wavefolding</a></li>
+        <li><a href="#drive-and-tubes">Drive, and Tubes</a></li>
+        <li><a href="#bitcrushing--comparators">Bitcrushing &amp; Comparators</a></li>
+      </ul>
+    </li>
+    <li><a href="#stereo-effects">Stereo Effects</a>
+      <ul>
+        <li><a href="#panning">Panning</a></li>
+        <li><a href="#widening">Widening</a></li>
+      </ul>
+    </li>
+    <li><a href="#noise-gating">Noise Gating</a></li>
+    <li><a href="#limiting">Limiting</a></li>
+    <li><a href="#compression">Compression</a></li>
+    <li><a href="#vocoders">Vocoders</a></li>
+    <li><a href="#glitch-granular-and-pitch">Glitch, Granular, and Pitch</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

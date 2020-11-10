@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 7 - Let&rsquo;s write some Code #  From https://wiki.xxiivv.com/#development:
+  Prototype before polishing. Get it working before optimizing it. Separate policy from mechanism; separate interfaces from engines. Write simple modular parts connected by clean interfaces. Design programs to be connected to other programs. Write programs to write programs when you can. Design for the future, because it will be here sooner than you think. In interface design, always do the least surprising thing.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 7 - Let&rsquo;s write some Code #  From https://wiki.xxiivv.com/#development:
+  Prototype before polishing. Get it working before optimizing it. Separate policy from mechanism; separate interfaces from engines. Write simple modular parts connected by clean interfaces. Design programs to be connected to other programs. Write programs to write programs when you can. Design for the future, because it will be here sooner than you think. In interface design, always do the least surprising thing." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="opinionatedguide.github.io/engineering/7-codeintro/" />
+
+<title>7 Codeintro | Opinionated Guides</title>
+<link rel="manifest" href="/opinionatedguide.github.io/manifest.json">
+<link rel="icon" href="/opinionatedguide.github.io/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/opinionatedguide.github.io/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
+<script defer src="/opinionatedguide.github.io/en.search.min.c58918c268a5439c3bedcf5f5ffa50b13ad271fe159aaf23d3c33e32d8e45e21.js" integrity="sha256-xYkYwmilQ5w77c9fX/pQsTrScf4Vmq8j08M&#43;MtjkXiE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/opinionatedguide.github.io"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <hr>
+<p><a href="opinionatedguide.github.io/home/"><strong>HOME</strong></a></p>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/engineering/"><strong>Engineering</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/ep1-community/">Ⅰ - Community</a></li>
+<li><a href="opinionatedguide.github.io/engineering/ep2-howtolearn/">Ⅱ - Learn How to Learn</a></li>
+<li><a href="opinionatedguide.github.io/engineering/1-firstgoal/">1 - The First Goal</a></li>
+<li><a href="opinionatedguide.github.io/engineering/2-arch/">2 - Let&rsquo;s do it then, Installing Arch Linux</a></li>
+<li><a href="opinionatedguide.github.io/engineering/3-hardware/">3 - Into The Hardware</a></li>
+<li><a href="opinionatedguide.github.io/engineering/4-linuxdirtree/">4 - Back to the -Root- of Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/5-circuits1/">5 - Circuits, an Introduction</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6-howwework/">6 - Let&rsquo;s Work on -How- we work</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6p5-git/">6½ - Git</a></li>
+<li><a href="opinionatedguide.github.io/engineering/7-codeintro/"class=active>7 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="opinionatedguide.github.io/engineering/8-lowlvl/">8 - Low Level Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9-codecont/">9 - Finishing up the Project</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9p5-languages/">9½ - Programming Languages</a></li>
+<li><a href="opinionatedguide.github.io/engineering/10-networking/">10 - Networking</a></li>
+<li><a href="opinionatedguide.github.io/engineering/11-math/">11 - Math</a></li>
+<li><a href="opinionatedguide.github.io/engineering/12-physics/">12 - Physics</a></li>
+<li><a href="opinionatedguide.github.io/engineering/13-chem/">13 - Chemistry</a></li>
+<li><a href="opinionatedguide.github.io/engineering/14-circuits2/">14 - Circuits &amp; Semiconductors</a></li>
+<li><a href="opinionatedguide.github.io/engineering/15-digitallogic/">15 - Digital Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/16-embedded/">16 - Embedded Systems</a></li>
+<li><a href="opinionatedguide.github.io/engineering/17-algorithms/">17 - Discrete Math and Algorithms</a></li>
+<li><a href="opinionatedguide.github.io/engineering/18-bigprog/">18 - Writing a Larger Program</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19-servers/">19 - Servers!</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19p5-cloud/">19 - &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="opinionatedguide.github.io/engineering/20-databases/">20 - Databases</a></li>
+<li><a href="opinionatedguide.github.io/engineering/21-debugbuildtest/">21 - Debugging, Automated Building and Testing</a></li>
+<li><a href="opinionatedguide.github.io/engineering/22-compileassemble/">22 - Compilers and Assemblers</a></li>
+<li><a href="opinionatedguide.github.io/engineering/23-exploitation/">23 - Exploitation</a></li>
+<li><a href="opinionatedguide.github.io/engineering/24-security/">24 - Security</a></li>
+<li><a href="opinionatedguide.github.io/engineering/25-fosscopyright/">25 - Open Source, Licences, and Copyright</a></li>
+<li><a href="opinionatedguide.github.io/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+<li><a href="opinionatedguide.github.io/engineering/27-multithread/">27 - We&rsquo;ve Got Cores, Let&rsquo;s use &lsquo;em</a></li>
+<li><a href="opinionatedguide.github.io/engineering/28-guiprog/">28 - Graphical Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></li>
+<li><a href="opinionatedguide.github.io/engineering/30-fpga1/">30 - Let&rsquo;s Try out Programmable Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/31-fpga2/">31 - Let&rsquo;s Make our own SOC</a></li>
+<li><a href="opinionatedguide.github.io/engineering/32-3dprint/">32 - 3D Printing, CNC, and Making Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/33-aiml/">33 - Fine, I&rsquo;ll talk about AI/ML</a></li>
+<li><a href="opinionatedguide.github.io/engineering/34-hamradio/">34 - Ham Radio</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a0-wrappingup/">A0 - Wrapping Up</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a2-cheat/">A2 - Cheat Sheets and Quick Info</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a3-bom/">A3 - Bill Of Materials</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a4-politics/">A4 - Moved to Opinioned Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a6-resources/">A6 - Other Great Resources</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a7-history/">A7 - History</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a8-oddthings/">A8 - Odd Things</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/music/opmusic-intro/"><strong>Music</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/music/music-getting-started/">1 - Getting Started</a></li>
+<li><a href="opinionatedguide.github.io/music/sound-sources/">2 - Sound Sources</a></li>
+<li><a href="opinionatedguide.github.io/music/theory/">3 - Theory</a></li>
+<li><a href="opinionatedguide.github.io/music/effects/">4 - Effects</a></li>
+<li><a href="opinionatedguide.github.io/music/mix-and-master/">5 - Mixing &amp; Mastering</a></li>
+<li><a href="opinionatedguide.github.io/music/sequencing-and-midi/">6 - Arrangment - Sequencing &amp; MIDI</a></li>
+<li><a href="opinionatedguide.github.io/music/instruments/">7 - Instruments</a></li>
+<li><a href="opinionatedguide.github.io/music/music-software/">8 - Software</a></li>
+<li><a href="opinionatedguide.github.io/music/music-hardware/">9 - Hardware</a></li>
+<li><a href="opinionatedguide.github.io/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/opphil-old/"><strong>Philosophy</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/basic-phil/">1 - Basic Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/phil/fallacies/">2 - Logical Fallacies</a></li>
+<li><a href="opinionatedguide.github.io/phil/arguments/">3 - Arguments</a></li>
+<li><a href="opinionatedguide.github.io/phil/community/">4 - Community Efforts</a></li>
+<li><a href="opinionatedguide.github.io/phil/idea-labs/">5 - Community Idea Labs</a></li>
+<li><a href="opinionatedguide.github.io/phil/education/">6 - Education</a></li>
+<li><a href="opinionatedguide.github.io/phil/labor/">7 - Labor and Compensation</a></li>
+<li><a href="opinionatedguide.github.io/phil/copyright/">8 - Copyright</a></li>
+<li><a href="opinionatedguide.github.io/phil/consumerism/">9 - Consumerism</a></li>
+<li><a href="opinionatedguide.github.io/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="opinionatedguide.github.io/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="opinionatedguide.github.io/phil/religon/">12 - Religion</a></li>
+<li><a href="opinionatedguide.github.io/phil/sex/">13 - Sex</a></li>
+<li><a href="opinionatedguide.github.io/phil/drugs/">14 - Drugs</a></li>
+<li><a href="opinionatedguide.github.io/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="opinionatedguide.github.io/phil/voting/">16 - Voting</a></li>
+<li><a href="opinionatedguide.github.io/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="opinionatedguide.github.io/phil/duties/">18 - Duties</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-misc/">19 - Misc</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-and-the-internet/">A1 - Politics &amp; The Internet</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-other/">A2 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/design/design-intro/"><strong>Design</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/design/basics/">1 - Basics of Art</a></li>
+<li><a href="opinionatedguide.github.io/design/analog-design/">2 - Analog Art</a></li>
+<li><a href="opinionatedguide.github.io/design/digital-design/">3 - Digital Art</a></li>
+<li><a href="opinionatedguide.github.io/design/ui/">4 - UI/UX</a></li>
+<li><a href="opinionatedguide.github.io/design/generative-art/">5 - Generative Tools</a></li>
+<li><a href="opinionatedguide.github.io/design/design-other/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/interviews/"><strong>Interviews</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/loial/">An Interview with Loial Otter</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/other/"><strong>Other</strong></a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="opinionatedguide.github.io/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/opinionatedguide.github.io/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>7 Codeintro</strong>
+
+  <label for="toc-control">
+    
+    <img src="/opinionatedguide.github.io/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#starting-minimal">Starting Minimal</a></li>
+    <li><a href="#python">Python</a></li>
+    <li><a href="#the-building-blocks-of-programming">The building blocks of programming</a>
+      <ul>
+        <li><a href="#conditions-using-if-elif-and-else">Conditions using <code>if</code>, <code>elif</code> and <code>else</code></a></li>
+        <li><a href="#loops">Loops</a></li>
+      </ul>
+    </li>
+    <li><a href="#common-methods-used">Common methods used</a></li>
+    <li><a href="#some-simple-programs">Some simple programs</a>
+      <ul>
+        <li><a href="#hello-world">Hello World</a></li>
+        <li><a href="#even-or-odd">Even or Odd</a></li>
+        <li><a href="#prime-numbers">Prime Numbers</a></li>
+        <li><a href="#calculating-sine-and-pi">Calculating sine and pi</a></li>
+        <li><a href="#sorting-a-list">Sorting a list</a></li>
+        <li><a href="#palindromes">Palindromes</a></li>
+        <li><a href="#cypher">Cypher</a></li>
+      </ul>
+    </li>
+    <li><a href="#making-a-full-project">Making a full project</a>
+      <ul>
+        <li><a href="#part-0-git">Part 0, Git</a></li>
+        <li><a href="#part-1-starting-easy">Part 1, Starting easy</a></li>
+      </ul>
+    </li>
+    <li><a href="#more-advanced-topics">More advanced topics</a>
+      <ul>
+        <li><a href="#lambdas">Lambdas</a></li>
+      </ul>
+    </li>
+    <li><a href="#a-little-more-practice">A little more practice</a></li>
+    <li><a href="#easing-int-graphical-programming-with-creative-coding">Easing int Graphical Programming with Creative Coding</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-7---lets-write-some-code">
+  Chapter 7 - Let&rsquo;s write some Code
+  <a class="anchor" href="#chapter-7---lets-write-some-code">#</a>
+</h1>
+<p>From <a href="https://wiki.xxiivv.com/#development:">https://wiki.xxiivv.com/#development:</a></p>
+<blockquote>
+<ul>
+<li>Prototype before polishing. Get it working before optimizing it.</li>
+<li>Separate policy from mechanism; separate interfaces from engines.</li>
+<li>Write simple modular parts connected by clean interfaces.</li>
+<li>Design programs to be connected to other programs.</li>
+<li>Write programs to write programs when you can.</li>
+<li>Design for the future, because it will be here sooner than you think.</li>
+<li>In interface design, always do the least surprising thing.</li>
+<li>When a program has nothing surprising to say, it should say nothing.</li>
+<li>When a program must fail, it should fail noisily and as soon as possible.</li>
+<li>Write big programs only when it is clear by demonstration that nothing else will do.</li>
+</ul>
+</blockquote>
+<p>Programming can seem scary at first but the more you exercise, the easier and more exciting it gets. After all, practice makes perfect! :)</p>
+<h2 id="starting-minimal">
+  Starting Minimal
+  <a class="anchor" href="#starting-minimal">#</a>
+</h2>
+<p><a href="https://tixy.land">https://tixy.land</a> - very minimal start, just looking at math and plotting basically. This abstracts basically everything out.</p>
+<p>[TODO] I want to start here instead of python, need to research which one to start with. I like pico-8, but it&rsquo;s paid and I&rsquo;d like to keep OpGuides accessible. Tic-80 appears to be the most common otherwise? Pyxel looks good too though and would lead into python nicely? &hellip; ╮(─▽─)╭</p>
+<p><a href="https://tic80.com">https://tic80.com</a> , <a href="https://steemit.com/programming/@crypticwyrm/tic-80-learn-to-program-games-using-javascript-or-lua-on-a-fantasy-computer-simulating-old-school-game-programming">https://steemit.com/programming/@crypticwyrm/tic-80-learn-to-program-games-using-javascript-or-lua-on-a-fantasy-computer-simulating-old-school-game-programming</a> - still $5 for pro.</p>
+<p><a href="https://medium.com/@G05P3L/fantasy-console-wars-a-guide-to-the-biggest-players-in-retrogamings-newest-trend-56bbe948474d">https://medium.com/@G05P3L/fantasy-console-wars-a-guide-to-the-biggest-players-in-retrogamings-newest-trend-56bbe948474d</a></p>
+<p><a href="https://paladin-t.github.io/b8/">https://paladin-t.github.io/b8/</a></p>
+<p><a href="https://github.com/kitao/pyxel">https://github.com/kitao/pyxel</a></p>
+<p><a href="https://www.lexaloffle.com/pico-8.php">https://www.lexaloffle.com/pico-8.php</a> (and <a href="https://www.lexaloffle.com/voxatron.php">https://www.lexaloffle.com/voxatron.php</a>)</p>
+<h2 id="python">
+  Python
+  <a class="anchor" href="#python">#</a>
+</h2>
+<p><img src="/python.png" alt="python" title=":size=25%"/></p>
+<p>[TODO] Why start with python</p>
+<h2 id="the-building-blocks-of-programming">
+  The building blocks of programming
+  <a class="anchor" href="#the-building-blocks-of-programming">#</a>
+</h2>
+<p>All programming is just chaining logic, for example using treatments like &ldquo;if a is b, then make c hold the value of a-3&rdquo; followed by &ldquo;if c is negitive then say hello&rdquo;</p>
+<p>Well, that&rsquo;s actually an easy program</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> b:
+    c <span style="color:#f92672">=</span> a<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>
+
+<span style="color:#66d9ef">if</span> c <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;hello&#39;</span>)
+</code></pre></div><p>you should notice a few weird things here though, namely, on line 5 we used two equal signs to check equality. This is the case in most programming languages because a single equal sign, like is used on the first two lines, is used for assignment that is assigning the value of <code>a</code> to 1 and <code>b</code> to 1 or as on line 6 assigning the value of <code>( a - 3 )</code> to <code>c</code>, because we&rsquo;ve already used a single equal sign for assignment, two equal signs is used for checking equality.</p>
+<p>If you follow the logic here, <code>a</code> and <code>b</code> are both 1, so line 4 checks that to be true, so line 5 does happen. Now  c which previously was equal to 1 is now equal to a-3, where a is 1, so c becomes -2. on line 8 we check if c is less than 0, and it is so we print the word &lsquo;hello&rsquo;. Here, you&rsquo;ll notice &lsquo;hello&rsquo; is in quotes. This is because if it were not, that is if it were <code>print(hello)</code> it would try to print the value of the variable &lsquo;hello&rsquo; which since hello isn&rsquo;t defined, wouldn&rsquo;t work. Let&rsquo;s try this in the Python interpreter. You can find install instructions for your operating system here: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>. If you&rsquo;re on Linux simply type <code>python</code> into the terminal.</p>
+<p>With the Python interpreter open try without quotes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span><span style="color:#66d9ef">print</span>(hello)
+Traceback (most recent call last):
+  File <span style="color:#e6db74">&#34;&lt;stdin&gt;&#34;</span>, line <span style="color:#ae81ff">1</span>, <span style="color:#f92672">in</span> <span style="color:#f92672">&lt;</span>module<span style="color:#f92672">&gt;</span>
+<span style="color:#a6e22e">NameError</span>: name <span style="color:#e6db74">&#39;hello&#39;</span> <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> defined
+</code></pre></div><p>As you can see Python failed to print hello because the variable was not defined. Now lets try assigning a value to the hello variable before printing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> hello <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(hello)
+Hello World<span style="color:#960050;background-color:#1e0010">!</span>
+</code></pre></div><p>Anything you write to the interpreter can also be added to a file and ran that way. Try saving the examples above to a file called test.py, opening a terminal and running it with <code>python test.py</code>.</p>
+<h3 id="conditions-using-if-elif-and-else">
+  Conditions using <code>if</code>, <code>elif</code> and <code>else</code>
+  <a class="anchor" href="#conditions-using-if-elif-and-else">#</a>
+</h3>
+<p>You often want code only to be executed, if a certain condition is met. For example, take a look at the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>
+b <span style="color:#f92672">=</span> <span style="color:#ae81ff">27</span>
+<span style="color:#66d9ef">if</span> a <span style="color:#f92672">&gt;</span> b:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;a is bigger&#34;</span>)
+<span style="color:#66d9ef">else</span>:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;b is bigger&#34;</span>)
+</code></pre></div><p>Using the <code>if</code> statement, connected with a logical condition, you can control the program flow. In this case, <code>a</code> is smaller than <code>b</code>, so python will skip the code inside of the <code>if</code> case and only execute what is within the <code>else</code> part.</p>
+<p>You can also combine multiple if cases like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+<span style="color:#66d9ef">if</span> a <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;a is negative&#34;</span>)
+<span style="color:#66d9ef">elif</span> a <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;a is zero&#34;</span>)
+<span style="color:#66d9ef">else</span>:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;a is positive&#34;</span>)
+</code></pre></div><p>Using the <code>elif</code> statement, you can check for another condition if the one in the <code>if</code> statement was <code>false</code>.</p>
+<h3 id="loops">
+  Loops
+  <a class="anchor" href="#loops">#</a>
+</h3>
+<p>Some lines of codes have to be repeated very often. Instead of typing the same line over and over again, you can use loops.
+There are two types of loops: The <code>for</code> and the <code>while</code> loop. While they both basically do the same thing, sometimes it is more intuitive to use one over the other.</p>
+<h4 id="the-for-loop">
+  The <code>for</code> loop
+  <a class="anchor" href="#the-for-loop">#</a>
+</h4>
+<p>The <code>for</code> loop iterates over a list of items and stores the current element in a variable.
+This is especially useful when working with lists, for example.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fruits <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#e6db74">&#34;cherry&#34;</span>]
+<span style="color:#66d9ef">for</span> fruit <span style="color:#f92672">in</span> fruits:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;I am eating a &#34;</span> <span style="color:#f92672">+</span> fruit)
+</code></pre></div><p>If you are familiar with loops in other programming languages (such as Java or C), you&rsquo;re probably thinking: &ldquo;That&rsquo;s not a for loop, that&rsquo;s a for-each!&rdquo;. This is true, in python all for loops are for-each loops. If you want to iterate over a range of numbers, use pythons <code>range()</code> function:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>):
+    <span style="color:#66d9ef">print</span>(i)
+</code></pre></div><h4 id="the-while-loop">
+  The <code>while</code> loop
+  <a class="anchor" href="#the-while-loop">#</a>
+</h4>
+<p>The <code>for</code> loop is very useful, but sometimes, using the <code>while</code> loop is easier and more straightforward.
+For example, if you want to repeat something until a certain condition is met, using this loop is simple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>:
+    <span style="color:#66d9ef">print</span>(i)
+    i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>You can also combine the condition after the <code>while</code> keyword with an <code>else</code> statement:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">i <span style="color:#f92672">=</span> <span style="color:#ae81ff">11</span>
+<span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>:
+    <span style="color:#66d9ef">print</span>(i)
+    i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">else</span>:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;i is bigger than 10!&#34;</span>)
+</code></pre></div><p>[TODO]
+assignment, comparison, combined ops (+=), mod, exponent, floor,
+in/not in, is/is not, data types, functions
+libraries</p>
+<h2 id="common-methods-used">
+  Common methods used
+  <a class="anchor" href="#common-methods-used">#</a>
+</h2>
+<p>commenting-out
+print debugging
+Recursion, object orientation
+while(true)
+try/catch</p>
+<h2 id="some-simple-programs">
+  Some simple programs
+  <a class="anchor" href="#some-simple-programs">#</a>
+</h2>
+<h3 id="hello-world">
+  Hello World
+  <a class="anchor" href="#hello-world">#</a>
+</h3>
+<p>As seen in the example above, the following will print <code>Hello World!</code>:
+<code>print('Hello World!')</code>
+Lets get some input aswell:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;What</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">s your name?&#39;</span>)
+<span style="color:#75715e"># This prints the question. Notice the escape character \ is used to avoid stopping the string. </span>
+
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Hello &#39;</span> <span style="color:#f92672">+</span> input()) 
+<span style="color:#75715e"># This will pause the program and wait for user input before printing Hello &lt;input&gt;</span>
+</code></pre></div><h3 id="even-or-odd">
+  Even or Odd
+  <a class="anchor" href="#even-or-odd">#</a>
+</h3>
+<p>Below is an example of a Python script which checks if the input number is odd or even.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># A number is even if division by 2 give a remainder of 0.</span>
+<span style="color:#75715e"># If remainder is 1, it is odd number.</span>
+num <span style="color:#f92672">=</span> int(input(<span style="color:#e6db74">&#34;Enter a number: &#34;</span>))
+<span style="color:#66d9ef">if</span> (num <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+   <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{} is Even&#34;</span><span style="color:#f92672">.</span>format(num))
+<span style="color:#66d9ef">else</span>:
+   <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{} is Odd&#34;</span><span style="color:#f92672">.</span>format(num))
+</code></pre></div><h3 id="prime-numbers">
+  Prime Numbers
+  <a class="anchor" href="#prime-numbers">#</a>
+</h3>
+<p>Prime number is a number greater than 1 whose only factors are 1 and itself. Few instances of prime numbers include 2, 3, 5, 11. Below is an example of python function which defines whether the given input number is prime or not.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_prime</span>(num):
+
+    <span style="color:#66d9ef">if</span> num <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+
+        <span style="color:#75715e"># Iterate from 2 to n / 2</span>
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, num <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>):
+
+            <span style="color:#75715e"># If num is divisible by any number between</span>
+            <span style="color:#75715e"># 2 and n / 2, it is not prime</span>
+            <span style="color:#66d9ef">if</span> (num <span style="color:#f92672">%</span> i) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{} is not a prime number&#34;</span><span style="color:#f92672">.</span>format(num))
+                <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{} is a prime number&#34;</span><span style="color:#f92672">.</span>format(num))
+
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{} is not a prime number&#34;</span><span style="color:#f92672">.</span>format(num))
+</code></pre></div><h3 id="calculating-sine-and-pi">
+  Calculating sine and pi
+  <a class="anchor" href="#calculating-sine-and-pi">#</a>
+</h3>
+<h3 id="sorting-a-list">
+  Sorting a list
+  <a class="anchor" href="#sorting-a-list">#</a>
+</h3>
+<h3 id="palindromes">
+  Palindromes
+  <a class="anchor" href="#palindromes">#</a>
+</h3>
+<h3 id="cypher">
+  Cypher
+  <a class="anchor" href="#cypher">#</a>
+</h3>
+<h2 id="making-a-full-project">
+  Making a full project
+  <a class="anchor" href="#making-a-full-project">#</a>
+</h2>
+<h3 id="part-0-git">
+  Part 0, Git
+  <a class="anchor" href="#part-0-git">#</a>
+</h3>
+<p>Before we get started, I want to be sure you took the time to read the section on Git in Chapter 6.1 above. If you need to refer to a cheat sheet you can look in Apendix B.</p>
+<h3 id="part-1-starting-easy">
+  Part 1, Starting easy
+  <a class="anchor" href="#part-1-starting-easy">#</a>
+</h3>
+<p>[TODO] guide to write an OO python program with libraries to read and write entries to a database-like file and a real database
+the database should have 3 tables, a to-do list, a time-tracker list, and a list of articles</p>
+<p>To-do: NAME, DUEDATE
+time-tracker: 2types, either manually enterend with NAME, TSTART, TSTOP or NAME, TTOTAL for the following program
+articles: NAME, PUBLISHED, TPUB, TEDIT</p>
+<p>we&rsquo;ll need some way to track what items in the time tracker were started, but never stopped</p>
+<p>for now, everything should be strictly command line arguments and print statments</p>
+<h2 id="more-advanced-topics">
+  More advanced topics
+  <a class="anchor" href="#more-advanced-topics">#</a>
+</h2>
+<p>[TODO] Move this section</p>
+<h3 id="lambdas">
+  Lambdas
+  <a class="anchor" href="#lambdas">#</a>
+</h3>
+<p>A lambda expression is used to create a a small anonymous function. It can take any number of arguments, but can only have one expression.
+Below is an example of a lambda expression which can be used to compute cube of any given number.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> cube <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x : x<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> cube(<span style="color:#ae81ff">5</span>)
+<span style="color:#ae81ff">125</span>
+</code></pre></div><p>And here is the other example of a lambda expression with three arguments.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> sum <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> a, b, c : a <span style="color:#f92672">+</span> b <span style="color:#f92672">+</span> c
+<span style="color:#f92672">&gt;&gt;&gt;</span> sum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>)
+<span style="color:#ae81ff">0</span>
+</code></pre></div><p>threads/ parrallelization(high level only), interupts (actually, let&rsquo;s save this until embbeded), apis,</p>
+<h2 id="a-little-more-practice">
+  A little more practice
+  <a class="anchor" href="#a-little-more-practice">#</a>
+</h2>
+<p>Weird projects</p>
+<p><a href="https://twitter.com/Foone/status/1245610381600382976">https://twitter.com/Foone/status/1245610381600382976</a></p>
+<h2 id="easing-int-graphical-programming-with-creative-coding">
+  Easing int Graphical Programming with Creative Coding
+  <a class="anchor" href="#easing-int-graphical-programming-with-creative-coding">#</a>
+</h2>
+<p><a href="http://feed.grantcuster.com/">http://feed.grantcuster.com/</a></p>
+<p><a href="https://www.youtube.com/watch?v=Cp5WWtMoeKg">Coding Adventure: Ray Marching (YouTube)</a>
+<a href="https://www.youtube.com/watch?v=M3iI2l0ltbE">Coding Adventure: Marching Cubes(Youtube)</a>
+<a href="https://www.youtube.com/watch?v=cWpFZbjtSQg&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Coding Adventure: Portals (YouTube)</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/opinionatedguide/OpGuidesHugoSrc/tree/main/content//Engineering/7-codeintro.md" target="_blank" rel="noopener">
+      <img src="/opinionatedguide.github.io/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.black.svg" style="width:100px;height:100px"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#starting-minimal">Starting Minimal</a></li>
+    <li><a href="#python">Python</a></li>
+    <li><a href="#the-building-blocks-of-programming">The building blocks of programming</a>
+      <ul>
+        <li><a href="#conditions-using-if-elif-and-else">Conditions using <code>if</code>, <code>elif</code> and <code>else</code></a></li>
+        <li><a href="#loops">Loops</a></li>
+      </ul>
+    </li>
+    <li><a href="#common-methods-used">Common methods used</a></li>
+    <li><a href="#some-simple-programs">Some simple programs</a>
+      <ul>
+        <li><a href="#hello-world">Hello World</a></li>
+        <li><a href="#even-or-odd">Even or Odd</a></li>
+        <li><a href="#prime-numbers">Prime Numbers</a></li>
+        <li><a href="#calculating-sine-and-pi">Calculating sine and pi</a></li>
+        <li><a href="#sorting-a-list">Sorting a list</a></li>
+        <li><a href="#palindromes">Palindromes</a></li>
+        <li><a href="#cypher">Cypher</a></li>
+      </ul>
+    </li>
+    <li><a href="#making-a-full-project">Making a full project</a>
+      <ul>
+        <li><a href="#part-0-git">Part 0, Git</a></li>
+        <li><a href="#part-1-starting-easy">Part 1, Starting easy</a></li>
+      </ul>
+    </li>
+    <li><a href="#more-advanced-topics">More advanced topics</a>
+      <ul>
+        <li><a href="#lambdas">Lambdas</a></li>
+      </ul>
+    </li>
+    <li><a href="#a-little-more-practice">A little more practice</a></li>
+    <li><a href="#easing-int-graphical-programming-with-creative-coding">Easing int Graphical Programming with Creative Coding</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

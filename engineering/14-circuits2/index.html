@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 14 - Circuits &amp; Semiconductors #  [TODO]
+Show everything in a circuit sim, fix heading levels (this is a mess)
+Possibly break up this chapter? Transistors, the opamp, etc alone may each justify their own chapters
+That said, I don&rsquo;t want to get to in the mud of transistor physics. I really want to focus on how/when/why to use what, not how they work as the physics is both pretty hard to grasp and not super useful.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 14 - Circuits &amp; Semiconductors #  [TODO]
+Show everything in a circuit sim, fix heading levels (this is a mess)
+Possibly break up this chapter? Transistors, the opamp, etc alone may each justify their own chapters
+That said, I don&rsquo;t want to get to in the mud of transistor physics. I really want to focus on how/when/why to use what, not how they work as the physics is both pretty hard to grasp and not super useful." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="opinionatedguide.github.io/engineering/14-circuits2/" />
+
+<title>14 Circuits2 | Opinionated Guides</title>
+<link rel="manifest" href="/opinionatedguide.github.io/manifest.json">
+<link rel="icon" href="/opinionatedguide.github.io/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/opinionatedguide.github.io/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
+<script defer src="/opinionatedguide.github.io/en.search.min.c58918c268a5439c3bedcf5f5ffa50b13ad271fe159aaf23d3c33e32d8e45e21.js" integrity="sha256-xYkYwmilQ5w77c9fX/pQsTrScf4Vmq8j08M&#43;MtjkXiE="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/opinionatedguide.github.io"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <hr>
+<p><a href="opinionatedguide.github.io/home/"><strong>HOME</strong></a></p>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/engineering/"><strong>Engineering</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/engineering/ep1-community/">Ⅰ - Community</a></li>
+<li><a href="opinionatedguide.github.io/engineering/ep2-howtolearn/">Ⅱ - Learn How to Learn</a></li>
+<li><a href="opinionatedguide.github.io/engineering/1-firstgoal/">1 - The First Goal</a></li>
+<li><a href="opinionatedguide.github.io/engineering/2-arch/">2 - Let&rsquo;s do it then, Installing Arch Linux</a></li>
+<li><a href="opinionatedguide.github.io/engineering/3-hardware/">3 - Into The Hardware</a></li>
+<li><a href="opinionatedguide.github.io/engineering/4-linuxdirtree/">4 - Back to the -Root- of Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/5-circuits1/">5 - Circuits, an Introduction</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6-howwework/">6 - Let&rsquo;s Work on -How- we work</a></li>
+<li><a href="opinionatedguide.github.io/engineering/6p5-git/">6½ - Git</a></li>
+<li><a href="opinionatedguide.github.io/engineering/7-codeintro/">7 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="opinionatedguide.github.io/engineering/8-lowlvl/">8 - Low Level Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9-codecont/">9 - Finishing up the Project</a></li>
+<li><a href="opinionatedguide.github.io/engineering/9p5-languages/">9½ - Programming Languages</a></li>
+<li><a href="opinionatedguide.github.io/engineering/10-networking/">10 - Networking</a></li>
+<li><a href="opinionatedguide.github.io/engineering/11-math/">11 - Math</a></li>
+<li><a href="opinionatedguide.github.io/engineering/12-physics/">12 - Physics</a></li>
+<li><a href="opinionatedguide.github.io/engineering/13-chem/">13 - Chemistry</a></li>
+<li><a href="opinionatedguide.github.io/engineering/14-circuits2/"class=active>14 - Circuits &amp; Semiconductors</a></li>
+<li><a href="opinionatedguide.github.io/engineering/15-digitallogic/">15 - Digital Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/16-embedded/">16 - Embedded Systems</a></li>
+<li><a href="opinionatedguide.github.io/engineering/17-algorithms/">17 - Discrete Math and Algorithms</a></li>
+<li><a href="opinionatedguide.github.io/engineering/18-bigprog/">18 - Writing a Larger Program</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19-servers/">19 - Servers!</a></li>
+<li><a href="opinionatedguide.github.io/engineering/19p5-cloud/">19 - &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="opinionatedguide.github.io/engineering/20-databases/">20 - Databases</a></li>
+<li><a href="opinionatedguide.github.io/engineering/21-debugbuildtest/">21 - Debugging, Automated Building and Testing</a></li>
+<li><a href="opinionatedguide.github.io/engineering/22-compileassemble/">22 - Compilers and Assemblers</a></li>
+<li><a href="opinionatedguide.github.io/engineering/23-exploitation/">23 - Exploitation</a></li>
+<li><a href="opinionatedguide.github.io/engineering/24-security/">24 - Security</a></li>
+<li><a href="opinionatedguide.github.io/engineering/25-fosscopyright/">25 - Open Source, Licences, and Copyright</a></li>
+<li><a href="opinionatedguide.github.io/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+<li><a href="opinionatedguide.github.io/engineering/27-multithread/">27 - We&rsquo;ve Got Cores, Let&rsquo;s use &lsquo;em</a></li>
+<li><a href="opinionatedguide.github.io/engineering/28-guiprog/">28 - Graphical Programming</a></li>
+<li><a href="opinionatedguide.github.io/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></li>
+<li><a href="opinionatedguide.github.io/engineering/30-fpga1/">30 - Let&rsquo;s Try out Programmable Logic</a></li>
+<li><a href="opinionatedguide.github.io/engineering/31-fpga2/">31 - Let&rsquo;s Make our own SOC</a></li>
+<li><a href="opinionatedguide.github.io/engineering/32-3dprint/">32 - 3D Printing, CNC, and Making Things</a></li>
+<li><a href="opinionatedguide.github.io/engineering/33-aiml/">33 - Fine, I&rsquo;ll talk about AI/ML</a></li>
+<li><a href="opinionatedguide.github.io/engineering/34-hamradio/">34 - Ham Radio</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a0-wrappingup/">A0 - Wrapping Up</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a2-cheat/">A2 - Cheat Sheets and Quick Info</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a3-bom/">A3 - Bill Of Materials</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a4-politics/">A4 - Moved to Opinioned Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a6-resources/">A6 - Other Great Resources</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a7-history/">A7 - History</a></li>
+<li><a href="opinionatedguide.github.io/engineering/a8-oddthings/">A8 - Odd Things</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/music/opmusic-intro/"><strong>Music</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/music/music-getting-started/">1 - Getting Started</a></li>
+<li><a href="opinionatedguide.github.io/music/sound-sources/">2 - Sound Sources</a></li>
+<li><a href="opinionatedguide.github.io/music/theory/">3 - Theory</a></li>
+<li><a href="opinionatedguide.github.io/music/effects/">4 - Effects</a></li>
+<li><a href="opinionatedguide.github.io/music/mix-and-master/">5 - Mixing &amp; Mastering</a></li>
+<li><a href="opinionatedguide.github.io/music/sequencing-and-midi/">6 - Arrangment - Sequencing &amp; MIDI</a></li>
+<li><a href="opinionatedguide.github.io/music/instruments/">7 - Instruments</a></li>
+<li><a href="opinionatedguide.github.io/music/music-software/">8 - Software</a></li>
+<li><a href="opinionatedguide.github.io/music/music-hardware/">9 - Hardware</a></li>
+<li><a href="opinionatedguide.github.io/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/opphil-old/"><strong>Philosophy</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/phil/basic-phil/">1 - Basic Philosophy</a></li>
+<li><a href="opinionatedguide.github.io/phil/fallacies/">2 - Logical Fallacies</a></li>
+<li><a href="opinionatedguide.github.io/phil/arguments/">3 - Arguments</a></li>
+<li><a href="opinionatedguide.github.io/phil/community/">4 - Community Efforts</a></li>
+<li><a href="opinionatedguide.github.io/phil/idea-labs/">5 - Community Idea Labs</a></li>
+<li><a href="opinionatedguide.github.io/phil/education/">6 - Education</a></li>
+<li><a href="opinionatedguide.github.io/phil/labor/">7 - Labor and Compensation</a></li>
+<li><a href="opinionatedguide.github.io/phil/copyright/">8 - Copyright</a></li>
+<li><a href="opinionatedguide.github.io/phil/consumerism/">9 - Consumerism</a></li>
+<li><a href="opinionatedguide.github.io/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="opinionatedguide.github.io/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="opinionatedguide.github.io/phil/religon/">12 - Religion</a></li>
+<li><a href="opinionatedguide.github.io/phil/sex/">13 - Sex</a></li>
+<li><a href="opinionatedguide.github.io/phil/drugs/">14 - Drugs</a></li>
+<li><a href="opinionatedguide.github.io/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="opinionatedguide.github.io/phil/voting/">16 - Voting</a></li>
+<li><a href="opinionatedguide.github.io/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="opinionatedguide.github.io/phil/duties/">18 - Duties</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-misc/">19 - Misc</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-and-the-internet/">A1 - Politics &amp; The Internet</a></li>
+<li><a href="opinionatedguide.github.io/phil/phil-other/">A2 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/design/design-intro/"><strong>Design</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/design/basics/">1 - Basics of Art</a></li>
+<li><a href="opinionatedguide.github.io/design/analog-design/">2 - Analog Art</a></li>
+<li><a href="opinionatedguide.github.io/design/digital-design/">3 - Digital Art</a></li>
+<li><a href="opinionatedguide.github.io/design/ui/">4 - UI/UX</a></li>
+<li><a href="opinionatedguide.github.io/design/generative-art/">5 - Generative Tools</a></li>
+<li><a href="opinionatedguide.github.io/design/design-other/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/interviews/"><strong>Interviews</strong></a>
+<ul>
+<li><a href="opinionatedguide.github.io/interviews/loial/">An Interview with Loial Otter</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="opinionatedguide.github.io/other/"><strong>Other</strong></a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="opinionatedguide.github.io/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/opinionatedguide.github.io/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>14 Circuits2</strong>
+
+  <label for="toc-control">
+    
+    <img src="/opinionatedguide.github.io/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#diodes-the-one-way-road">Diodes, the one way road</a>
+      <ul>
+        <li><a href="#diode-logic">Diode Logic</a></li>
+      </ul>
+    </li>
+    <li><a href="#transistors">Transistors</a>
+      <ul>
+        <li><a href="#pnp-v-npn">PNP V NPN</a></li>
+        <li><a href="#igbt-mosfets">IGBT, Mosfets?</a></li>
+      </ul>
+    </li>
+    <li><a href="#integrated-circuits">Integrated Circuits</a>
+      <ul>
+        <li><a href="#555-opamp-74-series-logic">555, OpAmp, 74-Series Logic</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#optical-electronics">Optical Electronics</a></li>
+    <li><a href="#crystal-oscillators">Crystal Oscillators</a></li>
+    <li><a href="#pwm">PWM</a></li>
+    <li><a href="#adcdac">ADC/DAC</a></li>
+    <li><a href="#active-filters">Active Filters</a></li>
+    <li><a href="#waveguides">Waveguides</a></li>
+    <li><a href="#audio-devices">Audio Devices</a></li>
+    <li><a href="#todo">TODO</a></li>
+    <li><a href="#relating-ac-and-music">Relating AC and Music</a></li>
+    <li><a href="#continued-reading">Continued Reading:</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-14---circuits--semiconductors">
+  Chapter 14 - Circuits &amp; Semiconductors
+  <a class="anchor" href="#chapter-14---circuits--semiconductors">#</a>
+</h1>
+<p>[TODO]</p>
+<p>Show everything in a circuit sim, fix heading levels (this is a mess)</p>
+<p>Possibly break up this chapter? Transistors, the opamp, etc alone may each justify their own chapters</p>
+<p>That said, I don&rsquo;t want to get to in the mud of transistor physics. I really want to focus on how/when/why to use what, not how they work as the physics is both pretty hard to grasp and not super useful. Still would like to mention that switching is what uses power and like processe size things, but maybe not the chemistry or electron tunneling effects</p>
+<h1 id="chapter-141---semiconductors">
+  Chapter 14.1 - Semiconductors
+  <a class="anchor" href="#chapter-141---semiconductors">#</a>
+</h1>
+<h2 id="diodes-the-one-way-road">
+  Diodes, the one way road
+  <a class="anchor" href="#diodes-the-one-way-road">#</a>
+</h2>
+<p>[TODO]</p>
+<p>zeener, normal, bipolar</p>
+<ul>
+<li>varistors , sparkgaps</li>
+<li>Leds - getting current both ways, LED safety</li>
+</ul>
+<p><a href="https://en.wikipedia.org/wiki/Varicap">Varicaps (Wikipedia)</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Tunnel_diode">Tunnel Diodes (Wikipedia)</a></p>
+<h3 id="diode-logic">
+  Diode Logic
+  <a class="anchor" href="#diode-logic">#</a>
+</h3>
+<p><a href="https://hackaday.io/project/11677-the-diode-clock">The Diode Clock</a></p>
+<h2 id="transistors">
+  Transistors
+  <a class="anchor" href="#transistors">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://djjondent.blogspot.com/2019/05/transistor-families.html">Transistor Families (JonDent - Blogspot)</a></p>
+<p><a href="https://www.electronics-tutorials.ws/transistor/tran_1.html">Bipolar Transistor @ electronics-tutorials.ws</a></p>
+<p>tubes and how they work</p>
+<h3 id="pnp-v-npn">
+  PNP V NPN
+  <a class="anchor" href="#pnp-v-npn">#</a>
+</h3>
+<h3 id="igbt-mosfets">
+  IGBT, Mosfets?
+  <a class="anchor" href="#igbt-mosfets">#</a>
+</h3>
+<h4 id="tubes">
+  Tubes
+  <a class="anchor" href="#tubes">#</a>
+</h4>
+<p><a href="https://hackaday.com/2020/09/01/that-elusive-valve-amp-sound-for-not-a-lot-there-has-to-be-a-catch/">That Elusive Valve Amp Sound, For Not a Lot! (There has to be a Catch) (hackday.com)</a></p>
+<h2 id="integrated-circuits">
+  Integrated Circuits
+  <a class="anchor" href="#integrated-circuits">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://hackaday.com/2019/05/20/integrated-circuits-can-be-easy-to-understand-with-the-right-teachers/">https://hackaday.com/2019/05/20/integrated-circuits-can-be-easy-to-understand-with-the-right-teachers/</a>
+<a href="https://www.youtube.com/watch?v=VNzkhZBjo5k&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Uncovering the Silicon: Demystifying How Chips are Built and How They Work (YouTube)</a></p>
+<p><a href="http://www.righto.com/2014/05/reverse-engineering-tl431-most-common.html">Reverse-engineering the TL431</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Distortion pedal with all homemade semiconductors, only one external component (cap for AC coupling) <a href="https://t.co/M7t3Gl1m5P">pic.twitter.com/M7t3Gl1m5P</a></p>&mdash; Sam Zeloof (@szeloof) <a href="https://twitter.com/szeloof/status/1280249239495479297?ref_src=twsrc%5Etfw">July 6, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Finally I learned how to do focus stacking with my macro (non-microscope) shots. 226 shots, 50µm camera shift per frame. Laowa 25mm F2.8@F4 on WeMacro rail. Stitched in Helicon Focus (pyramid, smoothing=1). 1 original photo for comparison. <a href="https://twitter.com/hashtag/WeMacro?src=hash&amp;ref_src=twsrc%5Etfw">#WeMacro</a> <a href="https://twitter.com/laowa_lens?ref_src=twsrc%5Etfw">@laowa_lens</a> <a href="https://twitter.com/hashtag/heliconfocus?src=hash&amp;ref_src=twsrc%5Etfw">#heliconfocus</a> <a href="https://t.co/yCdCIBXMRv">pic.twitter.com/yCdCIBXMRv</a></p>&mdash; Zeptobars (@Zeptobars) <a href="https://twitter.com/Zeptobars/status/1105594474036686852?ref_src=twsrc%5Etfw">March 12, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h3 id="555-opamp-74-series-logic">
+  555, OpAmp, 74-Series Logic
+  <a class="anchor" href="#555-opamp-74-series-logic">#</a>
+</h3>
+<p><a href="https://www.youtube.com/watch?v=fLaexx-NMj8&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">555 Timer IC (YouTube)</a></p>
+<p><a href="http://www.555-timer-circuits.com/555-amplifier.html">555 as an amplifier (don&rsquo;t actually do this!)</a></p>
+<p>potato semi</p>
+<h1 id="chapter-142---opamps--filters">
+  Chapter 14.2 - Opamps &amp; Filters
+  <a class="anchor" href="#chapter-142---opamps--filters">#</a>
+</h1>
+<h2 id="optical-electronics">
+  Optical Electronics
+  <a class="anchor" href="#optical-electronics">#</a>
+</h2>
+<p>[TODO]</p>
+<h2 id="crystal-oscillators">
+  Crystal Oscillators
+  <a class="anchor" href="#crystal-oscillators">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://www.youtube.com/watch?v=wcJXA8IqYl8">Piezoelectricity - Why hitting crystals makes electricity (YouTube)</a></p>
+<h2 id="pwm">
+  PWM
+  <a class="anchor" href="#pwm">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://hackaday.com/2020/08/26/driving-a-pal-tv-over-rf-thanks-to-pwm-harmonics/">Driving a PAL tv over RF thanks to PWM harmonics (Hackaday)</a></p>
+<h2 id="adcdac">
+  ADC/DAC
+  <a class="anchor" href="#adcdac">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://en.wikipedia.org/wiki/Fourier_transform">https://en.wikipedia.org/wiki/Fourier_transform</a></p>
+<p>Nyquist</p>
+<h2 id="active-filters">
+  Active Filters
+  <a class="anchor" href="#active-filters">#</a>
+</h2>
+<p><a href="http://sim.okawa-denshi.jp/en/">http://sim.okawa-denshi.jp/en/</a></p>
+<p>[TODO]</p>
+<h2 id="waveguides">
+  Waveguides
+  <a class="anchor" href="#waveguides">#</a>
+</h2>
+<p><a href="https://www.youtube.com/watch?v=r9-m17IPOco">Waveguides Explained (YouTube)</a></p>
+<h2 id="audio-devices">
+  Audio Devices
+  <a class="anchor" href="#audio-devices">#</a>
+</h2>
+<p>[TODO]</p>
+<p>speakers, piezos, amps, mics and pickup patters</p>
+<h2 id="todo">
+  TODO
+  <a class="anchor" href="#todo">#</a>
+</h2>
+<p>add motors, analog meters, various connection standards, radio, flex/pressure sense, grounding (chassis, digital, analog, ground planes, etc.), solar/photo reactive,</p>
+<h2 id="relating-ac-and-music">
+  Relating AC and Music
+  <a class="anchor" href="#relating-ac-and-music">#</a>
+</h2>
+<p>[TODO]</p>
+<p>Relate back to things like ADSR, Distortion, Reverb / Echo, Decibels (audio), etc. Use VCV RACK</p>
+<h2 id="continued-reading">
+  Continued Reading:
+  <a class="anchor" href="#continued-reading">#</a>
+</h2>
+<p>[TODO]</p>
+<p>At this point I highly recommend <em>&lsquo;Practical Electronics for Inventors&rsquo;</em> ISBN 978-1259587542, namely chapters 2-12, and 15-16. It&rsquo;s a very large, detailed book that does it&rsquo;s best to keep things, well, practical.</p>
+<p><a href="https://taleri.files.wordpress.com/2014/02/practical_electronics_for_inventors_-_scherz_paul.pdf">https://taleri.files.wordpress.com/2014/02/practical_electronics_for_inventors_-_scherz_paul.pdf</a></p>
+<p><a href="https://web.archive.org/web/20120114234704/http://wiki.openhardware.org/Hardware_Isn%27t_Generally_Copyrightable">Hardware isn&rsquo;t generally copyrightable</a></p>
+<p><a href="https://hackaday.io/contest/174093-2020-circuit-sculpture-challenge">Hackady.io 2020 Circuit Sculuture Challange</a></p>
+<p><a href="https://www.youtube.com/watch?v=3DeOPN1Cl1Y">RGB LED, Inductively Powered, Frequency Controlled (Wolf Tronix - YouTube)</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/opinionatedguide/OpGuidesHugoSrc/tree/main/content//Engineering/14-circuits2.md" target="_blank" rel="noopener">
+      <img src="/opinionatedguide.github.io/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.black.svg" style="width:100px;height:100px"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#diodes-the-one-way-road">Diodes, the one way road</a>
+      <ul>
+        <li><a href="#diode-logic">Diode Logic</a></li>
+      </ul>
+    </li>
+    <li><a href="#transistors">Transistors</a>
+      <ul>
+        <li><a href="#pnp-v-npn">PNP V NPN</a></li>
+        <li><a href="#igbt-mosfets">IGBT, Mosfets?</a></li>
+      </ul>
+    </li>
+    <li><a href="#integrated-circuits">Integrated Circuits</a>
+      <ul>
+        <li><a href="#555-opamp-74-series-logic">555, OpAmp, 74-Series Logic</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#optical-electronics">Optical Electronics</a></li>
+    <li><a href="#crystal-oscillators">Crystal Oscillators</a></li>
+    <li><a href="#pwm">PWM</a></li>
+    <li><a href="#adcdac">ADC/DAC</a></li>
+    <li><a href="#active-filters">Active Filters</a></li>
+    <li><a href="#waveguides">Waveguides</a></li>
+    <li><a href="#audio-devices">Audio Devices</a></li>
+    <li><a href="#todo">TODO</a></li>
+    <li><a href="#relating-ac-and-music">Relating AC and Music</a></li>
+    <li><a href="#continued-reading">Continued Reading:</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
