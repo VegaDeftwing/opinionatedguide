@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 3 - Into the hardware #  One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!
-The CPU #  These are CPUS or Central Processing Units.">
+<meta name="description" content="One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!
+The CPU #  These are CPUS or Central Processing Units. They&rsquo;re the beating heart of your computer, doing the day-to-day number crunching.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 3 - Into the hardware #  One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!
-The CPU #  These are CPUS or Central Processing Units." />
+<meta property="og:description" content="One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!
+The CPU #  These are CPUS or Central Processing Units. They&rsquo;re the beating heart of your computer, doing the day-to-day number crunching." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/3-hardware/" />
 
@@ -16,7 +16,7 @@ The CPU #  These are CPUS or Central Processing Units." />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.c484d20c3a2a6c9636776c4eef72b774a0fd75ae4aad74d5bf32c62accf393fd.js" integrity="sha256-xITSDDoqbJY2d2xO73K3dKD9da5KrXTVvzLGKszzk/0="></script>
+<script defer src="/en.search.min.5f42667323df803c4f592ca61e236272b64e03cddbbb7bc48679fecc93187f5b.js" integrity="sha256-X0JmcyPfgDxPWSymHiNicrZOA83bu3vEhnn&#43;zJMYf1s="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -63,9 +63,9 @@ https://github.com/alex-shpak/hugo-book
 <li><a href="/engineering/1-firstgoal/">1 - The First Goal</a></li>
 <li><a href="/engineering/2-arch/">2 - Let&rsquo;s do it then, Installing Arch Linux</a></li>
 <li><a href="/engineering/3-hardware/"class=active>3 - Into The Hardware</a></li>
-<li><a href="/engineering/4-linuxdirtree/">4 - Back to the -Root- of Things</a></li>
+<li><a href="/engineering/4-linuxdirtree/">4 - Back to the <em>Root</em> of Things</a></li>
 <li><a href="/engineering/5-circuits1/">5 - Circuits, an Introduction</a></li>
-<li><a href="/engineering/6-howwework/">6 - Let&rsquo;s Work on -How- we work</a></li>
+<li><a href="/engineering/6-howwework/">6 - Let&rsquo;s Work on <em>How</em> we work</a></li>
 <li><a href="/engineering/6p5-git/">6½ - Git</a></li>
 <li><a href="/engineering/7-codeintro/">7 - Let&rsquo;s Write Some Code</a></li>
 <li><a href="/engineering/8-lowlvl/">8 - Low Level Programming</a></li>
@@ -311,16 +311,12 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="chapter-3---into-the-hardware">
-  Chapter 3 - Into the hardware
-  <a class="anchor" href="#chapter-3---into-the-hardware">#</a>
-</h1>
-<p>One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!</p>
+  <article class="markdown"><p>One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!</p>
 <h2 id="the-cpu">
   The CPU
   <a class="anchor" href="#the-cpu">#</a>
 </h2>
-<p><img src="/cpus.jpg" alt="CPUS" title=":size=75%"/></p>
+<img src="/cpus.jpg" alt="CPUS" height="400em">
 <p>These are CPUS or Central Processing Units. They&rsquo;re the beating heart of your computer, doing the day-to-day number crunching. The rectangular one of one of the first CPU&rsquo;s in the lineage leading up to CPU&rsquo;s like the ones used in desktop&rsquo;s today, with further sucessors shown in order from top left to the bottom right. The metal-capped one at the bottom right, while old, is visulally quite representative of a moden desktop CPU, though the CPUs in a laptop or smart phone do look quite differnt still.</p>
 <p>One of the nifty things we do pretty easily in linux is get information about our hardware directly. Just as when we were installing Arch and we used <code>lsblk</code> to see an overview of the disks on the system, we can use some other tools to find out some other information about the system. Let&rsquo;s start off basic and see what CPU you have. Go ahead and run</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
@@ -365,7 +361,7 @@ cache size      : <span style="color:#ae81ff">512</span> KB
   Clock Speed
   <a class="anchor" href="#clock-speed">#</a>
 </h3>
-<p><img src="/transistor.jpg" alt="transistor" title=":size=75%"/></p>
+<img src="/transistor.jpg" alt="Transistors" height="400em">
 <p>However, to get to that we&rsquo;ve gotta go just a bit further down the rabbit hole to the relay. Relays are super simple to understand, they&rsquo;re just a metal switch that is pulled open or closed using another input signal (usually a magnet pulling/pushing the switch closed/open) basically imagine a light switch, where the switch itself is controlled by yet another electrical signal. Relays are slow though, they require a physical metal plate to move to change the connection. Because of this they have limited reliability and worth note they&rsquo;re actually loud. You can hear an audible click of the switch as they change state.</p>
 <p>Enter the vacuum tube. Though rarely used today outside of high end audio and old radios, for a period of time the logic inside a computer used these tubes. Essentially theres three important parts of the tube, the Cathode, Plate and Grid. Put very simply the Cathode emits electrons and the Plate collects them. Where it gets interesting is the grid in between. By applying a voltage to the grid a signal can be controlled giving us the same ability to turn something on or off by a third wire as in the relay.</p>
 <blockquote>
@@ -404,12 +400,14 @@ cache size      : <span style="color:#ae81ff">512</span> KB
 </code></pre></div><p>As you can see, this is incredibly difficult to read to a &lsquo;normal&rsquo; person, so even though we&rsquo;re not there yet.</p>
 <p>This in turn gets turned into binary as can bee seen by this screenshot generated using <a href="https://godbolt.org/">https://godbolt.org/</a></p>
 <p><img src="/godbolt.png" alt="godbolt" /></p>
-<p>See the weird numbers next to each instruction? like 4004b255? That&rsquo;s a base 16 number or hexadecimal usually refered to as &lsquo;Hex&rsquo;. Hex is what is used by most computer guys to represent numbers because computers operate in base 2, or binary- like 01001100, which is very difficult to read and type accurately, however, base 10, the normal numbering system your used to, makes translating between binary and decimal a bit uncomfortable as the common factor is 5, an number that is both odd and in turn not a factor of two, where as 16 is $2^4$ so that means we can easily represent binary like this:</p>
-<table>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <table>
 <thead>
 <tr>
-<th>Binary</th>
-<th>Hex</th>
+<th>Binary (0b)</th>
+<th>Hex (0x)</th>
 <th>Decimal</th>
 </tr>
 </thead>
@@ -496,9 +494,20 @@ cache size      : <span style="color:#ae81ff">512</span> KB
 </tr>
 </tbody>
 </table>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>See the weird numbers next to each instruction? like <strong>4004b255</strong>? That&rsquo;s a base 16 number or hexadecimal usually refered to as &lsquo;Hex&rsquo;. Hex is what is used by most computer guys to represent numbers because computers operate in base 2, or binary- like 01001100, which is very difficult to read and type accurately, however, base 10, the normal numbering system your used to, makes translating between binary and decimal a bit uncomfortable as the common factor is 5, an number that is both odd and in turn not a factor of two, where as 16 is 2^4​ (2*2*2*2) so that means we can easily represent binary like this:</p>
 <p>Okay, so now those 1&rsquo;s and 0&rsquo;s are what your computer actually reads to run instructions. We&rsquo;ll come back to this later, but since we&rsquo;re here I&rsquo;ll drop this <a href="https://www-user.tu-chemnitz.de/~heha/viewchm.php/hs/x86.chm/x86.htm">link</a></p>
 <p>Where you can see how these 1&rsquo;s and 0&rsquo;s are arranged to tell the computer what to do. That is super advanced for where we are now though, so let&rsquo;s get back on track- what the hell is micro code already?</p>
-<p>Well, it turns out that modern processors are still compatible with some really, really old code. All the way back to the first 8086 processor made by Intel in 1978. It was here that the x86 instruction set - the instructions like &lsquo;mov&rsquo; , &lsquo;push&rsquo;, and &lsquo;add&rsquo; above that define the x86 architecture were born. Originally these were 16bit CPUs, that is each instruction only had 16 1&rsquo;s and 0&rsquo;s but soon the i386 came along and used 32bits. Back when 32 bit computers were common this is what this was in reference to. As with all things technology progressed and 64bit cpu&rsquo;s came along. Many attempts were made to make 32bit programs run with backwards comparability at high speeds on these CPU&rsquo;s, though in the end AMD made the method used today, dubbed the x86_64 instruction set. Overtime this instruction set was expanded with various additions. We can actually see the names of these additions that are available on the CPU in the system by looking yet again at the output of <code>cat /proc/cpuinfo</code> and looking at the flags section. While not all of these signify instruction set additions, many do. The most common &lsquo;famous&rsquo; if you will is SSE, of which there have been multiple revision, the first version alone adds <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">70 instructions</a>, which are used to make math faster</p>
+<p>Well, it turns out that modern processors are still compatible with some really, really old code. All the way back to the first 8086 processor made by Intel in 1978. It was here that the x86 instruction set - the instructions like &lsquo;mov&rsquo; , &lsquo;push&rsquo;, and &lsquo;add&rsquo; above that define the x86 architecture were born. Originally these were 16bit CPUs, that is each instruction only had 16 1&rsquo;s and 0&rsquo;s but soon the i386 came along and used 32bits. Back when 32 bit computers were common this is what this was in reference to.</p>
+
+  </div>
+  
+</div>
+
+<p>As with all things technology progressed and 64bit cpu&rsquo;s came along. Many attempts were made to make 32bit programs run with backwards comparability at high speeds on these CPU&rsquo;s, though in the end AMD made the method used today, dubbed the x86_64 instruction set. Overtime this instruction set was expanded with various additions. We can actually see the names of these additions that are available on the CPU in the system by looking yet again at the output of <code>cat /proc/cpuinfo</code> and looking at the flags section. While not all of these signify instruction set additions, many do. The most common &lsquo;famous&rsquo; if you will is SSE, of which there have been multiple revision, the first version alone adds <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">70 instructions</a>, which are used to make math faster</p>
 <p>Alright, so finally, enter Mircocode. At some point all of this became a lot to manage and processor designs evolved even further, getting exponentially more complicated and faster with more and more instructions, so they added this little computer which has the primary duty of turning the mess of countless possible instructions into yet even smaller instructions that the heavy duty &lsquo;real&rsquo; processor does. Every once in a while a problem will be found in the way this is done, or a security vulnerability in the hardware itself may be found, and your CPU manufacture will release a microcode update.</p>
 <p>That update version is what you see on that line of <code>cat /proc/cpuinfo</code></p>
 <p>Now, at the beginning of this guide I said I wouldn&rsquo;t provide useless information, and I&rsquo;m sure that all looks pretty useless without more context. In general, this is interesting because you can (and will need to) write some assembly code by hand every now and then. Thankfully, its usually not x86 assembly which is very, very difficult to write but instead assembly on much smaller, micro controllers (basically really tiny computers), where that assembly is necessary because the system is so limited.</p>
@@ -563,7 +572,7 @@ cache size      : <span style="color:#ae81ff">512</span> KB
 <p>okay, let&rsquo;s move on to ram in Linux.</p>
 <p>While support for this will vary depending on your motherboard, you should be able to see information about your ram by running <code>sudo dmidecode --type 17</code></p>
 <p>The output will probably repeat multiple times, printing once for each physical stick of ram in your system. I actually have 4 sticks, but I&rsquo;ll just be showing one:</p>
-<p><img src="/dmiram.png" alt="dmiram" title=":size=50%"/></p>
+<img src="/dmiram.png" alt="DMI Ram" height="600em">
 <p>You should note that many of the things mentioned above can be seen here, though I do want to look at some things here.</p>
 <p>First, size. This is an 8Gb or 8192Mb stick of ram. Obviously the more ram the better, but you may find strange ram configurations where there&rsquo;s a mix of ram sizes in a system. This can be bad for performance though, because of memory channels.</p>
 <p>Most modern systems use 2 or 3 memory channels, to simplify a bit, it makes it so two sticks of ram can have their speed be used in parallel. Think about it like a parking lot, if you have a total of 4 parking lots you could, theoretically, hook them all up in a straight line with one entrance/exit shared among them. This would be pretty stupid though, as it would severely bottleneck traffic going though. Instead you may want to add a separate entrance and exit for each, but that quickly becomes expensive. Instead, most systems use a mix of the two, connecting a pair of sticks together, allowing for added capacity, but allowing for multiple pairs to be inserted independently. A lot of people don&rsquo;t fully fill all the available memory slots on their motherboard though, so instead of having 4 lots with 2 entrances you should be able to have 2 and 2, unless you mistakingly put the sticks in wrong, leaving one &lsquo;entrance&rsquo; closed entirely while the other now has a ton of capacity. On my motherboard these &lsquo;lots&rsquo; are labeled A1, A2, B1, and B2. Looking above you can see the stick we&rsquo;re looking at here is the A1 lot. It&rsquo;s because of this that you should ideally have a multiple of as many sticks of ram as you do memory channels. For example, if you have a two channel motherboard and CPU then you want either 2, 4, or 8 sticks of ram. Most motherboards top out at 4 sticks though, with 2 channel and 2 sticks being the most common configuration.</p>
@@ -593,7 +602,7 @@ Mem:           31Gi       4.5Gi        23Gi       488Mi       3.3Gi        26Gi
   The Motherboard
   <a class="anchor" href="#the-motherboard">#</a>
 </h2>
-<p><img src="/mobo.jpg" alt="mobo" /></p>
+<img src="/mobo.jpg" alt="Motherboard" height="700em">
 <p>This is an older motherboard, but still new enough to have modern parts. Let&rsquo;s start by looking at the the most obvious physical features and move to smaller things from there.</p>
 <p>The most obvious thing to point out is the size of the motherboard. This is a mATX motherboard, which is considered the normal size for most systems. Most gaming or DIY computers will use full size ATX motherboards, which look very similar but are a bit longer vertically, allowing for more expansion slots - those horizonal black bars - among other features. Other formfactors include ITX, a smaller form factor with only a single expansion slot, eATX (extended ATX) which is rarely used now, and SSI and EEB which are both server motheboard sizes.</p>
 <p>The large, white square is the CPU socket. This is an older board made for an AM3+ processor. The AM3+ processor line, as well as most consumer processors from AMD use a PGA or Pin Grid Array socket. these CPUs have many pins on the bottom which fall into these holes to make contact. Before the CPU is inserted the metal leaver arm, seen at the bottom of the socket if you look carefully, is raised and the CPU should smoothly plop right in, after which the arm can be lowered. Modern Intel CPUs follow a similar-ish mechanism, only instead of having a bunch of pins that go into holes the &lsquo;pins&rsquo; are actually tiny springy pieces of metal on the motherboard which make contact with pads on the CPU, that socket looks a bit like this, albeit this is an old one:</p>
@@ -612,7 +621,7 @@ Mem:           31Gi       4.5Gi        23Gi       488Mi       3.3Gi        26Gi
 <p>Finally, along the top of the back left edge you&rsquo;ll see the metal tops of the main &lsquo;rear i/o&rsquo; for the computer. These are all the main connections for your system. The bulk of the system&rsquo;s USB ports, networking, and audio ports will be found here.</p>
 <p>So, how do we get any information from the motherboard? Well, in case it wasn&rsquo;t already obvious, the motherboard isn&rsquo;t really one thing. It&rsquo;s more a common interconnect point and routing system than anything; however, it does have some of it&rsquo;s own responsibilities. To start small let&rsquo;s look at one small, but exceedingly import role of the motherboard: fan and temperature control.</p>
 <p>To see what your fans are doing on Linux you&rsquo;ll need to grab the package <code>lm_sensors</code> with yay, then you can run run <code>sudo sensors-decect</code> and mash enter until it&rsquo;s done. After this you should be able to run <code>sensors</code> and see an output similar to this one:</p>
-<p><img src="/sensors.png" alt="sense" title=":size=60%"/></p>
+<img src="/sensors.png" alt="sensors" height="500em">
 <p>Of note, depending on your system, there&rsquo;s a small chance nothing will be detected at all or that some information will be wrong. Even in my case this is true as my CPU fan is reporting 0 RPM. Actually entering your motherboard&rsquo;s UEFI or BIOS settings may expose more information, but we&rsquo;ll talk about that more later.</p>
 <p>Alright, so that&rsquo;s coll and all, but what else can you do?</p>
 <p>Alright, let&rsquo;s move on to seeing the system buses, namely, the pci bus.</p>
@@ -729,9 +738,9 @@ Bus <span style="color:#ae81ff">001</span> Device 005: ID 05e3:0745 Genesys Logi
   Expansion slots
   <a class="anchor" href="#expansion-slots">#</a>
 </h3>
-<p><img src="/pciep.jpg" alt="pciep" title=":size=70%"/></p>
+<img src="/pciep.jpg" alt="pci expansion" height="500em">
 <blockquote>
-<p>Two PCI-e 1x expansion cards, one for USB 3.0 and one for audio. Of note, most motherboards have both functions built in.</p>
+<p>Two PCI-e 1x expansion cards, one for USB 3.0 and one for audio. Of note, most modern motherboards have both functions built in.</p>
 </blockquote>
 <p>Most modern expansion cards connect though the PCI Express or PCIe bus. This standard, much like DDR, has gone though multiple generations of bandwidth doubling. Currently consumer devices offer up to PCIe 3.0 but devices with both 4.0 and 5.0 should be on the market shortly.</p>
 <p>PCIe cards are used for just about anything you could imagine, form adding a more powerful graphics card, more usb ports, a higher end sound card, to some more esoteric things like specific task accelerators (encryption, compression) or even a software defined radio.</p>

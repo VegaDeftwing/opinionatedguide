@@ -16,7 +16,7 @@ Operating System: According to Wikipedia, &ldquo;An operating system (OS) is sys
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.c484d20c3a2a6c9636776c4eef72b774a0fd75ae4aad74d5bf32c62accf393fd.js" integrity="sha256-xITSDDoqbJY2d2xO73K3dKD9da5KrXTVvzLGKszzk/0="></script>
+<script defer src="/en.search.min.5f42667323df803c4f592ca61e236272b64e03cddbbb7bc48679fecc93187f5b.js" integrity="sha256-X0JmcyPfgDxPWSymHiNicrZOA83bu3vEhnn&#43;zJMYf1s="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -63,9 +63,9 @@ https://github.com/alex-shpak/hugo-book
 <li><a href="/engineering/1-firstgoal/"class=active>1 - The First Goal</a></li>
 <li><a href="/engineering/2-arch/">2 - Let&rsquo;s do it then, Installing Arch Linux</a></li>
 <li><a href="/engineering/3-hardware/">3 - Into The Hardware</a></li>
-<li><a href="/engineering/4-linuxdirtree/">4 - Back to the -Root- of Things</a></li>
+<li><a href="/engineering/4-linuxdirtree/">4 - Back to the <em>Root</em> of Things</a></li>
 <li><a href="/engineering/5-circuits1/">5 - Circuits, an Introduction</a></li>
-<li><a href="/engineering/6-howwework/">6 - Let&rsquo;s Work on -How- we work</a></li>
+<li><a href="/engineering/6-howwework/">6 - Let&rsquo;s Work on <em>How</em> we work</a></li>
 <li><a href="/engineering/6p5-git/">6½ - Git</a></li>
 <li><a href="/engineering/7-codeintro/">7 - Let&rsquo;s Write Some Code</a></li>
 <li><a href="/engineering/8-lowlvl/">8 - Low Level Programming</a></li>
@@ -254,10 +254,22 @@ https://github.com/alex-shpak/hugo-book
 </blockquote>
 
 <p class="tip">You should really make a full backup of your computer before doing this, as installing an operating system can rather easily lead to lost files when you reformat or reparation your drive or when you change settings in the BIOS/UEFI and swap the bootloader.</p>
-<p>?&gt; Reformat: the bulk storage device in your computer, the hard drive or solid state drive, needs to be formated before use, this sets up a way for the computer and the drive to agree on a base system for how partitions should be setup, speaking of which:</p>
-<p>?&gt; Repartion: To partition a drive means to take all the space on the hard drive and divide it into partitions onto which you can put a file system. Most operating systems like Windows, Mac OsX, or Linux, use multiple partitions for the operating system to function. Usually a filesystem is set up on each of these partitions, in windows this is typically NTFS for Hard Drives and FAT32 for flash drives, these file systems are effectively the index for all the files you&rsquo;ll put on the drive, and as you may have multiple partitions and multiple file systems on one disk each will have an index to match. As complicated as it may seem this means the partition table can be seen as an &lsquo;index of inecies&rsquo; of sorts. Don&rsquo;t worry if that&rsquo;s a lot to understand right now, we&rsquo;ll come back to this topic in depth.</p>
-<p>?&gt; BIOS/UEFI: The Binary Input Output System or Unified Extensible Firmware Interface is the thing you see before you computer loads the operating system, usually prompting to press delete or f2 to change settings. This is the system that is used to change the way all the components around the computer talk to one another and at what speed.</p>
-<p>?&gt; Bootloader: The bootloader sits at a special place on the hard drive selected for boot in the UEFI or BIOS, and is what the computer uses to load the full operating system, most will let you chose what operating system you want to boot if you have multiple installed on you computer at once</p>
+<blockquote class="book-hint info">
+  <strong>Reformat:</strong> the bulk storage device in your computer, the hard drive or solid state drive, needs to be formated before use, this sets up a way for the computer and the drive to agree on a base system for how partitions should be setup, speaking of which:
+</blockquote>
+
+<blockquote class="book-hint info">
+  <strong>Repartion:</strong> To partition a drive means to take all the space on the hard drive and divide it into partitions onto which you can put a file system. Most operating systems like Windows, Mac OsX, or Linux, use multiple partitions for the operating system to function. Usually a filesystem is set up on each of these partitions, in windows this is typically NTFS for Hard Drives and FAT32 for flash drives, these file systems are effectively the index for all the files you&rsquo;ll put on the drive, and as you may have multiple partitions and multiple file systems on one disk each will have an index to match. As complicated as it may seem this means the partition table can be seen as an &lsquo;index of inecies&rsquo; of sorts. Don&rsquo;t worry if that&rsquo;s a lot to understand right now, we&rsquo;ll come back to this topic in depth.
+</blockquote>
+
+<blockquote class="book-hint info">
+  <strong>BIOS/UEFI:</strong> The Binary Input Output System or Unified Extensible Firmware Interface is the thing you see before you computer loads the operating system, usually prompting to press delete or f2 to change settings. This is the system that is used to change the way all the components around the computer talk to one another and at what speed.
+</blockquote>
+
+<blockquote class="book-hint info">
+  <strong>Bootloader:</strong> The bootloader sits at a special place on the hard drive selected for boot in the UEFI or BIOS, and is what the computer uses to load the full operating system, most will let you chose what operating system you want to boot if you have multiple installed on you computer at once
+</blockquote>
+
 <p>Alright, so why do I want you to install a new OS to begin with? Well, the OS we&rsquo;ll be using is called Linux. Linux is actually what powers both android and ChomeOS, and is a common descendant of the same system as Mac OSX as well as almost all of the servers on the internet from massive website like Facebook and Google to small Minecraft servers you can rent online to play with friends. What&rsquo;s cool about Linux is it lets you get much closer to the hardware and see what&rsquo;s going on, and it just generally makes writing code much easier. Furthermore, it&rsquo;s super easy to set up an amazing development environment in Linux for getting work done with code or electronics, and at the end of the day you can still watch YouTube, play <em>most</em> games that are on steam, or open up an office suite, just like Windows or Mac. Unlike Windows and (to a lesser extent) Mac though the system is laid out in way so that all the moving parts are exposed and able to be tinkered with. No setting or configuration is locked in and you have total control over your computer with Linux. Furthermore, it&rsquo;s not just easier to run and use software and tools for doing hardware and programming development on Linux, but it&rsquo;s also easier to find and install the tools, as you&rsquo;ll see shortly. Finally, Linux has a great track record of stability, as there are many Linux servers that run 24/7/365 to serve web pages, host services like games, and crunch big data in real time. In fact, all of the world&rsquo;s top 500 super computers use Linux.</p>
 <p>Beyond that, there&rsquo;s a degree of respect Linux has for the user that Windows, and to a lesser extent OSX, lack. In Windows 10 ads are being baked into the preinstalled programs from Minesweeper to the Email client, the OS pesters you to use Edge and Bing while simulatiously spying on everything you do. If you attempt to do even remotely system level things it&rsquo;s increasingly easy to get the Frowny Face Blue Screen of Death (BSOD)</p>
 <p><img src="/Bsodwindows10.png" alt="Bsodwindows10" title=":size=50%"/></p>
