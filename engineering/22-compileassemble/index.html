@@ -4,21 +4,13 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 22 - Compilers and Assemblers #  ./missing-semester - Metaprogramming
-Understanding compilers and common compiler flags #  How expensive is integer-overflow trapping in C&#43;&#43;? / Hacker News Comments on article
-How the cpython compiler works
-[TODO]
-Making a compiler and assembler, DIY language eso-lang style
-Making an interpreted language #  Making a compiled language #  https://medium.freecodecamp.org/the-programming-language-pipeline-91d3f449c919
-Continued Reading #  At this point I highly recommend &lsquo;The Art of Exploitation&rsquo; by Jon Erickson">
+<meta name="description" content="Chapter 22 - Compilers and Assemblers #  https://lee.earth/til/compiling-c-code-a-step-by-step-guide/
+Common Flags and When to Use them #   These flags are not universal, instead they&rsquo;re from GCC. GCC and Clang are the big two compilers you&rsquo;ll see a lot and these flags should be mostly the same between the two. Of course, there are many, many other compilers, but I&rsquo;m going to start with the common stuff
+ -o (Output) #   Note, this is a lowercase &lsquo;o&rsquo;">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 22 - Compilers and Assemblers #  ./missing-semester - Metaprogramming
-Understanding compilers and common compiler flags #  How expensive is integer-overflow trapping in C&#43;&#43;? / Hacker News Comments on article
-How the cpython compiler works
-[TODO]
-Making a compiler and assembler, DIY language eso-lang style
-Making an interpreted language #  Making a compiled language #  https://medium.freecodecamp.org/the-programming-language-pipeline-91d3f449c919
-Continued Reading #  At this point I highly recommend &lsquo;The Art of Exploitation&rsquo; by Jon Erickson" />
+<meta property="og:description" content="Chapter 22 - Compilers and Assemblers #  https://lee.earth/til/compiling-c-code-a-step-by-step-guide/
+Common Flags and When to Use them #   These flags are not universal, instead they&rsquo;re from GCC. GCC and Clang are the big two compilers you&rsquo;ll see a lot and these flags should be mostly the same between the two. Of course, there are many, many other compilers, but I&rsquo;m going to start with the common stuff
+ -o (Output) #   Note, this is a lowercase &lsquo;o&rsquo;" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/22-compileassemble/" />
 
@@ -26,7 +18,7 @@ Continued Reading #  At this point I highly recommend &lsquo;The Art of Exploita
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.5f42667323df803c4f592ca61e236272b64e03cddbbb7bc48679fecc93187f5b.js" integrity="sha256-X0JmcyPfgDxPWSymHiNicrZOA83bu3vEhnn&#43;zJMYf1s="></script>
+<script defer src="/en.search.min.ecf5ae6ae085dd99da9065d45bcb2f6e0869c707cdfb78bd24af0984e7be6a3d.js" integrity="sha256-7PWuauCF3ZnakGXUW8svbghpxwfN&#43;3i9JK8JhOe&#43;aj0="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -246,6 +238,18 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
+    <li><a href="#common-flags-and-when-to-use-them">Common Flags and When to Use them</a>
+      <ul>
+        <li><a href="#-o-output">-o (Output)</a></li>
+        <li><a href="#warnings">Warnings</a></li>
+        <li><a href="#-s-assembly">-S (aSSembly)</a></li>
+        <li><a href="#-v-verbose">-v (Verbose)</a></li>
+        <li><a href="#optimization">Optimization</a></li>
+        <li><a href="#-march--mtune--flto--msse42--mavx--mavx2">-march, -mtune, -flto, -msse4.2, -mavx, -mavx2</a></li>
+        <li><a href="#-ansi">-ansi</a></li>
+      </ul>
+    </li>
+    <li><a href="#stripping-not-like-that-perv">Stripping (Not like that, perv)</a></li>
     <li><a href="#understanding-compilers-and-common-compiler-flags">Understanding compilers and common compiler flags</a></li>
     <li><a href="#making-an-interpreted-language">Making an interpreted language</a></li>
     <li><a href="#making-a-compiled-language">Making a compiled language</a></li>
@@ -266,7 +270,69 @@ https://github.com/alex-shpak/hugo-book
   Chapter 22 - Compilers and Assemblers
   <a class="anchor" href="#chapter-22---compilers-and-assemblers">#</a>
 </h1>
-<p><a href="https://missing.csail.mit.edu/2020/metaprogramming/">./missing-semester - Metaprogramming</a></p>
+<p><a href="https://lee.earth/til/compiling-c-code-a-step-by-step-guide/">https://lee.earth/til/compiling-c-code-a-step-by-step-guide/</a></p>
+<h2 id="common-flags-and-when-to-use-them">
+  Common Flags and When to Use them
+  <a class="anchor" href="#common-flags-and-when-to-use-them">#</a>
+</h2>
+<blockquote>
+<p>These flags are not universal, instead they&rsquo;re from GCC. GCC and Clang are the big two compilers you&rsquo;ll see a lot and these flags should be mostly the same between the two. Of course, there are many, many other compilers, but I&rsquo;m going to start with the common stuff</p>
+</blockquote>
+<h3 id="-o-output">
+  -o (Output)
+  <a class="anchor" href="#-o-output">#</a>
+</h3>
+<blockquote>
+<p>Note, this is a <strong>lowercase</strong> &lsquo;o&rsquo;</p>
+</blockquote>
+<p>You should&rsquo;ve seen this already, I&rsquo;m mentioning it mostly to give a brief review of what a flag is, it&rsquo;s basically just another term for an argument to a program where the program is run as <code>program-name argument1 argument2 ...</code> but, usually flags are prefixed by <code>-</code> or <code>--</code></p>
+<p>in the case of <code>-o</code> it just means, use the next argument as the output name, so using</p>
+<p><code>gcc input.c -o myprogram</code> gives you an executable named myprogram instead of just input.</p>
+<h3 id="warnings">
+  Warnings
+  <a class="anchor" href="#warnings">#</a>
+</h3>
+<p>Just, read this: <a href="https://interrupt.memfault.com/blog/best-and-worst-gcc-clang-compiler-flags">https://interrupt.memfault.com/blog/best-and-worst-gcc-clang-compiler-flags</a> - It&rsquo;s a lot more in depth than anything I could write here. It&rsquo;s focused on Embedded development, but should be broadly applicable.</p>
+<h3 id="-s-assembly">
+  -S (aSSembly)
+  <a class="anchor" href="#-s-assembly">#</a>
+</h3>
+<h3 id="-v-verbose">
+  -v (Verbose)
+  <a class="anchor" href="#-v-verbose">#</a>
+</h3>
+<h3 id="optimization">
+  Optimization
+  <a class="anchor" href="#optimization">#</a>
+</h3>
+<blockquote>
+<p>Note, this is an uppercase &lsquo;O&rsquo;</p>
+</blockquote>
+<p>And now we can get to fun stuff. -O is generally used in levels, here with no space, so there&rsquo;s <code>-O</code>, <code>-O2</code>, <code>-O3</code>, and <code>-Ofast</code> are for speed, and <code>-Os</code> is for size of the binary. (or <code>-Oz</code> for clang)</p>
+<blockquote>
+<p>Technically, <code>-Ofast</code> can break your code. This is rather unlikely though.</p>
+</blockquote>
+<p>Each of these will take longer to compile but be more aggressive about optimizing the assembly code that is generated from your input. For example, let&rsquo;s look at the code</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">mult</span>(<span style="color:#66d9ef">int</span> m, <span style="color:#66d9ef">int</span> n){
+    <span style="color:#66d9ef">char</span> a[m][n];
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">sizeof</span>(a);
+}
+</code></pre></div><p>This is a <em>very</em> stupid multiply function. Effectively, it&rsquo;s multiplying two numbers by making a matrix of size m by n, and then counting the number of spots in that matrix instead of just multiplying the two numbers. I&rsquo;ve embedded a <a href="">GodBolt</a> page below with this code on the left, and it&rsquo;ll show the assembly output on the right. At the top you should be able to see a box to type compiler options, go ahead and put in <code>-O</code>. You should see a huge long mess of assembly that used multiple <code>imul</code> (multiply) instructions be reduced to 3 lines of assembly with only a single multiply. The compiler has figured out that what we were doing was a stupid multiply and optimized it for us.</p>
+<iframe width="100%" height="500px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(fontScale:14,j:1,lang:c%2B%2B,selection:(endColumn:2,endLineNumber:5,positionColumn:2,positionLineNumber:5,selectionStartColumn:2,selectionStartLineNumber:5,startColumn:2,startLineNumber:5),source:'//+Type+your+code+here,+or+load+an+example.%0Aint+mult(int+n,+int+m)%7B%0A++++char+a%5Bm%5D%5Bn%5D%3B%0A++++return(sizeof(a))%3B%0A%7D'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g102,filters:(b:'0',binary:'1',commentOnly:'0',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'1',trim:'1'),fontScale:14,j:1,lang:c%2B%2B,libs:!(),options:'',selection:(endColumn:1,endLineNumber:1,positionColumn:1,positionLineNumber:1,selectionStartColumn:1,selectionStartLineNumber:1,startColumn:1,startLineNumber:1),source:1),l:'5',n:'0',o:'x86-64+gcc+10.2+(Editor+%231,+Compiler+%231)+C%2B%2B',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
+<p>Here there&rsquo;s no difference between <code>-O</code> and <code>O3</code>, but with more complex code there often is. Just keep in mind that this is a trade off, there is the upfront cost of a longer compile time.</p>
+<h3 id="-march--mtune--flto--msse42--mavx--mavx2">
+  -march, -mtune, -flto, -msse4.2, -mavx, -mavx2
+  <a class="anchor" href="#-march--mtune--flto--msse42--mavx--mavx2">#</a>
+</h3>
+<h3 id="-ansi">
+  -ansi
+  <a class="anchor" href="#-ansi">#</a>
+</h3>
+<h2 id="stripping-not-like-that-perv">
+  Stripping (Not like that, perv)
+  <a class="anchor" href="#stripping-not-like-that-perv">#</a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Strip_%28Unix%29">Strip command [Wikipedia]</a></p>
 <h2 id="understanding-compilers-and-common-compiler-flags">
   Understanding compilers and common compiler flags
   <a class="anchor" href="#understanding-compilers-and-common-compiler-flags">#</a>
@@ -340,6 +406,18 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
+    <li><a href="#common-flags-and-when-to-use-them">Common Flags and When to Use them</a>
+      <ul>
+        <li><a href="#-o-output">-o (Output)</a></li>
+        <li><a href="#warnings">Warnings</a></li>
+        <li><a href="#-s-assembly">-S (aSSembly)</a></li>
+        <li><a href="#-v-verbose">-v (Verbose)</a></li>
+        <li><a href="#optimization">Optimization</a></li>
+        <li><a href="#-march--mtune--flto--msse42--mavx--mavx2">-march, -mtune, -flto, -msse4.2, -mavx, -mavx2</a></li>
+        <li><a href="#-ansi">-ansi</a></li>
+      </ul>
+    </li>
+    <li><a href="#stripping-not-like-that-perv">Stripping (Not like that, perv)</a></li>
     <li><a href="#understanding-compilers-and-common-compiler-flags">Understanding compilers and common compiler flags</a></li>
     <li><a href="#making-an-interpreted-language">Making an interpreted language</a></li>
     <li><a href="#making-a-compiled-language">Making a compiled language</a></li>
