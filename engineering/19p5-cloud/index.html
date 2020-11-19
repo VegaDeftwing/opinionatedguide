@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 19½ - &ldquo;The Cloud&rdquo; #  ">
+<meta name="description" content="Chapter 19½ - &ldquo;The Cloud&rdquo; #  Comparison of Vendors #  [TODO] Add Google Cloud to list, mention they&rsquo;re all sorta evil.
+ Note, I&rsquo;m not going to directly compare pricing between these services because that&rsquo;s both rather variable and because the cost is often in terms of resource usage, which can be calculated in so many different way that the only real way to compare is to actually run something.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 19½ - &ldquo;The Cloud&rdquo; #  " />
+<meta property="og:description" content="Chapter 19½ - &ldquo;The Cloud&rdquo; #  Comparison of Vendors #  [TODO] Add Google Cloud to list, mention they&rsquo;re all sorta evil.
+ Note, I&rsquo;m not going to directly compare pricing between these services because that&rsquo;s both rather variable and because the cost is often in terms of resource usage, which can be calculated in so many different way that the only real way to compare is to actually run something." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/19p5-cloud/" />
 
@@ -14,7 +16,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.d224db0c69c3c25e4a968895238031e7c0d82b732b20cfb0af1a91e9f7fccf2c.js" integrity="sha256-0iTbDGnDwl5KloiVI4Ax58DYK3MrIM&#43;wrxqR6ff8zyw="></script>
+<script defer src="/en.search.min.5fc0d3e9d3d0fc20cbf512f36b6dd3f6c8b7d54a21ad80b0e5e255b4628925ca.js" integrity="sha256-X8DT6dPQ/CDL9RLza23T9si31UohrYCw5eJVtGKJJco="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -232,7 +234,20 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#compute">Compute</a>
+      <ul>
+        <li><a href="#cpu">CPU</a></li>
+        <li><a href="#gpu">GPU</a></li>
+      </ul>
+    </li>
+    <li><a href="#storage">Storage</a></li>
+    <li><a href="#databases">Databases</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#dev-tools">Dev Tools</a></li>
+  </ul>
+</nav>
 
 
   </aside>
@@ -246,6 +261,66 @@ https://github.com/alex-shpak/hugo-book
   Chapter 19½ - &ldquo;The Cloud&rdquo;
   <a class="anchor" href="#chapter-19---the-cloud">#</a>
 </h1>
+<h1 id="comparison-of-vendors">
+  Comparison of Vendors
+  <a class="anchor" href="#comparison-of-vendors">#</a>
+</h1>
+<p>[TODO] Add Google Cloud to list, mention they&rsquo;re all sorta evil.</p>
+<blockquote>
+<p>Note, I&rsquo;m not going to directly compare pricing between these services because that&rsquo;s both rather variable and because the cost is often in terms of resource usage, which can be calculated in so many different way that the only real way to compare is to actually run something. Similarly, comparing uptime is also mostly useless as there are different metrics used and because of service contracts any provider will do everything in its power to appear to have umpteen 9&rsquo;s of uptime.</p>
+</blockquote>
+<h2 id="compute">
+  Compute
+  <a class="anchor" href="#compute">#</a>
+</h2>
+<h3 id="cpu">
+  CPU
+  <a class="anchor" href="#cpu">#</a>
+</h3>
+<p>For x86-64 CPU compute both offer a range of speed tier both for GPU and CPU, making direct comparison difficult.</p>
+<p>AWS EC2-C5 offers Intel Skylake CPUs that support AVX-512, nice if you have a highly vectorized workload. Azure does offer some of the same CPU, with AVX-512, but many of their CPUs are AMD&rsquo;s EPYC line which while EPYC should give Azure the lead in efficiency that should lead to reduced costs for the consumer, no AMD CPUs have AVX-512 and the EPYCs in particular sometimes have a hard time distributing compute over their internal CCX complexes.</p>
+<p>Also interesting, AWS offers EC2 A1, which lets you deploy to 64 bit arm cores instead of x86, which for workloads that work well on it can lead to cost savings or security benefits given the mess that was Meltdown and Spectre.</p>
+<h3 id="gpu">
+  GPU
+  <a class="anchor" href="#gpu">#</a>
+</h3>
+<p>AWS appears to only offer Nvidia GPUs, buying into the Nvidia CUDA ecosystem while Azure offers a mix of GPUs from AMD and Nvidia, covering both CUDA and OpenCL workloads well.</p>
+<h2 id="storage">
+  Storage
+  <a class="anchor" href="#storage">#</a>
+</h2>
+<p>AWS-S3, EBS, EFS, Glacier, &hellip; There&rsquo;s a lot here. There&rsquo;s flexibility among offerings that suit various needs, from &lsquo;object storage&rsquo;, network file systems, and long term backups on cheap, bulk storage.</p>
+<p>Azure offers similar (and much better named) flexibility, with options like Azure Disks for bulk storage attached to a VM, &lsquo;Azure Blobs&rsquo; for an S3 equivalent, and &ldquo;Azure Files&rdquo; for a network file system.</p>
+<p>Generally it seems there&rsquo;s a pretty 1-to-1 match between Microsoft&rsquo;s and Amazon&rsquo;s offerings. The differences start to show a bit more when it comes to dev tools and libraries available to work with them though.</p>
+<h2 id="databases">
+  Databases
+  <a class="anchor" href="#databases">#</a>
+</h2>
+<p>So that I can talk about this all without trying to name everything:</p>
+<p><img src="../../../../../../../../home/vega/.config/Typora/typora-user-images/image-20201115151852791.png" alt="image-20201115151852791" style="zoom:50%;" /></p>
+<p><img src="../../../../../../../../home/vega/.config/Typora/typora-user-images/image-20201115152353844.png" alt="image-20201115152353844" style="zoom:50%;" /></p>
+<p>As you can see, both offer products covering all the normal database options. Azure, rather strangely, offers hosting of multiple SQL back ends, while AWS has <a href="https://aws.amazon.com/rds/instance-types/">multiple instance types</a> for RDS, while Azure seems to just offer flexible options that automatically scale. This means less control, but also less management overhead and concerns for needing to upgrade or downgrade the instance latter. That said, for very large projects the industry is starting to move to non-relational anyway for it&rsquo;s lower overhead and ease in making it distributed and Cosmos DB, is, uh, lacking. The first chat I included from Azures' docs shows that Azure dos have some Redis cache options, but AWS has Dynamo, Memcached, and Redis.</p>
+<p>On top of all of that AWS offers a graphDB, which I can&rsquo;t find Azure even competing with at all.</p>
+<p>The only advantage that I can really find in Azure&rsquo;s database offerings is the options for SQL being varied enough to support multiple SQL implementations.</p>
+<h2 id="security">
+  Security
+  <a class="anchor" href="#security">#</a>
+</h2>
+<p>The <a href="https://buckets.grayhatwarfare.com">number of open AWS S3 buckets</a> that can be found on GitHub shows right off the bat that security is more down to the developer than the ecosystem. Anything I can write here is going to be largely marketing fluff from each company, that said, there are some security offerings:</p>
+<p>AWS offers &lsquo;Inspector&rsquo; which &quot; automatically assesses resources for vulnerabilities or deviations from best practices, and then produces a detailed list of security findings prioritized by level of severity&quot; - so in plain English, it tries to find anywhere your code or deployed app is vulnerable to a known CVE. Azure offers &ldquo;Azure Security Center&rdquo; which is similar.</p>
+<p>Further, though all of 2020 AWS has had 3 CVEs and two other notices (<a href="https://aws.amazon.com/security/security-bulletins/?card-body.sort-by=item.additionalFields.bulletinDateSort&amp;card-body.sort-order=desc&amp;awsf.bulletins-year=year%232020">source</a>) but Microsoft has made even finding a list of vulnerabilities difficult, but I think going <a href="https://msrc.microsoft.com/update-guide/vulnerability">here</a> setting the date range to all of 2020 and searching for azure is as close as I&rsquo;ll get. That turns up 26 CVEs, of which 25 are really on them, 9 of them are elevation of privilege and and one of them is an RCE. Given Azure is the significantly smaller of the two so will have less attention on it, that&rsquo;s especially not great.</p>
+<h2 id="dev-tools">
+  Dev Tools
+  <a class="anchor" href="#dev-tools">#</a>
+</h2>
+<p>AWS powers enough of the internet that when it goes down it seems the entire internet follows suit. Anadectodely this popularity seems to be from AWS&rsquo;s extensive dev tools and documentation. Further, AWS&rsquo;s larger popularity means many 3rd party libraries for various languages and frameworks exist to make development even easier.</p>
+<p>Further separating things, while Microsoft has tried to make their development more platform agnostic recently with the whole &ldquo;MS &lt;3 Linux&rdquo; thing, from personal experience I can tell you their stuff is rather annoying to work with if you don&rsquo;t buy in to the platform as a whole, while AWS has been pretty OS and development environment agnostic from the start.</p>
+<p>So, while Azure effectively has the <a href="https://azure.microsoft.com/en-us/product-categories/developer-tools/">single bullet point of visual studio</a>, AWS has all of this</p>
+<p><img src="../../../../../../../../home/vega/.config/Typora/typora-user-images/image-20201115153209894.png" alt="image-20201115153209894" style="zoom:50%;" /></p>
+<p>As a very lazy metric, just searching Github (Which is owned by MS and hosted on Azure), we find this:</p>
+<p><img src="../../../../../../../../home/vega/.config/Typora/typora-user-images/image-20201115153407866.png" alt="image-20201115153407866" /></p>
+<p><img src="../../../../../../../../home/vega/.config/Typora/typora-user-images/image-20201115153432332.png" alt="image-20201115153432332" /></p>
+<p>I&rsquo;m not going to pretend that having double the repos means AWS is twice as good, but what it does mean is that developers are choosing it. That could be because it&rsquo;s cheaper or some other unrelated factor, but it could well be because it has much better documentation  (something extremely evident in trying to do this lab itself) and because it has better tools developed by Amazon and the community.</p>
 </article>
  
       
@@ -290,7 +365,20 @@ https://github.com/alex-shpak/hugo-book
     
     <aside class="book-toc">
       
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#compute">Compute</a>
+      <ul>
+        <li><a href="#cpu">CPU</a></li>
+        <li><a href="#gpu">GPU</a></li>
+      </ul>
+    </li>
+    <li><a href="#storage">Storage</a></li>
+    <li><a href="#databases">Databases</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#dev-tools">Dev Tools</a></li>
+  </ul>
+</nav>
 
  
     </aside>
