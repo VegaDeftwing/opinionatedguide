@@ -7,14 +7,14 @@
 <meta name="description" content="Chapter 15 - Digital Logic #  [Todo, insert intro about Minecraft redstone]
 What is digital logic? #  ignoring the analog world (10%/90%)
 Truth Tables, K-Maps #  min/max terms, Don&rsquo;t cares, SOP/POS, multiple out
-Basic Logic Gates #  Not #  Truth table, transistor implementation pmos/nmos, cost, power consumption at switch
-And, Nand #  Or, Nor, Exnor #  Xor, Exor #  Transmission, #  Mux, Demux, encoders #  Basic combinational logic #  propagation delay, fan in/out, POS/POS">
+Basic Logic Gates #  [TODO] truth tables, circuit symbol, discrete logic symbol for all.
+Not #     Input Output     0 1   1 0    Truth table, transistor implementation pmos/nmos, cost, power consumption at switch">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 15 - Digital Logic #  [Todo, insert intro about Minecraft redstone]
 What is digital logic? #  ignoring the analog world (10%/90%)
 Truth Tables, K-Maps #  min/max terms, Don&rsquo;t cares, SOP/POS, multiple out
-Basic Logic Gates #  Not #  Truth table, transistor implementation pmos/nmos, cost, power consumption at switch
-And, Nand #  Or, Nor, Exnor #  Xor, Exor #  Transmission, #  Mux, Demux, encoders #  Basic combinational logic #  propagation delay, fan in/out, POS/POS" />
+Basic Logic Gates #  [TODO] truth tables, circuit symbol, discrete logic symbol for all.
+Not #     Input Output     0 1   1 0    Truth table, transistor implementation pmos/nmos, cost, power consumption at switch" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/15-digitallogic/" />
 
@@ -22,7 +22,7 @@ And, Nand #  Or, Nor, Exnor #  Xor, Exor #  Transmission, #  Mux, Demux, encoder
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.5fc0d3e9d3d0fc20cbf512f36b6dd3f6c8b7d54a21ad80b0e5e255b4628925ca.js" integrity="sha256-X8DT6dPQ/CDL9RLza23T9si31UohrYCw5eJVtGKJJco="></script>
+<script defer src="/en.search.min.d72f17995f365f4b930d8b6382400aeb98fa90ca36986aee8c9a7258ad0cb0a6.js" integrity="sha256-1y8XmV82X0uTDYtjgkAK65j6kMo2mGrujJpyWK0MsKY="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -249,8 +249,18 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#basic-logic-gates">Basic Logic Gates</a>
       <ul>
-        <li></li>
-        <li><a href="#xor-exor">Xor, Exor</a></li>
+        <li><a href="#not">Not</a></li>
+        <li><a href="#and">AND</a></li>
+        <li><a href="#nand">NAND</a></li>
+        <li><a href="#or">Or</a></li>
+        <li><a href="#nor">Nor</a></li>
+        <li><a href="#exnor">Exnor</a></li>
+        <li><a href="#xor">Xor</a></li>
+        <li><a href="#exor">Exor</a></li>
+        <li><a href="#transmission">Transmission,</a></li>
+        <li><a href="#mux">Mux</a></li>
+        <li><a href="#demux">Demux</a></li>
+        <li><a href="#encoders">Encoders</a></li>
       </ul>
     </li>
     <li><a href="#basic-combinational-logic">Basic combinational logic</a>
@@ -296,31 +306,137 @@ https://github.com/alex-shpak/hugo-book
   Basic Logic Gates
   <a class="anchor" href="#basic-logic-gates">#</a>
 </h2>
-<h4 id="not">
+<p>[TODO] truth tables, circuit symbol, discrete logic symbol for all.</p>
+<h3 id="not">
   Not
   <a class="anchor" href="#not">#</a>
-</h4>
-<p>Truth table, transistor implementation pmos/nmos, cost, power consumption at switch</p>
-<h4 id="and-nand">
-  And, Nand
-  <a class="anchor" href="#and-nand">#</a>
-</h4>
-<h4 id="or-nor-exnor">
-  Or, Nor, Exnor
-  <a class="anchor" href="#or-nor-exnor">#</a>
-</h4>
-<h3 id="xor-exor">
-  Xor, Exor
-  <a class="anchor" href="#xor-exor">#</a>
 </h3>
-<h4 id="transmission">
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Truth table, transistor implementation pmos/nmos, cost, power consumption at switch</p>
+<h3 id="and">
+  AND
+  <a class="anchor" href="#and">#</a>
+</h3>
+<p>A∧B, AB,</p>
+<table>
+<thead>
+<tr>
+<th>Input A</th>
+<th>Input B</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nand">
+  NAND
+  <a class="anchor" href="#nand">#</a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Input A</th>
+<th>Input B</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="or">
+  Or
+  <a class="anchor" href="#or">#</a>
+</h3>
+<h3 id="nor">
+  Nor
+  <a class="anchor" href="#nor">#</a>
+</h3>
+<h3 id="exnor">
+  Exnor
+  <a class="anchor" href="#exnor">#</a>
+</h3>
+<h3 id="xor">
+  Xor
+  <a class="anchor" href="#xor">#</a>
+</h3>
+<h3 id="exor">
+  Exor
+  <a class="anchor" href="#exor">#</a>
+</h3>
+<h3 id="transmission">
   Transmission,
   <a class="anchor" href="#transmission">#</a>
-</h4>
-<h4 id="mux-demux-encoders">
-  Mux, Demux, encoders
-  <a class="anchor" href="#mux-demux-encoders">#</a>
-</h4>
+</h3>
+<h3 id="mux">
+  Mux
+  <a class="anchor" href="#mux">#</a>
+</h3>
+<h3 id="demux">
+  Demux
+  <a class="anchor" href="#demux">#</a>
+</h3>
+<h3 id="encoders">
+  Encoders
+  <a class="anchor" href="#encoders">#</a>
+</h3>
 <h2 id="basic-combinational-logic">
   Basic combinational logic
   <a class="anchor" href="#basic-combinational-logic">#</a>
@@ -411,8 +527,18 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#basic-logic-gates">Basic Logic Gates</a>
       <ul>
-        <li></li>
-        <li><a href="#xor-exor">Xor, Exor</a></li>
+        <li><a href="#not">Not</a></li>
+        <li><a href="#and">AND</a></li>
+        <li><a href="#nand">NAND</a></li>
+        <li><a href="#or">Or</a></li>
+        <li><a href="#nor">Nor</a></li>
+        <li><a href="#exnor">Exnor</a></li>
+        <li><a href="#xor">Xor</a></li>
+        <li><a href="#exor">Exor</a></li>
+        <li><a href="#transmission">Transmission,</a></li>
+        <li><a href="#mux">Mux</a></li>
+        <li><a href="#demux">Demux</a></li>
+        <li><a href="#encoders">Encoders</a></li>
       </ul>
     </li>
     <li><a href="#basic-combinational-logic">Basic combinational logic</a>

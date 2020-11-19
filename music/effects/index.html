@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):">
+<meta name="description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):    Vibrato #  Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as described above, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Effects" />
-<meta property="og:description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):" />
+<meta property="og:description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):    Vibrato #  Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as described above, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/music/effects/" />
 
@@ -14,7 +14,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.5fc0d3e9d3d0fc20cbf512f36b6dd3f6c8b7d54a21ad80b0e5e255b4628925ca.js" integrity="sha256-X8DT6dPQ/CDL9RLza23T9si31UohrYCw5eJVtGKJJco="></script>
+<script defer src="/en.search.min.d72f17995f365f4b930d8b6382400aeb98fa90ca36986aee8c9a7258ad0cb0a6.js" integrity="sha256-1y8XmV82X0uTDYtjgkAK65j6kMo2mGrujJpyWK0MsKY="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -301,8 +301,18 @@ https://github.com/alex-shpak/hugo-book
   Tremolo
   <a class="anchor" href="#tremolo">#</a>
 </h2>
-<p>This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):</p>
-<p><img src="/vcavult.gif" alt="vcavult" /></p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/vcavult.gif" alt="vcavult">
+  </div>
+  
+</div>
+
 <h2 id="vibrato">
   Vibrato
   <a class="anchor" href="#vibrato">#</a>
@@ -322,11 +332,18 @@ https://github.com/alex-shpak/hugo-book
 </blockquote>
 <p>Some delays let you also insert other things into the feedback path. This means you could do things such as having each repetition be progressively more filtered, cutting out more and more high end each time or putting a delay in the delay. (yo dawg, I heard you like delay?).</p>
 <p>Some digital delays and most analog delays (especially bucket brigade delays<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>) can produce interesting sounds if you change the delay time while audio is going through the buffer, resulting in a sort of pitch shift <em>whip</em> sound as the delay catches up or slows down.</p>
-<p>While not strictly something to do with delay, it&rsquo;s also worth noting that by making delay time very short and having gain near unity, sending a brief trigger (impulse) can make a sound that sounds like a string being plucked. This is called <a href="https://en.wikipedia.org/wiki/Karplus%e2%80%93Strong_string_synthesis">Karplus-Strong Synthesis</a>.</p>
-<p><img src="/KarplusStrong.png" alt="Quadravox" /></p>
-<blockquote>
-<p>Karplus-Strong Synthesis in VCV rack</p>
-</blockquote>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    It&rsquo;s also worth noting that by making delay time very short and having gain near unity, sending a brief trigger (impulse) can make a sound that sounds like a string being plucked. This is called <a href="https://en.wikipedia.org/wiki/Karplus%E2%80%93Strong_string_synthesis">Karplus-Strong Synthesis</a>. To the right I&rsquo;ve shown a way to do this in VCV Rack.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/KarplusStrong.png" alt="Karplus Strong">
+  </div>
+  
+</div>
+
 <p>Finally, it&rsquo;s worth noting that there are a few interesting features some delays may have, such as letting the delay buffer be frozen to infinitely repeat what was playing at the time (unity gain, ignore input), reverse&rsquo;d delay - having the initial sound play forward but each repeat play in reverse, pitch shifted delay- having each delay affected by a pitch shift, often done with octave up/down. Often, this pitch shifting is done via Granular Synthesis, as mentioned above. Using granular synthesis does allow for some other interesting options though, such as <a href="https://www.unfilteredaudio.com/collections/plug-ins/products/sandman-pro">Unfiltered Audio&rsquo;s Sandman Pro VST</a>.</p>
 <p><img src="/Quadravox.png" alt="Quadravox" /></p>
 <blockquote>

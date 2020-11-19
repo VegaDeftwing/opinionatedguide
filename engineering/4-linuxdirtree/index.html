@@ -5,12 +5,16 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 4 - Back to the Root of Things #  We&rsquo;ve been using file in /proc and /dev throughout this, but we never really looked to see what else is in there. Let&rsquo;s do that.
-We&rsquo;ll actually start with /dev
-╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls -la total 4 drwxr-xr-x 22 root root 4600 Feb 8 06:03 . drwxr-xr-x 18 root root 4096 Jan 26 22:05 .">
+go ahead and open up a terminal and run
+╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls [Very, Very Long Output here] Alright, I know what you&rsquo;re thinking.
+What. The. Actual. Fuck.
+And honestly, yeah.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 4 - Back to the Root of Things #  We&rsquo;ve been using file in /proc and /dev throughout this, but we never really looked to see what else is in there. Let&rsquo;s do that.
-We&rsquo;ll actually start with /dev
-╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls -la total 4 drwxr-xr-x 22 root root 4600 Feb 8 06:03 . drwxr-xr-x 18 root root 4096 Jan 26 22:05 ." />
+go ahead and open up a terminal and run
+╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls [Very, Very Long Output here] Alright, I know what you&rsquo;re thinking.
+What. The. Actual. Fuck.
+And honestly, yeah." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/4-linuxdirtree/" />
 
@@ -18,7 +22,7 @@ We&rsquo;ll actually start with /dev
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.5fc0d3e9d3d0fc20cbf512f36b6dd3f6c8b7d54a21ad80b0e5e255b4628925ca.js" integrity="sha256-X8DT6dPQ/CDL9RLza23T9si31UohrYCw5eJVtGKJJco="></script>
+<script defer src="/en.search.min.d72f17995f365f4b930d8b6382400aeb98fa90ca36986aee8c9a7258ad0cb0a6.js" integrity="sha256-1y8XmV82X0uTDYtjgkAK65j6kMo2mGrujJpyWK0MsKY="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -276,170 +280,12 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#chapter-4---back-to-the-root-of-things">#</a>
 </h1>
 <p>We&rsquo;ve been using file in /proc and /dev throughout this, but we never really looked to see what else is in there. Let&rsquo;s do that.</p>
-<p>We&rsquo;ll actually start with /dev</p>
+<p>go ahead and open up a terminal and run</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
 ╰─➤  cd /dev
-╭─vega@lyrae /dev
-╰─➤  ls -la
-total <span style="color:#ae81ff">4</span>
-drwxr-xr-x  <span style="color:#ae81ff">22</span> root root         <span style="color:#ae81ff">4600</span> Feb  <span style="color:#ae81ff">8</span> 06:03 .
-drwxr-xr-x  <span style="color:#ae81ff">18</span> root root         <span style="color:#ae81ff">4096</span> Jan <span style="color:#ae81ff">26</span> 22:05 ..
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">56</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ashmem
-crw-r--r--   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">235</span> Feb  <span style="color:#ae81ff">8</span> 06:03 autofs
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root     511,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 binder
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root          <span style="color:#ae81ff">520</span> Feb  <span style="color:#ae81ff">8</span> 06:02 block
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root          <span style="color:#ae81ff">200</span> Feb  <span style="color:#ae81ff">8</span> 06:02 bsg
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">234</span> Feb  <span style="color:#ae81ff">8</span> 06:03 btrfs-control
-drwxr-xr-x   <span style="color:#ae81ff">3</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:02 bus
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root            <span style="color:#ae81ff">3</span> Feb  <span style="color:#ae81ff">8</span> 06:03 cdrom -&gt; sr0
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root         <span style="color:#ae81ff">5700</span> Feb  <span style="color:#ae81ff">8</span> 06:03 char
-crw-------   <span style="color:#ae81ff">1</span> root root       5,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 console
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">11</span> Feb  <span style="color:#ae81ff">8</span> 06:02 core -&gt; /proc/kcore
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:02 cpu
-crw-rw----   <span style="color:#ae81ff">1</span> root realtime  10,  <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 cpu_dma_latency
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">203</span> Feb  <span style="color:#ae81ff">8</span> 06:03 cuse
-drwxr-xr-x   <span style="color:#ae81ff">8</span> root root          <span style="color:#ae81ff">160</span> Feb  <span style="color:#ae81ff">8</span> 06:02 disk
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14,  <span style="color:#ae81ff">73</span> Feb  <span style="color:#ae81ff">8</span> 06:03 dmmidi4
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14,  <span style="color:#ae81ff">89</span> Feb  <span style="color:#ae81ff">8</span> 06:03 dmmidi5
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14, <span style="color:#ae81ff">105</span> Feb  <span style="color:#ae81ff">8</span> 06:03 dmmidi6
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14, <span style="color:#ae81ff">121</span> Feb  <span style="color:#ae81ff">8</span> 06:03 dmmidi7
-drwxr-xr-x   <span style="color:#ae81ff">3</span> root root          <span style="color:#ae81ff">140</span> Feb  <span style="color:#ae81ff">8</span> 06:03 dri
-crw-------   <span style="color:#ae81ff">1</span> root root     242,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 drm_dp_aux0
-crw-------   <span style="color:#ae81ff">1</span> root root     242,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 drm_dp_aux1
-crw-------   <span style="color:#ae81ff">1</span> root root     242,   <span style="color:#ae81ff">2</span> Feb  <span style="color:#ae81ff">8</span> 06:03 drm_dp_aux2
-crw-------   <span style="color:#ae81ff">1</span> root root     242,   <span style="color:#ae81ff">3</span> Feb  <span style="color:#ae81ff">8</span> 06:03 drm_dp_aux3
-crw-------   <span style="color:#ae81ff">1</span> root root     242,   <span style="color:#ae81ff">4</span> Feb  <span style="color:#ae81ff">8</span> 06:03 drm_dp_aux4
-crw-rw----   <span style="color:#ae81ff">1</span> root video     29,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 fb0
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">13</span> Feb  <span style="color:#ae81ff">8</span> 06:02 fd -&gt; /proc/self/fd
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">7</span> Feb  <span style="color:#ae81ff">8</span> 06:03 full
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">229</span> Feb  <span style="color:#ae81ff">8</span> 06:03 fuse
-crw-------   <span style="color:#ae81ff">1</span> root root     254,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 gpiochip0
-crw-------   <span style="color:#ae81ff">1</span> root root     254,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 gpiochip1
-crw-------   <span style="color:#ae81ff">1</span> root root     240,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hidraw0
-------------------------------------------------------------------------------------
-to make this output shorter I stripped out hidraw 1-5,10-12
-------------------------------------------------------------------------------------
-crw-rw----+  <span style="color:#ae81ff">1</span> root root     240,   <span style="color:#ae81ff">6</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hidraw6
-------------------------------------------------------------------------------------
-to make this output shorter I stripped out hidraw 7-9
-------------------------------------------------------------------------------------
-crw-rw----   <span style="color:#ae81ff">1</span> root realtime  10, <span style="color:#ae81ff">228</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hpet
-drwxr-xr-x   <span style="color:#ae81ff">3</span> root root            <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hugepages
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">183</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hwrng
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">12</span> Feb  <span style="color:#ae81ff">8</span> 06:03 initctl -&gt; /run/initctl
-drwxr-xr-x   <span style="color:#ae81ff">4</span> root root          <span style="color:#ae81ff">880</span> Feb  <span style="color:#ae81ff">8</span> 06:03 input
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root render   241,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 kfd
-crw-r--r--   <span style="color:#ae81ff">1</span> root root       1,  <span style="color:#ae81ff">11</span> Feb  <span style="color:#ae81ff">8</span> 06:03 kmsg
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root kvm       10, <span style="color:#ae81ff">232</span> Feb  <span style="color:#ae81ff">8</span> 06:03 kvm
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:02 lightnvm
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">28</span> Feb  <span style="color:#ae81ff">8</span> 06:03 log -&gt; /run/systemd/journal/dev-log
-crw-rw----   <span style="color:#ae81ff">1</span> root disk      10, <span style="color:#ae81ff">237</span> Feb  <span style="color:#ae81ff">8</span> 06:03 loop-control
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 mapper
-crw-rw----   <span style="color:#ae81ff">1</span> root video    239,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 media0
-crw-r-----   <span style="color:#ae81ff">1</span> root kmem       1,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 mem
-crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">57</span> Feb  <span style="color:#ae81ff">8</span> 06:03 memory_bandwidth
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14,  <span style="color:#ae81ff">66</span> Feb  <span style="color:#ae81ff">8</span> 06:03 midi4
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14,  <span style="color:#ae81ff">82</span> Feb  <span style="color:#ae81ff">8</span> 06:03 midi5
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14,  <span style="color:#ae81ff">98</span> Feb  <span style="color:#ae81ff">8</span> 06:03 midi6
-crw-rw----+  <span style="color:#ae81ff">1</span> root audio     14, <span style="color:#ae81ff">114</span> Feb  <span style="color:#ae81ff">8</span> 06:03 midi7
-drwxrwxrwt   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">40</span> Feb  <span style="color:#ae81ff">8</span> 06:02 mqueue
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 net
-crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">59</span> Feb  <span style="color:#ae81ff">8</span> 06:03 network_latency
-crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">58</span> Feb  <span style="color:#ae81ff">8</span> 06:03 network_throughput
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">3</span> Feb  <span style="color:#ae81ff">8</span> 06:03 null
-crw-------   <span style="color:#ae81ff">1</span> root root     243,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 nvme0
-brw-rw----   <span style="color:#ae81ff">1</span> root disk     259,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 nvme0n1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk     259,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 nvme0n1p1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk     259,   <span style="color:#ae81ff">2</span> Feb  <span style="color:#ae81ff">8</span> 06:03 nvme0n1p2
-crw-r-----   <span style="color:#ae81ff">1</span> root kmem       1,   <span style="color:#ae81ff">4</span> Feb  <span style="color:#ae81ff">8</span> 06:03 port
-crw-------   <span style="color:#ae81ff">1</span> root root     108,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ppp
-crw-------   <span style="color:#ae81ff">1</span> root root     248,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 pps0
-crw-------   <span style="color:#ae81ff">1</span> root root      10,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 psaux
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root tty        5,   <span style="color:#ae81ff">2</span> Feb  <span style="color:#ae81ff">8</span> 16:37 ptmx
-crw-------   <span style="color:#ae81ff">1</span> root root     247,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ptp0
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root            <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 pts
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">8</span> Feb  <span style="color:#ae81ff">8</span> 06:03 random
-crw-rw-r--+  <span style="color:#ae81ff">1</span> root rfkill    10,  <span style="color:#ae81ff">55</span> Feb  <span style="color:#ae81ff">8</span> 06:03 rfkill
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root            <span style="color:#ae81ff">4</span> Feb  <span style="color:#ae81ff">8</span> 06:03 rtc -&gt; rtc0
-crw-rw----   <span style="color:#ae81ff">1</span> root realtime 250,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 rtc0
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sda
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sda1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,   <span style="color:#ae81ff">2</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sda2
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">16</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdb
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">17</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdb1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">32</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdc
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">33</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdc1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">34</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdc2
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">48</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdd
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">64</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sde
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">65</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sde1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">66</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sde2
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">67</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sde3
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">68</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sde4
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">80</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdf
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">81</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdf1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">82</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdf2
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">96</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdg
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">97</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdg1
-brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">98</span> Feb  <span style="color:#ae81ff">8</span> 16:37 sdg2
-drwxr-xr-x   <span style="color:#ae81ff">4</span> root root           <span style="color:#ae81ff">80</span> Feb  <span style="color:#ae81ff">8</span> 06:03 serial
-crw-rw----+  <span style="color:#ae81ff">1</span> root optical   21,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sg0
-crw-rw----   <span style="color:#ae81ff">1</span> root disk      21,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sg1
-------------------------------------------------------------------------------------
-to make this output shorter I stripped out sg2-6
-------------------------------------------------------------------------------------
-crw-rw----   <span style="color:#ae81ff">1</span> root disk      21,   <span style="color:#ae81ff">7</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sg7
-drwxrwxrwt   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">80</span> Feb  <span style="color:#ae81ff">8</span> 16:37 shm
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">231</span> Feb  <span style="color:#ae81ff">8</span> 06:03 snapshot
-drwxr-xr-x   <span style="color:#ae81ff">4</span> root root          <span style="color:#ae81ff">760</span> Feb  <span style="color:#ae81ff">8</span> 06:03 snd
-brw-rw----+  <span style="color:#ae81ff">1</span> root optical   11,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sr0
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">15</span> Feb  <span style="color:#ae81ff">8</span> 06:02 stderr -&gt; /proc/self/fd/2
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">15</span> Feb  <span style="color:#ae81ff">8</span> 06:02 stdin -&gt; /proc/self/fd/0
-lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">15</span> Feb  <span style="color:#ae81ff">8</span> 06:02 stdout -&gt; /proc/self/fd/1
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root tty        5,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 15:49 tty
-crw--w----   <span style="color:#ae81ff">1</span> root tty        4,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 tty0
-------------------------------------------------------------------------------------
-to make this output shorter I stripped out tty1-62
-------------------------------------------------------------------------------------
-crw--w----   <span style="color:#ae81ff">1</span> root tty        4,  <span style="color:#ae81ff">63</span> Feb  <span style="color:#ae81ff">8</span> 06:03 tty63
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root uucp     166,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyACM0
-crw-rw----+  <span style="color:#ae81ff">1</span> root tty        4,  <span style="color:#ae81ff">64</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyS0
-crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span style="color:#ae81ff">65</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyS1
-crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span style="color:#ae81ff">66</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyS2
-crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span style="color:#ae81ff">67</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyS3
-crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">61</span> Feb  <span style="color:#ae81ff">8</span> 06:03 udmabuf
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">239</span> Feb  <span style="color:#ae81ff">8</span> 06:03 uhid
-crw-rw-rw-+  <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">223</span> Feb  <span style="color:#ae81ff">8</span> 06:03 uinput
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">9</span> Feb  <span style="color:#ae81ff">8</span> 06:03 urandom
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root          <span style="color:#ae81ff">200</span> Feb  <span style="color:#ae81ff">8</span> 06:03 usb
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">240</span> Feb  <span style="color:#ae81ff">8</span> 06:03 userio
-drwxr-xr-x   <span style="color:#ae81ff">4</span> root root           <span style="color:#ae81ff">80</span> Feb  <span style="color:#ae81ff">8</span> 06:03 v4l
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcs
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcs1
-------------------------------------------------------------------------------------
-to make this output shorter I stripped out vcs2-6
-------------------------------------------------------------------------------------
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,   <span style="color:#ae81ff">7</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcs7
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7, <span style="color:#ae81ff">128</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsa
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7, <span style="color:#ae81ff">129</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsa1
-------------------------------------------------------------------------------------
-to make this output shorter I stripped out vcsa2-6
-------------------------------------------------------------------------------------
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7, <span style="color:#ae81ff">135</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsa7
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,  <span style="color:#ae81ff">64</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsu
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,  <span style="color:#ae81ff">65</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsu1
-------------------------------------------------------------------------------------
-to make this output shorter I stripped out vcsu2-6
-------------------------------------------------------------------------------------
-crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,  <span style="color:#ae81ff">71</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsu7
-drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vfio
-crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">63</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vga_arbiter
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">137</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vhci
-crw-rw----+  <span style="color:#ae81ff">1</span> root kvm       10, <span style="color:#ae81ff">238</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vhost-net
-crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">241</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vhost-vsock
-crw-rw----+  <span style="color:#ae81ff">1</span> root video     81,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 video0
-crw-rw----+  <span style="color:#ae81ff">1</span> root video     81,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 video1
-crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">5</span> Feb  <span style="color:#ae81ff">8</span> 06:03 zero
+╭─vega@lyrae /dev  
+╰─➤  ls
+<span style="color:#f92672">[</span>Very, Very Long Output here<span style="color:#f92672">]</span>
 </code></pre></div><p>Alright, I know what you&rsquo;re thinking.</p>
 <p>What. The. Actual. Fuck.</p>
 <p>And honestly, yeah. But first, lets talk about what we just did.</p>
@@ -454,18 +300,19 @@ crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span sty
 example:
 drwxr-xr-x    <span style="color:#ae81ff">2</span> vega vega     <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">2018</span> Documents
 </code></pre></div><p>So let&rsquo;s break that up further. Linux permissions are incredibly powerful, and are set up like this</p>
-<p>d rwx rwx rwx , the d, or lack there of, species weather a file is a directory (folder) or file.</p>
-<p>Less commonly you may see &lsquo;l&rsquo;, &lsquo;c&rsquo;, or &lsquo;b&rsquo;, as we do here in the /dev folder.</p>
-<p>&lsquo;l&rsquo; is the easiest to understand, it&rsquo;s a link or shortcut. That&rsquo;s why you&rsquo;ll see an arrow pointing to where it leads at the end</p>
-<p>&lsquo;c&rsquo; is a character special file, &lsquo;b&rsquo; is a special block file.</p>
-<p>Finally, you may also see either &lsquo;p&rsquo; or &lsquo;|&rsquo; here for named pipes- more about that in a bit too.</p>
+<p><code>d rwx rwx rwx</code> , the <code>d</code>, or lack there of, species weather a file is a directory (folder) or file.</p>
+<p>Less commonly you may see <code>l</code>, <code>c</code>, or <code>b</code>, as we do here in the /dev folder.</p>
+<p><code>l</code> is the easiest to understand, it&rsquo;s a link or shortcut. That&rsquo;s why you&rsquo;ll see an arrow pointing to where it leads at the end</p>
+<p><code>c</code> is a character special file, <code>b</code> is a special block file.</p>
+<p>Finally, you may also see either <code>p</code> or <code>|</code> here for named pipes- more about that in a bit too.</p>
 <p>There are other possibilities here two, of which you can learn about by running <code>info ls</code></p>
-<p>The vast majority of the time you will only see &rsquo;d' or &lsquo;-&rsquo; designating a file or directory though</p>
-<p>Moving on to the &lsquo;rwx&rsquo; blocks, these stand for read, write, and execute respectively and each block in order states the permission of the owner of the file, those that are in the same group as the owner, and everyone else, for this reason these permissions will almost exclusively be set such that permissions are lost with each level, for example a file with</p>
-<p>-rwxr&ndash;r&ndash; , is a file (no &rsquo;d'), which may be read, written, or if it is a program ran, by the owner, yet by anyone else in the same group as the owner or anyone else on the system may only be read. So if we changed the permissions on that python file we wrote back in Chapter 2 to be this then while anyone else could see the code, they couldn&rsquo;t run it without making a copy.</p>
+<p>The vast majority of the time you will only see <code>d</code> for a director (folder) or <code>-</code> designating a file though.</p>
+<p>Moving on to the <code>rwx</code> blocks, these stand for read, write, and execute respectively and each block in order states the permission of the owner of the file, those that are in the same group as the owner, and everyone else, for this reason these permissions will almost exclusively be set such that permissions are lost with each level, for example a file with</p>
+<p><code>-rwxr--r--</code> , is a file (no <code>d</code>), which may be <code>r</code>ead, <code>w</code>ritten, or if it is a program ran (e<code>x</code>ecuted), by the <strong>owner</strong>, but by anyone else in the same group as the owner or anyone else on the system may only be read.</p>
+<p>That&rsquo;s why it repeats 3 times, there&rsquo;s three access levels- Owner, Group, and Everyone Else. This mostly harkens back to when Linux boxes were shared servers at a university or business that everyone would remote into. You might want a file to only be modify-able (<code>rw-</code>) by you, only be readable (<code>r--</code>) by people in a shared group (Say, other students of the same class at a University or other managers at a business, etc.), and not even readable by others (<code>---</code>), this would give that file a total permission string of <code>-rw-r-----</code>. There are other uses of groups on systems too, usually for assigning who has access to hardware, like you may find that your user is in group called &lsquo;audio&rsquo; if you run the <code>groups</code> command.</p>
+<p>So if we changed the permissions on that python file we wrote back in Chapter 2 to be this then while anyone else could see the code, they couldn&rsquo;t run it without making a copy.</p>
 <p>with that let&rsquo;s skip over the number of links, as I&rsquo;ve never found it particularly useful and jump to the owner and group fields. The owner of a file is a single user, usually the one who created it. The root user is often the owner of important system files, which is why we have to temporarily use root account when we do many admin actions, such as updating or installing programs using <code>sudo</code>.</p>
 <p>(note, yay calls sudo automatically and you should NOT run yay with sudo)</p>
-<p>The group is almost nonsensical on single user systems, though many Linux systems today still have many users, so you may have user groups such as &lsquo;students&rsquo; and &lsquo;staff&rsquo; at a school.</p>
 <p>Next is size, this is pretty self explanatory, as its just the size of the file. Directories do take some space on the disk as they have to store the bit of their own permissions, name, and so on. On this note, directories are a bit strange in regards to the &lsquo;execute&rsquo; flag that was previously mentioned. On a directory, rather than stating if a user can execute a directory (this wouldn&rsquo;t make any sense!) it says weather or not a user can see what&rsquo;s in the directory at all, almost like a lock on a file cabinet.</p>
 <p>Next is the file modification time, finally followed by the items name, both of which are self explanatory.</p>
 <p>To round this off we need to talk about how to change these permissions using <code>chown</code> and <code>chmod</code></p>
@@ -550,7 +397,7 @@ drwxr-xr-x    <span style="color:#ae81ff">2</span> vega vega     <span style="co
   /dev, the devices folder
   <a class="anchor" href="#dev-the-devices-folder">#</a>
 </h2>
-<p>Alrighty then, first, a heads up. My /dev folder will have some things yours wont. I&rsquo;m on a desktop with a lot of hardware, drives, input devices, etc. And I&rsquo;ve installed hundreds of programs, some of which interface with the system at a low enough level to necessitate extra files in here. For that reason some are going to be skipped over let&rsquo;s take these in blocks of 10</p>
+<p>Alrighty then, first, a heads up. My /dev folder will have some things yours wont. I&rsquo;m on a desktop with a lot of hardware, drives, input devices, etc. And I&rsquo;ve installed hundreds of programs, some of which interface with the system at a low enough level to necessitate extra files in here. For that reason some are going to be skipped over. I&rsquo;ll be breaking up the ouput of <code>ls /dev</code> into a bunch of code blocks below because of how ludicously large this output is.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x  <span style="color:#ae81ff">22</span> root root         <span style="color:#ae81ff">4600</span> Feb  <span style="color:#ae81ff">8</span> 06:03 .
 drwxr-xr-x  <span style="color:#ae81ff">18</span> root root         <span style="color:#ae81ff">4096</span> Jan <span style="color:#ae81ff">26</span> 22:05 ..
 crw-rw-rw-   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">56</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ashmem
@@ -564,17 +411,25 @@ lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root            <span sty
 drwxr-xr-x   <span style="color:#ae81ff">2</span> root root         <span style="color:#ae81ff">5700</span> Feb  <span style="color:#ae81ff">8</span> 06:03 char
 crw-------   <span style="color:#ae81ff">1</span> root root       5,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 console
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">11</span> Feb  <span style="color:#ae81ff">8</span> 06:02 core -&gt; /proc/kcore
-</code></pre></div><p>Here I&rsquo;ve included . and .. in the output for reference, but we&rsquo;ll immediately move on.</p>
-<p>&lsquo;ashmem&rsquo; is something that is on my system as a part of a project with the end goal of running android apps natively on linux called &lsquo;anbox&rsquo; it&rsquo;s still in early development, and is very difficult to run on arch</p>
+</code></pre></div><p>&lsquo;ashmem&rsquo; is something that is on my system as a part of a project with the end goal of running android apps natively on linux called &lsquo;anbox&rsquo; it&rsquo;s still in early development, and is very difficult to run on arch</p>
 <p>&lsquo;autofs&rsquo; is a configurable system for mounting and unmounting storage as it is used</p>
 <p>&lsquo;binder&rsquo; is another component of &lsquo;anbox&rsquo;</p>
 <p>&lsquo;block&rsquo; is a directory which contains numbered links to the file system blocks used previously (such as sda)</p>
-<p>&lsquo;bsg&rsquo; is a directory with files that, again, represent your drives at a hardware level. You can open the bsg folder and run <code>ls</code> followed by <code>lsscsi</code> and compare the outputs to understand. This is practially just an artifact of older systems now.</p>
-<p>&lsquo;btrfs-control&rsquo; is used when you have drives on the system formated with the btrfs file system, this is a file system that is still in heavy development primarily targeted at storage arrays that are resilient to drive failures</p>
-<p>&lsquo;bus&rsquo; is a folder which contains a folder &lsquo;usb&rsquo; which contains folders for each usb host controller on the system, and then their devices</p>
+<p>&lsquo;bsg&rsquo; is a directory with files that, again, represent your drives at a hardware level. You can open the bsg folder and run <code>ls</code> followed by <code>lsscsi</code> and compare the outputs to understand. This is practically just an artifact of older systems now.</p>
+<p>&lsquo;btrfs-control&rsquo; is used when you have drives on the system formatted with the btrfs file system, this is a file system that is still in heavy development primarily targeted at storage arrays that are resilient to drive failures</p>
+<p>&lsquo;bus&rsquo; is a folder which contains a folder &lsquo;usb&rsquo; which contains folders for each usb host controller on the system, and then their devices. This is probably the first really cool one we&rsquo;re hitting as you should already be able to see how the system is letting us get data directly. To show this we&rsquo;ll need to have the <code>usbutils</code> package installed so that we can run <code>lsusb</code>. If you do that you should get an output like this</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Bus <span style="color:#ae81ff">006</span> Device 003: ID 2109:0812 VIA Labs, Inc. VL812 Hub
+Bus <span style="color:#ae81ff">006</span> Device 002: ID 2109:0812 VIA Labs, Inc. VL812 Hub
+Bus <span style="color:#ae81ff">006</span> Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus <span style="color:#ae81ff">005</span> Device 005: ID 1235:007c Focusrite-Novation Launchkey MK2 <span style="color:#ae81ff">49</span>
+Bus <span style="color:#ae81ff">005</span> Device 007: ID 0c45:6340 Microdia Camera
+...
+Bus <span style="color:#ae81ff">005</span> Device 002: ID 1e7d:2e4a ROCCAT Tyon Black Mouse
+...
+</code></pre></div><p>I&rsquo;ve added ellipsis to the output to make it fit here, but you can see there that my mouse is device 002 on bus 005. If you poke around in here it should be pretty obvious how these correlate. Note, that this is just where the system puts info about the device (it&rsquo;s name, etc) not where the communication with the device actually happens (usually*). That&rsquo;s over in <code>/sys</code> which we&rsquo;ll get to more in depth in a bit, but for example here I could go to <code>/sys/bus/usb/devices/5-2</code> and run <code>cat product</code> for example to get the human readable name &lsquo;ROCCAT Tyon Black&rsquo;.</p>
 <p>&lsquo;cdrom&rsquo; is actually a link to the new location of cdroms- sr0 , but, still, it&rsquo;s use it pretty duh</p>
 <p>&lsquo;char&rsquo; is a folder which contains links to a lot of other things in /dev for use with legacy things</p>
-<p>&lsquo;console&rsquo; is again a legacy component and is effecively the same as tty, which is always the current terminal. to be explained more when we get to the tty&rsquo;s</p>
+<p>&lsquo;console&rsquo; is again a legacy component and is effectively the same as tty, which is always the current terminal. to be explained more when we get to the tty&rsquo;s</p>
 <p>&lsquo;core&rsquo; a link to /proc/kcore is a direct way to read memory, used mostly for debugging</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:02 cpu
 crw-rw----   <span style="color:#ae81ff">1</span> root realtime  10,  <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 cpu_dma_latency
@@ -726,7 +581,7 @@ crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span styl
   <a class="anchor" href="#ttys-these-are-important">#</a>
 </h3>
 <p>&lsquo;tty&rsquo; the currently active terminal, try <code>echo 1 &gt; /dev/tty</code></p>
-<p>&lsquo;ttyx&rsquo; are virtual consoles accessible though <strong>ctrl+alt+fx,</strong> where fx is a function key. You should ben on tty7 by default, go ahead and try it now. Note you may need to hold the &lsquo;fn&rsquo; key as well</p>
+<p>&lsquo;ttyx&rsquo; are virtual consoles accessible though <strong>ctrl+alt+fx,</strong> where fx is a function key. You should ben on tty7 by default (maybe? if not you might have to use ctrl+alt+fx on each number until you find your graphical environment again), go ahead and try it now. Note you may need to hold the &lsquo;fn&rsquo; key as well depending on your keyboard.</p>
 <p>&lsquo;ttyACMx&rsquo; or &lsquo;ttyUSBx&rsquo; are attached USB devices that can be accessed as a virtual terminal. This is mostly used for development boards, and we&rsquo;ll be using this later</p>
 <p>&lsquo;ttySx&rsquo; are serial port terminals, rarely used outside of scientific or server gear. The physical connector usually looks similar to VGA cable. Your motherboard may well have a serial port header for adding this even if you don&rsquo;t physically see one available on the outside of the case</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">61</span> Feb  <span style="color:#ae81ff">8</span> 06:03 udmabuf
@@ -886,6 +741,22 @@ crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span sty
   Drivers &amp; Kernel Modules
   <a class="anchor" href="#drivers--kernel-modules">#</a>
 </h2>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    [TODO] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet lacus convallis, finibus neque sit amet, iaculis neque. Nulla consectetur nulla at magna condimentum, sed bibendum risus finibus. Nulla cursus felis vitae odio porttitor ultricies. Aenean mollis est non lorem facilisis, vitae blandit purus accumsan. Sed vitae neque pharetra libero elementum maximus. Quisque vel euismod sem. Nullam eget bibendum arcu. Nulla facilisi. Vestibulum vulputate libero lorem, nec blandit nibh suscipit vitae. Suspendisse laoreet vitae arcu non ornare. Nam aliquet lorem vitae mollis facilisis. Aliquam non accumsan libero, nec consequat ex. Duis dolor urna, facilisis non iaculis vitae, sagittis ut justo. Nulla porta turpis bibendum posuere elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/rik.jpeg" alt="rik"></p>
+<blockquote>
+<p>Art by <a href="https://twitter.com/monoxromatik">@monoxromatik</a>, made for <a href="https://twitter.com/Ferixfox">@Freixfox</a></p>
+</blockquote>
+
+  </div>
+  
+</div>
+
 <p><a href="https://github.com/orhun/kmon">https://github.com/orhun/kmon</a></p>
 <p>[TODO]</p>
 <p>udev rules</p>
@@ -934,7 +805,7 @@ crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span sty
   Dbus
   <a class="anchor" href="#dbus">#</a>
 </h2>
-<p>[TODO]reguallarly</p>
+<p>[TODO]</p>
 <p><a href="https://github.com/KnowNo/How-Linux-Works-2nd-Edition/blob/master/How.Linux.Works.What.Every.Superuser.Should.Know.2nd.Edition.PDF.pdf">https://github.com/KnowNo/How-Linux-Works-2nd-Edition/blob/master/How.Linux.Works.What.Every.Superuser.Should.Know.2nd.Edition.PDF.pdf</a></p>
 <p>We&rsquo;ll explore more of the OS later, but for now I think the information overload is a bit much anyway, so lets move away from screens and into the world of hardware</p>
 </article>

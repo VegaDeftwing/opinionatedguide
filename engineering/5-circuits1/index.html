@@ -18,7 +18,7 @@ The Multimeter #   !&gt; note, the above video uses U=IR instead of V=IR like &l
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.5fc0d3e9d3d0fc20cbf512f36b6dd3f6c8b7d54a21ad80b0e5e255b4628925ca.js" integrity="sha256-X8DT6dPQ/CDL9RLza23T9si31UohrYCw5eJVtGKJJco="></script>
+<script defer src="/en.search.min.d72f17995f365f4b930d8b6382400aeb98fa90ca36986aee8c9a7258ad0cb0a6.js" integrity="sha256-1y8XmV82X0uTDYtjgkAK65j6kMo2mGrujJpyWK0MsKY="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -253,7 +253,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#ohms-law">OHM&rsquo;s Law</a>
       <ul>
         <li><a href="#the-lab-power-supply">The Lab Power Supply</a></li>
-        <li><a href="#the-frequnecy-or-waveform-generator">The Frequnecy or Waveform Generator</a></li>
+        <li><a href="#the-frequency-or-waveform-generator">The Frequency or Waveform Generator</a></li>
         <li><a href="#the-oscilloscope">The Oscilloscope</a></li>
         <li><a href="#the-logic-analyzer">The Logic Analyzer</a></li>
       </ul>
@@ -307,26 +307,48 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#voltage-ground-and-the-volt-meter">#</a>
 </h2>
 <p>Voltage can be thought of as the &lsquo;pressure&rsquo; in a hose. However, this pressure is relative to another point, the point we usually take reference to is called &lsquo;ground&rsquo;, though this doesn&rsquo;t have to be the case- you can measure the voltage across a single resistor or other component too. Just remember measuring the voltage with both probes at point or along the same wire doesn&rsquo;t make sense because a volt meter only tells you the voltage difference between two points. This would be like seeing the pressure difference in hose between two nearby points, obviously the pressure of one point minus the other will be 0.</p>
-<p>In general there are two primary ways you will work with voltage- AC or DC, these stand for Alternating Current and Direct Current. DC is simply a constant voltage level output. AC on the other hand is any time varying signal, usually periodic (repeating) and most commonly a sine, though many other waves are used like square, triangle, saw, and any mixture of these, including the same signal with a DC offset.</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Waveforms.svg/557px-Waveforms.svg.png" alt="img" /></p>
-<p>Your multimeter will likely have two different settings for measuring voltage, one for DC and one for AC. Of note, <em>most</em> multimeters are not true RMS (Root Mean Square) meters, meaning the reading of AC voltage is not accurate unless it&rsquo;s a clean, no DC offset sine wave. RMS is a topic we&rsquo;ll be covering later, but to wet your apatite, this from wikipedia may help:</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Sine_wave_voltages.svg/400px-Sine_wave_voltages.svg.png" alt="img" /></p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    In general there are two primary ways you will work with voltage- AC or DC, these stand for Alternating Current and Direct Current. DC is simply a constant voltage level output. AC on the other hand is any time varying signal, usually periodic (repeating) and most commonly a sine, though many other waves are used like square, triangle, saw, and any mixture of these, including the same signal with a DC offset. Not here that AC is <em>technically</em> referring to the current having this shape and not the voltage, it&rsquo;s just that in the basic scenario with a constant load, the current and voltage waves will look the same
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Waveforms.svg/557px-Waveforms.svg.png" alt="img">
+  </div>
+  
+</div>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Your multimeter will likely have two different settings for measuring voltage, one for DC and one for AC. Of note, <em>most</em> inexpensive multimeters are not true RMS (Root Mean Square) meters, meaning the reading of AC voltage is not an accurate measure of how much energy the wave can deliver unless it&rsquo;s a clean, no DC offset sine wave. Imagine a square wave like the above, with the same height, but where the the peaks are thinner, with longer periods of rest in between (this is known as having a lower <a href="https://en.wikipedia.org/wiki/Duty_cycle">duty cycle</a>), in this case the wave would still have the same Voltage Peak-to-Peak (Vpp) value but on average wouldn&rsquo;t be able to carry as much energy. That&rsquo;s where RMS comes in, it is effectively the measure of how much energy that waveform can deliver and is much, much more useful in general.  RMS is a topic we&rsquo;ll be covering later, but to wet your apatite, this from Wikipedia may help:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Sine_wave_voltages.svg/400px-Sine_wave_voltages.svg.png" alt="img"></p>
 <p><a href="https://en.wikipedia.org/wiki/Root_mean_square">https://en.wikipedia.org/wiki/Root_mean_square</a></p>
-<p>Of note, from a mathematical perspective all time varrying signals can be represented as an infinite number of sine waves added together, this is actually used to do practical computation in many things.</p>
+
+  </div>
+  
+</div>
+
+<p>Of note, from a mathematical perspective all time varying signals can be represented as an infinite number of sine waves added together, this is actually used to do practical computation in many things, and what is used if you ever want to get into digital signal processing. I only mention it here because I foresee it being a rabbit hole someone could fall down when trying to gronk what RMS is. Again, we&rsquo;ll talk more about all of this latter, so I&rsquo;m going to move on for now.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Periodic_identity_function.gif/400px-Periodic_identity_function.gif" alt="img" /></p>
 <p><a href="https://en.wikipedia.org/wiki/Fourier_series#Examples">https://en.wikipedia.org/wiki/Fourier_series#Examples</a></p>
+<p>If you&rsquo;re feeling really adventurous <a href="https://opinionatedguide.github.io/engineering/11-math/#7---signals">Chapter 7, Section 11</a> has more resources on this topic</p>
 <h2 id="current-and-the-ammeter">
   Current and the Ammeter
   <a class="anchor" href="#current-and-the-ammeter">#</a>
 </h2>
-<p>If current is the pressure in the hose, then current is how much water actually flows. This analogy holds up too, because if we use a resistor to kink the hose and the flow is restircted the current will go down. If you were to stick a wire directly into the wall outlet all the current the wall can give will try to flow though, but it can be restricted. To measure the current though a circuit we can&rsquo;t just probe between two points as before though. Instead the probes need to form the exclusive path that part of the circuit can flow through.</p>
+<p>If current is the pressure in the hose, then current is how much water actually flows. This analogy holds up too, because if we use a resistor to kink the hose and the flow is restricted the current will go down. If you were to stick a wire directly into the wall outlet all the current the wall can give will try to flow though, but it can be restricted. To measure the current though a circuit we can&rsquo;t just probe between two points as before though. Instead the probes need to form the exclusive path that part of the circuit can flow through.</p>
 <p>In practice this means the wire you want to measure current through would need to be cut and the ammeter&rsquo;s probes hooked up at either end, making the meter part of the circuit.</p>
-<p>Current, just like voltage, can varry, and in AC circuits usually does. This leads to some more interesting caseses like power factor, but we&rsquo;ll get to that later.</p>
+<p>Current, just like voltage, can varry, and in AC circuits usually does. This leads to some more interesting cases like power factor, but we&rsquo;ll get to that later.</p>
 <h4 id="continuity-tester">
   Continuity Tester
   <a class="anchor" href="#continuity-tester">#</a>
 </h4>
-<p>The contiuity tester does exactly what it&rsquo;s name implies, it makes sure two points are connected electrically. If you have a piece of metal and put both probes on it it should beep, but if you put the probes on rubber, they clearly will not be. The continutiy tester isn&rsquo;t really much different from the ohm meter in operation, and many will actually dispaly the resistance if there is any. The main use is that it beeps when the resistance is low enough to be confident two points are electrically connected.</p>
+<p>The continuity tester does exactly what it&rsquo;s name implies, it makes sure two points are connected electrically. If you have a piece of metal and put both probes on it it should beep, but if you put the probes on rubber, they clearly will not be. The continuity tester isn&rsquo;t really much different from the ohm meter in operation, and many will actually display the resistance if there is any. The main use is that it beeps when the resistance is low enough to be confident two points are electrically connected.</p>
 <h4 id="todo-day-to-day-use-why-you-want-one">
   [TODO] day to day use, why you want one
   <a class="anchor" href="#todo-day-to-day-use-why-you-want-one">#</a>
@@ -340,11 +362,11 @@ https://github.com/alex-shpak/hugo-book
   The Lab Power Supply
   <a class="anchor" href="#the-lab-power-supply">#</a>
 </h3>
-<p>Power Supply Units or &lsquo;PSU&rsquo;s are useful because unlike your phone charger which puts out a singular voltage of 5 volts (ignoring fast charging) they can have their output voltage varried usually between 1 and 35-ish volts. Furthermore, they provide current limiting, useful when you&rsquo;re unsure of how much current your circuit might sink or need it for safety.</p>
+<p>Power Supply Units or &lsquo;PSU&rsquo;s are useful because unlike your phone charger which puts out a singular voltage of 5 volts (ignoring fast charging) they can have their output voltage varied usually between 1 and 35-ish volts. Furthermore, they provide current limiting, useful when you&rsquo;re unsure of how much current your circuit might sink or need it for safety.</p>
 <p>[TODO] add picture, mention ATX psu, current safety</p>
-<h3 id="the-frequnecy-or-waveform-generator">
-  The Frequnecy or Waveform Generator
-  <a class="anchor" href="#the-frequnecy-or-waveform-generator">#</a>
+<h3 id="the-frequency-or-waveform-generator">
+  The Frequency or Waveform Generator
+  <a class="anchor" href="#the-frequency-or-waveform-generator">#</a>
 </h3>
 <p>Frequency generators can be used to output a signal that is alternating, unlike the DC signal of the Lab PSU.  Usually they&rsquo;ll support a range of wave shapes, frequencies, amplitudes, and DC offsets. Many support far more than this, though the applications for the more advanced modes are few. If you&rsquo;re just starting out you can (with precausions) actually just use the audio output of your computer or buy an inexpensive one for under $20, unlike the expensive example below:</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/BK_Precision_4078_arbitrary_waveform_generator.jpg" alt="Image result for arbitrary function generator" /></p>
@@ -353,7 +375,7 @@ https://github.com/alex-shpak/hugo-book
   The Oscilloscope
   <a class="anchor" href="#the-oscilloscope">#</a>
 </h3>
-<p>The osciliscope (or OScope or simply Scope) allows you to see an AC signal and how it varies over time as a plot of Voltage on the Y axis and time on the X, Most OScopes will allow you to look at multiple signals at once, with one overlaid on the other. Furthermore, most support X-Y mode, where the plot is actually the voltage of one input as the X axis and the voltage of another as the Y, moving a dot and it&rsquo;s trail around the screen. In fact, this is how the first computer monitors worked:</p>
+<p>The oscilloscope (or OScope or simply Scope) allows you to see an AC signal and how it varies over time as a plot of Voltage on the Y axis and time on the X, Most OScopes will allow you to look at multiple signals at once, with one overlaid on the other. Furthermore, most support X-Y mode, where the plot is actually the voltage of one input as the X axis and the voltage of another as the Y, moving a dot and it&rsquo;s trail around the screen. In fact, this is how the first computer monitors worked:</p>
 <p><img src="/oscopeastroids.jpeg" alt="Image result for asteroids game" title=":size=50%"/></p>
 <p>Modern OScopes look much different than their phosphorescent green ancestors though:</p>
 <p><img src="/modernscope.jpeg" alt="Image result for oscilloscope" title=":size=50%"/></p>
@@ -432,7 +454,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#decibels">#</a>
 </h2>
 <p>[TODO]</p>
-<p>How to read logorithmic first</p>
+<p>How to read logarithmic first</p>
 <p><a href="https://leeoniya.github.io/uPlot/demos/log-scales.html">log-scales demo in uPlot (github)</a></p>
 <h2 id="further-reading">
   Further Reading
@@ -502,7 +524,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#ohms-law">OHM&rsquo;s Law</a>
       <ul>
         <li><a href="#the-lab-power-supply">The Lab Power Supply</a></li>
-        <li><a href="#the-frequnecy-or-waveform-generator">The Frequnecy or Waveform Generator</a></li>
+        <li><a href="#the-frequency-or-waveform-generator">The Frequency or Waveform Generator</a></li>
         <li><a href="#the-oscilloscope">The Oscilloscope</a></li>
         <li><a href="#the-logic-analyzer">The Logic Analyzer</a></li>
       </ul>

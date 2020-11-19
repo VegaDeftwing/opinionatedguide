@@ -16,7 +16,7 @@ The CPU #  These are CPUS or Central Processing Units. They&rsquo;re the beating
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.5fc0d3e9d3d0fc20cbf512f36b6dd3f6c8b7d54a21ad80b0e5e255b4628925ca.js" integrity="sha256-X8DT6dPQ/CDL9RLza23T9si31UohrYCw5eJVtGKJJco="></script>
+<script defer src="/en.search.min.d72f17995f365f4b930d8b6382400aeb98fa90ca36986aee8c9a7258ad0cb0a6.js" integrity="sha256-1y8XmV82X0uTDYtjgkAK65j6kMo2mGrujJpyWK0MsKY="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -378,7 +378,14 @@ cache size      : <span style="color:#ae81ff">512</span> KB
   <a class="anchor" href="#microcode">#</a>
 </h3>
 <p>Modern processors are very, very complicated. So complicated in fact that there is a full very tiny computer in your processor. This computer does multiple things, but the main one we&rsquo;ll talk about is the translation between types of machine code. In order to understand this we&rsquo;ll need to look a basic program written in the language &lsquo;C&rsquo;.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    This code first makes two integers, <code>a</code> and <code>b</code>, gives them values, then adds them together and stores the result back into a. Finally, the program returns a 0 to the operating system in order to say &ldquo;I ran without errors&rdquo;.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
   <span style="color:#66d9ef">int</span> a;
   <span style="color:#66d9ef">int</span> b;
   a <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
@@ -386,9 +393,19 @@ cache size      : <span style="color:#ae81ff">512</span> KB
   a <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre></div><p>This code first makes two integers, a and b, gives them values, then adds them together and stores the result back into a. Finally, the program returns a 0 to the operating system in order to say &ldquo;I ran without errors&rdquo;.</p>
-<p>Unlike python which get&rsquo;s converted to something the computer can understand as it executes C is compiled before hand. This makes it so programs written in C are much, much faster than those written in python, though obviously C code is more difficult to write. Compilation is the process of turning a program into a file full of instructions the computer actually understands. This happens in two steps, first the program is turned into assembly code, for the above code this results in an output that looks like</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">        push    rbp
+</code></pre></div>
+  </div>
+  
+</div>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Unlike python which get&rsquo;s converted to something the computer can understand as it executes C is compiled before hand. This makes it so programs written in C are much, much faster than those written in python, though obviously C code is more difficult to write. Compilation is the process of turning a program into a file full of instructions the computer actually understands. This happens in two steps, first the program is turned into assembly code, for the above code this results in the output to the right:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">        push    rbp
         mov     rbp, rsp
         mov     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">8</span>
         mov     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>], <span style="color:#ae81ff">16</span>
@@ -398,6 +415,11 @@ cache size      : <span style="color:#ae81ff">512</span> KB
         pop     rbp
         ret
 </code></pre></div><p>As you can see, this is incredibly difficult to read to a &lsquo;normal&rsquo; person, so even though we&rsquo;re not there yet.</p>
+
+  </div>
+  
+</div>
+
 <p>This in turn gets turned into binary as can bee seen by this screenshot generated using <a href="https://godbolt.org/">https://godbolt.org/</a></p>
 <p><img src="/godbolt.png" alt="godbolt" /></p>
 <div class="book-columns flex flex-wrap">
@@ -906,10 +928,21 @@ Optane, NVMe, Sata, technically all flash, Ram disks, different controllers, MLC
   Network Interfaces
   <a class="anchor" href="#network-interfaces">#</a>
 </h2>
-<p><img src="/nics.jpg" alt="NICS" title=":size=50%"/></p>
-<p>Pictured here are three Network Interface cards or a NIC. The three on the left are for WiFi (though some of this form factor may include bluetooth as well) while the one on the right has an ethernet port for wired access. Most computer&rsquo;s will not have a separate card for the wired interface though, as most motherboard&rsquo;s have a wired network interface built in.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/nics.jpg" alt="NICS" height="600em">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>Pictured here are three Network Interface cards or NICs. The three on the left are for WiFi (though some of this form factor may include bluetooth as well) while the one on the right has an ethernet port for wired access. Most computer&rsquo;s will not have a separate card for the wired interface though, as most motherboard&rsquo;s have a wired network interface built in.</p>
 <p>NICs also include the wireless chipset used for connecting to a cell tower and really any radio communication device in general.</p>
 <p>Older NICs include those used for Dial-Up connections and some obscure wireless methods that predate WiFi.</p>
+
+  </div>
+  
+</div>
+
 <h3 id="ethernet">
   Ethernet
   <a class="anchor" href="#ethernet">#</a>
