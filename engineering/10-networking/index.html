@@ -6,39 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 10 - Networking #  [TODO] Add follow along making a network stack
 Basics #  Nodes
-Links - Wired and Wireless
-​	Guided and Unguided
-Applications
-End Systems - Hosts &amp; Clients
-Routers and Switches
-​	forwarding table
-Applications and APIs
-LAN v WAN
-the Packet
-​	header
-packet switching
-​	store and forward - buffering, end to end delay
-Packet Loss
-Bandwidth V Throughput
-​	FDM vs TDM">
+These are all the points in the network. There are terminal nodes and intermediate nodes.
+Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.
+Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 10 - Networking #  [TODO] Add follow along making a network stack
 Basics #  Nodes
-Links - Wired and Wireless
-​	Guided and Unguided
-Applications
-End Systems - Hosts &amp; Clients
-Routers and Switches
-​	forwarding table
-Applications and APIs
-LAN v WAN
-the Packet
-​	header
-packet switching
-​	store and forward - buffering, end to end delay
-Packet Loss
-Bandwidth V Throughput
-​	FDM vs TDM" />
+These are all the points in the network. There are terminal nodes and intermediate nodes.
+Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.
+Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/10-networking/" />
 
@@ -46,7 +22,7 @@ Bandwidth V Throughput
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.e8a99ae7aa6d983fe03fa65ba03deb7ba11365925624c8999c44ee1dedd868c4.js" integrity="sha256-6Kma56ptmD/gP6ZboD3re6ETZZJWJMiZnETuHe3YaMQ="></script>
+<script defer src="/en.search.min.ffb120b8b4b5ebd6d598d0fe53c166fdd7cdd1a68f56e43d48bb972c27bed35c.js" integrity="sha256-/7EguLS169bVmND&#43;U8Fm/dfN0aaPVuQ9SLuXLCe&#43;01w="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -302,17 +278,25 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
       <ul>
+        <li><a href="#service-models">Service Models</a></li>
         <li><a href="#packets">Packets</a></li>
         <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
         <li><a href="#mac">MAC</a></li>
         <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
         <li><a href="#subnets">Subnets</a></li>
+        <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
+        <li><a href="#bgp">BGP</a></li>
       </ul>
     </li>
     <li><a href="#4---transport-layer">4 - Transport Layer</a>
       <ul>
         <li><a href="#tcp">TCP</a></li>
         <li><a href="#udp">UDP</a></li>
+        <li><a href="#raw">Raw</a></li>
+        <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
+        <li><a href="#go-back-n">Go-Back-N</a></li>
+        <li><a href="#selective-repeat">Selective Repeat</a></li>
+        <li><a href="#timeout-and-retransmission-from-estimated-rtt">Timeout and Retransmission from Estimated RTT</a></li>
       </ul>
     </li>
     <li><a href="#5---session-layer">5 - Session Layer</a>
@@ -339,13 +323,15 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#https">HTTP(s)</a></li>
         <li><a href="#ftp">FTP</a></li>
         <li><a href="#dns">DNS</a></li>
+        <li><a href="#dhcp">DHCP</a></li>
         <li><a href="#ssh">SSH</a></li>
         <li><a href="#irc">IRC</a></li>
-        <li><a href="#email-smtp">EMail (SMTP)</a></li>
+        <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
         <li><a href="#upnp">UPNP</a></li>
         <li><a href="#ntp">NTP</a></li>
         <li><a href="#telnet">Telnet</a></li>
         <li><a href="#nfs">NFS</a></li>
+        <li><a href="#torrents">Torrents</a></li>
       </ul>
     </li>
     <li><a href="#time">Time</a></li>
@@ -386,35 +372,59 @@ https://github.com/alex-shpak/hugo-book
   Basics
   <a class="anchor" href="#basics">#</a>
 </h2>
-<p>Nodes</p>
-<p>Links - Wired and Wireless</p>
-<p>​	Guided and Unguided</p>
-<p>Applications</p>
-<p>End Systems - Hosts &amp; Clients</p>
-<p>Routers and Switches</p>
-<p>​	forwarding table</p>
-<p>Applications and APIs</p>
-<p>LAN v WAN</p>
-<p>the Packet</p>
-<p>​		header</p>
-<p>packet switching</p>
-<p>​	store and forward - buffering, end to end delay</p>
-<p>Packet Loss</p>
-<p>Bandwidth V Throughput</p>
-<p>​	FDM vs TDM</p>
+<p><strong>Nodes</strong></p>
+<p>These are all the points in the network. There are terminal nodes and intermediate nodes.</p>
+<p>Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.</p>
+<p>Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc.</p>
+<p><strong>Links</strong></p>
+<p>Links are the interconnects between two nodes. Generally these fall into two categories: <strong>Guided and Unguided</strong></p>
+<p><em>Guided</em> Links are those that only connect a few nodes (usually only two) and are typically physical, hard-wire links, often copper or fiber optic.</p>
+<p><em>Unguided</em> Links are those that broadcast out. These can be radio based (WiFi, cellular, etc.), optical (Flashing lights but no fiber optic, just like, though the air), acoustic, whatever. These might be terrestrial (from the earth) or be satellite based.</p>
+<p>Not all Links can support the same bandwidth or throughput. In general, Coaxial is worse than Twisted Pair which is in turn worse than fiber.</p>
+<p><strong>Applications</strong></p>
+<p>These are the things that you want to do: Talk to someone via voice, text, or video; browse the web; download files; etc.</p>
+<p>It can also refer to the specific program used to do these things, so like Chrome as your web browser or Zoom for video calling.</p>
+<p>an <a href="https://en.wikipedia.org/wiki/API"><em>API</em> (Wikipedia)</a> or &lsquo;Application Programming Interface&rsquo; is what defines how two programs talk to each other. This doesn&rsquo;t have to be over the network, but often is.</p>
+<p><strong>End Systems - Hosts/Server &amp; Clients</strong></p>
+<p>Not everything fits the host/server and client terminology, but generally the host/server is the one that is sending data, and the client is the one receiving, or another way to look at it, the client is the one making requests and the host the one fulfilling them.</p>
+<p><strong>Peer to Peer</strong></p>
+<p>[TODO]</p>
+<p><strong>Packets</strong></p>
+<p>While we could just send a continual stream of data down a wire, that has a lot of issues. For one, it makes it hard to share the wire with multiple people. Of course you could split the wire so each person get&rsquo;s a split amount of time on the wire (Time Division Multiplexing) or, if the wire can carry a range of frequencies give each user a small portion of those (Frequency Division Multiplexing, which limits the throughput similarly), but both of these sorta suck as they assume a user will always be using their provided channel. Instead, we do a sort of Time Division, but by packet-izing everything. Basically, each stream of data you want to send get&rsquo;s broken up into manageable chunks called packets, and then these packets can be sent though the network.</p>
+<p>[TODO] packet headers</p>
+<p><strong>Routers and Switches</strong></p>
+<p>Take data in and out, usually though bi-directional links, and can switch which link goes where. Usually with the help of a forwarding table</p>
+<p>[TODO] image here</p>
+<p>[TODO] store and forward - buffering,</p>
+<p><strong>End to End Delay</strong></p>
+<p>d_ECE = 2 (L/R)</p>
+<p>where L = bits per packet, R = tx rate of link</p>
+<p><strong>Queuing Delay</strong></p>
+<p><strong>Packet Loss</strong></p>
+<p>Sometimes packets in the network don&rsquo;t reach their destination. This can be for a variety of reasons. Maybe a switch along the line was overloaded and it&rsquo;s buffer was full, maybe it took a bad route, maybe you have crappy wifi. ╮(─▽─)╭. It happens. Usually the percent of dropped packets is called your packet loss.</p>
+<p><strong>Forwarding Table</strong></p>
+<p><strong>Bandwidth Vs Throughput</strong></p>
+<p>[TODO] physcics of link vs data of link - expand on FDM vs TDM</p>
+<p><strong>LAN Vs WAN</strong></p>
+<p>Local Area Network and Wide Area Network- on most home connections your LAN is the network <em>in your house</em> while the WAN is the internet at large, so the WAN port on your router is where you connect the cable from your Internet Service Provider (ISP)</p>
+<p><strong>Protocol</strong></p>
+<p>Usually a network is dependent on a stack of protocols. Each protocol is just a standard for the way too things communicate. As we keep going you&rsquo;ll see more about IP (Internet Protocol), TCP (Transmission Control Protocol), among many others.</p>
+<p>Most protocols are determined by standardization bodies such as the Internet Engineering Task Force (IETF) or IEEE Standards Association (IEEE-SA)</p>
 <h2 id="a-typical-network">
   A typical network
   <a class="anchor" href="#a-typical-network">#</a>
 </h2>
 <p>[TODO]</p>
-<p>Default Gateway, Routes &amp; kernel routing table, subnet mask, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, <a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/</a></p>
+<p>IP addresses, Ports, Default Gateway, Routes &amp; kernel routing table, subnet mask, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, <a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/</a></p>
 <p>IETF &amp; RFCs</p>
 <p>IEEE-SA</p>
-<p>The OSI model of networking is</p>
+<p>Parallel, Pipelined, Persistance and Performance</p>
+<p>The <strong>OSI model of networking</strong> is the model of networking most classes will cover. It is slightly different from the one used by the internet, which is the <strong>TCP/IP</strong> model.</p>
 <p>In the <strong>TCP/IP</strong> model, the <strong>Physical</strong> and <strong>Data Link</strong> Layers are viewed as a <strong>unified &lsquo;Network Acces Layer&rsquo;</strong></p>
 <p>The <strong>Network Layer</strong> is called the <strong>Internet Layer</strong></p>
 <p>The Transport Layer <em>stays the same</em>,</p>
-<p>and The <strong>Session, Presentation, and Application</strong> layer are all part of a <strong>larger Application</strong> Layer</p>
+<p>and The <strong>Session, Presentation, and Application</strong> layer are all part of a <strong>larger Application</strong> Layer.</p>
+<p>But, because I think it&rsquo;s easier to cover it with things more broken up, I&rsquo;ll go over the <strong>OSI</strong> model from here:</p>
 <h2 id="1---the-physical-layer">
   1 - The physical Layer
   <a class="anchor" href="#1---the-physical-layer">#</a>
@@ -469,6 +479,11 @@ https://github.com/alex-shpak/hugo-book
   3 - Network Layer/IP Layer
   <a class="anchor" href="#3---network-layerip-layer">#</a>
 </h2>
+<h3 id="service-models">
+  Service Models
+  <a class="anchor" href="#service-models">#</a>
+</h3>
+<p>Not guaranteed delivery, bounded delay, or throughput. Sorta sucks, but it&rsquo;s cheap</p>
 <h3 id="packets">
   Packets
   <a class="anchor" href="#packets">#</a>
@@ -478,6 +493,9 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#ipv4-ipv6">#</a>
 </h3>
 <p><a href="https://teknikaldomain.me/post/ipv6-is-a-total-nightmare/">IPV6 is a total nightmare</a> &amp; <a href="https://news.ycombinator.com/item?id=24994587">Hacker News comments on this blog post</a> (note, I don&rsquo;t agree with everything here, just providing it as another person&rsquo;s comments)</p>
+<p>IPV4-&gt;6 Tunneling</p>
+<p>Logical: [6] &lt;-&gt; [6] &lt;- &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- -&gt; [6] &lt;-&gt; [6]</p>
+<p>Physical: [6] &lt;-&gt; [6] &lt;-&gt; [4] &lt;-&gt; [4] &lt;-&gt; [6] &lt;-&gt; [6]</p>
 <h3 id="mac">
   MAC
   <a class="anchor" href="#mac">#</a>
@@ -486,19 +504,34 @@ https://github.com/alex-shpak/hugo-book
   ICMP, IGMP
   <a class="anchor" href="#icmp-igmp">#</a>
 </h3>
+<p>traceroute</p>
 <h3 id="subnets">
   Subnets
   <a class="anchor" href="#subnets">#</a>
 </h3>
+<p><a href="https://www.aelius.com/njh/subnet_sheet.html">https://www.aelius.com/njh/subnet_sheet.html</a></p>
 <p><img src="/devnullnetwork.png" alt="devnullnetwork" title=":size=70%"/></p>
+<h3 id="static-and-dynamic-routes">
+  Static and Dynamic Routes
+  <a class="anchor" href="#static-and-dynamic-routes">#</a>
+</h3>
+<h3 id="bgp">
+  BGP
+  <a class="anchor" href="#bgp">#</a>
+</h3>
+<p>open, update, keepalive, notification</p>
 <h2 id="4---transport-layer">
   4 - Transport Layer
   <a class="anchor" href="#4---transport-layer">#</a>
 </h2>
+<p>Multiplexing, Demultiplexing</p>
+<p>Reliable data tx/rx - checksums</p>
+<p>flow and congestion control</p>
 <h3 id="tcp">
   TCP
   <a class="anchor" href="#tcp">#</a>
 </h3>
+<p>tcp header diagram</p>
 <h4 id="quic">
   QUIC
   <a class="anchor" href="#quic">#</a>
@@ -506,6 +539,26 @@ https://github.com/alex-shpak/hugo-book
 <h3 id="udp">
   UDP
   <a class="anchor" href="#udp">#</a>
+</h3>
+<h3 id="raw">
+  Raw
+  <a class="anchor" href="#raw">#</a>
+</h3>
+<h3 id="a-brief-dive-into-fsms">
+  A brief dive into FSMs
+  <a class="anchor" href="#a-brief-dive-into-fsms">#</a>
+</h3>
+<h3 id="go-back-n">
+  Go-Back-N
+  <a class="anchor" href="#go-back-n">#</a>
+</h3>
+<h3 id="selective-repeat">
+  Selective Repeat
+  <a class="anchor" href="#selective-repeat">#</a>
+</h3>
+<h3 id="timeout-and-retransmission-from-estimated-rtt">
+  Timeout and Retransmission from Estimated RTT
+  <a class="anchor" href="#timeout-and-retransmission-from-estimated-rtt">#</a>
 </h3>
 <h2 id="5---session-layer">
   5 - Session Layer
@@ -567,23 +620,33 @@ https://github.com/alex-shpak/hugo-book
   HTTP(s)
   <a class="anchor" href="#https">#</a>
 </h3>
+<p><a href="http://bright28677.tripod.com/proj2/httpformat.htm">http://bright28677.tripod.com/proj2/httpformat.htm</a> (both images)</p>
+<p>response codes - 200, 300&rsquo;s, 400&rsquo;s, etc.</p>
+<p>In header lines</p>
+<p>Host, user agent, accept-language, connection (keep-alive), &hellip;?</p>
+<p>GET, POST, HEAD, PUT, DELETE</p>
 <p><img src="/http-status-codes.png" alt="Codes" title=":size=50%"/></p>
 <blockquote>
 <p><a href="https://www.monkeyuser.com/2017/http-status-codes/">https://www.monkeyuser.com/2017/http-status-codes/</a></p>
 </blockquote>
 <p>http1 vs 2 v 3</p>
+<p>cookies because stateless</p>
+<p>in-band</p>
 <h3 id="ftp">
   FTP
   <a class="anchor" href="#ftp">#</a>
 </h3>
+<p>still TCP, out-of-band, maintains state, passive v active mode</p>
 <h3 id="dns">
   DNS
   <a class="anchor" href="#dns">#</a>
 </h3>
-<h4 id="dhcp">
+<p>record types</p>
+<h3 id="dhcp">
   DHCP
   <a class="anchor" href="#dhcp">#</a>
-</h4>
+</h3>
+<p>Some texts will put this in Data or Network layer, it&rsquo;s a bit ambiguous. It&rsquo;s not -technically- necessary, much like DNS, but it&rsquo;s used as a core part of the network in most networks.</p>
 <h3 id="ssh">
   SSH
   <a class="anchor" href="#ssh">#</a>
@@ -592,10 +655,11 @@ https://github.com/alex-shpak/hugo-book
   IRC
   <a class="anchor" href="#irc">#</a>
 </h3>
-<h3 id="email-smtp">
-  EMail (SMTP)
-  <a class="anchor" href="#email-smtp">#</a>
+<h3 id="email-smtp-imap-pop">
+  EMail (SMTP, IMAP, POP)
+  <a class="anchor" href="#email-smtp-imap-pop">#</a>
 </h3>
+<p>mail servers and useragents</p>
 <h3 id="upnp">
   UPNP
   <a class="anchor" href="#upnp">#</a>
@@ -612,6 +676,11 @@ https://github.com/alex-shpak/hugo-book
   NFS
   <a class="anchor" href="#nfs">#</a>
 </h3>
+<h3 id="torrents">
+  Torrents
+  <a class="anchor" href="#torrents">#</a>
+</h3>
+<p>Distributed Hash Tables</p>
 <h2 id="time">
   Time
   <a class="anchor" href="#time">#</a>
@@ -680,6 +749,7 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://dat.foundation">dat</a></p>
 <p><a href="http://netsukuku.freaknet.org">Netsukuku</a></p>
 <p><a href="https://beakerbrowser.com">Beaker Browser</a></p>
+<p><a href="https://bombadillo.colorfield.space">Bombadillo</a> is a non-web browser, designed for a growing list of protocols operating outside of the web.</p>
 <p><a href="https://blog.benjojo.co.uk/post/eve-online-bgp-internet">EVE Online internet</a> from <a href="https://blog.benjojo.co.uk">https://blog.benjojo.co.uk</a>, which has a ton of other really, really neat posts, like <a href="https://blog.benjojo.co.uk/post/speed-of-bgp-network-propagation">The Speed of BGP network propagation</a>, or <a href="https://blog.benjojo.co.uk/post/ip-over-fibre-channel-hack">Hacking Ethernet out of Fibre Channel cards</a></p>
 <p>Software Defined Networking, ActivityPub</p>
 <p><a href="https://github.com/SadeghHayeri/GreenTunnel">GreenTunnel</a> - &ldquo;GreenTunnel bypasses DPI (Deep Packet Inspection) systems found in many ISPs (Internet Service Providers) which block access to certain websites.&rdquo;</p>
@@ -759,17 +829,25 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
       <ul>
+        <li><a href="#service-models">Service Models</a></li>
         <li><a href="#packets">Packets</a></li>
         <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
         <li><a href="#mac">MAC</a></li>
         <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
         <li><a href="#subnets">Subnets</a></li>
+        <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
+        <li><a href="#bgp">BGP</a></li>
       </ul>
     </li>
     <li><a href="#4---transport-layer">4 - Transport Layer</a>
       <ul>
         <li><a href="#tcp">TCP</a></li>
         <li><a href="#udp">UDP</a></li>
+        <li><a href="#raw">Raw</a></li>
+        <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
+        <li><a href="#go-back-n">Go-Back-N</a></li>
+        <li><a href="#selective-repeat">Selective Repeat</a></li>
+        <li><a href="#timeout-and-retransmission-from-estimated-rtt">Timeout and Retransmission from Estimated RTT</a></li>
       </ul>
     </li>
     <li><a href="#5---session-layer">5 - Session Layer</a>
@@ -796,13 +874,15 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#https">HTTP(s)</a></li>
         <li><a href="#ftp">FTP</a></li>
         <li><a href="#dns">DNS</a></li>
+        <li><a href="#dhcp">DHCP</a></li>
         <li><a href="#ssh">SSH</a></li>
         <li><a href="#irc">IRC</a></li>
-        <li><a href="#email-smtp">EMail (SMTP)</a></li>
+        <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
         <li><a href="#upnp">UPNP</a></li>
         <li><a href="#ntp">NTP</a></li>
         <li><a href="#telnet">Telnet</a></li>
         <li><a href="#nfs">NFS</a></li>
+        <li><a href="#torrents">Torrents</a></li>
       </ul>
     </li>
     <li><a href="#time">Time</a></li>
