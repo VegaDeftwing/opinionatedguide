@@ -1,15 +1,82 @@
 <!DOCTYPE html>
 <html lang="en" dir=>
 
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="!&gt; You are on a page that is a heavy work in progress. I don&rsquo;t necessarily stand by anything I&rsquo;ve written here and this page should effectively be considered not yet published. I have decided to put it up while it is in development to encourage contributions
-[TODO] https://readhacker.news/s/4ymEz (Programs are a prison: Rethinking the building blocks of computing interfaces)
+<meta name="description" content="You are on a page that is a heavy work in progress. I don&rsquo;t necessarily stand by anything I&rsquo;ve written here and this page should effectively be considered not yet published. I have decided to put it up while it is in development to encourage contributions
+ [TODO] https://readhacker.news/s/4ymEz (Programs are a prison: Rethinking the building blocks of computing interfaces)
 The Way We Interact With Computers Sucks. #  What do you see when you sit down to work?">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="HCI NEW" />
-<meta property="og:description" content="!&gt; You are on a page that is a heavy work in progress. I don&rsquo;t necessarily stand by anything I&rsquo;ve written here and this page should effectively be considered not yet published. I have decided to put it up while it is in development to encourage contributions
-[TODO] https://readhacker.news/s/4ymEz (Programs are a prison: Rethinking the building blocks of computing interfaces)
+<meta property="og:description" content="You are on a page that is a heavy work in progress. I don&rsquo;t necessarily stand by anything I&rsquo;ve written here and this page should effectively be considered not yet published. I have decided to put it up while it is in development to encourage contributions
+ [TODO] https://readhacker.news/s/4ymEz (Programs are a prison: Rethinking the building blocks of computing interfaces)
 The Way We Interact With Computers Sucks. #  What do you see when you sit down to work?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/posts/hci-new/" />
@@ -17,8 +84,8 @@ The Way We Interact With Computers Sucks. #  What do you see when you sit down t
 <title>HCI NEW | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.27e76ad396f2c95d9a2f02617e56e94ec82e9a285475ef51486b6b41aa83b983.css" integrity="sha256-J&#43;dq05byyV2aLwJhflbpTsgumihUde9RSGtrQaqDuYM=">
-<script defer src="/en.search.min.66a0563638b096601b0c2240e4c46c753d6869de3045b1a58b38ef6303a40872.js" integrity="sha256-ZqBWNjiwlmAbDCJA5MRsdT1oad4wRbGlizjvYwOkCHI="></script>
+<link rel="stylesheet" href="/book.min.7ab7eabf7f87a7831602cf77439f2fa68cc674a8cac55c9b5f671daf46c7812f.css" integrity="sha256-erfqv3&#43;Hp4MWAs93Q58vpozGdKjKxVybX2cdr0bHgS8=">
+<script defer src="/en.search.min.2161eac66584cfa6dfbc382ed6e6b2c9c5e8553009ea8bb29cb846ac73c6afd7.js" integrity="sha256-IWHqxmWEz6bfvDgu1uayycXoVTAJ6ouynLhGrHPGr9c="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -350,7 +417,9 @@ https://github.com/alex-shpak/hugo-book
   
 
 
-  <p><p>!&gt; You are on a page that is a heavy work in progress. I don&rsquo;t necessarily stand by anything I&rsquo;ve written here and this page should effectively be considered not yet published. I have decided to put it up while it is in development to encourage contributions</p>
+  <p><blockquote>
+<p>You are on a page that is a heavy work in progress. I don&rsquo;t necessarily stand by anything I&rsquo;ve written here and this page should effectively be considered not yet published. I have decided to put it up while it is in development to encourage contributions</p>
+</blockquote>
 <p>[TODO] <a href="https://readhacker.news/s/4ymEz">https://readhacker.news/s/4ymEz</a> (Programs are a prison: Rethinking the building blocks of computing interfaces)</p>
 <h1 id="the-way-we-interact-with-computers-sucks">
   The Way We Interact With Computers Sucks.
@@ -853,7 +922,7 @@ https://github.com/alex-shpak/hugo-book
 <li>alright, so, yes they're still expensive as all hell, but like if you go DIY then I think they're mostly attainable to most people. I'm sure there's a bit of privlidge talking there, but ╮(─▽─)╭</li>
 <li><a href="https://en.wikipedia.org/wiki/Dvorak_keyboard_layout#/media/File:KB_Programmer_Dvorak.svg">Programmer's Dvorak</a> is a thing and honestly I want to know if anybody actually uses it? Having the numbers like that hurts my brain.</li>
 <li><a href="http://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf">Seriously,</a>  check these out. You won't believe some of what's in here.</li>
-<li>MIDI is currently in a transition period from MIDI on a 5-pin Din to over TRS exactly because of this reason. Unfortunately, there's now two competing versions of MIDI over TRS called TRS-A and TRS-B where the signals on each pin are mixed around. Making it even worse, there's even a version that runs on 'mono' TS cables. It's a <a href="https://minimidi.world">mess.</li>
+<li>MIDI is currently in a transition period from MIDI on a 5-pin Din to over TRS exactly because of this reason. Unfortunately, there's now two competing versions of MIDI over TRS called TRS-A and TRS-B where the signals on each pin are mixed around. Making it even worse, there's even a version that runs on 'mono' TS cables. It's a <a href="https://minimidi.world">mess.</a></li>
 <li>Sub-Pixel Rendering is effectively abusing the fact that monitors will have a sort of trippled horizonal resolution, where each individual R, G, and B sub pixel is treated like an individual pixel that can be rendered to. This can make text look substantially shaper, but is why when you take a screenshot and blow it up you might see weird colors around the text. It's a hacky work around.</li>
 <li>The interface on your display matters greatly as well, the most common at the are HDMI, Display Port, DVI, and VGA<br>
 VGA is the worst option here, as it's an analog signal. This means the signal can do strange things, getting corrupted between your computer and the monitor. Typically this is a blue, screw in connection with many pins
