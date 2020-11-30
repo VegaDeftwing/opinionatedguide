@@ -86,7 +86,7 @@ What do you see when you sit down to work? My guess is a desk pressed against a 
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.7ab7eabf7f87a7831602cf77439f2fa68cc674a8cac55c9b5f671daf46c7812f.css" integrity="sha256-erfqv3&#43;Hp4MWAs93Q58vpozGdKjKxVybX2cdr0bHgS8=">
-<script defer src="/en.search.min.694f683a912f4123e08d9a36952562c3fcc32643d59b7dd7459c0b151e79bc11.js" integrity="sha256-aU9oOpEvQSPgjZo2lSViw/zDJkPVm33XRZwLFR55vBE="></script>
+<script defer src="/en.search.min.c52433911b999134ffadd74dec5060c461496d2cefef7b95b2e4a4d792dbb153.js" integrity="sha256-xSQzkRuZkTT/rddN7FBgxGFJbSzv73uVsuSk15LbsVM="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -348,12 +348,9 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#local-backups-by-default">Local Backups By Default</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#authentication-sucks">Authentication Sucks</a>
       <ul>
-        <li><a href="#storing-information-sucksblogdataandbackups"><a href="Blog/DataAndBackups">Storing Information Sucks</a></a></li>
+        <li><a href="#storing-information-suckshttpsopinionatedguidegithubiopostsdata-formats-backups-and-digital-purgatory"><a href="https://opinionatedguide.github.io/posts/data-formats-backups-and-digital-purgatory/">Storing Information Sucks</a></a></li>
       </ul>
     </li>
     <li><a href="#presentation-of-information-sucks">Presentation of Information Sucks</a>
@@ -440,11 +437,11 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#our-input-methods-suck">#</a>
 </h2>
 <p>What the fuck is this shit?</p>
-<p>[TODO, normal TKL membrane keyboard and two button mouse]</p>
-<p>Come on, we can do better.</p>
-<p>[TODO gaming keyboard, gaming mouse]</p>
-<p>Really? That&rsquo;s the best we can do?</p>
-<p>[TODO ergodone and Tyon]</p>
+<p><img src="/membranekeys.jpg" alt="crappy membrane keyboard" /></p>
+<p>Well, this shit is membrane keys. They use a lil' membrane of flexible plastic to make a button that when you press completes a circuit. They feel like mush and generally suck to type on. We can do much, much better:</p>
+<p><img src="/mechanicalkeys.jpg" alt="Mechanical keyboard" /></p>
+<p>Okay, cool, a mechanical keyboard. Now at least each switch is, well, mechanical. There&rsquo;s a spring and actual feedback to your fingers and ears when you hit a key. But the keys are still arranged horrendously and it&rsquo;s not at all fitting for human hands. So&hellip; What next?</p>
+<p><img src="/ergodone.jpg" alt="ergodone" /></p>
 <p>Alright, so this is what I use. For me, this is great. It&rsquo;s still attainable and usable by meme mortals without infinitely deep wallets<a class="ptr">(1)</a> and using software as it exists today, but I think that&rsquo;s largely still because it&rsquo;s the furthest edge you can go from normal before things start being a royal pain in the ass, and don&rsquo;t get me wrong. It&rsquo;s not that there&rsquo;s not some PITA incurred from using this weird of a keyboard. Switching to a traditional keyboard will always feel weird, other people can&rsquo;t easily use your computer (not sure this is reallllly a downside&hellip;), configuration still basically requires you understand the basics of C programming, and some things that expect keys to be in certain places (games) will often be awkward.</p>
 <p>But, that&rsquo;s not where I want to go with this blog post. There&rsquo;s plenty of people that have gone on for like 20 pages about how amazing <a href="https://qmk.fm">QMK</a> and the Ergodox are, I want to go <strong>deeper</strong>.</p>
 <p>Let me start by lubing your brain up a little.</p>
@@ -475,24 +472,63 @@ https://github.com/alex-shpak/hugo-book
 <p><strong>No.</strong></p>
 <p>That&rsquo;s why this topic is so interesting. My hands are not your hands. I play music, make art, write stories (and blog posts) and code. Part of the reason I got an Ergodone keyboard in the first place is because I was starting to experience some nasty hand cramps that were particularly bad if I was switching between guitar and typing a lot. I was willing to try just about anything, which I did. I switched to Dvorak<a class="ptr">(2)</a>, an alternative keyboard layout. That didn&rsquo;t do the trick so I tried the ergodone (still using Dvorak, my layout is <a href="https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodone/keymaps/vega/keymap.c">here</a>) and haven&rsquo;t looked back. But that&rsquo;s left a few interesting points, ignoring the obvious reason of price, why are people still using something seems to be obviously <em>worse</em> - in a word: Familiarity.</p>
 <p><strong>Frankly, fuck that.</strong></p>
-<p>We can do so much better. Our phones have auto correct and limited <a href="https://github.com/ianzhao05/textshot">text expansion,</a> why do our beefier systems not do something a thousand times better with their superior on board resources? Why are we not doing natural language processing so that I can verbally or textually describe to you a graph or math equation without needing to have committed to memory some archaic set of $\LaTeX$ symbol names <a class="ptr">(3)</a>. Why are so many fields limited to ASCII, or maybe UTF-8, giving us those sweet, sweet emoji 🔥🔥🔥💯💯💯💯 when we could have something that allows text, diagrams, pictures, videos, etc.</p>
+<p>We can do so much better. Our phones have auto correct and limited <a href="https://github.com/ianzhao05/textshot">text expansion,</a> why do our beefier systems not do something a thousand times better with their superior on board resources? Why are we not doing natural language processing so that I can verbally or textually describe to you a graph or math equation without needing to have committed to memory some archaic set of 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \( \LaTeX \)
+</span>
+symbol names <a class="ptr">(3)</a>. Why are so many fields limited to ASCII, or maybe UTF-8, giving us those sweet, sweet emoji 🔥🔥🔥💯💯💯💯 when we could have something that allows text, diagrams, pictures, videos, etc.</p>
 <p><strong>But there&rsquo;s more than just the keyboard</strong></p>
 <p>Oh. I know. Thank you for me for bringing me to my next points so I can get back to ranting.</p>
 <p><strong>Mice and Touch pads and track balls</strong></p>
 <p>Take your hand off your phone screen or mouse for a second and hold your hand in front of your face. Wiggle you fingers, move your wrists. With that last instruction what did you do? Did you rotate your hand, move it up and down, or twist it? Now, consider how each of your fingers possess such fine motor controls. Is a mouse really made to take advantage of this?</p>
 <p>What would be better? Clearly pointing with a mouse is actually already pretty good. If you just need more functions a gaming mouse with a plethora of buttons goes a long way, but I think that&rsquo;s more of a stop-gap. What could we do better?</p>
 <p>Well, There&rsquo;s already the Leap Motion</p>
-<p>[TODO, Insert picture of LEAP diagnostics]</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/leapmotion.jpg" alt=""></p>
+<p>The leap motion hardware is basically just two cameras without an infrared filter and some infrared leds.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/leapplayground.jpg" alt=""></p>
+<p>The Leap Motion software does an actually really good job of using this information to reconstruct the finger positions in software.</p>
+
+  </div>
+  
+</div>
+
 <p>and the Lexip 3D mouse - <a href="https://www.lexip.co">https://www.lexip.co</a></p>
-<p>[TODO, gif]</p>
+<p><img src="/3dmouse.gif" alt="pu94" /></p>
+<blockquote class="book-hint warning">
+  Note, This mouse, the Lexip pu94, is a complete disaster and the result of what is effectively a failed kickstarter. The windows drivers are broken, I&rsquo;m currently working on a custom Linux driver for it but like, yeah. Don&rsquo;t buy one.
+</blockquote>
+
 <p>However, using the Leap for everything would require you hold your hands out to point, something that anybody who ever owned a wii can tell you gets very tiring very quickly.</p>
 <p>I honestly don&rsquo;t know what the pointing device of the future looks like. Maybe it involves a mix of a mouse, finger tracking, eye control, and joysticks.</p>
 <p>As for issues with current tech, mouse acceleration and touch pad responsiveness, and touch pad dead zone are all big problems and, like, I don&rsquo;t understand how that&rsquo;s a problem in 2020?</p>
 <p>To give credit where credit is due, there have been minor changes that are trending positive, such as Logitech&rsquo;s MX Master Line with the infinite scroll wheels, and a general trend for reducing latency and increasing customization options of higher-end mice.</p>
 <p>Unfortunately, the drivers for configuring these options are still largely proprietary and anything but standardized, meaning making <strong>native integration</strong> all but <strong>impossible</strong>. Of everything listed up to this point, I actually think this is the biggest problem. Without a consistent, extendable interface about the best that can be exposed is awkward hacks where joysticks are mapped as if they&rsquo;re on a full game controller or keys just mapped to a macro of keyboard keys or existing but unused keys like the F13 though F24 keys or scroll lock. This is a massive problem.</p>
 <p><strong>Foot Controllers</strong></p>
-<p>I have multiple foot based inputs on my system. The most notable is probably the <a href="http://www.stinkyboard.com">Stinky Footboard</a> in which I have swapped the controller to run aforementioned QMK - it&rsquo;s effectively just a 4-key mechanical keyboard. I also have a <a href="https://www.morningstarfx.com/mc6">MorningStarMC6</a>, a MIDI foot controller that can also take expression-pedal inputs (see the below picture:)</p>
-<p>[TODO pic of both MC6 and Stinky]</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/mc6.jpg" alt=""></p>
+<p>Morning Star MC6, a MIDI foot pedal that&rsquo;s high customizable and has inputs for connecting analog expression pedals (the green thing on the right). 10/10 recomended</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/stinky.jpg" alt=""></p>
+<p><a href="http://www.stinkyboard.com">Stinky Footboard</a> - it&rsquo;s effectively a 4-key mechanical keyboard for your feet. The driver for this product sucks, so I swapped the controller out for a promicro running QMK.</p>
+
+  </div>
+  
+</div>
+
 <p>And, don&rsquo;t get me wrong, both are great. Being able to use my feet to control my system really allows for a lot of flexibility; however, your feet can only do so fine-grained of control. Unlike keyboards where our fingers are great at hitting a bunch of individual keys, we&rsquo;re better at hitting smaller buttons or controlling pedals (think pressure sensitive like a gas pedal) with our feet. So, with that in mind, you only get a limited number of inputs you can practically control, so those inputs really need to count. That&rsquo;s the problem. They really don&rsquo;t.</p>
 <p>Even with all the power that using QMK gives and all the configuration options exposed in the MC6&rsquo;s config editor, they lack one big thing: <strong>Context sensitivity.</strong></p>
 <p>Essentially, if my inputs are limited, there&rsquo;s a limited number of solutions. The MC6 does offer multiple pages of inputs by stepping on two buttons at once to either page up or page down, but that&rsquo;s not as good as just sending messages to the device to let it know that I&rsquo;ve switched what I&rsquo;m doing and that it should switch it&rsquo;s active page/profile/whatever accordingly, the problem there is that has to be set up manually. With context sensitivity in theory devices could change the way they behave to be optimal for what you&rsquo;re working on. Right now I have the Stinky Footboard set to control media playback (⏯️, ⏭️, ⏮️, 🔇) but that&rsquo;s currently <em>all</em> it is set to, and that seem like a bit of a waste. Sure, I could set up multiple profiles, but without them being context aware that&rsquo;s a bit of a moot point. And, alright, I think the original driver software for it as well as the software for most of my &lsquo;gaming&rsquo; peripherals supports checking what the running program is, but that seems like a really bad solution and instead should be something the OS handles by letting the devices send generic button up/down events and doing <strong>ALL of the mapping in software</strong>.</p>
@@ -513,12 +549,15 @@ https://github.com/alex-shpak/hugo-book
 <p>Though, probably the most obnoxious thing that results from this is the inability to route audio in any reasonable way. Linux and Mac it seems have this done semi-well, Mac with Core Audio and Linux with Jack, but on Windows if you want to use a nice mic to talk on VOIP you better hook up your mic on the the first input on the audio interface or you&rsquo;re shit outta' luck my friend.</p>
 <p>I&rsquo;ll expand on this thought later, down in the <strong>Your Audio Sucks</strong> Section.</p>
 <p>Finally, <em>nobody</em> has ever wanted their notifications to show up when sharing their screen. Why are notifications not deemed as a sort of &lsquo;draw over&rsquo; element by default?</p>
-<p><strong>Aplication Specific Controllers (MIDI Controllers, Video Editing, etc)</strong></p>
+<p><strong>Application Specific Controllers (MIDI Controllers, Video Editing, etc)</strong></p>
 <p>First of all, this is done in a stupid way in most circumstances<a class="ptr">(9)</a>. There&rsquo;s no reason you should have single use hardware that sends specific commands that are not programmable by the user. Like I said, let&rsquo;s do all the mapping in software. This lets features be added later and users make better use of their controllers.</p>
 <p>But, let&rsquo;s look at some of what exists, and why I&rsquo;m saying this. While other devices exist to pick on, I&rsquo;m gong to focus on MIDI controllers as they&rsquo;re what I know.</p>
 <p>First though, for those unfamiliar, what is a MIDI controller? MIDI, or Musical Instrument Digital Interface is a bloody ancient standard that&rsquo;s still (mostly) 7-bit and let&rsquo;s you send control messages about actions on a controller made for music, often a piano keyboard, so, something like Key C4 Down, Velocity 8 or twisting a knob may be on a MIDI Control Channel (CC) and will be like CC43 changed to 127. Obviously in 2020 having a 7 bit standard is a bit archaic, and it&rsquo;s a rather stupid that it&rsquo;s taken until earlier this year for the improved MIDI 2.0 standard to even be ratified, but I digress.</p>
 <p>MIDI controllers come in all shapes and sizes, from a grid of RGB buttons to traditional keyboards to just a large array of knobs, so, naturally people took notice, and MIDI can therefore be used to control things it was never, ever meant for. People often try to use it to control video editors, 3D modeling software, and generally anything that Adobe<a class="ptr">(10)</a> makes.</p>
-<p>[TODO Picture of MIDI Controllers]</p>
+<p><img src="/midicontrollers.jpg" alt="midi controllers" /></p>
+<blockquote>
+<p>Pictured here are the Novation Launch Key MkII (The big keyboard),  Launhpad MkII (the 8x8 grid), the Roli Seaboard Block, and two Roli Lightpad Blocks.  <a class="ptr">(11)</a></p>
+</blockquote>
 <p>So now we have a crazy amount of controllers using a shitty standard instead of something that actually exposes more data and allows for finer control being used in ways that abuse the protocol instead of just exposing raw button down/up events and knob twists to the OS.</p>
 <blockquote>
 <p>Note, I&rsquo;m being careful to say button up and down events instead of button press. This is because it makes a lot more sense to exrpess the events as raw as possible so the OS can do things like detect a double-press, long-hold, etc.</p>
@@ -549,9 +588,25 @@ https://github.com/alex-shpak/hugo-book
   Your Chair Sucks
   <a class="anchor" href="#your-chair-sucks">#</a>
 </h3>
-<p>Did you get a gaming, racing chair that cost like $65 off of ebay? Yeah, you&rsquo;ll regret that one soon enough.</p>
-<p>Even if you got a normal office chair, if it wasn&rsquo;t exorbitantly expensive it probably sucks. I did like two weeks of stressing about finding something good and thankfully finally got a good recommendation from a friend, but otherwise it&rsquo;s like $500 SteelCase chair or having a bolt poke though the butt-foam until it&rsquo;s leaving a permanent indentation.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Did you get a gaming, racing chair that cost about $100 off of ebay? Yeah, you&rsquo;ll regret that one soon enough.</p>
+<p><img src="/racingchair.jpg" alt=""></p>
+<p>Even if you got a normal office chair, if it wasn&rsquo;t exorbitantly expensive it probably sucks. I did like two weeks of stressing about finding something good and thankfully finally got a good recommendation from a friend, but otherwise it&rsquo;s like $500 SteelCase chair or having a bolt poke though the butt-foam until it&rsquo;s leaving a permanent indentation into your butt.</p>
 <p>It&rsquo;s not like we even <em>need</em> innovation here, (as proven by the influx of hot garbage &lsquo;gaming&rsquo; chairs) we just need something affordable that&rsquo;s not garbage or plagued by fake reviews or reviews from another product attached to the new listing (Fix your shit amazon.)</p>
+<blockquote>
+<p>The chair on the right is the one my friend recommended, <a href="https://www.amazon.com/dp/B00450P182/ref=cm_sw_r_other_apa_i_oG.1EbSZR4NZP">here&rsquo;s a link to it on Amazon</a></p>
+</blockquote>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/chair.jpg" alt="">
+  </div>
+  
+</div>
+
 <p>But, I&rsquo;m here to talk about the future, so what do I think can be better than anything I&rsquo;ve even seen? Well, a good start would be threshold latches. Nicer office chairs often have a lock for allowing leaning back or not, but it&rsquo;d be great if it was &lsquo;locked&rsquo; until a pressure threshold so you can lean back and stretch without un-locking and necessitating re-adjusting the chair, a sort of temporary unlock done by just leaning back harder.</p>
 <p>But the biggest reason your chair sucks? It&rsquo;s a chair. I&rsquo;m not advocating for a treadmill desk, or sitting on one of those big ball things, I&rsquo;m simply saying having the only reasonable way of interacting with our second-brains being in a seated, unmoving position does nasty things to our bodies. While it would make more sense to adapt our peripherals and input methods, it&rsquo;s worth considering how we may re-shape our seats to work with us. A little while ago <a href="https://blog.luap.info/drafts/i-built-a-lay-down-desk.html?hnn">&ldquo;I built a lay down desk&rdquo;</a> was trending on Hacker News, and it&rsquo;s something I&rsquo;d considered before too, but I want to think bigger: What if our desk and chair acted as one piece of furniture, one that was flexible between sitting, laying, and standing positions, and the chair bent to an appropiate shape to match the position of the desk? <a href="https://youtu.be/xN9hTo3iR6A?t=182">Design doesn&rsquo;t have to be static</a>.</p>
 <h3 id="your-desk-sucks">
@@ -559,19 +614,22 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#your-desk-sucks">#</a>
 </h3>
 <p><strong>or &lsquo;why the fuck is it so hard to find a deep desk with a keyboard tray&rsquo;</strong></p>
-<p>I&rsquo;ve gone though wayyyy to many desks. What I&rsquo;m currently using is a nice big un' with a surface that is 5' x 2'4&rdquo; and it&rsquo;s still. not. big. enough. (for reference, a &lsquo;normal&rsquo; cheap desk seems to be ~3' x 1'8&quot;).</p>
+<p>I&rsquo;ve gone though wayyyy to many desks. What I&rsquo;m currently using is a nice big un' with a surface that is 5' x 2'4&rdquo; and it&rsquo;s still. not. big. enough. (for reference, a &lsquo;normal&rsquo; cheap desk seems to be ~3' x 1'8&quot;). So I&rsquo;ve had to put two desks in an L-shape.</p>
+<p><img src="/desk.jpg" alt="" /></p>
 <p>And, alright, I admit, I&rsquo;m not a typical computer user. I have enough devices hooked up that <code>lsusb</code> gives me 28 lines of output, I have 3 monitors + a pen display, and my desk is also home to a whole host of lab equipment, a eurorack setup, and other various things.</p>
-<p>[TODO, picture here]</p>
 <p>But even I think my desk sorta sucks.</p>
 <p>Hear me out. First of all, I have a bad knee. Not like I&rsquo;m walking around with a cane bad, but more like if I sit in one position for more than ~20 minutes and then move it I get a sharp pain like someone just drove a hot knife directly into it, but it only lasts a second. Yunno' what would be a major help with that? A sit / stand desk (height adjustable) desk.</p>
-<p>But that won&rsquo;t work for me, and probably a lot of other nerds reading this for one big reason. <strong>Wire. Hell.</strong> Like, maybe you&rsquo;re thinking *&ldquo;Pssh, what, so you have like a dozen cables down there, power, display, USB mouse/keeb, and audio&rdquo;</p>
+<p>But that won&rsquo;t work for me, and probably a lot of other nerds reading this for one big reason. <strong>Wire. Hell.</strong> Like, maybe you&rsquo;re thinking &ldquo;Pssh, what, so you have like a dozen cables down there, power, display, USB mouse/keeb, and audio&rdquo;</p>
 <p>Ha. No.</p>
 <p>I won&rsquo;t try to list it out, but Oh. My. God. A sit stand desk wouldn&rsquo;t be possible because that wire hell is truly <strong>untameable</strong> in it&rsquo;s current state, so, we&rsquo;re gonna take a brief detour from the desk stuff:</p>
 <p><strong>You Are Now Entering: The Cable Abyss.</strong></p>
 <p>I could rant to you about how USB-C with it&rsquo;s 42 different standards is a god damn nightmare, and that&rsquo;d even be pretty relevant here. But that&rsquo;s not the rabbit hole I want to fall down right now, instead I want to introduce you to my friend, MIDI.</p>
 <p>MIDI Is a fucking shit of a standard. It&rsquo;s 7 bit, ancient, and the &lsquo;standard&rsquo; <a class="ptr">(4)</a> cable for it has (ᵈᵉᵖᵉⁿᵈᶦⁿᵍ ᵒⁿ ʰᵒʷ ʸᵒᵘ ˡᵒᵒᵏ ᵃᵗ ᶦᵗ) 3 more pins than it even uses. By all metrics it fucking sucks. <em><strong>However</strong></em>, They did do one thing right.</p>
-<p>This, beautiful, beautiful port:</p>
-<p>[TODO, MIDI THRU pic]</p>
+<p>This beautiful port:</p>
+<p><img src="/midithru.jpg" alt="" /></p>
+<blockquote>
+<p>Image © Shira Wolven 2020, used with permission</p>
+</blockquote>
 <p>This, is a midi through. On most gear, it&rsquo;s accompanied by (at least) a MIDI IN, so, you can take your MIDI info in, and then, because a single midi cable carries 16 channels, chain other gear on.</p>
 <pre><code>From this,                             To This.
                  +--------+
@@ -602,7 +660,10 @@ https://github.com/alex-shpak/hugo-book
 <p>But nothing like that is even needed in order to make things suck less.</p>
 <p>How many times have you watched a YouTube video where the speakers voice had far too much bass or masked by a high pitch whine? How many streams have you heard where there&rsquo;s some hum or annoying background noise? I&rsquo;m sure you&rsquo;ve turned up your audio because something is quiet only to have your ears ravaged as soon as the audio is fixed in the stream.</p>
 <p>All of these things are totally fixable using a mix of hardware and software.</p>
-<p>!&gt; before I get into all the following, I&rsquo;m not saying all of these things should always be in use. For example when somebody is making music all of this obviously needs to be able to bypassed.</p>
+<blockquote class="book-hint warning">
+  Before I get into all the following, I&rsquo;m not saying all of these things should always be in use. For example when somebody is making music all of this obviously needs to be able to bypassed.
+</blockquote>
+
 <p><strong>Why <em>the fuck</em> do we not have a system-wide limiter?</strong></p>
 <p>And not just a dumb decibel limiter, but a <a href="https://en.wikipedia.org/wiki/Loudness">loudness (Wikipedia)</a> limiter. There&rsquo;s no reason there shouldn&rsquo;t be a toggle-able limiter to protect your ears</p>
 <p><strong>Why <em>the fuck</em> do we not have per-stream audio compression?</strong></p>
@@ -611,10 +672,16 @@ https://github.com/alex-shpak/hugo-book
 <p>Not all systems will be able to do this live without completely shitting the bed because of lack of processing power, but as our graphics cards are now including specific hardware for doing AI/ML based computation, there&rsquo;s no reason we sholudn&rsquo;t be using in the OS for the sake of grabbing the text out of all audio that goes in or out of the system. (of course, storing it securely and locally, nobody wants to wiretap themselves)</p>
 <p><strong>Why is Audio and Video Not Routable?</strong></p>
 <p>Alright, so this is mostly a dig at Windows, where everything is Garbage. Mac has CoreAudio which is pretty cool, and Linux can mostly do this for audio via <a href="https://jackaudio.org/faq/about.html">Jack Audio</a> and work is being done to make something for both audio and video with <a href="https://pipewire.org">Pipewire</a>.</p>
-<p>[TODO example pic of catia and pipewire]</p>
+<p><img src="/catia.png" alt="" /></p>
+<blockquote>
+<p>This is a screenshot of &lsquo;Catia&rsquo; - a graphical program for audio routing with Jack Audio. Here I just have pulseaudio set to use my first two outputs as my speaker outputs (Sink -&gt; System) , and the first input (my microphone, which is mono) set to be the input to the stereo &lsquo;virtual microphone&rsquo; that pulse audio provides to applications (System-&gt;Source). All the orange and green stuff is for MIDI devices, which catia can also route.</p>
+</blockquote>
 <p>The reason this is necessary is with routable audio and video you can do things like route your webcam&rsquo;s video first though software that does some video effects, then to a recording program and to a streaming program easily. Sure, this can be done anyway right now, but it often means creating a &lsquo;virtual&rsquo; webcam in the middle, and this scenario was already a fairly basic one. If you add in the aforementioned limiting and compressing as options you can see where this starts to matter.</p>
 <p><strong>Why are we not calibrating our audio devices?</strong></p>
-<p>[TODO] <a href="https://github.com/jaakkopasanen/AutoEq">https://github.com/jaakkopasanen/AutoEq</a></p>
+<p>While it may seem like it at times- with big fancy tube amps, planar magnetic headphones, and silver cables for that hi-fi sound- audio is not black magic. It&rsquo;s math. More over, while everybody&rsquo;s ears are a bit different, the frequency response that most people want from their devices is <a href="https://www.headphonesty.com/2020/04/harman-target-curves-part-1/">more or less known</a>. No device can perfectly meet this, at least not at a cost a mere mortal can afford. As that linked article details, this isn&rsquo;t super straight forward anyway, as your head and ear size, room acoustics, etc. all mater. But here&rsquo;s the thing:</p>
+<p>Computers are really stupidly powerful. We can make our audio quality better, even on sub-optimal equipment. I&rsquo;m going to gloss over most of the math, but the gist is by putting a special microphone with know frequency response at the desired listening point and doing a frequency sweep from each speaker (or headphone) and all the speakers at once we can math out each speaker&rsquo;s (or headphone&rsquo;s) frequency response and phase cancellation characteristics, then, being careful not to cause resonant peaks or really obnoxious phase shifting effects, use a parametric EQ to get the speakers (or headphones) as close to ideal as possible.</p>
+<p>Of course, the better the starting point the better this correction will work. You won&rsquo;t make some cheap iFrogs sound like Senheisers, but you might make them better.</p>
+<p>There is software that does <a href="https://github.com/jaakkopasanen/AutoEq">some of this</a>, but I really think it needs hardware acceleration (hell, maybe an <a href="https://zrna.org/shop">FPAA</a>) and to be more common.</p>
 <h3 id="your-displays-suck">
   Your Displays Suck
   <a class="anchor" href="#your-displays-suck">#</a>
@@ -676,17 +743,54 @@ https://github.com/alex-shpak/hugo-book
   Noise
   <a class="anchor" href="#noise">#</a>
 </h3>
+<p>Just looking at the <a href="https://en.wikipedia.org/wiki/Noise_pollution#Humans">Wikipedia Article on Noise Polution</a>, it&rsquo;s pretty obvious that humans like to be somewhere where noise is kept to a minimum. There are of course questions about what you want to consider noise. Like, clearly above I made it clear I prefer mechanical keyboards which, as anyone that has been on a discord call can tell you, are rather loud. The difference is in it being noise you&rsquo;re causing, or background noise that you can&rsquo;t control. Fan noise from your computer, music from another room that you can&rsquo;t quite make out, a rattle from the HVAC system, that&rsquo;s <em>noise</em>. Somehow we&rsquo;ve all gotten rather used to rather noisy environments.</p>
+<p>Don&rsquo;t get me wrong, improvements have been made. A lot of computers don&rsquo;t even run the fans when they&rsquo;re idle or you&rsquo;re just web browsing, LED bulbs don&rsquo;t have the ballasts that were required of old fluorescent bulbs that always found a way to whine, we no longer used CRT (Cathode Ray Tube) screens that had flyback transformers whining at the edge of human hearing either. But it&rsquo;s still not great. Even if none of the electronics in a room have fans or speakers or the other things you expect to make noise, you can still notice when a room has been shut off. And a lot of electronics do have fans, and they&rsquo;re often crap. Even the high end ones that PC building enthusiasts idolize like those from Noctua <a href="https://www.youtube.com/watch?v=6L4Lbh5GwzA&amp;ab_channel=MajorHardware">are far from amazing</a>.</p>
+<p>But, come on. Why are we not integrating at least some sound control into our architecture? Why is acoustic dampening something only used by streamers? Why are devices that we know get nasty <a href="https://en.wikipedia.org/wiki/Electromagnetically_induced_acoustic_noise">coil whine</a> not being silenced by just adding some wax or glue to the inductors?</p>
+<p>It&rsquo;s not like most of the solutions for making noise better aren&rsquo;t available and understood, it&rsquo;s just that it takes an extra bit of consideration and maybe a bit more money.</p>
+<p>I&rsquo;m not sure what the solution should be. Maybe products need to have some sort of testing for this and a label applied, like the ubiquitous &lsquo;Energy Star&rsquo; stickers or the 80 Plus ratings on PC power supplies.</p>
 <h3 id="lighting">
   Lighting
   <a class="anchor" href="#lighting">#</a>
 </h3>
-<p>[TODO] warms vs cool, brightness, ambi-light</p>
+<p>If you&rsquo;re in an office right now, I can take a pretty good guess that the lights above you are some of those 4ft long fluorescent tube bulbs, probably in an excruciating 6500k.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    The problem with that color temperature isn&rsquo;t necessarily that it&rsquo;s too &lsquo;cool&rsquo;, it&rsquo;s that it&rsquo;s fixed at that point. 6500k is about the same as the sun on a clear day&hellip; at about noon. The problem is our bodies expect warmer colored light closer to night or it screws up our sleep cycle. The website for the software <a href="https://justgetflux.com">f.lux</a> has aggregated some good <a href="https://justgetflux.com/research.html">research</a> on this subject, but I think at this point it&rsquo;s actually pretty common knowledge as even Samsung phones ship with the ability to turn a blue light filter on.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/Color_temperature_black_body_800-12200K.svg" alt="Color_temperature_black_body_800-12200K"></p>
+<blockquote>
+<p>Image from <a href="https://en.wikipedia.org/wiki/Color_temperature#/media/File:Color_temperature_black_body_800-12200K.svg">Bhutajata</a> on this <a href="https://en.wikipedia.org/wiki/Color_temperature">Wikipedia article</a></p>
+</blockquote>
+
+  </div>
+  
+</div>
+
+<blockquote>
+<p>Brief aside, if you use Linux, <a href="http://jonls.dk/redshift/">Redshift</a> is a good alternative to f.lux</p>
+</blockquote>
+<p>Right now we&rsquo;re still in the annoying stages of this sort of system, most RGB or color temperature variable bulbs have rather crappy <a href="https://en.wikipedia.org/wiki/Color_rendering_index">Color Rendering Index</a> (CRI), so even if the temperature is variable the quality still sucks.</p>
+<blockquote>
+<p>This is purely anecdotal, and it seems the Phillips Hue bulbs at least have a decently high CRI, but like, they&rsquo;re also a tad bit on the expensive and privacy invade-y side of things sooo ¯\<em>(ツ)</em>/¯</p>
+</blockquote>
+<p>But worse, the software to keep these bulbs in sync is pretty gross, and some bulbs will just end up snapping from one color to another every 15 minutes or so, which is more distracting than it&rsquo;s worth.</p>
+<p>[TODO] ambi-light, led indicators</p>
 <h3 id="co2">
   CO2
   <a class="anchor" href="#co2">#</a>
 </h3>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/1Nh_vxpycEA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>Alright, so after seeing this I went out and got a <a href="https://www.co2meter.com/collections/desktop/products/co2mini-co2-indoor-air-quality-monitor">CO2 meter</a>. I watched it get above <strong>2000ppm</strong> regularly. I took steps to lower it and now, honestly, I do feel better.</p>
+<p>This requires two things to fix:</p>
+<ol>
+<li>Better indoor ventilation</li>
+<li>A Carbon tax and other restrictions that scientists and economists have been telling governments for decades that they need to be doing before we lose entire ecosystems, our entire world becomes inhospitable to life as we know it, more cities have <a href="https://www.bbc.com/news/world-asia-india-50280390">air that is literally toxic</a>, and things just generally go to shit.</li>
+</ol>
+<p>Coming back around to &lsquo;How is this relevant to how we interact with computers&rsquo;?</p>
+<p>Well, I imagine you like to breathe while at your desk, and I also assume that you&rsquo;re using a device that uses electricity to read this, and that device is very likely <em>not</em> powered by renewable energy.</p>
 <h2 id="finding-information-sucks">
   Finding Information Sucks
   <a class="anchor" href="#finding-information-sucks">#</a>
@@ -699,6 +803,18 @@ https://github.com/alex-shpak/hugo-book
   Networking Sucks
   <a class="anchor" href="#networking-sucks">#</a>
 </h3>
+<ul>
+<li>Everything is centralized</li>
+<li>ipv4 is broken
+<ul>
+<li>ipv6 is worse</li>
+</ul>
+</li>
+<li>ISPs are evil</li>
+<li>nothing is secure</li>
+<li>nothing is persistent (saved local copies)</li>
+<li></li>
+</ul>
 <h3 id="transferring-your-profile-sucks">
   Transferring Your Profile Sucks
   <a class="anchor" href="#transferring-your-profile-sucks">#</a>
@@ -718,22 +834,25 @@ https://github.com/alex-shpak/hugo-book
   Local Backups By Default
   <a class="anchor" href="#local-backups-by-default">#</a>
 </h3>
-<h1 id="authentication-sucks">
+<h2 id="authentication-sucks">
   Authentication Sucks
   <a class="anchor" href="#authentication-sucks">#</a>
-</h1>
+</h2>
 <p>File Permissions</p>
 <p>user/password/2factor</p>
-<h3 id="storing-information-sucksblogdataandbackups">
-  <a href="Blog/DataAndBackups">Storing Information Sucks</a>
-  <a class="anchor" href="#storing-information-sucksblogdataandbackups">#</a>
+<h3 id="storing-information-suckshttpsopinionatedguidegithubiopostsdata-formats-backups-and-digital-purgatory">
+  <a href="https://opinionatedguide.github.io/posts/data-formats-backups-and-digital-purgatory/">Storing Information Sucks</a>
+  <a class="anchor" href="#storing-information-suckshttpsopinionatedguidegithubiopostsdata-formats-backups-and-digital-purgatory">#</a>
 </h3>
-<p>?&gt; This section I&rsquo;ve put in a complete other article because It <strong>sucks so hard</strong> that it deserves it.</p>
+<blockquote class="book-hint warning">
+  This section I&rsquo;ve put in a complete other article because It <strong>sucks so hard</strong> that it deserves it.
+</blockquote>
+
 <h2 id="presentation-of-information-sucks">
   Presentation of Information Sucks
   <a class="anchor" href="#presentation-of-information-sucks">#</a>
 </h2>
-<p>!&gt; I&rsquo;ll be the first to admit this website isn&rsquo;t the best on this. I put <a href="Design/d5-gen">The list of Generative Design Tools</a> in a MarkDown Table for fucks sake. I know. But, We&rsquo;ll get to that in a bit, in the Creating New Information Sucks section below, and I hope to convince you that isn&rsquo;t necessarily my fault.</p>
+<p class="tip">I'll be the first to admit this website isn't the best on this. I put <a href='https://opinionatedguide.github.io/design/generative-art/'/>the list of generative design tools</a> in a MarkDown Table for fucks sake. I know. But, We'll get to that in a bit, in the Creating New Information Sucks section below, and I hope to convince you that isn't necessarily my fault.</p>
 <h3 id="dark-patterns">
   &lsquo;Dark Patterns&rsquo;
   <a class="anchor" href="#dark-patterns">#</a>
@@ -759,6 +878,7 @@ https://github.com/alex-shpak/hugo-book
 <blockquote>
 <p>Bobby Mikul, Times Square :CC0 &ndash; <a href="https://www.publicdomainpictures.net/en/browse-author.php?a=2185">Source</a></p>
 </blockquote>
+<p><a href="https://www.youtube.com/watch?v=OFRjZtYs3wY&amp;ab_channel=TomScott">Why The Web Is Such A Mess (Youtube - Tom Scott)</a></p>
 <h3 id="updates-after-initial-draw">
   Updates after Initial Draw
   <a class="anchor" href="#updates-after-initial-draw">#</a>
@@ -930,6 +1050,7 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
 <li>I will concede the C920 can be made significantly less shit by just turning off most of the 'auto' settings and setting everything by hand. This can be done on Linux with GuvcView, but on Windows I've found all the recent drivers make it impossible, so, I stand by it still being shit.</li>
 <li>In the case of things that can be used standalone, not connected to a computer, like my afforementioned MorningStar MC6 midi controller, it makes some sense. </li>
 <li>Fuck Adobe.</li>
+<li>The Launchkey MK2 has an almost impressively bad keybed. Roli, the company behind the Seaboard Block and Lighpad Blocks is a bit controversial. Not like, Behringer levels of controversial, but still. ╮(─▽─)╭</li>
 </ol>
 </p>
 </article>
@@ -1006,12 +1127,9 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
         <li><a href="#local-backups-by-default">Local Backups By Default</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#authentication-sucks">Authentication Sucks</a>
       <ul>
-        <li><a href="#storing-information-sucksblogdataandbackups"><a href="Blog/DataAndBackups">Storing Information Sucks</a></a></li>
+        <li><a href="#storing-information-suckshttpsopinionatedguidegithubiopostsdata-formats-backups-and-digital-purgatory"><a href="https://opinionatedguide.github.io/posts/data-formats-backups-and-digital-purgatory/">Storing Information Sucks</a></a></li>
       </ul>
     </li>
     <li><a href="#presentation-of-information-sucks">Presentation of Information Sucks</a>
