@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An Interview With Soatok Dreamseeker #  12/3/2020
+Thank you for taking the time for this interview Soatok. Your blog at https://soatok.blog shows that you&rsquo;re a furry crypto nerd, but I&rsquo;d like to hear how you&rsquo;d put it, so, to get started, can you describe yourself?
+Whenever I&rsquo;m asked, I usually say something to the effect of, &ldquo;I&rsquo;m a security engineer with a dhole fursona that sometimes writes about cryptography on my furry blog.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Soatok" />
+<meta property="og:description" content="An Interview With Soatok Dreamseeker #  12/3/2020
+Thank you for taking the time for this interview Soatok. Your blog at https://soatok.blog shows that you&rsquo;re a furry crypto nerd, but I&rsquo;d like to hear how you&rsquo;d put it, so, to get started, can you describe yourself?
+Whenever I&rsquo;m asked, I usually say something to the effect of, &ldquo;I&rsquo;m a security engineer with a dhole fursona that sometimes writes about cryptography on my furry blog." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opinionatedguide.github.io/interviews/soatok/" />
+<meta property="article:published_time" content="2020-12-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-03T00:00:00+00:00" />
+<title>Soatok | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.7ab7eabf7f87a7831602cf77439f2fa68cc674a8cac55c9b5f671daf46c7812f.css" integrity="sha256-erfqv3&#43;Hp4MWAs93Q58vpozGdKjKxVybX2cdr0bHgS8=">
+<script defer src="/en.search.min.7b2f3de20e88b85651ffc0260ad8ea404bfcbea033f830f70fb92bcc535621d2.js" integrity="sha256-ey894g6IuFZR/8AmCtjqQEv8vqAz&#43;DD3D7krzFNWIdI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <hr>
+<div style="background:#42B9F308;border-radius: 5px;">
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a>
+<ul>
+<li><a href="/engineering/ep1-community/">Ⅰ - Community</a></li>
+<li><a href="/engineering/ep2-howtolearn/">Ⅱ - Learn How to Learn</a></li>
+<li><a href="/engineering/1-firstgoal/">1 - The First Goal</a></li>
+<li><a href="/engineering/2-arch/">2 - Let&rsquo;s do it then, Installing Arch Linux</a></li>
+<li><a href="/engineering/3-hardware/">3 - Into The Hardware</a></li>
+<li><a href="/engineering/4-linuxdirtree/">4 - Back to the <em>Root</em> of Things</a></li>
+<li><a href="/engineering/5-circuits1/">5 - Circuits, an Introduction</a></li>
+<li><a href="/engineering/6-howwework/">6 - Let&rsquo;s Work on <em>How</em> we work</a></li>
+<li><a href="/engineering/6p5-git/">6½ - Git</a></li>
+<li><a href="/engineering/7-codeintro/">7 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/7p5-consequences/">7½ - Consequences</a></li>
+<li><a href="/engineering/8-lowlvl/">8 - Low Level Programming</a></li>
+<li><a href="/engineering/9-codecont/">9 - Finishing up the Project</a></li>
+<li><a href="/engineering/9p5-languages/">9½ - Programming Languages</a></li>
+<li><a href="/engineering/10-networking/">10 - Networking</a></li>
+<li><a href="/engineering/11-math/">11 - Math</a></li>
+<li><a href="/engineering/12-physics/">12 - Physics</a></li>
+<li><a href="/engineering/13-chem/">13 - Chemistry</a></li>
+<li><a href="/engineering/14-circuits2/">14 - Circuits &amp; Semiconductors</a></li>
+<li><a href="/engineering/15-digitallogic/">15 - Digital Logic</a></li>
+<li><a href="/engineering/16-embedded/">16 - Embedded Systems</a></li>
+<li><a href="/engineering/17-algorithms/">17 - Discrete Math and Algorithms</a></li>
+<li><a href="/engineering/18-bigprog/">18 - Writing a Larger Program</a></li>
+<li><a href="/engineering/19-servers/">19 - Servers!</a></li>
+<li><a href="/engineering/19p5-cloud/">19 - &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/20-databases/">20 - Databases</a></li>
+<li><a href="/engineering/21-debugbuildtest/">21 - Debugging, Automated Building and Testing</a></li>
+<li><a href="/engineering/22-compileassemble/">22 - Compilers and Assemblers</a></li>
+<li><a href="/engineering/23-exploitation/">23 - Exploitation</a></li>
+<li><a href="/engineering/24-security/">24 - Security</a></li>
+<li><a href="/engineering/25-fosscopyright/">25 - Open Source, Licences, and Copyright</a></li>
+<li><a href="/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+<li><a href="/engineering/27-multithread/">27 - We&rsquo;ve Got Cores, Let&rsquo;s use &lsquo;em</a></li>
+<li><a href="/engineering/28-guiprog/">28 - Graphical Programming</a></li>
+<li><a href="/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/30-fpga1/">30 - Let&rsquo;s Try out Programmable Logic</a></li>
+<li><a href="/engineering/31-fpga2/">31 - Let&rsquo;s Make our own SOC</a></li>
+<li><a href="/engineering/32-3dprint/">32 - 3D Printing, CNC, and Making Things</a></li>
+<li><a href="/engineering/33-aiml/">33 - Fine, I&rsquo;ll talk about AI/ML</a></li>
+<li><a href="/engineering/34-hamradio/">34 - Ham Radio</a></li>
+<li><a href="/engineering/a0-wrappingup/">A0 - Wrapping Up</a></li>
+<li><a href="/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></li>
+<li><a href="/engineering/a2-cheat/">A2 - Cheat Sheets and Quick Info</a></li>
+<li><a href="/engineering/a3-bom/">A3 - Bill Of Materials</a></li>
+<li><a href="/engineering/a4-politics/">A4 - Moved to Opinioned Philosophy</a></li>
+<li><a href="/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></li>
+<li><a href="/engineering/a6-resources/">A6 - Other Great Resources</a></li>
+<li><a href="/engineering/a7-history/">A7 - History</a></li>
+<li><a href="/engineering/a8-oddthings/">A8 - Odd Things</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr>
+<div style="background:#F0D8D82F;border-radius: 5px;">
+<ul>
+<li><a href="/music/opmusic-intro/"><strong>Music</strong></a>
+<ul>
+<li><a href="/music/music-getting-started/">1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/">2 - Sound Sources</a></li>
+<li><a href="/music/theory/">3 - Theory</a></li>
+<li><a href="/music/effects/">4 - Effects</a></li>
+<li><a href="/music/mix-and-master/">5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/">6 - Arrangment - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/">7 - Instruments</a></li>
+<li><a href="/music/music-software/">8 - Software</a></li>
+<li><a href="/music/music-hardware/">9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr>
+<div style="background:#C1F0E628;border-radius: 5px;">
+<ul>
+<li><a href="/phil/opphil-old/"><strong>Philosophy</strong></a>
+<ul>
+<li><a href="/phil/basic-phil/">1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/">2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/">3 - Arguments</a></li>
+<li><a href="/phil/community/">4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/">5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/">6 - Education</a></li>
+<li><a href="/phil/labor/">7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/">8 - Copyright</a></li>
+<li><a href="/phil/consumerism/">9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/drugs/">14 - Drugs</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr>
+<div style="background:#F0CFA822;border-radius: 5px;">
+<ul>
+<li><a href="/design/design-intro/"><strong>Design</strong></a>
+<ul>
+<li><a href="/design/basics/">1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/">2 - Analog Art</a></li>
+<li><a href="/design/digital-design/">3 - Digital Art</a></li>
+<li><a href="/design/ui/">4 - UI/UX</a></li>
+<li><a href="/design/generative-art/">5 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr>
+<div style="background:#B4F0C122;border-radius: 5px;">
+<ul>
+<li><a href="/interviews/interviews/"><strong>Interviews</strong></a>
+<ul>
+<li><a href="/interviews/loial/">Loial Otter</a></li>
+<li><a href="/interviews/soatok/"class=active>Soatok Dreamseeker</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr>
+<div style="background:#e6feff22;border-radius: 5px;">
+<ul>
+<li><a href="/other/"><strong>Other</strong></a></li>
+</ul>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Soatok</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents"></nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="an-interview-with-soatok-dreamseeker">
+  An Interview With Soatok Dreamseeker
+  <a class="anchor" href="#an-interview-with-soatok-dreamseeker">#</a>
+</h1>
+<p><strong>12/3/2020</strong></p>
+<img src="/soatok.jpg" alt="Soatok" height="200em">
+<p><strong>Thank you for taking the time for this interview Soatok. Your blog at <a href="https://soatok.blog">https://soatok.blog</a> shows that you&rsquo;re a furry crypto nerd, but I&rsquo;d like to hear how you&rsquo;d put it, so, to get started, can you describe yourself?</strong></p>
+<p>Whenever I&rsquo;m asked, I usually say something to the effect of, &ldquo;I&rsquo;m a security engineer with a dhole fursona that sometimes writes about cryptography on my furry blog.&rdquo;</p>
+<p>There&rsquo;s actually a lot more to the story than that, but <em>comical understatement</em> is somewhat an unspoken tradition among my technical friends. (I can&rsquo;t tell if it&rsquo;s humility or impostor syndrome with them.)</p>
+<p>Outside my fandom persona, I&rsquo;ve written the code that helps to secure a double digit percentage of the websites on the Internet. I work on a cryptography team at an unspecified technology company. I&rsquo;m very deeply immersed in this stuff, for the good of the Internet, and even if I didn&rsquo;t <em>set out</em> to talk about cryptography topics, it would leak out (as it often does with my dumb Twitter jokes).</p>
+<p><strong>What are some your favorite projects you&rsquo;ve worked on?</strong></p>
+<p>My favorite project is usually whatever I&rsquo;m working on at a given moment.</p>
+<p>In the past, I&rsquo;ve implemented a full suite of <a href="https://github.com/soatok/constant-time-js">constant-time JavaScript algorithms</a>, only to discover Thomas Pornin already did <a href="https://github.com/pornin/CTTK">something similar for C</a>.</p>
+<p>My current project involves creating a series of open source libraries to make it easier for JavaScript developers to implement end-to-end encryption in their own applications.</p>
+<p><strong>Why Javascript?</strong></p>
+<p>Cryptographers have an orthodoxy that loosely follows the same battle lines as infosec opinions on programming languages: <strong>PHP bad, JavaScript harmful</strong>.</p>
+<p>I think the <em>intent</em> is, if they neglect these languages, they can exert some sort of bastard lovechild of market pressure and darwinism to coerce developers onto programming languages that are more suitable to secure cryptography than the ones they&rsquo;re already using.</p>
+<p>In practice, this just means that the programming languages that most of us use are less safe than they could be, and the ivory tower academics and infosec thought leaders just hold their nose up to the thought of meeting them halfway. This makes the Internet less secure for us all.</p>
+<p><strong>It&rsquo;s interesting to me that you&rsquo;re so openly furry and mix that in with all of your more technical posts about cryptography, much like I have here on OpGuides. Why did you make the decision to do both under one unified identity and what has the reaction to that been like?</strong></p>
+<p>I love the furry fandom and I&rsquo;m deeply fascinated by security topics, so it&rsquo;s an obvious cross-over for me. But there is more to it than just that!</p>
+<p>I mentored a few folks over the years, and tried to nudge many more towards supportive, accepting, and uplifting venues. Almost everyone involved in that was deathly terrified of, for example, hiring managers finding out about their fandom participation.</p>
+<p>We both know this, but a lot of business people do not: The furry fandom is widely regarded as a LGBT subculture. Discriminating against people who participate in our community is a good way to undermine your own diversity and inclusion initiatives.</p>
+<p>Being openly and shamelessly my furry self is an easy opportunity for me to normalize our community to companies that hire security analysts, programmers, or cryptographers. This has a few effects:</p>
+<ol>
+<li>Hiring managers are more exposed to furries in tech, which makes them less likely to react badly if someone discloses their hobbies during an interview (whether or not they intended to).</li>
+<li>Neophytes get to see someone with a lot of experience in the industry be openly weird, so they will be a little more comfortable in their own fur.</li>
+<li>Queerphobes that use anti-furry hate as a dog-whistle out themselves on social media in droves, which helps identify which companies should be avoided.</li>
+<li>The rarest consequence, but has happened to me about a half-dozen times in my career: More tech people that were incidentally furry become open about it when they see no significant ill befall me.</li>
+</ol>
+<p>I hope it&rsquo;s clear that the end result is a net positive, even if the prospect of doing what I do is a little scary to a lot of people.</p>
+<p><strong>If you could go back and make the decision to post under two different personas, would you? at least in part?</strong></p>
+<p>Nope! Game Theory says it&rsquo;s the optimal strategy.</p>
+<p><strong>Cryptography is under constant attack from the US government. Do you think there are things the US government should do related to crypto?</strong></p>
+<p>The US government should really stop trying to give the Department of Justice a backdoor.</p>
+<p>Like, I get it: Their bottoms still need a regular powdering after Edward Snowden revealed the NSA was literally spying on everyone. They wanted to keep abusing their power with impunity and secrecy, and now they can&rsquo;t. Boo hoo.</p>
+<p>But if they&rsquo;re really as interested in &ldquo;protecting the children&rdquo; as they like to claim, they&rsquo;d invest more in end-to-end encryption and tougher privacy protections; especially but not exclusively for kids!</p>
+<p><strong>What are your thoughts on cryptocurrency? Are you concerned about the environmental cost from the electricity mining uses?</strong></p>
+<p>Cryptocurrency is a mixed bag, and it&rsquo;s hard to give a succinct answer.</p>
+<p>On one paw, it&rsquo;s one of the most reliable revenue sources for advancements in cryptography. A lot of the work on practical zero-knowledge proofs happening today is the result of Zcash and Ethereum developers trading recipes and not being preoccupied with Line of Business development work at their dayjob.</p>
+<p>On the other, it&rsquo;s a magnet for unscrupulous hacks and ancap tech bros. You know the type: They hate the state and want governments to get off their back, but they love the hierarchies of capitalism and the privileges of private property and systemic state violence that serves the interests of the wealthy? If you see &ldquo;Bitcoin maximalist&rdquo; in someone&rsquo;s Twitter bio, 99 times out of 100, you&rsquo;re dealing with that beast.</p>
+<p><strong>What changes do you think should be made to social media platforms to give users the best combination of privacy, ease of use, and security?</strong></p>
+<p>Public messages (e.g. tweets) should have slightly more granular access controls than the current all-or-nothing approach (Is your account public or private?).</p>
+<p>Public messages should be editable (with a public changelog). Replies should be clearly marked if they were directed at a previous version, and the option to view them <em>in context</em> should be available.</p>
+<p>Private messages should be end-to-end encrypted, using keys that the platforms cannot access.</p>
+<p><strong>If you could go back and redesign any part of how the internet works, what would you change?</strong></p>
+<p>I would have encrypted every packet from day one, rather than slowly bolting it on years later. For example: Email encryption is <em>still</em> opportunistic in 2020. We&rsquo;ve only started addressing DNS privacy. (Note: DNS privacy is a good problem to solve; DNSSEC is stupid.)</p>
+<p><strong>Last week the CEO&rsquo;s of Facebook and Twitter just went to a congressional hearing about §230 of the CDA, where many  senators expressed concern about biases in how tweets and posts are flagged for misinformation and how accounts are suspended for Terms Of Service violations. How do you think this problem should be addressed moving forwards?</strong></p>
+<p>Assuming they&rsquo;re being even mildly honest about anything (which I don&rsquo;t really believe), Silicon Valley needs to get over their fear of the perception of having anti-conservative bias. This fear leads to them tolerating hate speech and rallying cries for racist and transphobic violence.</p>
+<p>Facebook is unsalvageable.</p>
+<p>I previously touched on <a href="https://medium.com/@soatok/defeating-coordinated-inauthentic-behavior-at-scale-a872badf721">defeating coordinated inauthentic behavior at scale</a> in my Medium writing days.</p>
+<p>(My Medium writing days ended because I got tired of their constant pressure to monetize my writing. I&rsquo;m happy to pay for the privilege of publishing my ideas, ad-free, without a paywall.)</p>
+<p><strong>Having just gone though the 2020 election, with what seem to be mass unfounded allegations of voter fraud, do you think electronic voting, potentially over the internet, should have been used?</strong></p>
+<p>No.</p>
+<p>What&rsquo;s the failure mode for a hacked election? You can&rsquo;t just <em>roll back</em> a political career advancement.</p>
+<p>The threat model for elections is incompatible with the BYOB mental model of consumer electronics (which is what people imply when they talk about electronic voting).</p>
+<p>Paper ballots. You need an audit trail that technology cannot tamper with.</p>
+<p><strong>The repository for YouTubeDL, a popular tool for downloading videos off of many more sites than just YouTube, was taken down from GitHub recently as a result of a DMCA take down notice from the RIAA, in part because they were using copyrighted videos in their test cases to ensure their method of bypassing YouTubes &lsquo;Rolling Cipher&rsquo; code worked. What do you think about this?</strong></p>
+<p>The RIAA is a blight upon the Internet and needs to be dismantled, but only after we tear down JSTOR and Elsevier. Remember Aaron Swartz.</p>
+<p>The EFF does a lot of good work to oppose tyrants like the RIAA.</p>
+<p><strong>What are your thoughts about bypassing Digital Rights Management (DRM) in general?</strong></p>
+<p>DRM is diametrically opposed to endpoint security, transparency, and trustworthy computing. Only corporate shills that sold their soul to the intellectual property machine ever think DRM is a good idea for consumer devices.</p>
+<p><em>That being said</em>, the notion of using DRM to run code in &ldquo;the cloud&rdquo; that the cloud service providers cannot understand or tamper with is very attractive. But that&rsquo;s an inversion of the normal power dynamic.</p>
+<p><strong>Do you think society has been negatively or positively impacted by the way the Internet and social media has changed how people interact?</strong></p>
+<p>I think it&rsquo;s mildly positive. It&rsquo;d be significantly more positive if tech companies took coordinated inauthentic behavior, misinformation, and propaganda more seriously 10 years ago.</p>
+<p>There&rsquo;s a lot to hate. But I wouldn&rsquo;t have known about the furry fandom&ndash;let alone ever participated in it&ndash;if it weren&rsquo;t for the Internet and social media.</p>
+<p><strong>As time moves on there is at least some growing public understanding of cryptographic security, like HTTPs and why someone may want their phone to be encrypted, etc. - Do you think it&rsquo;s necessary that the public have an even better understanding than what is currently normal? What things do you think most people miss that could be easily taught?</strong></p>
+<p>People don&rsquo;t need a graduate course in number theory and CS101 descriptions of RSA, which is what the cryptography orthodoxy pawned off on the public.</p>
+<p>I wrote a guide to <a href="https://soatok.blog/2020/06/10/how-to-learn-cryptography-as-a-programmer/">learning cryptography as a programmer</a> earlier this year.</p>
+<p>We as an industry need to spend some time talking to the UX experts, technical writers, and science communicators of the world and devise a concise and coherent public education strategy. Until that happens, we&rsquo;ll continue to flounder around in the dark <em>but</em> some of us will make better and easier-to-use tools, so things won&rsquo;t be so bad.</p>
+<p><strong>Is there any skill you wish you had developed in a formal education that you didn&rsquo;t?</strong></p>
+<p>There&rsquo;s a lot of academic formality that I missed out on, including:</p>
+<ul>
+<li>How to write a whitepaper for a scientific journal. In 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \( \LaTeX \)
+</span>
+.</li>
+<li>Familiarity with the mathematician jargon (especially lambda calculus) that obfuscates intuition.</li>
+<li>How to not be a filthy degenerate (or so my detractors say).</li>
+</ul>
+<p><strong>When doing crypto stuff, what does your work environment look like?</strong></p>
+<p>It depends what I&rsquo;m doing.</p>
+<p>Most of my open source security work over the years involved a web browser with Github.com on one monitor, and Notepad++ in the other. Nothing too fancy.</p>
+<p>If I&rsquo;m reverse engineering (e.g. Android apps), I&rsquo;ll boot up a Virtualbox machine and fullscreen it on one of the monitors.</p>
+<p>I do find good background music indespensible to deep analytic work. <a href="https://vimeo.com/51606428">Time I by Wintersun</a> and <a href="https://www.youtube.com/watch?v=ECc-kDhobls&amp;list=OLAK5uy_niuMMAdpm1ZjjBi3jFfRap7UlOQIAJNQE">Malcom Robinson&rsquo;s <em>Chrono Trigger Orchestral Selections</em></a> are two playlists you&rsquo;ll hear emit from my bedroom all day long.</p>
+<p>I&rsquo;ve worked from home for most of my career, and for the entire past 6 years, so my home computer setup is pretty sweet.</p>
+<p><strong>Is there any skill that you spent too much time developing that you wish you hadn&rsquo;t?</strong></p>
+<p>Not particularly. There&rsquo;s no such thing as useless knowledge; only stuff you don&rsquo;t know how to use, or don&rsquo;t know how.</p>
+<p><strong>What&rsquo;s the most important skill that you&rsquo;ve taught yourself?</strong></p>
+<p>Active listening. Hands down.</p>
+<p>The most stressful problems you will ever encounter in almost any profession is either, at its core, a communication problem, or the consequence of one.</p>
+<p>That being said, I didn&rsquo;t entirely teach it to myself. My close friends (a.k.a. chosen family) were all deeply involved in those lessons. :3</p>
+<p><strong>What do you do for fun? Any books, movies, TV shows, etc. that you&rsquo;d recommend?</strong></p>
+<p>I frequently play co-op video games with my chosen family. We&rsquo;re currently experiencing Final Fantaxy XIV together, and looking forward to Corepunk when it comes out.</p>
+<p>(Sometimes we even stream our gameplay, but usually on <a href="https://twitch.tv/doomalorian">this channel</a>.)</p>
+<p><strong>What&rsquo;s the biggest &lsquo;Oh Shit&rsquo; moment you&rsquo;ve ever had, be it one you caught in time or not?</strong></p>
+<p>One time I was migrating a PostgreSQL cluster at night, and I accidentally typed the <code>rm</code> command into the wrong terminal.</p>
+<p>I called my boss and then we discovered the backup software had been failing for nearly a month. (I did have a manual snapshot from a week ago, but that was a week of data lost.)</p>
+<p>Not a fun year.</p>
+<p><strong>Who are your biggest inspirations? What creators do you think are way to underrated and deserve a shout out?</strong></p>
+<p>There are too many people to list. I feel like I&rsquo;d do everyone a disservice if I tried. Too many artists, too many musicians, too many videographers, too many photographers, too many dangers.</p>
+<p>Maybe if I could Ctrl+A, Ctrl+C the furry fandom (sans the alt-right), that&rsquo;d be closer to the comprehensive list.</p>
+<p>Outside of the fandom, <a href="https://twitter.com/Doomalorian">my best friend</a> of 12+ years <a href="https://twitter.com/BelmontLion">recently made a fursona</a>.</p>
+<p>I&rsquo;m very fortunate to count <a href="https://twitter.com/SwiftOnSecurity">@SwiftOnSecurity</a> among my friends too.</p>
+<p><strong>What&rsquo;s the best advice you&rsquo;ve ever received? Worst?</strong></p>
+<p>Best (all from my best friend over the years):</p>
+<ul>
+<li><em>Just because you can doesn&rsquo;t mean you should.</em></li>
+<li><em>The truest measure of a person is what they do when they think no one is watchng.</em></li>
+<li><em>Power is temporary; what you do with it when you have it is what counts.</em></li>
+</ul>
+<p>Worst:</p>
+<ul>
+<li><em>You need to find God</em> &ndash; annoying person in my high school</li>
+</ul>
+<p><strong>How do you stay motivated to keep doing cool things?</strong></p>
+<p>At this point, it&rsquo;s a habit for me. But early on, I was motivated largely by <em>spite</em>.</p>
+<p>I got my start in tech by playing with a program called RPG Maker, and I decided to make a website for my personal projects. The indie game community back then was <strong>super toxic</strong>, so people in the community kept hacking my website. (My early PHP wasn&rsquo;t very good.) I got angry and decided I would learn about web application security to stop them from breaking in.</p>
+<p>Years later, one of the perpetrators admitted to me what they were doing. By then, I was long over it.</p>
+<p><strong>What hobby do you want to get into but haven&rsquo;t had a chance to dive into yet?</strong></p>
+<p>I have absolutely no musical talent. I&rsquo;m getting a fursuit soon. Therefore, I figured learning to dance would be pretty cool :3</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/opinionatedguide/OpGuidesHugoSrc/tree/main/content//Interviews/soatok.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.black.svg" style="width:100px;height:100px"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents"></nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

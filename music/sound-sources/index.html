@@ -83,7 +83,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.7ab7eabf7f87a7831602cf77439f2fa68cc674a8cac55c9b5f671daf46c7812f.css" integrity="sha256-erfqv3&#43;Hp4MWAs93Q58vpozGdKjKxVybX2cdr0bHgS8=">
-<script defer src="/en.search.min.3a7e4203c6feb98be31dd591e5ceb93a3deeae32c22a63ac47c80320a17318e3.js" integrity="sha256-On5CA8b&#43;uYvjHdWR5c65Oj3urjLCKmOsR8gDIKFzGOM="></script>
+<script defer src="/en.search.min.7b2f3de20e88b85651ffc0260ad8ea404bfcbea033f830f70fb92bcc535621d2.js" integrity="sha256-ey894g6IuFZR/8AmCtjqQEv8vqAz&#43;DD3D7krzFNWIdI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -249,7 +249,8 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><a href="/interviews/interviews/"><strong>Interviews</strong></a>
 <ul>
-<li><a href="/interviews/loial/">An Interview with Loial Otter</a></li>
+<li><a href="/interviews/loial/">Loial Otter</a></li>
+<li><a href="/interviews/soatok/">Soatok Dreamseeker</a></li>
 </ul>
 </li>
 </ul>
@@ -318,6 +319,7 @@ https://github.com/alex-shpak/hugo-book
   <nav id="TableOfContents">
   <ul>
     <li><a href="#samples">Samples</a></li>
+    <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
     <li><a href="#wavetables">Wavetables</a></li>
     <li><a href="#fm-synthesis">FM Synthesis</a></li>
     <li><a href="#granular-synthesis">Granular Synthesis</a></li>
@@ -387,10 +389,20 @@ https://github.com/alex-shpak/hugo-book
 </blockquote>
 <p>start, stop, fade, pitch shift, (ableton simpler)Live Input</p>
 <p>quantization, tracking</p>
+<h2 id="additive-and-subtractive-synthesis">
+  Additive and Subtractive Synthesis
+  <a class="anchor" href="#additive-and-subtractive-synthesis">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLrnjie9klQEkZGar3zZ4hRurU_kUDk7Md" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>[TODO] making a basic subtractive synth voice in VCV</p>
 <h2 id="wavetables">
   Wavetables
   <a class="anchor" href="#wavetables">#</a>
 </h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/8DjnDVWKaEs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Note, that not all wavetables have the linear FM (discussed in the next section), Phase mod / distortion, and wavefolding that pigments has, though many do.</p>
+<p>I really reccomend using <a href="https://blamsoft.com/vcv-rack/xfx-wave/">Blamsoft&rsquo;s XFX-Wave</a> for VCV rack to try out Wavetable synthesis. Also in VCV, <a href="https://library.vcvrack.com/TinyTricks/WAVE">Tiny Tricks Wave</a> is a neat way to experiment with recording your own tables.</p>
+<p>[TODO pic of both]</p>
 <h2 id="fm-synthesis">
   FM Synthesis
   <a class="anchor" href="#fm-synthesis">#</a>
@@ -403,13 +415,18 @@ https://github.com/alex-shpak/hugo-book
 <p>First, Let&rsquo;s start with linear vs exponential FM. It&rsquo;s worth noting that most pitch tracking is exponential since our music system itself is inherently exponential (each octave is a doubling, that is the frequency between C5 and C4 is twice the frequency between C3 and C4). This causes a problem though, if we modulate with exponential FM, say with a sine wave that is +/- 1V (2Vpp) and we start with an A4 at 440hz, then we&rsquo;ll swing up to 880hz and down to 220hz. Fine right? Not so much. If this modulation is meant to simply give us a more harmonically interesting A as we mix in different octaves that won&rsquo;t be the effect, as now we&rsquo;re (to oversimplify) at 880hz half the time and 220hz half the time, and if we average those $\frac{880+220}{2}$ then we don&rsquo;t still get the original A 440hz but rather we get 550Hz, so, we&rsquo;ve detuned. Linear FM won&rsquo;t be able to follow the V/Oct standard (though some may use the Hz/V standard) but will keep you in tune as you modulate. This, however, begins to pose a more interesting problem. Imagine you want to modulate a 100hz signal by +/- 200hz. Clearly, that would mean going as high as 300hz, but what happens when we get past the first half of that negative signal and hit 0hz? Well, this is where having a Though Zero FM (TZFM) capability comes in handy, as this issue is solved sonically by actually inverting the phase of the signal when crossing the 0Hz point. While this may seem an odd solution, it does produce sounds that line up with what our ears expect.</p>
 <p>Exponential FM and V/Oct, assuming the same scaling, are the same thing though so sometimes you can actually view it more as a second V/Oct input. For example, you could use the Exp FM input to specify the note, and then the normal V/Oct input to change the octave. Of note however, this may not always work as the Exp FM input may be AC coupled, meaning that DC values, like note data, will not be able to get through and instead you&rsquo;ll just hear a &ldquo;ping&rdquo; as the pitch is modulated at the cutoff of the AC coupling filter, in these cases the Exp FM input will have a minimum frequency that the input signal can oscillate at to perform properly.</p>
 <p>When talking about Linear FM, I mentioned that simple ratios are best. This isn&rsquo;t entirely true, but they will produce the least complicated harmonics. For example taking</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/L1QZuEuMD_E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>[Todo, Why simple ratios]</p>
 <p>[Todo, Algorithms]</p>
+<p>[TODO, pic of Valley&rsquo;s Dexter]</p>
+<p>[TODO] DIY FM voice in VCV</p>
 <h2 id="granular-synthesis">
   Granular Synthesis
   <a class="anchor" href="#granular-synthesis">#</a>
 </h2>
-<p>textures</p>
+<p>There are many, many granular synths and effects, but, I&rsquo;d like to start with a video review from Loopop of the Tasty Chips GR-1, as I think the hardware does a good job of showing what&rsquo;s going on and Loopop does a great job explaining as well:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/1RWOoEj3mwU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>[TODO] use for textures</p>
 </article>
  
       
@@ -457,6 +474,7 @@ https://github.com/alex-shpak/hugo-book
   <nav id="TableOfContents">
   <ul>
     <li><a href="#samples">Samples</a></li>
+    <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
     <li><a href="#wavetables">Wavetables</a></li>
     <li><a href="#fm-synthesis">FM Synthesis</a></li>
     <li><a href="#granular-synthesis">Granular Synthesis</a></li>
