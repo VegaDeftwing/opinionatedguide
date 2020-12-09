@@ -75,12 +75,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 8 - Low Level Programming #   the stack, pointers, etc.
-psuedo code, bitwise opererators, types, unsigned, signed bit, 1&rsquo;s compliment, 2&rsquo;s compliment
-Some simple programs, in C&#43;&#43; #  TODO: 30 Seconds of C&#43;&#43; (Github)
-Hello World #  fully discect each line and call and why each line is used, ASCII table
-add greating and input
-Bit Operations #  Even or Odd, prime, #  Calculating sine and pi #  Sorting a list #  mention efficenecy, analysis later">
+<meta name="description" content="Chapter 8 - Low Level Programming #   Why C&#43;&#43;? #  This chapter of OpGuides will be mostly C&#43;&#43;, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. It&rsquo;s spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -92,12 +87,7 @@ Bit Operations #  Even or Odd, prime, #  Calculating sine and pi #  Sorting a li
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 8 - Low Level Programming #   the stack, pointers, etc.
-psuedo code, bitwise opererators, types, unsigned, signed bit, 1&rsquo;s compliment, 2&rsquo;s compliment
-Some simple programs, in C&#43;&#43; #  TODO: 30 Seconds of C&#43;&#43; (Github)
-Hello World #  fully discect each line and call and why each line is used, ASCII table
-add greating and input
-Bit Operations #  Even or Odd, prime, #  Calculating sine and pi #  Sorting a list #  mention efficenecy, analysis later" />
+<meta property="og:description" content="Chapter 8 - Low Level Programming #   Why C&#43;&#43;? #  This chapter of OpGuides will be mostly C&#43;&#43;, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. It&rsquo;s spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/8-lowlvl/" />
 
@@ -105,7 +95,7 @@ Bit Operations #  Even or Odd, prime, #  Calculating sine and pi #  Sorting a li
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.3f70e1642246a4e648c919b63593926d382d172858f87725b4146d06abe30c81.css" integrity="sha256-P3DhZCJGpOZIyRm2NZOSbTgtFyhY&#43;HcltBRtBqvjDIE=">
-<script defer src="/en.search.min.4b6ee22a2a471f601e720960598549389b9b275ea70cc90a96bc742b9eda86e6.js" integrity="sha256-S27iKipHH2AecglgWYVJOJubJ16nDMkKlrx0K57ahuY="></script>
+<script defer src="/en.search.min.46286a0ef344edddbab59a523b597c8ce5f6c51021ec5b6cd09fe785d92ce045.js" integrity="sha256-RihqDvNE7d26tZpSO1l8jOX2xRAh7Fts0J/nhdks4EU="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -343,19 +333,22 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
+    <li><a href="#why-c">Why C++?</a></li>
+    <li><a href="#dont-throw-out-everything-you-already-know">Don&rsquo;t throw out everything you already know!</a></li>
     <li><a href="#some-simple-programs-in-c">Some simple programs, in C++</a>
       <ul>
-        <li><a href="#hello-world">Hello World</a></li>
-        <li><a href="#bit-operations">Bit Operations</a></li>
-        <li><a href="#even-or-odd-prime">Even or Odd, prime,</a></li>
+        <li><a href="#hello-world">Hello World!</a></li>
+        <li><a href="#recursive-fibonacci">Recursive Fibonacci</a></li>
         <li><a href="#calculating-sine-and-pi">Calculating sine and pi</a></li>
         <li><a href="#sorting-a-list">Sorting a list</a></li>
         <li><a href="#palindromes">Palindromes</a></li>
-        <li><a href="#cypher">Cypher</a></li>
+        <li><a href="#cipher">Cipher</a></li>
       </ul>
     </li>
+    <li><a href="#bit-operations">Bit Operations</a></li>
     <li><a href="#system-calls">System Calls</a></li>
-    <li><a href="#interupt--signal-handeling">Interupt &amp; Signal handeling</a>
+    <li><a href="#assembly">Assembly</a></li>
+    <li><a href="#interrupt--signal-handling">Interrupt &amp; Signal handling</a>
       <ul>
         <li><a href="#part-2-going-deeper">Part 2, Going Deeper</a></li>
         <li><a href="#what-are-we-going-to-do">What are we going to do?</a></li>
@@ -385,51 +378,641 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#chapter-8---low-level-programming">#</a>
 </h1>
 <iframe width="100%" height="450" src="https://www.youtube.com/embed/Snr113r5ocY?list=FLFMnqfaTa1se1LfbCB3peJQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p>the stack, pointers, etc.</p>
-<p>psuedo code, bitwise opererators, types, unsigned, signed bit, 1&rsquo;s compliment, 2&rsquo;s compliment</p>
+<h2 id="why-c">
+  Why C++?
+  <a class="anchor" href="#why-c">#</a>
+</h2>
+<p>This chapter of OpGuides will be mostly C++, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C++, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. It&rsquo;s spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn. It forces you to know the low level, which in this case is great. C++ has grown into behemoth where any thing can be done in about a dozen different ways and each development team is effectively writing in their own dialect of C++.</p>
+<p>On the other hand, C has a lot of annoyances due to its minimalism. For example, there are no strings - only arrays of characters - and all memory management is manual.</p>
+<p>Rust is cool, but I think it&rsquo;s more of a language you need to grow into understand why someone would want to use it. It&rsquo;s very rigid and does a very good job of preventing memory mistakes and making sure the programmer has handled any errors that could come their way (What do you do if you go to open a file and it&rsquo;s not there, for example).</p>
+<p>Ultimately, I chose to write this about C++ because it&rsquo;s what I see being used for most larger projects and more and more embedded programming is in C++ instead of C.</p>
+<p>Thankfully, the two are pretty similar, as C++ is a superset of C - that is it&rsquo;s C with a whole wack ton of added features (for better or worse)</p>
+<p>What this really means is that should you need to go back and learn C it&rsquo;s more so learning to cope with having less of the features of C++.</p>
+<p>I&rsquo;ll try to teach the C way of doing things as I go anyway though, so honestly think of this more like</p>
+<h2 id="dont-throw-out-everything-you-already-know">
+  Don&rsquo;t throw out everything you already know!
+  <a class="anchor" href="#dont-throw-out-everything-you-already-know">#</a>
+</h2>
+<p>[TODO] loops, while, etc.</p>
 <h2 id="some-simple-programs-in-c">
   Some simple programs, in C++
   <a class="anchor" href="#some-simple-programs-in-c">#</a>
 </h2>
 <p>TODO: <a href="https://github.com/Bhupesh-V/30-seconds-of-cpp">30 Seconds of C++ (Github)</a></p>
 <h3 id="hello-world">
-  Hello World
+  Hello World!
   <a class="anchor" href="#hello-world">#</a>
 </h3>
-<p>fully discect each line and call and why each line is used, ASCII table</p>
-<p>add greating and input</p>
-<h3 id="bit-operations">
-  Bit Operations
-  <a class="anchor" href="#bit-operations">#</a>
+<p>It&rsquo;s traditional to start in any language by writing a program that just outputs the words &ldquo;Hello World!&rdquo; to the terminal, so let&rsquo;s start there in C++</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hello World!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+    <span style="color:#66d9ef">return</span>(<span style="color:#ae81ff">0</span>);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>To run this code, save it to a file named <code>hello.cpp</code> and then open a terminal, navigate to that folder and run <code>g++ hello.cpp -o hello</code>, then you can run your program with <code>./hello</code>, that should give you something like this:</p>
+<pre><code>[vega@lyrae ~]$ g++ hello.c -o hello
+[vega@lyrae ~]$ ./hello
+Hello World!
+</code></pre><p>Alright, so let&rsquo;s go though line by line.</p>
+<p>On line <strong>1</strong> there&rsquo;s a <code>#include</code> statement, this tells the compiler we want to include some library or other code. In this case we want the <code>iostream</code> library, as well need it in a few lines, but what about this library, where is it?</p>
+<p>Well, that library is just some other code. We can look at it by navigating to <code>/usr/include/c++/[version]</code> (at time of writing the version is 10.2.0) or, in VSCode you can hold control and click on the word <em>iostream</em> to go it&rsquo;s file, so let&rsquo;s look at that file:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// Standard iostream objects -*- C++ -*-
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Copyright (C) 1997-2020 Free Software Foundation, Inc.
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">// This file is part of the GNU ISO C++ Library.  This library is free
+</span><span style="color:#75715e">// software; you can redistribute it and/or modify it under the
+</span><span style="color:#75715e">// terms of the GNU General Public License as published by the
+</span><span style="color:#75715e">// Free Software Foundation; either version 3, or (at your option)
+</span><span style="color:#75715e">// any later version.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// This library is distributed in the hope that it will be useful,
+</span><span style="color:#75715e">// but WITHOUT ANY WARRANTY; without even the implied warranty of
+</span><span style="color:#75715e">// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+</span><span style="color:#75715e">// GNU General Public License for more details.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Under Section 7 of GPL version 3, you are granted additional
+</span><span style="color:#75715e">// permissions described in the GCC Runtime Library Exception, version
+</span><span style="color:#75715e">// 3.1, as published by the Free Software Foundation.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// You should have received a copy of the GNU General Public License and
+</span><span style="color:#75715e">// a copy of the GCC Runtime Library Exception along with this program;
+</span><span style="color:#75715e">// see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+</span><span style="color:#75715e">// &lt;http://www.gnu.org/licenses/&gt;.
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/** @file include/iostream
+</span><span style="color:#75715e"> *  This is a Standard C++ Library header.
+</span><span style="color:#75715e"> */</span>
+
+<span style="color:#75715e">//
+</span><span style="color:#75715e">// ISO C++ 14882: 27.3  Standard iostream objects
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#ifndef _GLIBCXX_IOSTREAM
+</span><span style="color:#75715e">#define _GLIBCXX_IOSTREAM 1
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#pragma GCC system_header
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bits/c++config.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;istream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">namespace</span> std <span style="color:#a6e22e">_GLIBCXX_VISIBILITY</span>(<span style="color:#66d9ef">default</span>)
+{
+_GLIBCXX_BEGIN_NAMESPACE_VERSION
+
+  <span style="color:#75715e">/**
+</span><span style="color:#75715e">   *  @name Standard Stream Objects
+</span><span style="color:#75715e">   *
+</span><span style="color:#75715e">   *  The &amp;lt;iostream&amp;gt; header declares the eight &lt;em&gt;standard stream
+</span><span style="color:#75715e">   *  objects&lt;/em&gt;.  For other declarations, see
+</span><span style="color:#75715e">   *  http://gcc.gnu.org/onlinedocs/libstdc++/manual/io.html
+</span><span style="color:#75715e">   *  and the @link iosfwd I/O forward declarations @endlink
+</span><span style="color:#75715e">   *
+</span><span style="color:#75715e">   *  They are required by default to cooperate with the global C
+</span><span style="color:#75715e">   *  library&#39;s @c FILE streams, and to be available during program
+</span><span style="color:#75715e">   *  startup and termination. For more information, see the section of the
+</span><span style="color:#75715e">   *  manual linked to above.
+</span><span style="color:#75715e">  */</span>
+  <span style="color:#75715e">//@{
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> istream cin;		<span style="color:#75715e">/// Linked to standard input
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> ostream cout;		<span style="color:#75715e">/// Linked to standard output
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> ostream cerr;		<span style="color:#75715e">/// Linked to standard error (unbuffered)
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> ostream clog;		<span style="color:#75715e">/// Linked to standard error (buffered)
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#ifdef _GLIBCXX_USE_WCHAR_T
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> wistream wcin;		<span style="color:#75715e">/// Linked to standard input
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> wostream wcout;	<span style="color:#75715e">/// Linked to standard output
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> wostream wcerr;	<span style="color:#75715e">/// Linked to standard error (unbuffered)
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">extern</span> wostream wclog;	<span style="color:#75715e">/// Linked to standard error (buffered)
+</span><span style="color:#75715e"></span><span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//@}
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">// For construction of filebuffers for cout, cin, cerr, clog et. al.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">static</span> ios_base<span style="color:#f92672">::</span>Init __ioinit;
+
+_GLIBCXX_END_NAMESPACE_VERSION
+} <span style="color:#75715e">// namespace
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#endif </span><span style="color:#75715e">/* _GLIBCXX_IOSTREAM */</span><span style="color:#75715e">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>okay, so it starts with a big copyright block in comments - in C++ <code>//</code> makes a single ling comment and <code>/* comment */</code> are for multi-line comments - then on lines 39 and 40 we can see it is in turn including three more files- <code>bits/c++config.h</code>, <code>ostream</code> and <code>istream</code>, and then there&rsquo;s some code that links in these external resources&hellip; Let&rsquo;s go deeper! I won&rsquo;t be including the content of the files in full, but here&rsquo;s some snippit of <code>c++config.h</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// Same GNU GPL Licence as before
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#ifndef _GLIBCXX17_INLINE
+</span><span style="color:#75715e"># if __cplusplus &gt;= 201703L
+</span><span style="color:#75715e">#  define _GLIBCXX17_INLINE inline
+</span><span style="color:#75715e"># else
+</span><span style="color:#75715e">#  define _GLIBCXX17_INLINE
+</span><span style="color:#75715e"># endif
+</span><span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Macro for noexcept, to support in mixed 03/0x mode.
+</span><span style="color:#75715e"></span><span style="color:#75715e">#ifndef _GLIBCXX_NOEXCEPT
+</span><span style="color:#75715e"># if __cplusplus &gt;= 201103L
+</span><span style="color:#75715e">#  define _GLIBCXX_NOEXCEPT noexcept
+</span><span style="color:#75715e">#  define _GLIBCXX_NOEXCEPT_IF(...) noexcept(__VA_ARGS__)
+</span><span style="color:#75715e">#  define _GLIBCXX_USE_NOEXCEPT noexcept
+</span><span style="color:#75715e">#  define _GLIBCXX_THROW(_EXC)
+</span><span style="color:#75715e"># else
+</span><span style="color:#75715e">#  define _GLIBCXX_NOEXCEPT
+</span><span style="color:#75715e">#  define _GLIBCXX_NOEXCEPT_IF(...)
+</span><span style="color:#75715e">#  define _GLIBCXX_USE_NOEXCEPT throw()
+</span><span style="color:#75715e">#  define _GLIBCXX_THROW(_EXC) throw(_EXC)
+</span><span style="color:#75715e"># endif
+</span><span style="color:#75715e">#endif
+</span></code></pre></td></tr></table>
+</div>
+</div><p>The syntax highlighting on this page isn&rsquo;t doing us any favors here, but if you&rsquo;re following along in VSCode you should see that this file is entirely comments and these blocks starting with <code>#</code>, and these <code>#</code> blocks do have some highlighting, so what&rsquo;s up?</p>
+<p class="tip ">
+    These files don&rsquo;t end in a  <strong>.cpp</strong> extension, so you may have to tell VS code that the files are c++ files by clicking where it says &lsquo;plain text&rsquo; in the lower right and selecting c++
+</p>
+<p>These are all pre-processor directives, just like <code>#include</code> is, basically, it&rsquo;s special code that the compiler (in our case <code>g++</code>) looks at before it makes the program, here it&rsquo;s looking at the version of C++ we&rsquo;re using and deciding how to set things up based on that. Let&rsquo;s go back a to the <code>iostream</code> file though, and then dive into <code>ostream</code> this time instead</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// Same © the FSF, GPL licence stuff
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//lines 41-113, just for example
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">namespace</span> std <span style="color:#a6e22e">_GLIBCXX_VISIBILITY</span>(<span style="color:#66d9ef">default</span>)
+{
+_GLIBCXX_BEGIN_NAMESPACE_VERSION
+
+  <span style="color:#75715e">/**
+</span><span style="color:#75715e">   *  @brief  Template class basic_ostream.
+</span><span style="color:#75715e">   *  @ingroup io
+</span><span style="color:#75715e">   *
+</span><span style="color:#75715e">   *  @tparam _CharT  Type of character stream.
+</span><span style="color:#75715e">   *  @tparam _Traits  Traits for character type, defaults to
+</span><span style="color:#75715e">   *                   char_traits&lt;_CharT&gt;.
+</span><span style="color:#75715e">   *
+</span><span style="color:#75715e">   *  This is the base class for all output streams.  It provides text
+</span><span style="color:#75715e">   *  formatting of all builtin types, and communicates with any class
+</span><span style="color:#75715e">   *  derived from basic_streambuf to do the actual output.
+</span><span style="color:#75715e">  */</span>
+  <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> _CharT, <span style="color:#66d9ef">typename</span> _Traits<span style="color:#f92672">&gt;</span>
+    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">basic_ostream</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">public</span> basic_ios<span style="color:#f92672">&lt;</span>_CharT, _Traits<span style="color:#f92672">&gt;</span>
+    {
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      <span style="color:#75715e">// Types (inherited from basic_ios):
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">typedef</span> _CharT			 		char_type;
+      <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> _Traits<span style="color:#f92672">::</span>int_type 		int_type;
+      <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> _Traits<span style="color:#f92672">::</span>pos_type 		pos_type;
+      <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">typename</span> _Traits<span style="color:#f92672">::</span>off_type 		off_type;
+      <span style="color:#66d9ef">typedef</span> _Traits			 		traits_type;
+
+      <span style="color:#75715e">// Non-standard Types:
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">typedef</span> basic_streambuf<span style="color:#f92672">&lt;</span>_CharT, _Traits<span style="color:#f92672">&gt;</span> 		__streambuf_type;
+      <span style="color:#66d9ef">typedef</span> basic_ios<span style="color:#f92672">&lt;</span>_CharT, _Traits<span style="color:#f92672">&gt;</span>		__ios_type;
+      <span style="color:#66d9ef">typedef</span> basic_ostream<span style="color:#f92672">&lt;</span>_CharT, _Traits<span style="color:#f92672">&gt;</span>		__ostream_type;
+      <span style="color:#66d9ef">typedef</span> num_put<span style="color:#f92672">&lt;</span>_CharT, ostreambuf_iterator<span style="color:#f92672">&lt;</span>_CharT, _Traits<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>
+      							__num_put_type;
+      <span style="color:#66d9ef">typedef</span> ctype<span style="color:#f92672">&lt;</span>_CharT<span style="color:#f92672">&gt;</span>	      			__ctype_type;
+
+      <span style="color:#75715e">/**
+</span><span style="color:#75715e">       *  @brief  Base constructor.
+</span><span style="color:#75715e">       *
+</span><span style="color:#75715e">       *  This ctor is almost never called by the user directly, rather from
+</span><span style="color:#75715e">       *  derived classes&#39; initialization lists, which pass a pointer to
+</span><span style="color:#75715e">       *  their own stream buffer.
+</span><span style="color:#75715e">      */</span>
+      <span style="color:#66d9ef">explicit</span>
+      basic_ostream(__streambuf_type<span style="color:#f92672">*</span> __sb)
+      { <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>init(__sb); }
+
+      <span style="color:#75715e">/**
+</span><span style="color:#75715e">       *  @brief  Base destructor.
+</span><span style="color:#75715e">       *
+</span><span style="color:#75715e">       *  This does very little apart from providing a virtual base dtor.
+</span><span style="color:#75715e">      */</span>
+      <span style="color:#66d9ef">virtual</span>
+      <span style="color:#f92672">~</span>basic_ostream() { }
+
+      <span style="color:#75715e">/// Safe prefix/suffix operations.
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">sentry</span>;
+      <span style="color:#66d9ef">friend</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">sentry</span>;
+
+      <span style="color:#75715e">//@{
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">/**
+</span><span style="color:#75715e">       *  @brief  Interface for manipulators.
+</span><span style="color:#75715e">       *
+</span><span style="color:#75715e">       *  Manipulators such as @c std::endl and @c std::hex use these
+</span><span style="color:#75715e">       *  functions in constructs like &#34;std::cout &lt;&lt; std::endl&#34;.  For more
+</span><span style="color:#75715e">       *  information, see the iomanip header.
+</span><span style="color:#75715e">      */</span>
+      __ostream_type<span style="color:#f92672">&amp;</span>
+      <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(__ostream_type<span style="color:#f92672">&amp;</span> (<span style="color:#f92672">*</span>__pf)(__ostream_type<span style="color:#f92672">&amp;</span>))
+      {
+	<span style="color:#75715e">// _GLIBCXX_RESOLVE_LIB_DEFECTS
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// DR 60. What is a formatted input function?
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// The inserters for manipulators are *not* formatted output functions.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> __pf(<span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>);
+</code></pre></td></tr></table>
+</div>
+</div><p>okay, so, this actually has some real code. I&rsquo;m not going to try to interpret it, and neither should you. This little adventure was just to show you that these <code>#include</code> statements that use system libraries are not magic.</p>
+<p>Okay, so, that&rsquo;s done. Line <strong>2</strong> of our 6 line hello.cpp is just &lsquo;white space&rsquo; or a blank line, so we can skip it. Line <strong>3</strong> is where things get interesting again, with <code>int main() {</code>. The <code>main()</code> function is special, as without doing something <a href="https://www.techiedelight.com/c-program-without-main-function/">weird</a>, it&rsquo;s where your code starts from. you may often see this line as <code>int main(int argc, char** argv) </code> too, which I&rsquo;ll get to in a bit.</p>
+<p>So, lets break this down, starting with <code>int</code>.</p>
+<p>C++ is a statically typed language, this means that each variable has a defined type, but also that each function has a defined type it returns and expects to be given.</p>
+<p>so, with <code>int main() {</code> we&rsquo;re saying the <code>main()</code> function will return an integer. skipping ahead a bit, we can see this is the case, as on line 5, <code>return(0)</code> it does exactly that, but, why?</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Let&rsquo;s run our code as is (<code>./hello</code>), then change this return code to <code>return(2);</code>, recompile with <code>g++ hello.cpp -o hello</code> and run <code>./hello</code> again.</p>
+<p>See that little <code>2 ↵</code> in my terminal? That&rsquo;s the return code, but why did it get printed?</p>
+<p>Well, when the program exits, it returns that number to the process that called it (In this case the shell - read up on shell vs terminal in Appendix A1) and if this number is anything but <code>0</code> the shell prints it, because anything but <code>0</code> is assumed to be an error condition, and that this number may indicate what that error was. So, if we know getting to that <code>return(0)</code> signifies that our program ran correctly, we should, in fact, return <code>0</code>.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/returncodes.png" alt="Return Codes" height="300em"></br>
+  </div>
+  
+</div>
+
+<p>Okay, So, other than the closing curly brace (<code>}</code>) on line <strong>6</strong> that defines the end of main, with</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+<span style="color:#75715e">//code goes here between the curly braces
+</span><span style="color:#75715e"></span>}
+</code></pre></td></tr></table>
+</div>
+</div><p>We only have one line left to look at, and that&rsquo;s line <strong>4</strong>, which is</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hello World!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</code></pre></td></tr></table>
+</div>
+</div><p>Okay, breaking it up, we first see <code>std::cout</code></p>
+<p>the <code>std</code> part of that is saying that the <code>cout</code> function is defined in the <code>std</code> namespace.</p>
+<p>And, so the rabbit hole continues. Rather than attempt to rewirte my own explanation, <a href="https://www.tutorialspoint.com/cplusplus/cpp_namespaces.htm">This page (Tutorialspoint.com)</a> does a good job of explaining name spaces.</p>
+<p>Regardless, as we saw before, <code>cout</code> is imported from the <code>iostream</code> library, so, we do have it in our code.</p>
+<p>Okay, so then we have the <code>&lt;&lt;</code> operator. This is admittedly, a tad on the confusing side. in C++ this operator is traditionally a bitwise shift, so shifting a bit one place to the left, that is appending a 0 onto the binary string, so normally that would be like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0b11</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>0b11</code> in binary is 3, (the 0b prefix means binary) 1 here is the number of places we want to shift it left, so, x would now contain <code>0b110</code> which is 6.</p>
+<p>But, if that&rsquo;s the case then why are we using binary shifts to take text from a string to the output.</p>
+<p>Well, that&rsquo;s because C++ is weird and let&rsquo;s you do &lsquo;operator overloading&rsquo; and this is why they did for the standard input output library.</p>
+<p>Basically, you can make an operator do something other than it&rsquo;s original purpose. For example, <a href="https://www.geeksforgeeks.org/operator-overloading-c/">here</a>, it is used pretty logically, to make adding two complex numbers actually return the correct result.</p>
+<p>With the cout function, it just happened that using <code>&lt;&lt;</code> for directing a string to output and <code>&gt;&gt;</code> for input with something like <code>cin &gt;&gt; userInput</code>  is actually a rather convenient way to represent it even if it is a bit weird when taken literally.</p>
+<p>Okay, so, we now have almost everything, last up is just the string that we&rsquo;re writing to <code>cout</code>, which is <code>&quot;Hello World!\n&quot;</code></p>
+<p>Well, to understand this line we&rsquo;ll need our helpful friend, the ASCII table.</p>
+<img src="/ASCII-Table-wide.svg" alt="Arch Logo" height="600em" style="-webkit-filter: invert(100%);background: #eee;">
+<blockquote class="book-hint info">
+  On most unix based systems you can access this at any time by running <code>man ascii</code>
+</blockquote>
+
+<p>ASCII is a really old way for computers to represent text. In most modern systems it&rsquo;s been replaced by unicode (which is what let&rsquo;s you use emjois 🤔) but the start of the the much larger character space of Unicode is the <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">same as the ASCII table</a> anyway. Alright, so, you&rsquo;ll notice some really weird characters in the ASCII table, not just the normal symbols you&rsquo;d expect. The one I&rsquo;d like to mention now though is at 0xA - <code>[LINE FEED]</code></p>
+<p>Line Feed, as well as some others like Bell and Carriage Return all date back to when computers were hooked up to <a href="https://en.wikipedia.org/wiki/Teletype_Model_33">Teletype machines</a> - which were basically a mix of printer with a typewriter, so, naturally, there had to be some control characters to do things like tell the machine to move to the next line.</p>
+<p>Because we like backwards comparability so very much, we still use these same codes for modern terminals, so typing <code>\n</code> at the end of a line is really saying &ldquo;put a line feed control code here&rdquo; which, to a modern system, means go to the next line.</p>
+<p>The reason we do this is because without it, the output of our program looks like this (ran first as is, then with the <code>\n</code> removed)</p>
+<pre><code>[vega@lyrae ~]$ ./hello
+Hello World!
+[vega@lyrae ~]$ g++ hello.cpp -o hello
+[vega@lyrae ~]$ ./hello
+Hello World![vega@lyrae ~]$
+</code></pre><p>see how it doesn&rsquo;t leave room for the prompt to be printed on a new line of it&rsquo;s own!</p>
+<p>The ASCII table has some other interesting side effects too. See how a capital &lsquo;A&rsquo; has an &lsquo;index&rsquo; 32 higher than a lower case &lsquo;a&rsquo;, and the same for &lsquo;B&rsquo; to &lsquo;b&rsquo;. Let&rsquo;s use this to our advantage to make the &rsquo;d' in &lsquo;Hello World!&quot; uppercase.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">//move the greeting into a variable so we can play with it
+</span><span style="color:#75715e"></span>    string greeting <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+    <span style="color:#75715e">//print it as is first
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> greeting;
+    <span style="color:#75715e">/* 
+</span><span style="color:#75715e">    *  C++ is &#39;0&#39; indexed, this means that
+</span><span style="color:#75715e">    * &#39;H&#39; is at position 0, &#39;e&#39; is at 1, and so on.
+</span><span style="color:#75715e">    *  We want to change &#39;d&#39; which is at pos 10.
+</span><span style="color:#75715e">    *  so we access the charecter in the string with the
+</span><span style="color:#75715e">    *  syntax variableName[indexOfCharacter]
+</span><span style="color:#75715e">    */</span> 
+
+    <span style="color:#75715e">// The following line is equivilent to greeting[10] = greeting[10] - 32;
+</span><span style="color:#75715e"></span>    greeting[<span style="color:#ae81ff">10</span>]<span style="color:#f92672">-=</span><span style="color:#ae81ff">32</span>;
+    cout <span style="color:#f92672">&lt;&lt;</span> greeting;
+
+    <span style="color:#75715e">// note, we could have just changed the character directly,
+</span><span style="color:#75715e"></span>    greeting[<span style="color:#ae81ff">10</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;z&#39;</span>;
+    cout <span style="color:#f92672">&lt;&lt;</span> greeting;
+    
+    <span style="color:#75715e">// Let&#39;s break that line feed character too, why not.
+</span><span style="color:#75715e"></span>    greeting[<span style="color:#ae81ff">12</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;?&#39;</span>;
+    cout <span style="color:#f92672">&lt;&lt;</span> greeting;
+    
+    <span style="color:#75715e">// Still broken, but the iostream lib gives us &#39;endl&#39; to avoid the need for
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// &#39;\n&#39; in the first place
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> greeting <span style="color:#f92672">&lt;&lt;</span> endl;
+
+    <span style="color:#66d9ef">return</span>(<span style="color:#ae81ff">0</span>);
+}
+</code></pre></td></tr></table>
+</div>
+</div><pre><code>[vega@lyrae ~]$ g++ hello.cpp -o hello
+[vega@lyrae ~]$ ./hello
+Hello World!
+Hello WorlD!
+Hello Worlz!
+Hello Worlz!?Hello Worlz!?
+[vega@lyrae ~]$
+</code></pre><h3 id="recursive-fibonacci">
+  Recursive Fibonacci
+  <a class="anchor" href="#recursive-fibonacci">#</a>
 </h3>
-<h3 id="even-or-odd-prime">
-  Even or Odd, prime,
-  <a class="anchor" href="#even-or-odd-prime">#</a>
-</h3>
+<p>The Stack™</p>
 <h3 id="calculating-sine-and-pi">
   Calculating sine and pi
   <a class="anchor" href="#calculating-sine-and-pi">#</a>
 </h3>
+<p>pseudo code, types</p>
 <h3 id="sorting-a-list">
   Sorting a list
   <a class="anchor" href="#sorting-a-list">#</a>
 </h3>
-<p>mention efficenecy, analysis later</p>
+<p>pointers</p>
+<p>mention efficiency, analysis later</p>
 <h3 id="palindromes">
   Palindromes
   <a class="anchor" href="#palindromes">#</a>
 </h3>
-<h3 id="cypher">
-  Cypher
-  <a class="anchor" href="#cypher">#</a>
+<h3 id="cipher">
+  Cipher
+  <a class="anchor" href="#cipher">#</a>
 </h3>
+<h2 id="bit-operations">
+  Bit Operations
+  <a class="anchor" href="#bit-operations">#</a>
+</h2>
+<p>unsigned, signed bit, 1&rsquo;s compliment, 2&rsquo;s compliment</p>
 <h2 id="system-calls">
   System Calls
   <a class="anchor" href="#system-calls">#</a>
 </h2>
-<h2 id="interupt--signal-handeling">
-  Interupt &amp; Signal handeling
-  <a class="anchor" href="#interupt--signal-handeling">#</a>
+<h2 id="assembly">
+  Assembly
+  <a class="anchor" href="#assembly">#</a>
+</h2>
+<p>I very, very much so recommend getting a feel for writing assembly with the <a href="https://store.steampowered.com/app/370360/TIS100/">TIS-100</a> game. It&rsquo;s $7 on steam (at the time of writing).</p>
+<h2 id="interrupt--signal-handling">
+  Interrupt &amp; Signal handling
+  <a class="anchor" href="#interrupt--signal-handling">#</a>
 </h2>
 <h3 id="part-2-going-deeper">
   Part 2, Going Deeper
@@ -489,8 +1072,140 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
   Debugging it
   <a class="anchor" href="#debugging-it">#</a>
 </h3>
+<p>So, by now you&rsquo;ve written a fair amount of code, and I&rsquo;m sure you&rsquo;ve figured out that a bunch of tiny issues can get really annoying. Maybe you keep forgetting semicolons, maybe you wrote &lsquo;=&rsquo; instead of &lsquo;==&rsquo; when doing an equality check, whatever. Turns out, there&rsquo;s an easier way to catch these kind of errors and it&rsquo;s available for most languages. Allow me to introduce you to&hellip;</p>
+<h4 id="linting">
+  Linting:
+  <a class="anchor" href="#linting">#</a>
+</h4>
+<p>Yeah, it&rsquo;s literally named after the fluff you&rsquo;d find in your hoodie pockets, but, it&rsquo;s still a super necessary tool. A &lsquo;Linter&rsquo; is a <a href="https://en.wikipedia.org/wiki/Static_program_analysis">static analysis</a> tool, basically it makes sure you&rsquo;re code is good before you run it. There&rsquo;s a whole bunch of linters out there. As a pretty stupid example, lets look at this python:</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Here&rsquo;s our stupid simple example, here we want a program to show us the output of sin(1&hellip;10)</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>):
+        math<span style="color:#f92672">.</span>sin(x)
+    <span style="color:#66d9ef">pass</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>If we run this code anyway, we&rsquo;ll see python print:</p>
+<pre><code>Traceback (most recent call last):
+  File &quot;/home/vega/test.py&quot;, line 5, in &lt;module&gt;
+    math.sin(x)
+NameError: name 'math' is not defined
+
+</code></pre>
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>This code intentionally has a few issues stopping it from running, thankfully the Linter, in my case VSCode&rsquo;s Pylance, found them both:</p>
+<pre><code>[5,9]  : &quot;math&quot; is not defined
+[5,18] : &quot;x&quot; is not defined    
+</code></pre><p>Here, it&rsquo;s saying on Line 5, character 9, (where the word <code>math</code> starts) I have no function named math. Furthermore, on the same line, but character 18, the variable <code>x</code> is not defined. Running the program did already tell us that we didn&rsquo;t have <code>math</code> defined, but this caught that <code>x</code> was undefined too. Let&rsquo;s fix up the code, and add some print debugging while we&rsquo;re at it.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
+<span style="color:#f92672">import</span> math
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;The value of sine(&#34;</span>,i,<span style="color:#e6db74">&#34;) is &#34;</span>, math<span style="color:#f92672">.</span>sin(i))
+    <span style="color:#66d9ef">pass</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<p>now running our code yields this:</p>
+<pre><code>the value of sine( 0 ) is  0.0
+the value of sine( 1 ) is  0.8414709848078965
+the value of sine( 2 ) is  0.9092974268256817
+the value of sine( 3 ) is  0.1411200080598672
+the value of sine( 4 ) is  -0.7568024953079282
+the value of sine( 5 ) is  -0.9589242746631385
+the value of sine( 6 ) is  -0.27941549819892586
+the value of sine( 7 ) is  0.6569865987187891
+the value of sine( 8 ) is  0.9893582466233818
+the value of sine( 9 ) is  0.4121184852417566
+</code></pre><p>But, remember I said we want sine(1&hellip;10)? The linter no longer has any problems listed, so what&rsquo;s up? Well, that&rsquo;s a limit of static analysis, it can only find errors that occur statically and it&rsquo;s not able to read your mind. Here, the issue is that python&rsquo;s <code>range()</code> function is inclusive of the first number, and not the second, so it should be <code>range(1,11)</code> to work correctly.</p>
+<p>So, what can and can&rsquo;t static analysis do (with some exceptions depending on language and linter):</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><strong>STATIC ANALYSIS CAN:</strong></p>
+<ul>
+<li>(Usually) tell you missed something trivial, like forgetting a semicolon at the end of a line</li>
+<li>(If in a strongly typed language) Tell you if you&rsquo;re doing something stupid with types
+<ul>
+<li><code>int x = 10; String y = &quot;test&quot;; int z = x + y;</code> would tell you to quit being a dunce</li>
+</ul>
+</li>
+<li>Let you know if you&rsquo;re doing something that&rsquo;s bad practice
+<ul>
+<li>Often code formatting, like warning you that a line is super fucking long and is why you have a tiny horizontal scroll bar.</li>
+</ul>
+</li>
+<li>Warn you about unused variables</li>
+<li>Warn you about undeclared variables and functions</li>
+<li>Warn you about some math fuckups (divide by 0, integer overflows, etc.)</li>
+<li>Warn you about some out of bound accesses (accessing the k+1 element of an array with k elements</li>
+<li>Warn you if you try to derefrence a null pointer</li>
+<li>Tell you about <em>some</em> dead (un-reachable) code.</li>
+<li>find <em>some</em> security issues</li>
+<li>find <em>some</em> memory leaks</li>
+</ul>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><strong>STATIC ANALYSIS CAN NOT:</strong></p>
+<ul>
+<li>Read your mind - if you write a an <code>add(a,b)</code> function as <code>int add(int a, int b) { return(a * b) }</code> it won&rsquo;t know you fucked up</li>
+<li>Know what is relevant - it&rsquo;s not uncommon to get a huge pile of warnings you don&rsquo;t care about while doing initial development. This can make for a sea of problems that is just&hellip; exhausting</li>
+<li><em>Always be right</em> - There are occasional false positives</li>
+<li>Find all issues - It&rsquo;s in the name, it&rsquo;s <em>static</em> analysis. Not Dynamic. Your code is dynamic. It runs, it lives. Static Analysis is just doing a once-over to let you know if there&rsquo;s something super obviously wrong, not doing in depth diagnostics.</li>
+<li>Stop you from writing stupid, inefficient, insecure, and otherwise shit code.
+<ul>
+<li>You want to implement the the obnoxiously slow recursive version of the fibonacci function? It won&rsquo;t stop you.</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  
+</div>
+
+<hr>
+<p>[TODO], Clang Tidy, and using it in VSCode</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/bWH-nL7v5F4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/bb1bTJtgXrI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>[TODO]</p>
-<p>gdb + gef, gdbfrontend, Valgrind, <a href="https://cdecl.org/,">https://cdecl.org/,</a> etc. Mention Virtual v Physical adressing/translation</p>
+<p>gdb + <a href="https://github.com/sindresorhus/css-in-readme-like-wat">gef</a>, <a href="https://github.com/rohanrhu/gdb-frontend">gdbfrontend</a>, Valgrind, <a href="https://cdecl.org/,">https://cdecl.org/,</a> etc. Mention Virtual v Physical adressing/translation</p>
 <p><a href="https://github.com/hediet/vscode-debug-visualizer/tree/master/extension">https://github.com/hediet/vscode-debug-visualizer/tree/master/extension</a></p>
 <p>overflows</p>
 <h3 id="analyzing-the-assembly">
@@ -581,19 +1296,22 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
       
   <nav id="TableOfContents">
   <ul>
+    <li><a href="#why-c">Why C++?</a></li>
+    <li><a href="#dont-throw-out-everything-you-already-know">Don&rsquo;t throw out everything you already know!</a></li>
     <li><a href="#some-simple-programs-in-c">Some simple programs, in C++</a>
       <ul>
-        <li><a href="#hello-world">Hello World</a></li>
-        <li><a href="#bit-operations">Bit Operations</a></li>
-        <li><a href="#even-or-odd-prime">Even or Odd, prime,</a></li>
+        <li><a href="#hello-world">Hello World!</a></li>
+        <li><a href="#recursive-fibonacci">Recursive Fibonacci</a></li>
         <li><a href="#calculating-sine-and-pi">Calculating sine and pi</a></li>
         <li><a href="#sorting-a-list">Sorting a list</a></li>
         <li><a href="#palindromes">Palindromes</a></li>
-        <li><a href="#cypher">Cypher</a></li>
+        <li><a href="#cipher">Cipher</a></li>
       </ul>
     </li>
+    <li><a href="#bit-operations">Bit Operations</a></li>
     <li><a href="#system-calls">System Calls</a></li>
-    <li><a href="#interupt--signal-handeling">Interupt &amp; Signal handeling</a>
+    <li><a href="#assembly">Assembly</a></li>
+    <li><a href="#interrupt--signal-handling">Interrupt &amp; Signal handling</a>
       <ul>
         <li><a href="#part-2-going-deeper">Part 2, Going Deeper</a></li>
         <li><a href="#what-are-we-going-to-do">What are we going to do?</a></li>

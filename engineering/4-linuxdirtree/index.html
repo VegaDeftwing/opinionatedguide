@@ -77,9 +77,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 4 - Back to the Root of Things #  We&rsquo;ve been using file in /proc and /dev throughout this, but we never really looked to see what else is in there. Let&rsquo;s do that.
 go ahead and open up a terminal and run
-╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls [Very, Very Long Output here] Alright, I know what you&rsquo;re thinking.
-What. The. Actual. Fuck.
-And honestly, yeah.">
+1 2 3 4 5  ╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls [Very, Very Long Output here]   Alright, I know what you&rsquo;re thinking.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -93,9 +91,7 @@ And honestly, yeah.">
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 4 - Back to the Root of Things #  We&rsquo;ve been using file in /proc and /dev throughout this, but we never really looked to see what else is in there. Let&rsquo;s do that.
 go ahead and open up a terminal and run
-╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls [Very, Very Long Output here] Alright, I know what you&rsquo;re thinking.
-What. The. Actual. Fuck.
-And honestly, yeah." />
+1 2 3 4 5  ╭─vega@lyrae ~ ╰─➤ cd /dev ╭─vega@lyrae /dev ╰─➤ ls [Very, Very Long Output here]   Alright, I know what you&rsquo;re thinking." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opinionatedguide.github.io/engineering/4-linuxdirtree/" />
 
@@ -103,7 +99,7 @@ And honestly, yeah." />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.3f70e1642246a4e648c919b63593926d382d172858f87725b4146d06abe30c81.css" integrity="sha256-P3DhZCJGpOZIyRm2NZOSbTgtFyhY&#43;HcltBRtBqvjDIE=">
-<script defer src="/en.search.min.4b6ee22a2a471f601e720960598549389b9b275ea70cc90a96bc742b9eda86e6.js" integrity="sha256-S27iKipHH2AecglgWYVJOJubJ16nDMkKlrx0K57ahuY="></script>
+<script defer src="/en.search.min.46286a0ef344edddbab59a523b597c8ce5f6c51021ec5b6cd09fe785d92ce045.js" integrity="sha256-RihqDvNE7d26tZpSO1l8jOX2xRAh7Fts0J/nhdks4EU="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -380,12 +376,23 @@ https://github.com/alex-shpak/hugo-book
 </h1>
 <p>We&rsquo;ve been using file in /proc and /dev throughout this, but we never really looked to see what else is in there. Let&rsquo;s do that.</p>
 <p>go ahead and open up a terminal and run</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
 ╰─➤  cd /dev
 ╭─vega@lyrae /dev  
 ╰─➤  ls
 <span style="color:#f92672">[</span>Very, Very Long Output here<span style="color:#f92672">]</span>
-</code></pre></div><p>Alright, I know what you&rsquo;re thinking.</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>Alright, I know what you&rsquo;re thinking.</p>
 <p>What. The. Actual. Fuck.</p>
 <p>And honestly, yeah. But first, lets talk about what we just did.</p>
 <h2 id="permissions">
@@ -394,11 +401,21 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>if you run <code>ls</code> it normally shows you the all the folders, shortcuts, and files in a directory, except it excludes any hidden files. In linux you can make a file or folder hidden simply by naming the folder with a &lsquo;.&rsquo; at the beginning, so naming a folder <code>.nsfw</code> will mark it has hidden. Hidden doesn&rsquo;t really mean much though as most file managers allow you to view hidden files/folders by checking a box, and in this case, we can see hidden items by using the -a flag for ls. running <code>man ls</code> you&rsquo;ll see the -a flag just stands for &lsquo;all&rsquo; and does exactly what I&rsquo;ve said.</p>
 <p>further down you&rsquo;ll see the &lsquo;-l&rsquo; flag gives a &ldquo;long listing format&rdquo; which is an almost impressively bad description. This means that on each listing will be displayed like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Permissions   numOfLinks owner group size month date time name
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Permissions   numOfLinks owner group size month date time name
 
 example:
 drwxr-xr-x    <span style="color:#ae81ff">2</span> vega vega     <span style="color:#ae81ff">4096</span> Jul  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">2018</span> Documents
-</code></pre></div><p>So let&rsquo;s break that up further. Linux permissions are incredibly powerful, and are set up like this</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>So let&rsquo;s break that up further. Linux permissions are incredibly powerful, and are set up like this</p>
 <p><code>d rwx rwx rwx</code> , the <code>d</code>, or lack there of, species weather a file is a directory (folder) or file.</p>
 <p>Less commonly you may see <code>l</code>, <code>c</code>, or <code>b</code>, as we do here in the /dev folder.</p>
 <p><code>l</code> is the easiest to understand, it&rsquo;s a link or shortcut. That&rsquo;s why you&rsquo;ll see an arrow pointing to where it leads at the end</p>
@@ -417,18 +434,42 @@ drwxr-xr-x    <span style="color:#ae81ff">2</span> vega vega     <span style="co
 <p>To round this off we need to talk about how to change these permissions using <code>chown</code> and <code>chmod</code></p>
 <p><code>chown</code>, as the name implies, changes the owner, note, you need to also have permission to change the owner, so often times this require using <code>sudo</code> as well.</p>
 <p>For example running</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
 ╰─➤  sudo chown vega:vega someFile
-</code></pre></div><p>would change both the owner and group to me, vega (assuming I exist on your system)</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>would change both the owner and group to me, vega (assuming I exist on your system)</p>
 <p>but what if you want to change every file in a directory?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
 ╰─➤  sudo chown -R vega:vega someFolder
-</code></pre></div><p>the -R flag (Recursive) means to apply the change to every sub folder and directory</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>the -R flag (Recursive) means to apply the change to every sub folder and directory</p>
 <p>Using <code>chmod</code> is pretty easy too, though there are two ways to use it.</p>
 <p>The first, which is easier to understand is with direct flags such as</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
 ╰─➤  chmod +x on a file to mark it as executable
-</code></pre></div><p>The other uses the octal system to set flags. Octal has 3 bits:</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>The other uses the octal system to set flags. Octal has 3 bits:</p>
 <table>
 <thead>
 <tr>
@@ -486,9 +527,17 @@ drwxr-xr-x    <span style="color:#ae81ff">2</span> vega vega     <span style="co
 </tbody>
 </table>
 <p>Now, you should notice some of those options are nonsenes? being able to write to a file you can&rsquo;t read? being able to execute a file you can&rsquo;t read? In practice this leads to only some of these being used, but I digress to use these in chmod simply run</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
 ╰─➤  chmod <span style="color:#ae81ff">764</span> someThing
-</code></pre></div><p>which would set permissions to -rwxrw-r&ndash;</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>which would set permissions to -rwxrw-r&ndash;</p>
 <p>Finally one last oddity. Using <code>ls -la</code> you&rsquo;ll see two more files that are very strange one named &lsquo;.&rsquo;  and another &lsquo;..&rsquo; ; &lsquo;.&rsquo; is actually the current folder, as bizzare as this sounds, effectively when you run a command with &lsquo;.&rsquo; as an argument it is replaced with the full path to the current folder. In practice this isn&rsquo;t used much, but it means running something like <code>cd .</code> just takes you nowhere. I assure you are practical uses though. More relevant is &lsquo;..&rsquo; which is the previous directory. so if you&rsquo;re currently in /a/b/c/d and you run <code>cd ..</code> you&rsquo;ll be taken to /a/b/c</p>
 <p>To round this conversation off , as previously mentioned, &lsquo;~&rsquo; represents your home directory. This usually means it expands out to /home/yourUsername which can be particualy helpful if you are say, in /dev and want to get to your documents folder you can use <code>cd ~/Documents</code> instead of <code>cd /home/user/Documents</code></p>
 <p>With all of that out of the way let&rsquo;s finally look at /dev !</p>
@@ -497,7 +546,24 @@ drwxr-xr-x    <span style="color:#ae81ff">2</span> vega vega     <span style="co
   <a class="anchor" href="#dev-the-devices-folder">#</a>
 </h2>
 <p>Alrighty then, first, a heads up. My /dev folder will have some things yours wont. I&rsquo;m on a desktop with a lot of hardware, drives, input devices, etc. And I&rsquo;ve installed hundreds of programs, some of which interface with the system at a low enough level to necessitate extra files in here. For that reason some are going to be skipped over. I&rsquo;ll be breaking up the ouput of <code>ls /dev</code> into a bunch of code blocks below because of how ludicously large this output is.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x  <span style="color:#ae81ff">22</span> root root         <span style="color:#ae81ff">4600</span> Feb  <span style="color:#ae81ff">8</span> 06:03 .
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x  <span style="color:#ae81ff">22</span> root root         <span style="color:#ae81ff">4600</span> Feb  <span style="color:#ae81ff">8</span> 06:03 .
 drwxr-xr-x  <span style="color:#ae81ff">18</span> root root         <span style="color:#ae81ff">4096</span> Jan <span style="color:#ae81ff">26</span> 22:05 ..
 crw-rw-rw-   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">56</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ashmem
 crw-r--r--   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">235</span> Feb  <span style="color:#ae81ff">8</span> 06:03 autofs
@@ -510,14 +576,28 @@ lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root            <span sty
 drwxr-xr-x   <span style="color:#ae81ff">2</span> root root         <span style="color:#ae81ff">5700</span> Feb  <span style="color:#ae81ff">8</span> 06:03 char
 crw-------   <span style="color:#ae81ff">1</span> root root       5,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 console
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">11</span> Feb  <span style="color:#ae81ff">8</span> 06:02 core -&gt; /proc/kcore
-</code></pre></div><p>&lsquo;ashmem&rsquo; is something that is on my system as a part of a project with the end goal of running android apps natively on linux called &lsquo;anbox&rsquo; it&rsquo;s still in early development, and is very difficult to run on arch</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;ashmem&rsquo; is something that is on my system as a part of a project with the end goal of running android apps natively on linux called &lsquo;anbox&rsquo; it&rsquo;s still in early development, and is very difficult to run on arch</p>
 <p>&lsquo;autofs&rsquo; is a configurable system for mounting and unmounting storage as it is used</p>
 <p>&lsquo;binder&rsquo; is another component of &lsquo;anbox&rsquo;</p>
 <p>&lsquo;block&rsquo; is a directory which contains numbered links to the file system blocks used previously (such as sda)</p>
 <p>&lsquo;bsg&rsquo; is a directory with files that, again, represent your drives at a hardware level. You can open the bsg folder and run <code>ls</code> followed by <code>lsscsi</code> and compare the outputs to understand. This is practically just an artifact of older systems now.</p>
 <p>&lsquo;btrfs-control&rsquo; is used when you have drives on the system formatted with the btrfs file system, this is a file system that is still in heavy development primarily targeted at storage arrays that are resilient to drive failures</p>
 <p>&lsquo;bus&rsquo; is a folder which contains a folder &lsquo;usb&rsquo; which contains folders for each usb host controller on the system, and then their devices. This is probably the first really cool one we&rsquo;re hitting as you should already be able to see how the system is letting us get data directly. To show this we&rsquo;ll need to have the <code>usbutils</code> package installed so that we can run <code>lsusb</code>. If you do that you should get an output like this</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Bus <span style="color:#ae81ff">006</span> Device 003: ID 2109:0812 VIA Labs, Inc. VL812 Hub
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Bus <span style="color:#ae81ff">006</span> Device 003: ID 2109:0812 VIA Labs, Inc. VL812 Hub
 Bus <span style="color:#ae81ff">006</span> Device 002: ID 2109:0812 VIA Labs, Inc. VL812 Hub
 Bus <span style="color:#ae81ff">006</span> Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 Bus <span style="color:#ae81ff">005</span> Device 005: ID 1235:007c Focusrite-Novation Launchkey MK2 <span style="color:#ae81ff">49</span>
@@ -525,12 +605,29 @@ Bus <span style="color:#ae81ff">005</span> Device 007: ID 0c45:6340 Microdia Cam
 ...
 Bus <span style="color:#ae81ff">005</span> Device 002: ID 1e7d:2e4a ROCCAT Tyon Black Mouse
 ...
-</code></pre></div><p>I&rsquo;ve added ellipsis to the output to make it fit here, but you can see there that my mouse is device 002 on bus 005. If you poke around in here it should be pretty obvious how these correlate. Note, that this is just where the system puts info about the device (it&rsquo;s name, etc) not where the communication with the device actually happens (usually*). That&rsquo;s over in <code>/sys</code> which we&rsquo;ll get to more in depth in a bit, but for example here I could go to <code>/sys/bus/usb/devices/5-2</code> and run <code>cat product</code> for example to get the human readable name &lsquo;ROCCAT Tyon Black&rsquo;.</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>I&rsquo;ve added ellipsis to the output to make it fit here, but you can see there that my mouse is device 002 on bus 005. If you poke around in here it should be pretty obvious how these correlate. Note, that this is just where the system puts info about the device (it&rsquo;s name, etc) not where the communication with the device actually happens (usually*). That&rsquo;s over in <code>/sys</code> which we&rsquo;ll get to more in depth in a bit, but for example here I could go to <code>/sys/bus/usb/devices/5-2</code> and run <code>cat product</code> for example to get the human readable name &lsquo;ROCCAT Tyon Black&rsquo;.</p>
 <p>&lsquo;cdrom&rsquo; is actually a link to the new location of cdroms- sr0 , but, still, it&rsquo;s use it pretty duh</p>
 <p>&lsquo;char&rsquo; is a folder which contains links to a lot of other things in /dev for use with legacy things</p>
 <p>&lsquo;console&rsquo; is again a legacy component and is effectively the same as tty, which is always the current terminal. to be explained more when we get to the tty&rsquo;s</p>
 <p>&lsquo;core&rsquo; a link to /proc/kcore is a direct way to read memory, used mostly for debugging</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:02 cpu
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:02 cpu
 crw-rw----   <span style="color:#ae81ff">1</span> root realtime  10,  <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 cpu_dma_latency
 crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">203</span> Feb  <span style="color:#ae81ff">8</span> 06:03 cuse
 drwxr-xr-x   <span style="color:#ae81ff">8</span> root root          <span style="color:#ae81ff">160</span> Feb  <span style="color:#ae81ff">8</span> 06:02 disk
@@ -541,14 +638,34 @@ drwxr-xr-x   <span style="color:#ae81ff">3</span> root root          <span style
 crw-------   <span style="color:#ae81ff">1</span> root root     242,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 drm_dp_aux0
 ...
 crw-------   <span style="color:#ae81ff">1</span> root root     242,   <span style="color:#ae81ff">4</span> Feb  <span style="color:#ae81ff">8</span> 06:03 drm_dp_aux4
-</code></pre></div><p>&lsquo;cpu&rsquo; is a folder which contains a character file named mircocode. If you enable msr it can also allow you to r/w model specific registers. I don&rsquo;t even know what this means. You&rsquo;ll never work on this directly, moving on.</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;cpu&rsquo; is a folder which contains a character file named mircocode. If you enable msr it can also allow you to r/w model specific registers. I don&rsquo;t even know what this means. You&rsquo;ll never work on this directly, moving on.</p>
 <p>&lsquo;cpu_dma_latency&rsquo; is something to do with making sure changing between power states (sleep) doesn&rsquo;t take to long, otherwise the system will just refuse to do. Not used directly by anyone really</p>
 <p>&lsquo;cuse&rsquo; is fuse for character devices, ref fuse below</p>
 <p>&lsquo;disk&rsquo; is the way most modern things access the disk, with separate folders for by id, label, path, or uuid</p>
 <p>&lsquo;dmmidi&rsquo; is for MIDI or Musical Instrument Digital Interface devices. I have multiple on this system.</p>
 <p>&lsquo;dri&rsquo; contains links to your graphics cards, this is part of the direct rendering manager for video things (3D, games, etc)</p>
 <p>&lsquo;drm_dp_aux&rsquo; each represent an output from the GPU, so think of these as the actual cables between the monitor and the computer</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw----   <span style="color:#ae81ff">1</span> root video     29,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 fb0
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw----   <span style="color:#ae81ff">1</span> root video     29,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 fb0
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">13</span> Feb  <span style="color:#ae81ff">8</span> 06:02 fd -&gt; /proc/self/fd
 crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">7</span> Feb  <span style="color:#ae81ff">8</span> 06:03 full
 crw-rw-rw-   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">229</span> Feb  <span style="color:#ae81ff">8</span> 06:03 fuse
@@ -562,13 +679,30 @@ crw-rw----+  <span style="color:#ae81ff">1</span> root root     240,   <span sty
 ------------------------------------------------------------------------------------
 to make this output shorter I stripped out hidraw 7-9
 ------------------------------------------------------------------------------------
-</code></pre></div><p>&lsquo;fb0&rsquo; is your framebuffer - I can&rsquo;t do this justice <a href="https://www.kernel.org/doc/Documentation/fb/framebuffer.txt,">https://www.kernel.org/doc/Documentation/fb/framebuffer.txt,</a> in practice you&rsquo;re unlikely to ever use this, but it&rsquo;s very good to know</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;fb0&rsquo; is your framebuffer - I can&rsquo;t do this justice <a href="https://www.kernel.org/doc/Documentation/fb/framebuffer.txt,">https://www.kernel.org/doc/Documentation/fb/framebuffer.txt,</a> in practice you&rsquo;re unlikely to ever use this, but it&rsquo;s very good to know</p>
 <p>&lsquo;fd&rsquo; is for file descriptors, which are now in /proc this is part of how the system internally handles file reads and writes</p>
 <p>&lsquo;full&rsquo; literally just returns no space left when accessed, used to test how a program responds to a disk full error</p>
 <p>&lsquo;fuse&rsquo; Filesystems in User Space is a system which allows for interesting virtual drives (think things like GoogleDrive) to be accessible to the native system among other things. This is a very heavily used part of the system and worth a deeper look if you&rsquo;re interested</p>
 <p>&lsquo;gpiochip&rsquo; is for general purpose input/output like with exposed pins that can be used on development board such as the raspberry pi</p>
 <p>&lsquo;hidraw&rsquo; is for raw communication with Human Interface Devices (mouse, keyboard, gamepad) and allows for custom drivers, like those necessary for RGB backlit keyboards</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw----   <span style="color:#ae81ff">1</span> root realtime  10, <span style="color:#ae81ff">228</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hpet
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw----   <span style="color:#ae81ff">1</span> root realtime  10, <span style="color:#ae81ff">228</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hpet
 drwxr-xr-x   <span style="color:#ae81ff">3</span> root root            <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hugepages
 crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">183</span> Feb  <span style="color:#ae81ff">8</span> 06:03 hwrng
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">12</span> Feb  <span style="color:#ae81ff">8</span> 06:03 initctl -&gt; /run/initctl
@@ -579,7 +713,9 @@ crw-rw-rw-   <span style="color:#ae81ff">1</span> root kvm       10, <span style
 drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:02 lightnvm
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">28</span> Feb  <span style="color:#ae81ff">8</span> 06:03 log -&gt; /run/systemd/journal/dev-log
 crw-rw----   <span style="color:#ae81ff">1</span> root disk      10, <span style="color:#ae81ff">237</span> Feb  <span style="color:#ae81ff">8</span> 06:03 loop-control
-</code></pre></div><p>&lsquo;hpet&rsquo; &ldquo;High Precession Event Timer&rdquo; is for internal timer-y things</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;hpet&rsquo; &ldquo;High Precession Event Timer&rdquo; is for internal timer-y things</p>
 <p>&lsquo;hugepages&rsquo; - read this <a href="https://wiki.debian.org/Hugepages">https://wiki.debian.org/Hugepages</a> , these are actually pretty important as they can make a large impact on performance, especially with virtual machines</p>
 <p>&lsquo;hwrng&rsquo; hardware random number generator, rarely used directly, often not trusted due to known faults, typically used though the soon to be mentioned &lsquo;urandom&rsquo; interface - <a href="https://main.lv/writeup/kernel_dev_hwrng.md">https://main.lv/writeup/kernel_dev_hwrng.md</a></p>
 <p>&lsquo;initctl&rsquo;  part of the init system, just dont touch it</p>
@@ -590,7 +726,23 @@ crw-rw----   <span style="color:#ae81ff">1</span> root disk      10, <span style
 <p>&lsquo;lightnvm&rsquo; use for NVMe drives</p>
 <p>&lsquo;log&rsquo; no shit, access using <code>sudo journalctl</code></p>
 <p>&lsquo;loop-contol&rsquo; - <a href="http://man7.org/linux/man-pages/man4/loop.4.html,">http://man7.org/linux/man-pages/man4/loop.4.html,</a> effectively used to mount images or or other file systems to be read as a separate block device</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 mapper
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 mapper
 crw-rw----   <span style="color:#ae81ff">1</span> root video    239,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 media0
 crw-r-----   <span style="color:#ae81ff">1</span> root kmem       1,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 mem
 crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">57</span> Feb  <span style="color:#ae81ff">8</span> 06:03 memory_bandwidth
@@ -602,7 +754,9 @@ drwxrwxrwt   <span style="color:#ae81ff">2</span> root root           <span styl
 drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 net
 crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">59</span> Feb  <span style="color:#ae81ff">8</span> 06:03 network_latency
 crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">58</span> Feb  <span style="color:#ae81ff">8</span> 06:03 network_throughput
-</code></pre></div><p>&lsquo;mapper&rsquo; is primarily used for LVM systems, <a href="https://wiki.archlinux.org/index.php/LVM,">https://wiki.archlinux.org/index.php/LVM,</a> which is used for more advance disk management but comes with disadvantages in complexity and inter-OS compatibility</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;mapper&rsquo; is primarily used for LVM systems, <a href="https://wiki.archlinux.org/index.php/LVM,">https://wiki.archlinux.org/index.php/LVM,</a> which is used for more advance disk management but comes with disadvantages in complexity and inter-OS compatibility</p>
 <p>&lsquo;media0&rsquo; is the i/o file for a webcam</p>
 <p>&lsquo;mem&rsquo; is direct access to the system&rsquo;s physical memory. This is dangerous. There&rsquo;s almost no reason to do this directly, unless you&rsquo;re writing a low level driver</p>
 <p>&lsquo;memory_bandwidth&rsquo; - as the name implies. Rarely used</p>
@@ -610,7 +764,23 @@ crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span styl
 <p>&lsquo;mqueue&rsquo; used for interprocess comunnication</p>
 <p>&lsquo;net&rsquo; contains virtual network adapters, will likely contain &lsquo;tun&rsquo; by default, used for interprocess communication in weird ways.</p>
 <p>&lsquo;network_latency&rsquo; and &lsquo;network_thoughput&rsquo; is primary used to specify current minimum necessary requirements for the network, used for power saving on wireless adapters</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">3</span> Feb  <span style="color:#ae81ff">8</span> 06:03 null
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">3</span> Feb  <span style="color:#ae81ff">8</span> 06:03 null
 crw-------   <span style="color:#ae81ff">1</span> root root     243,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 nvme0
 brw-rw----   <span style="color:#ae81ff">1</span> root disk     259,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 nvme0n1
 brw-rw----   <span style="color:#ae81ff">1</span> root disk     259,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 nvme0n1p1
@@ -622,7 +792,9 @@ crw-------   <span style="color:#ae81ff">1</span> root root      10,   <span sty
 crw-rw-rw-   <span style="color:#ae81ff">1</span> root tty        5,   <span style="color:#ae81ff">2</span> Feb  <span style="color:#ae81ff">8</span> 16:37 ptmx
 crw-------   <span style="color:#ae81ff">1</span> root root     247,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ptp0
 drwxr-xr-x   <span style="color:#ae81ff">2</span> root root            <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 pts
-</code></pre></div><p>&lsquo;null&rsquo; literally just discards anything it receives. Useful when a command outputs junk when doing things, and getting rid of the junk. &lsquo;/dev/null&rsquo; is referred to regularly in jokes in technical circles</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;null&rsquo; literally just discards anything it receives. Useful when a command outputs junk when doing things, and getting rid of the junk. &lsquo;/dev/null&rsquo; is referred to regularly in jokes in technical circles</p>
 <p>&lsquo;nvmexxxx&rsquo; the system NVMe storage device(s), will only exist if you have an NVMe solid sate drive</p>
 <p>&lsquo;port&rsquo; used for direct access to i/o ports. Dangerous</p>
 <p>&lsquo;ppp&rsquo; point-to-point protocol. Similar to /net/tun - <a href="https://stackoverflow.com/questions/15845087/what-is-difference-between-dev-ppp-and-dev-net-tun">https://stackoverflow.com/questions/15845087/what-is-difference-between-dev-ppp-and-dev-net-tun</a></p>
@@ -631,7 +803,21 @@ drwxr-xr-x   <span style="color:#ae81ff">2</span> root root            <span sty
 <p>&lsquo;ptmx&rsquo;, pseudo terminal master/slave, used for virtual terminals, like the one&rsquo;s you&rsquo;ve been opening in KDE</p>
 <p>&lsquo;ptp0&rsquo; precession time protocol, links to realtime clock</p>
 <p>&lsquo;pts&rsquo; interval virtual filesystem, used for things like docker. Works closely with &lsquo;ptmx&rsquo;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">8</span> Feb  <span style="color:#ae81ff">8</span> 06:03 random
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">8</span> Feb  <span style="color:#ae81ff">8</span> 06:03 random
 crw-rw-r--+  <span style="color:#ae81ff">1</span> root rfkill    10,  <span style="color:#ae81ff">55</span> Feb  <span style="color:#ae81ff">8</span> 06:03 rfkill
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root            <span style="color:#ae81ff">4</span> Feb  <span style="color:#ae81ff">8</span> 06:03 rtc -&gt; rtc0
 crw-rw----   <span style="color:#ae81ff">1</span> root realtime 250,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 rtc0
@@ -641,11 +827,29 @@ brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,   <span sty
 brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">96</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdg
 brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">97</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sdg1
 brw-rw----   <span style="color:#ae81ff">1</span> root disk       8,  <span style="color:#ae81ff">98</span> Feb  <span style="color:#ae81ff">8</span> 16:37 sdg2
-</code></pre></div><p>&lsquo;random&rsquo; waits for true randomness and will block things from finishing until enough entropy is generated</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;random&rsquo; waits for true randomness and will block things from finishing until enough entropy is generated</p>
 <p>&lsquo;rfkill&rsquo; kills all radio transmission on system</p>
 <p>&lsquo;rtc&rsquo; real time clock, direct access - we&rsquo;ll talk more about real time clocks and time in networking.</p>
 <p>&lsquo;sdxn&rsquo; the &lsquo;normal&rsquo; representation of block devices like HDDs, SSDs, and flash drives to the system. Each number is a partition</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">4</span> root root           <span style="color:#ae81ff">80</span> Feb  <span style="color:#ae81ff">8</span> 06:03 serial
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">4</span> root root           <span style="color:#ae81ff">80</span> Feb  <span style="color:#ae81ff">8</span> 06:03 serial
 crw-rw----+  <span style="color:#ae81ff">1</span> root optical   21,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sg0
 crw-rw----   <span style="color:#ae81ff">1</span> root disk      21,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 sg1
 ...
@@ -657,7 +861,9 @@ brw-rw----+  <span style="color:#ae81ff">1</span> root optical   11,   <span sty
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">15</span> Feb  <span style="color:#ae81ff">8</span> 06:02 stderr -&gt; /proc/self/fd/2
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">15</span> Feb  <span style="color:#ae81ff">8</span> 06:02 stdin -&gt; /proc/self/fd/0
 lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span style="color:#ae81ff">15</span> Feb  <span style="color:#ae81ff">8</span> 06:02 stdout -&gt; /proc/self/fd/1
-</code></pre></div><p>&lsquo;serial&rsquo; contains references to serial devices by id or path</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;serial&rsquo; contains references to serial devices by id or path</p>
 <p>&lsquo;sgx&rsquo; are mostly just remaps of other devices for legacy support</p>
 <p>&lsquo;shm&rsquo; is for shared memory, to be passed between programs</p>
 <p>&lsquo;snapshot&rsquo; is used for hirenation</p>
@@ -666,7 +872,20 @@ lrwxrwxrwx   <span style="color:#ae81ff">1</span> root root           <span styl
 <p>&lsquo;<strong>stderr</strong>&rsquo; is the standard error interface, try <code>echo 1 &gt; /dev/stderr</code> - you should see an error return code depending on your terminal setup</p>
 <p>&lsquo;<strong>stdin</strong>&rsquo; is the standard input interface, try <code>echo hello | cp /dev/stdin /dev/stdout</code></p>
 <p>&lsquo;<strong>stdout</strong> interface, try <code>echo hello &gt; /dev/stdout</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw-rw-   <span style="color:#ae81ff">1</span> root tty        5,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 15:49 tty
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-rw-rw-   <span style="color:#ae81ff">1</span> root tty        5,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 15:49 tty
 crw--w----   <span style="color:#ae81ff">1</span> root tty        4,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 tty0
 ...
 crw--w----   <span style="color:#ae81ff">1</span> root tty        4,  <span style="color:#ae81ff">63</span> Feb  <span style="color:#ae81ff">8</span> 06:03 tty63
@@ -675,7 +894,9 @@ crw-rw----+  <span style="color:#ae81ff">1</span> root tty        4,  <span styl
 crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span style="color:#ae81ff">65</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyS1
 crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span style="color:#ae81ff">66</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyS2
 crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span style="color:#ae81ff">67</span> Feb  <span style="color:#ae81ff">8</span> 06:03 ttyS3
-</code></pre></div><h3 id="ttys-these-are-important">
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ttys-these-are-important">
   TTY&rsquo;s, these are important:
   <a class="anchor" href="#ttys-these-are-important">#</a>
 </h3>
@@ -683,7 +904,29 @@ crw-rw----+  <span style="color:#ae81ff">1</span> root uucp       4,  <span styl
 <p>&lsquo;ttyx&rsquo; are virtual consoles accessible though <strong>ctrl+alt+fx,</strong> where fx is a function key. You should ben on tty7 by default (maybe? if not you might have to use ctrl+alt+fx on each number until you find your graphical environment again), go ahead and try it now. Note you may need to hold the &lsquo;fn&rsquo; key as well depending on your keyboard.</p>
 <p>&lsquo;ttyACMx&rsquo; or &lsquo;ttyUSBx&rsquo; are attached USB devices that can be accessed as a virtual terminal. This is mostly used for development boards, and we&rsquo;ll be using this later</p>
 <p>&lsquo;ttySx&rsquo; are serial port terminals, rarely used outside of scientific or server gear. The physical connector usually looks similar to VGA cable. Your motherboard may well have a serial port header for adding this even if you don&rsquo;t physically see one available on the outside of the case</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">61</span> Feb  <span style="color:#ae81ff">8</span> 06:03 udmabuf
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">61</span> Feb  <span style="color:#ae81ff">8</span> 06:03 udmabuf
 crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">239</span> Feb  <span style="color:#ae81ff">8</span> 06:03 uhid
 crw-rw-rw-+  <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">223</span> Feb  <span style="color:#ae81ff">8</span> 06:03 uinput
 crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">9</span> Feb  <span style="color:#ae81ff">8</span> 06:03 urandom
@@ -701,7 +944,9 @@ crw-rw----   <span style="color:#ae81ff">1</span> root tty        7, <span style
 crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,  <span style="color:#ae81ff">64</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsu
 ...
 crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,  <span style="color:#ae81ff">71</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vcsu7
-</code></pre></div><p>&lsquo;udmabuf&rsquo; Uniform Direct Memory Access Buffer <a href="https://github.com/ikwzm/udmabuf,">https://github.com/ikwzm/udmabuf,</a> you probably don&rsquo;t care</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;udmabuf&rsquo; Uniform Direct Memory Access Buffer <a href="https://github.com/ikwzm/udmabuf,">https://github.com/ikwzm/udmabuf,</a> you probably don&rsquo;t care</p>
 <p>&lsquo;uhid&rsquo; for Human Interface Device stuff on the system side, you shouldn&rsquo;t mess with this</p>
 <p>&lsquo;uinput&rsquo; <a href="https://www.kernel.org/doc/html/v4.12/input/uinput.html,">https://www.kernel.org/doc/html/v4.12/input/uinput.html,</a> basically you can fake a keyboard or mouse in your program</p>
 <p>&lsquo;urandom&rsquo;, the main source of random numbers. give it a shot but running <code>head -5 /dev/urandom</code></p>
@@ -711,7 +956,19 @@ crw-rw----   <span style="color:#ae81ff">1</span> root tty        7,  <span styl
 <p>&lsquo;vcsx&rsquo; virtual console memory, used when running a terminal emulator</p>
 <p>&lsquo;vcax&rsquo; virtual console stuff</p>
 <p>&lsquo;vcsux&rsquo; virtual console stuff</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vfio
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">drwxr-xr-x   <span style="color:#ae81ff">2</span> root root           <span style="color:#ae81ff">60</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vfio
 crw-------   <span style="color:#ae81ff">1</span> root root      10,  <span style="color:#ae81ff">63</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vga_arbiter
 crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style="color:#ae81ff">137</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vhci
 crw-rw----+  <span style="color:#ae81ff">1</span> root kvm       10, <span style="color:#ae81ff">238</span> Feb  <span style="color:#ae81ff">8</span> 06:03 vhost-net
@@ -719,7 +976,9 @@ crw-------   <span style="color:#ae81ff">1</span> root root      10, <span style
 crw-rw----+  <span style="color:#ae81ff">1</span> root video     81,   <span style="color:#ae81ff">0</span> Feb  <span style="color:#ae81ff">8</span> 06:03 video0
 crw-rw----+  <span style="color:#ae81ff">1</span> root video     81,   <span style="color:#ae81ff">1</span> Feb  <span style="color:#ae81ff">8</span> 06:03 video1
 crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span style="color:#ae81ff">5</span> Feb  <span style="color:#ae81ff">8</span> 06:03 zero
-</code></pre></div><p>&lsquo;vfio&rsquo; is used for passing hardware directly to virtual machines, often massively improving performanec</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>&lsquo;vfio&rsquo; is used for passing hardware directly to virtual machines, often massively improving performanec</p>
 <p>&lsquo;vga_arbiter&rsquo; if you still have a computer that uses vga I&rsquo;m sorry. This almost certainly doesn&rsquo;t matter to you even if you do: <a href="https://www.kernel.org/doc/html/v4.16/gpu/vgaarbiter.html">https://www.kernel.org/doc/html/v4.16/gpu/vgaarbiter.html</a></p>
 <p>&lsquo;vhci&rsquo; used for passing though usb devices to virtual machines</p>
 <p>&lsquo;vhost-net&rsquo; &amp; &lsquo;vhost-vsock&rsquo; used for virtual machine networking</p>
@@ -752,9 +1011,17 @@ crw-rw-rw-   <span style="color:#ae81ff">1</span> root root       1,   <span sty
 <p>you should see something like:</p>
 <p><img src="/2019-02-08-200152_831x306_scrot.png" alt="2019-02-08-200152_831x306_scrot" /></p>
 <p>but when we run this in the python terminal:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>):
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>):
     <span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
-</code></pre></div><p>and read the stack again we&rsquo;ll see:</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>and read the stack again we&rsquo;ll see:</p>
 <p><img src="/2019-02-08-200307_427x115_scrot.png" alt="2019-02-08-200307_427x115_scrot" /></p>
 <p>Which while may not look overly interesting, I assure you will be something of interest later.</p>
 <p>One interesting processed to note in here is the process numbered &lsquo;1&rsquo; which, if you look back in htop, you&rsquo;ll see is the init process. This means it&rsquo;s actually possible to look at a mountain of deails about the init process, which we&rsquo;ll talk about in a bit.</p>

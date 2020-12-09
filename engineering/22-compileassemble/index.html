@@ -99,7 +99,7 @@ Common Flags and When to Use them #   These flags are not universal, instead the
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.3f70e1642246a4e648c919b63593926d382d172858f87725b4146d06abe30c81.css" integrity="sha256-P3DhZCJGpOZIyRm2NZOSbTgtFyhY&#43;HcltBRtBqvjDIE=">
-<script defer src="/en.search.min.4b6ee22a2a471f601e720960598549389b9b275ea70cc90a96bc742b9eda86e6.js" integrity="sha256-S27iKipHH2AecglgWYVJOJubJ16nDMkKlrx0K57ahuY="></script>
+<script defer src="/en.search.min.46286a0ef344edddbab59a523b597c8ce5f6c51021ec5b6cd09fe785d92ce045.js" integrity="sha256-RihqDvNE7d26tZpSO1l8jOX2xRAh7Fts0J/nhdks4EU="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -412,11 +412,21 @@ https://github.com/alex-shpak/hugo-book
 <p>Technically, <code>-Ofast</code> can break your code. This is rather unlikely though.</p>
 </blockquote>
 <p>Each of these will take longer to compile but be more aggressive about optimizing the assembly code that is generated from your input. For example, let&rsquo;s look at the code</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">mult</span>(<span style="color:#66d9ef">int</span> m, <span style="color:#66d9ef">int</span> n){
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">mult</span>(<span style="color:#66d9ef">int</span> m, <span style="color:#66d9ef">int</span> n){
     <span style="color:#66d9ef">char</span> a[m][n];
     <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">sizeof</span>(a);
 }
-</code></pre></div><p>This is a <em>very</em> stupid multiply function. Effectively, it&rsquo;s multiplying two numbers by making a matrix of size m by n, and then counting the number of spots in that matrix instead of just multiplying the two numbers. I&rsquo;ve embedded a <a href="">GodBolt</a> page below with this code on the left, and it&rsquo;ll show the assembly output on the right. At the top you should be able to see a box to type compiler options, go ahead and put in <code>-O</code>. You should see a huge long mess of assembly that used multiple <code>imul</code> (multiply) instructions be reduced to 3 lines of assembly with only a single multiply. The compiler has figured out that what we were doing was a stupid multiply and optimized it for us.</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>This is a <em>very</em> stupid multiply function. Effectively, it&rsquo;s multiplying two numbers by making a matrix of size m by n, and then counting the number of spots in that matrix instead of just multiplying the two numbers. I&rsquo;ve embedded a <a href="">GodBolt</a> page below with this code on the left, and it&rsquo;ll show the assembly output on the right. At the top you should be able to see a box to type compiler options, go ahead and put in <code>-O</code>. You should see a huge long mess of assembly that used multiple <code>imul</code> (multiply) instructions be reduced to 3 lines of assembly with only a single multiply. The compiler has figured out that what we were doing was a stupid multiply and optimized it for us.</p>
 <iframe width="100%" height="500px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(fontScale:14,j:1,lang:c%2B%2B,selection:(endColumn:2,endLineNumber:5,positionColumn:2,positionLineNumber:5,selectionStartColumn:2,selectionStartLineNumber:5,startColumn:2,startLineNumber:5),source:'//+Type+your+code+here,+or+load+an+example.%0Aint+mult(int+n,+int+m)%7B%0A++++char+a%5Bm%5D%5Bn%5D%3B%0A++++return(sizeof(a))%3B%0A%7D'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g102,filters:(b:'0',binary:'1',commentOnly:'0',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'1',trim:'1'),fontScale:14,j:1,lang:c%2B%2B,libs:!(),options:'',selection:(endColumn:1,endLineNumber:1,positionColumn:1,positionLineNumber:1,selectionStartColumn:1,selectionStartLineNumber:1,startColumn:1,startLineNumber:1),source:1),l:'5',n:'0',o:'x86-64+gcc+10.2+(Editor+%231,+Compiler+%231)+C%2B%2B',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
 <p>Here there&rsquo;s no difference between <code>-O</code> and <code>O3</code>, but with more complex code there often is. Just keep in mind that this is a trade off, there is the upfront cost of a longer compile time.</p>
 <h3 id="-march--mtune--flto--msse42--mavx--mavx2">
