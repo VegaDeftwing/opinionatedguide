@@ -97,7 +97,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5e2da0e4fe2b6f7eec5dbc3574d11e267afb5fed0191fa2f3ed4706e59b2e23c.css" integrity="sha256-Xi2g5P4rb37sXbw1dNEeJnr7X&#43;0BkfovPtRwblmy4jw=">
-<script defer src="/en.search.min.f6b142b406d61eebbced9a7574a954b7ee44f15c4999f95e933bf7f100b5dc8c.js" integrity="sha256-9rFCtAbWHuu87Zp1dKlUt&#43;5E8VxJmflekzv38QC13Iw="></script>
+<script defer src="/en.search.min.522498a0323ecd12999f7807006c105da316ef29af4bccba27e4296b7dd0d4b1.js" integrity="sha256-UiSYoDI&#43;zRKZn3gHAGwQXaMW7ymvS8y6J&#43;Qpa33Q1LE="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -362,11 +362,13 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#search-sucks">Search sucks</a></li>
         <li><a href="#pay-walls-suck">Pay-Walls suck</a></li>
         <li><a href="#authentication-and-authorization-suck">Authentication and Authorization Suck</a></li>
+        <li><a href="#moderation-of-content-sucks">Moderation of Content sucks</a></li>
       </ul>
     </li>
     <li><a href="#presentation-of-information-sucks">Presentation of Information Sucks</a>
       <ul>
         <li><a href="#dark-patterns">&lsquo;Dark Patterns&rsquo;</a></li>
+        <li><a href="#misleading-information">Misleading Information</a></li>
         <li><a href="#information-overload">Information Overload</a></li>
         <li><a href="#updates-after-initial-draw">Updates after Initial Draw</a></li>
         <li><a href="#everything-needs-to-be-more-damn-responsive">Everything needs to be more damn responsive</a></li>
@@ -395,7 +397,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#open-sensors-and-generators">Open Sensors and Generators</a></li>
     <li><a href="#software-that-breaks-the-mold">Software that breaks the mold</a>
       <ul>
-        <li><a href="#hardware-for-open-expirimentation">Hardware for Open Expirimentation</a></li>
+        <li><a href="#hardware-for-open-experimentation">Hardware for Open Experimentation</a></li>
       </ul>
     </li>
   </ul>
@@ -983,10 +985,15 @@ button, though possibly only because it was the only way to login to that servic
 <p>The real shitty part is a lot of services already support something like this, letting you setup sign in with Single Sign-On via your own identity server, but it&rsquo;s usually limited to enterprise users.</p>
 <p>That said, you can self host Single Sign-On (like the way &lsquo;Sign in With Google&rsquo; works), <a href="https://www.keycloak.org">keycloak</a>, <a href="https://github.com/dexidp/dex">Dex</a>, <a href="https://www.gluu.org">Gluu</a> are options for doing this. It&rsquo;s just that basically no online services will let you use your self hosted service without an enterprise account.</p>
 <p>So, for now, users get fucked. There&rsquo;s really not any good options.</p>
-<p>That said, some things have gotten better <a href="https://en.wikipedia.org/wiki/Single_sign-on">Webauthn</a> provides a much better way to authenticate with many services, including some that can provide Single Sign-On identities, often via those little <a href="https://www.yubico.com/products/">USB keys</a> which are hugely better than the typical user name and password paradigm.</p>
+<p>That said, some things have gotten better, <a href="https://en.wikipedia.org/wiki/Single_sign-on">Webauthn</a> provides a much better way to authenticate with many services, including some that can provide Single Sign-On identities, often via those little <a href="https://www.yubico.com/products/">USB keys</a> which are hugely better than the typical user name and password paradigm.</p>
 <p class="tip ">
     Note, those USB security keys have updated in standard. The newer ones which support WebAuthn are a bit more expensive and less common. The standards are confusing to understand, but the TLDR is you want something that supports WebAuthn/FIDO2.</br>The older standard, U2F, is a two factor system while the FIDO2/Webauth keys can outright replace passwords on the service
 </p>
+<h3 id="moderation-of-content-sucks">
+  Moderation of Content sucks
+  <a class="anchor" href="#moderation-of-content-sucks">#</a>
+</h3>
+<p>[TODO] amazon fake products</p>
 <h2 id="presentation-of-information-sucks">
   Presentation of Information Sucks
   <a class="anchor" href="#presentation-of-information-sucks">#</a>
@@ -994,21 +1001,73 @@ button, though possibly only because it was the only way to login to that servic
 <p class="tip ">
     I&rsquo;ll be the first to admit this website isn&rsquo;t the best on this. I put <a href='https://opinionatedguide.github.io/design/generative-art/'/>the list of generative design tools</a> in a MarkDown Table for fucks sake. I know. But, We&rsquo;ll get to that in a bit, in the Creating New Information Sucks section below, and I hope to convince you that isn&rsquo;t necessarily my fault.
 </p>
+<p>This section is about how we view information, the presentation of words on a page, graphs, and information in general. To start, I want to look at something a little bit different.</p>
+<p><img src="/gemini.jpg" alt="" /></p>
+<p>This is the home page for a project called <a href="https://gemini.circumlunar.space">Gemini</a>, which is a sort of alternative internet, but, wait, hang on&hellip;</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/gemini2.jpg" alt="">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/gemini3.jpg" alt="">
+  </div>
+  
+</div>
+
+<p>These are both that same page, loaded in different browsers. Why do they look different?</p>
+<p>Well, Gemini does something you may thing strange: It let&rsquo;s the browser (client) handle the look of the page. It only serves the raw text. That&rsquo;s it. That&rsquo;s all you get.</p>
+<p>Now, I <em>do not</em> think this is a good idea for the general web. But, I do think as an idea, it can give us some valuable insights.</p>
+<p>Put a pin in it for now though, let me jump ahead into Dark Patterns:</p>
 <h3 id="dark-patterns">
   &lsquo;Dark Patterns&rsquo;
   <a class="anchor" href="#dark-patterns">#</a>
 </h3>
-<p><a href="https://darkpatterns.org/types-of-dark-pattern.html">This Site</a> has a lot of really good info on this, and I recommend heading over there and then coming back over here.</p>
+<blockquote>
+<p>A <strong>dark pattern</strong> is &ldquo;a user interface that has been carefully crafted to trick users into doing things, such as buying overpriced insurance with their purchase or signing up for recurring bills&rdquo;</p>
+</blockquote>
+<p>That&rsquo;s the definition from from Wikipedia anyway. I think it&rsquo;s a bit better put as &ldquo;Dark Patterns are what happens when UI designed are a bag of dicks&rdquo;</p>
+<p><a href="https://darkpatterns.org/types-of-dark-pattern.html">This Site</a> has a lot of really good info on Dark Patters, and I recommend heading over there and then coming back over here.</p>
+<p>Oh, cool, you&rsquo;re back.</p>
+<p>The biggest dark pattern that drives me nuts is a bit of what that site calls &lsquo;Confirm Shaming&rsquo; and a bit of &lsquo;Misdirection&rsquo;, I&rsquo;m talking about sites that do this</p>
 <div class="w3-container"><p><button class="w3-button w3-green w3-round-xxlarge w3-block">DO THE THING HERE</button></p></div>
 <div class="w3-container"><p><button class="w3-button w3-black w3-tiny w3-round-xxlarge">or don't and watch the world burn</button></p></div>
-<p>where the design is actively pursing an agenda. Instead the affirmative action should be stated on the button that triggers it and both actions given equal weight to the user.</p>
+<p>where the design is actively pursing an agenda. But it's not just those. Even ones that look semi reasonable can still be annoying if they don't include the action directly.  The affirmative action should be stated on the button that triggers it and both actions given equal weight to the user.</p>
 <div class="w3-bar">
   <button class="w3-bar-item w3-button w3-red" style="width:50%">Don't Do Action</button>
   <button class="w3-bar-item w3-button w3-green" style="width:50%">Do Action</button>
 </div>
+<p>for example</p>
+<div class="w3-bar">
+  <button class="w3-bar-item w3-button w3-red" style="width:50%">Leave Items in Place</button>
+  <button class="w3-bar-item w3-button w3-green" style="width:50%">Delete Items</button>
+</div>
 <p>Note here by Action I literally mean to <strong>include the verb.</strong> Delete. Replace. Print. Etc. Yes or No <em>is not</em> good enough.</p>
 <p>With destructive or irreversible actions, such as deletion (not recycling), given a confirmation dialogue, and if particularly important, a dialogue that require <em>meaningful</em> user input, like this prompt when deleting a repo on GitHub</p>
 <p><img src="/delconfirm.png" alt="DelConfirm" style="zoom:50%;" /></p>
+<p>Alright, so back to Gemini: Making more things like it wouldn&rsquo;t totally solve this problem, designers could still totally chose to make the text confirm shame, but by letting more elements be controlled by the user (or their browser), we could at least do a little bit better by letting that ensure options to confirm or deny are given equal weight and that they are colored appropriately.</p>
+<p>It&rsquo;s not like this system couldn&rsquo;t be abused still of course, and there will always be a balance between the user trusting the service and it&rsquo;s UI and the beauty of that UI, but I think we could stand to go a bit in the direction of Gemini.</p>
+<h3 id="misleading-information">
+  Misleading Information
+  <a class="anchor" href="#misleading-information">#</a>
+</h3>
+<blockquote>
+<p>I don&rsquo;t like &lsquo;em putting chemicals in the water that turn the freakin&rsquo; frogs gay!</p>
+</blockquote>
+<p class="attribution ">
+    <a href="https://en.wikiquote.org/wiki/Alex_Jones">Alex Jones</a> ヘ（゜◇、゜）ノ
+</p>
+<p>Yes. Misinformation online is a royal fucking shit show. There&rsquo;s no way to possibly preserve total free speech, <a href="https://en.wikipedia.org/wiki/Paradox_of_tolerance">not that we should</a>, and also have a system that doesn&rsquo;t spread misinformation to the extent that people stop vaccinating their kids or thinking that COVID is a hoax. I&rsquo;m not trying to address that problem. If I could, I would. But I honestly think that&rsquo;s a genie we can&rsquo;t really put back in the bottle now.</p>
+<p>Instead, I think we could do some things to make it a bit harder to spread stupid, false information by making it a bit harder to present data in misleading ways. Sure, the data itself may still be bad, but, we can make an attempt to increase transparency and display data accurately. How? Well, first, go have a look at some <a href="https://www.statisticshowto.com/misleading-graphs/">comically bad graphs (Statistics How To)</a>.</p>
+<p>A lot of these come down to graphs that purposefully play with axis or do other bullshit with the express intent of tricking you.</p>
+<p>So, fuck their formatting. We should do it the Gemini way: Let the client handle the data display, and make the graphs interactive. If it&rsquo;s a two bar chart with one bar at 54.5% and one bar at 55.0%, that should be what the user sees first and only then can zoom in.</p>
+<blockquote>
+<p>This is already easy enough to do with something like <a href="https://d3js.org/">https://d3js.org/</a></p>
+</blockquote>
+<p>This also makes it easier to compare data sets, as now the client actually has access to the source data, or at least the data that drew the graph.</p>
+<p>This practice could be incentivized too, as news, shopping, and review sites that use it could do so as a way to build trust with their users, and, probably more importantly for adoption, shit on their competitors that don&rsquo;t do the same.</p>
+<p>This may not ensure the data is good, but at least it makes progress in increasing how we can trust data to some extent.</p>
 <h3 id="information-overload">
   Information Overload
   <a class="anchor" href="#information-overload">#</a>
@@ -1172,15 +1231,15 @@ button, though possibly only because it was the only way to login to that servic
   Open Sensors and Generators
   <a class="anchor" href="#open-sensors-and-generators">#</a>
 </h2>
-<p>SDRs, new IO options (something shittier than USB, cheap, and extendible), open IOT</p>
+<p>SDRs, new IO options (something shittier than USB, cheap, and extendable), open IOT</p>
 <h2 id="software-that-breaks-the-mold">
   Software that breaks the mold
   <a class="anchor" href="#software-that-breaks-the-mold">#</a>
 </h2>
 <p><a href="https://github.com/SolarLune/masterplan">https://github.com/SolarLune/masterplan</a></p>
-<h3 id="hardware-for-open-expirimentation">
-  Hardware for Open Expirimentation
-  <a class="anchor" href="#hardware-for-open-expirimentation">#</a>
+<h3 id="hardware-for-open-experimentation">
+  Hardware for Open Experimentation
+  <a class="anchor" href="#hardware-for-open-experimentation">#</a>
 </h3>
 <p>Microfluid computers, diode logic, GPIO</p>
 <ol start="7">
@@ -1205,7 +1264,7 @@ button, though possibly only because it was the only way to login to that servic
 <ul>
 <li><strong>Customizeability vs Default Inclusion</strong></li>
 </ul>
-<p>Microsoft browser choice windows</p>
+<p>[TODO] Microsoft browser choice windows</p>
 <h2 id="everything-is-in-the-browser-now-anyway">
   Everything is in the browser now anyway?
   <a class="anchor" href="#everything-is-in-the-browser-now-anyway">#</a>
@@ -1349,11 +1408,13 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
         <li><a href="#search-sucks">Search sucks</a></li>
         <li><a href="#pay-walls-suck">Pay-Walls suck</a></li>
         <li><a href="#authentication-and-authorization-suck">Authentication and Authorization Suck</a></li>
+        <li><a href="#moderation-of-content-sucks">Moderation of Content sucks</a></li>
       </ul>
     </li>
     <li><a href="#presentation-of-information-sucks">Presentation of Information Sucks</a>
       <ul>
         <li><a href="#dark-patterns">&lsquo;Dark Patterns&rsquo;</a></li>
+        <li><a href="#misleading-information">Misleading Information</a></li>
         <li><a href="#information-overload">Information Overload</a></li>
         <li><a href="#updates-after-initial-draw">Updates after Initial Draw</a></li>
         <li><a href="#everything-needs-to-be-more-damn-responsive">Everything needs to be more damn responsive</a></li>
@@ -1382,7 +1443,7 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
     <li><a href="#open-sensors-and-generators">Open Sensors and Generators</a></li>
     <li><a href="#software-that-breaks-the-mold">Software that breaks the mold</a>
       <ul>
-        <li><a href="#hardware-for-open-expirimentation">Hardware for Open Expirimentation</a></li>
+        <li><a href="#hardware-for-open-experimentation">Hardware for Open Experimentation</a></li>
       </ul>
     </li>
   </ul>
