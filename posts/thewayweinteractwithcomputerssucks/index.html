@@ -97,7 +97,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.71d0f389a9c21500b566179c52bea942133b29cc27301dad4a7aaadb26a7c532.css" integrity="sha256-cdDzianCFQC1ZhecUr6pQhM7KcwnMB2tSnqq2yanxTI=">
-<script defer src="/en.search.min.0b53ff3d83ef414665bde19526583728192c4b3ec2f8567eacf30528568533ea.js" integrity="sha256-C1P/PYPvQUZlveGVJlg3KBksSz7C&#43;FZ&#43;rPMFKFaFM&#43;o="></script>
+<script defer src="/en.search.min.452ea5edaa7c7addd9bedfd8d87803ffde017fafd6219fa3287831430ef8a4e5.js" integrity="sha256-RS6l7ap8et3Zvt/Y2HgD/94Bf6/WIZ&#43;jKHgxQw74pOU="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -376,7 +376,16 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#advertising">Advertising</a></li>
       </ul>
     </li>
-    <li><a href="#storing-information-sucks">Storing Information Sucks</a></li>
+    <li><a href="#storing-information-sucks">Storing Information Sucks</a>
+      <ul>
+        <li><a href="#archival">Archival</a></li>
+        <li><a href="#phone--pc-is-the-fucking-worst">Phone ↔ PC is the fucking worst.</a></li>
+        <li><a href="#were-using-ancient-formats">Were using ancient formats</a></li>
+        <li><a href="#bit-rot">Bit rot?</a></li>
+        <li><a href="#hard-drives-and-file-systems-suck">Hard drives and File systems suck.</a></li>
+        <li><a href="#cloud-storage-is-a-terrible-idea">Cloud Storage is a terrible idea</a></li>
+      </ul>
+    </li>
     <li><a href="#transferring-information-sucks">Transferring Information Sucks</a>
       <ul>
         <li><a href="#networking-sucks">Networking Sucks</a></li>
@@ -1159,34 +1168,62 @@ button, though possibly only because it was the only way to login to that servic
   Storing Information Sucks
   <a class="anchor" href="#storing-information-sucks">#</a>
 </h2>
+<p>Storing your data blows. Users have to contend with backups, backups for you backups, bitrot, file size vs compression, what file system to use, how to make backups actually convenient, mirroring information between systems with limited bandwidth, etc. But to start somewhere let&rsquo;s just look at archival:</p>
+<h3 id="archival">
+  Archival
+  <a class="anchor" href="#archival">#</a>
+</h3>
+<p>Digital archival on &lsquo;cold storage&rsquo; sucks. For one, that cold storage is ofter either a PITA to attach in the first place, Usually using either using a slow USB interface, an expensive and far-from-universal thunderbolt one, or, if you want to go very bulk storage, requiring a specialized PCIe card which is meant for servers which brings along it&rsquo;s own pile of issues.</p>
+<p>But even once you have everything attached, most of the time backups are pain to run. You can always do the lazy copy-and-replace-existing method, but that&rsquo;s painfully slow as it has to check all the current files instead of just doing the logical thing and comparing two indexes, but, of course, most file systems don&rsquo;t support this index based method. Sure, there&rsquo;s software to add it, like Bvckup, but most that I can find is paid or not something I would trust.</p>
+<p>Using Git (or GitAnnex) is of course an option, but that has a higher barrier to entry to learn than seems reasonable. At the same time having actual file versioning needs to be a thing, something better than having <code>meh1.docx</code>, <code>meh2.docx</code>,<code>meh3final.docx</code>, and <code>meh3.5.finaler.docx</code>, even if it is still storing the file in full (though hopefully compressed) behind the scenes.</p>
+<p>But, on the note of indexes, why are tools to provide a disk-offline index not better. From what I can find, <a href="https://github.com/deadc0de6/catcli">catcli</a> and <a href="http://vvvapp.sourceforge.net">Virtual Volumes View</a> are the main two options, and both are bit out of the way to use, compared to just having it be natively in the file browser.</p>
 <p>[TODO]</p>
 <p><a href="https://lbry.io/">https://lbry.io/</a></p>
 <p><a href="https://datproject.org/">https://datproject.org/</a></p>
 <p><a href="https://ipfs.io/">https://ipfs.io/</a></p>
+<h3 id="phone--pc-is-the-fucking-worst">
+  Phone ↔ PC is the fucking worst.
+  <a class="anchor" href="#phone--pc-is-the-fucking-worst">#</a>
+</h3>
+<p>MTP needs to die a very painful death.</p>
+<h3 id="were-using-ancient-formats">
+  Were using ancient formats
+  <a class="anchor" href="#were-using-ancient-formats">#</a>
+</h3>
+<p>Look, jpeg and png are perfectly fine formats. For 2000. It&rsquo;s 2020. HEIF (or <a href="https://bellard.org/bpg/">BPG</a>) really should be standard. Instead, it&rsquo;s a motherfucker because M$ is too damn cheap to include the HEVC extensions which it relies on it without either having the user <a href="https://www.microsoft.com/en-us/p/hevc-video-extensions/9nmzlz57r3t7">pay $0.99</a> (<a href="https://www.microsoft.com/en-us/p/hevc-video-extensions-from-device-manufacturer/9n4wgh0z6vhq?activetab=pivot:overviewtab">or claiming to be the OEM</a>) because a collection of jackasses have it <a href="https://www.hackerfactor.com/blog/index.php?/archives/833-HEIC-Yeah.html">patented so hard</a> and require licensing fees such that it may as well not exist. HEIF/HEIC or BPG I think have a good chance because of the preexisting hardware acceleration, but other formats like <a href="https://hific.github.io/">hific</a>, which uses GANs to do compression, look promising too.</p>
+<p>Of course the same applies in other formats. .flac is replacing .wav for high end audio, but why not <a href="https://en.wikipedia.org/wiki/Direct_Stream_Digital">Direct Stream Digital (DSD)</a>?</p>
 <ul>
-<li>Archival is a pain in the ass</li>
-<li>No good backup software</li>
-<li>Phone&lt;-&gt;PC is the fucking worst
-<ul>
-<li>MTP needs to die a very painful death</li>
-</ul>
-</li>
 <li>All the best formats are a pain in the ass
 <ul>
 <li>format shifting sucks, opening them sucks, patents suck</li>
-<li><a href="https://bellard.org/bpg/">https://bellard.org/bpg/</a></li>
 </ul>
 </li>
 <li>People use some really, really shit formats</li>
 <li>A lot of formats are needlessly complicated and not human or computer readable to anyone but the software vendor</li>
-<li>Data get&rsquo;s compressed, saved, and recompressed (ref xkcd)
+</ul>
+<h3 id="bit-rot">
+  Bit rot?
+  <a class="anchor" href="#bit-rot">#</a>
+</h3>
+<ul>
+<li>
+<p>Data get&rsquo;s compressed, saved, and recompressed (ref xkcd)</p>
 <ul>
 <li>Using Waifu-2x to unfuck images still blows</li>
 </ul>
 </li>
-<li>sorting through data blows</li>
-<li>no &lsquo;transaction history&rsquo; or global text search</li>
-<li>lack of file system based versioning</li>
+<li>
+<p>sorting through data blows</p>
+</li>
+<li>
+<p>no &lsquo;transaction history&rsquo; or global text search</p>
+</li>
+</ul>
+<h3 id="hard-drives-and-file-systems-suck">
+  Hard drives and File systems suck.
+  <a class="anchor" href="#hard-drives-and-file-systems-suck">#</a>
+</h3>
+<ul>
 <li>why the fuck are we still using NTFS and EXT4 and not ZFS and LVM</li>
 <li>Hard drive vendors are a bag of dicks
 <ul>
@@ -1205,6 +1242,12 @@ button, though possibly only because it was the only way to login to that servic
 <li>Feeling the inertia in a laptop</li>
 </ul>
 </li>
+</ul>
+<h3 id="cloud-storage-is-a-terrible-idea">
+  Cloud Storage is a terrible idea
+  <a class="anchor" href="#cloud-storage-is-a-terrible-idea">#</a>
+</h3>
+<ul>
 <li>Cloud storage is a terrible idea</li>
 </ul>
 <p>I&rsquo;d also like to mention the idea of distributed computation here as well, as I think it&rsquo;s relevant both for the sake of compression and encryption of the data. I think that having a distributed system like &lsquo;this&rsquo; - I&rsquo;m referring to all the ideas up until now- in place should ask for contribution from users in turn for it&rsquo;s use, the obvious ask is to get it to be self sufficient. So if the distributed computational power of all these systems were used for everything I&rsquo;ve described until now that should be more than plenty to allow it to function. This brings up the idea of balanced usage to contribution, I think the easiest solution is to simply use a system of computational debt tied to each user account. If the user is creating more computational debt than the average debt the system can sustain then that user should be handicapped in bandwidth accordingly. This does sort of bring us full circle in &lsquo;can I just trade debt with someone, or sell them my computational time&rsquo; such that we&rsquo;re back to crypto based services again though, and I really don&rsquo;t like this idea for two reasons:</p>
@@ -1212,7 +1255,7 @@ button, though possibly only because it was the only way to login to that servic
 <li>This system needs real time computation and bandwidth, and these vary in value just like how electricity peak hours cost more.</li>
 <li>This incentives simply paying for compute time instead of actually contributing computational power to the network like it actually needs, which in turns creates an incentive for people to do this at scale <em>annnndd</em> look at that we&rsquo;re back to centralization.</li>
 </ol>
-<p>The biggest problem with of course, is that currently home internet users very rarely have symmetric connections, so would probably be very pissed if their download speed were suddenly tied to their upload speed. This <em>could</em> be offset by building up credit, as previously mentioned, but that has the issues, as previously mentioned. I suppose there could simply be a credit cap, but setting that would be exceedingly awkward as a logical number to use would vary by user and how they use the system.</p>
+<p>The biggest problem with of course, is that currently home Internet users very rarely have symmetric connections, so would probably be very pissed if their download speed were suddenly tied to their upload speed. This <em>could</em> be offset by building up credit, as previously mentioned, but that has the issues, as previously mentioned. I suppose there could simply be a credit cap, but setting that would be exceedingly awkward as a logical number to use would vary by user and how they use the system.</p>
 <p><img src="/xkcddigitaldata.png" alt="XKCD Digital Data" /></p>
 <p class="attribution ">
     <a href="https://xkcd.com/1683/">XKCD #1683</a>
@@ -1583,7 +1626,16 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
         <li><a href="#advertising">Advertising</a></li>
       </ul>
     </li>
-    <li><a href="#storing-information-sucks">Storing Information Sucks</a></li>
+    <li><a href="#storing-information-sucks">Storing Information Sucks</a>
+      <ul>
+        <li><a href="#archival">Archival</a></li>
+        <li><a href="#phone--pc-is-the-fucking-worst">Phone ↔ PC is the fucking worst.</a></li>
+        <li><a href="#were-using-ancient-formats">Were using ancient formats</a></li>
+        <li><a href="#bit-rot">Bit rot?</a></li>
+        <li><a href="#hard-drives-and-file-systems-suck">Hard drives and File systems suck.</a></li>
+        <li><a href="#cloud-storage-is-a-terrible-idea">Cloud Storage is a terrible idea</a></li>
+      </ul>
+    </li>
     <li><a href="#transferring-information-sucks">Transferring Information Sucks</a>
       <ul>
         <li><a href="#networking-sucks">Networking Sucks</a></li>
