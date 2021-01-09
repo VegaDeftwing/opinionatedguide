@@ -95,7 +95,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.5e6e368bfbade5dc45a873e8f369a6cb0ef20a8e97e5d077ea9895c80591dd45.js" integrity="sha256-Xm42i/ut5dxFqHPo82mmyw7yCo6X5dB36piVyAWR3UU="></script>
+<script defer src="/en.search.min.9d7eb5a5c7dc8a8273c8d53a941876f4790bd37273142f714c95ed3d08744794.js" integrity="sha256-nX61pcfcioJzyNU6lBh29HkL03JzFC9xTJXtPQh0R5Q="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -347,6 +347,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#high-pass-filters">High Pass Filters</a></li>
         <li><a href="#band-pass-filters">Band Pass Filters</a></li>
         <li><a href="#notch-filters">Notch Filters</a></li>
+        <li><a href="#peak-filters">Peak Filters</a></li>
+        <li><a href="#low-and-high-shelf-filters">Low and High Shelf Filters</a></li>
         <li><a href="#comb-filters">Comb Filters</a></li>
         <li><a href="#all-pass-filters-phaser">All-Pass Filters (Phaser)</a></li>
         <li><a href="#types-of-filters">Types of Filters</a></li>
@@ -385,7 +387,11 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#gating-other-effects-with-a-mix">Gating other effects with a mix</a></li>
       </ul>
     </li>
-    <li><a href="#limiting">Limiting</a></li>
+    <li><a href="#limiting">Limiting</a>
+      <ul>
+        <li><a href="#soft-and-hard-clipping">Soft and Hard Clipping</a></li>
+      </ul>
+    </li>
     <li><a href="#compression">Compression</a></li>
     <li><a href="#vocoders">Vocoders</a></li>
     <li><a href="#glitch-granular-and-pitch">Glitch, Granular, and Pitch</a></li>
@@ -424,7 +430,7 @@ https://github.com/alex-shpak/hugo-book
   Vibrato
   <a class="anchor" href="#vibrato">#</a>
 </h2>
-<p>Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as in Chapter 2, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound. On a guitar this may be done with a pedal but more simply just by bending the string back and forth with the fingers.</p>
+<p>Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as in Chapter 2, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound. On a guitar this may be done with a pedal but more simply just by bending the string back and forth with the fingers quickly.</p>
 <h2 id="delay">
   Delay
   <a class="anchor" href="#delay">#</a>
@@ -480,10 +486,6 @@ https://github.com/alex-shpak/hugo-book
   Effect on Square Waves
   <a class="anchor" href="#effect-on-square-waves">#</a>
 </h4>
-<h4 id="low-shelf-filters">
-  Low Shelf Filters
-  <a class="anchor" href="#low-shelf-filters">#</a>
-</h4>
 <h3 id="high-pass-filters">
   High Pass Filters
   <a class="anchor" href="#high-pass-filters">#</a>
@@ -499,6 +501,16 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#notch-filters">#</a>
 </h3>
 <p>Again, as the name implies, notch filters create a notch in the sound. Often used to correct for an issue in the sound, such as removing a 60hz hum. In Notch filters the resonance control actually changes how steep the notch is, so low resonance (Low Q) will cause the notch to be wider as the slope isn&rsquo;t very steep, but a high resonance (Q) will let you really pick out a specific frequency.</p>
+<h3 id="peak-filters">
+  Peak Filters
+  <a class="anchor" href="#peak-filters">#</a>
+</h3>
+<h3 id="low-and-high-shelf-filters">
+  Low and High Shelf Filters
+  <a class="anchor" href="#low-and-high-shelf-filters">#</a>
+</h3>
+<p>Unlike all the filters until now which have a resonant peak, shelf filters actually boost or lower the volume all the way to the cut off frequenecy. Here, (1) is a low shelf filter, boosting all the lows (by a lot more than you&rsquo;d ever actually want to) and (8) is a high-shelf set to cut the highs. for some context, (5) is a peak filter. With a normal Low/High pass filter, adding resonance, (dragging the point above the +0db line in this graph) would only make make a spike like this at the cut off point, not make a &lsquo;shelf&rsquo;.</p>
+<p><img src="/filtershelves.jpg" alt="" /></p>
 <h3 id="comb-filters">
   Comb Filters
   <a class="anchor" href="#comb-filters">#</a>
@@ -561,14 +573,23 @@ https://github.com/alex-shpak/hugo-book
   Filter Resonance (Q)
   <a class="anchor" href="#filter-resonance-q">#</a>
 </h3>
+<h4 id="self-oscillation">
+  Self Oscillation
+  <a class="anchor" href="#self-oscillation">#</a>
+</h4>
+<p>Filters with resonance can often be put into self oscillation by turning the resonance above a threshold for normal operation. In digital filters, you may need to give the filter some sort of brief input before it starts oscillating. With analog hardware, noise in the system, even if not normally noticeable, is typically enough to start the process. Most filters will output a pure sine wave when self oscillating.</p>
+<p>Here I start by feeding this filter an input from an oscillator module which is off screen, and sweep though the frequencies. Then I turn up the resonance a bit, do another sweep. Then I unplug the oscillator and sweep frequencies, you can see that it is silent. Finally, I turn the resonance above the self oscillation threshold, and you can hear output.</p>
+<blockquote>
+<p>Note, this module is a multi-mode filter, it&rsquo;s top 4 outputs are various poles of a low pass filter and the bottom four outputs are a highpass, &lsquo;band bost + notch&rsquo;, Phase-shifter, and Band Pass, respectively. Here, you&rsquo;re hearing the output of the band pass filter. The sound of self oscillation will be a sine wave for any of the outputs though.</p>
+</blockquote>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/_12dHnLS474" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h4 id="pinging-filters">
   Pinging Filters
   <a class="anchor" href="#pinging-filters">#</a>
 </h4>
-<h4 id="self-oscilation">
-  Self Oscilation
-  <a class="anchor" href="#self-oscilation">#</a>
-</h4>
+<p>Here, the same filter is being put right at the edge of resonance and a square wave is &lsquo;pinging&rsquo; the filter. It resonates heavily, but not enough to drive it into self oscillation. Different outputs may sound a bit different here.</p>
+<p>This filter module actually has a dedicated ping input, which is why I can &lsquo;ping&rsquo; it with a square wave, but typically you&rsquo;d want to ping filters with a trigger (a very short pulse) rather than a square wave (which is high as much as it is low)</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/11rZJGvAimk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h3 id="autowah">
   AutoWah
   <a class="anchor" href="#autowah">#</a>
@@ -668,6 +689,10 @@ https://github.com/alex-shpak/hugo-book
   Limiting
   <a class="anchor" href="#limiting">#</a>
 </h2>
+<h3 id="soft-and-hard-clipping">
+  Soft and Hard Clipping
+  <a class="anchor" href="#soft-and-hard-clipping">#</a>
+</h3>
 <h2 id="compression">
   Compression
   <a class="anchor" href="#compression">#</a>
@@ -766,6 +791,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#high-pass-filters">High Pass Filters</a></li>
         <li><a href="#band-pass-filters">Band Pass Filters</a></li>
         <li><a href="#notch-filters">Notch Filters</a></li>
+        <li><a href="#peak-filters">Peak Filters</a></li>
+        <li><a href="#low-and-high-shelf-filters">Low and High Shelf Filters</a></li>
         <li><a href="#comb-filters">Comb Filters</a></li>
         <li><a href="#all-pass-filters-phaser">All-Pass Filters (Phaser)</a></li>
         <li><a href="#types-of-filters">Types of Filters</a></li>
@@ -804,7 +831,11 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#gating-other-effects-with-a-mix">Gating other effects with a mix</a></li>
       </ul>
     </li>
-    <li><a href="#limiting">Limiting</a></li>
+    <li><a href="#limiting">Limiting</a>
+      <ul>
+        <li><a href="#soft-and-hard-clipping">Soft and Hard Clipping</a></li>
+      </ul>
+    </li>
     <li><a href="#compression">Compression</a></li>
     <li><a href="#vocoders">Vocoders</a></li>
     <li><a href="#glitch-granular-and-pitch">Glitch, Granular, and Pitch</a></li>
