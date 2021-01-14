@@ -75,28 +75,31 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
+<meta name="description" content="I use VCV Rack a lot. In general, I use it in Windows as running VSTs in Linux is still a bit of a PITA, but I still want to be able to use it Linux for processing guitar when taking breaks from working on other things without having to completely reboot over to Windows.
+Unfortunately, for a good while now VCV has had an annoying bug. I&rsquo;m not sure when it started, but at some point it started eating my GPU.">
 <meta name="theme-color" content="#FFFFFF">
 
 
 
-<style>
-  a{color:  #E23838;}
-  a:active{color: #E23838;}
-  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
-  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
-</style>
-<meta property="og:title" content="PHIL" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://opguides.info/phil/" />
 
-<title>PHIL | Opinionated Guides</title>
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="Slow Down!" />
+<meta property="og:description" content="I use VCV Rack a lot. In general, I use it in Windows as running VSTs in Linux is still a bit of a PITA, but I still want to be able to use it Linux for processing guitar when taking breaks from working on other things without having to completely reboot over to Windows.
+Unfortunately, for a good while now VCV has had an annoying bug. I&rsquo;m not sure when it started, but at some point it started eating my GPU." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/posts/slowdown/" />
+<meta property="article:published_time" content="2021-01-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-14T00:00:00+00:00" />
+<title>Slow Down! | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
 <script defer src="/en.search.min.73c0bcfabd1dd2b4ceeef7772da4698d1b7e179f9c147ae9e17ccb8bf6ce8fa8.js" integrity="sha256-c8C8&#43;r0d0rTO7vd3LaRpjRt&#43;F5&#43;cFHrp4XzLi/bOj6g="></script>
-<link rel="alternate" type="application/rss+xml" href="https://opguides.info/phil/index.xml" title="Opinionated Guides" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -324,7 +327,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>PHIL</strong>
+  <strong>Slow Down!</strong>
 
   <label for="toc-control">
     
@@ -347,7 +350,42 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"></article>
+<article class="markdown">
+  <h1>
+    <a href="/posts/slowdown/">Slow Down!</a>
+  </h1>
+  
+  <h5>January 14, 2021</h5>
+
+
+
+  
+
+  
+
+
+  <p><p>I use <a href="https://vcvrack.com">VCV Rack</a> a lot. In general, I use it in Windows as running VSTs in Linux is still a bit of a PITA, but I still want to be able to use it Linux for processing guitar when taking breaks from working on other things without having to completely reboot over to Windows.</p>
+<p>Unfortunately, for a good while now VCV has had an annoying bug. I&rsquo;m not sure when it started, but at some point it started eating my GPU. Like, absolutely wrecking it.</p>
+<p><img src="/VCVfail.png" alt="" /></p>
+<p class="attribution ">
+    <a href="https://github.com/clbr/radeontop">Radeontop (GitHub)</a>
+</p>
+<p>It was still technically useable, in fact it ran butter smooth&hellip;</p>
+<p><img src="/fps.png" alt="" /></p>
+<p>Oh wait, I wonder if killing <a href="https://github.com/yshui/picom">picom</a>, the X11 compositor I use will help</p>
+<p><img src="/nocomp.png" alt="" /></p>
+<p>Nopeeee.</p>
+<p>Alright, obviously this is far from ideal. I actually only knew to check the FPS because of an interesting quirk, I think when the FPS got this high my GPU was getting jobs at that rate, so 930ish times per second, but still finishing them quickly enough to cause the GPU load to constantly change going 100% → 0% → 100% → 0% &hellip; in a loop, really fast. It caused the physical GPU, an AMD Vega56, to whine in my tower. I don&rsquo;t think it was <a href="https://en.wikipedia.org/wiki/Electromagnetically_induced_acoustic_noise">coil whine</a>, but it was also very loud.</p>
+<p>First I tried just changing the FPS target value in VCV and then I tried playing with settings in the <code>settings-v1.json</code> file, but nothing worked.</p>
+<p>My next attempt to fix it was to try rebooting and loading my system with the Zen Linux kernel as I knew it used a different scheduler and did some extra stuff for real time computation (nice to have anyway when doing audio stuff like VCV).</p>
+<p>Unfortunately, that was a bust. Still rocking the 930 FPS.</p>
+<p>From here I had to ask for more help. Thankfully, a friend in my modular music chat on telegram was able to point me to a few ideas. I ran <code>glxinfo</code>, made sure everything looked sane, and it was all good. Next I tried using <code>LIBGL_THROTTLE_REFRESH=1</code> and <code>WGL_SWAP_INTERVAL=1</code> with no luck either.</p>
+<p>Failing other ideas I Googled &ldquo;linux limit frame rate environment variables&rdquo; and one of the top results was <a href="https://github.com/milaq/libstrangle">libstrangle (GitHub)</a> which limits frame rate by using <code>LD_PRELOAD</code> to dynamically link it&rsquo;s own library that does the FPS limiting. This reeks of hacky bullshit. But I&rsquo;m <em>always</em> down for some hacky bullshit. For S&amp;Gs I check, and `lo and behold it&rsquo;s in the AUR.</p>
+<p><img src="/strangle.png" alt="strangle" /></p>
+<p>I still have no idea what&rsquo;s going on. The easy guess is &ldquo;You have a Vega56, it&rsquo;s a weird GPU with HBM2&rdquo; and, yeah, that makes sense, but then there&rsquo;s <a href="https://github.com/VCVRack/Rack/issues/1829">This Issue</a> in VCV Rack&rsquo;s GitHub repo where someone else is having the same problem on an Nvidia card on Ubuntu. I&rsquo;m using an AMD Card on Arch! Other than the commonality of Linux, these systems couldn&rsquo;t be much more different.</p>
+<p>That issue shows the original poster had traced it down to <a href="https://github.com/VCVRack/Rack/blob/e334902e8addf96ad726192c665d806f0952def0/src/window.cpp#L415">one line</a>, but I&rsquo;m hesitant to accept that explanation when VCV works fine for me on Windows and the issue has no other comments from other people with the same issue.</p>
+</p>
+</article>
  
       
 
@@ -360,7 +398,7 @@ https://github.com/alex-shpak/hugo-book
 
 
   <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Phil/_index.md" target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//posts/fpsbug.md" target="_blank" rel="noopener">
       <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
       <span>Edit this page</span>
     </a>
@@ -378,6 +416,10 @@ https://github.com/alex-shpak/hugo-book
       </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
   
  
 
