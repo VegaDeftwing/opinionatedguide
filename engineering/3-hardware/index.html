@@ -97,7 +97,7 @@ The CPU #  These are CPUS or Central Processing Units. They&rsquo;re the beating
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.b0150be58c0893553b31d9039f00a8dcbdced08025bd08558acae3d77e97ef55.js" integrity="sha256-sBUL5YwIk1U7MdkDnwCo3L3O0IAlvQhVisrj136X71U="></script>
+<script defer src="/en.search.min.491889a74e1f4f080a56ec8330245fd7a25e1fc7e9c8f993c1e875dbc2d48dac.js" integrity="sha256-SRiJp04fTwgKVuyDMCRf16JeH8fpyPmTweh128LUjaw="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -753,6 +753,8 @@ cache size      : <span style="color:#ae81ff">512</span> KB
 <p>the CPU is one of the most power hungry parts of your computer, and as such it does some interesting things to try to keep it&rsquo;s power usage lower. Namely, it&rsquo;ll turn it&rsquo;s clock speed to do less operations per second as previously mentioned, but theres other things like entering sleep and hibernation states the processor is also capable of. The main thing you might want to concern yourself with from a performance to power consumption stand point is how aggressive this clock speed changing is. You can go as extreme as to tell the system to never let the processor get to full speed or to say &lsquo;only run at max speed all the time&rsquo;. The latter is actually quite useful as often it can take quite a few clock cycles after a heavy load is started for the processor to come up to speed, but if it&rsquo;s always running full steam ahead this is a non issue. This entire topic is particularly relevent to laptops, and on Arch you may want to install a program to manage some of this for you or set sane defaults to save battery. I&rsquo;ve had good luck using the <code>tlp</code> package. the <code>cpupower</code> package is helpful for looking at how arch handles cpu scaling and it lets you directly set these min and max frequencies or pick the scaling governor to handle how aggressive the switching is.https://wiki.archlinux.org/index.php/CPU_frequency_scaling#cpupower</p>
 <p>I very strongly recommend looking into this on any system though, as by default some CPUs will run at the minimum frequency only.</p>
 <p><img src="/cpupower.png" alt="cpupower" title=":size=70%"/></p>
+<p>If you want to actually see how much power is used, <code>rapl</code> should do the trick, just be sure to actually put the system under load first- <code>stress-ng --cpu 16</code> (or whatever your thread count is) should work.</p>
+<p><img src="/rapl.png" alt="rapl" /></p>
 <p>We&rsquo;ll talk about delivering power to the CPU in a bit, when we talk about the Voltage Regulation Module (VRM) on the Motherboard.</p>
 <h3 id="physically-what-and-where-is-this-thing">
   Physically, what and where is this thing?

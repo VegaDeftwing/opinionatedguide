@@ -97,7 +97,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.b0150be58c0893553b31d9039f00a8dcbdced08025bd08558acae3d77e97ef55.js" integrity="sha256-sBUL5YwIk1U7MdkDnwCo3L3O0IAlvQhVisrj136X71U="></script>
+<script defer src="/en.search.min.491889a74e1f4f080a56ec8330245fd7a25e1fc7e9c8f993c1e875dbc2d48dac.js" integrity="sha256-SRiJp04fTwgKVuyDMCRf16JeH8fpyPmTweh128LUjaw="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -378,7 +378,7 @@ https://github.com/alex-shpak/hugo-book
 <p>My next attempt to fix it was to try rebooting and loading my system with the Zen Linux kernel as I knew it used a different scheduler and did some extra stuff for real time computation (nice to have anyway when doing audio stuff like VCV).</p>
 <p>Unfortunately, that was a bust. Still rocking the 930 FPS.</p>
 <p>From here I had to ask for more help. Thankfully, a friend in my modular music chat on telegram was able to point me to a few ideas. I ran <code>glxinfo</code>, made sure everything looked sane, and it was. Next I tried using <code>LIBGL_THROTTLE_REFRESH=1</code> and <code>WGL_SWAP_INTERVAL=1</code> with no luck either.</p>
-<p>Failing other ideas I Googled &ldquo;linux limit frame rate environment variables&rdquo; and one of the top results was <a href="https://github.com/milaq/libstrangle">libstrangle (GitHub)</a> which limits frame rate by using <code>LD_PRELOAD</code> to dynamically link it&rsquo;s own library that does the FPS limiting. This reeks of hacky bullshit. But I&rsquo;m <em>always</em> down for some hacky bullshit. For S&amp;Gs I check, and `lo and behold it&rsquo;s in the AUR.</p>
+<p>Failing other ideas I Googled &ldquo;linux limit frame rate environment variables&rdquo; and one of the top results was <a href="https://gitlab.com/torkel104/libstrangle">libstrangle (GitLab)</a> which limits frame rate by using <code>LD_PRELOAD</code> to dynamically link it&rsquo;s own library that does the FPS limiting. This reeks of hacky bullshit. But I&rsquo;m <em>always</em> down for some hacky bullshit. For S&amp;Gs I check, and `lo and behold it&rsquo;s in the AUR.</p>
 <p><img src="/strangle.png" alt="strangle" /></p>
 <p>I still have no idea what&rsquo;s going on. The easy guess is &ldquo;You have a Vega56, it&rsquo;s a weird GPU with HBM2&rdquo; and, yeah, that makes sense, but then there&rsquo;s <a href="https://github.com/VCVRack/Rack/issues/1829">This Issue</a> in VCV Rack&rsquo;s GitHub repo where someone else is having the same problem on an Nvidia card on Ubuntu. I&rsquo;m using an AMD Card on Arch! Other than the commonality of Linux, these systems couldn&rsquo;t be much more different.</p>
 <p>That issue shows the original poster had traced it down to <a href="https://github.com/VCVRack/Rack/blob/e334902e8addf96ad726192c665d806f0952def0/src/window.cpp#L415">one line</a>, but I&rsquo;m hesitant to accept that explanation when VCV works fine for me on Windows and the issue has no other comments from other people with the same issue.</p>
