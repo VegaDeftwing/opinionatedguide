@@ -95,7 +95,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.a75bb73f80ec470f30fd43ae4e942edd0767e09d89d0cfabc5667c5efef59894.js" integrity="sha256-p1u3P4DsRw8w/UOuTpQu3Qdn4J2J0M&#43;rxWZ8Xv71mJQ="></script>
+<script defer src="/en.search.min.a4910d2a7f7b0f187cc1710c8059241c02142869ddc95b758fa1ff15ed320448.js" integrity="sha256-pJENKn97Dxh8wXEMgFkkHAIUKGndyVt1j6H/Fe0yBEg="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -1066,8 +1066,123 @@ a^x or exp(x) if the base is &lsquo;e&rsquo;, that is <span>
   Basics
   <a class="anchor" href="#basics">#</a>
 </h3>
+<p>For the following I&rsquo;ll be using a dice roll example, where the events are the total of two die. The <em>Sample Space</em> of this is</p>
+<p>$ S = {2,3,4,5,6,7,8,9,10,11,12}$</p>
+<p>Note, that 1 isn&rsquo;t possible as the lowest is both die being &lsquo;1&rsquo;.</p>
+<p>Let&rsquo;s look at the probability of these outcomes,</p>
+<table>
+<thead>
+<tr>
+<th>die2↓, die1→</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>While there are 11 (2-12) unique outcomes, there are 36 possible outcomes from the two die, which are shown in the table above.</p>
+<p>If you follow the diagonal you can see that there is only one way to get 2 or 12, two ways to get 3 or 11, and so on, this gives this table:</p>
+<table>
+<thead>
+<tr>
+<th>Total of two die</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Probability</td>
+<td>1/36</td>
+<td>2/36</td>
+<td>3/36</td>
+<td>4/36</td>
+<td>5/36</td>
+<td>6/36</td>
+<td>5/36</td>
+<td>4/36</td>
+<td>3/36</td>
+<td>2/36</td>
+<td>1/36</td>
+</tr>
+</tbody>
+</table>
+<p>Now, let&rsquo;s say we want the probability that we roll an even number (2,4,6,8,10,12) we can just sum their respective probabilities, so $\frac{1}{36}+\frac{3}{36}+\frac{5}{36}+\frac{5}{36}+\frac{3}{36}+\frac{1}{36} = \frac{18}{36} = \frac{1}{2}$</p>
+<p>Lets go ahead and call this event A, so P[A] = 1/2</p>
+<p>Similarly, we can define a new rule, Event B, such that the roll total is greater than 9, that comes out to be 1/6, so P[B]=1/6</p>
 <p>Statistical Independence</p>
+<p>Event A and event B are statistically independent if and only if (<em>iff</em>)</p>
+<p>$P[AB] = P[A]P[B]$</p>
 <p>Conditional probability</p>
+<p>$ P[A|B]P[B]=P[AB]=P[B|A]P[A]$</p>
 <p>Sub experiments &amp; Tree diagrams</p>
 <p>Law of total probability</p>
 <p>Bayes Rule</p>

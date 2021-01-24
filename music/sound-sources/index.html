@@ -97,7 +97,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.a75bb73f80ec470f30fd43ae4e942edd0767e09d89d0cfabc5667c5efef59894.js" integrity="sha256-p1u3P4DsRw8w/UOuTpQu3Qdn4J2J0M&#43;rxWZ8Xv71mJQ="></script>
+<script defer src="/en.search.min.a4910d2a7f7b0f187cc1710c8059241c02142869ddc95b758fa1ff15ed320448.js" integrity="sha256-pJENKn97Dxh8wXEMgFkkHAIUKGndyVt1j6H/Fe0yBEg="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -427,10 +427,12 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>Generally there are a few kinds of oscillators you should know about, but first, what&rsquo;s an oscillator?</p>
 <p>Well, very simply, it&rsquo;s a thing that oscillates- moves in a repeating pattern. Generally there are three ways you&rsquo;ll hear Oscillators refereed to as being VCO, DCO, or LFO. You may also see Oscillators in general refereed to with the abbreviation osc. Unfortunately, that can be confusing because OSC can also mean Open Sound Control, something I&rsquo;ll get into in the Sequencing and MIDI chapter in a bit.</p>
-<p>A <strong>VCO</strong> is a Voltage Controlled Oscillator. Back in VCV you saw these being emulated where each volt of constant input applied made the oscillator oscillator at twice the speed, one octave higher. In real life, VCOs tend to be a bit unstable and have minor pitch drift. While this may sound like a negative, it&rsquo;s generally seen as a feature, as stacked, slightly out of tune oscillators sound really good. In fact, VCV Rack&rsquo;s basic VCO, &lsquo;VCO-1&rsquo;, emulates this behavior by default.</p>
+<p>A <strong>VCO</strong> is a Voltage Controlled Oscillator. Back in VCV you saw these being emulated where each volt of constant input applied made the oscillator oscillates at twice the speed, one octave higher. In real life, VCOs tend to be a bit unstable and have minor pitch drift. While this may sound like a negative, it&rsquo;s generally seen as a feature, as stacked, slightly out of tune oscillators sound really good. In fact, VCV Rack&rsquo;s basic VCO, &lsquo;VCO-1&rsquo;, emulates this behavior by default.</p>
 <p>A <strong>DCO</strong> is a Digitally Controlled Oscillator. These (usually) exhibit no pitch drift and are far easier to tune.</p>
 <p>Note that some hardware may go from a digital input to a VCO internally, or take a voltage pitch signal as input but just sample it to use a DCO internally.</p>
 <p>an <strong>LFO</strong> is a Low Frequency Oscillator, they can still be either digital or analog (DCO or VCO), but they typically have a max frequency of around a hundred hertz and are meant to be used to control other things, not make sound to hear directly.</p>
+<p>Some oscillators, weather digital or analog, cover enough range to be either a &lsquo;normal&rsquo; oscillator used for sounds you&rsquo;re intended to hear or an LFO, so there&rsquo;s not always a clear distinction.</p>
+<p>Of note, you&rsquo;ll often hear people call non voltage controlled oscillators VCO&rsquo;s anyway. ╮(─▽─)╭</p>
 <p>Oscillators usually have very simple wave shapes as outputs. Typically, you&rsquo;ll see Sine ∿ , Triangle ʌ , Square ⎍ , and Saw waves as outputs. You may see other, more exotic wave forms though.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Waveforms.svg/557px-Waveforms.svg.png" alt="img" /></p>
 <p>Often, the square wave output has PWM or &lsquo;Pulse Width Modulation&rsquo; control:</p>
@@ -444,8 +446,8 @@ https://github.com/alex-shpak/hugo-book
 <p>Some oscillators will also have Sync, either Hard or Soft. Sync, in general, makes the waveform reset once it gets an input from another oscillator. This means you&rsquo;ll need two oscillators to do sync.</p>
 <blockquote>
 <p><strong>Oscillator sync</strong> is a feature in some synthesizers with two or more VCOs, DCOs, or &ldquo;virtual&rdquo; oscillators. As one oscillator finishes a cycle, it resets the period of another oscillator, forcing the latter to have the same <a href="https://en.wikipedia.org/wiki/Frequency">base frequency</a>.</p>
-<p>[For Hard Sync] If the [following oscillator] is tuned to a lower frequency than the [controlling oscillator] it will be forced to repeat before it completes an entire cycle, and if it is tuned to a higher frequency it will be forced to repeat partway through a second or third cycle.</p>
-<p>[&hellip;] There are several other kinds of sync which may also be called Soft Sync.</p>
+<p>[For <strong>Hard Sync</strong>] If the [following oscillator] is tuned to a lower frequency than the [controlling oscillator] it will be forced to repeat before it completes an entire cycle, and if it is tuned to a higher frequency it will be forced to repeat partway through a second or third cycle.</p>
+<p>[&hellip;] There are several other kinds of sync which may also be called <strong>Soft Sync</strong>.</p>
 <p><strong>Reversing Sync</strong></p>
 <p>This form of oscillator sync is less common. This form is very similar to Hard Sync, with one small difference. In Reversing Soft Sync, rather than resetting to zero, the wave is inverted; that is, its direction is reversed. Reversing Soft Sync is more associated with analog triangle core oscillators than analog sawtooth core oscillators.</p>
 <p><strong>Threshold or Weak Sync</strong></p>
@@ -493,8 +495,8 @@ Jez Swanson</a>. But, the relevant bit for for musical stuff is that these harmo
   <a class="anchor" href="#wavetables">#</a>
 </h2>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/8DjnDVWKaEs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p>Note, that not all wavetables have the linear FM (discussed in the next section), Phase mod / distortion, and wavefolding that pigments has, though many do.</p>
-<p>I really reccomend using <a href="https://blamsoft.com/vcv-rack/xfx-wave/">Blamsoft&rsquo;s XFX-Wave</a> for VCV rack to try out Wavetable synthesis. Also in VCV, <a href="https://library.vcvrack.com/TinyTricks/WAVE">Tiny Tricks Wave</a> is a neat way to experiment with recording your own tables.</p>
+<p>Note, that not all wavetable synths have the linear FM (discussed in the next section), Phase mod / distortion, and wavefolding that pigments has, though many do.</p>
+<p>I really recommend using <a href="https://blamsoft.com/vcv-rack/xfx-wave/">Blamsoft&rsquo;s XFX-Wave</a> for VCV rack to try out Wavetable synthesis. Also in VCV, <a href="https://library.vcvrack.com/TinyTricks/WAVE">Tiny Tricks Wave</a> is a neat way to experiment with recording your own tables.</p>
 <p>[TODO pic of both]</p>
 <h2 id="fm-synthesis">
   FM Synthesis
