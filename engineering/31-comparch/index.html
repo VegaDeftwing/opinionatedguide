@@ -75,13 +75,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 34 - Ham Radio #  &lsquo;137Mhz&rsquo; by u/CashewHut LORA
-2.4Ghz patch antenna
-electronically tunable filters
-National Radio Quiet Zone (Wikipedia)
-https://newhams.info/2017/02/17/rf-connector-types/
-question of the day:
-Analog TV is shut down in the US, right? so all the over-the-air TV is digital. And existing analog OTA frequencies are getting repurposed to other uses... so what am I seeing on UHF channel 60? it&#39;s got way more structure than the noise everywhere else.">
+<meta name="description" content="Chapter 31 - Let&rsquo;s make our own CPU #  This Chapter will be split into three parts:Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.Part 2, making that CPU on an FPGA.Part 3, making that CPU do something. Part 1: Computer Architecture #  Motivation: #   Any sufficiently advanced technology is indistinguishable from magic.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -93,17 +87,11 @@ Analog TV is shut down in the US, right? so all the over-the-air TV is digital. 
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 34 - Ham Radio #  &lsquo;137Mhz&rsquo; by u/CashewHut LORA
-2.4Ghz patch antenna
-electronically tunable filters
-National Radio Quiet Zone (Wikipedia)
-https://newhams.info/2017/02/17/rf-connector-types/
-question of the day:
-Analog TV is shut down in the US, right? so all the over-the-air TV is digital. And existing analog OTA frequencies are getting repurposed to other uses... so what am I seeing on UHF channel 60? it&#39;s got way more structure than the noise everywhere else." />
+<meta property="og:description" content="Chapter 31 - Let&rsquo;s make our own CPU #  This Chapter will be split into three parts:Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.Part 2, making that CPU on an FPGA.Part 3, making that CPU do something. Part 1: Computer Architecture #  Motivation: #   Any sufficiently advanced technology is indistinguishable from magic." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/34-hamradio/" />
+<meta property="og:url" content="https://opguides.info/engineering/31-comparch/" />
 
-<title>34 Hamradio | Opinionated Guides</title>
+<title>31 Comparch | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
@@ -193,10 +181,10 @@ https://github.com/alex-shpak/hugo-book
 <li><a href="/engineering/28-guiprog/">28 - Graphical Programming</a></li>
 <li><a href="/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></li>
 <li><a href="/engineering/30-fpga1/">30 - Programmable Logic</a></li>
-<li><a href="/engineering/31-comparch/">31 - Let&rsquo;s Make our own CPU</a></li>
+<li><a href="/engineering/31-comparch/"class=active>31 - Let&rsquo;s Make our own CPU</a></li>
 <li><a href="/engineering/32-3dprint/">32 - 3D Printing &amp; CNC</a></li>
 <li><a href="/engineering/33-aiml/">33 - Fine, here&rsquo;s AI/ML</a></li>
-<li><a href="/engineering/34-hamradio/"class=active>34 - Ham Radio</a></li>
+<li><a href="/engineering/34-hamradio/">34 - Ham Radio</a></li>
 <li><a href="/engineering/a0-wrappingup/">A0 - Wrapping Up</a></li>
 <li><a href="/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></li>
 <li><a href="/engineering/a2-cheat/">A2 - Cheat Sheets</a></li>
@@ -335,7 +323,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>34 Hamradio</strong>
+  <strong>31 Comparch</strong>
 
   <label for="toc-control">
     
@@ -348,7 +336,17 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#part-1-computer-architecture">Part 1: Computer Architecture</a>
+      <ul>
+        <li><a href="#motivation">Motivation:</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-2-making-the-cpu">Part 2: Making the CPU</a></li>
+    <li><a href="#part-3-making-it-do-something">Part 3: Making It Do Something</a></li>
+  </ul>
+</nav>
 
 
   </aside>
@@ -358,58 +356,51 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="chapter-34---ham-radio">
-  Chapter 34 - Ham Radio
-  <a class="anchor" href="#chapter-34---ham-radio">#</a>
+  <article class="markdown"><h1 id="chapter-31---lets-make-our-own-cpu">
+  Chapter 31 - Let&rsquo;s make our own CPU
+  <a class="anchor" href="#chapter-31---lets-make-our-own-cpu">#</a>
 </h1>
-<p><img src=" /radioart.png " alt="radioart" style="zoom:75%;" /></p>
-<p class="attribution ">
-    &lsquo;137Mhz&rsquo; by u/CashewHut
+<p class="tip ">
+    This Chapter will be split into three parts:</br></br>Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.</br></br>Part 2, making that CPU on an FPGA.</br></br>Part 3, making that CPU do something.
 </p>
-<p>LORA</p>
-<p>2.4Ghz patch antenna</p>
-<p>electronically tunable filters</p>
-<p><a href="https://en.wikipedia.org/wiki/United_States_National_Radio_Quiet_Zone">National Radio Quiet Zone (Wikipedia)</a></p>
-<p><a href="https://newhams.info/2017/02/17/rf-connector-types/">https://newhams.info/2017/02/17/rf-connector-types/</a></p>
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">question of the day:<br>Analog TV is shut down in the US, right? so all the over-the-air TV is digital. And existing analog OTA frequencies are getting repurposed to other uses... so what am I seeing on UHF channel 60? it&#39;s got way more structure than the noise everywhere else. <a href="https://t.co/Jm9W9JsjgF">pic.twitter.com/Jm9W9JsjgF</a></p>&mdash; foone (@Foone) <a href="https://twitter.com/Foone/status/1240011033395073024?ref_src=twsrc%5Etfw">March 17, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p><a href="https://www.youtube.com/watch?v=r9-m17IPOco">Waveguides Explained (YouTube)</a></p>
-<p><a href="https://www.youtube.com/watch?v=0-PParSmwtE&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">How a Crystal Radio Works (YouTube)</a></p>
-<p><a href="https://www.twitch.tv/videos/703442337">So You Got an SDR (Twitch, DefCon28)</a> <a href="https://www.youtube.com/watch?v=wDMsh7TJuqw">(Youtube, Defcon28)</a></p>
-<p><a href="https://www.youtube.com/watch?v=jLVDgP4dQ">Radi-uhoh : What is this SDR thing and how do I use it?: Josh Conway (Youtube)</a></p>
-<p><a href="https://en.wikipedia.org/wiki/2200-meter_band">2200-meter band (Wikipedia)</a></p>
-<p><a href="https://github.com/brannondorsey/chattervox">Chattervox (Github)</a></p>
-<p><a href="https://brianchristner.io/monitor-airplane-traffic-with-a-raspberry-pi/">Monitor Airplane Traffic with a Raspberry Pi and SDR</a></p>
-<p><a href="https://www.justus.ws/tech/sdr-adventures-in-shortwave/">SDR: Digital Adventures in Shortwave Radio (Justus.ws Blog)</a></p>
-<p><a href="https://hackaday.com/2020/12/12/irc-over-lora-for-when-things-really-go-south/">IRC over LORA for when things go really south(Tom Nardi, Hackaday)</a></p>
-<p><a href="https://hackaday.com/2018/06/23/a-cleverly-concealed-magnetic-loop-antenna/">A Cleverly Concealed Magnetic Loop Antenna (Jenny List, Hackaday)</a></p>
-<div class="book-columns flex flex-wrap">
-  
-  <div class="flex-even markdown-inner">
-    <p><video controls width="80%">    <source src="/kahviccradio.mp4"            type="video/mp4"> </video> <br></p>
-<p class="attribution ">
-    Video courtesy of OH6BPL
-</p>
-
-  </div>
-  
-  <div class="flex-even markdown-inner">
-    Here OH6BPL is using the <a href="https://www.computercraft.info/download/">Computer Craft</a> Minecraft mod to mirror the settings of his radio!
-  </div>
-  
-</div>
-
-<p><a href="https://www.reddit.com/r/amateurradio/comments/jt4crn/when_one_ferrite_doesnt_do_the_trick/gc3fwvk?utm_source=share&amp;utm_medium=web2x&amp;context=3">From u/irresponsible_owl on Reddit</a>, in response to a picture of a USB cable with a dozen ferrite cores on it:</p>
+<h2 id="part-1-computer-architecture">
+  Part 1: Computer Architecture
+  <a class="anchor" href="#part-1-computer-architecture">#</a>
+</h2>
+<h3 id="motivation">
+  Motivation:
+  <a class="anchor" href="#motivation">#</a>
+</h3>
 <blockquote>
-<p>Are you sure the cable is shielded? One quick way to tell is to put a continuity tester on the outside metal parts of each end. If it beeps, the cable is likely shielded. I&rsquo;ve seen tons of cables that aren&rsquo;t, where there&rsquo;s no connection between the jack covers - even though the USB specification says there must be. If there&rsquo;s continuity it doesn&rsquo;t guarantee it&rsquo;s shielded, but lack of continuity is a sure sign it&rsquo;s not.</p>
-<p>If the cable is shielded you shouldn&rsquo;t need more than 2 ferrites, one at each end.</p>
-<p>Source: I&rsquo;ve been down this road before&hellip;</p>
-<p>Edit: Here are some fun articles to read:</p>
-<p><a href="https://www.yoctopuce.com/EN/article/usb-cables-shielding-matters-as-well">https://www.yoctopuce.com/EN/article/usb-cables-shielding-matters-as-well</a></p>
-<p><a href="https://www.totalphase.com/blog/2020/05/what-are-the-guidelines-for-testing-ground-and-shield-resistance-of-usb-cables/">https://www.totalphase.com/blog/2020/05/what-are-the-guidelines-for-testing-ground-and-shield-resistance-of-usb-cables/</a></p>
-<p>You can get a lot more in depth with the testing if you want&hellip; or just buy a higher quality cable :D</p>
+<p>Any sufficiently advanced technology is indistinguishable from magic.</p>
 </blockquote>
-<p>?&gt; I&rsquo;ve actually set this up using a HackRF and Rock64. It&rsquo;s pretty neat. Just be aware the ADS-b, the radio signals you&rsquo;ll be picking up to do this, are very line-of-sight so you might need to plop the antenna on your roof or something.</p>
-<p><img src=" /MorseDecode.png " alt="radioart" style="zoom:50%;" /></p>
+<p class="attribution ">
+    <a href="https://en.wikipedia.org/wiki/Clarke's_three_laws">Arthur C. Clarke&rsquo;s 3rd law</a>
+</p>
+<p>Computers, to a normal user look like magic. In previous chapters I&rsquo;ve shown you how to harness this magic though programming, and revealed at least some of it&rsquo;s internal worknings in <a href="/engineering/3-hardware/">Chapter 3, Into The Hardware</a>. But this is all low level magic, the sort the lowest level mages can handle. To truely master the craft one must dive deep into the dark arts and study the origin of magic itself and understand how we breathe life into otherwise inanimate rock. Back in <a href="/engineering/14-circuits2/">Chapter 14, Semiconductors</a> I covered how the basics of the very, very low level work to form semiconductors, then in <a href="/engineering/15-digitallogic/">Chapter 15, Digital Logic</a> we saw how transistors could be chained to give rise to the fundamental logic gates. Finally, last chapter we looked at the basics of FPGAs to see how they let us make large scale logic circuits quickly. That all builds to this, making complex logic circuits that actually do useful work. These can be everything from application specific tasks, like bitcoin miners or hardware encoders and decoders for video codecs to the generic CPU. For this guide, I&rsquo;ll focus on the CPU. However, I think this can be realatively boring without further motivation, so, before we actually get to the CPU, let me show you how and why CPUs have evolved</p>
+<p>[TODO] loop memory operations w/ godbolt, cisc/risc, chiplets, core counts, branch prediction, N/S bridge to chipset (memory controller), etc. Moore&rsquo;s Law ending, voltage minimums, minimum transistor sizes before quantum effects, etc.</p>
+<iframe width="100%" height="400px" src="https://godbolt.org/e?readOnly=true&hideEditorToolbars=true#g:!((g:!((g:!((h:codeEditor,i:(fontScale:18,j:1,lang:c%2B%2B,selection:(endColumn:1,endLineNumber:11,positionColumn:1,positionLineNumber:11,selectionStartColumn:1,selectionStartLineNumber:11,startColumn:1,startLineNumber:11),source:'%23include+%3Ccstdlib%3E%0A%0Aint*+addFloats(int*+a,+int*+b,+int*+c,+int+n)+%7B%0A%0A++++for+(int+i+%3D+0%3B+i+%3C+n%3B+i%2B%2B)%7B%0A++++++++c%5Bi%5D+%3D+a%5Bi%5D+%2B+b%5Bi%5D%3B%0A++++%7D%0A%0A++++return+c%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50.79365079365079,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g102,filters:(b:'0',binary:'1',commentOnly:'0',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'0'),fontScale:17,j:1,lang:c%2B%2B,libs:!(),options:'-O',selection:(endColumn:1,endLineNumber:1,positionColumn:1,positionLineNumber:1,selectionStartColumn:1,selectionStartLineNumber:1,startColumn:1,startLineNumber:1),source:1),l:'5',n:'0',o:'x86-64+gcc+10.2+(Editor+%231,+Compiler+%231)+C%2B%2B',t:'0')),k:49.20634920634921,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
+<p>Here you can see there are three memory operations(2x MOV and one ADD that have DWORD PTR in them). With 4-byte ints on a 4Ghz CPU, this works out to $ 3 \times4(Bytes) \times (4 \times10^9(hz)) = 48GB/s $. This is pretty close to the 55GB/s that <a href="https://zsmith.co/bandwidth.php">this linux tool</a> reports that I get, per core, on my system. Fortunately, most modern CPUs have ways of parrelizing these operations internally, having multiple integer units per core as well.</p>
+<p>[TODO] newer systems, <a href="https://www.cerebras.net/cerebras-wafer-scale-engine-why-we-need-big-chips-for-deep-learning/,">https://www.cerebras.net/cerebras-wafer-scale-engine-why-we-need-big-chips-for-deep-learning/,</a> <a href="https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem,">https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem,</a> intel optane</p>
+<h2 id="part-2-making-the-cpu">
+  Part 2: Making the CPU
+  <a class="anchor" href="#part-2-making-the-cpu">#</a>
+</h2>
+<h2 id="part-3-making-it-do-something">
+  Part 3: Making It Do Something
+  <a class="anchor" href="#part-3-making-it-do-something">#</a>
+</h2>
+<p>Before we start, I&rsquo;ll warn you this isn&rsquo;t easy, but it&rsquo;s also not as bad as it sounds, and it&rsquo;s certainly not as <a href="https://www.youtube.com/watch?v=C8txvmXUIJQ&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz&amp;index=141&amp;t=0s">bad</a> as it used to be</p>
+<p>[TODO]</p>
+<p><a href="https://www.kernel.org/doc/html/latest/driver-api/fpga/index.html">FPGA Linux Kernel drivers</a></p>
+<p><a href="https://twitter.com/sylefeb/status/1258808333265514497">An FPGA that only plays Doom</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The DooM-chip! It will run E1M1 till the end of times (or till power runs out, whichever comes first).<br>Algorithm is burned into wires, LUTs and flip-flops on an <a href="https://twitter.com/hashtag/FPGA?src=hash&amp;ref_src=twsrc%5Etfw">#FPGA</a>: no CPU, no opcodes, no instruction counter. <br>Running on Altera CycloneV + SDRAM. (1/n) <a href="https://t.co/wd7j4JnfWn">pic.twitter.com/wd7j4JnfWn</a></p>&mdash; Sylvain Lefebvre (@sylefeb) <a href="https://twitter.com/sylefeb/status/1258808333265514497?ref_src=twsrc%5Etfw">May 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><a href="http://www.mynor.org">My Nor</a> - &ldquo;a single board computer that does not have a CPU. Instead, the CPU consists of discrete logic gates from the 74HC series. This computer also has no ALU. Only a single NOR gate is used to perfom all computations such as addition, subtraction, AND, OR and XOR.&rdquo;</p>
+<h1 id="chapter-311---fpaas">
+  Chapter 31.1 - FPAAs
+  <a class="anchor" href="#chapter-311---fpaas">#</a>
+</h1>
+<p><a href="https://zrna.org/shop">ZRNA FPAA</a></p>
 </article>
  
       
@@ -423,7 +414,7 @@ https://github.com/alex-shpak/hugo-book
 
 
   <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/34-hamradio.md" target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/31-comparch.md" target="_blank" rel="noopener">
       <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
       <span>Edit this page</span>
     </a>
@@ -454,7 +445,17 @@ https://github.com/alex-shpak/hugo-book
     
     <aside class="book-toc">
       
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#part-1-computer-architecture">Part 1: Computer Architecture</a>
+      <ul>
+        <li><a href="#motivation">Motivation:</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-2-making-the-cpu">Part 2: Making the CPU</a></li>
+    <li><a href="#part-3-making-it-do-something">Part 3: Making It Do Something</a></li>
+  </ul>
+</nav>
 
  
     </aside>
