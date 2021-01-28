@@ -75,11 +75,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #   https://hific.github.io/
-i.am.ai Roadmap &ndash; this shows that AI/ML are rooted in Data Science, as a [TODO] this probably needs talked about here
-This ____ Does Not Exist
- &ldquo;Using generative adversarial networks (GAN), we can learn how to create realistic-looking fake versions of almost anything&rdquo;
- ">
+<meta name="description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #  Machine Learning #  This chapter is very much a work in progress, as such the math on this page will not render correctly until I fix it for the static site generator this site uses. You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.
+What is the difference between ML and AI?">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -91,11 +88,8 @@ This ____ Does Not Exist
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #   https://hific.github.io/
-i.am.ai Roadmap &ndash; this shows that AI/ML are rooted in Data Science, as a [TODO] this probably needs talked about here
-This ____ Does Not Exist
- &ldquo;Using generative adversarial networks (GAN), we can learn how to create realistic-looking fake versions of almost anything&rdquo;
- " />
+<meta property="og:description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #  Machine Learning #  This chapter is very much a work in progress, as such the math on this page will not render correctly until I fix it for the static site generator this site uses. You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.
+What is the difference between ML and AI?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/33-aiml/" />
 
@@ -103,7 +97,7 @@ This ____ Does Not Exist
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.9cd1e6dd4640c11419a1c70a7d24fa0bae9129a5304f66a1244f9ab67beeecea.js" integrity="sha256-nNHm3UZAwRQZoccKfST6C66RKaUwT2ahJE&#43;atnvu7Oo="></script>
+<script defer src="/en.search.min.5358d2e7968c2b4024ad105f4830b1ebe6477f57136bf8ceaed4c2ed8a6737a7.js" integrity="sha256-U1jS55aMK0AkrRBfSDCx6&#43;ZHf1cTa/jOrtTC7YpnN6c="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -344,7 +338,32 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#machine-learning">Machine Learning</a>
+      <ul>
+        <li><a href="#supervised-learning">Supervised Learning</a></li>
+        <li><a href="#unsupervised-learning">Unsupervised Learning</a></li>
+        <li><a href="#semi-supervised-learning">Semi-supervised learning</a></li>
+        <li><a href="#reinforcement-learning">Reinforcement Learning</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-does-it-work">How does it work?</a>
+      <ul>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#performance-measures">Performance Measures</a></li>
+      </ul>
+    </li>
+    <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
+      <ul>
+        <li><a href="#linear-units">Linear Units</a></li>
+        <li><a href="#gradient-decest">Gradient Decest</a></li>
+        <li><a href="#nonlinearly-seperable-problems-and-multilayer-networks">Nonlinearly seperable problems and multilayer networks</a></li>
+        <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
   </aside>
@@ -358,13 +377,114 @@ https://github.com/alex-shpak/hugo-book
   Chapter 33 - Fine, I&rsquo;ll talk about AI
   <a class="anchor" href="#chapter-33---fine-ill-talk-about-ai">#</a>
 </h1>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/oJNHXPs0XDk?list=WL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="machine-learning">
+  Machine Learning
+  <a class="anchor" href="#machine-learning">#</a>
+</h2>
+<p class="tip ">
+    This chapter is very much a work in progress, as such the math on this page will not render correctly until I fix it for the static site generator this site uses.
+</p>
+<p>You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.</p>
+<p>What is the difference between ML and AI? [TODO]</p>
+<p>Learning is not the same as memorization, for example, if a baby sees his mother from various angles and under different lighting, he&rsquo;s not <em>memorizing</em> her face. He&rsquo;s learning features about it, which is why he can still recognize her in new views. Checking if two things are identical (or nearly so) is much easier, learning features and detecting things based on them is more difficult for a computer.</p>
+<p>when to use ML?</p>
+<ul>
+<li>Computer being put in a situation where human&rsquo;s have no direct experiance</li>
+<li>No way to tell computer the human experiance (speech recognition, facial recognition, driving)</li>
+<li>When the solution changes based on conditions/time (Driving in different weather / lighting, background noise removal)</li>
+<li>Every application is a bit different (different voices need different recognition)</li>
+</ul>
+<p>when <em>not</em> to use ML?</p>
+<ul>
+<li>When all cases can be covered by a traditional program</li>
+</ul>
+<h3 id="supervised-learning">
+  Supervised Learning
+  <a class="anchor" href="#supervised-learning">#</a>
+</h3>
+<p>Given labeled examples with features described, like pictures of trucks and cars, labeled &lsquo;truck&rsquo; or &lsquo;car&rsquo; and data fields for wheel count, color, etc. that are populated, the machine learning algorithm makes a model that will try to classify new inputs.</p>
+<p>Features can be as simple as the individual pixel values in an image</p>
+<p>Let C be the <strong>target function</strong> to be learned. Think of C as a function that takes the input example and outputs a label. The goal is to, given a training set $ \chi = {(x^t,y^t) }^N_{t=1}$ where $y^t=C(x^t)$, output a **hypothesis** h ∈H, that approximates C when classifying new  input.</p>
+<p>Each instance x represents a vector of features (attributes). For example, let each $x=(x_1,x_2)$ be  a vector describing attributes of a guitar; $x_1 = \text{sting count}, x_2=\text{acoustic or electric}$, each label is binary (positive/negitive, yes/no, 1/0, etc.) and contributes to weather or not it&rsquo;s a 6 string acoustic guitar.</p>
+<h3 id="unsupervised-learning">
+  Unsupervised Learning
+  <a class="anchor" href="#unsupervised-learning">#</a>
+</h3>
+<p>Same as above, but no labels. (Still features). For example, <a href="https://en.wikipedia.org/wiki/K-means_clustering">https://en.wikipedia.org/wiki/K-means_clustering</a> or Hierachical clustering <a href="https://en.wikipedia.org/wiki/Hierarchical_clustering">https://en.wikipedia.org/wiki/Hierarchical_clustering</a></p>
+<h3 id="semi-supervised-learning">
+  Semi-supervised learning
+  <a class="anchor" href="#semi-supervised-learning">#</a>
+</h3>
+<p>a mix of some labeled data, and some unlabed.</p>
+<p>Pretrain to get relevent features</p>
+<p>transfer-learning, take training from one task and apply it to another (should this be here?)</p>
+<h3 id="reinforcement-learning">
+  Reinforcement Learning
+  <a class="anchor" href="#reinforcement-learning">#</a>
+</h3>
+<p>agent takes step, looks at eviroment, makes actions based on it, repeat. Goal it to maximize expected long term reward</p>
+<p>Often used for games</p>
+<p>Markov Decision Process</p>
+<p>Sorta like a state machine</p>
+<p>feedback is often delayed - credit assignment problem</p>
+<h2 id="how-does-it-work">
+  How does it work?
+  <a class="anchor" href="#how-does-it-work">#</a>
+</h2>
+<p>Not overfitting - spikey vs smooth curve. Spikey to directly fit is bad, similar with XY blobs with reaching out arms balance with model complexity with regulizer. We want generalization (learning) not memorization</p>
+<h3 id="models">
+  Models
+  <a class="anchor" href="#models">#</a>
+</h3>
+<p>Decision trees</p>
+<p>support vector machines</p>
+<p>probalistic graphical models</p>
+<p>Artifical Neural Networks -&gt; Deep learning (many layers)</p>
+<p>Each node multiplied by weight, sent though activation function, often using stochastic gradient descent</p>
+<h3 id="performance-measures">
+  Performance Measures
+  <a class="anchor" href="#performance-measures">#</a>
+</h3>
+<p>Classification error - fraction of time correct</p>
+<p>Squared error</p>
+<p>cross entropy</p>
+<p>No single best approach</p>
+<h2 id="ann---artifical-neural-networks">
+  ANN - Artifical Neural Networks
+  <a class="anchor" href="#ann---artifical-neural-networks">#</a>
+</h2>
+<p>Silicon &lsquo;neurons&rsquo; are much faster, but connect to many less nodes, compared</p>
+<p>[TODO] get human neuron count, &lsquo;switching time&rsquo;, interconnectivity</p>
+<p>much different for ML vs Biological Modeling</p>
+<p>think a ton of really weak cores, which explains the GPU usage</p>
+<p>good for raw sensor data, okay with noise, but requires long training times and lacks human readability- hard to know why it predicts what it does</p>
+<p>Started with the Perceptron algoritm, but that was too limited (40&rsquo;s)</p>
+<p>multi-layer backpropagation (80&rsquo;s) allowed for training multi layer networks, and they couldn&rsquo;t be made deep on that era&rsquo;s hardware, while other algoritms (Support Vector Machines, boosting) were taking off instead. In the 2000&rsquo;s it became possible for 5-8 layers though, making &lsquo;deep&rsquo; learning possible (mostly because of gaming GPUs). Better datasets, and better algorithms helped too.</p>
+<h3 id="linear-units">
+  Linear Units
+  <a class="anchor" href="#linear-units">#</a>
+</h3>
+<h3 id="gradient-decest">
+  Gradient Decest
+  <a class="anchor" href="#gradient-decest">#</a>
+</h3>
+<p><strong>alt: evolution</strong></p>
+<h3 id="nonlinearly-seperable-problems-and-multilayer-networks">
+  Nonlinearly seperable problems and multilayer networks
+  <a class="anchor" href="#nonlinearly-seperable-problems-and-multilayer-networks">#</a>
+</h3>
+<h3 id="types-of-activation-functions">
+  Types of Activation Functions
+  <a class="anchor" href="#types-of-activation-functions">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/oJNHXPs0XDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p><a href="https://hific.github.io/">https://hific.github.io/</a></p>
 <p><a href="https://i.am.ai/roadmap/">i.am.ai Roadmap</a> &ndash; this shows that AI/ML are rooted in Data Science, as a [TODO] this probably needs talked about here</p>
 <p><a href="https://thisxdoesnotexist.com">This ____ Does Not Exist</a></p>
 <blockquote>
 <p>&ldquo;Using generative adversarial networks (GAN), we can learn how to create realistic-looking fake versions of almost anything&rdquo;</p>
 </blockquote>
+<p><a href="https://mc-stan.org">Stan for statistical modeling</a></p>
 </article>
  
       
@@ -409,7 +529,32 @@ https://github.com/alex-shpak/hugo-book
     
     <aside class="book-toc">
       
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#machine-learning">Machine Learning</a>
+      <ul>
+        <li><a href="#supervised-learning">Supervised Learning</a></li>
+        <li><a href="#unsupervised-learning">Unsupervised Learning</a></li>
+        <li><a href="#semi-supervised-learning">Semi-supervised learning</a></li>
+        <li><a href="#reinforcement-learning">Reinforcement Learning</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-does-it-work">How does it work?</a>
+      <ul>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#performance-measures">Performance Measures</a></li>
+      </ul>
+    </li>
+    <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
+      <ul>
+        <li><a href="#linear-units">Linear Units</a></li>
+        <li><a href="#gradient-decest">Gradient Decest</a></li>
+        <li><a href="#nonlinearly-seperable-problems-and-multilayer-networks">Nonlinearly seperable problems and multilayer networks</a></li>
+        <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
  
     </aside>
