@@ -97,7 +97,7 @@ What is the difference between ML and AI?" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.5358d2e7968c2b4024ad105f4830b1ebe6477f57136bf8ceaed4c2ed8a6737a7.js" integrity="sha256-U1jS55aMK0AkrRBfSDCx6&#43;ZHf1cTa/jOrtTC7YpnN6c="></script>
+<script defer src="/en.search.min.b066037cca67eb7838a038f1db4a879902d70f08db8d4c94355e4c791fc9fccf.js" integrity="sha256-sGYDfMpn63g4oDjx20qHmQLXDwjbjUyUNV5MeR/J/M8="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -354,6 +354,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#performance-measures">Performance Measures</a></li>
       </ul>
     </li>
+    <li><a href="#linear-unit-regression">Linear Unit (Regression)</a></li>
+    <li><a href="#gradient-descent">Gradient Descent</a></li>
     <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
       <ul>
         <li><a href="#linear-units">Linear Units</a></li>
@@ -406,6 +408,13 @@ https://github.com/alex-shpak/hugo-book
 <p>Features can be as simple as the individual pixel values in an image</p>
 <p>Let C be the <strong>target function</strong> to be learned. Think of C as a function that takes the input example and outputs a label. The goal is to, given a training set $ \chi = {(x^t,y^t) }^N_{t=1}$ where $y^t=C(x^t)$, output a **hypothesis** h ∈H, that approximates C when classifying new  input.</p>
 <p>Each instance x represents a vector of features (attributes). For example, let each $x=(x_1,x_2)$ be  a vector describing attributes of a guitar; $x_1 = \text{sting count}, x_2=\text{acoustic or electric}$, each label is binary (positive/negitive, yes/no, 1/0, etc.) and contributes to weather or not it&rsquo;s a 6 string acoustic guitar.</p>
+<p>A leraning algorithm uses train set χ and finds a hypothesis h∈H that approximates C</p>
+<p>error (loss) of h</p>
+<ul>
+<li>Empirical error is a fraction of χ that h gets wrong</li>
+<li>Generilation error is probability that a new, randomly selected, instance is misclassified by h. This depends on the probability distribution over instances. Generalizion error is much more important than Empirical - it&rsquo;s better to have it perfrom well on new data than be great on the training data</li>
+<li>False Negitives (C-h) and False Positives (h-C)</li>
+</ul>
 <h3 id="unsupervised-learning">
   Unsupervised Learning
   <a class="anchor" href="#unsupervised-learning">#</a>
@@ -449,6 +458,75 @@ https://github.com/alex-shpak/hugo-book
 <p>Squared error</p>
 <p>cross entropy</p>
 <p>No single best approach</p>
+<h2 id="linear-unit-regression">
+  Linear Unit (Regression)
+  <a class="anchor" href="#linear-unit-regression">#</a>
+</h2>
+<p>[TODO] tie back to <a href="https://en.wikipedia.org/wiki/Linear_regression">https://en.wikipedia.org/wiki/Linear_regression</a></p>
+<p>a vector with features x_1 to x_2 and weights w_1 to w_n</p>
+<img src="/linearregression.svg" style="-webkit-filter: invert(.85);">
+</br>
+
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\hat{y}=f(x;w,b)=x w&#43;b=w_1x_1&#43;....w_nx_n&#43;b\)
+</span>
+
+<p>b can be represnteded as <span>
+  \(w_0\)
+</span>
+ instead, as is shown in the above</p>
+<img src="/linregbin.svg" style="-webkit-filter: invert(.85);">
+</br>
+<span>
+  \(y=o(x;w,b)=\{{&#43;1 \text{ if } f(x;w,b)&gt;0\atop{-1 \text{ otherwise}}}\)
+</span>
+
+<p>(sometimes 0 instead of -1)</p>
+<p>for binary classification, +1 is it <em>is</em> the thing, -1 (or 0) is saying it&rsquo;s <em>not</em> the thing.</p>
+<p>not all functions are linearly seperable, one straight line can&rsquo;t split the data into postives and negitives- so having <em>networks</em> of units works around this</p>
+<p>Of course, we&rsquo;d like to be able to use inputs that aren&rsquo;t just numbers. Representing things like price or weight can be given a number, but for other things, like colors, <strong>one hot vectors</strong> are helpful, for example, if there are three color options, red, green, blue, red could be [1,0,0], green [0,1,0], blue [0,0,1]. This is better than just assigning each color an integer (red=1,green=2,blue=3, etc.) because we don&rsquo;t want to imply ordering in the data. one hot vectors are espcically nice because they let us assign positive weights to a given color and negitive weights to others. For example, in identifying a fire truck, red will obviosuly have a very positive weight, while being the other colors may be a negitive weight.</p>
+<p>training:</p>
+<span>
+  \(w_j\prime\larr w_j&#43;\eta(y^t-\hat{y}^t)x^t_j\)
+</span>
+
+<p><span>
+  \(w_j\prime\)
+</span>
+ is the new value of <span>
+  \(w_j\)
+</span>
+, (the j&rsquo;th w as each weight is incremented though)</p>
+<p><span>
+  \(x_j^t\)
+</span>
+ is the jth attribute of tranining instance t</p>
+<p><span>
+  \(y^t\)
+</span>
+ is the label of traning instance t</p>
+<p><span>
+  \(\hat{y}^t\)
+</span>
+ is Perception output on traning instance t</p>
+<p><span>
+  \(\eta &gt; 0\)
+</span>
+, the <em>learning rate</em>, is a small constant (e.g.; 0.1)</p>
+<p>if <span>
+  \((y-\hat{y})&gt;0 \text{ then increase } w_j \text{ w.r.t } x_j\)
+</span>
+  else decrease</p>
+<p>Can prove rule will converge if traning data is linearly seperable and η sufficently small</p>
+<p>a bad learning rate can cause very slow convergence (too small) or even divergence (too large)</p>
+<h2 id="gradient-descent">
+  Gradient Descent
+  <a class="anchor" href="#gradient-descent">#</a>
+</h2>
+<p>[TODO] <a href="https://en.wikipedia.org/wiki/Gradient_descent">https://en.wikipedia.org/wiki/Gradient_descent</a></p>
+<p>[TODO] Stochastic Gradient Descent</p>
 <h2 id="ann---artifical-neural-networks">
   ANN - Artifical Neural Networks
   <a class="anchor" href="#ann---artifical-neural-networks">#</a>
@@ -545,6 +623,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#performance-measures">Performance Measures</a></li>
       </ul>
     </li>
+    <li><a href="#linear-unit-regression">Linear Unit (Regression)</a></li>
+    <li><a href="#gradient-descent">Gradient Descent</a></li>
     <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
       <ul>
         <li><a href="#linear-units">Linear Units</a></li>

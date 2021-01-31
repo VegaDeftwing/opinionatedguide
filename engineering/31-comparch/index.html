@@ -95,7 +95,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.5358d2e7968c2b4024ad105f4830b1ebe6477f57136bf8ceaed4c2ed8a6737a7.js" integrity="sha256-U1jS55aMK0AkrRBfSDCx6&#43;ZHf1cTa/jOrtTC7YpnN6c="></script>
+<script defer src="/en.search.min.b066037cca67eb7838a038f1db4a879902d70f08db8d4c94355e4c791fc9fccf.js" integrity="sha256-sGYDfMpn63g4oDjx20qHmQLXDwjbjUyUNV5MeR/J/M8="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -382,6 +382,13 @@ https://github.com/alex-shpak/hugo-book
 <iframe width="100%" height="400px" src="https://godbolt.org/e?readOnly=true&hideEditorToolbars=true#g:!((g:!((g:!((h:codeEditor,i:(fontScale:18,j:1,lang:c%2B%2B,selection:(endColumn:1,endLineNumber:11,positionColumn:1,positionLineNumber:11,selectionStartColumn:1,selectionStartLineNumber:11,startColumn:1,startLineNumber:11),source:'%23include+%3Ccstdlib%3E%0A%0Aint*+addFloats(int*+a,+int*+b,+int*+c,+int+n)+%7B%0A%0A++++for+(int+i+%3D+0%3B+i+%3C+n%3B+i%2B%2B)%7B%0A++++++++c%5Bi%5D+%3D+a%5Bi%5D+%2B+b%5Bi%5D%3B%0A++++%7D%0A%0A++++return+c%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50.79365079365079,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g102,filters:(b:'0',binary:'1',commentOnly:'0',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'0'),fontScale:17,j:1,lang:c%2B%2B,libs:!(),options:'-O',selection:(endColumn:1,endLineNumber:1,positionColumn:1,positionLineNumber:1,selectionStartColumn:1,selectionStartLineNumber:1,startColumn:1,startLineNumber:1),source:1),l:'5',n:'0',o:'x86-64+gcc+10.2+(Editor+%231,+Compiler+%231)+C%2B%2B',t:'0')),k:49.20634920634921,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
 <p>Here you can see there are three memory operations(2x MOV and one ADD that have DWORD PTR in them). With 4-byte ints on a 4Ghz CPU, this works out to $ 3 \times4(Bytes) \times (4 \times10^9(hz)) = 48GB/s $. This is pretty close to the 55GB/s that <a href="https://zsmith.co/bandwidth.php">this linux tool</a> reports that I get, per core, on my system. Fortunately, most modern CPUs have ways of parrelizing these operations internally, having multiple integer units per core as well.</p>
 <p>[TODO] newer systems, <a href="https://www.cerebras.net/cerebras-wafer-scale-engine-why-we-need-big-chips-for-deep-learning/,">https://www.cerebras.net/cerebras-wafer-scale-engine-why-we-need-big-chips-for-deep-learning/,</a> <a href="https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem,">https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem,</a> intel optane</p>
+<p>[TODO]</p>
+<p>Data-Level, Task-Level, and Instruction-Level Paralleism (Application Parrallelism)</p>
+<p>Intstruction Level Parrelism (Pipelining), Thread-Level and Request-Level Parellism (Architectural Parallelism)</p>
+<p>Single Insturtion Stream, Single Data Stream (SISD)</p>
+<p>Single Instruction Stream, Multiple Data Streams (SIMD)</p>
+<p>MISD is not used commercially</p>
+<p>Multiple Instruction Streams, Multiple Data STreams (MIMD) (tightly and loosely coupled)</p>
 <h2 id="part-2-making-the-cpu">
   Part 2: Making the CPU
   <a class="anchor" href="#part-2-making-the-cpu">#</a>
