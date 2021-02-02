@@ -75,12 +75,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 24 - Security #  ./missing-semester - Security
- &lsquo;SMS is just the worst, but I&rsquo;m having trouble convincing people to adopt my preferred system, TLS IRC with a local server and a patched DOSBox gateway running in my mobile browser.&rsquo;
- XKCD #2365 focus on how to write secure programs, protect hardware, etc.
-ESDA is bad
-Passwords #  https://pages.nist.gov/800-63-FAQ/#q-b05
-Cryptography #  How To Learn Cryptography as a Programmer (Soatok)">
+<meta name="description" content="Chapter 24 - Security #  Before we get started on these next two chapters I want to get something out of the way:
+Security is important, and should be taken seriously. But it&rsquo;s also a field of people who are tired of your shit, Karen. We don&rsquo;t wear suits and we won&rsquo;t do something just to look &lsquo;professional&rsquo;.
+If I want to curse, if I want to put furry art on these pages, I will do as I fucking please.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -92,12 +89,9 @@ Cryptography #  How To Learn Cryptography as a Programmer (Soatok)">
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 24 - Security #  ./missing-semester - Security
- &lsquo;SMS is just the worst, but I&rsquo;m having trouble convincing people to adopt my preferred system, TLS IRC with a local server and a patched DOSBox gateway running in my mobile browser.&rsquo;
- XKCD #2365 focus on how to write secure programs, protect hardware, etc.
-ESDA is bad
-Passwords #  https://pages.nist.gov/800-63-FAQ/#q-b05
-Cryptography #  How To Learn Cryptography as a Programmer (Soatok)" />
+<meta property="og:description" content="Chapter 24 - Security #  Before we get started on these next two chapters I want to get something out of the way:
+Security is important, and should be taken seriously. But it&rsquo;s also a field of people who are tired of your shit, Karen. We don&rsquo;t wear suits and we won&rsquo;t do something just to look &lsquo;professional&rsquo;.
+If I want to curse, if I want to put furry art on these pages, I will do as I fucking please." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/24-security/" />
 
@@ -105,7 +99,7 @@ Cryptography #  How To Learn Cryptography as a Programmer (Soatok)" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.b066037cca67eb7838a038f1db4a879902d70f08db8d4c94355e4c791fc9fccf.js" integrity="sha256-sGYDfMpn63g4oDjx20qHmQLXDwjbjUyUNV5MeR/J/M8="></script>
+<script defer src="/en.search.min.18ef340a1841c49699390bf1ec4bbc4a0582a0181e1afdf8c0f64c1bdef0d949.js" integrity="sha256-GO80ChhBxJaZOQvx7Eu8SgWCoBgeGv34wPZMG97w2Uk="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -352,6 +346,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#cryptography">Cryptography</a></li>
     <li><a href="#hashing">Hashing</a></li>
     <li><a href="#network-security">Network Security</a></li>
+    <li><a href="#responsible-disclosure">Responsible Disclosure</a></li>
   </ul>
 </nav>
 
@@ -367,6 +362,16 @@ https://github.com/alex-shpak/hugo-book
   Chapter 24 - Security
   <a class="anchor" href="#chapter-24---security">#</a>
 </h1>
+<p>Before we get started on these next two chapters I want to get something out of the way:</p>
+<p>Security is important, and should be taken seriously. <strong>But</strong> it&rsquo;s also a field of people who are tired of your shit, Karen. We don&rsquo;t wear suits and we won&rsquo;t do something just to look &lsquo;professional&rsquo;.</p>
+<p>If I want to curse, if I want to put furry art on these pages, I will do as I fucking please.</p>
+<p>Real &lsquo;Security Professionals&rsquo; own the word hacker, and real hackers don&rsquo;t give a shit about what society tells them to do. Hacking is about finding how systems can do something far outside of what the original desigener ever even considered, about finding solutions so elegant they&rsquo;re art, about breaking boundries. If you want to keep with professionalism or tradition you&rsquo;re in the wrong place.</p>
+<p>As <a href="https://soatok.blog/2020/10/08/vanity-vendors-and-vulnerabilities/">Soatok</a> put it:</p>
+<blockquote>
+<p>If people who are sharing great content–be it on Twitter or on their personal blog–do something that prevents you from sharing their content with your coworkers, the problem isn’t us.</p>
+<p>No, the real problem is your coworkers and bosses, and the unquestioned culture of anal-retentive diversity-choking bullshit that pervades business everywhere.</p>
+</blockquote>
+<p><strong>With that out of the way, let us begin:</strong></p>
 <p><a href="https://missing.csail.mit.edu/2020/security/">./missing-semester - Security</a></p>
 <p><img src="https://imgs.xkcd.com/comics/messaging_systems.png" alt="xkcd messaging systems" /></p>
 <blockquote>
@@ -416,6 +421,11 @@ https://github.com/alex-shpak/hugo-book
   
 </div>
 
+<h2 id="responsible-disclosure">
+  Responsible Disclosure
+  <a class="anchor" href="#responsible-disclosure">#</a>
+</h2>
+<p><a href="https://adamcaudill.com/2015/11/19/responsible-disclosure-is-wrong/">https://adamcaudill.com/2015/11/19/responsible-disclosure-is-wrong/</a></p>
 </article>
  
       
@@ -466,6 +476,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#cryptography">Cryptography</a></li>
     <li><a href="#hashing">Hashing</a></li>
     <li><a href="#network-security">Network Security</a></li>
+    <li><a href="#responsible-disclosure">Responsible Disclosure</a></li>
   </ul>
 </nav>
 
