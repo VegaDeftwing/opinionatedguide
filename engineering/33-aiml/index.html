@@ -97,7 +97,7 @@ What is the difference between ML and AI?" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.011446a9aa7786187054d61cb726c2859d1f86121e86275c03f146d3fd0d9b74.js" integrity="sha256-ARRGqap3hhhwVNYctybChZ0fhhIehidcA/FG0/0Nm3Q="></script>
+<script defer src="/en.search.min.97041672388e1547229c40ae00ca73d191668142c162dfc4626492fd3f9319c7.js" integrity="sha256-lwQWcjiOFUcinECuAMpz0ZFmgULBYt/EYmSS/T&#43;TGcc="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -356,6 +356,12 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#linear-unit-regression">Linear Unit (Regression)</a></li>
     <li><a href="#gradient-descent">Gradient Descent</a></li>
+    <li><a href="#nonlinearly-seperable-problems">Nonlinearly seperable Problems</a>
+      <ul>
+        <li><a href="#backpopagation">Backpopagation</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-sigmoid-unit">The Sigmoid Unit</a></li>
     <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
       <ul>
         <li><a href="#linear-units">Linear Units</a></li>
@@ -527,6 +533,75 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>[TODO] <a href="https://en.wikipedia.org/wiki/Gradient_descent">https://en.wikipedia.org/wiki/Gradient_descent</a></p>
 <p>[TODO] Stochastic Gradient Descent</p>
+<h2 id="nonlinearly-seperable-problems">
+  Nonlinearly seperable Problems
+  <a class="anchor" href="#nonlinearly-seperable-problems">#</a>
+</h2>
+<p class="tip ">
+    writing this as I take notes, it&rsquo;s basically meaningless at the moment
+</p>
+<p>XOR</p>
+<table>
+<thead>
+<tr>
+<th>Input A</th>
+<th>Input B</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>No single linear threshold unit can describe this</p>
+<p>in 2d a line, in 3d a plane, 4+d hyperplane</p>
+<p>Every one one side of these is a <em>halfspace</em>, but given two functions, we can get an overlap, the intersection of the two halfspaces</p>
+<p>now, we can find $z_i$ , mapping though a non-linear function, from x space to z space, now the problem is linearly seperable- there&rsquo;s no need for the demiensions from mapping from x-to-z space to be the same, and there can be multiple hidden layers</p>
+<p>We&rsquo;ve mapped from a non-linearly seperable problem into a linearly seperable one</p>
+<p><a href="https://en.wikipedia.org/wiki/Feedforward_neural_network">Feedforward Neural Networks on Wikipedia</a></p>
+<p>generally, if the input can be split up with straight lines and be defined as the unions and intersections of those halfspaces, then two hidden layers and an output layer must exist that works</p>
+<h3 id="backpopagation">
+  Backpopagation
+  <a class="anchor" href="#backpopagation">#</a>
+</h3>
+<p>First, feed forward the network&rsquo;s inputs to it&rsquo;s outputs, then propagates back error with by repeatdely applying the chain rule</p>
+<p><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation (Wikipedia)</a></p>
+<p>propagate error back in order to compute loss gradient with respect to each weight, then update the wights</p>
+<p>don&rsquo;t have to update the loss on each instance, could do mini-batches (Stochastic Gradient Descent- SGD), or in the extreme case, have the entire training set be a single batch (batch gradient descent). SGD saves on memory, which helps.</p>
+<h4 id="computation-graphs">
+  Computation Graphs
+  <a class="anchor" href="#computation-graphs">#</a>
+</h4>
+<p>(note the library- tensor flow, pytorch, etc.- will probably handle this for you)</p>
+<p>given a complicated function, we want to know it&rsquo;s partial derivatives with respect to its parameters</p>
+<p>For</p>
+<p>multivariate chain rule, multiple paths that can affect the output. Math gets very gross very quickly</p>
+<h2 id="the-sigmoid-unit">
+  The Sigmoid Unit
+  <a class="anchor" href="#the-sigmoid-unit">#</a>
+</h2>
+<p>$S(x)=\frac{1}{1+e^{-x}}$ squashes everything into a range from 0 to 1 (or -1 to 1), with 0 mapping to to ½. It&rsquo;s similar to the threshold function, for us, this is useful as $\sigma(x)=\frac{1}{1+e^{-net}}$, where $net=\sum_{i=0}^{n} w_i x_i=f(x;w,b)$</p>
+<img src="/sigmoid.svg" style="-webkit-filter: invert(.85);">
+</br>
 <h2 id="ann---artifical-neural-networks">
   ANN - Artifical Neural Networks
   <a class="anchor" href="#ann---artifical-neural-networks">#</a>
@@ -625,6 +700,12 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#linear-unit-regression">Linear Unit (Regression)</a></li>
     <li><a href="#gradient-descent">Gradient Descent</a></li>
+    <li><a href="#nonlinearly-seperable-problems">Nonlinearly seperable Problems</a>
+      <ul>
+        <li><a href="#backpopagation">Backpopagation</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-sigmoid-unit">The Sigmoid Unit</a></li>
     <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
       <ul>
         <li><a href="#linear-units">Linear Units</a></li>
