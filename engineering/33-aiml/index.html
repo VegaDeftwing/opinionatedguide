@@ -97,7 +97,7 @@ What is the difference between ML and AI?" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
-<script defer src="/en.search.min.97041672388e1547229c40ae00ca73d191668142c162dfc4626492fd3f9319c7.js" integrity="sha256-lwQWcjiOFUcinECuAMpz0ZFmgULBYt/EYmSS/T&#43;TGcc="></script>
+<script defer src="/en.search.min.e4abd47eb3f187fe8f0ac6ffe2008ba3b59b68eb79a98994a5e9f7af93f3f992.js" integrity="sha256-5KvUfrPxh/6PCsb/4gCLo7WbaOt5qYmUpen3r5Pz&#43;ZI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -362,9 +362,12 @@ https://github.com/alex-shpak/hugo-book
       </ul>
     </li>
     <li><a href="#the-sigmoid-unit">The Sigmoid Unit</a></li>
+    <li><a href="#types-of-output-units">Types of Output Units</a></li>
+    <li><a href="#types-of-hidden-units">Types of Hidden Units</a></li>
+    <li><a href="#how-many-layers-to-use">How many layers to use?</a></li>
     <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
       <ul>
-        <li><a href="#linear-units">Linear Units</a></li>
+        <li><a href="#initalization">Initalization</a></li>
         <li><a href="#gradient-decest">Gradient Decest</a></li>
         <li><a href="#nonlinearly-seperable-problems-and-multilayer-networks">Nonlinearly seperable problems and multilayer networks</a></li>
         <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
@@ -517,22 +520,63 @@ https://github.com/alex-shpak/hugo-book
   \(\hat{y}^t\)
 </span>
  is Perception output on traning instance t</p>
-<p><span>
-  \(\eta &gt; 0\)
-</span>
-, the <em>learning rate</em>, is a small constant (e.g.; 0.1)</p>
+<p>η &gt; 0, the <em>learning rate</em>, is a small constant (e.g.; 0.1)</p>
 <p>if <span>
   \((y-\hat{y})&gt;0 \text{ then increase } w_j \text{ w.r.t } x_j\)
 </span>
   else decrease</p>
 <p>Can prove rule will converge if traning data is linearly seperable and η sufficently small</p>
-<p>a bad learning rate can cause very slow convergence (too small) or even divergence (too large)</p>
+<p>a bad learning rate, η,  can cause very slow convergence (too small) or even divergence (too large)</p>
+<p>It&rsquo;s best to adjust the learning rate per schedule (iteration) rather than just use a constant. For this we want to start with a high learning rate, then decrease it.</p>
+<table>
+<thead>
+<tr>
+<th>Schedule</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power Scheduling</td>
+<td><span>
+  \(\eta(t)=\eta_0/(1&#43;t/s)^c​\)
+</span>
+</td>
+</tr>
+<tr>
+<td>Exponential Scheduling</td>
+<td><span>
+  \(\eta(t)=\eta_0(0.1)^{t/s}​\)
+</span>
+</td>
+</tr>
+<tr>
+<td>Performance Scheduling</td>
+<td>reduce η by λ when no improvment in validation</td>
+</tr>
+<tr>
+<td>1cycle Scheduling</td>
+<td>increase from <span>
+  \(\eta_0 \text{ linearly to } \eta_1​\)
+</span>
+ then back down to  ​<span>
+  \(\eta_0​\)
+</span>
+</td>
+</tr>
+</tbody>
+</table>
 <h2 id="gradient-descent">
   Gradient Descent
   <a class="anchor" href="#gradient-descent">#</a>
 </h2>
 <p>[TODO] <a href="https://en.wikipedia.org/wiki/Gradient_descent">https://en.wikipedia.org/wiki/Gradient_descent</a></p>
 <p>[TODO] Stochastic Gradient Descent</p>
+<p>momentum term β to keep updates moving in the same direction as previous trials</p>
+<p>this can help move though local minima to a better local or global minimum and not get stuck on flat spots</p>
+<p>Adagrad adapts learning rate by scaling it down in steepest dimensions</p>
+<p>RMSProp exponations decays old gradients to avoid AdaGrad&rsquo;s problem of sotpping to early for neural networks duo to agressive downscaling</p>
+<p>Adapative Moment Estimation (Adam) combines momentum optimization and RMSProp</p>
 <h2 id="nonlinearly-seperable-problems">
   Nonlinearly seperable Problems
   <a class="anchor" href="#nonlinearly-seperable-problems">#</a>
@@ -602,6 +646,27 @@ https://github.com/alex-shpak/hugo-book
 <p>$S(x)=\frac{1}{1+e^{-x}}$ squashes everything into a range from 0 to 1 (or -1 to 1), with 0 mapping to to ½. It&rsquo;s similar to the threshold function, for us, this is useful as $\sigma(x)=\frac{1}{1+e^{-net}}$, where $net=\sum_{i=0}^{n} w_i x_i=f(x;w,b)$</p>
 <img src="/sigmoid.svg" style="-webkit-filter: invert(.85);">
 </br>
+<h2 id="types-of-output-units">
+  Types of Output Units
+  <a class="anchor" href="#types-of-output-units">#</a>
+</h2>
+<p>Linear - works well with GD training</p>
+<p>Logistic - good for probabilities</p>
+<p>Softmax - every output node</p>
+<h2 id="types-of-hidden-units">
+  Types of Hidden Units
+  <a class="anchor" href="#types-of-hidden-units">#</a>
+</h2>
+<p>Logistic - has issues with saturation</p>
+<p>Rectified Linear Unit (ReLU)</p>
+<p>​	 leaky ReLU and exp ReLU</p>
+<h2 id="how-many-layers-to-use">
+  How many layers to use?
+  <a class="anchor" href="#how-many-layers-to-use">#</a>
+</h2>
+<p>increasing number of layers increases risk of overfitting, need more training data for deeper network to avoid this</p>
+<p>performance improvement even without more parameters</p>
+<p>Gotta know when to add more layers instead of parameters, but in general adding more layers is better, that is try adding layers before widening, keeping in mind the overfitting problem. Also increasese training time</p>
 <h2 id="ann---artifical-neural-networks">
   ANN - Artifical Neural Networks
   <a class="anchor" href="#ann---artifical-neural-networks">#</a>
@@ -613,10 +678,38 @@ https://github.com/alex-shpak/hugo-book
 <p>good for raw sensor data, okay with noise, but requires long training times and lacks human readability- hard to know why it predicts what it does</p>
 <p>Started with the Perceptron algoritm, but that was too limited (40&rsquo;s)</p>
 <p>multi-layer backpropagation (80&rsquo;s) allowed for training multi layer networks, and they couldn&rsquo;t be made deep on that era&rsquo;s hardware, while other algoritms (Support Vector Machines, boosting) were taking off instead. In the 2000&rsquo;s it became possible for 5-8 layers though, making &lsquo;deep&rsquo; learning possible (mostly because of gaming GPUs). Better datasets, and better algorithms helped too.</p>
-<h3 id="linear-units">
-  Linear Units
-  <a class="anchor" href="#linear-units">#</a>
+<p>any boolean function can be represented with 2 layers</p>
+<p>any bounded contious function can be represented with arbitarily small error with two layers</p>
+<p>that goes to <em>any</em> function at 3 layers</p>
+<p><em>but</em>, this is only true for existance. It may be very, very difficult to find the weights and take a ton of nodes</p>
+<h3 id="initalization">
+  Initalization
+  <a class="anchor" href="#initalization">#</a>
 </h3>
+<p>We used to initalize parameters to random numbers near 0, but now Glorot is used,</p>
+<p>with $n_{in} \text{ inputs and } n_{out} \text{ outputs}$, initialize with a uniform from $[-r,r]$ with $r=a\sqrt{\frac{6}{n_{in}+n_{out}}}$ or normal, $\mathcal{N}(0,\sigma)$, with $\sigma=a\sqrt{\frac{2}{n_{in}+n_{out}}}$</p>
+<table>
+<thead>
+<tr>
+<th>Activation</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logistic</td>
+<td>1</td>
+</tr>
+<tr>
+<td>tanh</td>
+<td>4</td>
+</tr>
+<tr>
+<td>ReLU</td>
+<td>√2</td>
+</tr>
+</tbody>
+</table>
 <h3 id="gradient-decest">
   Gradient Decest
   <a class="anchor" href="#gradient-decest">#</a>
@@ -706,9 +799,12 @@ https://github.com/alex-shpak/hugo-book
       </ul>
     </li>
     <li><a href="#the-sigmoid-unit">The Sigmoid Unit</a></li>
+    <li><a href="#types-of-output-units">Types of Output Units</a></li>
+    <li><a href="#types-of-hidden-units">Types of Hidden Units</a></li>
+    <li><a href="#how-many-layers-to-use">How many layers to use?</a></li>
     <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
       <ul>
-        <li><a href="#linear-units">Linear Units</a></li>
+        <li><a href="#initalization">Initalization</a></li>
         <li><a href="#gradient-decest">Gradient Decest</a></li>
         <li><a href="#nonlinearly-seperable-problems-and-multilayer-networks">Nonlinearly seperable problems and multilayer networks</a></li>
         <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
