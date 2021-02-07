@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Most of these things probably exist. For many, it&rsquo;s just that they don&rsquo;t exist at a practical price point.
+ Without further ado, In no particular order
+  A not garbage, not phone based, IR camera that doesn&rsquo;t cost a bajillion dollars
+Yes. I know the FLIR and SEEK Thermal cameras are a thing, but both have their share of software problems or hardware incompatibilities but most I don&rsquo;t want to have to hope that their app keeps working with my phone at risk of a $250 paper weight.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="Products I Wish Existed" />
+<meta property="og:description" content="Most of these things probably exist. For many, it&rsquo;s just that they don&rsquo;t exist at a practical price point.
+ Without further ado, In no particular order
+  A not garbage, not phone based, IR camera that doesn&rsquo;t cost a bajillion dollars
+Yes. I know the FLIR and SEEK Thermal cameras are a thing, but both have their share of software problems or hardware incompatibilities but most I don&rsquo;t want to have to hope that their app keeps working with my phone at risk of a $250 paper weight." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/unpublished/productsiwishexisted/" />
+<meta property="article:published_time" content="2021-02-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-04T00:00:00+00:00" />
+<title>Products I Wish Existed | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.bf8403f90d9841a9678e7e141925eb8a167076bbf096845593711858bd2a95aa.css" integrity="sha256-v4QD&#43;Q2YQalnjn4UGSXrihZwdrvwloRVk3EYWL0qlao=">
+<script defer src="/en.search.min.4a69df523fe09d1529915b4f7134be431260ab54c15c51e5717d2638b3b7c3ee.js" integrity="sha256-SmnfUj/gnRUpkVtPcTS&#43;QxJgq1TBXFHlcX0mOLO3w&#43;4="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <hr>
+<div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/ep1-community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/ep2-howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+<li><a href="/engineering/1-firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/2-arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/3-hardware/"> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/4-linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/5-circuits1/"> 5 - Circuits! </a></li>
+<li><a href="/engineering/6-howwework/"> 6 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/6p5-git/"> 6½- Git</a></li>
+<li><a href="/engineering/7-codeintro/"> 7 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/7p5-consequences/"> 7½- Consequences</a></li>
+<li><a href="/engineering/8-lowlvl/"> 8 - Low Level Programming</a></li>
+<li><a href="/engineering/9-codecont/"> 9 - Yet More Programming</a></li>
+<li><a href="/engineering/9p5-languages/"> 9½- Programming Languages</a></li>
+<li><a href="/engineering/10-networking/">10 - Networking</a></li>
+<li><a href="/engineering/11-math/">11 - Math</a></li>
+<li><a href="/engineering/12-physics/">12 - Physics</a></li>
+<li><a href="/engineering/13-chem/">13 - Chemistry</a></li>
+<li><a href="/engineering/13p5-othersubjects/">13½- &lsquo;The Rest&rsquo;</a></li>
+<li><a href="/engineering/14-circuits2/">14 - Semiconductors</a></li>
+<li><a href="/engineering/15-digitallogic/">15 - Digital Logic</a></li>
+<li><a href="/engineering/16-embedded/">16 - Embedded Systems</a></li>
+<li><a href="/engineering/17-algorithms/">17 - Algorithms and More</a></li>
+<li><a href="/engineering/18-bigprog/">18 - Writing a Big Program</a></li>
+<li><a href="/engineering/19-servers/">19 - Servers!</a></li>
+<li><a href="/engineering/19p5-cloud/">19 - &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/20-databases/">20 - Databases</a></li>
+<li><a href="/engineering/21-debugbuildtest/">21 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/22-compileassemble/">22 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/23-exploitation/">23 - Exploitation</a></li>
+<li><a href="/engineering/24-security/">24 - Security</a></li>
+<li><a href="/engineering/25-fosscopyright/">25 - FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+<li><a href="/engineering/27-multithread/">27 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/28-guiprog/">28 - Graphical Programming</a></li>
+<li><a href="/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/30-fpga1/">30 - Programmable Logic</a></li>
+<li><a href="/engineering/31-comparch/">31 - Let&rsquo;s Make our own CPU</a></li>
+<li><a href="/engineering/32-3dprint/">32 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/33-aiml/">33 - Fine, here&rsquo;s AI/ML</a></li>
+<li><a href="/engineering/34-hamradio/">34 - Ham Radio</a></li>
+<li><a href="/engineering/a0-wrappingup/">A0 - Wrapping Up</a></li>
+<li><a href="/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></li>
+<li><a href="/engineering/a2-cheat/">A2 - Cheat Sheets</a></li>
+<li><a href="/engineering/a3-bom/">A3 - Bill Of Materials</a></li>
+<li><a href="/engineering/a4-politics/">A4 - Ethics and Engineering</a></li>
+<li><a href="/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></li>
+<li><a href="/engineering/a6-resources/">A6 - Other Great Resources</a></li>
+<li><a href="/engineering/a7-history/">A7 - History</a></li>
+<li><a href="/engineering/a8-oddthings/">A8 - Odd Things</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/generative-art/"> 5 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Products I Wish Existed</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents"></nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><blockquote>
+<p>Most of these things probably exist. For many, it&rsquo;s just that they don&rsquo;t exist at a practical price point.</p>
+</blockquote>
+<p><strong>Without further ado, In no particular order</strong></p>
+<ol>
+<li>
+<p>A not garbage, not phone based, IR camera that doesn&rsquo;t cost a bajillion dollars</p>
+<p>Yes. I know the FLIR and SEEK Thermal cameras are a thing, but both have their share of software problems or hardware incompatibilities but most I don&rsquo;t want to have to hope that their app keeps working with my phone at risk of a $250 paper weight.</p>
+<p>And, yes, FLIR does have a handheld thermal spot camera that&rsquo;s ~$350, $100 more, that&rsquo;s standalone but it&rsquo;s only an 80x60 pixel image (same as the PRO LT smart phone one) but lacks the dual camera smarts that make the image better.</p>
+<p>I suspect this is largely due to restrictions on selling IR cameras for the sake of &lsquo;national security&rsquo; as high speed, high resolution IR have military applications. Doesn&rsquo;t make me any less salty though.</p>
+</li>
+<li>
+<p>Better environmental quality sensors</p>
+<p>There&rsquo;s no good reason, in 2021, that every home - or hell, every room - doesn&rsquo;t have CO2 and radiation level detection along with CO and smoke detection. And I don&rsquo;t mean some fuck off lil' estimated CO2 meter, I mean the real shit, <a href="https://www.adafruit.com/product/4867">NDIR sensing</a> and a giger tube.</p>
+</li>
+<li>
+<p>Not shit webcams</p>
+<p>Short and sweet. Everything available right now, even upwards of $200, is fucking shit. Put a real damn sensor and hardware encoding in them.</p>
+<p>I know using a capture card (USB or PCIe) and a full on camera is an option, but now were back into stupid money.</p>
+<p>People are resorting to streaming video from their phones. This is just fucking stupid.</p>
+</li>
+<li>
+<p>An isomorphic midi controller</p>
+<p>This isn&rsquo;t the 1600&rsquo;s anymore, why <em>the fuck</em> are we still using normal 12-key keyboards. They&rsquo;re a pain to learn and have a ton of disadvantages over isomorphic keyboards. The biggest being that on an isomorphic layout every chord is the same shape in every key, octave, or tuning.</p>
+</li>
+<li>
+<p>A &lsquo;weak strong&rsquo; laptop</p>
+<p>I want a laptop with a really low power system that I can use most of the time (Like, pi3b+ish in power) but then reboot into a full on, powerful x86_64 system with good GPU when I want. Fuck Nvidia Optimus or BigLittle CPU architectures, I want something that&rsquo;s actually just a potato sitting along side my workhorse. Share the cooling, storage, and I/O, but keep everything that actually drinks power independent. I already deal with dual boot hell between Windows and Linux. I&rsquo;d happily deal with the reboot hell if it means I can get crazy long battery life when wanted while still having enough horsepower to do bigger tasks when necessary.</p>
+</li>
+<li>
+<p>A good, not super hard to use, software video synth platform</p>
+<p>Yes, I know VSXU and TouchDesigner, etc. exist. They&rsquo;re great, and they&rsquo;re a PITA. I want something that I can midi map in 30 seconds and have cool visuals pop out the other side.</p>
+<p>Both the <a href="https://sleepycircuits.com/">hypno</a> and <a href="https://www.critterandguitari.com/eyesy">eyesy</a> are just running on a pi anyway, so why can&rsquo;t I just have a mix of the two available on my desktop to midi map.</p>
+<p>As an aside, for actual audio reactivity, this would also necessitate the OS supporting good application to application audio routing, something that Windows can&rsquo;t do well, despite both Mac and Linux being able to easily with CoreAudio and Jack respectively for a long time</p>
+</li>
+<li>
+<p>A fast direct computer to computer link</p>
+<p>USB 3.2 Gen 2 (Can I get better naming too?) is fast. Like 10Gbps fast. Can we <em>please</em> get some easy cable that can just plug into both systems to let me transfer a file over this link?</p>
+</li>
+<li>
+<p>Home Plastic Waste to large 3D printing appliance</p>
+<p>We throw out a crazy amount of plastic. While it <em>could</em> be recycled for normal 3D printing, I think the quality and colors of the plastic would make it pretty &lsquo;meh&rsquo;. Instead, I could see having a large scale home or community 3D printing platform which recycles plastic for large things as a huge win. Need more shelving for the garage? Melt down and print using all those empty 2L bottles!</p>
+</li>
+<li></li>
+</ol>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//unpublished/ProductsIwishExisted.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents"></nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
