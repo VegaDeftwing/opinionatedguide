@@ -75,8 +75,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #  Machine Learning #  This chapter is very much a work in progress, as such the math on this page will not render correctly until I fix it for the static site generator this site uses. You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.
-What is the difference between ML and AI?">
+<meta name="description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #  This chapter is very much a work in progress, and is really more of just a list of topics despite how much content there appears to be Machine Learning? #  You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.
+What is the difference between ML and AI? [TODO]">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -88,8 +88,8 @@ What is the difference between ML and AI?">
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #  Machine Learning #  This chapter is very much a work in progress, as such the math on this page will not render correctly until I fix it for the static site generator this site uses. You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.
-What is the difference between ML and AI?" />
+<meta property="og:description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI #  This chapter is very much a work in progress, and is really more of just a list of topics despite how much content there appears to be Machine Learning? #  You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.
+What is the difference between ML and AI? [TODO]" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/33-aiml/" />
 
@@ -97,7 +97,7 @@ What is the difference between ML and AI?" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.473873d574e6047c2835bab780b76340b7a8d5da1fb280c66da093b9f4743c0b.css" integrity="sha256-Rzhz1XTmBHwoNbq3gLdjQLeo1dofsoDGbaCTufR0PAs=">
-<script defer src="/en.search.min.f41425e091a77cf90a1a5371bc8bc838eba36acae60a14b606336b7af1379a20.js" integrity="sha256-9BQl4JGnfPkKGlNxvIvIOOujasrmChS2BjNrevE3miA="></script>
+<script defer src="/en.search.min.2f66fe058378afccf39671d7396531cf93d996dd7d5d136be0c0d46d30356795.js" integrity="sha256-L2b&#43;BYN4r8zzlnHXOWUxz5PZlt19XRNr4MDUbTA1Z5U="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -340,7 +340,9 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#machine-learning">Machine Learning</a>
+    <li><a href="#machine-learning">Machine Learning?</a></li>
+    <li><a href="#speedbump">Speedbump</a></li>
+    <li><a href="#supervised-vs-unsupervised-learning">Supervised Vs. Unsupervised Learning</a>
       <ul>
         <li><a href="#supervised-learning">Supervised Learning</a></li>
         <li><a href="#unsupervised-learning">Unsupervised Learning</a></li>
@@ -373,6 +375,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
       </ul>
     </li>
+    <li><a href="#convolutional-neural-networks">Convolutional Neural Networks</a></li>
   </ul>
 </nav>
 
@@ -388,13 +391,13 @@ https://github.com/alex-shpak/hugo-book
   Chapter 33 - Fine, I&rsquo;ll talk about AI
   <a class="anchor" href="#chapter-33---fine-ill-talk-about-ai">#</a>
 </h1>
+<p class="tip ">
+    This chapter is very much a work in progress, and is really more of just a list of topics despite how much content there appears to be
+</p>
 <h2 id="machine-learning">
-  Machine Learning
+  Machine Learning?
   <a class="anchor" href="#machine-learning">#</a>
 </h2>
-<p class="tip ">
-    This chapter is very much a work in progress, as such the math on this page will not render correctly until I fix it for the static site generator this site uses.
-</p>
 <p>You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.</p>
 <p>What is the difference between ML and AI? [TODO]</p>
 <p>Learning is not the same as memorization, for example, if a baby sees his mother from various angles and under different lighting, he&rsquo;s not <em>memorizing</em> her face. He&rsquo;s learning features about it, which is why he can still recognize her in new views. Checking if two things are identical (or nearly so) is much easier, learning features and detecting things based on them is more difficult for a computer.</p>
@@ -409,6 +412,16 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li>When all cases can be covered by a traditional program</li>
 </ul>
+<h2 id="speedbump">
+  Speedbump
+  <a class="anchor" href="#speedbump">#</a>
+</h2>
+<p>Before we actually get into anything of substance, I think it&rsquo;s useful to just be exposed to terms in bulk and get a sort of high level overview of what&rsquo;s going on. For that, I recommend just putting this video on 2x speed and digesting it as best you can. Don&rsquo;t worry if something makes you go &ldquo;huh?&rdquo; for now:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/oJNHXPs0XDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="supervised-vs-unsupervised-learning">
+  Supervised Vs. Unsupervised Learning
+  <a class="anchor" href="#supervised-vs-unsupervised-learning">#</a>
+</h2>
 <h3 id="supervised-learning">
   Supervised Learning
   <a class="anchor" href="#supervised-learning">#</a>
@@ -723,7 +736,31 @@ https://github.com/alex-shpak/hugo-book
   Types of Activation Functions
   <a class="anchor" href="#types-of-activation-functions">#</a>
 </h3>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/oJNHXPs0XDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="convolutional-neural-networks">
+  Convolutional Neural Networks
+  <a class="anchor" href="#convolutional-neural-networks">#</a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN&rsquo;s on Wikipedia</a></p>
+<p>Good for data with grid/array like topology, think images or time series data</p>
+<p>based on using convolutions and pooling- extract features, invarient to transforms, parameter efficient</p>
+<p>passing a kernel over an image, just doing a sliding window, like normal - can do edge detection, bluring, etc.</p>
+<p>Kernels are just weights, so, we can learn the best weight to use</p>
+<p>not complete connectivity, that is no crossing from layer to another, the layer above only depends on one path</p>
+<p>&hellip; unless we use a convolutional stack(?)</p>
+<p>&hellip; next node over probably shares many parameters (weight sharing), the computation graph could just share this overlap to reduce parameters. Saves memory</p>
+<p>​	weight sharing forces the layer to learn a specific feature extractor. Multiple layers could be learned in parrallel, as only detecting one feature (like vertical lines) may not be helpful.</p>
+<p>​	on images this is commonly done as seperate detectors on color channels and multiple for specific feauters. Each higer layer is for a more complex feature, with mulitple channels of features.</p>
+<p>Basically,</p>
+<p>can pad to retain size, 0-padding is common</p>
+<p>can use a stride-parameter to downsample</p>
+<img src="/CNNImage.svg" style="-webkit-filter: invert(.85);">
+<!--colors are shifted in the SVG to make the invert correct--->
+<p>pooling nodes help get translation invariance</p>
+<p>Downsides of CNNs: Many parameters to tune, large memory useage</p>
+<p>often better to modify a prior network trained on a bigger dataset and for longer - Transfer Learning</p>
+<p>Object Detection can look for local areas of interest:</p>
+<p>R-CNN, SPP-NET, Fast R-CNN, YOLO - You Only Look Once</p>
+<hr>
 <p><a href="https://hific.github.io/">https://hific.github.io/</a></p>
 <p><a href="https://i.am.ai/roadmap/">i.am.ai Roadmap</a> &ndash; this shows that AI/ML are rooted in Data Science, as a [TODO] this probably needs talked about here</p>
 <p><a href="https://thisxdoesnotexist.com">This ____ Does Not Exist</a></p>
@@ -777,7 +814,9 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#machine-learning">Machine Learning</a>
+    <li><a href="#machine-learning">Machine Learning?</a></li>
+    <li><a href="#speedbump">Speedbump</a></li>
+    <li><a href="#supervised-vs-unsupervised-learning">Supervised Vs. Unsupervised Learning</a>
       <ul>
         <li><a href="#supervised-learning">Supervised Learning</a></li>
         <li><a href="#unsupervised-learning">Unsupervised Learning</a></li>
@@ -810,6 +849,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
       </ul>
     </li>
+    <li><a href="#convolutional-neural-networks">Convolutional Neural Networks</a></li>
   </ul>
 </nav>
 
