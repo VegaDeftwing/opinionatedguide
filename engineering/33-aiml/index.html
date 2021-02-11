@@ -97,7 +97,7 @@ What is the difference between ML and AI? [TODO]" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.473873d574e6047c2835bab780b76340b7a8d5da1fb280c66da093b9f4743c0b.css" integrity="sha256-Rzhz1XTmBHwoNbq3gLdjQLeo1dofsoDGbaCTufR0PAs=">
-<script defer src="/en.search.min.b5824d470dce925502c06551ca275d734d74242ea04afe6616754114413db280.js" integrity="sha256-tYJNRw3OklUCwGVRyiddc010JC6gSv5mFnVBFEE9soA="></script>
+<script defer src="/en.search.min.f3f20d48053dfcbf2c20cc25cb679830c0032599b0a0b36b25eb90c0719991e9.js" integrity="sha256-8/INSAU9/L8sIMwly2eYMMADJZmwoLNrJeuQwHGZkek="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -376,6 +376,19 @@ https://github.com/alex-shpak/hugo-book
       </ul>
     </li>
     <li><a href="#convolutional-neural-networks">Convolutional Neural Networks</a></li>
+    <li><a href="#regularization-and-evaluation">Regularization and Evaluation</a>
+      <ul>
+        <li><a href="#early-stopping">Early Stopping</a></li>
+        <li><a href="#data-augmentation">Data Augmentation</a></li>
+        <li><a href="#multitask-learning">Multitask Learning</a></li>
+        <li><a href="#dropout">Dropout</a></li>
+        <li><a href="#batch-normalization">Batch Normalization</a></li>
+        <li><a href="#parameter-tying">Parameter Tying</a></li>
+        <li><a href="#parameter-sharing">Parameter Sharing</a></li>
+        <li><a href="#sparse-representations">Sparse Representations</a></li>
+      </ul>
+    </li>
+    <li><a href="#other-resources">Other Resources</a></li>
   </ul>
 </nav>
 
@@ -748,19 +761,115 @@ https://github.com/alex-shpak/hugo-book
 <p>not complete connectivity, that is no crossing from layer to another, the layer above only depends on one path</p>
 <p>&hellip; unless we use a convolutional stack(?)</p>
 <p>&hellip; next node over probably shares many parameters (weight sharing), the computation graph could just share this overlap to reduce parameters. Saves memory</p>
-<p>​	weight sharing forces the layer to learn a specific feature extractor. Multiple layers could be learned in parrallel, as only detecting one feature (like vertical lines) may not be helpful.</p>
-<p>​	on images this is commonly done as seperate detectors on color channels and multiple for specific feauters. Each higer layer is for a more complex feature, with mulitple channels of features.</p>
+<p>​	weight sharing forces the layer to learn a specific feature extractor. Multiple layers could be learned in parallel, as only detecting one feature (like vertical lines) may not be helpful.</p>
+<p>​	on images this is commonly done as separate detectors on color channels and multiple for specific feasters. Each higher layer is for a more complex feature, with multiple channels of features.</p>
 <p>Basically,</p>
 <p>can pad to retain size, 0-padding is common</p>
 <p>can use a stride-parameter to downsample</p>
 <img src="/CNNImage.svg" style="-webkit-filter: invert(.85);">
 <!--colors are shifted in the SVG to make the invert correct--->
 <p>pooling nodes help get translation invariance</p>
-<p>Downsides of CNNs: Many parameters to tune, large memory useage</p>
+<p>Downsides of CNNs: Many parameters to tune, large memory usage</p>
 <p>often better to modify a prior network trained on a bigger dataset and for longer - Transfer Learning</p>
 <p>Object Detection can look for local areas of interest:</p>
 <p>R-CNN, SPP-NET, Fast R-CNN, YOLO - You Only Look Once</p>
+<h2 id="regularization-and-evaluation">
+  Regularization and Evaluation
+  <a class="anchor" href="#regularization-and-evaluation">#</a>
+</h2>
+<p>ML is basically an optimization problem</p>
+<p>We need a function to measure performance - a loss function</p>
+<p>Given instance x, with label y, and a prediction $\hat{y}$, then $J(y,\hat{y})$ is the loss on that instance</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Common Use</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-1 Loss</td>
+<td></td>
+<td>$J(y,\hat{y})=1$ if $y\neq\hat{y}$, 0 otherwise</td>
+</tr>
+<tr>
+<td>Square Loss</td>
+<td>Regression</td>
+<td>$J(y,\hat{y}) = (y - \hat{y})^2$</td>
+</tr>
+<tr>
+<td>Cross-Entropy</td>
+<td>y and $\hat{y}$ are considered probabilities of a &lsquo;1&rsquo; label. Allows for two probability distributions. Good for when the input data also has probability. Often used for classifying images</td>
+<td>$J(y,\hat{y})$ = $(-y)ln(\hat{y})-(1-y)ln(1-\hat{y})$</td>
+</tr>
+<tr>
+<td>Hinge Loss</td>
+<td>Large Margin Classifier</td>
+<td>$J(y,\hat{y}) = max(0,1-y\hat{y})$</td>
+</tr>
+</tbody>
+</table>
+<p>given a loss function, J, and a dataset, X, $error_x(h)=\sum_{x\in h}J(y_x,\hat{y}_x)$ where $y_x$ is x&rsquo;s label, and $\hat{y}_x$ is h&rsquo;s prediction</p>
+<p>But, it&rsquo;s more important that the model generalizes, so given a new example (picked i.i.d) according to unknown probability distribution D, we want to minimize h&rsquo;s <strong>expected</strong> loss $error_D(h)=\mathbb{E}_{x\sim{D}}[J(y_x,\hat{y}_x)]$</p>
+<p>minimizing training loss isn&rsquo;t the same as minimizing expected loss? <strong>NO</strong></p>
+<p>By doing <em>to good</em> on the training set, the over fitting will make results pretty bad. That is a specific parameter h overfits the training data, X, if there is an alternative hypothesis, $h^\prime$ such that $error_x(h) &lt; error_x(h^{\prime})$ and  $error_D(h) &gt; error_D(h^{\prime})$</p>
+<blockquote>
+<p>This is literally just the formal defn' of overfitting. Don&rsquo;t over think it.</p>
+</blockquote>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Overfitting.svg/1920px-Overfitting.svg.png" alt="overfitting" style="-webkit-filter: invert(.85);zoom:15%;">
+<p class="attribution ">
+    <a href="https://en.wikipedia.org/wiki/Overfitting#/media/File:Overfitting.svg">Overfitting example by Chabacano - CC BY-SA 4.0</a>
+</p>
+<p>Note that underfitting is just as much of a problem. Training accuracy needs to be balanced with simplicity.</p>
+<p>Overfitting is often a result of an overkill network topology, training too long, not having enough training data, or not doing early stopping.</p>
+<p>Complexity Penalty $J^{\sim}(\theta;X,y)=J(\theta,X,y)+\alpha\Omega(\theta)$ where $\alpha \in [0,\infin)$ weights loss J against penalty $\Omega$. $\Omega(\theta)$ just measures complexity via $\Omega(\theta)=(0.5)||\theta||_2^2$, that is the sum of the squares of network&rsquo;s weights. Since $\theta=w$, this becomes</p>
+<p>$J^{\sim}(w;X,y)=(\alpha/2)w^{\top}w+J(w;X,y)$</p>
+<p>as weights deviate from 0, activation functions become more nonlinear, which brings a higher risk of overfitting</p>
+<h3 id="early-stopping">
+  Early Stopping
+  <a class="anchor" href="#early-stopping">#</a>
+</h3>
+<p>danger of stopping too soon, as it might just have a &lsquo;bump&rsquo;</p>
+<h3 id="data-augmentation">
+  Data Augmentation
+  <a class="anchor" href="#data-augmentation">#</a>
+</h3>
+<p>Careful not to change class- ie 6 → 9 or E → 3 in images</p>
+<p>protects against translation/rotation and overfitting/underfitting</p>
+<p>adding noise</p>
+<h3 id="multitask-learning">
+  Multitask Learning
+  <a class="anchor" href="#multitask-learning">#</a>
+</h3>
+<p>Share common layers of lower network</p>
+<h3 id="dropout">
+  Dropout
+  <a class="anchor" href="#dropout">#</a>
+</h3>
+<p>Prevents any node from becoming too specialized sorta distributes the work load</p>
+<h3 id="batch-normalization">
+  Batch Normalization
+  <a class="anchor" href="#batch-normalization">#</a>
+</h3>
+<h3 id="parameter-tying">
+  Parameter Tying
+  <a class="anchor" href="#parameter-tying">#</a>
+</h3>
+<h3 id="parameter-sharing">
+  Parameter Sharing
+  <a class="anchor" href="#parameter-sharing">#</a>
+</h3>
+<h3 id="sparse-representations">
+  Sparse Representations
+  <a class="anchor" href="#sparse-representations">#</a>
+</h3>
 <hr>
+<h2 id="other-resources">
+  Other Resources
+  <a class="anchor" href="#other-resources">#</a>
+</h2>
 <p><a href="https://hific.github.io/">https://hific.github.io/</a></p>
 <p><a href="https://i.am.ai/roadmap/">i.am.ai Roadmap</a> &ndash; this shows that AI/ML are rooted in Data Science, as a [TODO] this probably needs talked about here</p>
 <p><a href="https://thisxdoesnotexist.com">This ____ Does Not Exist</a></p>
@@ -850,6 +959,19 @@ https://github.com/alex-shpak/hugo-book
       </ul>
     </li>
     <li><a href="#convolutional-neural-networks">Convolutional Neural Networks</a></li>
+    <li><a href="#regularization-and-evaluation">Regularization and Evaluation</a>
+      <ul>
+        <li><a href="#early-stopping">Early Stopping</a></li>
+        <li><a href="#data-augmentation">Data Augmentation</a></li>
+        <li><a href="#multitask-learning">Multitask Learning</a></li>
+        <li><a href="#dropout">Dropout</a></li>
+        <li><a href="#batch-normalization">Batch Normalization</a></li>
+        <li><a href="#parameter-tying">Parameter Tying</a></li>
+        <li><a href="#parameter-sharing">Parameter Sharing</a></li>
+        <li><a href="#sparse-representations">Sparse Representations</a></li>
+      </ul>
+    </li>
+    <li><a href="#other-resources">Other Resources</a></li>
   </ul>
 </nav>
 
