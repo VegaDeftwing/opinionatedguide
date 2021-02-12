@@ -75,7 +75,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):    Vibrato #  Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as in Chapter 2, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound.">
+<meta name="description" content="Audio Effects #  A lot of audio effects boil down to automating some simple parameter. Some times you may not actually need a dedicated effect and can instead get by with using Automation Lanes (YouTube, once upon a synth) in you Digital Audio Workstation (DAW) Also don&rsquo;t get to deep into gear envy. Effects are awesome and it&rsquo;s tempting to either want to collect them and hoard them like a happy dragon on a pile of gold or feel like you can&rsquo;t make music without that one perfect effect.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -87,7 +87,7 @@
   ::-webkit-scrollbar-thumb {background: #973999 !important;}
 </style>
 <meta property="og:title" content="Effects" />
-<meta property="og:description" content="Audio Effects #  Tremolo #  This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):    Vibrato #  Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as in Chapter 2, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound." />
+<meta property="og:description" content="Audio Effects #  A lot of audio effects boil down to automating some simple parameter. Some times you may not actually need a dedicated effect and can instead get by with using Automation Lanes (YouTube, once upon a synth) in you Digital Audio Workstation (DAW) Also don&rsquo;t get to deep into gear envy. Effects are awesome and it&rsquo;s tempting to either want to collect them and hoard them like a happy dragon on a pile of gold or feel like you can&rsquo;t make music without that one perfect effect." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/music/effects/" />
 
@@ -95,7 +95,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.473873d574e6047c2835bab780b76340b7a8d5da1fb280c66da093b9f4743c0b.css" integrity="sha256-Rzhz1XTmBHwoNbq3gLdjQLeo1dofsoDGbaCTufR0PAs=">
-<script defer src="/en.search.min.f3f20d48053dfcbf2c20cc25cb679830c0032599b0a0b36b25eb90c0719991e9.js" integrity="sha256-8/INSAU9/L8sIMwly2eYMMADJZmwoLNrJeuQwHGZkek="></script>
+<script defer src="/en.search.min.54440ded6a1643ffb115461b05dfc51e03058139197f71f4969cfce3674a21da.js" integrity="sha256-VEQN7WoWQ/&#43;xFUYbBd/FHgMFgTkZf3H0lpz842dKIdo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -355,7 +355,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#types-of-filters">Types of Filters</a></li>
         <li><a href="#slope-pole-zero-plots-db">Slope, Pole-Zero plots, dB</a></li>
         <li><a href="#filter-resonance-q">Filter Resonance (Q)</a></li>
-        <li><a href="#autowah">AutoWah</a></li>
+        <li><a href="#auto-wah">Auto Wah</a></li>
       </ul>
     </li>
     <li><a href="#equalizers">Equalizers</a>
@@ -367,7 +367,15 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#phaser">Phaser</a></li>
     <li><a href="#flanger">Flanger</a></li>
     <li><a href="#chorus">Chorus</a></li>
-    <li><a href="#reverb">Reverb</a></li>
+    <li><a href="#reverb">Reverb</a>
+      <ul>
+        <li><a href="#rooms">Rooms</a></li>
+        <li><a href="#plate">Plate</a></li>
+        <li><a href="#spring">Spring</a></li>
+        <li><a href="#constitutional">Constitutional</a></li>
+        <li><a href="#internals">Internals</a></li>
+      </ul>
+    </li>
     <li><a href="#distortion">Distortion</a>
       <ul>
         <li><a href="#clipping-soft--hard">Clipping (Soft &amp; Hard)</a></li>
@@ -411,6 +419,16 @@ https://github.com/alex-shpak/hugo-book
   Audio Effects
   <a class="anchor" href="#audio-effects">#</a>
 </h1>
+<p class="tip ">
+    A lot of audio effects boil down to automating some simple parameter. Some times you may not actually need a dedicated effect and can instead get by with using <a href="https://www.youtube.com/watch?v=WmgXmb2V6zE">Automation Lanes (YouTube, once upon a synth)</a> in you Digital Audio Workstation (DAW)
+</p>
+<p class="tip ">
+    Also don&rsquo;t get to deep into gear envy. Effects are awesome and it&rsquo;s tempting to either want to collect them and hoard them like a happy dragon on a pile of gold or feel like you can&rsquo;t make music without that one perfect effect. Unless you&rsquo;re falling down the rabbit hole of a DAWless setup and have a very limited amount of gear, you can almost certainly find something for free that will fill the need, or already have something. Most DAWs come with an impressive amount of built in effects: <strong>Use these first!</strong> They&rsquo;re usually lighter on your CPU and still sound really good.
+</p>
+<p class="tip ">
+    Immediately contradicting myself though, don&rsquo;t undervalue workflow either. In my experience, making music depends on a really quick brain to input device feedback loop. Being able to turn a physical knob and mash physical keys will often lead to better results if only because you&rsquo;re able to try things faster and try things by physically interacting with something that you may not have thought of otherwise. It&rsquo;s why guitars, MPE keyboards, and Eurorack are so great: they all give you a crazy amount of control and expression that is <strong>literally</strong> at your finger tips. The brain to input interface there is just so much better.</br></br>Find a happy middle ground. This often means getting some basic effects and gear that doesn&rsquo;t actually let you do anything new, but instead gives you a faster way of working with it that may open your mind to new possibilities.
+</p>
+<p><strong>With that out of the way, onto the list of effects!</strong></p>
 <h2 id="tremolo">
   Tremolo
   <a class="anchor" href="#tremolo">#</a>
@@ -418,7 +436,7 @@ https://github.com/alex-shpak/hugo-book
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
-    This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically, usually pretty fast and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):
+    This is probably the easiest to understand audio effect. Put simply, fade the volume in and out automatically. This can be done at different speeds (really fast for a &lsquo;deep&rsquo; effect or slow for something pad-like) and with a bias so that the volume never completely cuts. It can also refer to a playing style where the same note is struck rapidly, leading to a similar effect. In VCV this can be done as simply as hooking up an LFO to a VCA&rsquo;s CV input like we did here, but turning up the frequency of the LFO-2 module (note, that here there is no bias so the volume does actually cut out):
   </div>
   
   <div class="flex-even markdown-inner">
@@ -427,11 +445,13 @@ https://github.com/alex-shpak/hugo-book
   
 </div>
 
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/GkMYl3kY7aw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="vibrato">
   Vibrato
   <a class="anchor" href="#vibrato">#</a>
 </h2>
-<p>Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as in Chapter 2, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound. On a guitar this may be done with a pedal but more simply just by bending the string back and forth with the fingers quickly.</p>
+<p>Vibrato as an effect requires pitch shifting, which I suppose actually makes it akin to FM synthesis as in Chapter 2, regardless, it&rsquo;s as simple as applying a, typically subtle, pitch &lsquo;wobble&rsquo; into the sound. On a guitar this may be done with a pedal but more simply just by bending the string back and forth with the fingers quickly or using a whammy bar. In eurorack or VCV you can just use the fm input and hook up an LFO</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/JWWZK8KFp8I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="delay">
   Delay
   <a class="anchor" href="#delay">#</a>
@@ -463,11 +483,15 @@ https://github.com/alex-shpak/hugo-book
 <blockquote>
 <p>Screenshot of <a href="https://www.eventideaudio.com/products/effects/diatonic-pitch-shift/quadravox">Eventide&rsquo;s Quadravox VST</a>, with pitch shifted delays</p>
 </blockquote>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/MNzBFgwkU0A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="loopers">
   Loopers
   <a class="anchor" href="#loopers">#</a>
 </h2>
 <p>Loopers are most commonly seen in hardware and can be seen as a sort of mix between samplers and delays. Essentially you just tap in when you start playing, play what you want, then tap out, then, the loop of whatever you played will play back to you. There may be additional settings, such as a half speed effect.</p>
+<p>Often you&rsquo;ll see loopers used for &lsquo;Live Looping&rsquo; performances, where each layer is looped and overdubbed to create a full song</p>
+<p>Here for example is a jam using the Ditto X4 looper (the box slightly blurry, closest to the camera), which is used to loop the guitar here.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/PffyRrUEPVM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="filters-lp-hp-bp-notch">
   Filters (LP, HP, BP, Notch)
   <a class="anchor" href="#filters-lp-hp-bp-notch">#</a>
@@ -591,10 +615,12 @@ https://github.com/alex-shpak/hugo-book
 <p>Here, the same filter is being put right at the edge of resonance and a square wave is &lsquo;pinging&rsquo; the filter. It resonates heavily, but not enough to drive it into self oscillation. Different outputs may sound a bit different here.</p>
 <p>This filter module actually has a dedicated ping input, which is why I can &lsquo;ping&rsquo; it with a square wave, but typically you&rsquo;d want to ping filters with a trigger (a very short pulse) rather than a square wave (which is high as much as it is low). You can think of this as the difference between striking a drum head and slapping a drum, but keeping your hand pressed on to the drum&rsquo;s skin when you do. Clearly the latter is going to mute the sound.</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/11rZJGvAimk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<h3 id="autowah">
-  AutoWah
-  <a class="anchor" href="#autowah">#</a>
+<h3 id="auto-wah">
+  Auto Wah
+  <a class="anchor" href="#auto-wah">#</a>
 </h3>
+<p>an Auto Wah or Envelope filter uses an envelope follower to control a filter&rsquo;s cut off. Essentially this means how loud you play will change the filter. These are normally used on guitar, but you can put them on anything really.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/Dp1s0Ow2BJU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="equalizers">
   Equalizers
   <a class="anchor" href="#equalizers">#</a>
@@ -634,11 +660,35 @@ https://github.com/alex-shpak/hugo-book
   Reverb
   <a class="anchor" href="#reverb">#</a>
 </h2>
-<p>plate, room, spring, gated, erbe verb video, convolutional, delay line + allpass, hearing comb filters</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/qaEM78hdsXA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3 id="rooms">
+  Rooms
+  <a class="anchor" href="#rooms">#</a>
+</h3>
+<p>You&rsquo;ll often see reverbs listed as &lsquo;room&rsquo;, &lsquo;cathedral&rsquo;,&lsquo;cave&rsquo;, etc. These are trying to emulate the sound of playing in a closed space</p>
+<h3 id="plate">
+  Plate
+  <a class="anchor" href="#plate">#</a>
+</h3>
+<h3 id="spring">
+  Spring
+  <a class="anchor" href="#spring">#</a>
+</h3>
+<h3 id="constitutional">
+  Constitutional
+  <a class="anchor" href="#constitutional">#</a>
+</h3>
+<h3 id="internals">
+  Internals
+  <a class="anchor" href="#internals">#</a>
+</h3>
+<p>Delay lines, allpass, comb filters</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/Il_qdtQKnqk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="distortion">
   Distortion
   <a class="anchor" href="#distortion">#</a>
 </h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/erv4lit4aWY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p><a href="https://benmosheron.gitlab.io/blog/2020/04/26/distortion.html">How Distortion Works in Music (Ben Sheron&rsquo;s Blog)</a></p>
 <h3 id="clipping-soft--hard">
   Clipping (Soft &amp; Hard)
@@ -652,6 +702,9 @@ https://github.com/alex-shpak/hugo-book
   Wavefolding
   <a class="anchor" href="#wavefolding">#</a>
 </h3>
+<p>This is one of those things where while the name is pretty self descriptive, you sorta just have to see the signal on a scope and hear it to see what it does.</p>
+<p>Like any distortion, it ultimately adds in more harmonics, so it will make it sound higher pitch.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/nxH6lyfpLxk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h4 id="parallel-v-serial-wavefolding">
   Parallel V Serial Wavefolding
   <a class="anchor" href="#parallel-v-serial-wavefolding">#</a>
@@ -664,6 +717,19 @@ https://github.com/alex-shpak/hugo-book
   Bitcrushing &amp; Comparators
   <a class="anchor" href="#bitcrushing--comparators">#</a>
 </h3>
+<p>Bit crushing is often related to sample rate reduction as well, so one at a time:</p>
+<p>Bit crushing is taking the signal and lowering the number of bits that are used to store it. This means it&rsquo;s an inherently digital effect. Most audio is processed at 16 or 24 bit, even at just 16 bit that means each sample point can be any of 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(2^16 = 65536\)
+</span>
+ values. Usually, audio is sampled with a Digital to Analog Coverter (DAC) at around 44.1khz. This means that 44,100 times a second the signal is sampled and the level (amplitude) of the signal is stored as a value between 0 and 65536. That bit depth (16bit) is good enough that you shouldn&rsquo;t really be able to tell it&rsquo;s digital once it&rsquo;s spit back though a Digital to Analog Converter (ADC). However, if we turn that bit depth down, let&rsquo;s say all the way to 8 bit now there are only <span>
+  \(2^8 = 256\)
+</span>
+ levels of amplitude the signal can be represented with, even if we continue to sample at the same rate, this will cause audible distortion and bring a lo-fi sound. Crush even harder, say down to 2 bit (4 levels), and it turns into an outright destructive distortion that mangles the signal.</p>
+<p>Similarly, the sample rate can be reduced to cause the signal to have issues with higher frequencies as a result of aliasing.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/59Nc9pPND8A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>[Todo, fabfilter distortion video]</p>
 <h2 id="stereo-effects">
   Stereo Effects
@@ -673,10 +739,14 @@ https://github.com/alex-shpak/hugo-book
   Panning
   <a class="anchor" href="#panning">#</a>
 </h3>
+<p>Panning in general is just setting the side (left/right) that a sound is balanced on. Just slightly panning everything in a mix can even add a lot. Just like anything, you can also automate panning, but that brings up auto-panners, which are effects that do this rather quickly. Cableguy&rsquo;s Pancake 2 VST is free and sort of the go to for showing this, though there are some tools that may be easier to use. You may also see <strong>rotary</strong> effects, these emulate older speaker systems that did an effect similar to this by physically spinning the speaker horns in a circle. It has a slightly different sound and is worth exploring in it&rsquo;s own right</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/gJyssZeXEdk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/TZlvi9428Lw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h3 id="widening">
   Widening
   <a class="anchor" href="#widening">#</a>
 </h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/mwaZ85VeUoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="noise-gating">
   Noise Gating
   <a class="anchor" href="#noise-gating">#</a>
@@ -685,6 +755,7 @@ https://github.com/alex-shpak/hugo-book
   Gating other effects with a mix
   <a class="anchor" href="#gating-other-effects-with-a-mix">#</a>
 </h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/DPFuhvFV9aU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>gated verb, gated distortion</p>
 <h2 id="limiting">
   Limiting
@@ -698,7 +769,7 @@ https://github.com/alex-shpak/hugo-book
   Compression
   <a class="anchor" href="#compression">#</a>
 </h2>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/BIVfpsoPnOo?list=WL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/BIVfpsoPnOo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <blockquote class="book-hint info">
   The above is a 3 part series that explains compressors better than anything I can really write here
 </blockquote>
@@ -799,7 +870,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#types-of-filters">Types of Filters</a></li>
         <li><a href="#slope-pole-zero-plots-db">Slope, Pole-Zero plots, dB</a></li>
         <li><a href="#filter-resonance-q">Filter Resonance (Q)</a></li>
-        <li><a href="#autowah">AutoWah</a></li>
+        <li><a href="#auto-wah">Auto Wah</a></li>
       </ul>
     </li>
     <li><a href="#equalizers">Equalizers</a>
@@ -811,7 +882,15 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#phaser">Phaser</a></li>
     <li><a href="#flanger">Flanger</a></li>
     <li><a href="#chorus">Chorus</a></li>
-    <li><a href="#reverb">Reverb</a></li>
+    <li><a href="#reverb">Reverb</a>
+      <ul>
+        <li><a href="#rooms">Rooms</a></li>
+        <li><a href="#plate">Plate</a></li>
+        <li><a href="#spring">Spring</a></li>
+        <li><a href="#constitutional">Constitutional</a></li>
+        <li><a href="#internals">Internals</a></li>
+      </ul>
+    </li>
     <li><a href="#distortion">Distortion</a>
       <ul>
         <li><a href="#clipping-soft--hard">Clipping (Soft &amp; Hard)</a></li>
