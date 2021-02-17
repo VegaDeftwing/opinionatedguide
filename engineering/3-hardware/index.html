@@ -97,7 +97,7 @@ The CPU #  These are CPUS or Central Processing Units. They&rsquo;re the beating
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.473873d574e6047c2835bab780b76340b7a8d5da1fb280c66da093b9f4743c0b.css" integrity="sha256-Rzhz1XTmBHwoNbq3gLdjQLeo1dofsoDGbaCTufR0PAs=">
-<script defer src="/en.search.min.ffbe05787cb48c38843290130383cbec3901859f6cd1322bb28c3d2bd856abb5.js" integrity="sha256-/74FeHy0jDiEMpATA4PL7DkBhZ9s0TIrsow9K9hWq7U="></script>
+<script defer src="/en.search.min.eb6cbc1dd98d6515069b054d29ef363e40dd2f49e8fc1b9700066a00cd1d48c8.js" integrity="sha256-62y8HdmNZRUGmwVNKe82PkDdL0no/BuXAAZqAM0dSMg="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -348,16 +348,20 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#interrupts">Interrupts</a></li>
         <li><a href="#power">Power</a></li>
         <li><a href="#physically-what-and-where-is-this-thing">Physically, what and where is this thing?</a></li>
+        <li><a href="#numa-nodes-chiplets-die-yield">Numa Nodes? Chiplets? Die Yield?</a></li>
+        <li><a href="#branch-prediction--pipelining">Branch Prediction &amp; Pipelining</a></li>
         <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
+        <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
       </ul>
     </li>
-    <li><a href="#otherthings-done-by-the-cpu">Otherthings done by the CPU:</a></li>
     <li><a href="#further-reading">Further Reading</a></li>
     <li><a href="#ram">RAM</a>
       <ul>
-        <li><a href="#memory-issues-and-memtest86">Memory issues and Memtest86</a></li>
+        <li><a href="#virtual-memory">Virtual Memory</a></li>
+        <li><a href="#pages">Pages</a></li>
+        <li><a href="#memory-issues-ecc-and-memtest86">Memory issues, ECC, and Memtest86</a></li>
         <li><a href="#the-future-of-ram">The Future of RAM</a></li>
-        <li><a href="#rowhammer">Rowhammer</a></li>
+        <li><a href="#row-hammer">Row Hammer</a></li>
       </ul>
     </li>
     <li><a href="#the-motherboard">The Motherboard</a>
@@ -763,22 +767,68 @@ cache size      : <span style="color:#ae81ff">512</span> KB
   <a class="anchor" href="#physically-what-and-where-is-this-thing">#</a>
 </h3>
 <p>The CPU is on a square or rectangular board that is usually covered by a large heat sink used to keep it cool under load. It connects to the motherboard via hundreds of small, gold plated pins to send and receive signals (which well will discuss in depth later) from all around the system. Even though most modern CPUs are x86_64, generation to generation and cross manufacturer there are changes in the number of pins and the way they are arranged, meaning getting a new processor that&rsquo;s not from the same generation usually won&rsquo;t work. Furthermore, most laptops have soldered on processors that can not be upgraded to begin with.</p>
+<h3 id="numa-nodes-chiplets-die-yield">
+  Numa Nodes? Chiplets? Die Yield?
+  <a class="anchor" href="#numa-nodes-chiplets-die-yield">#</a>
+</h3>
+<p>[TODO]</p>
+<h3 id="branch-prediction--pipelining">
+  Branch Prediction &amp; Pipelining
+  <a class="anchor" href="#branch-prediction--pipelining">#</a>
+</h3>
+<p>I don&rsquo;t want to dive toooo deep into the weeds, but because of the Meltdown and Spectre vulnerabilities, I find it necessary to briefly talk about branch prediction.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Basically, modern CPUs do a very good job of guessing what path of code will be executed on branches, that is code like this:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> condition <span style="color:#f92672">==</span> True:
+	doThing()
+<span style="color:#66d9ef">else</span>:
+	doOtherThing()
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<p>The CPU will do a good job guessing which path will actually be taken. This is done because CPUs are actually <em>pipelined</em>.</p>
+<p>CPUs have to do a few things per each instruction, generally they need to FETCH the instruction, DECODE what that instruction is telling the CPU to do, EXECUTE that instruction, and then WRITE BACK the result of the computation.</p>
+<p>This could be done in order,</p>
+<img src="/wopipe.svg" style="-webkit-filter: invert(1);">
+<p>but because the CPU uses different parts internally, they can be pipelined, sort of like an assembly line. While one instruction is in WRITE BACK, the next instruction is being EXECUTED, the next-next instruction is being DECODED, and the next-next-next is being FETCHED.</p>
+<img src="/wpipe.svg" style="-webkit-filter: invert(1);">
+<p>Now, there&rsquo;s a lot more that goes into this, times where this doesn&rsquo;t work -like if two instructions work on the same data, have to wait for write back before that data can be executed on- but the relevant bit here is that as much as we can, we want to keep this pipe line full. That is, we want to keep each point in the assembly line busy. To do this, the above code with an <code>if</code> utilizes branch prediction, and assuming it&rsquo;s correct, is able to keep the pipeline full and running like normal. If it&rsquo;s wrong, it has to empty the pipeline, go back, and do the correct instructions instead.</p>
+<p>The issue with this that lead to the Spectre bug was that the assumed correct path to be executed may include a security level elevation, that is, it might be code that should only be able to be executed by the administrator (root) user, but in the prediction code there&rsquo;s no check there, so if the prediction can be abused, code can be executed as an admin- a doomsday level vulnerability.</p>
+<p>Meltdown is similar- you can read how it works on <a href="https://en.wikipedia.org/wiki/Meltdown_%28security_vulnerability%29#Mechanism">Wikipedia</a> (actually human readable and explained well).</p>
 <h3 id="a-note-on-x86-vendors-and-cpu-politics">
   A note on x86, vendors, and CPU politics
   <a class="anchor" href="#a-note-on-x86-vendors-and-cpu-politics">#</a>
 </h3>
 <p>[TODO]</p>
-<p>china trying to make their own silicon, apple to own CPU, etc.</p>
+<p>china trying to make their own silicon , apple to own SOC (<a href="https://www.reddit.com/r/assholedesign/comments/gq2nfu/adobe_slaps_you_with_an_early_cancellation_fee/frsvjxi?utm_source=share&amp;utm_medium=web2x&amp;context=3">Called it</a>), etc.</p>
 <p><a href="https://www.agner.org/forum/viewtopic.php?f=1&amp;t=6">https://www.agner.org/forum/viewtopic.php?f=1&amp;t=6</a></p>
-<h2 id="otherthings-done-by-the-cpu">
-  Otherthings done by the CPU:
-  <a class="anchor" href="#otherthings-done-by-the-cpu">#</a>
-</h2>
+<h3 id="other-things-done-by-the-cpu">
+  Other things done by the CPU:
+  <a class="anchor" href="#other-things-done-by-the-cpu">#</a>
+</h3>
 <p>The CPU has a lot of dedicated hardware inside for specific functions, for example many CPUs have a dedicated hardware random number generator.</p>
 <h2 id="further-reading">
   Further Reading
   <a class="anchor" href="#further-reading">#</a>
 </h2>
+<p>If you want to know about the internals of the CPU itself, check out <a href="/engineering/31-comparch/">Chapter 31 - Let&rsquo;s Make our own CPU</a> which goes into the componets of the CPU, why they&rsquo;re made the way they are, and what the future of CPU architecture may look like.</p>
 <p><a href="https://www.flamingspork.com/blog/2020/11/25/why-you-should-use-nproc-and-not-grep-proc-cpuinfo/">Why you should use &lsquo;nproc&rsquo; and not grep /proc/cpuinfo</a></p>
 <p><a href="https://youtu.be/HNwWQ9zGT-8">Spyware at The Hardware Level - Intel ME &amp; AMD PSP (YouTube, Mental Outlaw)</a></p>
 <h2 id="ram">
@@ -795,8 +845,8 @@ cache size      : <span style="color:#ae81ff">512</span> KB
 <p>You should note that many of the things mentioned above can be seen here, though I do want to look at some things here.</p>
 <p>First, size. This is an 8Gb or 8192Mb stick of ram. Obviously the more ram the better, but you may find strange ram configurations where there&rsquo;s a mix of ram sizes in a system. This can be bad for performance though, because of memory channels.</p>
 <p>Most modern systems use 2 or 3 memory channels, to simplify a bit, it makes it so two sticks of ram can have their speed be used in parallel. Think about it like a parking lot, if you have a total of 4 parking lots you could, theoretically, hook them all up in a straight line with one entrance/exit shared among them. This would be pretty stupid though, as it would severely bottleneck traffic going though. Instead you may want to add a separate entrance and exit for each, but that quickly becomes expensive. Instead, most systems use a mix of the two, connecting a pair of sticks together, allowing for added capacity, but allowing for multiple pairs to be inserted independently. A lot of people don&rsquo;t fully fill all the available memory slots on their motherboard though, so instead of having 4 lots with 2 entrances you should be able to have 2 and 2, unless you mistakingly put the sticks in wrong, leaving one &lsquo;entrance&rsquo; closed entirely while the other now has a ton of capacity. On my motherboard these &lsquo;lots&rsquo; are labeled A1, A2, B1, and B2. Looking above you can see the stick we&rsquo;re looking at here is the A1 lot. It&rsquo;s because of this that you should ideally have a multiple of as many sticks of ram as you do memory channels. For example, if you have a two channel motherboard and CPU then you want either 2, 4, or 8 sticks of ram. Most motherboards top out at 4 sticks though, with 2 channel and 2 sticks being the most common configuration.</p>
-<p>Next, I want to look at the line that says &lsquo;Type Detail: Synchronous Unbuffered (Unregistered)&rsquo; this is referencing another type of ram, which is buffered and error correcting (ECC) memory. This type of ram is almost strictly used in servers and is special because there&rsquo;s actually an extra physical memory die on the card. If you look above you&rsquo;ll notice each stick has sets of 8 black memory dies. ECC memory actually has 9 dies. The reason there are normally 8 dies is simple- there&rsquo;s 8 bits in a byte. Servers don&rsquo;t work on some magic 9-bit in a byte system, instead, this extra bit per byte is used to ensure the data hasn&rsquo;t been corrupted. The math behind this can get complicated and weird, but for now let&rsquo;s just go with it. Buffered memory is basically just adding an extra &lsquo;buffer&rsquo; between the read/write and again, it&rsquo;s a server thing.</p>
-<p>Finally I want to point out the voltage. Much like a CPU the voltage a Ram module runs at is important, and needs to be kept very stable. However, it may need bumped up if the RAM is running at a particularly high speed or if it&rsquo;s set higher than factory (overclocked).</p>
+<p>Next, I want to look at the line that says &lsquo;Type Detail: Synchronous Unbuffered (Unregistered)&rsquo; this is referencing another type of ram, which is buffered and error correcting (ECC) memory. I&rsquo;ll come back to this.</p>
+<p>I also want to point out the voltage. Much like a CPU the voltage a Ram module runs at is important, and needs to be kept very stable. However, it may need bumped up if the RAM is running at a particularly high speed or if it&rsquo;s set higher than factory (overclocked).</p>
 <p>Some RAM actually includes a special memory profile, often called XMPP, which can be applied in the BIOS/UEFI settings to make sure you&rsquo;re getting the absolute best performance out of you RAM before manual overclocking. This may actually overclock your CPU a bit as well as a bit of a side effect.</p>
 <p>There&rsquo;s a program on your system called <code>free</code> which can be used to see how much RAM you have, how much is in use, etc. Let&rsquo;s run free with the -h flag so we can see the amounts with nice units.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -813,27 +863,94 @@ cache size      : <span style="color:#ae81ff">512</span> KB
 Mem:           31Gi       4.5Gi        23Gi       488Mi       3.3Gi        26Gi
 </code></pre></td></tr></table>
 </div>
-</div><p>You can see I have 32Gb of RAM total (it get&rsquo;s truncated to 31 because it&rsquo;s actually like 31.99, units are weird), with ony 4.5Gb used. Most people complain about Chorme eating all their RAM but the truth is unused RAM is wasted RAM. The OS will manage RAM for you, and if you run out start using swap (that partition we made eariler).</p>
+</div><p>You can see I have 32Gb of RAM total (it get&rsquo;s truncated to 31 because it&rsquo;s actually like 31.99, units are weird), with ony 4.5Gb used. Most people complain about Chrome eating all their RAM but the truth is unused RAM is wasted RAM. The OS will manage RAM for you, and if you run out start using swap (that partition we made eariler).</p>
 <p>Let&rsquo;s take a deeper dive, reading the man page for free with <code>man free</code> we can see it uses information from /proc/meminfo, so lets look at that file ourselves using <code>cat /proc/meminfo</code>.</p>
 <p>One of the most interesting things to point out here is the concept of Dirty memory.</p>
 <p>&lsquo;Dirty&rsquo; memory is the amount of information that has been modified in memory, but that has not been saved back onto the permanent storage (SSD/HDD). If you were to suddenly lose power this information would be lost.</p>
 <p>Pagefaults and misses are also important. Because these topics are a bit hard to summarize I&rsquo;m going to recommend you read <a href="https://en.wikipedia.org/wiki/Page_fault">the Wikipedia page on Pagefaults</a> and on <a href="https://en.wikipedia.org/wiki/CPU_cache#Cache_miss">Cache Misses</a>. It&rsquo;s okay if you don&rsquo;t understand everything you&rsquo;re reading. Hopefully as you read more later and gain more experience the terms you didn&rsquo;t know will &lsquo;click&rsquo; and you&rsquo;ll understand.</p>
 <p>Going back to when cache was mentioned though, RAM&rsquo;s primary job is to hold bulk information that&rsquo;s in use a bit closer to the CPU. For example if you load a large image file it&rsquo;ll first get copied to ram and then be processed though cache in chunks, this is because there just simply isn&rsquo;t enough cache on the CPU to hold a large image.</p>
-<p>[TODO] Huge Pages ref <a href="https://www.chaoticafractals.com/manual/getting-started/enabling-large-page-support-windows">this</a></p>
-<h3 id="memory-issues-and-memtest86">
-  Memory issues and Memtest86
-  <a class="anchor" href="#memory-issues-and-memtest86">#</a>
+<h3 id="virtual-memory">
+  Virtual Memory
+  <a class="anchor" href="#virtual-memory">#</a>
 </h3>
+<h4 id="dirty-bit">
+  Dirty bit
+  <a class="anchor" href="#dirty-bit">#</a>
+</h4>
+<h3 id="pages">
+  Pages
+  <a class="anchor" href="#pages">#</a>
+</h3>
+<p>[TODO] Huge Pages ref <a href="https://www.chaoticafractals.com/manual/getting-started/enabling-large-page-support-windows">this</a></p>
+<h3 id="memory-issues-ecc-and-memtest86">
+  Memory issues, ECC, and Memtest86
+  <a class="anchor" href="#memory-issues-ecc-and-memtest86">#</a>
+</h3>
+<p>Memory can have quite a few issues, sometimes resulting in random Blue Screen of Death (BSoD) or Linux Kernel Panics, other times just occasionally corrupting data with no way to know.</p>
+<p>If you&rsquo;re working with super critical data, you can at least know that something has gone wrong by using Error Correction Code (ECC) memory. In an ideal world ECC would just be standard on everything. Unfortunately, Intel is a bag of dicks and uses it for product segmentation and people are cheap: ECC is also more expensive because it requires an extra bit for every byte. This also means that instead of the normal 8 memory dies per stick of RAM, ECC memory actually has 9 dies (usually). The reason there are normally 8 dies is simple- there&rsquo;s 8 bits in a byte. Servers don&rsquo;t work on some magic 9-bit in a byte system, instead, this extra bit per byte is used to ensure the data hasn&rsquo;t been corrupted.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>The math to do this is generally capable of detecting and fixing a single bit flip per byte, and at least detecting a double flip.</p>
+<p>This video explains how that works if you&rsquo;re interested:</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="250" src="https://www.youtube.com/embed/X8jsijhllIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<p>It is worth noting that along with being more expensive, ECC is also usually a tad slower. There&rsquo;s also such thing as Registered/Buffered memory, which you may see with ECC as well. Buffered memory is basically just adding an extra &lsquo;buffer&rsquo; between the read/write and again, it&rsquo;s a server thing- you&rsquo;re unlikely to ever see it on a consumer platform. Just know that if you&rsquo;re buying RAM for a server you may need to be careful to ensure you&rsquo;re getting the right thing.</p>
+<p>When DDR5 comes along, ECC is built into the spec for all levels to some extent because as memory speeds have increased, the likelihood of an error has as well. It&rsquo;s becoming necessary for basic functionality at DDR5 speeds.</p>
+<p>Now, ECC would be great and all, but the memory in the system you&rsquo;re reading this on almost certainly isn&rsquo;t using it, so what can you do?</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Well, for one, you need to get a feel for when something might be a memory error. Generally, if you see issues that you can&rsquo;t attribute to anything in software, where there&rsquo;s no obvious pattern, it&rsquo;s a good bet that it&rsquo;s memory. Assuming you&rsquo;re on an x86(_64) system, like <em>most</em> laptops or desktops, you can check with <a href="https://en.wikipedia.org/wiki/Memtest86">Memtest86(+) (Wikipedia)</a>. It often needs to run for a few hours to find anything, but when it does you&rsquo;ll get a big red error.</p>
+<p>Unfortunately, this probably means you need to buy new RAM. In the absolute worst case, maybe a new CPU if the memory controller has gotten damaged, but this is unlikely.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Memtest86%2B_15_million_errors_2017.jpg/2560px-Memtest86%2B_15_million_errors_2017.jpg" style="zoom:50%;" /></p>
+<p class="attribution ">
+    Image by Андрей Крижановский on Wikipedia, Public Domain
+</p>
+
+  </div>
+  
+</div>
+
+<p>You&rsquo;re far more likely to get RAM errors if you Overclock your RAM as well, so just be smart if you do OC your RAM- though I really don&rsquo;t recomend doing so beyond applying the <a href="https://www.tomshardware.com/reviews/how-to-enable-xmp-ddr4-overclocking,6133.html#:~:text=Intel%20XMP%20is%20an%20automated,few%20clicks%20and%20compatible%20hardware.">XMP profile (Tom&rsquo;s Hardware)</a> your RAM may have shipped with.</p>
 <h3 id="the-future-of-ram">
   The Future of RAM
   <a class="anchor" href="#the-future-of-ram">#</a>
 </h3>
+<p>[TODO]</p>
 <p><a href="https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem">In-Memory Processing by UPMEM</a></p>
 <p><a href="https://www.storagereview.com/news/intel-optane-dc-persistent-memory-module-pmm">Intel Optane Persistant Memory</a></p>
-<h3 id="rowhammer">
-  Rowhammer
-  <a class="anchor" href="#rowhammer">#</a>
+<h3 id="row-hammer">
+  Row Hammer
+  <a class="anchor" href="#row-hammer">#</a>
 </h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Row Hammer is vulnrability that arrieses due to the way memory is arranged physically and electrically on a memory stick. It let&rsquo;s you flip bits you shouldn&rsquo;t be able to by &lsquo;hammering&rsquo; on the row above or below the target row, hoping that you can induce a bit flip in the target row.</p>
+<p><a href="https://en.wikipedia.org/wiki/Row_hammer">Row Hammer&rsquo;s Wikipedia Page</a> has some a very good overview as well as some example assembly to explain the exploit</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="250" src="https://www.youtube.com/embed/rGaF15-ko5w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
 <h2 id="the-motherboard">
   The Motherboard
   <a class="anchor" href="#the-motherboard">#</a>
@@ -1228,7 +1345,8 @@ order to get in-depth S.M.A.R.T info on your drive, you&rsquo;ll likely need to 
 sudo smartctl -i path/to/disk
 </code></pre></td></tr></table>
 </div>
-</div><p>Finally, a quick note about Western Digital Green drives: Linux eats them. Thankfully you can use hdparm to fix this. From the man page:</p>
+</div><p>Hard drives, being the last remaining mechancial part in a computer (aside from fans or liquid cooling pumps) are also pretty prone to failure. If you want to avoid this keep vibrations to a minimum (see <a href="https://www.youtube.com/watch?v=tDacjrSCeq4&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Shouting in the Datacenter (YouTube)</a>), look for disks that are rated for your use case (being on 24/7, being next to many other hard drives, etc) and check the drives MTBF or Mean Time Between Failure. You want this number to be as high as possible, often something like 1,000,000 hours.</p>
+<p>Finally, a quick note about Western Digital Green drives: Linux eats them. Thankfully you can use hdparm to fix this. From the man page:</p>
 <blockquote>
 <p>-J
 Get/set the Western Digital (WD) Green Drive&rsquo;s &ldquo;idle3&rdquo; timeout value.  This timeout controls how often the drive parks its heads and enters a low power  consumption  state.
@@ -1241,7 +1359,6 @@ in setting to take effect, regardless of which program is used to tweak things.
 A  setting  of  30 seconds is recommended for Linux use.  Permitted values are from 8 to 12 seconds, and from 30 to 300 seconds in 30-second increments.  Specify a value of
 zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p>
 </blockquote>
-<p><a href="https://www.youtube.com/watch?v=tDacjrSCeq4&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Shouting in the Datacenter (YouTube)</a></p>
 <p><a href="https://arstechnica.com/gadgets/2020/09/western-digital-is-trying-to-redefine-the-word-rpm/">Western Digital is trying to redefine the word “RPM” (arstechnica)</a></p>
 <p><a href="https://www.youtube.com/watch?v=lsFDp-W1Ks0">What Is ZFS?: A Brief Primer (YouTube, Level1Linux)</a></p>
 <p><a href="https://weinholt.se/articles/non-posix-filesystems/">Non-Posix File Systems (Göran Weinholt&rsquo;s Blog)</a></p>
@@ -1459,16 +1576,20 @@ Optane, NVMe, Sata, technically all flash, Ram disks, different controllers, MLC
         <li><a href="#interrupts">Interrupts</a></li>
         <li><a href="#power">Power</a></li>
         <li><a href="#physically-what-and-where-is-this-thing">Physically, what and where is this thing?</a></li>
+        <li><a href="#numa-nodes-chiplets-die-yield">Numa Nodes? Chiplets? Die Yield?</a></li>
+        <li><a href="#branch-prediction--pipelining">Branch Prediction &amp; Pipelining</a></li>
         <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
+        <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
       </ul>
     </li>
-    <li><a href="#otherthings-done-by-the-cpu">Otherthings done by the CPU:</a></li>
     <li><a href="#further-reading">Further Reading</a></li>
     <li><a href="#ram">RAM</a>
       <ul>
-        <li><a href="#memory-issues-and-memtest86">Memory issues and Memtest86</a></li>
+        <li><a href="#virtual-memory">Virtual Memory</a></li>
+        <li><a href="#pages">Pages</a></li>
+        <li><a href="#memory-issues-ecc-and-memtest86">Memory issues, ECC, and Memtest86</a></li>
         <li><a href="#the-future-of-ram">The Future of RAM</a></li>
-        <li><a href="#rowhammer">Rowhammer</a></li>
+        <li><a href="#row-hammer">Row Hammer</a></li>
       </ul>
     </li>
     <li><a href="#the-motherboard">The Motherboard</a>
