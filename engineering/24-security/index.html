@@ -75,7 +75,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 24 - Security #  Before we get started on these next two chapters I want to get something out of the way:
+<meta name="description" content="Chapter 24 - Security #  This chapter will be getting merged into Chapter 23 Before we get started on these next two chapters I want to get something out of the way:
 Security is important, and should be taken seriously. But it&rsquo;s also a field of people who are tired of your shit, Karen. We don&rsquo;t wear suits and we won&rsquo;t do something just to look &lsquo;professional&rsquo;.
 If I want to curse, if I want to put furry art on these pages, I will do as I fucking please.">
 <meta name="theme-color" content="#FFFFFF">
@@ -89,17 +89,19 @@ If I want to curse, if I want to put furry art on these pages, I will do as I fu
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 24 - Security #  Before we get started on these next two chapters I want to get something out of the way:
+<meta property="og:description" content="Chapter 24 - Security #  This chapter will be getting merged into Chapter 23 Before we get started on these next two chapters I want to get something out of the way:
 Security is important, and should be taken seriously. But it&rsquo;s also a field of people who are tired of your shit, Karen. We don&rsquo;t wear suits and we won&rsquo;t do something just to look &lsquo;professional&rsquo;.
 If I want to curse, if I want to put furry art on these pages, I will do as I fucking please." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/24-security/" />
+<meta property="og:url" content="https://opguides.info/engineering/24-security/" /><meta property="article:section" content="Engineering" />
+
+
 
 <title>24 Security | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.473873d574e6047c2835bab780b76340b7a8d5da1fb280c66da093b9f4743c0b.css" integrity="sha256-Rzhz1XTmBHwoNbq3gLdjQLeo1dofsoDGbaCTufR0PAs=">
-<script defer src="/en.search.min.5b26b54a50877f381c57b1d99895f2c291c542128d39e24fa95e1dfb850f5c58.js" integrity="sha256-Wya1SlCHfzgcV7HZmJXywpHFQhKNOeJPqV4d&#43;4UPXFg="></script>
+<link rel="stylesheet" href="/book.min.602de81a3ff7b26996f8b606558c8bdcc87e43bf5a4c6de892ac8120b926d511.css" integrity="sha256-YC3oGj/3smmW&#43;LYGVYyL3Mh&#43;Q79aTG3okqyBILkm1RE=">
+<script defer src="/en.search.min.fdeec7f284db2d797875da14a158f6133cdf775aa8f93fbdf64715c55d7f23d9.js" integrity="sha256-/e7H8oTbLXl4ddoUoVj2Ezzfd1qo&#43;T&#43;99kcVxV1/I9k="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -415,7 +417,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
 
 
  
@@ -468,6 +470,9 @@ https://github.com/alex-shpak/hugo-book
   Chapter 24 - Security
   <a class="anchor" href="#chapter-24---security">#</a>
 </h1>
+<p class="tip ">
+    This chapter will be getting merged into Chapter 23
+</p>
 <p>Before we get started on these next two chapters I want to get something out of the way:</p>
 <p>Security is important, and should be taken seriously. <strong>But</strong> it&rsquo;s also a field of people who are tired of your shit, Karen. We don&rsquo;t wear suits and we won&rsquo;t do something just to look &lsquo;professional&rsquo;.</p>
 <p>If I want to curse, if I want to put furry art on these pages, I will do as I fucking please.</p>
@@ -532,6 +537,78 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#responsible-disclosure">#</a>
 </h2>
 <p><a href="https://adamcaudill.com/2015/11/19/responsible-disclosure-is-wrong/">https://adamcaudill.com/2015/11/19/responsible-disclosure-is-wrong/</a></p>
+<p>[TODO - thinking about an outline, please ignore this&hellip;]</p>
+<ul>
+<li>DOs and DO-NOTs
+<ul>
+<li>DO sanitize <em>all</em> your inputs</li>
+<li>DO NOT use random crypto libraries</li>
+<li>DO NOT manage your own memory
+<ul>
+<li>DO NOT trust something to abstract away memory managment perfectly either
+<ul>
+<li>python x=1 is y=1 but x=101 is not y=101</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DO NOT assume&hellip;
+<ul>
+<li>the hardware is secure
+<ul>
+<li>Are you in a VM? Are their hardware sidechannel attacks?</li>
+</ul>
+</li>
+<li>that things wont break
+<ul>
+<li>that things wont overflow</li>
+<li>that the stack can&rsquo;t be smashed</li>
+<li>that there&rsquo;s not somebody trying to break your shit</li>
+</ul>
+</li>
+<li>That you&rsquo;re talking to who you think you are</li>
+<li>That data won&rsquo;t get leaked</li>
+<li>That your users will have any idea why a signature, key, or anything else is</li>
+<li>That your users give a shit about security</li>
+<li>The code you write is the code that will run
+<ul>
+<li>The compiler may not be magic, but it sure does feel like it</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DO NOT claim unhackability</li>
+<li>DO NOT use the cool, flashy, new thing on the block for sensative data</li>
+<li>DO NOT assume that just because it&rsquo;s old and nobody has found a bug, that it&rsquo;s secure</li>
+<li>DO NOT trust humans, espically those in customer support</li>
+</ul>
+</li>
+<li>Email sucks</li>
+<li>PGP really sucks</li>
+<li>Authentication!=Authorization ; Auth!=Identity</li>
+<li>Metadata can bite you in the ass</li>
+<li>Threat modeling</li>
+<li>Sandboxes</li>
+<li>Firewalls, intrusion detection, DNS blackholes, Fail2Ban, etc.</li>
+<li>Malware types
+<ul>
+<li>++ Cryptolockers, rootkits, and the real nasty shit</li>
+</ul>
+</li>
+<li>Privacy on the Web, Fingerprinting
+<ul>
+<li>What should your employer be able to see?</li>
+</ul>
+</li>
+<li>Stalkerware</li>
+<li>Expect everything to go to shit
+<ul>
+<li>Backups</li>
+<li>Keeping uptime</li>
+</ul>
+</li>
+<li>IOT, Elections, and Infrastructure</li>
+</ul>
 </article>
  
       
