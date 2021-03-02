@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="When I looked into the mirror this morning, I wasn&rsquo;t sure who I was looking at. Is that me? Is that really what I look like now? Has this years long separation from reality caused me to not recognize my own face, or would it have happened anyway- a side effect of growing older.
+ If you saw me, would you even recognize me? Or am I the ship of Theseus, digested by the carnivore that we call time, now fertilizer for someone you&rsquo;ve never met?">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="Mirrors of Opal" />
+<meta property="og:description" content="When I looked into the mirror this morning, I wasn&rsquo;t sure who I was looking at. Is that me? Is that really what I look like now? Has this years long separation from reality caused me to not recognize my own face, or would it have happened anyway- a side effect of growing older.
+ If you saw me, would you even recognize me? Or am I the ship of Theseus, digested by the carnivore that we call time, now fertilizer for someone you&rsquo;ve never met?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/posts/mirrorsofopal/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-02T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-02T00:00:00&#43;00:00" />
+
+<title>Mirrors of Opal | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.602de81a3ff7b26996f8b606558c8bdcc87e43bf5a4c6de892ac8120b926d511.css" integrity="sha256-YC3oGj/3smmW&#43;LYGVYyL3Mh&#43;Q79aTG3okqyBILkm1RE=">
+<script defer src="/en.search.min.7c594c3cf0ad5b0024b46884fb5fa06886aa14b1beb508a691d2124dac4cc92c.js" integrity="sha256-fFlMPPCtWwAktGiE&#43;1&#43;gaIaqFLG&#43;tQimkdISTaxMySw="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<ul>
+<li>
+<p><a href="/engineering/engineering/"> 0 - What is this?</a></p>
+</li>
+<li>
+<p><a href="/engineering/ep1-community/"> Ⅰ - Community</a></p>
+</li>
+<li>
+<p><a href="/engineering/ep2-howtolearn/"> Ⅱ - Learn How to Learn</a></p>
+</li>
+<li>
+<p><a href="/engineering/1-firstgoal/"> 1 - The First Goal</a></p>
+</li>
+<li>
+<p><a href="/engineering/2-arch/"> 2 - Installing Arch Linux</a></p>
+</li>
+<li>
+<p><a href="/engineering/3-hardware/"> 3 - Into The Hardware</a></p>
+</li>
+<li>
+<p><a href="/engineering/4-linuxdirtree/"> 4 - The <em>Root</em> of Things</a></p>
+</li>
+<li>
+<p><a href="/engineering/5-circuits1/"> 5 - Circuits! </a></p>
+</li>
+<li>
+<p><a href="/engineering/6-howwework/"> 6 - Working on <em>How</em> we work</a></p>
+</li>
+<li>
+<p><a href="/engineering/6p5-git/"> 6½- Git</a></p>
+</li>
+<li>
+<p><a href="/engineering/7-codeintro/"> 7 - Let&rsquo;s Write Some Code</a></p>
+</li>
+<li>
+<p><a href="/engineering/7p5-consequences/"> 7½- Consequences</a></p>
+</li>
+<li>
+<p><a href="/engineering/8-lowlvl/"> 8 - Low Level Programming</a></p>
+</li>
+<li>
+<p><a href="/engineering/9-codecont/"> 9 - Yet More Programming</a></p>
+</li>
+<li>
+<p><a href="/engineering/9p5-languages/"> 9½- Programming Languages</a></p>
+</li>
+<li>
+<p><a href="/engineering/10-networking/">10 - Networking</a></p>
+</li>
+<li>
+<p><a href="/engineering/11-math/">11 - Math</a></p>
+</li>
+<li>
+<p><a href="/engineering/12-physics/">12 - Physics</a></p>
+</li>
+<li>
+<p><a href="/engineering/13-chem/">13 - Chemistry</a></p>
+</li>
+<li>
+<p><a href="/engineering/13p5-othersubjects/">13½- &lsquo;The Rest&rsquo;</a></p>
+</li>
+<li>
+<p><a href="/engineering/14-circuits2/">14 - Semiconductors</a></p>
+</li>
+<li>
+<p><a href="/engineering/15-digitallogic/">15 - Digital Logic</a></p>
+</li>
+<li>
+<p><a href="/engineering/16-embedded/">16 - Embedded Systems</a></p>
+</li>
+<li>
+<p><a href="/engineering/17-algorithms/">17 - Algorithms and More</a></p>
+</li>
+<li>
+<p><a href="/engineering/18-bigprog/">18 - Writing a Big Program</a></p>
+</li>
+<li>
+<p><a href="/engineering/19-servers/">19 - Servers!</a></p>
+</li>
+<li>
+<p><a href="/engineering/19p5-cloud/">19 - &ldquo;The Cloud&rdquo;</a></p>
+</li>
+<li>
+<p><a href="/engineering/20-databases/">20 - Databases</a></p>
+</li>
+<li>
+<p><a href="/engineering/21-debugbuildtest/">21 - Debugging, CI &amp; CD</a></p>
+</li>
+<li>
+<p><a href="/engineering/22-compileassemble/">22 - Compilers &amp; Assemblers</a></p>
+</li>
+<li>
+<p><a href="/engineering/23-security/">23 - Security &amp; Exploitation</a></p>
+</li>
+<li>
+<p><a href="/engineering/24-/">24 - </a></p>
+</li>
+<li>
+<p><a href="/engineering/25-fosscopyright/">25 - FOSS &amp; Copyright</a></p>
+</li>
+<li>
+<p><a href="/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></p>
+</li>
+<li>
+<p><a href="/engineering/27-multithread/">27 - We&rsquo;ve Got Cores!</a></p>
+</li>
+<li>
+<p><a href="/engineering/28-guiprog/">28 - Graphical Programming</a></p>
+</li>
+<li>
+<p><a href="/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></p>
+</li>
+<li>
+<p><a href="/engineering/30-fpga1/">30 - Programmable Logic</a></p>
+</li>
+<li>
+<p><a href="/engineering/31-comparch/">31 - Let&rsquo;s Make our own CPU</a></p>
+</li>
+<li>
+<p><a href="/engineering/32-3dprint/">32 - 3D Printing &amp; CNC</a></p>
+</li>
+<li>
+<p><a href="/engineering/33-aiml/">33 - Fine, here&rsquo;s AI/ML</a></p>
+</li>
+<li>
+<p><a href="/engineering/34-hamradio/">34 - Ham Radio</a></p>
+</li>
+<li>
+<p><a href="/engineering/a0-wrappingup/">A0 - Wrapping Up</a></p>
+</li>
+<li>
+<p><a href="/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></p>
+</li>
+<li>
+<p><a href="/engineering/a2-cheat/">A2 - Cheat Sheets</a></p>
+</li>
+<li>
+<p><a href="/engineering/a3-bom/">A3 - Bill Of Materials</a></p>
+</li>
+<li>
+<p><a href="/engineering/a4-politics/">A4 - Ethics and Engineering</a></p>
+</li>
+<li>
+<p><a href="/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></p>
+</li>
+<li>
+<p><a href="/engineering/a6-resources/">A6 - Other Great Resources</a></p>
+</li>
+<li>
+<p><a href="/engineering/a7-history/">A7 - History</a></p>
+</li>
+<li>
+<p><a href="/engineering/a8-oddthings/">A8 - Odd Things</a></p>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Mirrors of Opal</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents"></nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown">
+  <h1>
+    <a href="/posts/mirrorsofopal/">Mirrors of Opal</a>
+  </h1>
+  
+  <h5>March 2, 2021</h5>
+
+
+
+  
+
+  
+
+
+  <p><p>When I looked into the mirror this morning, I wasn&rsquo;t sure who I was looking at. Is that me? Is that really what I look like now? Has this years long separation from reality caused me to not recognize my own face, or would it have happened anyway- a side effect of growing older.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/mirror2.gif" alt="glitch-y picture of Vega">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><strong>If you saw me</strong>, would you even recognize me? Or am I the ship of Theseus, digested by the carnivore that we call time, now fertilizer for someone you&rsquo;ve never met?</p>
+<p>It&rsquo;s funny the bits of my past that still mean something to me. It&rsquo;s tragic how I&rsquo;m sure you&rsquo;ve changed too. Many of the people I once loved exist now only in the past, and while I mourn for their passing I know a past version of myself exists for them too, all of us mutually falling out of existence, bit by flipped bit.</p>
+<p>It&rsquo;s tempting to write about specific memories, about events that have been seared into my mind, the ones that have shaped me. But which ones would those really be?</p>
+<p>Maybe when ▓▓▓▓▓▓ saw me on the street, after we hadn&rsquo;t talked in months, and in a voice that carried emotion that words can not convey, she said ▓▓▓▓ ▓▓▓, ▓▓▓▓.</p>
+
+  </div>
+  
+</div>
+
+<p>Or maybe it&rsquo;s not the memories that burn in, but those that have fallen away,</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/mirror3.gif" alt="Vega Rotting In Place">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    countless hours sitting in one place, in one room. Maybe that&rsquo;s what has really made me into me. A slow decent into sameness that eats time and rots will. A dangerous combination of a desire to feel productive and having productivity be undefined, causing a feedback loop that causes me to be anything but, not letting myself enjoy my own time with something like videogames because I&rsquo;ll feel guilty.
+  </div>
+  
+</div>
+
+<p>Not having the patience to actually complete anything that should have meaning- Unfinished songs, unfinished code, unfinished stories, unfinished definitions of completion - yet not feeling like I&rsquo;ve earned the right to do things that would probably help me rejuvenate- unfinished games, unfinished anime, unfinished ░░░░░.</p>
+<p>And maybe I should be happy so many things are unfinished. I like having a large TODO list to choose from. So many projects, so many opportunities. I&rsquo;m young. I have time. I think.</p>
+<p>And yet so many things eat my time, so many things stop me from doing the projects that I think I would actually find meaning in. busy work tasks from school, lack of funds, my weak heart, a bad knee.</p>
+<p>Maybe reading this sounds depressing. It&rsquo;s not meant to be. It&rsquo;s more of a &hellip;. wandering reflection? Like going though a maze of carnival mirrors in an attempt to find the one that projects what I see in my own head, and from there rectify it with reality. I think that&rsquo;s healthy, and that everyone needs to do so now and then.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Nev_opal09.jpg" alt=""></p>
+<p class="attribution ">
+    <a href="https://en.wikipedia.org/wiki/Opal#/media/File:Nev_opal09.jpg">Image from Chirs Ralph - Public Domain</a>
+</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>I started keeping a combination journal and task list. It&rsquo;s shown me a few things. How many days are defined by completing menial tasks. How few days I get to spend as I want to spend them. How a few days each month are gems, full of everything that I want to be in everyday, like opal, full of variety and color in patterns; how a few more days are like sapphire, cool and relaxed, the days that melt away tension; but still most days are just &hellip; rock. Maybe some have some interesting edges or contain a cool fossil, but most are just not worth the time to study.</p>
+<p>I don&rsquo;t want that to be the case. I want to find a lot more Opal.</p>
+
+  </div>
+  
+</div>
+
+<blockquote class="book-hint info">
+  <p>Seriously, I&rsquo;m okay. Not going though a mental breakdown, not in danger. I&rsquo;m fine. I just needed some time to reflect and thought doing so publicly might mean something to others.</p>
+<p>On the other hand, if you&rsquo;re reading this and tearing up or having a hard time yourself, I encourage you to try to make those reflections positive, to talk to the people you care about most, and find ways to make more of your own days into opals too. We can all make positive change. You just just need to see <a href="https://www.youtube.com/watch?v=K9KLZ8C9DrY">hope in every box.</a></p>
+
+</blockquote>
+
+</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//posts/mirror.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents"></nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
