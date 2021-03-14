@@ -82,10 +82,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 19 - Servers! #  [TODO]
-What&rsquo;s a homelab?
-Why build a server #  DIY Networking: Routing, firewall, etc. #  Web hosting #  Before we get to business there&rsquo;s some necessary viewing: http://motherfuckingwebsite.com/
-File Storage, Sharing, Backups #  Remote Access #  Git, Games, and Glory #  Virtual Machines #  Containerization #  Fault tolerance #  Serverless? #  ">
+<meta name="description" content="Chapter 19 - Servers! #  First of all, let&rsquo;s demystify the servers, they are not something to be afraid of &hellip; they are just normal computers that execute processes, the main difference is that these computers do not have a direct interface, that is: there is no need for them to have peripherals (most of the time) since they only SERVE resources for other needs.
+A good example of a server is this one, in which you are reading this, the only function of the server where this content is hosted is to provide it, nothing more and nothing less.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -97,10 +95,8 @@ File Storage, Sharing, Backups #  Remote Access #  Git, Games, and Glory #  Virt
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 19 - Servers! #  [TODO]
-What&rsquo;s a homelab?
-Why build a server #  DIY Networking: Routing, firewall, etc. #  Web hosting #  Before we get to business there&rsquo;s some necessary viewing: http://motherfuckingwebsite.com/
-File Storage, Sharing, Backups #  Remote Access #  Git, Games, and Glory #  Virtual Machines #  Containerization #  Fault tolerance #  Serverless? #  " />
+<meta property="og:description" content="Chapter 19 - Servers! #  First of all, let&rsquo;s demystify the servers, they are not something to be afraid of &hellip; they are just normal computers that execute processes, the main difference is that these computers do not have a direct interface, that is: there is no need for them to have peripherals (most of the time) since they only SERVE resources for other needs.
+A good example of a server is this one, in which you are reading this, the only function of the server where this content is hosted is to provide it, nothing more and nothing less." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/19-servers/" /><meta property="article:section" content="Engineering" />
 
@@ -110,7 +106,7 @@ File Storage, Sharing, Backups #  Remote Access #  Git, Games, and Glory #  Virt
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
-<script defer src="/en.search.min.c9a024e508ba7705d8faf412785a2a5c18bef77386d0a54121f13d1f92ce7a4d.js" integrity="sha256-yaAk5Qi6dwXY&#43;vQSeFoqXBi&#43;93OG0KVBIfE9H5LOek0="></script>
+<script defer src="/en.search.min.6fd0757b87fcb2512dd85997fe16ea535d9dd5b610146c4c01ff36a9427150e4.js" integrity="sha256-b9B1e4f8slEt2FmX/hbqU12d1bYQFGxMAf82qUJxUOQ="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -458,6 +454,31 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-19---servers">Chapter 19 - Servers!</a>
       <ul>
+        <li><a href="#the-diy-homelab">The DIY Homelab</a>
+          <ul>
+            <li><a href="#why">Why?</a></li>
+            <li><a href="#firewalls">Firewalls</a></li>
+            <li><a href="#routing">Routing</a></li>
+            <li><a href="#vpn-services">VPN services</a></li>
+            <li><a href="#the-self-hosted-experience-or-hassle">The self-hosted experience (or hassle)</a></li>
+          </ul>
+        </li>
+        <li><a href="#server-types-in-a-nutshell">Server Types (in a nutshell)</a>
+          <ul>
+            <li><a href="#web-servers">Web Servers</a></li>
+            <li><a href="#file-servers-and-nas">File Servers and NAS</a></li>
+            <li><a href="#application-servers">Application servers</a></li>
+          </ul>
+        </li>
+        <li><a href="#virtual-machines-and-containerization">Virtual machines and containerization</a>
+          <ul>
+            <li><a href="#why-dont-have-it-physical">Why don’t have it physical?</a></li>
+            <li><a href="#local-vms">Local VMs</a></li>
+            <li><a href="#cloud-vms">Cloud VMs</a></li>
+            <li><a href="#containers-and-the-convenience-of-not-breaking-things">Containers and the convenience of not breaking things</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-voodoo-magic-of-serverless">The voodoo magic of… serverless?</a></li>
         <li><a href="#why-build-a-server">Why build a server</a></li>
         <li><a href="#diy-networking-routing-firewall-etc">DIY Networking: Routing, firewall, etc.</a></li>
         <li><a href="#web-hosting">Web hosting</a></li>
@@ -485,49 +506,142 @@ https://github.com/alex-shpak/hugo-book
   Chapter 19 - Servers!
   <a class="anchor" href="#chapter-19---servers">#</a>
 </h1>
+<p>First of all, let&rsquo;s demystify the servers, they are not something to be afraid of &hellip; they are just normal computers that execute processes, the main difference is that these computers do not have a direct interface, that is: there is no need for them to have peripherals (most of the time) since they only SERVE resources for other needs.</p>
+<p>A good example of a server is this one, in which you are reading this, the only function of the server where this content is hosted is to provide it, nothing more and nothing less.</p>
+<h2 id="the-diy-homelab">
+  The DIY Homelab
+  <a class="anchor" href="#the-diy-homelab">#</a>
+</h2>
+<p>A homelab is basically a &ldquo;sandbox&rdquo; where we can practice our Server-Fu (and sometimes do something useful), a homelab can be as basic or as complex as we want, the only thing we need to start with is a couple of virtual (or physical) machines.</p>
+<h3 id="why">
+  Why?
+  <a class="anchor" href="#why">#</a>
+</h3>
+<p>Let&rsquo;s imagine that you decided to start working in a huge company, you applied for the vacancy and got the job!</p>
+<p>or</p>
+<p>Maybe you want to self-host a cloud backup for all that important files.</p>
+<p>It would be bad for all of us to start pasting commands copied from StackOverflow to perform actions on a productive or &ldquo;real&rdquo; server, right?</p>
+<p>This is where our small (or large) HomeLab comes in, where we can paste googled commands and learn the functionality of those commands and the worst that can happen is that we spend a day of a weekend formatting one of our servers but &hellip; in exchange for acquiring this ability is a good exchange right?</p>
+<h3 id="firewalls">
+  Firewalls
+  <a class="anchor" href="#firewalls">#</a>
+</h3>
+<p>First of all a firewall is simply a system with a set of rules that dict whatever or not a network communication should be permitted, lets think of it as the &ldquo;bar security&rdquo; of our network or server.</p>
+<p>There are some commercial firewalls but lets be honest, we are no willing to pay ~500 USD for a commercial grade firewall only to practice right?</p>
+<p>So there are some interesting OpenSource projects that can me implemented, my preferred one is called &ldquo;PfSense&rdquo; the project is much more than a firewall (And we will be looking at in other sections) but it comes with a pretty nice firewall capabilities.</p>
+<h3 id="routing">
+  Routing
+  <a class="anchor" href="#routing">#</a>
+</h3>
+<p>The router in a network setup is like &ldquo;a set of traffic signs&rdquo; to redirect some network communications trough a certain path, with routers we are stepping in a rabbit hole of network protocols, VLANs and other tings but for our purpose lest keep it simple.</p>
+<p>Here as well my defecto choice for a Low cost and easy to implement solution for a HomeLab will be PfSense as It can work in a single machine as Router, Firewall, DHCP server, etc&hellip;</p>
+<h3 id="vpn-services">
+  VPN services
+  <a class="anchor" href="#vpn-services">#</a>
+</h3>
+<h3 id="the-self-hosted-experience-or-hassle">
+  The self-hosted experience (or hassle)
+  <a class="anchor" href="#the-self-hosted-experience-or-hassle">#</a>
+</h3>
+<h2 id="server-types-in-a-nutshell">
+  Server Types (in a nutshell)
+  <a class="anchor" href="#server-types-in-a-nutshell">#</a>
+</h2>
+<h3 id="web-servers">
+  Web Servers
+  <a class="anchor" href="#web-servers">#</a>
+</h3>
+<p>Before we get to business there&rsquo;s some necessary viewing: <a href="http://motherfuckingwebsite.com/">http://motherfuckingwebsite.com/</a></p>
+<h3 id="file-servers-and-nas">
+  File Servers and NAS
+  <a class="anchor" href="#file-servers-and-nas">#</a>
+</h3>
 <p>[TODO]</p>
-<p>What&rsquo;s a homelab?</p>
+<h3 id="application-servers">
+  Application servers
+  <a class="anchor" href="#application-servers">#</a>
+</h3>
+<p>[TODO]</p>
+<h2 id="virtual-machines-and-containerization">
+  Virtual machines and containerization
+  <a class="anchor" href="#virtual-machines-and-containerization">#</a>
+</h2>
+<p>[TODO]</p>
+<h3 id="why-dont-have-it-physical">
+  Why don’t have it physical?
+  <a class="anchor" href="#why-dont-have-it-physical">#</a>
+</h3>
+<p>[TODO]</p>
+<h3 id="local-vms">
+  Local VMs
+  <a class="anchor" href="#local-vms">#</a>
+</h3>
+<p>[TODO]</p>
+<h3 id="cloud-vms">
+  Cloud VMs
+  <a class="anchor" href="#cloud-vms">#</a>
+</h3>
+<p>[TODO]</p>
+<h3 id="containers-and-the-convenience-of-not-breaking-things">
+  Containers and the convenience of not breaking things
+  <a class="anchor" href="#containers-and-the-convenience-of-not-breaking-things">#</a>
+</h3>
+<p>[TODO]</p>
+<h2 id="the-voodoo-magic-of-serverless">
+  The voodoo magic of… serverless?
+  <a class="anchor" href="#the-voodoo-magic-of-serverless">#</a>
+</h2>
+<p>[TODO]</p>
 <h2 id="why-build-a-server">
   Why build a server
   <a class="anchor" href="#why-build-a-server">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="diy-networking-routing-firewall-etc">
   DIY Networking: Routing, firewall, etc.
   <a class="anchor" href="#diy-networking-routing-firewall-etc">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="web-hosting">
   Web hosting
   <a class="anchor" href="#web-hosting">#</a>
 </h2>
-<p>Before we get to business there&rsquo;s some necessary viewing: <a href="http://motherfuckingwebsite.com/">http://motherfuckingwebsite.com/</a></p>
+<p>[TODO]</p>
 <h2 id="file-storage-sharing-backups">
   File Storage, Sharing, Backups
   <a class="anchor" href="#file-storage-sharing-backups">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="remote-access">
   Remote Access
   <a class="anchor" href="#remote-access">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="git-games-and-glory">
   Git, Games, and Glory
   <a class="anchor" href="#git-games-and-glory">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="virtual-machines">
   Virtual Machines
   <a class="anchor" href="#virtual-machines">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="containerization">
   Containerization
   <a class="anchor" href="#containerization">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="fault-tolerance">
   Fault tolerance
   <a class="anchor" href="#fault-tolerance">#</a>
 </h2>
+<p>[TODO]</p>
 <h2 id="serverless">
   Serverless?
   <a class="anchor" href="#serverless">#</a>
 </h2>
+<p>[TODO]</p>
 </article>
  
       
@@ -578,6 +692,31 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-19---servers">Chapter 19 - Servers!</a>
       <ul>
+        <li><a href="#the-diy-homelab">The DIY Homelab</a>
+          <ul>
+            <li><a href="#why">Why?</a></li>
+            <li><a href="#firewalls">Firewalls</a></li>
+            <li><a href="#routing">Routing</a></li>
+            <li><a href="#vpn-services">VPN services</a></li>
+            <li><a href="#the-self-hosted-experience-or-hassle">The self-hosted experience (or hassle)</a></li>
+          </ul>
+        </li>
+        <li><a href="#server-types-in-a-nutshell">Server Types (in a nutshell)</a>
+          <ul>
+            <li><a href="#web-servers">Web Servers</a></li>
+            <li><a href="#file-servers-and-nas">File Servers and NAS</a></li>
+            <li><a href="#application-servers">Application servers</a></li>
+          </ul>
+        </li>
+        <li><a href="#virtual-machines-and-containerization">Virtual machines and containerization</a>
+          <ul>
+            <li><a href="#why-dont-have-it-physical">Why don’t have it physical?</a></li>
+            <li><a href="#local-vms">Local VMs</a></li>
+            <li><a href="#cloud-vms">Cloud VMs</a></li>
+            <li><a href="#containers-and-the-convenience-of-not-breaking-things">Containers and the convenience of not breaking things</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-voodoo-magic-of-serverless">The voodoo magic of… serverless?</a></li>
         <li><a href="#why-build-a-server">Why build a server</a></li>
         <li><a href="#diy-networking-routing-firewall-etc">DIY Networking: Routing, firewall, etc.</a></li>
         <li><a href="#web-hosting">Web hosting</a></li>
