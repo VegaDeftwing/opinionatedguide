@@ -106,7 +106,7 @@ The CPU #  These are CPUS or Central Processing Units. They&rsquo;re the beating
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
-<script defer src="/en.search.min.6fd0757b87fcb2512dd85997fe16ea535d9dd5b610146c4c01ff36a9427150e4.js" integrity="sha256-b9B1e4f8slEt2FmX/hbqU12d1bYQFGxMAf82qUJxUOQ="></script>
+<script defer src="/en.search.min.87a161088748c3b41e6a59cf0bc85fda697d0fb86409dec5bae52409c37b61d3.js" integrity="sha256-h6FhCIdIw7QealnPC8hf2ml9D7hkCd7FuuUkCcN7YdM="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -1485,24 +1485,29 @@ zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p>
   SSD
   <a class="anchor" href="#ssd">#</a>
 </h3>
-<p>Solid state drives, like HDDs, come in many capacites, speeds, and form factors; however, SSDs come in many, many more than HDDs. The primary two of note at the moment are SATA SSDs and NVMe SSDs. Sata SSDs are typically the same size and shape (though sometimes a bit thinner) as the normal 2.5&quot; laptop hard drive; however, some other standards are used such as mSATA and m.2. Unfortunately, the m.2 spec is slightly confusing, with some drives being SATA based and some being NVMe based, and the m.2 slot itself supporting any mix (just SATA, just NVMe, or both), so when getting a drive you need to be careful that your motherboard&rsquo;s m.2 slot and the drive are compatible.</p>
-<p>The main reason you&rsquo;d want to use NVMe is because it&rsquo;s much, much faster. NVMe drives are often many times faster than their SATA equivilents, and as of the time of writing, only slightly more expensive, albeit not supported on all systems.</p>
-<p>All SSDs regradless of type consist of 3 main parts: The Controller, the NAND, and some RAM. (okay, technically not all SSDs have ram, but that&rsquo;s sorta misleading)</p>
-<p>[TODO]
-Optane, NVMe, Sata, technically all flash, Ram disks, different controllers, MLC, TLC, etc.</p>
+<p>Solid state drives, like HDDs, come in many capacites, speeds, and form factors; however, SSDs come in many, many more than HDDs. The primary two of note at the moment are SATA SSDs and NVMe SSDs. Sata SSDs are typically the same size and shape (though sometimes a bit thinner) as the normal 2.5&quot; laptop hard drive; however, some other standards are used such as mSATA (about a half-credit hard in size) and m.2 (a bit bigger than a stick of gum). Unfortunately, the m.2 spec is slightly confusing, with some drives being SATA based and some being NVMe based, and the m.2 slot itself supporting any mix (just SATA, just NVMe, or both), so when getting a drive you need to be careful that your motherboard&rsquo;s m.2 slot and the drive are compatible.</p>
+<p>The main reason you&rsquo;d want to use NVMe is because it&rsquo;s much, much faster. NVMe drives are often many times faster than their SATA equivilents (usually because Sata is limited to 600MB/s tops), and as of the time of writing, only slightly more expensive, albeit not supported on all systems. Do keep in mind though that NVMe drives will use some of your limited PCI-e lanes, so if you want to add a lot of expansion cards like a GPU, sound card, extra usb ports, etc. you&rsquo;ll need to be careful about that.</p>
+<p>All SSDs, regradless of type, consist of 3 main parts: The Controller, the NAND, and, if they&rsquo;re not garbage, some RAM. (Seriously, don&rsquo;t buy a DRAM-less SSD)</p>
+<p>All three of these can make difference to both perfromance and reliability, though honestly, this is one situation where just sticking name brand is probably the best way to ensure you don&rsquo;t get boned. Samsung, Intel, Silicon Power, Kingston, Crucial, Western Digital, Sandisk, Micro, ADATA, and Toshiba should all be safe bets. It&rsquo;s really not worth saving a buck on a no-name brand when your data is at stake.</p>
+<p>If you do care about the nerdy nitty-gritty, you sholud read about <a href="https://en.wikipedia.org/wiki/Multi-level_cell">Multi Level Cell Flash (Wikipedia)</a>, with the general take away that more levels means more space but worse speeds and durability.</p>
+<p>It&rsquo;s also worth mentioning that new flash types, controllers, and methods to make things even faster keep coming out. One of the most interesting is Intel&rsquo;s Optane SSDs which use 3D XPoint, which, is fast, very low latency, and more durable than flash, but more expensive. It&rsquo;s actually fast enough that in some exotic systems its&rsquo;s starting <a href="https://youtu.be/uHAfTty9UWY">to be used as an alternative to RAM</a> that can also keep it&rsquo;s data though a reboot (unlike normal RAM).</p>
 <p><a href="https://www.youtube.com/watch?v=C6munjMprzU">Recovering File Systems from NAND Flash (YouTube, Defcon 28)</a></p>
 <h3 id="cloud-storage-some-one-elses-drives">
   Cloud Storage (Some one else&rsquo;s drives)
   <a class="anchor" href="#cloud-storage-some-one-elses-drives">#</a>
 </h3>
 <p>This is opinioned guide, so now that&rsquo;s about to show: Dont do it. All cloud storage is is someone else&rsquo;s disks. If you want to use it as a backup sure, but I don&rsquo;t see why- it&rsquo;s much less expensive to just backup the reallly important stuff to a hosted server continually and periodically (weekly, monthly, whatever) backup to some external disks that you keep somewhere else. Not to mention the privacy concerns. Like, really? You want to put allllll your family pictures under the all seeing eyes of Google or Microsoft. Nah. I&rsquo;ll pass.</p>
+<p>If you reallllly insist, then check out <a href="https://www.backblaze.com/cloud-backup.html">https://www.backblaze.com/cloud-backup.html</a> (I&rsquo;m not affiliated in anyway, nor do I use the service) as it&rsquo;s probably the safest option and they have good recovery options, like sending you a physical hard drive with your data on it.</p>
+<p>But, seriously, only use cloud for a backup if you have to and never ever ever ever ever use it as a primary storage medium.</p>
+<p>The cloud is not your friend.</p>
 <h3 id="portable">
   Portable
   <a class="anchor" href="#portable">#</a>
 </h3>
-<p>Most fixed disk enclosures suck, albeit they can be less expensive. I&rsquo;d recommend getting a portable multi-drive enclosure that runs over whatever the fastest connection you have is (Thunderbolt, USB 3.1, etc.). You can even get usb-&gt;nvme adapters, albeit they have a nasty amount of bandwidth limiting.</p>
+<p>Most fixed disk enclosures (Think your normal, off the shelf portable driver) suck, albeit they can be less expensive. I&rsquo;d recommend getting a portable multi-drive enclosure that runs over whatever the fastest connection you have is (Thunderbolt, USB 3.1, etc.). You can even get usb-&gt;nvme adapters, albeit they have a nasty amount of bandwidth limiting.</p>
 <p>Most off-the-shelf flash drives have ass cooling and will over-heat them selves to death when you use them for things like installing operating systems regularly, so I recommend just getting a bulk pack of cheap, low capacity ones to toss when they finally kick the bucket and a few nice USB-&gt;SATA or USB-&gt;NVME adapter for  your main portable storage needs. Failing that, you can always use your phone if you&rsquo;ve got a nice high capacity SD card in it or plenty of spare internal storage. The problem with that is MTP or &lsquo;Media Transfer Protocol&rsquo; is a buggy, slow mess, and there&rsquo;s no other clean way to transfer things from a phone. So ¯\<em>(ツ)</em>/¯</p>
 <blockquote class="twitter-tweet"><p lang="ro" dir="ltr">Recuperación de datos de µSD nivel: F*cking Master of the Universe. <a href="https://t.co/B9egCrW4WJ">pic.twitter.com/B9egCrW4WJ</a></p>&mdash; ChuxMan Skywalker (@MrChuxMan) <a href="https://twitter.com/MrChuxMan/status/1288054419985248257?ref_src=twsrc%5Etfw">July 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>You might also want to look into <a href="https://www.ifixit.com/News/46724/how-to-find-useful-discounted-disks-inside-an-external-hard-drive">Hard Drive Schucking</a> if you&rsquo;re in need of as much storage as you can get your grubby lil&rsquo; <a href="https://www.reddit.com/r/DataHoarder/">r/DataHoarder</a> hands onto.</p>
 <h3 id="the-past">
   The Past
   <a class="anchor" href="#the-past">#</a>
@@ -1572,7 +1577,7 @@ Optane, NVMe, Sata, technically all flash, Ram disks, different controllers, MLC
 <p>Also note that the power supply itself may be of varrying quality, with the voltage &lsquo;ripple&rsquo; and the efficiency being important as well. Voltage ripple occurs when the supposed-to-be 12V line instead outputs a signal that&rsquo;s varying a little, so let&rsquo;s say you measure the +12V line and it reads 12.2V now, then a minute later reads 11.8V, that&rsquo;s quite a bit of ripple when you expect a constant +12V. Generally you can trust the power supply is decent about this though so long as the power supply is also pretty efficient. Telling efficiency is easy too, as there&rsquo;s a nifty specification that most PC PSU&rsquo;s have called &ldquo;80 plus&rdquo; and it&rsquo;s rated by a metal-value system, so an 80+ bronze power supply is already (typically) much better than one without the rating, and an 80+ Gold is even better, going on up to Platinum.</p>
 <p>Most PC PSU&rsquo;s are in the ATX format, the same specification used to size motherboards, and the majority of desktops use a standard ATX power supply, though smaller systems may opt for one of the smaller standards such as SFX. Servers typically have their own power supplies which look a bit strange as they&rsquo;re basically the shape of an elongated brick, but they&rsquo;re like that so they can be easily swapped in and out. Often server power supplies are redundant so a new one could be put in while the system is still on in many cases.</p>
 <p>Main takeaway here, if some one is talking about an ATX PSU they&rsquo;re talking about the power supply in a desktop. Often they&rsquo;re (less than safely&hellip;) used in other applications as they&rsquo;re cheap and often easy to find used or salvaged from old systems.</p>
-<p>[TODO] add pictures</p>
+<p>[TODO] add pictures, ATX 12VO, don&rsquo;t use ATX for lab purpsoses, please.</p>
 <h2 id="cooling">
   Cooling
   <a class="anchor" href="#cooling">#</a>

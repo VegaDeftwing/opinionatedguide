@@ -106,7 +106,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
-<script defer src="/en.search.min.6fd0757b87fcb2512dd85997fe16ea535d9dd5b610146c4c01ff36a9427150e4.js" integrity="sha256-b9B1e4f8slEt2FmX/hbqU12d1bYQFGxMAf82qUJxUOQ="></script>
+<script defer src="/en.search.min.87a161088748c3b41e6a59cf0bc85fda697d0fb86409dec5bae52409c37b61d3.js" integrity="sha256-h6FhCIdIw7QealnPC8hf2ml9D7hkCd7FuuUkCcN7YdM="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -553,6 +553,25 @@ https://github.com/alex-shpak/hugo-book
 <p>Note that some hardware may go from a digital input to a VCO internally, or take a voltage pitch signal as input but just sample it to use a DCO internally.</p>
 <p>an <strong>LFO</strong> is a Low Frequency Oscillator, they can still be either digital or analog (DCO or VCO), but they typically have a max frequency of around a hundred hertz and are meant to be used to control other things, not make sound to hear directly.</p>
 <p>Some oscillators, weather digital or analog, cover enough range to be either a &lsquo;normal&rsquo; oscillator used for sounds you&rsquo;re intended to hear or an LFO, so there&rsquo;s not always a clear distinction.</p>
+<blockquote class="book-hint info">
+  <p><strong>Analog? Digital?</strong></p>
+<p>Avoiding the complex explanation of what actually makes an oscilator analog or digital, here&rsquo;s what you need to know:</p>
+<p>no, really it&rsquo;s a matter of a few things:</p>
+<ul>
+<li>Analog systems have some natural pitch drift and non-linearity (distortion), this makes them sound &lsquo;warmer&rsquo;</li>
+<li>Most analog designs can handle audio-rate modulation by default, you&rsquo;re not fighting a limited sample rate</li>
+<li>If you record at very high bit depth / rate or direct to analog media (tape), it&rsquo;s relevent to not have the computational overhead on the sources, so analog oscilators help with that.</li>
+<li>Analog is low latency: a DSP based source/effect will incurr latency due to the neccitity of a sample buffer. <em>technically</em> you can somewhat avoid this with dedicated DSP/FGPA hardware, but even then there&rsquo;s some.
+<ul>
+<li>This also means analog systems are great for feedback patching</li>
+</ul>
+</li>
+<li>Digital (DSP) oscilators can get complexity and polyphony for cheaper, so they&rsquo;re good for really complex timbres, for example with wavetables, which I&rsquo;ll cover in a bit</li>
+</ul>
+<p>So, which is better? Neither! If you want to go all analog or all digital, that&rsquo;s cool, but both have their strengths and weaknesses.</p>
+
+</blockquote>
+
 <p>Of note, you&rsquo;ll often hear people call non voltage controlled oscillators VCO&rsquo;s anyway. ╮(─▽─)╭</p>
 <p>Oscillators usually have very simple wave shapes as outputs. Typically, you&rsquo;ll see Sine ∿ , Triangle ʌ , Square ⎍ , and Saw waves as outputs. You may see other, more exotic wave forms though.</p>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Waveforms.svg/557px-Waveforms.svg.png" alt="Waveforms" style="-webkit-filter: invert(.85);">
