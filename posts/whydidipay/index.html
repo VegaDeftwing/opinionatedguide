@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Nebraska Union at UNL, photo by ensign_beedrill, CC BY-SA 2.0, via Wikimedia Commons I am currently a student at the University of Nebraska - Lincoln, where I study Computer and Electrical Engineering as a dual major. I have a serious passion for both of these subjects, which is why I am so incredibly frustrated at how negative my experience at UNL has been, especially in the classes that directly relate to my major.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="Why did I pay to go to college?" />
+<meta property="og:description" content="The Nebraska Union at UNL, photo by ensign_beedrill, CC BY-SA 2.0, via Wikimedia Commons I am currently a student at the University of Nebraska - Lincoln, where I study Computer and Electrical Engineering as a dual major. I have a serious passion for both of these subjects, which is why I am so incredibly frustrated at how negative my experience at UNL has been, especially in the classes that directly relate to my major." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/posts/whydidipay/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-22T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-22T00:00:00&#43;00:00" />
+
+<title>Why did I pay to go to college? | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.33df44eb2fbd4be181e4ee8be07227789b1f6cffd92e88f148109ea05de4506a.js" integrity="sha256-M99E6y&#43;9S&#43;GB5O6L4HIneJsfbP/ZLojxSBCeoF3kUGo="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<ul>
+<li>
+<p><a href="/engineering/engineering/"> 0 - What is this?</a></p>
+</li>
+<li>
+<p><a href="/engineering/ep1-community/"> Ⅰ - Community</a></p>
+</li>
+<li>
+<p><a href="/engineering/ep2-howtolearn/"> Ⅱ - Learn How to Learn</a></p>
+</li>
+<li>
+<p><a href="/engineering/1-firstgoal/"> 1 - The First Goal</a></p>
+</li>
+<li>
+<p><a href="/engineering/2-arch/"> 2 - Installing Arch Linux</a></p>
+</li>
+<li>
+<p><a href="/engineering/3-hardware/"> 3 - Into The Hardware</a></p>
+</li>
+<li>
+<p><a href="/engineering/4-linuxdirtree/"> 4 - The <em>Root</em> of Things</a></p>
+</li>
+<li>
+<p><a href="/engineering/5-circuits1/"> 5 - Circuits! </a></p>
+</li>
+<li>
+<p><a href="/engineering/6-howwework/"> 6 - Working on <em>How</em> we work</a></p>
+</li>
+<li>
+<p><a href="/engineering/6p5-git/"> 6½- Git</a></p>
+</li>
+<li>
+<p><a href="/engineering/7-codeintro/"> 7 - Let&rsquo;s Write Some Code</a></p>
+</li>
+<li>
+<p><a href="/engineering/7p5-consequences/"> 7½- Consequences</a></p>
+</li>
+<li>
+<p><a href="/engineering/8-lowlvl/"> 8 - Low Level Programming</a></p>
+</li>
+<li>
+<p><a href="/engineering/9-codecont/"> 9 - Yet More Programming</a></p>
+</li>
+<li>
+<p><a href="/engineering/9p5-languages/"> 9½- Programming Languages</a></p>
+</li>
+<li>
+<p><a href="/engineering/10-networking/">10 - Networking</a></p>
+</li>
+<li>
+<p><a href="/engineering/11-math/">11 - Math</a></p>
+</li>
+<li>
+<p><a href="/engineering/12-physics/">12 - Physics</a></p>
+</li>
+<li>
+<p><a href="/engineering/13-chem/">13 - Chemistry</a></p>
+</li>
+<li>
+<p><a href="/engineering/13p5-othersubjects/">13½- &lsquo;The Rest&rsquo;</a></p>
+</li>
+<li>
+<p><a href="/engineering/14-circuits2/">14 - Semiconductors</a></p>
+</li>
+<li>
+<p><a href="/engineering/15-digitallogic/">15 - Digital Logic</a></p>
+</li>
+<li>
+<p><a href="/engineering/16-embedded/">16 - Embedded Systems</a></p>
+</li>
+<li>
+<p><a href="/engineering/17-algorithms/">17 - Algorithms and More</a></p>
+</li>
+<li>
+<p><a href="/engineering/18-bigprog/">18 - Writing a Big Program</a></p>
+</li>
+<li>
+<p><a href="/engineering/19-servers/">19 - Servers!</a></p>
+</li>
+<li>
+<p><a href="/engineering/19p5-cloud/">19½- &ldquo;The Cloud&rdquo;</a></p>
+</li>
+<li>
+<p><a href="/engineering/20-databases/">20 - Databases</a></p>
+</li>
+<li>
+<p><a href="/engineering/21-debugbuildtest/">21 - Debugging, CI &amp; CD</a></p>
+</li>
+<li>
+<p><a href="/engineering/22-compileassemble/">22 - Compilers &amp; Assemblers</a></p>
+</li>
+<li>
+<p><a href="/engineering/23-security/">23 - Security &amp; Exploitation</a></p>
+</li>
+<li>
+<p><a href="/engineering/24-/">24 - </a></p>
+</li>
+<li>
+<p><a href="/engineering/25-fosscopyright/">25 - FOSS &amp; Copyright</a></p>
+</li>
+<li>
+<p><a href="/engineering/26-pcb/">26 - Let&rsquo;s Make our own PCB</a></p>
+</li>
+<li>
+<p><a href="/engineering/27-multithread/">27 - We&rsquo;ve Got Cores!</a></p>
+</li>
+<li>
+<p><a href="/engineering/28-guiprog/">28 - Graphical Programming</a></p>
+</li>
+<li>
+<p><a href="/engineering/29-funcprog/">29 - (((())(()((()(()))))))</a></p>
+</li>
+<li>
+<p><a href="/engineering/30-fpga1/">30 - Programmable Logic</a></p>
+</li>
+<li>
+<p><a href="/engineering/31-comparch/">31 - Let&rsquo;s Make our own CPU</a></p>
+</li>
+<li>
+<p><a href="/engineering/32-3dprint/">32 - 3D Printing &amp; CNC</a></p>
+</li>
+<li>
+<p><a href="/engineering/33-aiml/">33 - Fine, here&rsquo;s AI/ML</a></p>
+</li>
+<li>
+<p><a href="/engineering/34-hamradio/">34 - Ham Radio</a></p>
+</li>
+<li>
+<p><a href="/engineering/a0-wrappingup/">A0 - Wrapping Up</a></p>
+</li>
+<li>
+<p><a href="/engineering/a1-linuxshell/">A1 - Using The Linux Shell</a></p>
+</li>
+<li>
+<p><a href="/engineering/a2-cheat/">A2 - Cheat Sheets</a></p>
+</li>
+<li>
+<p><a href="/engineering/a3-bom/">A3 - Bill Of Materials</a></p>
+</li>
+<li>
+<p><a href="/engineering/a4-politics/">A4 - Ethics and Engineering</a></p>
+</li>
+<li>
+<p><a href="/engineering/a5-fixxingissuses/">A5 - Fixing Issues</a></p>
+</li>
+<li>
+<p><a href="/engineering/a6-resources/">A6 - Other Great Resources</a></p>
+</li>
+<li>
+<p><a href="/engineering/a7-history/">A7 - History</a></p>
+</li>
+<li>
+<p><a href="/engineering/a8-oddthings/">A8 - Odd Things</a></p>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Why did I pay to go to college?</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0---the-end-of-high-school">0 - The End of High School</a></li>
+        <li><a href="#1---freshman-fall-16">1 - Freshman, Fall &lsquo;16</a></li>
+        <li><a href="#2---freshman-spring-17">2 - Freshman, Spring &lsquo;17</a></li>
+        <li><a href="#3---sophomore-fall-17">3 - Sophomore, Fall &lsquo;17</a></li>
+        <li><a href="#4---sophomore-spring-18">4 - Sophomore, Spring &lsquo;18</a></li>
+        <li><a href="#5---junior-fall-18">5 - Junior, Fall &lsquo;18</a></li>
+        <li><a href="#6---junior-spring-19">6 - Junior, Spring &lsquo;19</a></li>
+        <li><a href="#7---senior-fall-19">7 - Senior, Fall &lsquo;19</a></li>
+        <li><a href="#8---senior-spring-20">8 - Senior, Spring &lsquo;20</a></li>
+        <li><a href="#9---senior-fall-20">9 - Senior+, Fall &lsquo;20</a></li>
+        <li><a href="#10---senior-spring-21">10 - Senior+, Spring &lsquo;21</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusions">Conclusions</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown">
+  <h1>
+    <a href="/posts/whydidipay/">Why did I pay to go to college?</a>
+  </h1>
+  
+  <h5>March 22, 2021</h5>
+
+
+
+  
+
+  
+
+
+  <p><p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Nebraska_Union.jpg" alt="" /></p>
+<p class="attribution ">
+    The Nebraska Union at UNL, photo by ensign_beedrill, <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a>, via Wikimedia Commons
+</p>
+<p>I am currently a student at the University of Nebraska - Lincoln, where I study Computer and Electrical Engineering as a dual major. I have a serious passion for both of these subjects, which is why I am so incredibly frustrated at how negative my experience at UNL has been, especially in the classes that directly relate to my major. This frustration is a large part of why I started OpGuides, so I thought I&rsquo;d share it with the world.</p>
+<p>This article&rsquo;s purpose is highlight the shortcomings of my college experience. While I am going to try to summarize each semester, there is no way I can possibly capture all of my daily struggles and frustrations or possibly mention all the great people that have helped me along the way. Nor can I possibly put into words the value of the friendships I have made, the joy that I&rsquo;ve had at some university hosted events, and some of the amazing benefits that come with college that are not academic. I also can&rsquo;t fully provide context about what was going on in my life or what personal achievements or projects I was working on at any given time. This is a huge span of time to try to sum up. Despite this, I hope their are some nuggets of wisdom you can extract. I&rsquo;ve tried to pre-bake these nuggets for you as much as I could, if you don&rsquo;t want the full story, you can jump straight the bulleted list of conclusions at the bottom of the page.</p>
+<p class="tip ">
+    As I was previously employed by UNL as a Resident Assistant, the standard disclaimer of &ldquo;The views expressed in this article are strictly my own. This article does not reflect the view of any of my employers, past, present, or future&rdquo; applies.</br></br>Furthermore, I may update this same article in the future. This may happen as I remember things from the past and as I finish up my time at UNL.
+</p>
+<h2 id="0---the-end-of-high-school">
+  0 - The End of High School
+  <a class="anchor" href="#0---the-end-of-high-school">#</a>
+</h2>
+<p>I <strong>hated</strong> high school. I never quite fit in with anyone, I was the class tech-nerd, openly bi, and not into sports at a school that lived and breathed sports. Still, I served my time and got though. While there, I took a dual credit class that transferred in for an English credit, with an amazing professor, Carolyn Nolte. I also took the ACT three times and got a 27 all three tries. (<a href="https://www.youtube.com/watch?v=J6lyURyVz7k">Fuck the ACT btw</a>)</p>
+<p>Being total garbage at foreign language, liking the experiences I&rsquo;d had with Arduinos, and having a brother that was still perusing a degree in Mechanical Engineering at UNL, I choose to dual major Electrical and Computer Engineering.</p>
+<h2 id="1---freshman-fall-16">
+  1 - Freshman, Fall &lsquo;16
+  <a class="anchor" href="#1---freshman-fall-16">#</a>
+</h2>
+<p>The story starts with move in, as I finally meet my roommate for the next year, though we&rsquo;d already talked a bit on Facebook. We&rsquo;re both CompE&rsquo;s, and there&rsquo;s actually a few other CompSci&rsquo;s on the 7th floor with us. We&rsquo;re all excited for college, have no idea where our classes are, and have no idea what the next few years will actually have in store.</p>
+<p><img src="/longhair.jpg" alt="longhair" style="zoom:33%;" /></p>
+<p class="attribution ">
+    Me, freshman year, rocking some questionable long hair
+</p>
+<p>Freshman year feels like ancient history now, but some of it still stands out. A lot of stories, a lot of scars I earned as I learned to longboard so I could make it between my classes fast enough. As for classes:</p>
+<ul>
+<li>
+<p>C programming:</p>
+<p>Painfully slow, but it was also a 100 level course so ╮(─▽─)╭, my roommate was also taking the course and failed, but I got an A+. He partied, did stupid shit, and eventually dropped out, so I suppose it still served as a basic weed-out class, which I don&rsquo;t necessarily see as a bad thing. That said, I do wish the class had gone a bit more in depth. I don&rsquo;t think I ever wrote code that topped 100 lines in this class. Similarly, we never even used bit operations despite the class being C programming. A bit odd.</p>
+</li>
+<li>
+<p>Interpersonal Skills</p>
+<p>I had to do some volunteering, where my &lsquo;interpersonal skills&rsquo; were tested by helping teach adults <em>very</em> basic math. Fun times. When talking about stereotypes the prof said I look like someone that smokes weed because of my (at the time) long hair, I got asked if I sold weed by students looking to buy after class.</p>
+</li>
+<li>
+<p>Calc Ⅰ</p>
+<p>Taught by a prof that seemed like he didn&rsquo;t want to be there, and made frequent mistakes on the whiteboard. Fortunately my TA for the recesitation was, and I can&rsquo;t stress this enough, <em>amazing</em>. Thank you Jessalyn Bolkema for making the class as good as you did, and for helping inspire me to see more beauty in math.</p>
+<p>In Calc Ⅰ I also had somebody put gum in my hair so bad that I had to get a hair cut. So, those beautiful locks you see above were short lived.</p>
+<p>The biggest complaint I had from Calc Ⅰ was the use of &lsquo;WeBWorK&rsquo;, auto-grading math quiz software. We were usually given unlimited attempts to get a 100% on the quizes; however, they were often mis-graded because the software is not great. Like, sometimes it would want 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\frac{4}{3}\)
+</span>
+ or <span>
+  \(1.333333\)
+</span>
+ (with the higher precision answer, <span>
+  \(\frac{4}{3}\)
+</span>
+, not always being the correct answer, if you were wondering), seemingly at random. To say this was frustrating would be an understatement.</p>
+</li>
+<li>
+<p>History of Rock</p>
+<p>Great class, great prof, lots of fun. The tests got oddly specific, but whatever. About a year later I met up with the prof to put an accelerometer hooked up to an Arduino into the back of his guitar for controlling MIDI effects, but that&rsquo;s about the most relevant thing to my majors that came of it.</p>
+</li>
+</ul>
+<p>The actual &lsquo;college experience&rsquo; was actually pretty good this semester. I only had to chop off one arm to pay for books with online codes attached that me prevented buying them used. Living with a roommate wasn&rsquo;t <em>quite</em> as bad as people said it would be (still pretty much sucked)</p>
+<p>Oh, the cazy preechers on campus were definitely a great way to round out the college experience.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/cZe1rdvCrWk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p class="attribution ">
+    The cheering at 6:38ish is from when I kissed my BF in front of the homophobic asshat, good times. (Yes, the video is broken)
+</p>
+<p>There were many, many more times like this with different groups (This is &lsquo;Brother Jed&rsquo;, but &lsquo;Pastor Tom&rsquo; would swing by to be a douche regularly, and there were a few others too- I don&rsquo;t at all think these people are reflective of Christianity, just a bunch of idiots.)</p>
+<h2 id="2---freshman-spring-17">
+  2 - Freshman, Spring &lsquo;17
+  <a class="anchor" href="#2---freshman-spring-17">#</a>
+</h2>
+<ul>
+<li>
+<p>Comp Sci Ⅱ</p>
+<p>Pretty hard, required a lot of late nights up programming, but the prof was really good. I may hate Java, but the class was done well. (Thanks <a href="https://www.youtube.com/user/cbourke3">Dr. Bourke</a>!)</p>
+</li>
+<li>
+<p>Unix Programming</p>
+<p>Completely useless, I mean, even for a 1 credit hour class, it was so painfully basic that it was basically irreverent, It went over bash scripting but failed to explain any of the fundamentals of the *nix fs structure, what /sys and /dev are, etc. plus it lacked any meta programming like Makefiles and what not.</p>
+</li>
+<li>
+<p>SciFi literature</p>
+<p>Great class that I actually really enjoyed. Again, it made no difference for my major beside fullfilling a gen-ed requirement. I actually had a lot of fun in the class, but the prof was painfully awkward, to the point where one day I&rsquo;m not 10000% sure I didn&rsquo;t encounter an awkward <a href="https://en.wikipedia.org/wiki/Title_IX">Title IX</a>-y situation when the prof told my at-the-time girlfriend and I that he had a dream about us. (゜_゜;) like, <em>excuse me</em>, what the <em>fuck</em>.</p>
+</li>
+</ul>
+<p>I was dealing with quite a few personal issues this semester, which made the stress of Calc Ⅱ and Physics Ⅰ unbarable. I withdrew from Physics and got a C- in CalcⅡ, which meant I needed to retake it.</p>
+<p>The reason I choose to drop Physics was two fold, for one, the class was my hardest and so made the most sense if I needed the lighter load, but the bigger reason? I couldn&rsquo;t follow the lectures though the prof&rsquo;s and TA&rsquo;s accents. Very thick Russian and Chinese respectively, and it was just not going to work. The textbook cost a few of my remaining limbs and couldn&rsquo;t be avoided for a online code, which I would later need to re-buy (thankfully only the online code since I had bought it before) when I took the class later.</p>
+<h2 id="3---sophomore-fall-17">
+  3 - Sophomore, Fall &lsquo;17
+  <a class="anchor" href="#3---sophomore-fall-17">#</a>
+</h2>
+<ul>
+<li>
+<p>Chem Ⅰ</p>
+<p>Not really noteworthy, I found it difficult, as did most people as, if I recal correctly, the pass rate was abysmal. The prof was fine, the lab was fine, and everything was &lsquo;fine&rsquo;, just the content was fast paced and difficult. The final was a standardized American Chemical Society final, which I found oddly disconnected from the course and hard as hell, but I passed the class with a B and was able to move on with my life. I did find some complaints from when I took the class that I had expressed to a group of engineers:</p>
+</li>
+</ul>
+<blockquote>
+<p>There are 3 different books we need (Textbook, recestation book, lab book) all of which have related online materials and all of which require separate logins and access codes on different websites. All of these are separate from the actual course webpage. But, I can deal with that. What has me angry is this first prelab I just did on one of said websites. Multiple of the questions have no correct answer or multiple correct answers, one is worded in a way that doesn&rsquo;t even make sense (despite the question they were trying to ask being obvious so I got it anyways), and yet another doesn&rsquo;t even tell you how the answer should be formatted on the page (do I include units?).</p>
+</blockquote>
+<ul>
+<li>
+<p>Computer Organizaiton</p>
+<p>Ho-boy, now we&rsquo;re hitting the really what-the-fuck stuff. According to my record I passed this with a C+ and that&rsquo;s the biggest grade inflation the world ever did see, most of the class got out with C&rsquo;s after a similar curve that stopped them from outright failing. My grade on the first test- a whopping 27%, and the high was a 32% (iirc?). The prof, while the sweetest old man I have ever met in my life and I would happily spend hours with just talking to, had some sort of neurodegeneration disease and in his old age should not have been teaching. This meant that instead of having the prof teach, the TA&rsquo;s picked up the slack. There were 5 TA&rsquo;s I think? Only 1 really knew what he was doing though, and he showed up to class <strong>DRUNK</strong> a few times. I was actually really into learning about computer architecture before this class so sorta had a better idea of what I was doing than most, so for one of the TA-lead classes where the TA that knew what he was doing was too hungover to attend one of the other TA&rsquo;s <em>asked me to teach it</em>. Just let that one sink in a little bit.</p>
+<p>Eventually, the department got involved, a second prof was brought in to attempt to un-fuck things, but that went about as well as you&rsquo;d think it would 3/4 though a semester, so they ended up just scaling the fuck out of our grades.</p>
+<p>The other odd thing was the room where some of that class was taught- the desks were literally falling apart. One day I had to bring in a screw driver and I went around fixing everyone&rsquo;s desks though out the lecture because the University wouldn&rsquo;t.</p>
+</li>
+<li>
+<p>Calc Ⅱ (Redo)</p>
+<p>Calc Ⅱ went better this time, I got though with a B+ and could move on with things. My TA for the class, Dylan McKnight, was amazing, despite the fact that I didn&rsquo;t do well, I honestly can&rsquo;t fault the instruction. Again, Dylan inspired me see the cool side of math, and he was pretty cool himself, fully understanding of the multiple times I came into class bloodied up from <del>biffing it on my longboard on my way into class.</del> being attacked by chainsaw wielding bears.</p>
+</li>
+<li>
+<p>Power and Politics in America</p>
+<p>Surprisingly chill for being in Fall of &lsquo;17 after the election of Drumpf. Prof was good, no real complaints.</p>
+</li>
+</ul>
+<p>I commuted to class this semester, which meant about 40 min to campus and the same back. Combined with CalcⅡ being at 8:30am, this was not awesome.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/20170920_145341.jpg" alt="20170920_145341" style="zoom:15%;" />
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    On the bright side, I did get to flip off some more asshats telling people they were going to hell for being gay (ʃƪ ˘ ³˘)
+  </div>
+  
+</div>
+
+<h2 id="4---sophomore-spring-18">
+  4 - Sophomore, Spring &lsquo;18
+  <a class="anchor" href="#4---sophomore-spring-18">#</a>
+</h2>
+<ul>
+<li>
+<p>Chem Ⅱ</p>
+<p>Nothing woth saying really. Hard as hell, but I got though ヽ（´ー｀）┌</p>
+</li>
+<li>
+<p>Calc Ⅲ</p>
+<p>Fine, if a bit tough.</p>
+</li>
+<li>
+<p>Discrete Math</p>
+<p>&ldquo;Meh&rdquo;. I again had the amazing Dr. Bourke, but the class had a lot of fluff that I don&rsquo;t think I&rsquo;ll ever actually find useful.</p>
+</li>
+<li>
+<p>Circuits</p>
+<p>Oh boy, the prof was the most monotone guy I have ever met, I&rsquo;m not convinced he didn&rsquo;t have a signal generator locked on a specific frequency in his throat and just did AM on it. Also, I hate to have to tell him this, but there is a difference between a Turban and a Turbine. Anyway, the class was literally half just resistor networks and using nodal and mesh analysis on these circuits. We did eventually get to reallllly basic capacitor and inductor circuits, ending with just the smallest mention of the diode. The class was slow, we never even really talked about how simulation software could be used, and it was just&hellip; not good. I think this complaint mostly boils down to expecting some <em>practicality</em> in my courses, which is apparently too much to ask for.</p>
+</li>
+</ul>
+<p>The Lab? The lab was worse. This TA has given me a story so stupid it hurts.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Ohmmeter.jpg" alt="" /></p>
+<p>This, is an ohmmeter, it measures <em>resistance</em> in <em>ohms</em>. Not Impedance. This TA, in his glorious idiocracy, told the class to use a much more expensive, digital, high precision ohm meter to measure the <em>impedance</em> of an element in the circuit using the <em>ohm meter</em> while the circuit was <strong>powered on</strong>. And look, I&rsquo;m not going to go into all the mental hurdles of incredible idicoracy at play there, but trust me, this is 110% distilled stupid. So, I raised my hand and told him that this was wrong, thinking that as he&rsquo;s a Graduate TA (GTA) that, maybe, he&rsquo;d just had a lapse in judgment and that he&rsquo;d be thankful I pointed it out before everyone in the lab either blew fuses or damaged things outright.</p>
+<p>Nope. This guy wants to fight.</p>
+<p>This was years ago, so obviously this is not exact:</p>
+<blockquote>
+<p><strong>You can&rsquo;t measure impedance with an ohmmeter</strong></p>
+<p>Yes you can. I&rsquo;m the Graduate TA here, you need to listen to me</p>
+<p><strong>I&rsquo;m really not comfortable doing this sir, I think it can damage equipment</strong></p>
+<p>You don&rsquo;t know what you&rsquo;re talking about, you&rsquo;re taking Circuits one after all.</p>
+</blockquote>
+<p>⏸️Pause. Dude. Really. This is like the 4th lab at this point, you&rsquo;ve had plenty of time to realize by now that I finish these labs early consistently, I wear a vacuum tube around my neck, and that I&rsquo;m coming into class on a longboard burnt with high voltage. You probably shouldn&rsquo;t have said that.</p>
+<blockquote>
+<p><strong>Can you explain to me how the equipment works then? Because from my understanding about how an ohmmeter works internally this will not give a correct read out, and can damage the equipment</strong></p>
+<p>This is an intro course, you don&rsquo;t need to know that. Do as I say.</p>
+<p><strong>Nobody in this room should follow those instructions unless you want to be replacing fuses for the next hour.</strong></p>
+<p>You have no idea what you&rsquo;re doing!</p>
+</blockquote>
+<p>Okay, now I&rsquo;m sorta pissed. This is <strong>not</strong> what a TA should do. TA&rsquo;s are supposed to help you and encourage you, explain any questions you might have away. He&rsquo;s not explaining, he&rsquo;s demanding respect <em>and</em> demeaning me. Fuck this guy.</p>
+<blockquote>
+<p><strong>No, you don&rsquo;t know what you&rsquo;re doing.</strong></p>
+<p>(now screaming at me in the lab) How dare you say that to your TA, and a grad student at that! Come talk to me privately in the hall!</p>
+<p><strong>No. Anything you have to say can be said here.</strong></p>
+<p>Fine, then let&rsquo;s go talk to [The Lab Lead]!</p>
+</blockquote>
+<p>At this point, I&rsquo;m literally laughing at this guy, he&rsquo;s red in the face from screaming, and I&rsquo;m just keep laughing at his tantrum. We get up to the lab leads office, the guy who is also responsible for fixing equipment, and the GTA tells hid story of how I&rsquo;m a disrespectful little shit, somehow leaving out what started the entire thing- him almost getting people to blow fuses on equipment. After he&rsquo;s done making his case, while I smile and play with the tube around my neck and lean on my 10kv burnt long-board, I tell the lab lead what we&rsquo;re actually up here about, that this GTA wanted us to <strong>measure impedance, with an ohmeter, on a live circuit</strong>. Lab Lead, I shit you not, looks at the GTA and just says &ldquo;Are you serious?&rdquo; then ripped the dude a new one. 11/10.</p>
+<p>This did <em>not</em> get better, at all, though the semester. I basically ended up teaching my lab.</p>
+<p>This semester I was also a Resident Assistant at UNL. More on that in a bit.</p>
+<p>During this time UNL did have an incident with a <a href="https://journalstar.com/news/local/education/unl-students-voice-frustration-over-administrations-lack-of-action-against-white-nationalist/article_2f83d453-5f66-58f3-a0df-32af4d50e625.html">Racist</a> <a href="http://www.dailynebraskan.com/news/unl-chancellor-says-daniel-kleve-is-protected-by-first-amendment/article_54a064ee-0cee-11e8-ad7b-ef1f3a068da6.html">Douchebag</a> to which they respond by &hellip; giving everyone free &ldquo;Hate Will Never Win&rdquo; T-shirts instead of doing something actually meaningful. Cool.</p>
+<h2 id="5---junior-fall-18">
+  5 - Junior, Fall &lsquo;18
+  <a class="anchor" href="#5---junior-fall-18">#</a>
+</h2>
+<ul>
+<li>
+<p>Data Structures &amp; Algorithms</p>
+<p>&lsquo;Algos was odd. The class did make me a better programmer, but it had some really annoying issues. Primarily, the lectures were often repeats, sometimes up to 3 or 4 times of covering <em>exactly</em> the same material, but attendance was graded. This got old very quickly.</p>
+</li>
+<li>
+<p>Circuits Ⅱ</p>
+<p>Same prof as before, still just as monotone, but this time the class picked up in pace, possibly a bit too much, and still lacked doing things with Spice or other sim tools, lab was still very meh. Lots of focus on big, power electronics. Not my cup of tea.</p>
+</li>
+<li>
+<p>Technical Communication</p>
+<p>just&hellip;. not good? This class largely felt like busy work, and for the final presentation we had to give for the class, my partner just up n&rsquo; disappeared on me, leaving me to do it myself.</p>
+</li>
+<li>
+<p>Differential Equations</p>
+<p>This class was a mixed bag, on one hand, the prof was amazing (Thank you Dr. Laubmeier). It was her first semester teaching but she <em>nailed</em> it. On the other hand, something about the subject just absolutely failed to &lsquo;click&rsquo; with me, so while I could work though the problems, I felt like it was all sorta magic? I don&rsquo;t know how else to put it. Regardless, this is 100% on me.</p>
+</li>
+</ul>
+<p>This semester I was also a Resident Assistant at UNL again. I can&rsquo;t say much about this as I&rsquo;d like for legal reasons; however, I will say that the entire experience as an RA made me feel that, despite the dorms existing as housing at an educational institution and the fact that I was in the dorm that was primarily used for honors students, the dorms were anything but conductive to education. Music majors couldn&rsquo;t use electric amps in the music room and nobody was allowed to have anything that wasn&rsquo;t UL certified in their rooms- there goes everything from 3D printers to any lab equipment. And like, yeah, I get it, but come on?</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>I also felt that I was not respected as a person. Despite my request that I be stationed literally anywhere else in the building on account of my bad knee, I was assigned a room on the fourth floor of a building with no elevator. Their response to LGBT issuses also left me unhappy, as on oppisite-sex guest wasn&rsquo;t allowed overnight&hellip; yeah. Let that one sink in, it&rsquo;s somehow more restrictive to straight people yet more offensive to LGBT people. Way to go guys.</p>
+<p>also as my 4th semester living in the dorms, I was growing very tired of 1-ply toilet paper.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/20180429_231232.jpg" alt="20180429_231232" style="zoom:13%;" />
+  </div>
+  
+</div>
+
+<h2 id="6---junior-spring-19">
+  6 - Junior, Spring &lsquo;19
+  <a class="anchor" href="#6---junior-spring-19">#</a>
+</h2>
+<p>I had a lot going on outside of school, so I intentionally took a rather chill semester,</p>
+<ul>
+<li>
+<p>CPR and Archey</p>
+<p>Both were taken just to fill credit hours, to get up to the required 12 to be a full time student. CPR was a total of three 1 hour classes, while Archery was a weekly 3ish hour session and was really cool, even if I was comically bad at it.</p>
+</li>
+<li>
+<p>Embedded System</p>
+<p>I yet again had a professor for which it was his first semester teaching. He was&hellip; not great. We used the Arudino Uno and built a tiny wall-avoiding robot and did a few other labs, and&hellip; cool, I guess? It was the kinda thing that should be tought in high school, not college. We (mostly) didn&rsquo;t use the Arduino framework, instead poking registers directly, which made the class a bit more valuable, but still, I found it a bit lack luster. I often found that I knew more about the 328p CPU and it&rsquo;s features, debuggers and simulators that were available, etc. than the prof did. I have heard the prof has since gotten a lot better at teaching though, and one of my good friends had a really good experience taking the advanced variant of the course with him, where he used an FPGA instead of an μC.</p>
+</li>
+<li>
+<p>Physics Ⅰ (Actually taking it this time instead of withdrawing early)</p>
+<p>I had a really good TA (who I am still friends with!) and having the better math background really helped, which is most of the reason I put it off for so long, pulled a B+ out of it so 👍.</p>
+</li>
+<li>
+<p>Philosophy</p>
+<p>This class? Well it was an experience. It was 5pm to 8pm iirc, and trying to force yourself to care about basic philosophy for three hours straight is a bit brutal. I did find the class interesting though and am glad I took it. Plus, the 10 minute break the prof allowed in the middle was just barely enough for me to max-speed penny board to Wendy&rsquo;s, grab a meal to go and scarf it down before he started teaching again.</p>
+</li>
+</ul>
+<h2 id="7---senior-fall-19">
+  7 - Senior, Fall &lsquo;19
+  <a class="anchor" href="#7---senior-fall-19">#</a>
+</h2>
+<ul>
+<li>
+<p>Physics Ⅱ</p>
+<p>Pretty awful. I wasn&rsquo;t stoked with the instruction (from the prof, again, TA was bomb) in PhysicsⅠ, and it went downhill in Ⅱ. My TA had a pretty thick accent, which made understanding him difficult. The Lab, well, the equipment was all electrical taped together and should have been thrown out 20 years ago. I found this particularly odd, as the chemistry department&rsquo;s labs were top notch, like, each lab room had 6 TVs so that every lab station could look at the slides/instructions independently even. It was seriously overkill. Then, we have these physics labs that are struggling to get by on scraps. ¯\_(ツ)_/¯</p>
+</li>
+<li>
+<p>Circuits Ⅲ</p>
+<p>This class was an absolute dumpster fire. The prof is by far the worst I&rsquo;ve had my entire time at UNL. He made crazy assumptions about the prior knowledge of students, dove <em>way</em> to deep into semiconductor physics instead of how to actually use them, miserably failed to explain things, assigned homework that was insanely long, gave tests that were more a test of what you had written on your allowed cheat-sheet, and at one point even told the class a test was going to be over the wrong thing- making it so that he had to give a make-up test. He was also just kind of unpersonable and unwelcoming. While my experience was already horrible, I had friends that had far worse. I still don&rsquo;t understand how to use transistors in a circuit very well, and if anything I think this class made that situation worse. If I were rating my classes out of 10, this one would get a negative score.</p>
+</li>
+<li>
+<p>Linear Algebra</p>
+<p>Really good class, taught incredibly well by Dr. Laubmeier, and I am again grateful for the experience.</p>
+</li>
+<li>
+<p>Signals and Systems</p>
+<p>Taught by Dr. Khalid Sayood, this class was probably my <strong>best</strong> experience at UNL. Don&rsquo;t get me wrong, that class was tough, but I have never had a prof so skilled at teaching, so invested in his students, and so down to earth. Learning from Dr. Sayood will almost certainly stand out as the highlight of my time at UNL.</p>
+</li>
+</ul>
+<h2 id="8---senior-spring-20">
+  8 - Senior, Spring &lsquo;20
+  <a class="anchor" href="#8---senior-spring-20">#</a>
+</h2>
+<p class="tip ">
+    This semester is the one that COVID-19 hit. The last third-ish of this semester had otherwise normal classes transitioning to being entirely online. This went about as well as could be expected. Obviously, this is a rather odd scenario. It may not be fair to judge the University based on the response to this necessarily; however, I think that seeing how the university responds to this shows how they&rsquo;ll respond to other things- that is to say poorly.
+</p>
+<p>If the quality of my professors and classes didn&rsquo;t piss me off before, this is the semester that did it.</p>
+<ul>
+<li>
+<p>Operating System Kernels</p>
+<p>This class was a hard, the prof was very &lsquo;meh&rsquo;. The prof hadn&rsquo;t even taught in many years, but had to take up the torch again because the guy that normally taught the class had been promoted. I did learn a lot, albeit I think that&rsquo;s mostly because the <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/">textbook we used</a> was very, very good.</p>
+</li>
+<li>
+<p>EE LabⅠ</p>
+<p>Lacking a better name, this lab was just a generic electrical engineering lab and as such was rather disconnected from any other class. For the lab we used a mix of FPGAs, Arduinos, a pile of IC&rsquo;s, and LEDs. The were two standout tasks:</p>
+<ul>
+<li>
+<p>Stoplights</p>
+<p>We made a Finite State Machine model of an intersection&rsquo;s stoplights, we then implemented this three times, once with discrete ICs, once with an FPGA, and once in code on an Arduino Uno.</p>
+</li>
+<li>
+<p>The self chosen project</p>
+<p>My group partner and I choose to make a <a href="http://cgm.cs.mcgill.ca/~godfried/publications/banff.pdf">Euclidian Rhythm</a> drum machine, that actually hit physical toy drums with some solenoids.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/TBjfojgqGho" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</li>
+</ul>
+<p>Alright, so, why complain about this class? Well, for one, neither of the TA&rsquo;s knew their heads from their asses. One of them insisted the the Arduino Uno (AtMega 328P) was a perfectly fine, modern μC. (It&rsquo;s not.) and the other had <em>never even used a micro controller</em>. I ended up gifting her an arduino nano and a few parts from my stash so she could learn (that TA had no influence on my grade). I&rsquo;m not saying either was dumb, or saying anything bad about them directly, but they sure as hell should not have been the TAs for this this class. (There was no professor)</p>
+<p>Also, when all classes were force to go online this lab lost a lot of its value. I was fortunate enough to have an Oscilloscope, multiple lab PSUs, logic analyzer, etc. all on hand, but many other students got a much worse education for it.</p>
+</li>
+<li>
+<p>Digital Logic Desgin</p>
+<p>This class was fine, not steller, but like, I actually learned a bit and the content practical. The prof had come from industry and actually knew how to teach practically. So&hellip; all good? No. About 2/3 of the way though the semester COVID hit and my university went online. The prof had no idea what he was doing and the online lectures were sparse, poor quality (like, outright useless), and the wasn&rsquo;t a single thing that changed my grade after the transition. I definitely didn&rsquo;t get what I paid for.</p>
+</li>
+<li>
+<p>Digital Logic Design Lab</p>
+<p>Strangely, this lab was overseen by a different prof than the lecture, and, while I could go into the problems with the class, I think I&rsquo;ll let this speak for me:</p>
+<p><img src="/conclusion.jpg" alt="conclusion" /></p>
+<p>and okay, I admit that was a bit over the line, but the rest of the lab report was written well and I did my work. I got a 90/100 on that. As is this sort of makes me look like the bad guy, I was frustrated, and I think justified, but I agree this wasn&rsquo;t the best way to voice that opinion. This is why I am still livid about this to this day- here&rsquo;s my lab partner&rsquo;s conclusion, he got 100/100 on this assignment.</p>
+<p><img src="/otherconclusion.jpg" alt="otherconclusion" /></p>
+<p>this is some top tier bullshit, so, I go to the prof that oversees the course.</p>
+<p>He, I shit you not, responded &ldquo;How do you know other students aren&rsquo;t still using XP&rdquo;</p>
+<p>And, okay, maybe this lab would have had some redeeming qualities, even if out of date, except for the fact that each of the supposed-to-be 3 hour labs were about 15 minute labs, with the only reason they took that long being due to unintelligible instructions for each assignment.</p>
+<p>The professor, responded to my criticism of his labs being written poorly with &ldquo;If you think you can do better, then you write them.&rdquo;</p>
+<p>Yes, I can. No, I won&rsquo;t. I&rsquo;m paying $1000 to take this class, not to write the content for you.</p>
+</li>
+<li>
+<p>PCB Design</p>
+<p>We designed a PCB in KiCad, mostly refrencing existing open source designs. This was assumed to be a baby&rsquo;s first PCB class, which it wasn&rsquo;t for me. The prof is super cool and having chats with him about nothing in particular in his office have often lead to me learning more than I have in other classes over an entire semester.</p>
+<p>Unfortunately, when COVID hit it stopped the class in its tracks, resulting in the PCB never actually being soldered as I don&rsquo;t have good enough equipment to do the fine soldering required for what I designed at home</p>
+</li>
+<li>
+<p>Philosophy and Current Issues</p>
+<p>The only redeeming thing about this semester was this class. The TA and professor I had for this class were both amazing. The TA, Zachary Garrett, had a true passion for philosophy and had even done quite a few game jams making philosophy related games (mostly in Unity). He really inspired me to be more passionate about Philosophy. The prof even did a pretty good job with the transition to online classes.</p>
+</li>
+</ul>
+<h2 id="9---senior-fall-20">
+  9 - Senior+, Fall &lsquo;20
+  <a class="anchor" href="#9---senior-fall-20">#</a>
+</h2>
+<ul>
+<li>
+<p>Electromagnetic Field Theory</p>
+<p>Not the worst professor I&rsquo;ve had, but definitely the most useless. Literally just read the slides word for word for the entire semester, reading the equations for what they were, never explaining what the variable mean or giving context.</p>
+</li>
+<li>
+<p>Probability Theory</p>
+<p>Really good class. Because COVID and my bad heart, the prof let me take it online, so I just watched recording of lecture. This wasn&rsquo;t ideal obviously, but the prof still checked in regularly and the lectures were taught incredibly well.</p>
+</li>
+<li>
+<p>Software Engineering</p>
+<p>It takes a lot for me to hate someone. I <em>hated</em> this prof. She constantly made the class feel bad for not being part of the fancy-school-in-a-school at UNL that she used to be a part of. From what I understand, She wrote software both for healthcare and ICE. Talking to her was like talking to corporate incarnate. But that&rsquo;s the prof. I can stand a bad person as a teacher so long as they can teach well. She couldn&rsquo;t.</p>
+<p>For some context, UNL is pretty UNIX-y, they teach C/C++/Java and, for the most part, do everything on a Linux server on which all CS/CE students get an account.</p>
+<p>She wanted us to fully drink the Windows Kool-Aid and dev in C#/.Net/js(react) to make a lil&rsquo; webapp, for which we were supposed to follow &lsquo;Good software engineering principals&rsquo;</p>
+<p>Now, I don&rsquo;t know about you, but I think it&rsquo;s a tad bit ridiculous to expect someone to follow &lsquo;good Software Engineering principals&rsquo; in a mixture of languages they don&rsquo;t know as they try to teach themselves said languages in a semester&rsquo;s time with none of the TA&rsquo;s knowing the languages/frameworks either.</p>
+<p>Add onto this the fact that the lectures were largely disconnected from the homework, the scale of the project given the semester was compressed due to COVID, her general expectation that the TA&rsquo;s would do 90% of the work that the prof <em>should</em> be doing directly, and this was an outright shit show.</p>
+<p>The class was so bad that about half way though the semester I brought up how the class was going and more or less forced her to have a discussion with the class about our dissatisfaction and general lack of ability to do the assigned homework. She did a zoom poll, and the <em>vast</em> majority of the class thought that at the current pace they would fail. I then led the class though a discussion that took the entire rest of the class period helping her restructure the class. She had the audacity to ask me to send he a bulleted list of the key points we talked about, like I was her secretary.</p>
+<p>This is sort of a recurring trend so for any professors reading this, he&rsquo;s a pro tip</p>
+<p><strong>DON&rsquo;T MAKE YOUR STUDENTS, STUDENTS THAT ARE PAYING TO TAKE YOUR CLASS, DO WORK FOR YOU</strong></p>
+<p>Because of that intervention she did restructure the class significantly, but regardless I felt I learned effectively nothing from the course.</p>
+<p>Oh, and the quizzes for the course were new levels of stupid.</p>
+</li>
+<li>
+<p>Communication Networks</p>
+<p>This prof, Dr. Massimilliano Pierobon, was great. I&rsquo;ve never seen a professor express so much concern and care for his students. He knew the Pandemic and our course load was getting to us, and was extraordiniarly flexible to the needs of the class. The content covered in the course was presented well, and his research with the <a href="https://mbite.unl.edu/">Molecular and Biochemical Telecommunications Lab (MBITE)</a> was facinating to hear about.</p>
+</li>
+</ul>
+<h2 id="10---senior-spring-21">
+  10 - Senior+, Spring &lsquo;21
+  <a class="anchor" href="#10---senior-spring-21">#</a>
+</h2>
+<p class="tip ">
+    You are now at current time. My opinion of these courses may change as time passes.
+</p>
+<ul>
+<li>
+<p>Computer Architecture</p>
+<blockquote class="book-hint warning">
+  Witholding comment until the end of the semester
+</blockquote>
+
+</li>
+<li>
+<p>Data and Network Security</p>
+<blockquote class="book-hint warning">
+  Witholding comment until the end of the semester
+</blockquote>
+
+</li>
+<li>
+<p>Numerical Analysis</p>
+<p>Above, for Electromagnetic Field Theory I said &ldquo;Not the worst professor I&rsquo;ve had, but definitely the most useless. Literally just read the slides word for word for the entire semester, reading the equations for what they were, never explaining what the variable mean or giving context.&rdquo;</p>
+<p>The exact same thing happened here. Seriously, it&rsquo;s no different than just having the book read aloud for 50 minutes.</p>
+</li>
+<li>
+<p>Into to Machine Learning</p>
+<p><img src="/stressedclass.png" alt="stressedclass" style="zoom:75%;" /></p>
+</li>
+</ul>
+<h1 id="conclusions">
+  Conclusions
+  <a class="anchor" href="#conclusions">#</a>
+</h1>
+<p>I originally had a multi page rant here, but instead, I&rsquo;ve decided that some bullet points of wisdom are more helpful. So in the style of <a href="https://www.youtube.com/watch?v=LZmi7InKU0I">Baz Luhrmann&rsquo;s &lsquo;Wear Sunscreen&rsquo;</a>, I hope my advice, given in no particular order, is worth something:</p>
+<ul>
+<li>When paying for an education, students don&rsquo;t want it to be easy or so hard that they&rsquo;re stressed out of their minds: <em>above all else</em> we want to learn.</li>
+<li><em>Never</em> forget you&rsquo;re paying to sit in that seat. (Even if you have scholarships)
+<ul>
+<li>Don&rsquo;t skip class. If you&rsquo;re paying $600 a credit hour (this is the roughly the average in the US, you may be pay much less or much more) you&rsquo;re paying about $40 per lecture.</li>
+</ul>
+</li>
+<li>Students and professors alike should be treated with respect. While the professors may be our elders we can&rsquo;t sit by idly if they aren&rsquo;t giving us what we paid for.</li>
+<li>College is a captive market. Dropping out means crippling debt. Transferring schools means more debt when credit doesn&rsquo;t transfer.</li>
+<li>The college or department will always assure you the next class will have it better, but that doesn&rsquo;t make it any better for you.
+<ul>
+<li>Ask the next class if it is better. Follow up. Bring change.</li>
+</ul>
+</li>
+<li>Inequality in funding may mean that the facilities for the degrees you want to study are crumbling. This is very hard to know in advance.
+<ul>
+<li>College is for profit. They make profit off of new students. The best facilities are the ones perspective students are shown on a tour. Ask to go off the tour path.</li>
+</ul>
+</li>
+<li>The system serves to hammer in the tired practice of academia more than it does to teach how to do the things you&rsquo;re passionate about.</li>
+<li>If your professors do research, they likely care about that a lot more than teaching.
+<ul>
+<li>They also likely have a paper quota to hit. If you want to know how to spot really bad professors, look for the ones that have published research using the same dataset over and over and that have published very &lsquo;meh&rsquo; papers.</li>
+<li>A bad prof with bad research is still usually better than a bad prof with good research</li>
+</ul>
+</li>
+<li>Education has not yet caught up to the idea of Google, StackOverflow, and the Internet. College is still largely about memorizing things you&rsquo;ll soon forget instead of helping build a framework for understanding.
+<ul>
+<li>Progress and change is exponential, while humans ability to adapt and react is, and always has been, linear.</li>
+<li>It still makes sense to learn how to do a derivative by hand a few times, it just doesn&rsquo;t make sense to do complex ones
+<ul>
+<li>Can we <em>please</em> teach people how to program up numerical analysis solvers early</li>
+</ul>
+</li>
+<li>People taught to solve yesterday&rsquo;s problems will at best solve today&rsquo;s problems too late</li>
+<li>Nobody makes money by doing hundreds of integrals by hand every day.</li>
+</ul>
+</li>
+<li>While the <a href="https://en.wikipedia.org/wiki/Pareto_principle">Perato Principle</a> would lead you to believe that 80% of what we lean is shit with 20% being actually useful, I&rsquo;ve found that it&rsquo;s more like 95/5 for what assignments, nuggets of knowledge, and test or quiz questions have stuck with me.</li>
+<li>Grading via software for a class you pay thousands of dollars for is never acceptable.</li>
+<li>Paying to access homework written by Pearson or McGraw Hill instead of the professor is even worse.</li>
+<li>The best professors understand that cracking jokes and having fun make students learn better.</li>
+<li>A bad professor can make easy content hard.</li>
+<li>Classes that have open book, open internet, and even open phone-a-friend tests are generally a lot better than classes that don&rsquo;t- at the very least a cheat sheet.
+<ul>
+<li>Even for completely open everything tests, still make a cheat sheet</li>
+</ul>
+</li>
+<li>Take notes in a centralized place early. Making OpGuides has accelerated my learning ten fold</li>
+<li>Ask your professors about their research, even if you aren&rsquo;t interested in helping with it</li>
+<li>Learn python early. It&rsquo;ll make the math classes easier. It&rsquo;s basically an overpowered calculator.</li>
+<li>Don&rsquo;t let a few bad professors take away your passion for what you do</li>
+<li>Don&rsquo;t expect your classes to teach you everything you need to know
+<ul>
+<li>Getting a B- in a class because you took detours teaching yourself extra related things is far more valuable
+<ul>
+<li>If the prof has a passion for what they teach, talk to them about it- you never know what doing that work might do for your grade 😉</li>
+</ul>
+</li>
+<li>The harder the classes and larger the course load, the less you&rsquo;ll learn.
+<ul>
+<li>Honor&rsquo;s students often learn <em>less</em> because they don&rsquo;t have time to persue their own interests- speaking of:</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Find a creative outlet unrelated to your major, then find a way to tie it in to what you&rsquo;re learning.
+<ul>
+<li>For me this was music, doing DSP or designing circuits for audio</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://imgs.xkcd.com/comics/11th_grade.png" alt="" />
+<p class="attribution ">
+    <a href="https://xkcd.com/519/">xkcd #519</a>
+</p></p>
+<ul>
+<li>While directly contrary to what I&rsquo;ve done in this post, generally I don&rsquo;t recommend burning bridges, you never know when the flames may come back to bite you.</li>
+<li>There <em>is</em> such thing as a stupid question, just they&rsquo;re more often on quizzes and tests than brought up by students
+<ul>
+<li><em>Nobody</em> in a crypto class cares about the the three names that make up the accronym RSA</li>
+<li><em>Nobody</em> in a networking class needs to know about <a href="https://en.wikipedia.org/wiki/Network_Control_Program">NCP</a></li>
+<li>Most classes are about 15 weeks. These profs have 45 hours over 15 weeks (assuming a 3 credit hour class) to take you from presumably zero knowledge on a topic to being competent. There&rsquo;s just not time for trivia questions on tests or quizzes, and they&rsquo;re a good sign the prof is adding filler and depriving you of more valuable content.</li>
+</ul>
+</li>
+<li>Most classes shy away from ethics, keep in mind how what you&rsquo;re learning could be used for good and evil
+<ul>
+<li>Thermal cameras for increasing crop yield or targeting civilians taking shelter?</li>
+<li>Machine learning to find cures or make deep fake porn?</li>
+</ul>
+</li>
+<li>Be vocal in class. Ask questions. Ask questions that a bit tangential even.</li>
+<li>Talk to you classmates. As many as you can. Get to know them, find out what they&rsquo;re good at.
+<ul>
+<li>Study groups save lives</li>
+</ul>
+</li>
+<li>Never take an unpaid internship
+<ul>
+<li>If the field your in only has unpaid interships you need to change majors.</li>
+<li>If your college does a final project (often called Capstone) and they want you to do work for a corprate/business &lsquo;sponsor&rsquo; for free, tell them to   <em>g o   f u c k   t h e m s e l v e s</em>.  DO. NOT. DO. WORK. FOR. FREE.</li>
+</ul>
+</li>
+<li>Colege is ᵥₑᵣᵧ, very , ᵛᵉʳʸ, extremely, ¸,ø¤º° extraordinaly °º¤ø,¸ , 𝕦𝕟𝕗𝕒𝕥𝕙𝕠𝕞𝕒𝕓𝕝𝕪, <em>ludicriously</em>, obnoxiously expensive.</li>
+<li>At the end of the day, you still need that degree to get most jobs that you actually want, so if you can&rsquo;t avoid it- you may as well fight to make it worth something.</li>
+</ul>
+</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//posts/UNHell.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0---the-end-of-high-school">0 - The End of High School</a></li>
+        <li><a href="#1---freshman-fall-16">1 - Freshman, Fall &lsquo;16</a></li>
+        <li><a href="#2---freshman-spring-17">2 - Freshman, Spring &lsquo;17</a></li>
+        <li><a href="#3---sophomore-fall-17">3 - Sophomore, Fall &lsquo;17</a></li>
+        <li><a href="#4---sophomore-spring-18">4 - Sophomore, Spring &lsquo;18</a></li>
+        <li><a href="#5---junior-fall-18">5 - Junior, Fall &lsquo;18</a></li>
+        <li><a href="#6---junior-spring-19">6 - Junior, Spring &lsquo;19</a></li>
+        <li><a href="#7---senior-fall-19">7 - Senior, Fall &lsquo;19</a></li>
+        <li><a href="#8---senior-spring-20">8 - Senior, Spring &lsquo;20</a></li>
+        <li><a href="#9---senior-fall-20">9 - Senior+, Fall &lsquo;20</a></li>
+        <li><a href="#10---senior-spring-21">10 - Senior+, Spring &lsquo;21</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusions">Conclusions</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
