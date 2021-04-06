@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 30 - Networking #  [TODO] Add follow along making a network stack
+[TODO] https://iximiuz.com/en/posts/computer-networking-101/
+Basics #  Nodes
+These are all the points in the network. There are terminal nodes and intermediate nodes.
+Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.
+Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 30 - Networking #  [TODO] Add follow along making a network stack
+[TODO] https://iximiuz.com/en/posts/computer-networking-101/
+Basics #  Nodes
+These are all the points in the network. There are terminal nodes and intermediate nodes.
+Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.
+Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/networking/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Networking | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.bf72a77d83a5d19d69e964a70223c925dc6606a9ef54342a84d8345b16271bd6.js" integrity="sha256-v3KnfYOl0Z1p6WSnAiPJJdxmBqnvVDQqhNg0WxYnG9Y="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;" >    Introduction</p>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+</ul>
+<p style="color:#009CDF;" >    Linux & Your Computer</p>
+<ul>
+<li><a href="/engineering/firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/hardware/"> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/howwework/"> 5 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/git/"> 5½- Git</a></li>
+<li><a href="/engineering/linuxshell/">A1 - Using The Linux Shell</a></li>
+</ul>
+<p style="color:#009CDF;" >    Prerequisites</p>
+<ul>
+<li><a href="/engineering/math/">6 - Math</a></li>
+<li><a href="/engineering/physics/">7 - Physics</a></li>
+<li><a href="/engineering/chem/">8 - Chemistry</a></li>
+<li><a href="/engineering/othersubjects/">9 - &lsquo;The Rest&rsquo;</a></li>
+</ul>
+<p style="color:#009CDF;" >    Programming</p>
+<ul>
+<li><a href="/engineering/codeintro/">10 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/consequences/">10½- Consequences</a></li>
+<li><a href="/engineering/lowlvl/">11 - Low Level Programming</a></li>
+<li><a href="/engineering/fosscopyright/">11½- FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/codecont/">12 - Yet More Programming</a></li>
+<li><a href="/engineering/fixxingissuses/">12½- Fixing Issues</a></li>
+<li><a href="/engineering/languages/">13 - Programming Languages</a></li>
+<li><a href="/engineering/algorithms/">14 - Algorithms and More</a></li>
+<li><a href="/engineering/bigprog/">15 - Writing a Big Program</a></li>
+<li><a href="/engineering/debugbuildtest/">16 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/multithread/">17 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/guiprog/">18 - Graphical Programming</a></li>
+<li><a href="/engineering/game/">19 - Game Programming</a></li>
+<li><a href="/engineering/funcprog/">20 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/aiml/">21 - Fine, here&rsquo;s AI/ML</a></li>
+</ul>
+<p style="color:#009CDF;" >    Circuits</p>
+<ul>
+<li><a href="/engineering/circuits1/">22 - Circuits! </a></li>
+<li><a href="/engineering/circuits2/">23 - Semiconductors</a></li>
+<li><a href="/engineering/digitallogic/">24 - Digital Logic</a></li>
+<li><a href="/engineering/embedded/">25 - Embedded Systems</a></li>
+<li><a href="/engineering/pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+</ul>
+<p style="color:#009CDF;" >    Going Deeper</p>
+<ul>
+<li><a href="/engineering/compileassemble/">27 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/fpga1/">28 - Programmable Logic</a></li>
+<li><a href="/engineering/comparch/">29 - Let&rsquo;s Make our own CPU</a></li>
+</ul>
+<p style="color:#009CDF;" >    Networking & Servers</p>
+<ul>
+<li><a href="/engineering/networking/"class=active>30 - Networking</a></li>
+<li><a href="/engineering/servers/">31 - Servers!</a></li>
+<li><a href="/engineering/cloud/">31½- &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/databases/">32 - Databases</a></li>
+<li><a href="/engineering/security/">33 - Security &amp; Exploitation</a></li>
+</ul>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;" >    Making and Hobbies</p>
+<ul>
+<li><a href="/engineering/3dprint/">34 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/hamradio/">35 - Ham Radio</a></li>
+<li><a href="/engineering/history/">36 - Computer History</a></li>
+</ul>
+<p style="color:#009CDF;" >    Wrapping Up</p>
+<ul>
+<li>
+<p><a href="/engineering/wrappingup/">37 - Where next?</a></p>
+</li>
+<li>
+<p><a href="/engineering/cheat/">A2 - Cheat Sheets &amp; Libraries</a></p>
+</li>
+</ul>
+<!--  - [A3 - Bill Of Materials](/engineering/a3-bom/) -->
+<ul>
+<li><a href="/engineering/resources/">A3 - Other Great Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+<li><a href="/music/video/">A2 - Video</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Networking</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-30---networking">Chapter 30 - Networking</a>
+      <ul>
+        <li><a href="#basics">Basics</a></li>
+        <li><a href="#a-typical-network">A typical network</a></li>
+        <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
+          <ul>
+            <li><a href="#coax-twister-pair-fiber--more">Coax, Twister Pair, Fiber &amp; More</a></li>
+            <li><a href="#wireless-terrestrial-and-satellite">Wireless (Terrestrial and Satellite)</a></li>
+            <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
+            <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
+          </ul>
+        </li>
+        <li><a href="#2---data-link">2 - Data Link</a>
+          <ul>
+            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#ppp">PPP</a></li>
+            <li><a href="#switch">Switch</a></li>
+            <li><a href="#bridge">Bridge</a></li>
+            <li><a href="#frames">Frames</a></li>
+            <li><a href="#vlan">VLAN</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
+          <ul>
+            <li><a href="#service-models">Service Models</a></li>
+            <li><a href="#packets">Packets</a></li>
+            <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
+            <li><a href="#mac">MAC</a></li>
+            <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
+            <li><a href="#subnets">Subnets</a></li>
+            <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
+            <li><a href="#bgp">BGP</a></li>
+          </ul>
+        </li>
+        <li><a href="#4---transport-layer">4 - Transport Layer</a>
+          <ul>
+            <li><a href="#tcp">TCP</a></li>
+            <li><a href="#udp">UDP</a></li>
+            <li><a href="#raw">Raw</a></li>
+            <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
+            <li><a href="#go-back-n">Go-Back-N</a></li>
+            <li><a href="#selective-repeat">Selective Repeat</a></li>
+            <li><a href="#timeout-and-retransmission-from-estimated-rtt">Timeout and Retransmission from Estimated RTT</a></li>
+          </ul>
+        </li>
+        <li><a href="#5---session-layer">5 - Session Layer</a>
+          <ul>
+            <li><a href="#authentication">Authentication</a></li>
+            <li><a href="#sockets">Sockets</a></li>
+            <li><a href="#apis">API&rsquo;s</a></li>
+            <li><a href="#netbios">NetBios</a></li>
+            <li><a href="#pap">PAP</a></li>
+            <li><a href="#rpc">RPC</a></li>
+            <li><a href="#smb">SMB</a></li>
+            <li><a href="#socks">SOCKS</a></li>
+          </ul>
+        </li>
+        <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
+          <ul>
+            <li><a href="#tls">TLS</a></li>
+            <li><a href="#ssl">SSL</a></li>
+            <li><a href="#imap">IMAP</a></li>
+          </ul>
+        </li>
+        <li><a href="#7---application-layer">7 - Application Layer</a>
+          <ul>
+            <li><a href="#https">HTTP(s)</a></li>
+            <li><a href="#ftp">FTP</a></li>
+            <li><a href="#dns">DNS</a></li>
+            <li><a href="#dhcp">DHCP</a></li>
+            <li><a href="#ssh">SSH</a></li>
+            <li><a href="#irc">IRC</a></li>
+            <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
+            <li><a href="#upnp">UPNP</a></li>
+            <li><a href="#ntp">NTP</a></li>
+            <li><a href="#telnet">Telnet</a></li>
+            <li><a href="#nfs">NFS</a></li>
+            <li><a href="#torrents">Torrents</a></li>
+          </ul>
+        </li>
+        <li><a href="#time">Time</a></li>
+        <li><a href="#vpns">VPNs</a>
+          <ul>
+            <li><a href="#openvpn">OpenVPN</a></li>
+            <li><a href="#wireguard">Wireguard</a></li>
+          </ul>
+        </li>
+        <li><a href="#networking-tools">Networking Tools</a>
+          <ul>
+            <li><a href="#etherape">Etherape</a></li>
+            <li><a href="#wireshark">Wireshark</a></li>
+            <li><a href="#nmap">Nmap</a></li>
+            <li><a href="#scapy--kamene">Scapy / Kamene</a></li>
+            <li><a href="#gns">(G)NS</a></li>
+            <li><a href="#httpie">HTTPie</a></li>
+          </ul>
+        </li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-101---weird-networking-because-why-not">Chapter 10.1 - Weird Networking, because why not!</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-30---networking">
+  Chapter 30 - Networking
+  <a class="anchor" href="#chapter-30---networking">#</a>
+</h1>
+<p>[TODO] Add follow along making a network stack</p>
+<p>[TODO] <a href="https://iximiuz.com/en/posts/computer-networking-101/">https://iximiuz.com/en/posts/computer-networking-101/</a></p>
+<h2 id="basics">
+  Basics
+  <a class="anchor" href="#basics">#</a>
+</h2>
+<p><strong>Nodes</strong></p>
+<p>These are all the points in the network. There are terminal nodes and intermediate nodes.</p>
+<p>Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.</p>
+<p>Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc.</p>
+<p><strong>Links</strong></p>
+<p>Links are the interconnects between two nodes. Generally these fall into two categories: <strong>Guided and Unguided</strong></p>
+<p><em>Guided</em> Links are those that only connect a few nodes (usually only two) and are typically physical, hard-wire links, often copper or fiber optic.</p>
+<p><em>Unguided</em> Links are those that broadcast out. These can be radio based (WiFi, cellular, etc.), optical (Flashing lights but no fiber optic, just like, though the air), acoustic, whatever. These might be terrestrial (from the earth) or be satellite based.</p>
+<p>Not all Links can support the same bandwidth or throughput. In general, Coaxial is worse than Twisted Pair which is in turn worse than fiber.</p>
+<img src="/nodes.svg" alt="nodes" style="-webkit-filter: invert(.85);">
+<p><strong>Applications</strong></p>
+<p>These are the things that you want to do: Talk to someone via voice, text, or video; browse the web; download files; etc.</p>
+<p>It can also refer to the specific program used to do these things, so like Chrome as your web browser or Zoom for video calling.</p>
+<p>an <a href="https://en.wikipedia.org/wiki/API"><em>API</em> (Wikipedia)</a> or &lsquo;Application Programming Interface&rsquo; is what defines how two programs talk to each other. This doesn&rsquo;t have to be over the network, but often is.</p>
+<p><strong>End Systems - Hosts/Server &amp; Clients</strong></p>
+<p>Not everything fits the host/server and client terminology, but generally the host/server is the one that is sending data, and the client is the one receiving, or another way to look at it, the client is the one making requests and the host the one fulfilling them.</p>
+<p><strong>Peer to Peer</strong></p>
+<p>[TODO]</p>
+<p><strong>Packets</strong></p>
+<p>While we could just send a continual stream of data down a wire, that has a lot of issues. For one, it makes it hard to share the wire with multiple people. Of course you could split the wire so each person get&rsquo;s a split amount of time on the wire (Time Division Multiplexing) or, if the wire can carry a range of frequencies give each user a small portion of those (Frequency Division Multiplexing, which limits the throughput similarly), but both of these sorta suck as they assume a user will always be using their provided channel. Instead, we do a sort of Time Division, but by packet-izing everything. Basically, each stream of data you want to send get&rsquo;s broken up into manageable chunks called packets, and then these packets can be sent though the network.</p>
+<p>[TODO] packet headers</p>
+<p><strong>Routers and Switches</strong></p>
+<p>Take data in and out, usually though bi-directional links, and can switch which link goes where. Usually with the help of a forwarding table</p>
+<p>[TODO] image here</p>
+<p>[TODO] store and forward - buffering,</p>
+<p><strong>End to End Delay</strong></p>
+<p>d_ECE = 2 (L/R)</p>
+<p>where L = bits per packet, R = tx rate of link</p>
+<p><strong>Queuing Delay</strong></p>
+<p><strong>Packet Loss</strong></p>
+<p>Sometimes packets in the network don&rsquo;t reach their destination. This can be for a variety of reasons. Maybe a switch along the line was overloaded and it&rsquo;s buffer was full, maybe it took a bad route, maybe you have crappy wifi. ╮(─▽─)╭. It happens. Usually the percent of dropped packets is called your packet loss.</p>
+<p><strong>Forwarding Table</strong></p>
+<p><strong>Bandwidth Vs Throughput</strong></p>
+<p>[TODO] physcics of link vs data of link - expand on FDM vs TDM</p>
+<p><strong>LAN Vs WAN</strong></p>
+<p>Local Area Network and Wide Area Network- on most home connections your LAN is the network <em>in your house</em> while the WAN is the internet at large, so the WAN port on your router is where you connect the cable from your Internet Service Provider (ISP)</p>
+<p><strong>Protocol</strong></p>
+<p>Usually a network is dependent on a stack of protocols. Each protocol is just a standard for the way too things communicate. As we keep going you&rsquo;ll see more about IP (Internet Protocol), TCP (Transmission Control Protocol), among many others.</p>
+<p>Most protocols are determined by standardization bodies such as the Internet Engineering Task Force (IETF) or IEEE Standards Association (IEEE-SA)</p>
+<h2 id="a-typical-network">
+  A typical network
+  <a class="anchor" href="#a-typical-network">#</a>
+</h2>
+<p>[TODO]</p>
+<p>IP addresses, Ports, Default Gateway, Routes &amp; kernel routing table, subnet mask - <a href="https://www.aelius.com/njh/subnet_sheet.html,">https://www.aelius.com/njh/subnet_sheet.html,</a> ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, <a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/</a></p>
+<p>IETF &amp; RFCs</p>
+<p>IEEE-SA</p>
+<p>Parallel, Pipelined, Persistance and Performance</p>
+<p>The <strong>OSI model of networking</strong> is the model of networking most classes will cover. It is slightly different from the one used by the internet, which is the <strong>TCP/IP</strong> model.</p>
+<p>In the <strong>TCP/IP</strong> model, the <strong>Physical</strong> and <strong>Data Link</strong> Layers are viewed as a <strong>unified &lsquo;Network Acces Layer&rsquo;</strong></p>
+<p>The <strong>Network Layer</strong> is called the <strong>Internet Layer</strong></p>
+<p>The Transport Layer <em>stays the same</em>,</p>
+<p>and The <strong>Session, Presentation, and Application</strong> layer are all part of a <strong>larger Application</strong> Layer.</p>
+<p>But, because I think it&rsquo;s easier to cover it with things more broken up, I&rsquo;ll go over the <strong>OSI</strong> model from here:</p>
+<h2 id="1---the-physical-layer">
+  1 - The physical Layer
+  <a class="anchor" href="#1---the-physical-layer">#</a>
+</h2>
+<p><strong>The <a href="https://www.youtube.com/watch?v=R8XSo0etBC4">series of tubes</a>, wireless media, etc. that you shove your information into</strong></p>
+<h3 id="coax-twister-pair-fiber--more">
+  Coax, Twister Pair, Fiber &amp; More
+  <a class="anchor" href="#coax-twister-pair-fiber--more">#</a>
+</h3>
+<h3 id="wireless-terrestrial-and-satellite">
+  Wireless (Terrestrial and Satellite)
+  <a class="anchor" href="#wireless-terrestrial-and-satellite">#</a>
+</h3>
+<p>geostationary vs LEO</p>
+<h3 id="hubs-repeaters-taps">
+  Hubs, Repeaters, Taps
+  <a class="anchor" href="#hubs-repeaters-taps">#</a>
+</h3>
+<h3 id="carrier-pidgeon-can-etc">
+  Carrier Pidgeon, Can, etc.
+  <a class="anchor" href="#carrier-pidgeon-can-etc">#</a>
+</h3>
+<h2 id="2---data-link">
+  2 - Data Link
+  <a class="anchor" href="#2---data-link">#</a>
+</h2>
+<p><strong>Organize the information in the meduium into a packet, control who get&rsquo;s that packet</strong></p>
+<p>MAC and LLC</p>
+<h3 id="ethernet">
+  Ethernet
+  <a class="anchor" href="#ethernet">#</a>
+</h3>
+<h3 id="ppp">
+  PPP
+  <a class="anchor" href="#ppp">#</a>
+</h3>
+<h3 id="switch">
+  Switch
+  <a class="anchor" href="#switch">#</a>
+</h3>
+<h3 id="bridge">
+  Bridge
+  <a class="anchor" href="#bridge">#</a>
+</h3>
+<h3 id="frames">
+  Frames
+  <a class="anchor" href="#frames">#</a>
+</h3>
+<h3 id="vlan">
+  VLAN
+  <a class="anchor" href="#vlan">#</a>
+</h3>
+<h2 id="3---network-layerip-layer">
+  3 - Network Layer/IP Layer
+  <a class="anchor" href="#3---network-layerip-layer">#</a>
+</h2>
+<p><strong>Find paths though the mesh of links and forward the packets though it</strong></p>
+<h3 id="service-models">
+  Service Models
+  <a class="anchor" href="#service-models">#</a>
+</h3>
+<p>Not guaranteed delivery, bounded delay, or throughput. Sorta sucks, but it&rsquo;s cheap</p>
+<h3 id="packets">
+  Packets
+  <a class="anchor" href="#packets">#</a>
+</h3>
+<h3 id="ipv4-ipv6">
+  IPV4, IPV6
+  <a class="anchor" href="#ipv4-ipv6">#</a>
+</h3>
+<p><a href="https://teknikaldomain.me/post/ipv6-is-a-total-nightmare/">IPV6 is a total nightmare</a> &amp; <a href="https://news.ycombinator.com/item?id=24994587">Hacker News comments on this blog post</a> (note, I don&rsquo;t agree with everything here, just providing it as another person&rsquo;s comments)</p>
+<p>IPV4-&gt;6 Tunneling</p>
+<p>Logical: [6] &lt;-&gt; [6] &lt;- &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- -&gt; [6] &lt;-&gt; [6]</p>
+<p>Physical: [6] &lt;-&gt; [6] &lt;-&gt; [4] &lt;-&gt; [4] &lt;-&gt; [6] &lt;-&gt; [6]</p>
+<h3 id="mac">
+  MAC
+  <a class="anchor" href="#mac">#</a>
+</h3>
+<h3 id="icmp-igmp">
+  ICMP, IGMP
+  <a class="anchor" href="#icmp-igmp">#</a>
+</h3>
+<p>traceroute</p>
+<h3 id="subnets">
+  Subnets
+  <a class="anchor" href="#subnets">#</a>
+</h3>
+<p><a href="https://www.aelius.com/njh/subnet_sheet.html">https://www.aelius.com/njh/subnet_sheet.html</a></p>
+<p><img src="/devnullnetwork.png" alt="devnullnetwork" title=":size=70%"/></p>
+<h3 id="static-and-dynamic-routes">
+  Static and Dynamic Routes
+  <a class="anchor" href="#static-and-dynamic-routes">#</a>
+</h3>
+<h3 id="bgp">
+  BGP
+  <a class="anchor" href="#bgp">#</a>
+</h3>
+<p>open, update, keepalive, notification</p>
+<h2 id="4---transport-layer">
+  4 - Transport Layer
+  <a class="anchor" href="#4---transport-layer">#</a>
+</h2>
+<p><strong>Better reliability of the network by keeping packets in order, retransmitting lost packets, etc.</strong></p>
+<p>Multiplexing, Demultiplexing</p>
+<p>Reliable data tx/rx - checksums</p>
+<p>flow and congestion control</p>
+<h3 id="tcp">
+  TCP
+  <a class="anchor" href="#tcp">#</a>
+</h3>
+<p>tcp header diagram</p>
+<h4 id="quic">
+  QUIC
+  <a class="anchor" href="#quic">#</a>
+</h4>
+<h3 id="udp">
+  UDP
+  <a class="anchor" href="#udp">#</a>
+</h3>
+<h3 id="raw">
+  Raw
+  <a class="anchor" href="#raw">#</a>
+</h3>
+<h3 id="a-brief-dive-into-fsms">
+  A brief dive into FSMs
+  <a class="anchor" href="#a-brief-dive-into-fsms">#</a>
+</h3>
+<h3 id="go-back-n">
+  Go-Back-N
+  <a class="anchor" href="#go-back-n">#</a>
+</h3>
+<h3 id="selective-repeat">
+  Selective Repeat
+  <a class="anchor" href="#selective-repeat">#</a>
+</h3>
+<h3 id="timeout-and-retransmission-from-estimated-rtt">
+  Timeout and Retransmission from Estimated RTT
+  <a class="anchor" href="#timeout-and-retransmission-from-estimated-rtt">#</a>
+</h3>
+<h2 id="5---session-layer">
+  5 - Session Layer
+  <a class="anchor" href="#5---session-layer">#</a>
+</h2>
+<h3 id="authentication">
+  Authentication
+  <a class="anchor" href="#authentication">#</a>
+</h3>
+<h3 id="sockets">
+  Sockets
+  <a class="anchor" href="#sockets">#</a>
+</h3>
+<h3 id="apis">
+  API&rsquo;s
+  <a class="anchor" href="#apis">#</a>
+</h3>
+<h3 id="netbios">
+  NetBios
+  <a class="anchor" href="#netbios">#</a>
+</h3>
+<h3 id="pap">
+  PAP
+  <a class="anchor" href="#pap">#</a>
+</h3>
+<h3 id="rpc">
+  RPC
+  <a class="anchor" href="#rpc">#</a>
+</h3>
+<h3 id="smb">
+  SMB
+  <a class="anchor" href="#smb">#</a>
+</h3>
+<h3 id="socks">
+  SOCKS
+  <a class="anchor" href="#socks">#</a>
+</h3>
+<h2 id="6---presentation-layer">
+  6 - Presentation Layer
+  <a class="anchor" href="#6---presentation-layer">#</a>
+</h2>
+<h3 id="tls">
+  TLS
+  <a class="anchor" href="#tls">#</a>
+</h3>
+<h3 id="ssl">
+  SSL
+  <a class="anchor" href="#ssl">#</a>
+</h3>
+<h3 id="imap">
+  IMAP
+  <a class="anchor" href="#imap">#</a>
+</h3>
+<h2 id="7---application-layer">
+  7 - Application Layer
+  <a class="anchor" href="#7---application-layer">#</a>
+</h2>
+<h3 id="https">
+  HTTP(s)
+  <a class="anchor" href="#https">#</a>
+</h3>
+<p><a href="http://bright28677.tripod.com/proj2/httpformat.htm">http://bright28677.tripod.com/proj2/httpformat.htm</a> (both images)</p>
+<p>response codes - 200, 300&rsquo;s, 400&rsquo;s, etc.</p>
+<p>In header lines</p>
+<p>Host, user agent, accept-language, connection (keep-alive), &hellip;?</p>
+<p>GET, POST, HEAD, PUT, DELETE</p>
+<p><img src="/http-status-codes.png" alt="Codes" title=":size=50%"/></p>
+<blockquote>
+<p><a href="https://www.monkeyuser.com/2017/http-status-codes/">https://www.monkeyuser.com/2017/http-status-codes/</a></p>
+</blockquote>
+<p>http1 vs 2 v 3</p>
+<p>cookies because stateless</p>
+<p>in-band</p>
+<h3 id="ftp">
+  FTP
+  <a class="anchor" href="#ftp">#</a>
+</h3>
+<p>still TCP, out-of-band, maintains state, passive v active mode</p>
+<h3 id="dns">
+  DNS
+  <a class="anchor" href="#dns">#</a>
+</h3>
+<p>record types</p>
+<p><a href="https://labzilla.io/blog/force-dns-pihole">You Smart TV is probably ignoring your PiHole (LabZilla)</a></p>
+<p><a href="https://arxiv.org/abs/2001.08288">72% of Smart TVs, 46% of Consoles hardcode DNS Settings</a>, <a href="https://news.ycombinator.com/item?id=25313480">(Hacker News Comments on article)</a></p>
+<h3 id="dhcp">
+  DHCP
+  <a class="anchor" href="#dhcp">#</a>
+</h3>
+<p>Some texts will put this in Data or Network layer or Link Layer, it&rsquo;s a bit ambiguous. It&rsquo;s not -technically- necessary, much like DNS, but it&rsquo;s used as a core part of the network in most networks. It does appear the <a href="https://tools.ietf.org/html/rfc2131">RFC 2131</a> says it&rsquo;s Link Layer, but it seems most people think it belongs in Application Layer.</p>
+<h3 id="ssh">
+  SSH
+  <a class="anchor" href="#ssh">#</a>
+</h3>
+<h3 id="irc">
+  IRC
+  <a class="anchor" href="#irc">#</a>
+</h3>
+<h3 id="email-smtp-imap-pop">
+  EMail (SMTP, IMAP, POP)
+  <a class="anchor" href="#email-smtp-imap-pop">#</a>
+</h3>
+<p>mail servers and useragents</p>
+<h3 id="upnp">
+  UPNP
+  <a class="anchor" href="#upnp">#</a>
+</h3>
+<h3 id="ntp">
+  NTP
+  <a class="anchor" href="#ntp">#</a>
+</h3>
+<h3 id="telnet">
+  Telnet
+  <a class="anchor" href="#telnet">#</a>
+</h3>
+<h3 id="nfs">
+  NFS
+  <a class="anchor" href="#nfs">#</a>
+</h3>
+<h3 id="torrents">
+  Torrents
+  <a class="anchor" href="#torrents">#</a>
+</h3>
+<p>Distributed Hash Tables</p>
+<h2 id="time">
+  Time
+  <a class="anchor" href="#time">#</a>
+</h2>
+<p>Real time clocks, timezones, utc, etc.</p>
+<h2 id="vpns">
+  VPNs
+  <a class="anchor" href="#vpns">#</a>
+</h2>
+<h3 id="openvpn">
+  OpenVPN
+  <a class="anchor" href="#openvpn">#</a>
+</h3>
+<h3 id="wireguard">
+  Wireguard
+  <a class="anchor" href="#wireguard">#</a>
+</h3>
+<p><a href="https://www.wireguard.com/quickstart/">Wireguard Quickstart page</a></p>
+<p><a href="https://wiki.archlinux.org/index.php/WireGuard">Wireguard entry on the (Arch Wiki)</a></p>
+<h4 id="tailscale">
+  Tailscale
+  <a class="anchor" href="#tailscale">#</a>
+</h4>
+<h2 id="networking-tools">
+  Networking Tools
+  <a class="anchor" href="#networking-tools">#</a>
+</h2>
+<h3 id="etherape">
+  Etherape
+  <a class="anchor" href="#etherape">#</a>
+</h3>
+<h3 id="wireshark">
+  Wireshark
+  <a class="anchor" href="#wireshark">#</a>
+</h3>
+<p><a href="https://wiki.wireshark.org/CaptureFilters">https://wiki.wireshark.org/CaptureFilters</a></p>
+<p><a href="https://www.cellstream.com/reference-reading/tipsandtricks/541-wireshark-packetdiagram">Enable Packet Diagram View</a></p>
+<h3 id="nmap">
+  Nmap
+  <a class="anchor" href="#nmap">#</a>
+</h3>
+<h3 id="scapy--kamene">
+  Scapy / Kamene
+  <a class="anchor" href="#scapy--kamene">#</a>
+</h3>
+<p><a href="https://kamene.readthedocs.io/en/latest/introduction.html">Kamene</a></p>
+<h3 id="gns">
+  (G)NS
+  <a class="anchor" href="#gns">#</a>
+</h3>
+<h3 id="httpie">
+  HTTPie
+  <a class="anchor" href="#httpie">#</a>
+</h3>
+<p><a href="https://github.com/httpie/httpie">HTTPie [Github]</a> - human-friendly CLI HTTP client for the API era</p>
+<h2 id="further-reading">
+  Further Reading
+  <a class="anchor" href="#further-reading">#</a>
+</h2>
+<p><a href="https://github.com/alex/what-happens-when">What happens when&hellip; [Github]</a> - An attempt to answer the age old interview question &ldquo;What happens when you type google.com into your browser and press enter?&rdquo;</p>
+<p>Ben Eater&rsquo;s Networking Tutorial Series is pretty good:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLowKtXNTBypH19whXTVoG3oKSuOcw_XeW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h1 id="chapter-101---weird-networking-because-why-not">
+  Chapter 10.1 - Weird Networking, because why not!
+  <a class="anchor" href="#chapter-101---weird-networking-because-why-not">#</a>
+</h1>
+<p><a href="https://github.com/cjdelisle/cjdns">cjdns</a> + <a href="https://hyperboria.net">hyperboria</a></p>
+<p><a href="https://ipfs.io">ipfs</a></p>
+<p><a href="https://dat.foundation">dat</a></p>
+<p><a href="http://netsukuku.freaknet.org">Netsukuku</a></p>
+<p><a href="https://beakerbrowser.com">Beaker Browser</a></p>
+<p><a href="https://bombadillo.colorfield.space">Bombadillo</a> is a non-web browser, designed for a growing list of protocols operating outside of the web.</p>
+<p><a href="https://blog.benjojo.co.uk/post/eve-online-bgp-internet">EVE Online internet</a> from <a href="https://blog.benjojo.co.uk">https://blog.benjojo.co.uk</a>, which has a ton of other really, really neat posts, like <a href="https://blog.benjojo.co.uk/post/speed-of-bgp-network-propagation">The Speed of BGP network propagation</a>, or <a href="https://blog.benjojo.co.uk/post/ip-over-fibre-channel-hack">Hacking Ethernet out of Fibre Channel cards</a></p>
+<p>Software Defined Networking, ActivityPub</p>
+<p><a href="https://github.com/SadeghHayeri/GreenTunnel">GreenTunnel</a> - &ldquo;GreenTunnel bypasses DPI (Deep Packet Inspection) systems found in many ISPs (Internet Service Providers) which block access to certain websites.&rdquo;</p>
+<p><a href="https://github.com/redecentralize/alternative-internet">Alternative Internet (Github list)</a></p>
+<p><a href="https://github.com/moarpepes/awesome-mesh">Awesome Mesh (Github list)</a></p>
+<p><a href="https://blackarch.org/tools.html">List of tools in the BlackArch repo</a>, meant mostly for security research, though obviously many of these are network related and so might give some inspiration or lead to interesting rabbit holes</p>
+<p><a href="https://www.youtube.com/user/DEFCONConference/videos">Defcon channel (YouTube)</a>, DefCon is a security confrence, and naturally that means a lot of network security, including <a href="https://www.youtube.com/watch?v=RnxcPeemHSc&amp;ab_channel=DEFCONConference">Including some on hacking sex toys</a></p>
+<p><a href="https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/">Why do we use the Linux Kernel&rsquo;s TCP Stack (Julia Evans Blog)</a></p>
+<p><a href="https://github.com/smoltcp-rs/smoltcp">A smol tcp stack (Github)</a></p>
+<p><a href="https://people.kernel.org/dsahern/the-cpu-cost-of-networking-on-a-host">The Cost of CPU Networking on a Host (David Ahern&rsquo;s Blog)</a></p>
+<p><a href="https://tools.ietf.org/id/draft-cheshire-tcp-over-udp-00.html">Encapsulation of TCP over UDP</a></p>
+<p><a href="https://youtu.be/uc9USAE6nJ0">WORST POSSIBLE quality on YouTube? (YouTube, FlyTech Videos)</a></p>
+<p><a href="https://hackaday.com/2020/12/04/nerfnet-tunnels-tcp-ip-over-nrf24l01-radios/">&lsquo;Nerfnet&rsquo; tunnells TCP/IP over cheap NRF24L01 Radios (Hackaday, Tom Nardi) </a></p>
+<p><a href="https://github.com/joho/7XX-rfc">RFC for 700 HTTP Status Codes (Github, Joho)</a></p>
+<p><a href="https://blog.dave.tf/post/ip-addr-parsing/">Fun with IP address parsing (David Anderson&rsquo;s Blog)</a></p>
+<p><a href="https://httptoolkit.tech/blog/http-wtf/">http-wtf</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/networking.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-30---networking">Chapter 30 - Networking</a>
+      <ul>
+        <li><a href="#basics">Basics</a></li>
+        <li><a href="#a-typical-network">A typical network</a></li>
+        <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
+          <ul>
+            <li><a href="#coax-twister-pair-fiber--more">Coax, Twister Pair, Fiber &amp; More</a></li>
+            <li><a href="#wireless-terrestrial-and-satellite">Wireless (Terrestrial and Satellite)</a></li>
+            <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
+            <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
+          </ul>
+        </li>
+        <li><a href="#2---data-link">2 - Data Link</a>
+          <ul>
+            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#ppp">PPP</a></li>
+            <li><a href="#switch">Switch</a></li>
+            <li><a href="#bridge">Bridge</a></li>
+            <li><a href="#frames">Frames</a></li>
+            <li><a href="#vlan">VLAN</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
+          <ul>
+            <li><a href="#service-models">Service Models</a></li>
+            <li><a href="#packets">Packets</a></li>
+            <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
+            <li><a href="#mac">MAC</a></li>
+            <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
+            <li><a href="#subnets">Subnets</a></li>
+            <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
+            <li><a href="#bgp">BGP</a></li>
+          </ul>
+        </li>
+        <li><a href="#4---transport-layer">4 - Transport Layer</a>
+          <ul>
+            <li><a href="#tcp">TCP</a></li>
+            <li><a href="#udp">UDP</a></li>
+            <li><a href="#raw">Raw</a></li>
+            <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
+            <li><a href="#go-back-n">Go-Back-N</a></li>
+            <li><a href="#selective-repeat">Selective Repeat</a></li>
+            <li><a href="#timeout-and-retransmission-from-estimated-rtt">Timeout and Retransmission from Estimated RTT</a></li>
+          </ul>
+        </li>
+        <li><a href="#5---session-layer">5 - Session Layer</a>
+          <ul>
+            <li><a href="#authentication">Authentication</a></li>
+            <li><a href="#sockets">Sockets</a></li>
+            <li><a href="#apis">API&rsquo;s</a></li>
+            <li><a href="#netbios">NetBios</a></li>
+            <li><a href="#pap">PAP</a></li>
+            <li><a href="#rpc">RPC</a></li>
+            <li><a href="#smb">SMB</a></li>
+            <li><a href="#socks">SOCKS</a></li>
+          </ul>
+        </li>
+        <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
+          <ul>
+            <li><a href="#tls">TLS</a></li>
+            <li><a href="#ssl">SSL</a></li>
+            <li><a href="#imap">IMAP</a></li>
+          </ul>
+        </li>
+        <li><a href="#7---application-layer">7 - Application Layer</a>
+          <ul>
+            <li><a href="#https">HTTP(s)</a></li>
+            <li><a href="#ftp">FTP</a></li>
+            <li><a href="#dns">DNS</a></li>
+            <li><a href="#dhcp">DHCP</a></li>
+            <li><a href="#ssh">SSH</a></li>
+            <li><a href="#irc">IRC</a></li>
+            <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
+            <li><a href="#upnp">UPNP</a></li>
+            <li><a href="#ntp">NTP</a></li>
+            <li><a href="#telnet">Telnet</a></li>
+            <li><a href="#nfs">NFS</a></li>
+            <li><a href="#torrents">Torrents</a></li>
+          </ul>
+        </li>
+        <li><a href="#time">Time</a></li>
+        <li><a href="#vpns">VPNs</a>
+          <ul>
+            <li><a href="#openvpn">OpenVPN</a></li>
+            <li><a href="#wireguard">Wireguard</a></li>
+          </ul>
+        </li>
+        <li><a href="#networking-tools">Networking Tools</a>
+          <ul>
+            <li><a href="#etherape">Etherape</a></li>
+            <li><a href="#wireshark">Wireshark</a></li>
+            <li><a href="#nmap">Nmap</a></li>
+            <li><a href="#scapy--kamene">Scapy / Kamene</a></li>
+            <li><a href="#gns">(G)NS</a></li>
+            <li><a href="#httpie">HTTPie</a></li>
+          </ul>
+        </li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-101---weird-networking-because-why-not">Chapter 10.1 - Weird Networking, because why not!</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

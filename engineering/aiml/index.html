@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 21 - Fine, I&rsquo;ll talk about AI #  This chapter is very much a work in progress, and is really more of just a list of topics despite how much content there appears to be. I&rsquo;d really like to have code examples under each concept as well, as otherwise it&rsquo;s like reading a fucking math textbook from hell. [TODO] https://www.asimovinstitute.org/author/fjodorvanveen/
+Machine Learning? #  You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 21 - Fine, I&rsquo;ll talk about AI #  This chapter is very much a work in progress, and is really more of just a list of topics despite how much content there appears to be. I&rsquo;d really like to have code examples under each concept as well, as otherwise it&rsquo;s like reading a fucking math textbook from hell. [TODO] https://www.asimovinstitute.org/author/fjodorvanveen/
+Machine Learning? #  You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/aiml/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Aiml | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.bf72a77d83a5d19d69e964a70223c925dc6606a9ef54342a84d8345b16271bd6.js" integrity="sha256-v3KnfYOl0Z1p6WSnAiPJJdxmBqnvVDQqhNg0WxYnG9Y="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;" >    Introduction</p>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+</ul>
+<p style="color:#009CDF;" >    Linux & Your Computer</p>
+<ul>
+<li><a href="/engineering/firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/hardware/"> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/howwework/"> 5 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/git/"> 5½- Git</a></li>
+<li><a href="/engineering/linuxshell/">A1 - Using The Linux Shell</a></li>
+</ul>
+<p style="color:#009CDF;" >    Prerequisites</p>
+<ul>
+<li><a href="/engineering/math/">6 - Math</a></li>
+<li><a href="/engineering/physics/">7 - Physics</a></li>
+<li><a href="/engineering/chem/">8 - Chemistry</a></li>
+<li><a href="/engineering/othersubjects/">9 - &lsquo;The Rest&rsquo;</a></li>
+</ul>
+<p style="color:#009CDF;" >    Programming</p>
+<ul>
+<li><a href="/engineering/codeintro/">10 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/consequences/">10½- Consequences</a></li>
+<li><a href="/engineering/lowlvl/">11 - Low Level Programming</a></li>
+<li><a href="/engineering/fosscopyright/">11½- FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/codecont/">12 - Yet More Programming</a></li>
+<li><a href="/engineering/fixxingissuses/">12½- Fixing Issues</a></li>
+<li><a href="/engineering/languages/">13 - Programming Languages</a></li>
+<li><a href="/engineering/algorithms/">14 - Algorithms and More</a></li>
+<li><a href="/engineering/bigprog/">15 - Writing a Big Program</a></li>
+<li><a href="/engineering/debugbuildtest/">16 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/multithread/">17 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/guiprog/">18 - Graphical Programming</a></li>
+<li><a href="/engineering/game/">19 - Game Programming</a></li>
+<li><a href="/engineering/funcprog/">20 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/aiml/"class=active>21 - Fine, here&rsquo;s AI/ML</a></li>
+</ul>
+<p style="color:#009CDF;" >    Circuits</p>
+<ul>
+<li><a href="/engineering/circuits1/">22 - Circuits! </a></li>
+<li><a href="/engineering/circuits2/">23 - Semiconductors</a></li>
+<li><a href="/engineering/digitallogic/">24 - Digital Logic</a></li>
+<li><a href="/engineering/embedded/">25 - Embedded Systems</a></li>
+<li><a href="/engineering/pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+</ul>
+<p style="color:#009CDF;" >    Going Deeper</p>
+<ul>
+<li><a href="/engineering/compileassemble/">27 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/fpga1/">28 - Programmable Logic</a></li>
+<li><a href="/engineering/comparch/">29 - Let&rsquo;s Make our own CPU</a></li>
+</ul>
+<p style="color:#009CDF;" >    Networking & Servers</p>
+<ul>
+<li><a href="/engineering/networking/">30 - Networking</a></li>
+<li><a href="/engineering/servers/">31 - Servers!</a></li>
+<li><a href="/engineering/cloud/">31½- &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/databases/">32 - Databases</a></li>
+<li><a href="/engineering/security/">33 - Security &amp; Exploitation</a></li>
+</ul>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;" >    Making and Hobbies</p>
+<ul>
+<li><a href="/engineering/3dprint/">34 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/hamradio/">35 - Ham Radio</a></li>
+<li><a href="/engineering/history/">36 - Computer History</a></li>
+</ul>
+<p style="color:#009CDF;" >    Wrapping Up</p>
+<ul>
+<li>
+<p><a href="/engineering/wrappingup/">37 - Where next?</a></p>
+</li>
+<li>
+<p><a href="/engineering/cheat/">A2 - Cheat Sheets &amp; Libraries</a></p>
+</li>
+</ul>
+<!--  - [A3 - Bill Of Materials](/engineering/a3-bom/) -->
+<ul>
+<li><a href="/engineering/resources/">A3 - Other Great Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+<li><a href="/music/video/">A2 - Video</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Aiml</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-21---fine-ill-talk-about-ai">Chapter 21 - Fine, I&rsquo;ll talk about AI</a>
+      <ul>
+        <li><a href="#machine-learning">Machine Learning?</a></li>
+        <li><a href="#speedbump">Speedbump</a></li>
+        <li><a href="#supervised-vs-unsupervised-learning">Supervised Vs. Unsupervised Learning</a>
+          <ul>
+            <li><a href="#supervised-learning">Supervised Learning</a></li>
+            <li><a href="#unsupervised-learning">Unsupervised Learning</a></li>
+            <li><a href="#semi-supervised-learning">Semi-supervised learning</a></li>
+            <li><a href="#reinforcement-learning">Reinforcement Learning</a></li>
+          </ul>
+        </li>
+        <li><a href="#how-does-it-work">How does it work?</a>
+          <ul>
+            <li><a href="#models">Models</a></li>
+            <li><a href="#performance-measures">Performance Measures</a></li>
+          </ul>
+        </li>
+        <li><a href="#linear-unit-regression">Linear Unit (Regression)</a></li>
+        <li><a href="#gradient-descent">Gradient Descent</a></li>
+        <li><a href="#nonlinearly-seperable-problems">Nonlinearly seperable Problems</a>
+          <ul>
+            <li><a href="#backpopagation">Backpopagation</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-sigmoid-unit">The Sigmoid Unit</a></li>
+        <li><a href="#types-of-output-units">Types of Output Units</a></li>
+        <li><a href="#types-of-hidden-units">Types of Hidden Units</a></li>
+        <li><a href="#how-many-layers-to-use">How many layers to use?</a></li>
+        <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
+          <ul>
+            <li><a href="#initalization">Initalization</a></li>
+            <li><a href="#gradient-decest">Gradient Decest</a></li>
+            <li><a href="#nonlinearly-seperable-problems-and-multilayer-networks">Nonlinearly seperable problems and multilayer networks</a></li>
+            <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
+          </ul>
+        </li>
+        <li><a href="#convolutional-neural-networks">Convolutional Neural Networks</a></li>
+        <li><a href="#regularization-and-evaluation">Regularization and Evaluation</a>
+          <ul>
+            <li><a href="#early-stopping">Early Stopping</a></li>
+            <li><a href="#data-augmentation">Data Augmentation</a></li>
+            <li><a href="#multitask-learning">Multitask Learning</a></li>
+            <li><a href="#dropout">Dropout</a></li>
+            <li><a href="#batch-normalization">Batch Normalization</a></li>
+            <li><a href="#parameter-tying">Parameter Tying</a></li>
+            <li><a href="#parameter-sharing">Parameter Sharing</a></li>
+            <li><a href="#sparse-representations">Sparse Representations</a></li>
+          </ul>
+        </li>
+        <li><a href="#other-resources">Other Resources</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-21---fine-ill-talk-about-ai">
+  Chapter 21 - Fine, I&rsquo;ll talk about AI
+  <a class="anchor" href="#chapter-21---fine-ill-talk-about-ai">#</a>
+</h1>
+<p class="tip ">
+    This chapter is very much a work in progress, and is really more of just a list of topics despite how much content there appears to be. I&rsquo;d really like to have code examples under each concept as well, as otherwise it&rsquo;s like reading a fucking math textbook from hell.
+</p>
+<p>[TODO] <a href="https://www.asimovinstitute.org/author/fjodorvanveen/">https://www.asimovinstitute.org/author/fjodorvanveen/</a></p>
+<h2 id="machine-learning">
+  Machine Learning?
+  <a class="anchor" href="#machine-learning">#</a>
+</h2>
+<p>You&rsquo;ve used it today. ML is used for search engines, social media feed order (the almighty Algorithm), and predictive text systems.</p>
+<p>What is the difference between ML and AI? [TODO]</p>
+<p>Learning is not the same as memorization, for example, if a baby sees his mother from various angles and under different lighting, he&rsquo;s not <em>memorizing</em> her face. He&rsquo;s learning features about it, which is why he can still recognize her in new views. Checking if two things are identical (or nearly so) is much easier, learning features and detecting things based on them is more difficult for a computer.</p>
+<p>when to use ML?</p>
+<ul>
+<li>Computer being put in a situation where human&rsquo;s have no direct experiance</li>
+<li>No way to tell computer the human experiance (speech recognition, facial recognition, driving)</li>
+<li>When the solution changes based on conditions/time (Driving in different weather / lighting, background noise removal)</li>
+<li>Every application is a bit different (different voices need different recognition)</li>
+</ul>
+<p>when <em>not</em> to use ML?</p>
+<ul>
+<li>When all cases can be covered by a traditional program</li>
+</ul>
+<h2 id="speedbump">
+  Speedbump
+  <a class="anchor" href="#speedbump">#</a>
+</h2>
+<p>Before we actually get into anything of substance, I think it&rsquo;s useful to just be exposed to terms in bulk and get a sort of high level overview of what&rsquo;s going on. For that, I recommend just putting this video on 2x speed and digesting it as best you can. Don&rsquo;t worry if something makes you go &ldquo;huh?&rdquo; for now:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/oJNHXPs0XDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="supervised-vs-unsupervised-learning">
+  Supervised Vs. Unsupervised Learning
+  <a class="anchor" href="#supervised-vs-unsupervised-learning">#</a>
+</h2>
+<h3 id="supervised-learning">
+  Supervised Learning
+  <a class="anchor" href="#supervised-learning">#</a>
+</h3>
+<p>Given labeled examples with features described, like pictures of trucks and cars, labeled &lsquo;truck&rsquo; or &lsquo;car&rsquo; and data fields for wheel count, color, etc. that are populated, the machine learning algorithm makes a model that will try to classify new inputs.</p>
+<p>Features can be as simple as the individual pixel values in an image</p>
+<p>Let C be the <strong>target function</strong> to be learned. Think of C as a function that takes the input example and outputs a label. The goal is to, given a training set $ \chi = {(x^t,y^t) }^N_{t=1}$ where $y^t=C(x^t)$, output a **hypothesis** h ∈H, that approximates C when classifying new  input.</p>
+<p>Each instance x represents a vector of features (attributes). For example, let each $x=(x_1,x_2)$ be  a vector describing attributes of a guitar; $x_1 = \text{sting count}, x_2=\text{acoustic or electric}$, each label is binary (positive/negitive, yes/no, 1/0, etc.) and contributes to weather or not it&rsquo;s a 6 string acoustic guitar.</p>
+<p>A leraning algorithm uses train set χ and finds a hypothesis h∈H that approximates C</p>
+<p>error (loss) of h</p>
+<ul>
+<li>Empirical error is a fraction of χ that h gets wrong</li>
+<li>Generilation error is probability that a new, randomly selected, instance is misclassified by h. This depends on the probability distribution over instances. Generalizion error is much more important than Empirical - it&rsquo;s better to have it perfrom well on new data than be great on the training data</li>
+<li>False Negitives (C-h) and False Positives (h-C)</li>
+</ul>
+<h3 id="unsupervised-learning">
+  Unsupervised Learning
+  <a class="anchor" href="#unsupervised-learning">#</a>
+</h3>
+<p>Same as above, but no labels. (Still features). For example, <a href="https://en.wikipedia.org/wiki/K-means_clustering">https://en.wikipedia.org/wiki/K-means_clustering</a> or Hierachical clustering <a href="https://en.wikipedia.org/wiki/Hierarchical_clustering">https://en.wikipedia.org/wiki/Hierarchical_clustering</a></p>
+<h3 id="semi-supervised-learning">
+  Semi-supervised learning
+  <a class="anchor" href="#semi-supervised-learning">#</a>
+</h3>
+<p>a mix of some labeled data, and some unlabed.</p>
+<p>Pretrain to get relevent features</p>
+<p>transfer-learning, take training from one task and apply it to another (should this be here?)</p>
+<h3 id="reinforcement-learning">
+  Reinforcement Learning
+  <a class="anchor" href="#reinforcement-learning">#</a>
+</h3>
+<p>agent takes step, looks at eviroment, makes actions based on it, repeat. Goal it to maximize expected long term reward</p>
+<p>Often used for games</p>
+<p>Markov Decision Process</p>
+<p>Sorta like a state machine</p>
+<p>feedback is often delayed - credit assignment problem</p>
+<h2 id="how-does-it-work">
+  How does it work?
+  <a class="anchor" href="#how-does-it-work">#</a>
+</h2>
+<p>Not overfitting - spikey vs smooth curve. Spikey to directly fit is bad, similar with XY blobs with reaching out arms balance with model complexity with regulizer. We want generalization (learning) not memorization</p>
+<h3 id="models">
+  Models
+  <a class="anchor" href="#models">#</a>
+</h3>
+<p>Decision trees</p>
+<p>support vector machines</p>
+<p>probalistic graphical models</p>
+<p>Artifical Neural Networks -&gt; Deep learning (many layers)</p>
+<p>Each node multiplied by weight, sent though activation function, often using stochastic gradient descent</p>
+<h3 id="performance-measures">
+  Performance Measures
+  <a class="anchor" href="#performance-measures">#</a>
+</h3>
+<p>Classification error - fraction of time correct</p>
+<p>Squared error</p>
+<p>cross entropy</p>
+<p>No single best approach</p>
+<h2 id="linear-unit-regression">
+  Linear Unit (Regression)
+  <a class="anchor" href="#linear-unit-regression">#</a>
+</h2>
+<p>[TODO] tie back to <a href="https://en.wikipedia.org/wiki/Linear_regression">https://en.wikipedia.org/wiki/Linear_regression</a></p>
+<p>a vector with features x_1 to x_2 and weights w_1 to w_n</p>
+<img src="/linearregression.svg" style="-webkit-filter: invert(.85);">
+</br>
+
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\hat{y}=f(x;w,b)=x w&#43;b=w_1x_1&#43;....w_nx_n&#43;b\)
+</span>
+
+<p>b can be represnteded as <span>
+  \(w_0\)
+</span>
+ instead, as is shown in the above</p>
+<img src="/linregbin.svg" style="-webkit-filter: invert(.85);">
+</br>
+<span>
+  \(y=o(x;w,b)=\{{&#43;1 \text{ if } f(x;w,b)&gt;0\atop{-1 \text{ otherwise}}}\)
+</span>
+
+<p>(sometimes 0 instead of -1)</p>
+<p>for binary classification, +1 is it <em>is</em> the thing, -1 (or 0) is saying it&rsquo;s <em>not</em> the thing.</p>
+<p>not all functions are linearly seperable, one straight line can&rsquo;t split the data into postives and negitives- so having <em>networks</em> of units works around this</p>
+<p>Of course, we&rsquo;d like to be able to use inputs that aren&rsquo;t just numbers. Representing things like price or weight can be given a number, but for other things, like colors, <strong>one hot vectors</strong> are helpful, for example, if there are three color options, red, green, blue, red could be [1,0,0], green [0,1,0], blue [0,0,1]. This is better than just assigning each color an integer (red=1,green=2,blue=3, etc.) because we don&rsquo;t want to imply ordering in the data. one hot vectors are espcically nice because they let us assign positive weights to a given color and negitive weights to others. For example, in identifying a fire truck, red will obviosuly have a very positive weight, while being the other colors may be a negitive weight.</p>
+<p>training:</p>
+<span>
+  \(w_j\prime\larr w_j&#43;\eta(y^t-\hat{y}^t)x^t_j\)
+</span>
+
+<p><span>
+  \(w_j\prime\)
+</span>
+ is the new value of <span>
+  \(w_j\)
+</span>
+, (the j&rsquo;th w as each weight is incremented though)</p>
+<p><span>
+  \(x_j^t\)
+</span>
+ is the jth attribute of tranining instance t</p>
+<p><span>
+  \(y^t\)
+</span>
+ is the label of traning instance t</p>
+<p><span>
+  \(\hat{y}^t\)
+</span>
+ is Perception output on traning instance t</p>
+<p>η &gt; 0, the <em>learning rate</em>, is a small constant (e.g.; 0.1)</p>
+<p>if <span>
+  \((y-\hat{y})&gt;0 \text{ then increase } w_j \text{ w.r.t } x_j\)
+</span>
+  else decrease</p>
+<p>Can prove rule will converge if traning data is linearly seperable and η sufficently small</p>
+<p>a bad learning rate, η,  can cause very slow convergence (too small) or even divergence (too large)</p>
+<p>It&rsquo;s best to adjust the learning rate per schedule (iteration) rather than just use a constant. For this we want to start with a high learning rate, then decrease it.</p>
+<table>
+<thead>
+<tr>
+<th>Schedule</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power Scheduling</td>
+<td><span>
+  \(\eta(t)=\eta_0/(1&#43;t/s)^c​\)
+</span>
+</td>
+</tr>
+<tr>
+<td>Exponential Scheduling</td>
+<td><span>
+  \(\eta(t)=\eta_0(0.1)^{t/s}​\)
+</span>
+</td>
+</tr>
+<tr>
+<td>Performance Scheduling</td>
+<td>reduce η by λ when no improvment in validation</td>
+</tr>
+<tr>
+<td>1cycle Scheduling</td>
+<td>increase from <span>
+  \(\eta_0 \text{ linearly to } \eta_1​\)
+</span>
+ then back down to  ​<span>
+  \(\eta_0​\)
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gradient-descent">
+  Gradient Descent
+  <a class="anchor" href="#gradient-descent">#</a>
+</h2>
+<p>[TODO] <a href="https://en.wikipedia.org/wiki/Gradient_descent">https://en.wikipedia.org/wiki/Gradient_descent</a></p>
+<p>[TODO] Stochastic Gradient Descent</p>
+<p>momentum term β to keep updates moving in the same direction as previous trials</p>
+<p>this can help move though local minima to a better local or global minimum and not get stuck on flat spots</p>
+<p>Adagrad adapts learning rate by scaling it down in steepest dimensions</p>
+<p>RMSProp exponations decays old gradients to avoid AdaGrad&rsquo;s problem of sotpping to early for neural networks duo to agressive downscaling</p>
+<p>Adapative Moment Estimation (Adam) combines momentum optimization and RMSProp</p>
+<h2 id="nonlinearly-seperable-problems">
+  Nonlinearly seperable Problems
+  <a class="anchor" href="#nonlinearly-seperable-problems">#</a>
+</h2>
+<p class="tip ">
+    writing this as I take notes, it&rsquo;s basically meaningless at the moment
+</p>
+<p>XOR</p>
+<table>
+<thead>
+<tr>
+<th>Input A</th>
+<th>Input B</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>No single linear threshold unit can describe this</p>
+<p>in 2d a line, in 3d a plane, 4+d hyperplane</p>
+<p>Every one one side of these is a <em>halfspace</em>, but given two functions, we can get an overlap, the intersection of the two halfspaces</p>
+<p>now, we can find $z_i$ , mapping though a non-linear function, from x space to z space, now the problem is linearly seperable- there&rsquo;s no need for the demiensions from mapping from x-to-z space to be the same, and there can be multiple hidden layers</p>
+<p>We&rsquo;ve mapped from a non-linearly seperable problem into a linearly seperable one</p>
+<p><a href="https://en.wikipedia.org/wiki/Feedforward_neural_network">Feedforward Neural Networks on Wikipedia</a></p>
+<p>generally, if the input can be split up with straight lines and be defined as the unions and intersections of those halfspaces, then two hidden layers and an output layer must exist that works</p>
+<h3 id="backpopagation">
+  Backpopagation
+  <a class="anchor" href="#backpopagation">#</a>
+</h3>
+<p>First, feed forward the network&rsquo;s inputs to it&rsquo;s outputs, then propagates back error with by repeatdely applying the chain rule</p>
+<p><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation (Wikipedia)</a></p>
+<p>propagate error back in order to compute loss gradient with respect to each weight, then update the wights</p>
+<p>don&rsquo;t have to update the loss on each instance, could do mini-batches (Stochastic Gradient Descent- SGD), or in the extreme case, have the entire training set be a single batch (batch gradient descent). SGD saves on memory, which helps.</p>
+<h4 id="computation-graphs">
+  Computation Graphs
+  <a class="anchor" href="#computation-graphs">#</a>
+</h4>
+<p>(note the library- tensor flow, pytorch, etc.- will probably handle this for you)</p>
+<p>given a complicated function, we want to know it&rsquo;s partial derivatives with respect to its parameters</p>
+<p>For</p>
+<p>multivariate chain rule, multiple paths that can affect the output. Math gets very gross very quickly</p>
+<h2 id="the-sigmoid-unit">
+  The Sigmoid Unit
+  <a class="anchor" href="#the-sigmoid-unit">#</a>
+</h2>
+<p>$S(x)=\frac{1}{1+e^{-x}}$ squashes everything into a range from 0 to 1 (or -1 to 1), with 0 mapping to to ½. It&rsquo;s similar to the threshold function, for us, this is useful as $\sigma(x)=\frac{1}{1+e^{-net}}$, where $net=\sum_{i=0}^{n} w_i x_i=f(x;w,b)$</p>
+<img src="/sigmoid.svg" style="-webkit-filter: invert(.85);">
+</br>
+<h2 id="types-of-output-units">
+  Types of Output Units
+  <a class="anchor" href="#types-of-output-units">#</a>
+</h2>
+<p>Linear - works well with GD training</p>
+<p>Logistic - good for probabilities</p>
+<p>Softmax - every output node</p>
+<h2 id="types-of-hidden-units">
+  Types of Hidden Units
+  <a class="anchor" href="#types-of-hidden-units">#</a>
+</h2>
+<p>Logistic - has issues with saturation</p>
+<p>Rectified Linear Unit (ReLU)</p>
+<p>​	 leaky ReLU and exp ReLU</p>
+<h2 id="how-many-layers-to-use">
+  How many layers to use?
+  <a class="anchor" href="#how-many-layers-to-use">#</a>
+</h2>
+<p>increasing number of layers increases risk of overfitting, need more training data for deeper network to avoid this</p>
+<p>performance improvement even without more parameters</p>
+<p>Gotta know when to add more layers instead of parameters, but in general adding more layers is better, that is try adding layers before widening, keeping in mind the overfitting problem. Also increasese training time</p>
+<h2 id="ann---artifical-neural-networks">
+  ANN - Artifical Neural Networks
+  <a class="anchor" href="#ann---artifical-neural-networks">#</a>
+</h2>
+<p>Silicon &lsquo;neurons&rsquo; are much faster, but connect to many less nodes, compared</p>
+<p>[TODO] get human neuron count, &lsquo;switching time&rsquo;, interconnectivity</p>
+<p>much different for ML vs Biological Modeling</p>
+<p>think a ton of really weak cores, which explains the GPU usage</p>
+<p>good for raw sensor data, okay with noise, but requires long training times and lacks human readability- hard to know why it predicts what it does</p>
+<p>Started with the Perceptron algoritm, but that was too limited (40&rsquo;s)</p>
+<p>multi-layer backpropagation (80&rsquo;s) allowed for training multi layer networks, and they couldn&rsquo;t be made deep on that era&rsquo;s hardware, while other algoritms (Support Vector Machines, boosting) were taking off instead. In the 2000&rsquo;s it became possible for 5-8 layers though, making &lsquo;deep&rsquo; learning possible (mostly because of gaming GPUs). Better datasets, and better algorithms helped too.</p>
+<p>any boolean function can be represented with 2 layers</p>
+<p>any bounded contious function can be represented with arbitarily small error with two layers</p>
+<p>that goes to <em>any</em> function at 3 layers</p>
+<p><em>but</em>, this is only true for existance. It may be very, very difficult to find the weights and take a ton of nodes</p>
+<h3 id="initalization">
+  Initalization
+  <a class="anchor" href="#initalization">#</a>
+</h3>
+<p>We used to initalize parameters to random numbers near 0, but now Glorot is used,</p>
+<p>with $n_{in} \text{ inputs and } n_{out} \text{ outputs}$, initialize with a uniform from $[-r,r]$ with $r=a\sqrt{\frac{6}{n_{in}+n_{out}}}$ or normal, $\mathcal{N}(0,\sigma)$, with $\sigma=a\sqrt{\frac{2}{n_{in}+n_{out}}}$</p>
+<table>
+<thead>
+<tr>
+<th>Activation</th>
+<th>a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logistic</td>
+<td>1</td>
+</tr>
+<tr>
+<td>tanh</td>
+<td>4</td>
+</tr>
+<tr>
+<td>ReLU</td>
+<td>√2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gradient-decest">
+  Gradient Decest
+  <a class="anchor" href="#gradient-decest">#</a>
+</h3>
+<p><strong>alt: evolution</strong></p>
+<h3 id="nonlinearly-seperable-problems-and-multilayer-networks">
+  Nonlinearly seperable problems and multilayer networks
+  <a class="anchor" href="#nonlinearly-seperable-problems-and-multilayer-networks">#</a>
+</h3>
+<h3 id="types-of-activation-functions">
+  Types of Activation Functions
+  <a class="anchor" href="#types-of-activation-functions">#</a>
+</h3>
+<h2 id="convolutional-neural-networks">
+  Convolutional Neural Networks
+  <a class="anchor" href="#convolutional-neural-networks">#</a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Convolutional_neural_network">CNN&rsquo;s on Wikipedia</a></p>
+<p>Good for data with grid/array like topology, think images or time series data</p>
+<p>based on using convolutions and pooling- extract features, invarient to transforms, parameter efficient</p>
+<p>passing a kernel over an image, just doing a sliding window, like normal - can do edge detection, bluring, etc.</p>
+<p>Kernels are just weights, so, we can learn the best weight to use</p>
+<p>not complete connectivity, that is no crossing from layer to another, the layer above only depends on one path</p>
+<p>&hellip; unless we use a convolutional stack(?)</p>
+<p>&hellip; next node over probably shares many parameters (weight sharing), the computation graph could just share this overlap to reduce parameters. Saves memory</p>
+<p>​	weight sharing forces the layer to learn a specific feature extractor. Multiple layers could be learned in parallel, as only detecting one feature (like vertical lines) may not be helpful.</p>
+<p>​	on images this is commonly done as separate detectors on color channels and multiple for specific feasters. Each higher layer is for a more complex feature, with multiple channels of features.</p>
+<p>Basically,</p>
+<p>can pad to retain size, 0-padding is common</p>
+<p>can use a stride-parameter to downsample</p>
+<img src="/CNNImage.svg" style="-webkit-filter: invert(.85);">
+<!--colors are shifted in the SVG to make the invert correct--->
+<p>pooling nodes help get translation invariance</p>
+<p>Downsides of CNNs: Many parameters to tune, large memory usage</p>
+<p>often better to modify a prior network trained on a bigger dataset and for longer - Transfer Learning</p>
+<p>Object Detection can look for local areas of interest:</p>
+<p>R-CNN, SPP-NET, Fast R-CNN, YOLO - You Only Look Once</p>
+<h2 id="regularization-and-evaluation">
+  Regularization and Evaluation
+  <a class="anchor" href="#regularization-and-evaluation">#</a>
+</h2>
+<p>ML is basically an optimization problem</p>
+<p>We need a function to measure performance - a loss function</p>
+<p>Given instance x, with label y, and a prediction $\hat{y}$, then $J(y,\hat{y})$ is the loss on that instance</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Common Use</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-1 Loss</td>
+<td></td>
+<td>$J(y,\hat{y})=1$ if $y\neq\hat{y}$, 0 otherwise</td>
+</tr>
+<tr>
+<td>Square Loss</td>
+<td>Regression</td>
+<td>$J(y,\hat{y}) = (y - \hat{y})^2$</td>
+</tr>
+<tr>
+<td>Cross-Entropy</td>
+<td>y and $\hat{y}$ are considered probabilities of a &lsquo;1&rsquo; label. Allows for two probability distributions. Good for when the input data also has probability. Often used for classifying images</td>
+<td>$J(y,\hat{y})$ = $(-y)ln(\hat{y})-(1-y)ln(1-\hat{y})$</td>
+</tr>
+<tr>
+<td>Hinge Loss</td>
+<td>Large Margin Classifier</td>
+<td>$J(y,\hat{y}) = max(0,1-y\hat{y})$</td>
+</tr>
+</tbody>
+</table>
+<p>given a loss function, J, and a dataset, X, $error_x(h)=\sum_{x\in h}J(y_x,\hat{y}_x)$ where $y_x$ is x&rsquo;s label, and $\hat{y}_x$ is h&rsquo;s prediction</p>
+<p>But, it&rsquo;s more important that the model generalizes, so given a new example (picked i.i.d) according to unknown probability distribution D, we want to minimize h&rsquo;s <strong>expected</strong> loss $error_D(h)=\mathbb{E}_{x\sim{D}}[J(y_x,\hat{y}_x)]$</p>
+<p>minimizing training loss isn&rsquo;t the same as minimizing expected loss? <strong>NO</strong></p>
+<p>By doing <em>to good</em> on the training set, the over fitting will make results pretty bad. That is a specific parameter h overfits the training data, X, if there is an alternative hypothesis, $h^\prime$ such that $error_x(h) &lt; error_x(h^{\prime})$ and  $error_D(h) &gt; error_D(h^{\prime})$</p>
+<blockquote>
+<p>This is literally just the formal defn' of overfitting. Don&rsquo;t over think it.</p>
+</blockquote>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Overfitting.svg/1920px-Overfitting.svg.png" alt="overfitting" style="-webkit-filter: invert(.85);zoom:15%;">
+<p class="attribution ">
+    <a href="https://en.wikipedia.org/wiki/Overfitting#/media/File:Overfitting.svg">Overfitting example by Chabacano - CC BY-SA 4.0</a>
+</p>
+<p>Note that underfitting is just as much of a problem. Training accuracy needs to be balanced with simplicity.</p>
+<p>Overfitting is often a result of an overkill network topology, training too long, not having enough training data, or not doing early stopping.</p>
+<p>Complexity Penalty $J^{\sim}(\theta;X,y)=J(\theta,X,y)+\alpha\Omega(\theta)$ where $\alpha \in [0,\infin)$ weights loss J against penalty $\Omega$. $\Omega(\theta)$ just measures complexity via $\Omega(\theta)=(0.5)||\theta||_2^2$, that is the sum of the squares of network&rsquo;s weights. Since $\theta=w$, this becomes</p>
+<p>$J^{\sim}(w;X,y)=(\alpha/2)w^{\top}w+J(w;X,y)$</p>
+<p>as weights deviate from 0, activation functions become more nonlinear, which brings a higher risk of overfitting</p>
+<h3 id="early-stopping">
+  Early Stopping
+  <a class="anchor" href="#early-stopping">#</a>
+</h3>
+<p>danger of stopping too soon, as it might just have a &lsquo;bump&rsquo;</p>
+<h3 id="data-augmentation">
+  Data Augmentation
+  <a class="anchor" href="#data-augmentation">#</a>
+</h3>
+<p>Careful not to change class- ie 6 → 9 or E → 3 in images</p>
+<p>protects against translation/rotation and overfitting/underfitting</p>
+<p>adding noise</p>
+<h3 id="multitask-learning">
+  Multitask Learning
+  <a class="anchor" href="#multitask-learning">#</a>
+</h3>
+<p>Share common layers of lower network</p>
+<h3 id="dropout">
+  Dropout
+  <a class="anchor" href="#dropout">#</a>
+</h3>
+<p>Prevents any node from becoming too specialized sorta distributes the work load</p>
+<h3 id="batch-normalization">
+  Batch Normalization
+  <a class="anchor" href="#batch-normalization">#</a>
+</h3>
+<h3 id="parameter-tying">
+  Parameter Tying
+  <a class="anchor" href="#parameter-tying">#</a>
+</h3>
+<h3 id="parameter-sharing">
+  Parameter Sharing
+  <a class="anchor" href="#parameter-sharing">#</a>
+</h3>
+<h3 id="sparse-representations">
+  Sparse Representations
+  <a class="anchor" href="#sparse-representations">#</a>
+</h3>
+<hr>
+<h2 id="other-resources">
+  Other Resources
+  <a class="anchor" href="#other-resources">#</a>
+</h2>
+<p><a href="https://hific.github.io/">https://hific.github.io/</a></p>
+<p><a href="https://i.am.ai/roadmap/">i.am.ai Roadmap</a> &ndash; this shows that AI/ML are rooted in Data Science, as a [TODO] this probably needs talked about here</p>
+<p><a href="https://thisxdoesnotexist.com">This ____ Does Not Exist</a></p>
+<blockquote>
+<p>&ldquo;Using generative adversarial networks (GAN), we can learn how to create realistic-looking fake versions of almost anything&rdquo;</p>
+</blockquote>
+<p><a href="https://mc-stan.org">Stan for statistical modeling</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/aiml.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-21---fine-ill-talk-about-ai">Chapter 21 - Fine, I&rsquo;ll talk about AI</a>
+      <ul>
+        <li><a href="#machine-learning">Machine Learning?</a></li>
+        <li><a href="#speedbump">Speedbump</a></li>
+        <li><a href="#supervised-vs-unsupervised-learning">Supervised Vs. Unsupervised Learning</a>
+          <ul>
+            <li><a href="#supervised-learning">Supervised Learning</a></li>
+            <li><a href="#unsupervised-learning">Unsupervised Learning</a></li>
+            <li><a href="#semi-supervised-learning">Semi-supervised learning</a></li>
+            <li><a href="#reinforcement-learning">Reinforcement Learning</a></li>
+          </ul>
+        </li>
+        <li><a href="#how-does-it-work">How does it work?</a>
+          <ul>
+            <li><a href="#models">Models</a></li>
+            <li><a href="#performance-measures">Performance Measures</a></li>
+          </ul>
+        </li>
+        <li><a href="#linear-unit-regression">Linear Unit (Regression)</a></li>
+        <li><a href="#gradient-descent">Gradient Descent</a></li>
+        <li><a href="#nonlinearly-seperable-problems">Nonlinearly seperable Problems</a>
+          <ul>
+            <li><a href="#backpopagation">Backpopagation</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-sigmoid-unit">The Sigmoid Unit</a></li>
+        <li><a href="#types-of-output-units">Types of Output Units</a></li>
+        <li><a href="#types-of-hidden-units">Types of Hidden Units</a></li>
+        <li><a href="#how-many-layers-to-use">How many layers to use?</a></li>
+        <li><a href="#ann---artifical-neural-networks">ANN - Artifical Neural Networks</a>
+          <ul>
+            <li><a href="#initalization">Initalization</a></li>
+            <li><a href="#gradient-decest">Gradient Decest</a></li>
+            <li><a href="#nonlinearly-seperable-problems-and-multilayer-networks">Nonlinearly seperable problems and multilayer networks</a></li>
+            <li><a href="#types-of-activation-functions">Types of Activation Functions</a></li>
+          </ul>
+        </li>
+        <li><a href="#convolutional-neural-networks">Convolutional Neural Networks</a></li>
+        <li><a href="#regularization-and-evaluation">Regularization and Evaluation</a>
+          <ul>
+            <li><a href="#early-stopping">Early Stopping</a></li>
+            <li><a href="#data-augmentation">Data Augmentation</a></li>
+            <li><a href="#multitask-learning">Multitask Learning</a></li>
+            <li><a href="#dropout">Dropout</a></li>
+            <li><a href="#batch-normalization">Batch Normalization</a></li>
+            <li><a href="#parameter-tying">Parameter Tying</a></li>
+            <li><a href="#parameter-sharing">Parameter Sharing</a></li>
+            <li><a href="#sparse-representations">Sparse Representations</a></li>
+          </ul>
+        </li>
+        <li><a href="#other-resources">Other Resources</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

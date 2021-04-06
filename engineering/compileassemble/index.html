@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 27 - Compilers and Assemblers #  https://lee.earth/til/compiling-c-code-a-step-by-step-guide/
+Common Flags and When to Use them #   These flags are not universal, instead they&rsquo;re from GCC. GCC and Clang are the big two compilers you&rsquo;ll see a lot and these flags should be mostly the same between the two. Of course, there are many, many other compilers, but I&rsquo;m going to start with the common stuff
+ -o (Output) #   Note, this is a lowercase &lsquo;o&rsquo;">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 27 - Compilers and Assemblers #  https://lee.earth/til/compiling-c-code-a-step-by-step-guide/
+Common Flags and When to Use them #   These flags are not universal, instead they&rsquo;re from GCC. GCC and Clang are the big two compilers you&rsquo;ll see a lot and these flags should be mostly the same between the two. Of course, there are many, many other compilers, but I&rsquo;m going to start with the common stuff
+ -o (Output) #   Note, this is a lowercase &lsquo;o&rsquo;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/compileassemble/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Compileassemble | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.bf72a77d83a5d19d69e964a70223c925dc6606a9ef54342a84d8345b16271bd6.js" integrity="sha256-v3KnfYOl0Z1p6WSnAiPJJdxmBqnvVDQqhNg0WxYnG9Y="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;" >    Introduction</p>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+</ul>
+<p style="color:#009CDF;" >    Linux & Your Computer</p>
+<ul>
+<li><a href="/engineering/firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/hardware/"> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/howwework/"> 5 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/git/"> 5½- Git</a></li>
+<li><a href="/engineering/linuxshell/">A1 - Using The Linux Shell</a></li>
+</ul>
+<p style="color:#009CDF;" >    Prerequisites</p>
+<ul>
+<li><a href="/engineering/math/">6 - Math</a></li>
+<li><a href="/engineering/physics/">7 - Physics</a></li>
+<li><a href="/engineering/chem/">8 - Chemistry</a></li>
+<li><a href="/engineering/othersubjects/">9 - &lsquo;The Rest&rsquo;</a></li>
+</ul>
+<p style="color:#009CDF;" >    Programming</p>
+<ul>
+<li><a href="/engineering/codeintro/">10 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/consequences/">10½- Consequences</a></li>
+<li><a href="/engineering/lowlvl/">11 - Low Level Programming</a></li>
+<li><a href="/engineering/fosscopyright/">11½- FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/codecont/">12 - Yet More Programming</a></li>
+<li><a href="/engineering/fixxingissuses/">12½- Fixing Issues</a></li>
+<li><a href="/engineering/languages/">13 - Programming Languages</a></li>
+<li><a href="/engineering/algorithms/">14 - Algorithms and More</a></li>
+<li><a href="/engineering/bigprog/">15 - Writing a Big Program</a></li>
+<li><a href="/engineering/debugbuildtest/">16 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/multithread/">17 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/guiprog/">18 - Graphical Programming</a></li>
+<li><a href="/engineering/game/">19 - Game Programming</a></li>
+<li><a href="/engineering/funcprog/">20 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/aiml/">21 - Fine, here&rsquo;s AI/ML</a></li>
+</ul>
+<p style="color:#009CDF;" >    Circuits</p>
+<ul>
+<li><a href="/engineering/circuits1/">22 - Circuits! </a></li>
+<li><a href="/engineering/circuits2/">23 - Semiconductors</a></li>
+<li><a href="/engineering/digitallogic/">24 - Digital Logic</a></li>
+<li><a href="/engineering/embedded/">25 - Embedded Systems</a></li>
+<li><a href="/engineering/pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+</ul>
+<p style="color:#009CDF;" >    Going Deeper</p>
+<ul>
+<li><a href="/engineering/compileassemble/"class=active>27 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/fpga1/">28 - Programmable Logic</a></li>
+<li><a href="/engineering/comparch/">29 - Let&rsquo;s Make our own CPU</a></li>
+</ul>
+<p style="color:#009CDF;" >    Networking & Servers</p>
+<ul>
+<li><a href="/engineering/networking/">30 - Networking</a></li>
+<li><a href="/engineering/servers/">31 - Servers!</a></li>
+<li><a href="/engineering/cloud/">31½- &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/databases/">32 - Databases</a></li>
+<li><a href="/engineering/security/">33 - Security &amp; Exploitation</a></li>
+</ul>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;" >    Making and Hobbies</p>
+<ul>
+<li><a href="/engineering/3dprint/">34 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/hamradio/">35 - Ham Radio</a></li>
+<li><a href="/engineering/history/">36 - Computer History</a></li>
+</ul>
+<p style="color:#009CDF;" >    Wrapping Up</p>
+<ul>
+<li>
+<p><a href="/engineering/wrappingup/">37 - Where next?</a></p>
+</li>
+<li>
+<p><a href="/engineering/cheat/">A2 - Cheat Sheets &amp; Libraries</a></p>
+</li>
+</ul>
+<!--  - [A3 - Bill Of Materials](/engineering/a3-bom/) -->
+<ul>
+<li><a href="/engineering/resources/">A3 - Other Great Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+<li><a href="/music/video/">A2 - Video</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Compileassemble</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-27---compilers-and-assemblers">Chapter 27 - Compilers and Assemblers</a>
+      <ul>
+        <li><a href="#common-flags-and-when-to-use-them">Common Flags and When to Use them</a>
+          <ul>
+            <li><a href="#-o-output">-o (Output)</a></li>
+            <li><a href="#warnings">Warnings</a></li>
+            <li><a href="#-s-assembly">-S (aSSembly)</a></li>
+            <li><a href="#-v-verbose">-v (Verbose)</a></li>
+            <li><a href="#optimization">Optimization</a></li>
+            <li><a href="#-march--mtune--flto--msse42--mavx--mavx2">-march, -mtune, -flto, -msse4.2, -mavx, -mavx2</a></li>
+            <li><a href="#-ansi">-ansi</a></li>
+          </ul>
+        </li>
+        <li><a href="#stripping-not-like-that-perv">Stripping (Not like that, perv)</a></li>
+        <li><a href="#understanding-compilers-and-common-compiler-flags">Understanding compilers and common compiler flags</a></li>
+        <li><a href="#making-an-interpreted-language">Making an interpreted language</a></li>
+        <li><a href="#making-a-compiled-language">Making a compiled language</a></li>
+        <li><a href="#garbage-collection">Garbage Collection</a></li>
+        <li><a href="#continued-reading">Continued Reading</a></li>
+        <li><a href="#fun-things">Fun things</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-27---compilers-and-assemblers">
+  Chapter 27 - Compilers and Assemblers
+  <a class="anchor" href="#chapter-27---compilers-and-assemblers">#</a>
+</h1>
+<p><a href="https://lee.earth/til/compiling-c-code-a-step-by-step-guide/">https://lee.earth/til/compiling-c-code-a-step-by-step-guide/</a></p>
+<h2 id="common-flags-and-when-to-use-them">
+  Common Flags and When to Use them
+  <a class="anchor" href="#common-flags-and-when-to-use-them">#</a>
+</h2>
+<blockquote>
+<p>These flags are not universal, instead they&rsquo;re from GCC. GCC and Clang are the big two compilers you&rsquo;ll see a lot and these flags should be mostly the same between the two. Of course, there are many, many other compilers, but I&rsquo;m going to start with the common stuff</p>
+</blockquote>
+<h3 id="-o-output">
+  -o (Output)
+  <a class="anchor" href="#-o-output">#</a>
+</h3>
+<blockquote>
+<p>Note, this is a <strong>lowercase</strong> &lsquo;o&rsquo;</p>
+</blockquote>
+<p>You should&rsquo;ve seen this already, I&rsquo;m mentioning it mostly to give a brief review of what a flag is, it&rsquo;s basically just another term for an argument to a program where the program is run as <code>program-name argument1 argument2 ...</code> but, usually flags are prefixed by <code>-</code> or <code>--</code></p>
+<p>in the case of <code>-o</code> it just means, use the next argument as the output name, so using</p>
+<p><code>gcc input.c -o myprogram</code> gives you an executable named myprogram instead of just input.</p>
+<h3 id="warnings">
+  Warnings
+  <a class="anchor" href="#warnings">#</a>
+</h3>
+<p>Just, read this: <a href="https://interrupt.memfault.com/blog/best-and-worst-gcc-clang-compiler-flags">https://interrupt.memfault.com/blog/best-and-worst-gcc-clang-compiler-flags</a> - It&rsquo;s a lot more in depth than anything I could write here. It&rsquo;s focused on Embedded development, but should be broadly applicable.</p>
+<h3 id="-s-assembly">
+  -S (aSSembly)
+  <a class="anchor" href="#-s-assembly">#</a>
+</h3>
+<h3 id="-v-verbose">
+  -v (Verbose)
+  <a class="anchor" href="#-v-verbose">#</a>
+</h3>
+<h3 id="optimization">
+  Optimization
+  <a class="anchor" href="#optimization">#</a>
+</h3>
+<blockquote>
+<p>Note, this is an uppercase &lsquo;O&rsquo;</p>
+</blockquote>
+<p>And now we can get to fun stuff. -O is generally used in levels, here with no space, so there&rsquo;s <code>-O</code>, <code>-O2</code>, <code>-O3</code>, and <code>-Ofast</code> are for speed, and <code>-Os</code> is for size of the binary. (or <code>-Oz</code> for clang)</p>
+<blockquote>
+<p>Technically, <code>-Ofast</code> can break your code. This is rather unlikely though.</p>
+</blockquote>
+<p>Each of these will take longer to compile but be more aggressive about optimizing the assembly code that is generated from your input. For example, let&rsquo;s look at the code</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">mult</span>(<span style="color:#66d9ef">int</span> m, <span style="color:#66d9ef">int</span> n){
+    <span style="color:#66d9ef">char</span> a[m][n];
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">sizeof</span>(a);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>This is a <em>very</em> stupid multiply function. Effectively, it&rsquo;s multiplying two numbers by making a matrix of size m by n, and then counting the number of spots in that matrix instead of just multiplying the two numbers. I&rsquo;ve embedded a <a href="">GodBolt</a> page below with this code on the left, and it&rsquo;ll show the assembly output on the right. At the top you should be able to see a box to type compiler options, go ahead and put in <code>-O</code>. You should see a huge long mess of assembly that used multiple <code>imul</code> (multiply) instructions be reduced to 3 lines of assembly with only a single multiply. The compiler has figured out that what we were doing was a stupid multiply and optimized it for us.</p>
+<iframe width="100%" height="500px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(fontScale:14,j:1,lang:c%2B%2B,selection:(endColumn:2,endLineNumber:5,positionColumn:2,positionLineNumber:5,selectionStartColumn:2,selectionStartLineNumber:5,startColumn:2,startLineNumber:5),source:'//+Type+your+code+here,+or+load+an+example.%0Aint+mult(int+n,+int+m)%7B%0A++++char+a%5Bm%5D%5Bn%5D%3B%0A++++return(sizeof(a))%3B%0A%7D'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g102,filters:(b:'0',binary:'1',commentOnly:'0',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'1',trim:'1'),fontScale:14,j:1,lang:c%2B%2B,libs:!(),options:'',selection:(endColumn:1,endLineNumber:1,positionColumn:1,positionLineNumber:1,selectionStartColumn:1,selectionStartLineNumber:1,startColumn:1,startLineNumber:1),source:1),l:'5',n:'0',o:'x86-64+gcc+10.2+(Editor+%231,+Compiler+%231)+C%2B%2B',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
+<p>Here there&rsquo;s no difference between <code>-O</code> and <code>O3</code>, but with more complex code there often is. Just keep in mind that this is a trade off, there is the upfront cost of a longer compile time.</p>
+<h3 id="-march--mtune--flto--msse42--mavx--mavx2">
+  -march, -mtune, -flto, -msse4.2, -mavx, -mavx2
+  <a class="anchor" href="#-march--mtune--flto--msse42--mavx--mavx2">#</a>
+</h3>
+<h3 id="-ansi">
+  -ansi
+  <a class="anchor" href="#-ansi">#</a>
+</h3>
+<h2 id="stripping-not-like-that-perv">
+  Stripping (Not like that, perv)
+  <a class="anchor" href="#stripping-not-like-that-perv">#</a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Strip_%28Unix%29">Strip command [Wikipedia]</a></p>
+<h2 id="understanding-compilers-and-common-compiler-flags">
+  Understanding compilers and common compiler flags
+  <a class="anchor" href="#understanding-compilers-and-common-compiler-flags">#</a>
+</h2>
+<p><a href="https://lemire.me/blog/2020/09/23/how-expensive-is-integer-overflow-trapping-in-c/">How expensive is integer-overflow trapping in C++?</a> / <a href="https://news.ycombinator.com/item?id=24575780">Hacker News Comments on article</a></p>
+<p><a href="https://tenthousandmeters.com/blog/python-behind-the-scenes-2-how-the-cpython-compiler-works/">How the cpython compiler works</a></p>
+<p><a href="https://www.cs.cornell.edu/courses/cs6120/2020fa/self-guided/">CS 6120: Advanced Compilers: The Self-Guided Online Course</a></p>
+<p>[TODO]</p>
+<p>Making a compiler and assembler, DIY language eso-lang style</p>
+<h2 id="making-an-interpreted-language">
+  Making an interpreted language
+  <a class="anchor" href="#making-an-interpreted-language">#</a>
+</h2>
+<h2 id="making-a-compiled-language">
+  Making a compiled language
+  <a class="anchor" href="#making-a-compiled-language">#</a>
+</h2>
+<p><a href="https://medium.freecodecamp.org/the-programming-language-pipeline-91d3f449c919">https://medium.freecodecamp.org/the-programming-language-pipeline-91d3f449c919</a></p>
+<h2 id="garbage-collection">
+  Garbage Collection
+  <a class="anchor" href="#garbage-collection">#</a>
+</h2>
+<p><a href="http://dmitrysoshnikov.com/courses/essentials-of-garbage-collectors/">Garbage Collection Algorithms</a> + <a href="http://dmitrysoshnikov.com/compilers/writing-a-memory-allocator/">Writing a memory allocator</a></p>
+<h2 id="continued-reading">
+  Continued Reading
+  <a class="anchor" href="#continued-reading">#</a>
+</h2>
+<p>At this point I highly recommend &lsquo;<a href="https://nostarch.com/hacking2.htm">The Art of Exploitation</a>&rsquo; by Jon Erickson</p>
+<h2 id="fun-things">
+  Fun things
+  <a class="anchor" href="#fun-things">#</a>
+</h2>
+<p><a href="https://github.com/laserallan/malloc_geiger">Malloc Geiger (Github)</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/compileassemble.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-27---compilers-and-assemblers">Chapter 27 - Compilers and Assemblers</a>
+      <ul>
+        <li><a href="#common-flags-and-when-to-use-them">Common Flags and When to Use them</a>
+          <ul>
+            <li><a href="#-o-output">-o (Output)</a></li>
+            <li><a href="#warnings">Warnings</a></li>
+            <li><a href="#-s-assembly">-S (aSSembly)</a></li>
+            <li><a href="#-v-verbose">-v (Verbose)</a></li>
+            <li><a href="#optimization">Optimization</a></li>
+            <li><a href="#-march--mtune--flto--msse42--mavx--mavx2">-march, -mtune, -flto, -msse4.2, -mavx, -mavx2</a></li>
+            <li><a href="#-ansi">-ansi</a></li>
+          </ul>
+        </li>
+        <li><a href="#stripping-not-like-that-perv">Stripping (Not like that, perv)</a></li>
+        <li><a href="#understanding-compilers-and-common-compiler-flags">Understanding compilers and common compiler flags</a></li>
+        <li><a href="#making-an-interpreted-language">Making an interpreted language</a></li>
+        <li><a href="#making-a-compiled-language">Making a compiled language</a></li>
+        <li><a href="#garbage-collection">Garbage Collection</a></li>
+        <li><a href="#continued-reading">Continued Reading</a></li>
+        <li><a href="#fun-things">Fun things</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

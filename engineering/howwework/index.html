@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 5 - Let&rsquo;s work on how we work #  The Terminal #  In the world of programming, embedded development, and electrical debugging you will inevitably need to understand how to use a terminal/command line at some point. While the text only interface can look intimidating, it has some clear advantages. Namely it&rsquo;s significantly faster to use the cli or &lsquo;command line interface&rsquo; version of many tools. Because of the nature of this guide you will be using the terminal frequently, so for convince sake information on using it effectively has been moved to Appendix A, I highly recommend you read though it after you finish this page.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 5 - Let&rsquo;s work on how we work #  The Terminal #  In the world of programming, embedded development, and electrical debugging you will inevitably need to understand how to use a terminal/command line at some point. While the text only interface can look intimidating, it has some clear advantages. Namely it&rsquo;s significantly faster to use the cli or &lsquo;command line interface&rsquo; version of many tools. Because of the nature of this guide you will be using the terminal frequently, so for convince sake information on using it effectively has been moved to Appendix A, I highly recommend you read though it after you finish this page." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/howwework/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Howwework | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.bf72a77d83a5d19d69e964a70223c925dc6606a9ef54342a84d8345b16271bd6.js" integrity="sha256-v3KnfYOl0Z1p6WSnAiPJJdxmBqnvVDQqhNg0WxYnG9Y="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;" >    Introduction</p>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+</ul>
+<p style="color:#009CDF;" >    Linux & Your Computer</p>
+<ul>
+<li><a href="/engineering/firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/hardware/"> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/howwework/"class=active> 5 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/git/"> 5½- Git</a></li>
+<li><a href="/engineering/linuxshell/">A1 - Using The Linux Shell</a></li>
+</ul>
+<p style="color:#009CDF;" >    Prerequisites</p>
+<ul>
+<li><a href="/engineering/math/">6 - Math</a></li>
+<li><a href="/engineering/physics/">7 - Physics</a></li>
+<li><a href="/engineering/chem/">8 - Chemistry</a></li>
+<li><a href="/engineering/othersubjects/">9 - &lsquo;The Rest&rsquo;</a></li>
+</ul>
+<p style="color:#009CDF;" >    Programming</p>
+<ul>
+<li><a href="/engineering/codeintro/">10 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/consequences/">10½- Consequences</a></li>
+<li><a href="/engineering/lowlvl/">11 - Low Level Programming</a></li>
+<li><a href="/engineering/fosscopyright/">11½- FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/codecont/">12 - Yet More Programming</a></li>
+<li><a href="/engineering/fixxingissuses/">12½- Fixing Issues</a></li>
+<li><a href="/engineering/languages/">13 - Programming Languages</a></li>
+<li><a href="/engineering/algorithms/">14 - Algorithms and More</a></li>
+<li><a href="/engineering/bigprog/">15 - Writing a Big Program</a></li>
+<li><a href="/engineering/debugbuildtest/">16 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/multithread/">17 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/guiprog/">18 - Graphical Programming</a></li>
+<li><a href="/engineering/game/">19 - Game Programming</a></li>
+<li><a href="/engineering/funcprog/">20 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/aiml/">21 - Fine, here&rsquo;s AI/ML</a></li>
+</ul>
+<p style="color:#009CDF;" >    Circuits</p>
+<ul>
+<li><a href="/engineering/circuits1/">22 - Circuits! </a></li>
+<li><a href="/engineering/circuits2/">23 - Semiconductors</a></li>
+<li><a href="/engineering/digitallogic/">24 - Digital Logic</a></li>
+<li><a href="/engineering/embedded/">25 - Embedded Systems</a></li>
+<li><a href="/engineering/pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+</ul>
+<p style="color:#009CDF;" >    Going Deeper</p>
+<ul>
+<li><a href="/engineering/compileassemble/">27 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/fpga1/">28 - Programmable Logic</a></li>
+<li><a href="/engineering/comparch/">29 - Let&rsquo;s Make our own CPU</a></li>
+</ul>
+<p style="color:#009CDF;" >    Networking & Servers</p>
+<ul>
+<li><a href="/engineering/networking/">30 - Networking</a></li>
+<li><a href="/engineering/servers/">31 - Servers!</a></li>
+<li><a href="/engineering/cloud/">31½- &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/databases/">32 - Databases</a></li>
+<li><a href="/engineering/security/">33 - Security &amp; Exploitation</a></li>
+</ul>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;" >    Making and Hobbies</p>
+<ul>
+<li><a href="/engineering/3dprint/">34 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/hamradio/">35 - Ham Radio</a></li>
+<li><a href="/engineering/history/">36 - Computer History</a></li>
+</ul>
+<p style="color:#009CDF;" >    Wrapping Up</p>
+<ul>
+<li>
+<p><a href="/engineering/wrappingup/">37 - Where next?</a></p>
+</li>
+<li>
+<p><a href="/engineering/cheat/">A2 - Cheat Sheets &amp; Libraries</a></p>
+</li>
+</ul>
+<!--  - [A3 - Bill Of Materials](/engineering/a3-bom/) -->
+<ul>
+<li><a href="/engineering/resources/">A3 - Other Great Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+<li><a href="/music/video/">A2 - Video</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Howwework</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-5---lets-work-on-how-we-work">Chapter 5 - Let&rsquo;s work on how we work</a>
+      <ul>
+        <li><a href="#the-terminal">The Terminal</a></li>
+        <li><a href="#heads-up">Heads up,</a></li>
+        <li><a href="#code-editors">Code editors</a></li>
+        <li><a href="#the-desktop-environment">The Desktop Environment</a>
+          <ul>
+            <li><a href="#actually-configuring-i3-polybar-etc">Actually configuring i3, polybar, etc.</a></li>
+            <li><a href="#customization-resources">Customization Resources</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-physical-environment--hardware">The Physical Environment &amp; Hardware</a></li>
+        <li><a href="#various-programs">Various Programs:</a></li>
+      </ul>
+    </li>
+    <li><a href="#tools-for-accessibility">Tools for accessibility</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-5---lets-work-on-how-we-work">
+  Chapter 5 - Let&rsquo;s work on how we work
+  <a class="anchor" href="#chapter-5---lets-work-on-how-we-work">#</a>
+</h1>
+<h2 id="the-terminal">
+  The Terminal
+  <a class="anchor" href="#the-terminal">#</a>
+</h2>
+<p>In the world of programming, embedded development, and electrical debugging you will inevitably need to understand how to use a terminal/command line at some point. While the text only interface can look intimidating, it has some clear advantages. Namely it&rsquo;s significantly faster to use the cli or &lsquo;command line interface&rsquo; version of many tools. Because of the nature of this guide you will be using the terminal frequently, so for convince sake information on using it effectively has been moved to Appendix A, I highly recommend you read though it after you finish this page.</p>
+<p>For now, at bare minimum, I recommend getting autojump (<code>j</code>) setup early as it makes navigating around the terminal much faster, <code>bat</code> makes reading code though <code>cat</code> not suck, and <code>tldr</code> will save you time when you forget how to use <code>tar</code>. Set these up early if nothing else. But really, there&rsquo;s a lot in Appendix A that I think is really cool. Do check it out.</p>
+<h2 id="heads-up">
+  Heads up,
+  <a class="anchor" href="#heads-up">#</a>
+</h2>
+<p>With that out of the way, I want to preface this chapter with a big warning: Getting used to everything we&rsquo;re about to do will be a pretty big leap. There&rsquo;s a good chance you&rsquo;ve never used a computer that works in a way like we&rsquo;re going to be setting up, but it&rsquo;s what I and many of my friends use daily and for good reason. This is probably where more opinions are going to show than anywhere else.</p>
+<p>I&rsquo;m not going to repeatedly state how to install packages on Arch, so here&rsquo;s your lil' guide:</p>
+<p><code>yay</code> followed by the name or description of a package you want will help you find most packages. For example, running <code>yay i3 wm</code> will come up with multiple numbered results.</p>
+<p><img src="/yayi3.png" alt="yayi3" /></p>
+<p>Here I could type 2 followed by pressing enter to install i3-wm. Note that whenever possible, you should prefer packages in core, community, or extra. (or any other repositories you&rsquo;ve added to your <code>/etc/pacman.conf</code> file) over the AUR, as packages in the AUR are maintained to a slightly lesser standard and are often a bit more annoying to update. That said, the AUR is still <em>much</em> better than trying to download a package from some random webpage.</p>
+<p>Also keep in mind <code>yay</code> is a wrapper for <code>pacman</code> and can download AUR packages (<code>pacman</code> itself can&rsquo;t), but you can always still use <code>pacman</code> directly. Just keep in mind that while <code>yay</code> will call <code>sudo</code> for you internally to request your password, <code>pacman</code> requires it up front, so to do most operations you&rsquo;ll actually need to use <code>sudo pacman</code>.</p>
+<p>Speaking of, the basic operations you&rsquo;ll need to do with pacman:</p>
+<p><code>sudo pacman -Syu</code> will run an update, but just using <code>yay</code> is usually better as it will update things in the AUR as well.</p>
+<p><code>pacman -F name-of-program-here</code> will let you know what package provides what program. For example <code>pacman -F lsblk</code> will tell me that the <code>lsblk</code> command comes from the <code>util-linux</code> package.</p>
+<p><code>sudo pacman -R name-of-package</code> will let you remove a package</p>
+<p>For more info, read the ArchWiki page on <a href="https://wiki.archlinux.org/index.php/Pacman">Pacman</a> and the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">AUR</a>.</p>
+<h2 id="code-editors">
+  Code editors
+  <a class="anchor" href="#code-editors">#</a>
+</h2>
+<p>People get defensive about the way they work, and frequently try to claim the way they work is the best way. I of corse <em>know</em> that my way is the best 😉. Really though, it&rsquo;s mostly a matter of settling down into a good workflow and getting very fast with it.</p>
+<p>I have three recommendations for code editors, as silly as that may seem.</p>
+<p>The first two are terminal based <code>nano</code> and <code>vim</code>,</p>
+<p><code>nano</code>, is the most simplistic of all the editors I&rsquo;ll list here. It&rsquo;s stupid simple to use and for quick just opening a text file and changing one line, probably the fastest. It clearly prints it&rsquo;s instructions at the bottom of the terminal:</p>
+<p><img src="/nano.png" alt="nano" /></p>
+<p>where <code>^</code> is the ctrl key, and <code>M</code> the alt key. However, you&rsquo;ll quickly find <code>nano</code> rather limiting, so onto <code>vim</code>!</p>
+<p>Vim, with Spacevim (spacevim.org) ontop is a very powerful tool.</p>
+<p><img src="https://user-images.githubusercontent.com/13142418/45254913-e1e17580-b3b2-11e8-8983-43d6c358a474.png" alt="welcome-page" /></p>
+<p>Vim can do everything you could ever dream of, and probably a bit more, and with spacevim ontop, it&rsquo;s a powerhouse. Unfortunately, vim is regularly the butt end of a joke because of how notoriously difficult it is to get the hang of. For that reason I&rsquo;m going to link a mini tutorial here: <a href="https://www.openvim.com/,">https://www.openvim.com/,</a> and link <a href="https://spacevim.org/documentation">the SpaceVim documentation</a>. <a href="https://i.imgur.com/YLInLlY.png">This VIM cheat sheet may help too</a></p>
+<p>Of course, you <em>probably</em> don&rsquo;t want to always use a terminal-based text editor (though you should be able to when you have to) so what&rsquo;s good graphically?</p>
+<p>Despite it being a Microsoft thing, I really recommend Visual Studio Code with Platform IO<a class="ptr">(1)</a>, Bracket Pair Colorizer 2, and GitLens. If you&rsquo;re looking for more extensions than that, there&rsquo;s also a version of Asciiflow for VSCode, plenty of extensions for live rendering (live-p5, glsl-canvas, Processing Language)</p>
+<p>This gives you a pretty kick butt editor on par with most full Integrated Development Environments (IDE). I recommend you try out IDEs, especially if for some unholy reason you want to write in Java, but otherwise this will do fine.</p>
+<p><img src="/code.png" alt="code" /></p>
+<p>There are of course a ton of other options, emacs, ox, Atom, &hellip; If these don&rsquo;t suit you, feel free to look into these. Regardless, a text editor should be pretty high up on your list of things to get setup, as it will make the latter steps much easier.</p>
+<h2 id="the-desktop-environment">
+  The Desktop Environment
+  <a class="anchor" href="#the-desktop-environment">#</a>
+</h2>
+<p>This is the biggest change, I&rsquo;m going to recommend switching from KDE, which we installed when we setup arch, to i3-wm. i3 is a tiling window manager, this means it looks something like this:</p>
+<p><img src="/newi3.png" alt="i3" /></p>
+<p>This is a screenshot of i3-wm with 4 windows open: two instances of <code>Typora</code> (the program I&rsquo;m writing this in), and a file manager (<code>Thunar</code>),  a terminal (<code>deepin-terminal-gtk</code>) running <code>ncmpcpp</code> which is what I use for music. The <code>Typora</code> windows are being tabbed by i3 (it&rsquo;s a bit hard to see, but there&rsquo;s two big tabs at the top of the Window).  What&rsquo;s cool about i3 is how it will always use space as efficiently as possible by tiling the windows, and you can navigate between the windows (or multiple monitors) entirely by keyboard (mouse still works obviously) and open multiple virtual workspaces. When programming and using a computer for advanced things it&rsquo;s not uncommon to have a dozen windows open and having things organized like this can be a life saver. Plus, as I showed with the typora tabs, programs can also be tabbed instead of tiled, so I could have one tab of firefox, one of typora, and one of a terminal, so they&rsquo;re all still maximized but I can get between them quickly, and these tabs can be mixed with the tiles, as in that screenshot.</p>
+<p>Alright, so i3-wm is great, right? Well yes, but&hellip;</p>
+<p>i3, when first installed, is very, very minimal, it will greet you with a plain black bar and clicking with either mouse button anywhere will do nothing. You should, however, be able to open a terminal by using your modkey (probably the windows or alt key) and enter.</p>
+<p>i3 actually comes in a bunch of separate parts, the most important of which are the window manager itself, the status bar, and the task runner.</p>
+<p>The window manager is the thing that actually manages the windows, this is the part most people are referring to when talking about i3 (assuming they&rsquo;re not talking about an i3 Intel CPU) and is sometimes refereed to as i3wm. A very popular &lsquo;fork&rsquo; of i3 is <code>i3-gaps</code> which is available in the community repository. It just addes slight gaps at the edge of the screen and between tiled applications for visual clarity. You can customize these gaps to be how ever big or small you want.</p>
+<p>On top of the raw window manager you&rsquo;ll probably want a status bar of some kind. While the default <code>i3bar</code> which is included with the <code>i3-gaps</code> package is fine when paired with <code>i3status</code>, it does leave a bit to be desired. Many other options are available. I personally use <code>polybar</code> though I have friends that have used <code>lemonbar</code> or <code>i3blocks</code>.</p>
+<p>Finally you&rsquo;ll want a runner/application launcher. While <code>i3-demu</code> is the default, I find it rather annoying to use, and much prefer <code>rofi</code> &ndash; this is much better explained here than I can briefly: <a href="https://github.com/davatorium/rofi">https://github.com/davatorium/rofi</a></p>
+<p>To further make i3 reasonable to use you&rsquo;ll want a few more things:</p>
+<p><code>picom</code> is a composite manager. This is used to allow application to have some transparency, prevent screen tearing, and does slight effects, like a shadow behind windows. (You may also see this referred to as Compton, picom is the replacement for <code>Compton</code>)</p>
+<p><code>lxappearance-gtk3</code> can be used to set the theme used by various graphical applications. I use <a href="https://www.gnome-look.org/p/1253385/">Sweet</a> but there are nearly endless options</p>
+<p>For setting the wallpaper (which you probably wont see much) you can use <code>nitrogen</code> or <code>feh</code>.</p>
+<p>if you have multiple monitors before setting the wallpaper though you&rsquo;ll probably want to arrange your monitors correctly, for this you can use <code>xrandr</code> , read the man page for more information. You can add the command you use to set up your displays to your i3 config file to apply them at each reboot. If you&rsquo;re having issuse with <code>xrandr</code> you may want to use <code>arandr</code> to make the initial config file.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    if you have a high resolution monitor and things are small, you may want to look here: <a href="https://wiki.archlinux.org/index.php/HiDPI">https://wiki.archlinux.org/index.php/HiDPI</a> , the best thing from this is to add the text on the right to your <code>/etc/environment</code> file.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">QT_QPA_PLATFORMTHEME<span style="color:#f92672">=</span>qt5ct
+QT_AUTO_SCREEN_SCALE_FACTOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+GDK_SCALE<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+ELM_SCALE<span style="color:#f92672">=</span>1.5
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<p>You&rsquo;ll be needing quite a few different utilities beyond this. for a terminal I highly recommend <code>kitty</code>,  <code>rxvt-unicode</code>, or <code>Alacritty</code>, though I actually use <code>deepin-terminal-gtk</code>.</p>
+<p>For fonts you&rsquo;ll certainly have your own tastes, but I really like Droid Sans Mono, which is in <code>ttf-droid</code>, but <code>ttf-hack</code> and <code>otf-fira-code</code> are pretty cool too. I also recommend installing <code>noto-fonts</code>, <code>noto-fonts-extra</code>, and <code>ttf-font-awesome</code>. The noto packages will provide coverage for weird characters and font awesome is basically icons saved as a font, and many open source projects use it. You&rsquo;ll also probably want <code>nerd-fonts-complete</code> which is in the AUR.</p>
+<h3 id="actually-configuring-i3-polybar-etc">
+  Actually configuring i3, polybar, etc.
+  <a class="anchor" href="#actually-configuring-i3-polybar-etc">#</a>
+</h3>
+<p>Alright, so I just spit a lot of information at you, let&rsquo;s put some of it to use.</p>
+<p>The first thing we need to do is get everything installed. If you followed the install guide in Chapter 2, you should have either installed <code>ssdm</code> and <code>kde</code> or <code>lightdm</code> and <code>mate</code>. I had you start with those because they&rsquo;re at least somewhat familiar to most people in how they work. Fortunately, display managers like <code>ssdm</code> and <code>lightdm</code> will let you choose the environment you log into, so for now we can leave everything in place, and just login to it later.</p>
+<p>I&rsquo;m going to give the list of what I want when I get a system set up, you probably won&rsquo;t use all of these right away, but you&rsquo;ll likely need them at some point. Before you do this though, make sure you&rsquo;ve enabled <code>multilib</code> in <code>/etc/pacman.conf</code>, and update (just run <code>yay</code>).</p>
+<p><code>i3-gaps</code>, <code>rofi</code>,  <code>picom</code> ,<code>polybar</code>(AUR), <code>lxappearance-gtk3</code>, <code>kitty</code>, <code>deepin-terminal-gtk</code>, <code>polkit-gnome</code>, <code>thunar</code>, <code>nautilus</code>, <code>mpd</code>, <code>ncmpcpp</code>, <code>evince</code>, <code>vivaldi</code>, <code>vivaldi-ffmpeg-codecs</code>, <code>firefox</code>, <code>pavucontrol</code>, <code>krita</code>, <code>libreoffice-fresh</code>, <code>nomacs</code>, <code>feh</code>, <code>typora</code> (AUR), <code>gparted</code>, <code>deepin-screenshot</code>, <code>audacity</code>, <code>vlc</code>, <code>kicad</code>, <code>obs-studio</code>, <code>wine</code>, <code>firewall-d</code>, <code>zsh</code>, <code>tldr</code>, <code>autojump</code> (AUR), <code>bat</code>, <code>lsd</code>, <code>duf</code>, <code>htop</code>, <code>progress</code>, <code>youtube-dl</code>, <code>hexyl</code>, <code>fzf</code>, <code>optipng</code>, <code>jpegoptim</code>, <code>speedcrunch</code>, <code>caffeine-ng</code>, <code>redshift</code></p>
+<blockquote>
+<p>if you want to game, you&rsquo;ll probably want <code>steam</code> too. I recommend using <code>steam-native-runtime</code> and installing <code>steam-fonts</code>. Steam also provides &lsquo;proton&rsquo; which is like <code>wine</code> on steroids. It makes a huge number of Windows games work with no added effort.</p>
+</blockquote>
+<details >
+  <summary>What are all of these things???</summary>
+  <div class="markdown-inner">
+    <table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i3-gaps</td>
+<td>The thing that tiles and tabs windows, draws the title bar on windows, handles window open/close events, resizes windows, etc. Literally the Window manager.</td>
+</tr>
+<tr>
+<td>rofi</td>
+<td>The &lsquo;runner&rsquo;, opens a window for you to type the name of a program you want to run into</td>
+</tr>
+<tr>
+<td>picom</td>
+<td>The &lsquo;compositer&rsquo; - prevents weird graphical bugs, lets you use transparency and shadows, etc.</td>
+</tr>
+<tr>
+<td>polybar</td>
+<td>provides the bar at the bottom of the screen</td>
+</tr>
+<tr>
+<td>lxappearance-gtk3</td>
+<td>Lets you change the theme of graphical programs</td>
+</tr>
+<tr>
+<td>kitty</td>
+<td>Terminal emulator</td>
+</tr>
+<tr>
+<td>deepin-terminal-gtk</td>
+<td>Another Terminal emulator</td>
+</tr>
+<tr>
+<td>polkit-gnome</td>
+<td>allows graphical programs to request your password</td>
+</tr>
+<tr>
+<td>thunar</td>
+<td>file manager</td>
+</tr>
+<tr>
+<td>nautilus</td>
+<td>another file manager, a bit slower to use but handles remote connections well</td>
+</tr>
+<tr>
+<td>mpd</td>
+<td>the &lsquo;sever&rsquo; side of the music player I like</td>
+</tr>
+<tr>
+<td>ncmpcpp</td>
+<td>the &lsquo;client&rsquo; side of the music music player I like</td>
+</tr>
+<tr>
+<td>evince</td>
+<td>pdf++ viewer</td>
+</tr>
+<tr>
+<td>vivaldi</td>
+<td>my web browser of choice</td>
+</tr>
+<tr>
+<td>vivaldi-ffmpeg-codecs</td>
+<td>lets you watch youtube videos without the browser shitting itself</td>
+</tr>
+<tr>
+<td>firefox</td>
+<td>spare web browser. Trust me. You want two.</td>
+</tr>
+<tr>
+<td>pavucontrol</td>
+<td>volume control</td>
+</tr>
+<tr>
+<td>krita</td>
+<td>art program</td>
+</tr>
+<tr>
+<td>libreoffice-fresh</td>
+<td>Word, Excel, etc. alternative. Can open word docs.</td>
+</tr>
+<tr>
+<td>nomacs</td>
+<td>good image viewer, with some editing capabilities</td>
+</tr>
+<tr>
+<td>feh</td>
+<td>minimal image viewer</td>
+</tr>
+<tr>
+<td>typora</td>
+<td>markdown document editor</td>
+</tr>
+<tr>
+<td>gparted</td>
+<td>storage manager (reformatting hard drives, etc.)</td>
+</tr>
+<tr>
+<td>deepin-screenshot</td>
+<td>Screenshot with some editing built in.</td>
+</tr>
+<tr>
+<td>audacity</td>
+<td>audio editor</td>
+</tr>
+<tr>
+<td>vlc</td>
+<td>media player (video++)</td>
+</tr>
+<tr>
+<td>kicad</td>
+<td>PCB design software</td>
+</tr>
+<tr>
+<td>obs-studio</td>
+<td>screen recording++</td>
+</tr>
+<tr>
+<td>wine</td>
+<td>run windows programs on Linux. <strong>do not use this for driver software, bios updates, etc.</strong></td>
+</tr>
+<tr>
+<td>firewall-d</td>
+<td>Firewall service and config program</td>
+</tr>
+<tr>
+<td>zsh</td>
+<td>shell, better than bash</td>
+</tr>
+<tr>
+<td>autojump</td>
+<td>make shell navigation faster</td>
+</tr>
+<tr>
+<td>bat</td>
+<td>better in-terminal file preview</td>
+</tr>
+<tr>
+<td>lsd</td>
+<td>better in-terminal file listing</td>
+</tr>
+<tr>
+<td>duf</td>
+<td>quick disk usage viewer</td>
+</tr>
+<tr>
+<td>ncdu</td>
+<td>disk usage analyzer, find what&rsquo;s filling your entire disk</td>
+</tr>
+<tr>
+<td>htop</td>
+<td>like Task-manager on steroids</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>view progress of a running terminal app</td>
+</tr>
+<tr>
+<td>youtube-dl</td>
+<td>download videos/gifs from basically any website</td>
+</tr>
+<tr>
+<td>hexyl</td>
+<td>hex-dump file</td>
+</tr>
+<tr>
+<td>fzf</td>
+<td>dependency for many other things, useful to make quick terminal menus</td>
+</tr>
+<tr>
+<td>optipng &amp; jpegoptim</td>
+<td>lossless shrink of image file sizes</td>
+</tr>
+<tr>
+<td>speedcrunch</td>
+<td>fast to use calculator program</td>
+</tr>
+<tr>
+<td>caffeine-ng</td>
+<td>ability to turn off screensaver/suspend from tray</td>
+</tr>
+<tr>
+<td>redshift</td>
+<td>bluelight filter to prevent your eyes from bleeding</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+</details>
+
+<blockquote>
+<p>This might work, but also might not, installing packages in bulk fails sometimes</p>
+<p>[TODO] one-liner install with &ndash;needed</p>
+</blockquote>
+<p>First things first, lets get switched over to <code>zsh</code> and setup <code>oh-my-zsh</code> and <code>autojump</code>.</p>
+<p>[TODO]</p>
+<p>Pop open your text editor to work on your <code>~/.config/i3/config</code> file, and go ahead and open up <a href="https://i3wm.org/docs/userguide.html">the i3 User&rsquo;s Guide</a> in a browser for reference. We&rsquo;re gonna get cookin'.</p>
+<p>[TODO]</p>
+<p>inside your i3 config file you may want to set specific actions to take place based on a window&rsquo;s name (bind all social applications to a social workspace for example) to do this you&rsquo;ll need to get the windows class using a tool like <code>xprop</code></p>
+<h3 id="customization-resources">
+  Customization Resources
+  <a class="anchor" href="#customization-resources">#</a>
+</h3>
+<p>If you&rsquo;re looking for more ways to make your setup the best it can be or config files you can steal from check out  <a href="https://www.reddit.com/r/unixporn">r/unixporn</a>.</p>
+<p>[TODO] <a href="https://github.com/mjswensen/themer">https://github.com/mjswensen/themer</a></p>
+<h2 id="the-physical-environment--hardware">
+  The Physical Environment &amp; Hardware
+  <a class="anchor" href="#the-physical-environment--hardware">#</a>
+</h2>
+<p><img src="/physicalenv.jpg" alt="penv" /></p>
+<p>Working on a laptop with a mushy membrane keyboard is totally fine for some people, but when you&rsquo;re deep into some complicated work having the best possible setup can save a lot of time, frustration, and mental overhead.</p>
+<p>Furthermore, the work environment can change how long you can work for and how productive your work time really is. Be it for comfort or productivity, there are many reasons to take care in making sure you&rsquo;re setup is right for you.</p>
+<p>If you are on a laptop some of the following is still applicable, but consider how any of what I&rsquo;m about to mention may be adapted to your own setup.</p>
+<p><strong>Displays</strong></p>
+<p>The way you use your monitor is more important the monitor itself. Don&rsquo;t get me wrong, if you have an 11&quot;, 4:3 aspect ratio monitor running though VGA there&rsquo;s a limited amount you can do, but there&rsquo;s still some things.</p>
+<p>First and foremost is positioning. I&rsquo;ve helped many a office worker complaining about neck and back pain simply by raising their monitor closer to eye level. Ideally you want your eyes to naturally rest right on the on the top 3rd line of your screen, about the level where the left-most knob is on the wallpaper on my right-most monitor in the picture above.</p>
+<p>Unfortunately, there is no magic rule for how far away your monitor should be from your face, as this highly depends on your vision, monitor&rsquo;s resolution, and size</p>
+<blockquote>
+<p>on this note, you&rsquo;ll often hear monitors described by their dots per inch, this is a measure of the number of pixels in a square inch on the screen, the higher this is the finer the details, but the smaller any given element on screen will be. Apple&rsquo;s Retina displays for example have a high DPI rating, which is a large part of the reason they look so good</p>
+</blockquote>
+<p>I personally have my three, 4k (that&rsquo;s 3840x2160, or 4 times the resolution of 1080p) monitors positioned approximately 30 inches from my eyes.</p>
+<p>Before moving forward though, I think it would make sense to talk about some of this display terminology. With that, I present far too much information condensed into one box:</p>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-0" checked="checked" />
+  <label for="tabs-Display Info-0">Aspect Ratio</label>
+  <div class="book-tabs-content markdown-inner"><p><strong>Aspect ratio</strong> is the ratio is the ratio of the width to the height of the screen, most modern screens are 16:9, or have 16 units of width for every 9 units of height. Most older displays, often now called square screens, are actually 4:3. Many people actually still prefer this for the extra vertical room it affords at a given size, and some laptops are actually moving back to a more &lsquo;square&rsquo; aspect ratio. On the other hand more exotic ultra-wide displays are also coming out</p>
+<p>Sizing of displays is a bit odd. A 27&quot; 16:9 display, is not the same size as a 27&quot; 4:3 display as displays are measured diagonally.</p>
+</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-1"  />
+  <label for="tabs-Display Info-1">Resolution</label>
+  <div class="book-tabs-content markdown-inner"><p><strong>Resolution</strong> of a display refers to the number of pixels, HD technically starts at 720p, or 720 pixels across, though this is generally rather low by modern standards, with acceptable usually considered 1080p, which is technically 1920x1080. You may also see 1080i, this is a strange concept, not actually related to resolution, but more to refresh rate. <a href="https://en.wikipedia.org/wiki/Interlaced_video">Interlaced Video (Wikipedia)</a></p>
+<p>QHD is 1440p and 4k (ignoring the mess of naming there) is usually 2160p. I recommenced against 1440p unless the system is mostly for gaming, as scaling from most content that is in 1080p to 1440p is awkward compared to the direct 2x scaling with 1080p to 2160p</p>
+</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-2"  />
+  <label for="tabs-Display Info-2">Interface</label>
+  <div class="book-tabs-content markdown-inner"><p>The interface on your display matters greatly as well, the most common at the are HDMI, Display Port, DVI, and VGA</p>
+<p><strong>VGA</strong> is the worst option here, as it&rsquo;s an analog signal. This means the signal can do strange things, getting corrupted between your computer and the monitor. Typically this is a blue, screw in connection with many pins</p>
+<p><strong>DVI</strong> is still pretty common and looks like an even larger VGA connection, with a typically white, screw in connector. This signal is normally digital, though there is a varient of DVI that can be adapted into VGA. Of note, DVI can also be adapted to HDMI though you will not have audio, as DVI does not carry sound</p>
+<p><strong>HDMI</strong>, probably the most well known connector, has multiple revisions, the revision determines many things such as the maximum resolution, refresh rate, and weather or not more obscure things such as HDR are supported. HDMI is usually considered the best of these three options</p>
+<p>Taking the crown however, is <strong>Display Port</strong> (DP). Like HDMI display port does have multiple revisions which do differentiate similar things; however, Display Port will generally support high resolutions and more features at any given point. Assuming you&rsquo;re running a bog-standard 60hz 1080p display however, you&rsquo;ll find no difference between DVI, HDMI, and DP - unless you need sound.</p>
+</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-3"  />
+  <label for="tabs-Display Info-3">Refresh Rate</label>
+  <div class="book-tabs-content markdown-inner"><p>Next, you&rsquo;ll want to note the <strong>refresh rate</strong> of your monitor. This is how many times per second your monitor refreshes the screen. Typically monitors run at 60hz and TVs at 30 or 60. Because unlike a TV you&rsquo;re causing things on screen to change though, 30hz is generally considered bad and can even cause motion sickness. While 60hz may be standard, going for something even higher, with many displays offering well above 120hz, is something you may want to consider, especially if you plan on gaming.</p>
+<p>Newer displays may support Freesync or Gsync, and both of these technologies require a supported graphics card in the system as well. These allow the display and computer to adaptively change the refresh rate so the monitor and computer both send and display frames in sync, which can make even a low refresh rate &lsquo;feel&rsquo; much higher. This is a feature typically marketed to gamers and only supported in video games, but this has been changing. Gsync monitors generally have a much better implementation of the technology but it requires an Nvidia graphics card. As of the time of writing both Freesync and GSync are supported on linux, but quite rough around the edges.</p>
+</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-4"  />
+  <label for="tabs-Display Info-4">Latency</label>
+  <div class="book-tabs-content markdown-inner"><p>Related to refresh rate is <strong>latency</strong>. In general this can actually mean two things, one is how long it takes for an image sent to the screen to actually be displayed. The lower this time the better, with good screens being sub 10 millisecond. Unfortunately, there&rsquo;s no standard among the industry to measure this and many get it wrong.</p>
+<p>Also with latency there&rsquo;s grey to grey times, this is a measure of how long it takes a pixel to go from one shade to another. The lower this is the less motion blur the screen will exhibit.</p>
+</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-5"  />
+  <label for="tabs-Display Info-5">Color Depth</label>
+  <div class="book-tabs-content markdown-inner"><p>The <strong>color depth</strong> of the display determines how precisely a color may be displayed. The higher this is the better, but almost all modern displays will be the same, and unless you&rsquo;re an artist or creative professional you&rsquo;re unlikely to notice a difference</p>
+<p>On the other hand, you are likely to notice the color gamut or what range of colors the display is actually capable of displaying.</p>
+<p>For example, two displays may both be capable of displaying 255 levels of red, but if one display&rsquo;s range is only from a dingy red to a dark-ish red, while the other is from a brilliant red to a deep dark red, there&rsquo;s a massive difference in color availability. If this is important to you, notably as a creative professionally in photo or video, you may want to read more at <a href="https://en.wikipedia.org/wiki/Gamut">https://en.wikipedia.org/wiki/Gamut</a></p>
+</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-6"  />
+  <label for="tabs-Display Info-6">Dynamic Range</label>
+  <div class="book-tabs-content markdown-inner"><p>The next obvious thing to mention is <strong>dynamic range</strong>, or how deep the blacks are and how vivid the whites are. Again, this is simple, the higher the better. Many display types (LCD, TN-Panel) will have similar specifications in all these areas, but particularly here. OLED is probably the best when it comes to dynamic range as it can display true black by actually turning the source of the light off, but unfortunately these are quite susceptible to burn in and image persistence.</p>
+<p>Actually, display technology overall (OLED, LCD, TN, CRT, etc.) will have more of an impact than anything else. But, this is also getting really into the weeds, and I don&rsquo;t want to recommend one technology over the other since depending on many other factors on each display theres no clear winner, as everything is a trade off - OLED is probably the best as it can display true black by actually turning the source of the light off, but it suffers from bad burn in, plus moving the image quickly can result in a &lsquo;purple smear&rsquo; - something you may have noticed when scrolling though images on your phone. You probably won&rsquo;t find an OLED monitor for sale anyways because of this. Great for movies, but when you have un-changing elements on screen for hours at a time it&rsquo;s not ideal.</p>
+<p>There are some newer displays which feature HDR or High Dynamic Range, which allows the panel to selective change the brightness in an area of the screen, giving much better dynamic range in supported applications than a normal display</p>
+</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-7"  />
+  <label for="tabs-Display Info-7">Burn in</label>
+  <div class="book-tabs-content markdown-inner"><strong>burn in</strong> and <strong>image persistence</strong> are both negative effects on many displays where a pixel either permanently or temporarily resists change in color. This can lead to being able to read previously displayed bright white text on a now black image for example. More commonly you&rsquo;ll find TVs which have a particular station&rsquo;s logo &lsquo;burnt in&rsquo; to one corner of the screen, persisting even after changing channels</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-8"  />
+  <label for="tabs-Display Info-8">Brightness</label>
+  <div class="book-tabs-content markdown-inner"><strong>Brightness</strong> is obvious, how bright or dim is the display. The big thing to note here is weather the brightness is PWM or DC controlled. Displays with PWM controlled brightness are much more common, however, it&rsquo;s a bit of a cheat. Instead of actually changing the intensity of the back light directly, they&rsquo;re simply strobing the light on and off to fast for the eye to see. This can cause eye strain over time though, and generally DC control, which actually does change the brightness directly is preferred. If you have a PWM display and don&rsquo;t mind it at full brightness, this should help with eyes strain, as there is no longer a strobe effect as the display&rsquo;s backlight is just constantly on.</div><input type="radio" class="toggle" name="tabs-Display Info" id="tabs-Display Info-9"  />
+  <label for="tabs-Display Info-9">Subpixels</label>
+  <div class="book-tabs-content markdown-inner">Finally, if fonts look bad on a screen, it may be due to <strong>Sub-pixel rendering</strong>. Basically, while most screens pixels go R-G-B in order, not all do. To make text look sharper, most font renders will try to abuse this sub-pixel order to get sharper-than-pixel fonts. This is adjustable in lxappearence on Linux, and should be handled by setting up &lsquo;ClearType text&rsquo;.</div></div>
+
+<p>clearly there&rsquo;s a lot to be considered here. A no compromise monitor can cost thousands of dollars, but nice 4k 27&quot; monitors like mine can be found for &lt;250 on sale, and I love them. Just figure out what you need and what would be the most beneficial for you and work from there.</p>
+<hr>
+<p>One of the great things about i3 is how powerful it can be with multiple displays, though even if you&rsquo;re not using i3 having a &lsquo;multi head&rsquo; setup can be a god send for productivity. Even if your monitors don&rsquo;t match it&rsquo;s worth it. If you have the budget to get two matching monitors, great, if not just getting a cheapo used monitor from a thrift store will be a massive improvement. I think 2 is the magic number for most people. 3 monitors take up a lot of room and unless you do some very multi-tasked things you won&rsquo;t see much benefit that using something like i3&rsquo;s workspaces wouldn&rsquo;t provide anyways.</p>
+<p>Another thing to mention is red-light filters. While I dont personally use one many people find that reducing the amount of blue light coming from their displays significant helps with eyestrain. If this interests you give <code>redshift</code> a shot. I use it every now and then if I have a headache.</p>
+<p><strong>Keyboard</strong></p>
+<p>Probably the most important thing you can do for your workspace is getting a nice keyboard. If you&rsquo;re rocking a rubber dome or membrane keyboard, moving to a mechanical keyboard will make a massive difference.</p>
+<p><img src="/mechkey.png" alt="keycomp" /></p>
+<p>(<a href="https://commons.wikimedia.org/wiki/File:Keyboard_Construction_Button_Press.JPG">source</a>)</p>
+<p>The membrane/rubber dome keyboard on the left doesn&rsquo;t give much physical feedback to your fingers when you press a key, compared to the mechanical key switch on the right. A decent mechanical keyboard can be found on amazon for &lt;50 USD, though as with anything in life the more you spend the better the product. One thing to keep in mind is the color of the switch used. Above you can see that keyboard has blue switches, blue switches have a noticeable &lsquo;bump&rsquo;, that is the switch has a spot of higher resistance before it actually bottoms out, and the key actually presses at this point, furthermore, blue keys are clicky - they are loud and some people find this annoying. Finally, they&rsquo;re also pretty light, not taking too much force to push down. Generally, blues are considered the &lsquo;gold standard&rsquo; among typist, but games on the other hand may prefer a brown, red, or black switch.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Linear</th>
+<th>Bump</th>
+<th>Bump + Click</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Light</strong></td>
+<td>Red</td>
+<td>Brown</td>
+<td>Blue</td>
+</tr>
+<tr>
+<td><strong>Heavy</strong></td>
+<td>Black</td>
+<td>Clear</td>
+<td>Green</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>these are the common colors and how they feel for Cherry MX switches. Most other mechanical switches are &lsquo;clones&rsquo; of MX switches- though sometimes these clones are actually superior-
+but these clones don&rsquo;t always follow this chart</p>
+</blockquote>
+<p>really it&rsquo;s all a matter of preference, I&rsquo;m actually using a switch not listed here on my keyboard, but generally finding what you like among the above first is a good place to start. If I&rsquo;m not using my main keyboard I generally use Blues. If you&rsquo;d like to try some out before pulling the trigger on a full keyboard you can find switch test boards for sale online.</p>
+<p>Furthermore, there are other types of switches like IBM&rsquo;s old Model M line which use a buckling spring, which are quite stiff and have a very unique, heavy feeling. If you don&rsquo;t want to use a 20 year old keyboard Unicomp makes clones that are quite nice.</p>
+<p>You should also consider they layout of your keyboard. Some people absolutely need a number pad while others are happy to omit it and have the shorted hand travel to their mouse. Even still others want an extravagant number of keys or a weird split keyboard like mine:<img src="/splitkeeb.jpg" alt="keeb" /></p>
+<blockquote>
+<p>This is a custom built ErgoDone keyboard, The Ergodox-ez can be purchased for ~300 USD, or you can build one like mine for a bit under 200</p>
+</blockquote>
+<p><a href="https://www.reddit.com/r/MechanicalKeyboards/comments/jqy923/better_than_uwu_keycaps/">r/Mechancial Keyboards</a> is a good place to go for inspiration and more information</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Beyond the physical layout you may also consider the keymap or software layout. Not only does my keyboard look weird, but the keys aren&rsquo;t arranged as you&rsquo;d expect either. Instead of typing in QWERTY, I actually use Dvorak. That layout looks a like this on a normal keyboard:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/KB_United_States_Dvorak.svg/1200px-KB_United_States_Dvorak.svg.png" alt="Image result for dvorak">
+  </div>
+  
+</div>
+
+<p>though obviously anything is possible. A lot of programmers like to disable their Caps key for example and put something more useful there, or you may just want to move around a letter or two. Using a standard layout like Dovark is a bit easier though as I can easily load my keymap pretty quickly on any computer. Plain old Qwerty is fine, but I personally like my &lsquo;weird&rsquo; keymap.</p>
+<p>If you&rsquo;re shelling out big bucks on a nice keyboard anyway, you may also want to get a keyboard which supports QMK, a completely open source firmware which gives you total control of your keyboard, allowing you do to cool things like type greek letters ( Ω , α, β) or type parentheses by tapping the shift keys. I find that particularly helpful as my keyboard doesn&rsquo;t actually have enough keys to do have every key nicely available (note how I don&rsquo;t have a function row) for more info check out <a href="https://docs.qmk.fm/#/">https://docs.qmk.fm/#/</a> . You can actually buy an adapter to use a normal keyboard with QMK, but it&rsquo;s a bit hack-y and I really recommend just saving up to get a full keyboard made for it.</p>
+<p>Back to ergonomics, you&rsquo;ll want to make sure your keyboard is a t a comfortable height for you and that you can type in a way that isn&rsquo;t putting your wrists at any weird angles</p>
+<p>Finally, one of the nice things about i3 is the ability to navigate everything entirely from the keyboard as well as bind as much as you want to as many keys as you&rsquo;d like. Want a key combo to launch a file manager? easy. Want a key to navigate to open up a terminal and immediately run a command- no problem. Set things up as you like and enjoy being able to use your system at break neck speed while everyone else drags things around slowly.</p>
+<p><strong>Mouse and other input</strong></p>
+<p>Speaking of dragging things around slowly: The mouse</p>
+<p><strong>Sound</strong></p>
+<p>Noise isolation both electrical and physical, headphone types (over, on, in), amplifiers, dacs, ASIO/ sound hardware, connection types</p>
+<p><strong>The Desk and Chair</strong></p>
+<p><strong>Lighting</strong></p>
+<p><strong>Air Quality</strong></p>
+<p><a href="https://www.youtube.com/watch?v=1Nh_vxpycEA&amp;list=FLFMnqfaTa1se1LfbCB3peJQ">This Is Your Brain On Stale Air (YouTube)</a></p>
+<h2 id="various-programs">
+  Various Programs:
+  <a class="anchor" href="#various-programs">#</a>
+</h2>
+<p><strong>Markdown</strong></p>
+<p>[TODO]</p>
+<p>Marktext, Typora, colabrative editing, Github markup, etc</p>
+<p><strong>Taskwarrior &amp; Timewarrior</strong></p>
+<p>[TODO]</p>
+<p>Taskweb</p>
+<p><strong>File Explorers &amp; Storage Managment</strong></p>
+<p>[TODO]</p>
+<p>Ranger, Thunar, Nautilius, Baobab, Gparted</p>
+<p>if you use Nautilius, you may want to run</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dconf write /org/gnome/nautilus/preferences/always-use-location-entry true
+</code></pre></td></tr></table>
+</div>
+</div><p>so that the file paths are displayed in full</p>
+<p><strong>Media (Music, Video, PDF,)</strong></p>
+<p>[TODO]</p>
+<p><strong>Office &amp; Creative Software</strong></p>
+<p>[TODO]</p>
+<p><a href="https://solarlune.itch.io/masterplan">Masterplan</a></p>
+<p><a href="https://github.com/climech/grit">https://github.com/climech/grit</a></p>
+<p>Libreoffice</p>
+<p>Krita</p>
+<p>Audacity</p>
+<p>DAW? QJackCTL?</p>
+<p>OBS</p>
+<p>KiCad</p>
+<p>darktable</p>
+<p>Evince</p>
+<p>Feh, nomacs</p>
+<p>Wine</p>
+<p>Boxes- vm</p>
+<p><a href="http://asciiflow.com">asciiflow</a></p>
+<p><strong>Package managment</strong></p>
+<p>[TODO]</p>
+<p>Pamac, Steam, AppImg, itch.io, dpkg, snap.</p>
+<p>maintaining an aur package, pacman conf stuff</p>
+<p><strong>Web and network protocols</strong></p>
+<p>[TODO]</p>
+<p>Vivaldi, Firefox, Syncthing, Beaker, IPFS, IRC - irssi, Telegram, Etherape, Wireshark, gufw,</p>
+<p><a href="https://github.com/fanfare/googleimagesrestored">Google Images Restored</a></p>
+<p><strong>Shell Scripts</strong></p>
+<p>[TODO]</p>
+<h1 id="tools-for-accessibility">
+  Tools for accessibility
+  <a class="anchor" href="#tools-for-accessibility">#</a>
+</h1>
+<p><a href="https://joshwcomeau.com/accessibility/hands-free-coding/">https://joshwcomeau.com/accessibility/hands-free-coding/</a></p>
+<p><strong>Lil' shoutout</strong></p>
+<p>I&rsquo;ve stolen a lot of config files from r/UnixPorn and other websites over the years, but I&rsquo;d espically like to highlight <a href="https://twily.info">https://twily.info</a> as twilly actually helped me out a lot when I was a total noob and even helped me steal her website to make my own clone of it at one point</p>
+<ol hidden id="footnotes">
+<li>PlatfromIO is for working with embedded hardware like Arduino or STM32, etc. Unfortunately, it opens an annoying screen at start up. This can be disabled, but at least in the past this has caused other issues for me. If you do work with embedded hardware though it's still by far the best option as the normal ArduinoIDE is absolute trash.</li>
+</ol></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/howwework.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-5---lets-work-on-how-we-work">Chapter 5 - Let&rsquo;s work on how we work</a>
+      <ul>
+        <li><a href="#the-terminal">The Terminal</a></li>
+        <li><a href="#heads-up">Heads up,</a></li>
+        <li><a href="#code-editors">Code editors</a></li>
+        <li><a href="#the-desktop-environment">The Desktop Environment</a>
+          <ul>
+            <li><a href="#actually-configuring-i3-polybar-etc">Actually configuring i3, polybar, etc.</a></li>
+            <li><a href="#customization-resources">Customization Resources</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-physical-environment--hardware">The Physical Environment &amp; Hardware</a></li>
+        <li><a href="#various-programs">Various Programs:</a></li>
+      </ul>
+    </li>
+    <li><a href="#tools-for-accessibility">Tools for accessibility</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

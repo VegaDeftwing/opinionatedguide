@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 13 - Programming Languages #  for (🥚 = 1; 🥚 &lt; 🐔; 🥚&#43;&#43;){ //whatever } [TODO] talk about to why there are so many, pros &amp; cons per domain, etc
+https://esoteric.codes
+Why OO Sucks (Joe Armstrong)
+Low Level #  C, C&#43;&#43;, C#, ???? #  [TODO] - a lot, talk about the varieties and differences of C and C&#43;&#43; and C# and why thery&rsquo;re good and bad, etc.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 13 - Programming Languages #  for (🥚 = 1; 🥚 &lt; 🐔; 🥚&#43;&#43;){ //whatever } [TODO] talk about to why there are so many, pros &amp; cons per domain, etc
+https://esoteric.codes
+Why OO Sucks (Joe Armstrong)
+Low Level #  C, C&#43;&#43;, C#, ???? #  [TODO] - a lot, talk about the varieties and differences of C and C&#43;&#43; and C# and why thery&rsquo;re good and bad, etc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/languages/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Languages | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.bf72a77d83a5d19d69e964a70223c925dc6606a9ef54342a84d8345b16271bd6.js" integrity="sha256-v3KnfYOl0Z1p6WSnAiPJJdxmBqnvVDQqhNg0WxYnG9Y="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;" >    Introduction</p>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+</ul>
+<p style="color:#009CDF;" >    Linux & Your Computer</p>
+<ul>
+<li><a href="/engineering/firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/hardware/"> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/howwework/"> 5 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/git/"> 5½- Git</a></li>
+<li><a href="/engineering/linuxshell/">A1 - Using The Linux Shell</a></li>
+</ul>
+<p style="color:#009CDF;" >    Prerequisites</p>
+<ul>
+<li><a href="/engineering/math/">6 - Math</a></li>
+<li><a href="/engineering/physics/">7 - Physics</a></li>
+<li><a href="/engineering/chem/">8 - Chemistry</a></li>
+<li><a href="/engineering/othersubjects/">9 - &lsquo;The Rest&rsquo;</a></li>
+</ul>
+<p style="color:#009CDF;" >    Programming</p>
+<ul>
+<li><a href="/engineering/codeintro/">10 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/consequences/">10½- Consequences</a></li>
+<li><a href="/engineering/lowlvl/">11 - Low Level Programming</a></li>
+<li><a href="/engineering/fosscopyright/">11½- FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/codecont/">12 - Yet More Programming</a></li>
+<li><a href="/engineering/fixxingissuses/">12½- Fixing Issues</a></li>
+<li><a href="/engineering/languages/"class=active>13 - Programming Languages</a></li>
+<li><a href="/engineering/algorithms/">14 - Algorithms and More</a></li>
+<li><a href="/engineering/bigprog/">15 - Writing a Big Program</a></li>
+<li><a href="/engineering/debugbuildtest/">16 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/multithread/">17 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/guiprog/">18 - Graphical Programming</a></li>
+<li><a href="/engineering/game/">19 - Game Programming</a></li>
+<li><a href="/engineering/funcprog/">20 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/aiml/">21 - Fine, here&rsquo;s AI/ML</a></li>
+</ul>
+<p style="color:#009CDF;" >    Circuits</p>
+<ul>
+<li><a href="/engineering/circuits1/">22 - Circuits! </a></li>
+<li><a href="/engineering/circuits2/">23 - Semiconductors</a></li>
+<li><a href="/engineering/digitallogic/">24 - Digital Logic</a></li>
+<li><a href="/engineering/embedded/">25 - Embedded Systems</a></li>
+<li><a href="/engineering/pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+</ul>
+<p style="color:#009CDF;" >    Going Deeper</p>
+<ul>
+<li><a href="/engineering/compileassemble/">27 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/fpga1/">28 - Programmable Logic</a></li>
+<li><a href="/engineering/comparch/">29 - Let&rsquo;s Make our own CPU</a></li>
+</ul>
+<p style="color:#009CDF;" >    Networking & Servers</p>
+<ul>
+<li><a href="/engineering/networking/">30 - Networking</a></li>
+<li><a href="/engineering/servers/">31 - Servers!</a></li>
+<li><a href="/engineering/cloud/">31½- &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/databases/">32 - Databases</a></li>
+<li><a href="/engineering/security/">33 - Security &amp; Exploitation</a></li>
+</ul>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;" >    Making and Hobbies</p>
+<ul>
+<li><a href="/engineering/3dprint/">34 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/hamradio/">35 - Ham Radio</a></li>
+<li><a href="/engineering/history/">36 - Computer History</a></li>
+</ul>
+<p style="color:#009CDF;" >    Wrapping Up</p>
+<ul>
+<li>
+<p><a href="/engineering/wrappingup/">37 - Where next?</a></p>
+</li>
+<li>
+<p><a href="/engineering/cheat/">A2 - Cheat Sheets &amp; Libraries</a></p>
+</li>
+</ul>
+<!--  - [A3 - Bill Of Materials](/engineering/a3-bom/) -->
+<ul>
+<li><a href="/engineering/resources/">A3 - Other Great Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+<li><a href="/music/video/">A2 - Video</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Languages</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-13---programming-languages">Chapter 13 - Programming Languages</a>
+      <ul>
+        <li><a href="#low-level">Low Level</a>
+          <ul>
+            <li><a href="#c-c-c-">C, C++, C#, ????</a></li>
+            <li><a href="#assembly">Assembly</a></li>
+            <li><a href="#rust">Rust</a></li>
+            <li><a href="#go">Go</a></li>
+            <li><a href="#zig">Zig</a></li>
+            <li><a href="#crystal">Crystal</a></li>
+            <li><a href="#d">D</a></li>
+            <li><a href="#nim">Nim</a></li>
+            <li><a href="#red">Red</a></li>
+            <li><a href="#haxe">Haxe</a></li>
+            <li><a href="#java--kotlin">Java &amp; Kotlin</a></li>
+            <li><a href="#webassembly">WebAssembly</a></li>
+            <li><a href="#vult">Vult</a></li>
+            <li><a href="#call-for-contribution">Call for Contribution</a></li>
+          </ul>
+        </li>
+        <li><a href="#high-level">High Level</a>
+          <ul>
+            <li><a href="#python">Python</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#php">PHP</a></li>
+            <li><a href="#ruby">Ruby</a></li>
+          </ul>
+        </li>
+        <li><a href="#for-the-skript-kidd3s">For the Skript Kidd3s</a>
+          <ul>
+            <li><a href="#lua">LUA</a></li>
+            <li><a href="#ahk">AHK</a></li>
+            <li><a href="#tasker-android">Tasker (Android)</a></li>
+            <li><a href="#cmdexe">CMD.exe</a></li>
+            <li><a href="#bash-zsh-fish-xonsh-wut">Bash, ZSH, Fish, Xonsh, wut?</a></li>
+            <li><a href="#node-red">Node-Red</a></li>
+            <li><a href="#n8n">n8n</a></li>
+          </ul>
+        </li>
+        <li><a href="#is-this-even-programming-anymore">Is this even Programming anymore?</a>
+          <ul>
+            <li><a href="#pure-data">Pure-Data</a></li>
+            <li><a href="#vvvv">vvvv</a></li>
+            <li><a href="#toollio">tooll.io</a></li>
+            <li><a href="#orcα">ORCΑ</a></li>
+          </ul>
+        </li>
+        <li><a href="#esolangs-the-hole-goes-deeper">Esolangs, the hole goes deeper</a></li>
+        <li><a href="#graphics-programming">Graphics Programming</a></li>
+        <li><a href="#functional-programming">Functional Programming</a></li>
+        <li><a href="#database-sql">Database (SQL)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-13---programming-languages">
+  Chapter 13 - Programming Languages
+  <a class="anchor" href="#chapter-13---programming-languages">#</a>
+</h1>
+<pre><code>for (🥚 = 1; 🥚 &lt; 🐔; 🥚++){
+   //whatever
+}
+</code></pre><p>[TODO] talk about to why there are so many, pros &amp; cons per domain, etc</p>
+<p><a href="https://esoteric.codes">https://esoteric.codes</a></p>
+<p><a href="http://harmful.cat-v.org/software/OO_programming/why_oo_sucks">Why OO Sucks (Joe Armstrong)</a></p>
+<h2 id="low-level">
+  Low Level
+  <a class="anchor" href="#low-level">#</a>
+</h2>
+<h3 id="c-c-c-">
+  C, C++, C#, ????
+  <a class="anchor" href="#c-c-c-">#</a>
+</h3>
+<p>[TODO] - a lot, talk about the varieties and differences of C and C++ and C# and why thery&rsquo;re good and bad, etc.</p>
+<p><a href="https://blog.joren.ga/programming/best-of-c">Best-of-C</a></p>
+<h3 id="assembly">
+  Assembly
+  <a class="anchor" href="#assembly">#</a>
+</h3>
+<p>Assembly code is specific to an <a href="https://en.wikipedia.org/wiki/Instruction_set_architecture">Instruction Set Architecture</a> or ISA, that means it is written for a specific family of processors. Most laptops and desktops today run on <a href="https://en.wikipedia.org/wiki/X86-64">x86_64</a> processors made by either AMD or Intel, while most tablets and phones use processors that use <a href="https://en.wikipedia.org/wiki/ARM_architecture">ARM</a>. Of course, there are many, many other instruction sets than these two. For example, <a href="https://en.wikipedia.org/wiki/MOS_Technology_6502">6502</a> assembly is particularly easy to write as it&rsquo;s from an era <a class="ptr">(1)</a> when programming at the assembly level was still common. On the other hand, <a href="https://en.wikipedia.org/wiki/RISC-V">RISC-V</a> is a newer ISA that has been gaining a lot of traction due to it&rsquo;s open nature.</p>
+<h4 id="x86-asm">
+  x86 ASM:
+  <a class="anchor" href="#x86-asm">#</a>
+</h4>
+<p><a href="https://www.youtube.com/watch?v=HgEGAaYdABA">x86 Assembly: Hello World! (YouTube, John Hammond)</a></p>
+<p><a href="https://0xax.github.io/archive/">Say hello to x86_64 Assembly 1-8</a> by 0xAX</p>
+<p>or</p>
+<p><a href="https://gpfault.net/posts/asm-tut-0.txt.html">Let&rsquo;s Learn x86-64 Assembly! Part 0 - Setup and First Steps</a></p>
+<p><a href="https://gpfault.net/posts/asm-tut-1.txt.html">Part 1 - Metaprogramming in Flat Assembler</a></p>
+<p><a href="https://gpfault.net/posts/asm-tut-2.txt.html">Part 2 - We&rsquo;re Writing a Virtual Machine</a></p>
+<p>or for the very adventurous</p>
+<p><a href="https://github.com/cirosantilli/linux-kernel-module-cheat#userland-assembly">Linux-kernal-module-cheat [Github]</a>, has a nice guide to asm</p>
+<h4 id="6502">
+  6502
+  <a class="anchor" href="#6502">#</a>
+</h4>
+<p><a href="https://github.com/gnomon-/furby-source">&lsquo;Furby&rsquo; Source Code</a></p>
+<h3 id="rust">
+  Rust
+  <a class="anchor" href="#rust">#</a>
+</h3>
+<blockquote>
+<p>Rust’s rich type system and ownership model guarantee memory-safety and thread-safety — enabling you to eliminate many classes of bugs at compile-time.</p>
+</blockquote>
+<p>Basically, Rust doesn&rsquo;t let you screw up. It enforces writing code that&rsquo;s safe (except when you specify you want to do something unsafe). It has a lot of other really nice features and makes using efficient data structures easy. Another really nifty thing about Rust is that it has a sort of at compile time garbage collection of sorts, for lack of a better way to put it. Read more on that <a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#memory-and-allocation">here</a>.</p>
+<p>I really recommend <a href="https://fasterthanli.me/blog/2020/a-half-hour-to-learn-rust/">A half-hour to learn Rust</a></p>
+<p><a href="https://nannou.cc/">Nannou</a>, is a creative coding framework for Rust that&rsquo;s pretty nifty too.</p>
+<p>To show the maturity, just check out <a href="https://www.redox-os.org/,">https://www.redox-os.org/,</a> a full OS written in Rust!</p>
+<p>Also, it&rsquo;s worth noting Rust can be used to generate Web Assembly (more about that below)</p>
+<p>Other sources to lean rust:</p>
+<ul>
+<li><a href="https://doc.rust-lang.org/book/foreword.html">https://doc.rust-lang.org/book/foreword.html</a></li>
+<li><a href="http://cliffle.com/p/dangerust/">Learning Rust the Dangerous Way (Cliff L. Biffle)</a></li>
+<li><a href="https://nnethercote.github.io/perf-book/">Rust Performance Book</a></li>
+</ul>
+<p>You may also want to check out <a href="https://github.com/dtolnay/cxx">CXX</a> for C++&lt;-&gt; Rust interop</p>
+<h3 id="go">
+  Go
+  <a class="anchor" href="#go">#</a>
+</h3>
+<blockquote>
+<p>Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.</p>
+</blockquote>
+<p>The big claim to fame for go is, well <code>go</code>, which let&rsquo;s you do really easy threading. (<a href="https://gobyexample.com/goroutines">https://gobyexample.com/goroutines</a>)</p>
+<p>Other sources to learn Go:</p>
+<ul>
+<li><a href="https://tour.golang.org/welcome/1">https://tour.golang.org/welcome/1</a></li>
+</ul>
+<h3 id="zig">
+  Zig
+  <a class="anchor" href="#zig">#</a>
+</h3>
+<blockquote>
+<p>A general-purpose programming language and toolchain for maintaining <strong>robust</strong>, <strong>optimal</strong>, and <strong>reusable</strong> software.</p>
+<p><a href="https://ziglang.org/">https://ziglang.org/</a></p>
+</blockquote>
+<p><a href="https://www.youtube.com/watch?v=Z4oYSByyRak">Zig: A programming language designed for robustness, optimality, and clarity – Andrew Kelley (YouTube)</a></p>
+<p><a href="https://nelari.us/post/raytracer_with_rust_and_zig/">Writing a small ray tracer in Rust and Zig</a></p>
+<p><a href="https://gist.github.com/ityonemo/769532c2017ed9143f3571e5ac104e50">A Half hour to Learn Zig (Github Gist)</a></p>
+<h3 id="crystal">
+  Crystal
+  <a class="anchor" href="#crystal">#</a>
+</h3>
+<p>Crystal&rsquo;s big thing is a Ruby (a very fast to write language) that&rsquo;s compiled and fast. From the home page:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e"># A very basic HTTP server</span>
+require <span style="color:#e6db74">&#34;http/server&#34;</span>
+
+server <span style="color:#f92672">=</span> <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Server</span><span style="color:#f92672">.</span>new <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>context<span style="color:#f92672">|</span>
+  context<span style="color:#f92672">.</span>response<span style="color:#f92672">.</span>content_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;text/plain&#34;</span>
+  context<span style="color:#f92672">.</span>response<span style="color:#f92672">.</span>print <span style="color:#e6db74">&#34;Hello world, got </span><span style="color:#e6db74">#{</span>context<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>path<span style="color:#e6db74">}</span><span style="color:#e6db74">!&#34;</span>
+<span style="color:#66d9ef">end</span>
+
+puts <span style="color:#e6db74">&#34;Listening on http://127.0.0.1:8080&#34;</span>
+server<span style="color:#f92672">.</span>listen(<span style="color:#ae81ff">8080</span>)
+</code></pre></td></tr></table>
+</div>
+</div><p>Seriously check it out at <a href="https://crystal-lang.org/">https://crystal-lang.org/</a></p>
+<h3 id="d">
+  D
+  <a class="anchor" href="#d">#</a>
+</h3>
+<p>A lesser used competitor to C++ mostly. It&rsquo;s very syntactically similar. Might be worth looking at.</p>
+<p><a href="https://dlang.org">https://dlang.org</a></p>
+<h3 id="nim">
+  Nim
+  <a class="anchor" href="#nim">#</a>
+</h3>
+<blockquote>
+<p>Nim is a statically typed compiled systems programming language. It combines successful concepts from mature languages like Python, Ada and Modula.</p>
+<p><a href="https://nim-lang.org/">https://nim-lang.org/</a></p>
+</blockquote>
+<p>Further, Nim allows for easy &lsquo;metaprogramming&rsquo; which basically means you can [TODO]</p>
+<p>Nim&rsquo;s syntax is python-like-ish</p>
+<h3 id="red">
+  Red
+  <a class="anchor" href="#red">#</a>
+</h3>
+<p>To be honest, I&rsquo;m not sure Red belongs in the low level category, as it can be ran as a JIT language.</p>
+<blockquote>
+<p><strong>Red</strong> is a next-gen programming language, strongly inspired by <a href="http://rebol.com/">REBOL</a>. Main features are:</p>
+<ul>
+<li><strong>Human-friendly</strong> <a href="https://pointillistic.com/ren/">syntax</a></li>
+<li><strong><a href="http://en.wikipedia.org/wiki/Homoiconicity">Homoiconic</a></strong> (Red is its own meta-language and own <strong><a href="http://www.rebol.com/rebolsteps.html">data-format</a></strong>)</li>
+<li><strong>Functional</strong>, imperative, <strong><a href="http://www.red-lang.org/2016/06/061-reactive-programming.html">reactive</a></strong> and <strong>symbolic</strong> programming</li>
+<li><strong>Prototype</strong>-based object support</li>
+<li>**Gradual and multi-**typing</li>
+<li><strong><a href="http://www.red-lang.org/2016/12/entering-world-of-macros.html">Macros</a></strong> system</li>
+<li><strong>Rich</strong> set of built-in datatypes (50+)</li>
+<li>Both <strong>statically</strong> and <strong>JIT</strong>-<strong>compiled</strong> to native code</li>
+<li><strong>Cross-compilation</strong> <a href="https://github.com/red/red/blob/master/usage.txt">done</a> <a href="https://github.com/red/red/blob/master/system/config.r">right</a></li>
+<li>Produces executables of <strong>less than 1MB</strong>, with <strong>no dependencies</strong></li>
+<li><strong>Concurrency</strong> and <strong>parallelism</strong> strong support (actors, parallel collections)</li>
+<li>Low-level <strong>system programming</strong> abilities through the built-in Red/System <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a></li>
+<li>Powerful <strong>PEG <a href="http://www.red-lang.org/2013/11/041-introducing-parse.html">parser </a></strong><a href="http://www.red-lang.org/2013/11/041-introducing-parse.html">DSL</a> included</li>
+<li><strong>Cross-platform native <a href="http://www.red-lang.org/2016/03/060-red-gui-system.html">GUI </a></strong><a href="http://www.red-lang.org/2016/03/060-red-gui-system.html">system</a>, with a <a href="http://doc.red-lang.org/gui/VID.html">UI DSL</a> and <a href="http://doc.red-lang.org/gui/Draw.html">drawing DSL</a></li>
+<li><strong>Bridging</strong> <a href="https://github.com/red/red/blob/master/bridges/java/hello.red">to the JVM</a></li>
+<li>High-level <strong>scripting</strong> and <a href="http://en.wikipedia.org/wiki/Read-eval-print_loop"><strong>REPL</strong></a> console included</li>
+<li>Visual Studio Code <strong><a href="https://marketplace.visualstudio.com/items?itemName=red-auto.red">plugin</a></strong>, with many helpful features</li>
+<li>Highly <strong><a href="http://www.red-lang.org/2017/03/062-libred-and-macros.html">embeddable</a></strong></li>
+<li><strong>Low</strong> memory footprint, <strong>garbage collected</strong></li>
+<li><strong><a href="http://www.red-lang.org/p/download.html">Single-file</a></strong> (~1MB) contains whole toolchain, full standard library and REPL.</li>
+<li><strong>No install, no setup</strong></li>
+<li><strong>Fun</strong> guaranteed!</li>
+</ul>
+<p><a href="https://www.red-lang.org/p/about.html">https://www.red-lang.org/p/about.html</a></p>
+</blockquote>
+<p>If you&rsquo;re interested, check out <a href="https://www.red-lang.org/p/getting-started.html">Red&rsquo;s &lsquo;Getting Started&rsquo; page</a>.</p>
+<h3 id="haxe">
+  Haxe
+  <a class="anchor" href="#haxe">#</a>
+</h3>
+<blockquote>
+<p>Haxe is an open source high-level strictly-typed programming language with a fast optimizing cross-compiler.</p>
+<p><a href="https://haxe.org/">https://haxe.org/</a></p>
+</blockquote>
+<h3 id="java--kotlin">
+  Java &amp; Kotlin
+  <a class="anchor" href="#java--kotlin">#</a>
+</h3>
+<p>!&gt; This is Opinionated Guides, so let me be clear, I really, <strong>really</strong> hate Java. It&rsquo;s a langage that didn&rsquo;t even become popular on it&rsquo;s own merit, instead Sun Microsystem paid a <a href="https://www.theregister.com/2003/06/09/sun_preps_500m_java_brand/">fuck ton</a> of money to push it- hence the <strong>&ldquo;3 Billion Devices Run Java&rdquo;</strong> Thing. I&rsquo;m hopeful (albeit probably naively) that Oracle (Which bought Java from Sun) making Java a mess of licencesing as the &lsquo;main&rsquo; Java Virtual Machine goes <a href="https://en.wikipedia.org/wiki/Java_%28programming_language%29">paid (Read on Wikipedia)</a> and <a href="https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.">suing Google</a> will be the nail in the cofin for education using it and that it will die out with time.
+<a href="https://en.wikipedia.org/wiki/Criticism_of_Java">Criticism of Java (Wikipedia)</a></p>
+<p>don&rsquo;t.
+but, here&rsquo;s why not to use Java:</p>
+<p><a href="https://jakewharton.com/shrinking-a-kotlin-binary/">https://jakewharton.com/shrinking-a-kotlin-binary/</a></p>
+<h3 id="webassembly">
+  WebAssembly
+  <a class="anchor" href="#webassembly">#</a>
+</h3>
+<blockquote>
+<p>WebAssembly (abbreviated <em>Wasm</em>) is a binary instruction format for a stack-based virtual machine. Wasm is designed as a portable target for compilation of high-level languages like C/C++/Rust, enabling deployment on the web for client and server applications.</p>
+<p><a href="https://webassembly.org/">https://webassembly.org/</a></p>
+</blockquote>
+<p>While not technically a programming language, I wanted to bring it up and encourage you look into it to be used instead of JavaScript for real projects.</p>
+<p><a href="https://www.assemblyscript.org">https://www.assemblyscript.org</a> is a TypeScript varient that can generate Web asm.</p>
+<p><a href="https://webassembly.studio">https://webassembly.studio</a></p>
+<h3 id="vult">
+  Vult
+  <a class="anchor" href="#vult">#</a>
+</h3>
+<p><a href="https://www.vult-dsp.com/vult-language">Vult Language Homepage</a></p>
+<p>&ldquo;The Vult Language is a transcompiler to write high-performance DSP code&rdquo;</p>
+<h3 id="call-for-contribution">
+  Call for Contribution
+  <a class="anchor" href="#call-for-contribution">#</a>
+</h3>
+<p>If I missed a language you think I should have mentioned or would like to write a nice guide to your language of choice to be included in this Opinionated Guide please submit a pull request. I&rsquo;d love to expand the Rust, Go, and Zig sections significantly!</p>
+<hr>
+<h2 id="high-level">
+  High Level
+  <a class="anchor" href="#high-level">#</a>
+</h2>
+<p>[TODO] probably going to need to break this out into it&rsquo;s own chapter</p>
+<h3 id="python">
+  Python
+  <a class="anchor" href="#python">#</a>
+</h3>
+<p><a href="https://cython.org">Cython</a></p>
+<blockquote>
+<p><strong>Cython</strong> is an <strong>optimising static compiler</strong> for both the <strong><a href="http://www.python.org/about/">Python</a></strong> programming language and the extended Cython programming language (based on <strong>Pyrex</strong>). It makes writing C extensions for Python as easy as Python itself.</p>
+</blockquote>
+<h3 id="javascript">
+  JavaScript
+  <a class="anchor" href="#javascript">#</a>
+</h3>
+<p>Fine. I&rsquo;ll talk about JS. But, please. For the love of god do not use this to make an Electron App.</p>
+<p>Before going to far, I do want to mention that a chunk of my hatred for JS is solved using frameworks and that I totally acknowledge the utility of JS for making quick, often very cool, &lsquo;sketches&rsquo;. The creative coding community is amazing. Further, JS, as much of a total dumpster fire as it is, is responsible for the Internet as it is today weather thats a good thing <a href="http://motherfuckingwebsite.com/">or not</a>.</p>
+<h4 id="coffeescript">
+  CoffeeScript
+  <a class="anchor" href="#coffeescript">#</a>
+</h4>
+<p><a href="https://coffeescript.org/">https://coffeescript.org/</a></p>
+<h4 id="typescript">
+  TypeScript
+  <a class="anchor" href="#typescript">#</a>
+</h4>
+<p><a href="https://www.typescriptlang.org/">https://www.typescriptlang.org/</a></p>
+<h4 id="frameworks">
+  Frameworks
+  <a class="anchor" href="#frameworks">#</a>
+</h4>
+<p><a href="https://en.wikipedia.org/wiki/Comparison_of_JavaScript_frameworks">https://en.wikipedia.org/wiki/Comparison_of_JavaScript_frameworks</a></p>
+<h5 id="angular">
+  Angular
+  <a class="anchor" href="#angular">#</a>
+</h5>
+<h5 id="react">
+  React
+  <a class="anchor" href="#react">#</a>
+</h5>
+<h5 id="vue">
+  Vue
+  <a class="anchor" href="#vue">#</a>
+</h5>
+<h5 id="node">
+  Node
+  <a class="anchor" href="#node">#</a>
+</h5>
+<h3 id="php">
+  PHP
+  <a class="anchor" href="#php">#</a>
+</h3>
+<p>don&rsquo;t.
+but, here&rsquo;s why not to use PHP:
+If you must, you might want to check out Hack: <a href="https://hacklang.org/">https://hacklang.org/</a></p>
+<h3 id="ruby">
+  Ruby
+  <a class="anchor" href="#ruby">#</a>
+</h3>
+<blockquote>
+<p>A dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write.</p>
+<p><a href="https://www.ruby-lang.org/en/">https://www.ruby-lang.org/en/</a></p>
+</blockquote>
+<h2 id="for-the-skript-kidd3s">
+  For the Skript Kidd3s
+  <a class="anchor" href="#for-the-skript-kidd3s">#</a>
+</h2>
+<blockquote>
+<p>In programming and hacking cultures, a <strong>script kiddie</strong>, <strong>skiddie</strong>, or <strong>skid</strong> is an unskilled individual who uses <a href="https://en.wikipedia.org/wiki/Scripting_language">scripts</a> or programs developed by others to attack computer systems and networks and <a href="https://en.wikipedia.org/wiki/Website_defacement">deface websites</a>, such as a <a href="https://en.wikipedia.org/wiki/Web_shell">web shell</a>. It is generally assumed that most script kiddies are juveniles who lack the ability to write sophisticated programs or exploits on their own and that their objective is to try to impress their friends or gain credit in computer-enthusiast communities. However, the term does not relate to the actual age of the participant. The term is considered to be derogatory.</p>
+<p>from <a href="https://en.wikipedia.org/wiki/Script_kiddie">https://en.wikipedia.org/wiki/Script_kiddie</a></p>
+</blockquote>
+<p>But, really, some absolutely incredible code has been written in the following languages. They more than serve their purpose and are generally some of the fastest &ldquo;I just need a quick and dirty solution&rdquo; options out there. Not everything needs a blazing fast hand optimized C implementation, and code that&rsquo;s really just for personal use, to acomplish a one-off task, or that runs inside a bigger program (3D modeling software like Blender, Video editing software like Premier, Game development editors, etc.)  should probably be easy to read and modify quickly. Rapid prototyping certainly has it&rsquo;s place.</p>
+<p>Just don&rsquo;t think you should use these to write efficient, safe code.</p>
+<h3 id="lua">
+  LUA
+  <a class="anchor" href="#lua">#</a>
+</h3>
+<h4 id="moonscript">
+  MoonScript
+  <a class="anchor" href="#moonscript">#</a>
+</h4>
+<h3 id="ahk">
+  AHK
+  <a class="anchor" href="#ahk">#</a>
+</h3>
+<h3 id="tasker-android">
+  Tasker (Android)
+  <a class="anchor" href="#tasker-android">#</a>
+</h3>
+<h3 id="cmdexe">
+  CMD.exe
+  <a class="anchor" href="#cmdexe">#</a>
+</h3>
+<h3 id="bash-zsh-fish-xonsh-wut">
+  Bash, ZSH, Fish, Xonsh, wut?
+  <a class="anchor" href="#bash-zsh-fish-xonsh-wut">#</a>
+</h3>
+<h3 id="node-red">
+  Node-Red
+  <a class="anchor" href="#node-red">#</a>
+</h3>
+<h3 id="n8n">
+  n8n
+  <a class="anchor" href="#n8n">#</a>
+</h3>
+<h2 id="is-this-even-programming-anymore">
+  Is this even Programming anymore?
+  <a class="anchor" href="#is-this-even-programming-anymore">#</a>
+</h2>
+<h3 id="pure-data">
+  Pure-Data
+  <a class="anchor" href="#pure-data">#</a>
+</h3>
+<h3 id="vvvv">
+  vvvv
+  <a class="anchor" href="#vvvv">#</a>
+</h3>
+<h3 id="toollio">
+  tooll.io
+  <a class="anchor" href="#toollio">#</a>
+</h3>
+<h3 id="orcα">
+  ORCΑ
+  <a class="anchor" href="#orc%ce%b1">#</a>
+</h3>
+<h2 id="esolangs-the-hole-goes-deeper">
+  Esolangs, the hole goes deeper
+  <a class="anchor" href="#esolangs-the-hole-goes-deeper">#</a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Esoteric_programming_language">https://en.wikipedia.org/wiki/Esoteric_programming_language</a></p>
+<p><a href="https://github.com/angrykoala/awesome-esolangs">Awesome Esolangs (Github)</a></p>
+<p><a href="https://esolangs.org">https://esolangs.org</a></p>
+<p><a href="https://antfs10.itch.io/brainfuck-designer">Brainfuck Designer</a></p>
+<p><a href="https://www.dangermouse.net/esoteric/piet.html">Piet</a></p>
+<p><img src="/piethw.png" alt="" /></p>
+<blockquote>
+<p>Hello World implimented in Piet (<a href="https://commons.wikimedia.org/wiki/File:Hello_world_piet.png">Source</a>)</p>
+</blockquote>
+<p><a href="https://puddledockgames.itch.io/puddlelang">Puddlelang</a></p>
+<p><a href="https://github.com/Welcome-To-Robins-Repo/blancmange">Blancmange</a></p>
+<p><a href="https://github.com/molarmanful/RETURN">RETURN</a></p>
+<p><a href="https://github.com/Moonstroke/3d/">Moonstroke - 3d</a></p>
+<p><a href="https://github.com/Jellonator/Nandlang">Nandlang</a></p>
+<p><a href="https://github.com/molarmanful/bitman">bitman</a></p>
+<p><a href="https://esolangs.org/wiki/Spiral">Spiral</a></p>
+<pre><code>0@v*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v
+*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^
+v
+^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v=
+***^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^
+*
+**********v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^##
+*^v*^v*^v*^v*^v*^v*^v*^v*^v#######################
+v
+^*v^*v^*v^**************v^*v^*v^*v^*v^*v^**********
+#########^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v*^v****
+#
+###############v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*v^*
+                         v*^v*^v*^v**************^v
+ ====               X    @
+ i:vX==:====     u@vX=@v i!  ==XX  ===v^==
+    X vs.vuv     @===        s=vv=X=$v=  v
+                             =X     X =  #
+                                    ===@v@X
+</code></pre><blockquote>
+<p>ROT13 implimented in Spiral</p>
+</blockquote>
+<p><a href="https://esolangs.org/wiki/Tree">Tree</a></p>
+<pre><code>      ^
+    ^^|^^
+   ^^\|/^^
+   H^ |/^^^
+     \| e
+      |/
+   ol~|
+     \|
+  , 32|
+   \/ |
+    \ |  W
+ l   \| /
+ \  d |/  o
+  \/ !|r /  
+   \/ |\/
+    \ |/
+     \|
+</code></pre><blockquote>
+<p>Hello World implimented in Tree</p>
+</blockquote>
+<p><a href="https://esolangs.org/wiki/Ziim">Ziim</a></p>
+<p><img src="/ziimhw.png" style="zoom:50%;" /></p>
+<blockquote>
+<p>Hello World implimented in Ziim</p>
+</blockquote>
+<p><a href="https://esolangs.org/wiki/SendStuff">SendStuff</a> (unimplemented)</p>
+<p><a href="https://www.andrew.cmu.edu/user/twildenh/PowerPointTM/Paper.pdf">PowerPoint is Turing Complete</a></p>
+<h2 id="graphics-programming">
+  Graphics Programming
+  <a class="anchor" href="#graphics-programming">#</a>
+</h2>
+<p>look to chapter 26 for programming involving graphics, including node based shader editors and more</p>
+<h2 id="functional-programming">
+  Functional Programming
+  <a class="anchor" href="#functional-programming">#</a>
+</h2>
+<p>Look at Chapter 27 for Functional Programming</p>
+<blockquote>
+<p>Lisp, Haskell, Luna,</p>
+</blockquote>
+<h2 id="database-sql">
+  Database (SQL)
+  <a class="anchor" href="#database-sql">#</a>
+</h2>
+<p>Look at Chapter 18 for information on Databases</p>
+<ol hidden id="footnotes">
+    <li>Popular video game consoles and computers, such as the Atari 2600, Atari 8-bit family, Apple II, Nintendo Entertainment System, Commodore 64, Atari Lynx, BBC Micro and others, use the 6502 or variations of the basic design.</br>-from that same wikipedia article</li>
+</ol></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/languages.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-13---programming-languages">Chapter 13 - Programming Languages</a>
+      <ul>
+        <li><a href="#low-level">Low Level</a>
+          <ul>
+            <li><a href="#c-c-c-">C, C++, C#, ????</a></li>
+            <li><a href="#assembly">Assembly</a></li>
+            <li><a href="#rust">Rust</a></li>
+            <li><a href="#go">Go</a></li>
+            <li><a href="#zig">Zig</a></li>
+            <li><a href="#crystal">Crystal</a></li>
+            <li><a href="#d">D</a></li>
+            <li><a href="#nim">Nim</a></li>
+            <li><a href="#red">Red</a></li>
+            <li><a href="#haxe">Haxe</a></li>
+            <li><a href="#java--kotlin">Java &amp; Kotlin</a></li>
+            <li><a href="#webassembly">WebAssembly</a></li>
+            <li><a href="#vult">Vult</a></li>
+            <li><a href="#call-for-contribution">Call for Contribution</a></li>
+          </ul>
+        </li>
+        <li><a href="#high-level">High Level</a>
+          <ul>
+            <li><a href="#python">Python</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#php">PHP</a></li>
+            <li><a href="#ruby">Ruby</a></li>
+          </ul>
+        </li>
+        <li><a href="#for-the-skript-kidd3s">For the Skript Kidd3s</a>
+          <ul>
+            <li><a href="#lua">LUA</a></li>
+            <li><a href="#ahk">AHK</a></li>
+            <li><a href="#tasker-android">Tasker (Android)</a></li>
+            <li><a href="#cmdexe">CMD.exe</a></li>
+            <li><a href="#bash-zsh-fish-xonsh-wut">Bash, ZSH, Fish, Xonsh, wut?</a></li>
+            <li><a href="#node-red">Node-Red</a></li>
+            <li><a href="#n8n">n8n</a></li>
+          </ul>
+        </li>
+        <li><a href="#is-this-even-programming-anymore">Is this even Programming anymore?</a>
+          <ul>
+            <li><a href="#pure-data">Pure-Data</a></li>
+            <li><a href="#vvvv">vvvv</a></li>
+            <li><a href="#toollio">tooll.io</a></li>
+            <li><a href="#orcα">ORCΑ</a></li>
+          </ul>
+        </li>
+        <li><a href="#esolangs-the-hole-goes-deeper">Esolangs, the hole goes deeper</a></li>
+        <li><a href="#graphics-programming">Graphics Programming</a></li>
+        <li><a href="#functional-programming">Functional Programming</a></li>
+        <li><a href="#database-sql">Database (SQL)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

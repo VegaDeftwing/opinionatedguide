@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 3 - Into The Hardware #  One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!
+The CPU #  These are CPUS or Central Processing Units.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 3 - Into The Hardware #  One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!
+The CPU #  These are CPUS or Central Processing Units." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/hardware/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Hardware | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.bf72a77d83a5d19d69e964a70223c925dc6606a9ef54342a84d8345b16271bd6.js" integrity="sha256-v3KnfYOl0Z1p6WSnAiPJJdxmBqnvVDQqhNg0WxYnG9Y="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;" >    Introduction</p>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+</ul>
+<p style="color:#009CDF;" >    Linux & Your Computer</p>
+<ul>
+<li><a href="/engineering/firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/hardware/"class=active> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/howwework/"> 5 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/git/"> 5½- Git</a></li>
+<li><a href="/engineering/linuxshell/">A1 - Using The Linux Shell</a></li>
+</ul>
+<p style="color:#009CDF;" >    Prerequisites</p>
+<ul>
+<li><a href="/engineering/math/">6 - Math</a></li>
+<li><a href="/engineering/physics/">7 - Physics</a></li>
+<li><a href="/engineering/chem/">8 - Chemistry</a></li>
+<li><a href="/engineering/othersubjects/">9 - &lsquo;The Rest&rsquo;</a></li>
+</ul>
+<p style="color:#009CDF;" >    Programming</p>
+<ul>
+<li><a href="/engineering/codeintro/">10 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/consequences/">10½- Consequences</a></li>
+<li><a href="/engineering/lowlvl/">11 - Low Level Programming</a></li>
+<li><a href="/engineering/fosscopyright/">11½- FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/codecont/">12 - Yet More Programming</a></li>
+<li><a href="/engineering/fixxingissuses/">12½- Fixing Issues</a></li>
+<li><a href="/engineering/languages/">13 - Programming Languages</a></li>
+<li><a href="/engineering/algorithms/">14 - Algorithms and More</a></li>
+<li><a href="/engineering/bigprog/">15 - Writing a Big Program</a></li>
+<li><a href="/engineering/debugbuildtest/">16 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/multithread/">17 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/guiprog/">18 - Graphical Programming</a></li>
+<li><a href="/engineering/game/">19 - Game Programming</a></li>
+<li><a href="/engineering/funcprog/">20 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/aiml/">21 - Fine, here&rsquo;s AI/ML</a></li>
+</ul>
+<p style="color:#009CDF;" >    Circuits</p>
+<ul>
+<li><a href="/engineering/circuits1/">22 - Circuits! </a></li>
+<li><a href="/engineering/circuits2/">23 - Semiconductors</a></li>
+<li><a href="/engineering/digitallogic/">24 - Digital Logic</a></li>
+<li><a href="/engineering/embedded/">25 - Embedded Systems</a></li>
+<li><a href="/engineering/pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+</ul>
+<p style="color:#009CDF;" >    Going Deeper</p>
+<ul>
+<li><a href="/engineering/compileassemble/">27 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/fpga1/">28 - Programmable Logic</a></li>
+<li><a href="/engineering/comparch/">29 - Let&rsquo;s Make our own CPU</a></li>
+</ul>
+<p style="color:#009CDF;" >    Networking & Servers</p>
+<ul>
+<li><a href="/engineering/networking/">30 - Networking</a></li>
+<li><a href="/engineering/servers/">31 - Servers!</a></li>
+<li><a href="/engineering/cloud/">31½- &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/databases/">32 - Databases</a></li>
+<li><a href="/engineering/security/">33 - Security &amp; Exploitation</a></li>
+</ul>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;" >    Making and Hobbies</p>
+<ul>
+<li><a href="/engineering/3dprint/">34 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/hamradio/">35 - Ham Radio</a></li>
+<li><a href="/engineering/history/">36 - Computer History</a></li>
+</ul>
+<p style="color:#009CDF;" >    Wrapping Up</p>
+<ul>
+<li>
+<p><a href="/engineering/wrappingup/">37 - Where next?</a></p>
+</li>
+<li>
+<p><a href="/engineering/cheat/">A2 - Cheat Sheets &amp; Libraries</a></p>
+</li>
+</ul>
+<!--  - [A3 - Bill Of Materials](/engineering/a3-bom/) -->
+<ul>
+<li><a href="/engineering/resources/">A3 - Other Great Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+<li><a href="/music/video/">A2 - Video</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Hardware</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-3---into-the-hardware">Chapter 3 - Into The Hardware</a>
+      <ul>
+        <li><a href="#the-cpu">The CPU</a>
+          <ul>
+            <li><a href="#clock-speed">Clock Speed</a></li>
+            <li><a href="#microcode">Microcode</a></li>
+            <li><a href="#cache">Cache</a></li>
+            <li><a href="#interrupts">Interrupts</a></li>
+            <li><a href="#power">Power</a></li>
+            <li><a href="#physically-what-and-where-is-this-thing">Physically, what and where is this thing?</a></li>
+            <li><a href="#numa-nodes-chiplets-die-yield">Numa Nodes? Chiplets? Die Yield?</a></li>
+            <li><a href="#branch-prediction--pipelining">Branch Prediction &amp; Pipelining</a></li>
+            <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
+            <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
+          </ul>
+        </li>
+        <li><a href="#further-reading">Further Reading</a></li>
+        <li><a href="#ram">RAM</a>
+          <ul>
+            <li><a href="#virtual-memory">Virtual Memory</a></li>
+            <li><a href="#pages">Pages</a></li>
+            <li><a href="#memory-issues-ecc-and-memtest86">Memory issues, ECC, and Memtest86</a></li>
+            <li><a href="#the-future-of-ram">The Future of RAM</a></li>
+            <li><a href="#row-hammer">Row Hammer</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-motherboard">The Motherboard</a>
+          <ul>
+            <li><a href="#chipset">Chipset</a></li>
+            <li><a href="#expansion-slots">Expansion slots</a></li>
+            <li><a href="#rombiosuefi">ROM/BIOS/UEFI</a></li>
+            <li><a href="#vrm">VRM</a></li>
+          </ul>
+        </li>
+        <li><a href="#graphics-card-or-integrated-graphics">Graphics Card (or integrated graphics)</a>
+          <ul>
+            <li><a href="#hardware-accelerated-decode">Hardware Accelerated Decode</a></li>
+          </ul>
+        </li>
+        <li><a href="#hardware-acceleration">Hardware Acceleration</a></li>
+        <li><a href="#storage">Storage</a>
+          <ul>
+            <li><a href="#hdds">HDDs</a></li>
+            <li><a href="#ssd">SSD</a></li>
+            <li><a href="#cloud-storage-some-one-elses-drives">Cloud Storage (Some one else&rsquo;s drives)</a></li>
+            <li><a href="#portable">Portable</a></li>
+            <li><a href="#the-past">The Past</a></li>
+            <li><a href="#raid-and-disk-pools">RAID and Disk Pools</a></li>
+          </ul>
+        </li>
+        <li><a href="#network-interfaces">Network Interfaces</a>
+          <ul>
+            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#wifi">WiFi</a></li>
+            <li><a href="#high-bandwidth">High Bandwidth</a></li>
+            <li><a href="#the-future">The Future</a></li>
+            <li><a href="#the-past-1">The Past</a></li>
+          </ul>
+        </li>
+        <li><a href="#power-supply">Power Supply</a></li>
+        <li><a href="#cooling">Cooling</a></li>
+        <li><a href="#peripherals">Peripherals</a>
+          <ul>
+            <li><a href="#usb">USB</a></li>
+            <li><a href="#keyboards">Keyboards</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#chapter-31---how-to-know-what-to-buy">Chapter 3.1 - How to know what to buy</a></li>
+    <li><a href="#chapter-32---legacy-hardware">Chapter 3.2 - Legacy Hardware</a></li>
+    <li><a href="#chapter-33---architectures">Chapter 3.3 - Architectures</a>
+      <ul>
+        <li><a href="#architectures">Architectures</a></li>
+        <li><a href="#file-formats">File Formats</a></li>
+        <li><a href="#operating-systems">Operating Systems</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-3---into-the-hardware">
+  Chapter 3 - Into The Hardware
+  <a class="anchor" href="#chapter-3---into-the-hardware">#</a>
+</h1>
+<p>One of the nifty things about Linux is you don&rsquo;t need to install extra software to check out the deeper parts of your hardware. While on windows you might need a tool like CPU-Z to look at information about the CPU on Linux you can do it out of the box. Let&rsquo;s get started on that then!</p>
+<h2 id="the-cpu">
+  The CPU
+  <a class="anchor" href="#the-cpu">#</a>
+</h2>
+<img src="/cpus.jpg" alt="CPUS" height="400em">
+<p>These are CPUS or Central Processing Units. They&rsquo;re the beating heart of your computer, doing the day-to-day number crunching. The rectangular one of one of the first CPU&rsquo;s in the lineage leading up to CPU&rsquo;s like the ones used in desktop&rsquo;s today, with further successors shown in order from top left to the bottom right. The metal-capped one at the bottom right, while old, is visually quite representative of a modern desktop CPU, though the CPUs in a laptop or smart phone do look quite different still.</p>
+<p>One of the nifty things we do pretty easily in linux is get information about our hardware directly. Just as when we were installing Arch and we used <code>lsblk</code> to see an overview of the disks on the system, we can use some other tools to find out some other information about the system. Let&rsquo;s start off basic and see what CPU you have. Go ahead and run</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+╰─➤  cat /proc/cpuinfo
+</code></pre></td></tr></table>
+</div>
+</div><p>This is actually just using that same <code>cat</code> command we used before. This time we&rsquo;re using it to read the system generated file that tells us about the processor in this system. I&rsquo;m going to provide the output from my system for reference:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">processor       : <span style="color:#ae81ff">0</span>
+vendor_id       : AuthenticAMD
+cpu family      : <span style="color:#ae81ff">23</span>
+model           : <span style="color:#ae81ff">1</span>
+model name      : AMD Ryzen <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">1700</span> Eight-Core Processor
+stepping        : <span style="color:#ae81ff">1</span>
+microcode       : 0x8001137
+cpu MHz         : 2018.119
+cache size      : <span style="color:#ae81ff">512</span> KB
+physical id     : <span style="color:#ae81ff">0</span>
+siblings        : <span style="color:#ae81ff">16</span>
+core id         : <span style="color:#ae81ff">0</span>
+cpu cores       : <span style="color:#ae81ff">8</span>
+apicid          : <span style="color:#ae81ff">0</span>
+initial apicid  : <span style="color:#ae81ff">0</span>
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : <span style="color:#ae81ff">13</span>
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb hw_pstate sme ssbd sev ibpb vmmcall fsgsbase bmi1 avx2 smep bmi2 rdseed adx smap clflushopt sha_ni xsaveopt xsavec xgetbv1 xsaves clzero irperf xsaveerptr arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif overflow_recov succor smca
+bugs            : sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass
+bogomips        : 7688.44
+TLB size        : <span style="color:#ae81ff">2560</span> 4K pages
+clflush size    : <span style="color:#ae81ff">64</span>
+cache_alignment : <span style="color:#ae81ff">64</span>
+address sizes   : <span style="color:#ae81ff">43</span> bits physical, <span style="color:#ae81ff">48</span> bits virtual
+power management: ts ttp tm hwpstate eff_freq_ro <span style="color:#f92672">[</span>13<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>14<span style="color:#f92672">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Alright, that&rsquo;s a whole lot of information, let&rsquo;s break it down.</p>
+<p>First of all, almost all modern Central Processing Units (CPUs) have multiple cores, and as with most things in computers the&rsquo;re counted from 0, so on a 4 core computer you&rsquo;ll have cores 0, 1, 2, and 3. Multiple cores simply let your computer do things in parallel, running multiple programs or tasks at the same time</p>
+<p>Next is the vendor ID, family, model, name, and stepping. My processor is an AMD Ryzen 7 1700. There&rsquo;s a pretty good chance your CPU will be made by Intel, and as such the family, model, name, and what not will reflect that. AMD and Intel are practically the only two laptop and desktop CPU providers, though in the feature we&rsquo;ll work with boards that use CPU&rsquo;s made by other manufactures. Really, most of this doesn&rsquo;t matter. Some CPUs are nicer than others, and if you follow the market or care it&rsquo;s easy to get a sense of a CPU&rsquo;s speed just based on it&rsquo;s name, but let&rsquo;s move on for now.</p>
+<p>Next is</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">microcode       : 0x8001137
+cpu MHz         : 2018.119
+cache size      : <span style="color:#ae81ff">512</span> KB
+</code></pre></td></tr></table>
+</div>
+</div><p>Each of these things is very important, but I&rsquo;m going to start with cpu MHz as it&rsquo;s probably the easiest to understand, however, to understand this we&rsquo;ll need to get even a bit lower level than this and learn about the electronic component that changed humanity: the transistor.</p>
+<h3 id="clock-speed">
+  Clock Speed
+  <a class="anchor" href="#clock-speed">#</a>
+</h3>
+<img src="/transistor.jpg" alt="Transistors" height="400em">
+<p>However, to get to that we&rsquo;ve gotta go just a bit further down the rabbit hole to the relay. Relays are super simple to understand, they&rsquo;re just a metal switch that is pulled open or closed using another input signal (usually a magnet pulling/pushing the switch closed/open) basically imagine a light switch, where the switch itself is controlled by yet another electrical signal. Relays are slow though, they require a physical metal plate to move to change the connection. Because of this they have limited reliability and worth note they&rsquo;re actually loud. You can hear an audible click of the switch as they change state.</p>
+<blockquote>
+<p>If this is already interesting to you, here&rsquo;s a <a href="https://www.youtube.com/watch?v=k1hJoalcK68">video</a> demonstrating a relay computer you can actually buy</p>
+</blockquote>
+<p>Enter the vacuum tube. Though rarely used today outside of high end audio and old radios, for a period of time the logic inside a computer used these tubes. Essentially theres three important parts of the tube, the Cathode, Plate and Grid. Put very simply the Cathode emits electrons and the Plate collects them. Where it gets interesting is the grid in between. By applying a voltage to the grid a signal can be controlled giving us the same ability to turn something on or off by a third wire as in the relay.</p>
+<blockquote>
+<p>Worth note but irreverent for digital electronics, tubes and transistors can actually pass only a percentage of the input back out, based proportionally on the input. This actually means that both tubes and transistors can act as an amplifier, using a small input range to control a much larger signal. A single tube or transistor in conjunction with other supporting components can be used to make a functional amplifier.</p>
+</blockquote>
+<p>Though the real break though here was the fact that this was no longer a mechanical system. With relays there was a very slow limit on the rate at which they could respond reliably, but with tubes this increased exponentially. Tubes were still expensive, large, and power hungry though. However, with their advent early computers saw a massive boost in speed with a decrease in cost</p>
+<p>Finally, enter the transistor. The physics here isn&rsquo;t that far removed from the vacuum tube, only now instead of a vacuum the electrons are moving though a semiconductor - typically silicon. Again this brought a massive shrink in physical size and increase in that rate at which it could respond. Pictured above are two discrete transistors, however, this is where things get mind blowing:</p>
+<p>The Ryzen 1700 CPU in the computer I&rsquo;m typing this on has 4,800,000,000 transistors in a package that is only 213 mm², and finally, we can refrence the number output by <code>cat /proc/cpuinfo</code></p>
+<p>At the moment I got that output the transistors where being turned on and off at a rate of 2018Mhz. or 2Ghz. However, this system can run up to roughly 3.8Ghz. The faster this speed the faster your computer; however, your CPU will also use more power and run hotter. It&rsquo;s for this reason that most systems adjust the speed based on load. Doing simple things like writing this document and as seen with that output my system runs at nearly half speed which is actually the slowest it can run. Because the computer is hardly doing anything right now the majority of that switching is actually just doing nothing but using power running &lsquo;no operation instructions&rsquo; the functional equivalent of just running 0+0 while it it waits for something to do.</p>
+<p>The OS itself actually tells the processor what speed it should be running at. In Windows, when you change your power plan to &lsquo;high performance&rsquo; one of the major things it does is not allow the processor to run at a slower speed, and in Linux you can similarly control this using some cpu speed commands. We&rsquo;ll get to that later though.</p>
+<p>Finally it&rsquo;s worth note that on some systems, primarily high end desktops, you can actually run your processor outside of factor specifications by increasing the maximum clock rate of the processor. Doing this can lead to system stability issues and obviously leads to a higher power usage and heat output though. This process is known as &lsquo;overclocking&rsquo;  as your taking the internal clock of the processor beyond it&rsquo;s rating. My CPU, a Ryzen 1700, has actually been over clocked in order to get 3.8Ghz at all times on all of the cores.</p>
+<h3 id="microcode">
+  Microcode
+  <a class="anchor" href="#microcode">#</a>
+</h3>
+<p>Modern processors are very, very complicated. So complicated in fact that there is a full very tiny computer in your processor. This computer does multiple things, but the main one we&rsquo;ll talk about is the translation between types of machine code. In order to understand this we&rsquo;ll need to look a basic program written in the language &lsquo;C&rsquo;.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    This code first makes two integers, <code>a</code> and <code>b</code>, gives them values, then adds them together and stores the result back into a. Finally, the program returns a 0 to the operating system in order to say &ldquo;I ran without errors&rdquo;.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#66d9ef">int</span> a;
+  <span style="color:#66d9ef">int</span> b;
+  a <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+  b <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>;
+  a <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Unlike python which get&rsquo;s converted to something the computer can understand as it executes C is compiled before hand. This makes it so programs written in C are much, much faster than those written in python, though obviously C code is more difficult to write. Compilation is the process of turning a program into a file full of instructions the computer actually understands. This happens in two steps, first the program is turned into assembly code, for the above code this results in the output to the right:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">        push    rbp
+        mov     rbp, rsp
+        mov     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">8</span>
+        mov     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>], <span style="color:#ae81ff">16</span>
+        mov     eax, DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]
+        add     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>], eax
+        mov     eax, <span style="color:#ae81ff">0</span>
+        pop     rbp
+        ret
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see, this is incredibly difficult to read to a &lsquo;normal&rsquo; person, so even though we&rsquo;re not there yet.</p>
+
+  </div>
+  
+</div>
+
+<p>This in turn gets turned into binary as can bee seen by this screenshot generated using <a href="https://godbolt.org/">https://godbolt.org/</a></p>
+<p><img src="/godbolt.png" alt="godbolt" /></p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <table>
+<thead>
+<tr>
+<th>Binary (0b)</th>
+<th>Hex (0x)</th>
+<th>Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0100</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0101</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0110</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>0111</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>9</td>
+<td>9</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr>
+<td>1011</td>
+<td>B</td>
+<td>11</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>C</td>
+<td>12</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>D</td>
+<td>13</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>E</td>
+<td>14</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>F</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>See the weird numbers next to each instruction? like <strong>4004b255</strong>? That&rsquo;s a base 16 number or hexadecimal usually referred to as &lsquo;Hex&rsquo;. Hex is what is used by most computer guys to represent numbers because computers operate in base 2, or binary- like 01001100, which is very difficult to read and type accurately, however, base 10, the normal numbering system your used to, makes translating between binary and decimal a bit uncomfortable as the common factor is 5, an number that is both odd and in turn not a factor of two, where as 16 is 2^4 (2*2*2*2) so that means we can easily represent binary like this:</p>
+<p>Okay, so now those 1&rsquo;s and 0&rsquo;s are what your computer actually reads to run instructions. We&rsquo;ll come back to this later, but since we&rsquo;re here I&rsquo;ll drop this <a href="https://www-user.tu-chemnitz.de/~heha/viewchm.php/hs/x86.chm/x86.htm">link</a></p>
+<p>Where you can see how these 1&rsquo;s and 0&rsquo;s are arranged to tell the computer what to do. That is super advanced for where we are now though, so let&rsquo;s get back on track- what the hell is micro code already?</p>
+<p>Well, it turns out that modern processors are still compatible with some really, really old code. All the way back to the first 8086 processor made by Intel in 1978. It was here that the x86 instruction set - the instructions like &lsquo;mov&rsquo; , &lsquo;push&rsquo;, and &lsquo;add&rsquo; above that define the x86 architecture were born. Originally these were 16bit CPUs, that is each instruction only had 16 1&rsquo;s and 0&rsquo;s but soon the i386 came along and used 32bits. Back when 32 bit computers were common this is what this was in reference to.</p>
+
+  </div>
+  
+</div>
+
+<p>As with all things technology progressed and 64bit cpu&rsquo;s came along. Many attempts were made to make 32bit programs run with backwards comparability at high speeds on these CPU&rsquo;s, though in the end AMD made the method used today, dubbed the x86_64 instruction set. Overtime this instruction set was expanded with various additions. We can actually see the names of these additions that are available on the CPU in the system by looking yet again at the output of <code>cat /proc/cpuinfo</code> and looking at the flags section. While not all of these signify instruction set additions, many do. The most common &lsquo;famous&rsquo; if you will is SSE, of which there have been multiple revision, the first version alone adds <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">70 instructions</a>, which are used to make math faster</p>
+<p>Alright, so finally, enter Mircocode. At some point all of this became a lot to manage and processor designs evolved even further, getting exponentially more complicated and faster with more and more instructions, so they added this little computer which has the primary duty of turning the mess of countless possible instructions into yet even smaller instructions that the heavy duty &lsquo;real&rsquo; processor does. Every once in a while a problem will be found in the way this is done, or a security vulnerability in the hardware itself may be found, and your CPU manufacture will release a microcode update.</p>
+<p>That update version is what you see on that line of <code>cat /proc/cpuinfo</code></p>
+<p>Now, at the beginning of this guide I said I wouldn&rsquo;t provide useless information, and I&rsquo;m sure that all looks pretty useless without more context. In general, this is interesting because you can (and will need to) write some assembly code by hand every now and then. Thankfully, its usually not x86 assembly which is very, very difficult to write but instead assembly on much smaller, micro controllers (basically really tiny computers), where that assembly is necessary because the system is so limited.</p>
+<h3 id="cache">
+  Cache
+  <a class="anchor" href="#cache">#</a>
+</h3>
+<p>Okay, next up is cache. Cache, just like in the real world, is a small place to store things. Most people like to think the majority of what a computer does is raw number crunching, doing hard math, but the truth is more often than not it&rsquo;s just moving data around. This follows a path from slowest and cheapest storage up to the fastest but most expensive. Typically this order looks a bit like</p>
+<p>Hard Drive -&gt; Solid State Drive -&gt; Ram -&gt; Cache -&gt; Registers , where the price for storage on a hard drive can be under $0.10Gb, Ram upwards of $10Gb, and Cache and registers, which are storage baked directly onto the CPU, cost much, much, more to implement.  It&rsquo;s of note that these not only are digitally faster with each jump, but also usually physically close. A hard drive can be 10&rsquo;s of feet of wire from the CPU while the RAM can be a few inches at best, and the cache and registers are physically in the CPU dye. Most of the data above the HDD/SSD level is actually just smaller subsets of each previous pool. In fact, on modern CPU&rsquo;s there are actually usually 3 levels of cache, each with a progressively smaller size but increase in proximity to the executed instruction.</p>
+<p>Put simply, just as with adding more Random Access Memory (RAM) to your system, having more cache means more information can be within arm&rsquo;s reach of the CPU to do work on at any moment.</p>
+<p>Let&rsquo;s take a look. install the <code>hwloc</code> package using yay and then run <code>lstopo</code> and you should get an output that looks a bit like this</p>
+<p><img src="/lstopo.png" alt="lstopo" title=":size=75%"/></p>
+<p>The stuff on the right are connections around the system, you can ignore those for now, but see the various cache layers, designated by L3, L2, L1d and L1i, and you can see how each core has it&rsquo;s own cache. Finally, you can see that each core has two processing units? Hey, wait, what&rsquo;s that all about?</p>
+<p>Hyper threading, or SMT, or whatever the new term is for it, is a way of adding paths for doing things to keep every part of the CPU active. We&rsquo;ll go into this more later, but for now, suffice it to say it&rsquo;s a way of getting just a bit more performance out of a system.</p>
+<h3 id="interrupts">
+  Interrupts
+  <a class="anchor" href="#interrupts">#</a>
+</h3>
+<p>While not listed in the /proc/cpuinfo output , it&rsquo;s still relevant to bring up CPU interrupts, which are, fittingly, listed in /proc/interupts</p>
+<p><img src="/procint.png" alt="procint" /></p>
+<blockquote>
+<p>Output of <code>cat /proc/interupts</code> on my system</p>
+</blockquote>
+<p><img src="/netdataint.png" alt="netdataint" /></p>
+<blockquote>
+<p>Output of information for the first 3 cores on my system displayed graphically using Netdata</p>
+</blockquote>
+<p>CPU interrupts are a bit confusing because the term interrupt can refer to the action itself, the code that executes, or the general concept. In general a CPU interrupt is when something needs to poke the CPU to tell it to interrupt what it&rsquo;s doing. This can be when physical pin in the CPU gets a signal, a timer going off, or a program dividing by 0. We&rsquo;ll cover this more in depth later, but from the hardware perspective what&rsquo;s relevant is the CPU is generally so fast compared to other actions that the rest of the system mostly just triggers an interrupt to let the CPU know that a task the CPU asked to be done has completed. The most common example is requesting data from disk (Hard drive or SSD) takes so long, even at just a few milliseconds, that the CPU can get millions of things done while it waits for the request to be fulfilled. So rather than waste that time having the CPU poke the device asking &ldquo;Are you done yet? Are you done yet?&rdquo; the disk (or the controller it&rsquo;s hooked up to, like the chipset) issues an interrupt to the CPU to let it know a task has completed. USB works in a similar way, though the really old keyboards with the circular connector (PS2) actually did interrupt the CPU directly on each key press.</p>
+<p>We&rsquo;ll come back and explore this more later, but if you&rsquo;re really interested you can read ahead by going over these links and reading these man pages: <a href="https://www.oreilly.com/library/view/understanding-the-linux/0596005652/ch04s06.html">Oreilly on Interupts</a>, <a href="https://www.oreilly.com/library/view/understanding-the-linux/0596005652/ch04s02.html">Oreilly cont.</a>, <code>man trap</code>,  <code>man syscall</code>,</p>
+<h3 id="power">
+  Power
+  <a class="anchor" href="#power">#</a>
+</h3>
+<p>the CPU is one of the most power hungry parts of your computer, and as such it does some interesting things to try to keep it&rsquo;s power usage lower. Namely, it&rsquo;ll turn it&rsquo;s clock speed to do less operations per second as previously mentioned, but theres other things like entering sleep and hibernation states the processor is also capable of. The main thing you might want to concern yourself with from a performance to power consumption stand point is how aggressive this clock speed changing is. You can go as extreme as to tell the system to never let the processor get to full speed or to say &lsquo;only run at max speed all the time&rsquo;. The latter is actually quite useful as often it can take quite a few clock cycles after a heavy load is started for the processor to come up to speed, but if it&rsquo;s always running full steam ahead this is a non issue. This entire topic is particularly relevent to laptops, and on Arch you may want to install a program to manage some of this for you or set sane defaults to save battery. I&rsquo;ve had good luck using the <code>tlp</code> package. the <code>cpupower</code> package is helpful for looking at how arch handles cpu scaling and it lets you directly set these min and max frequencies or pick the scaling governor to handle how aggressive the switching is.https://wiki.archlinux.org/index.php/CPU_frequency_scaling#cpupower</p>
+<p>I very strongly recommend looking into this on any system though, as by default some CPUs will run at the minimum frequency only.</p>
+<p><img src="/cpupower.png" alt="cpupower" title=":size=70%"/></p>
+<p>If you want to actually see how much power is used, <code>rapl</code> should do the trick, just be sure to actually put the system under load first- <code>stress-ng --cpu 16</code> (or whatever your thread count is) should work.</p>
+<p><img src="/rapl.png" alt="rapl" /></p>
+<p>We&rsquo;ll talk about delivering power to the CPU in a bit, when we talk about the Voltage Regulation Module (VRM) on the Motherboard.</p>
+<h3 id="physically-what-and-where-is-this-thing">
+  Physically, what and where is this thing?
+  <a class="anchor" href="#physically-what-and-where-is-this-thing">#</a>
+</h3>
+<p>The CPU is on a square or rectangular board that is usually covered by a large heat sink used to keep it cool under load. It connects to the motherboard via hundreds of small, gold plated pins to send and receive signals (which well will discuss in depth later) from all around the system. Even though most modern CPUs are x86_64, generation to generation and cross manufacturer there are changes in the number of pins and the way they are arranged, meaning getting a new processor that&rsquo;s not from the same generation usually won&rsquo;t work. Furthermore, most laptops have soldered on processors that can not be upgraded to begin with.</p>
+<h3 id="numa-nodes-chiplets-die-yield">
+  Numa Nodes? Chiplets? Die Yield?
+  <a class="anchor" href="#numa-nodes-chiplets-die-yield">#</a>
+</h3>
+<p>[TODO]</p>
+<h3 id="branch-prediction--pipelining">
+  Branch Prediction &amp; Pipelining
+  <a class="anchor" href="#branch-prediction--pipelining">#</a>
+</h3>
+<p>I don&rsquo;t want to dive toooo deep into the weeds, but because of the Meltdown and Spectre vulnerabilities, I find it necessary to briefly talk about branch prediction.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Basically, modern CPUs do a very good job of guessing what path of code will be executed on branches, that is code like this:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> condition <span style="color:#f92672">==</span> True:
+	doThing()
+<span style="color:#66d9ef">else</span>:
+	doOtherThing()
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<p>The CPU will do a good job guessing which path will actually be taken. This is done because CPUs are actually <em>pipelined</em>.</p>
+<p>CPUs have to do a few things per each instruction, generally they need to FETCH the instruction, DECODE what that instruction is telling the CPU to do, EXECUTE that instruction, and then WRITE BACK the result of the computation.</p>
+<p>This could be done in order,</p>
+<img src="/wopipe.svg" style="-webkit-filter: invert(1);">
+<p>but because the CPU uses different parts internally, they can be pipelined, sort of like an assembly line. While one instruction is in WRITE BACK, the next instruction is being EXECUTED, the next-next instruction is being DECODED, and the next-next-next is being FETCHED.</p>
+<img src="/wpipe.svg" style="-webkit-filter: invert(1);">
+<p>Now, there&rsquo;s a lot more that goes into this, times where this doesn&rsquo;t work -like if two instructions work on the same data, have to wait for write back before that data can be executed on- but the relevant bit here is that as much as we can, we want to keep this pipe line full. That is, we want to keep each point in the assembly line busy. To do this, the above code with an <code>if</code> utilizes branch prediction, and assuming it&rsquo;s correct, is able to keep the pipeline full and running like normal. If it&rsquo;s wrong, it has to empty the pipeline, go back, and do the correct instructions instead.</p>
+<p>The issue with this that lead to the Spectre bug was that the assumed correct path to be executed may include a security level elevation, that is, it might be code that should only be able to be executed by the administrator (root) user, but in the prediction code there&rsquo;s no check there, so if the prediction can be abused, code can be executed as an admin- a doomsday level vulnerability.</p>
+<p>Meltdown is similar- you can read how it works on <a href="https://en.wikipedia.org/wiki/Meltdown_%28security_vulnerability%29#Mechanism">Wikipedia</a> (actually human readable and explained well).</p>
+<h3 id="a-note-on-x86-vendors-and-cpu-politics">
+  A note on x86, vendors, and CPU politics
+  <a class="anchor" href="#a-note-on-x86-vendors-and-cpu-politics">#</a>
+</h3>
+<p>[TODO]</p>
+<p>china trying to make their own silicon , apple to own SOC (<a href="https://www.reddit.com/r/assholedesign/comments/gq2nfu/adobe_slaps_you_with_an_early_cancellation_fee/frsvjxi?utm_source=share&amp;utm_medium=web2x&amp;context=3">Called it</a>), etc.</p>
+<p><a href="https://www.agner.org/forum/viewtopic.php?f=1&amp;t=6">https://www.agner.org/forum/viewtopic.php?f=1&amp;t=6</a></p>
+<h3 id="other-things-done-by-the-cpu">
+  Other things done by the CPU:
+  <a class="anchor" href="#other-things-done-by-the-cpu">#</a>
+</h3>
+<p>The CPU has a lot of dedicated hardware inside for specific functions, for example many CPUs have a dedicated hardware random number generator.</p>
+<h2 id="further-reading">
+  Further Reading
+  <a class="anchor" href="#further-reading">#</a>
+</h2>
+<p>If you want to know about the internals of the CPU itself, check out <a href="/engineering/comparch/">Chapter 31 - Let&rsquo;s Make our own CPU</a> which goes into the componets of the CPU, why they&rsquo;re made the way they are, and what the future of CPU architecture may look like.</p>
+<p><a href="https://www.flamingspork.com/blog/2020/11/25/why-you-should-use-nproc-and-not-grep-proc-cpuinfo/">Why you should use &lsquo;nproc&rsquo; and not grep /proc/cpuinfo</a></p>
+<p><a href="https://youtu.be/HNwWQ9zGT-8">Spyware at The Hardware Level - Intel ME &amp; AMD PSP (YouTube, Mental Outlaw)</a></p>
+<h2 id="ram">
+  RAM
+  <a class="anchor" href="#ram">#</a>
+</h2>
+<p><img src="/ram.jpg" alt="RAM" /></p>
+<p>This is RAM or Random Access Memory. The above two sticks are the normal sized used in desktop PCs, this form factor is called a DIM while the bottom two are from laptops and are called SO-DIMS, the placement of the notch is an indicator of the generation of RAM, with nearly all modern ram being a consecutive generation of the DDR standard. At the time of writing (Q2,2019) DDR4 is common in new, medium to high end devices, with many DDR3 devices still being used. Of note many more compact devices solder the ram chips directly to the board, meaning there is no form factor to consider.</p>
+<p>Just like the CPU, RAM has a speed at which it operates as well, Typically it&rsquo;s listed in MHz still, but speeds range from ~1.8Ghz to ~3.8Ghz at the time of writing, dependent DDR3 or 4. While DDR4 has faster clock speeds, it does typically have a higher overall latency, meaning there&rsquo;s a longer delay between when when data is requested to when it&rsquo;s delivered, albeit at a much higher total throughput. This is a massive topic in of itself, yet is also pretty niche as outside of some pretty specialized applications RAM speed and latency has a relatively minor impact, though faster is typically better.</p>
+<p>okay, let&rsquo;s move on to ram in Linux.</p>
+<p>While support for this will vary depending on your motherboard, you should be able to see information about your ram by running <code>sudo dmidecode --type 17</code></p>
+<p>The output will probably repeat multiple times, printing once for each physical stick of ram in your system. I actually have 4 sticks, but I&rsquo;ll just be showing one:</p>
+<img src="/dmiram.png" alt="DMI Ram" height="600em">
+<p>You should note that many of the things mentioned above can be seen here, though I do want to look at some things here.</p>
+<p>First, size. This is an 8Gb or 8192Mb stick of ram. Obviously the more ram the better, but you may find strange ram configurations where there&rsquo;s a mix of ram sizes in a system. This can be bad for performance though, because of memory channels.</p>
+<p>Most modern systems use 2 or 3 memory channels, to simplify a bit, it makes it so two sticks of ram can have their speed be used in parallel. Think about it like a parking lot, if you have a total of 4 parking lots you could, theoretically, hook them all up in a straight line with one entrance/exit shared among them. This would be pretty stupid though, as it would severely bottleneck traffic going though. Instead you may want to add a separate entrance and exit for each, but that quickly becomes expensive. Instead, most systems use a mix of the two, connecting a pair of sticks together, allowing for added capacity, but allowing for multiple pairs to be inserted independently. A lot of people don&rsquo;t fully fill all the available memory slots on their motherboard though, so instead of having 4 lots with 2 entrances you should be able to have 2 and 2, unless you mistakingly put the sticks in wrong, leaving one &lsquo;entrance&rsquo; closed entirely while the other now has a ton of capacity. On my motherboard these &lsquo;lots&rsquo; are labeled A1, A2, B1, and B2. Looking above you can see the stick we&rsquo;re looking at here is the A1 lot. It&rsquo;s because of this that you should ideally have a multiple of as many sticks of ram as you do memory channels. For example, if you have a two channel motherboard and CPU then you want either 2, 4, or 8 sticks of ram. Most motherboards top out at 4 sticks though, with 2 channel and 2 sticks being the most common configuration.</p>
+<p>Next, I want to look at the line that says &lsquo;Type Detail: Synchronous Unbuffered (Unregistered)&rsquo; this is referencing another type of ram, which is buffered and error correcting (ECC) memory. I&rsquo;ll come back to this.</p>
+<p>I also want to point out the voltage. Much like a CPU the voltage a Ram module runs at is important, and needs to be kept very stable. However, it may need bumped up if the RAM is running at a particularly high speed or if it&rsquo;s set higher than factory (overclocked).</p>
+<p>Some RAM actually includes a special memory profile, often called XMPP, which can be applied in the BIOS/UEFI settings to make sure you&rsquo;re getting the absolute best performance out of you RAM before manual overclocking. This may actually overclock your CPU a bit as well as a bit of a side effect.</p>
+<p>There&rsquo;s a program on your system called <code>free</code> which can be used to see how much RAM you have, how much is in use, etc. Let&rsquo;s run free with the -h flag so we can see the amounts with nice units.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+╰─➤  free -h
+              total        used        free      shared  buff/cache   available
+Mem:           31Gi       4.5Gi        23Gi       488Mi       3.3Gi        26Gi
+</code></pre></td></tr></table>
+</div>
+</div><p>You can see I have 32Gb of RAM total (it get&rsquo;s truncated to 31 because it&rsquo;s actually like 31.99, units are weird), with ony 4.5Gb used. Most people complain about Chrome eating all their RAM but the truth is unused RAM is wasted RAM. The OS will manage RAM for you, and if you run out start using swap (that partition we made eariler).</p>
+<p>Let&rsquo;s take a deeper dive, reading the man page for free with <code>man free</code> we can see it uses information from /proc/meminfo, so lets look at that file ourselves using <code>cat /proc/meminfo</code>.</p>
+<p>One of the most interesting things to point out here is the concept of Dirty memory.</p>
+<p>&lsquo;Dirty&rsquo; memory is the amount of information that has been modified in memory, but that has not been saved back onto the permanent storage (SSD/HDD). If you were to suddenly lose power this information would be lost.</p>
+<p>Pagefaults and misses are also important. Because these topics are a bit hard to summarize I&rsquo;m going to recommend you read <a href="https://en.wikipedia.org/wiki/Page_fault">the Wikipedia page on Pagefaults</a> and on <a href="https://en.wikipedia.org/wiki/CPU_cache#Cache_miss">Cache Misses</a>. It&rsquo;s okay if you don&rsquo;t understand everything you&rsquo;re reading. Hopefully as you read more later and gain more experience the terms you didn&rsquo;t know will &lsquo;click&rsquo; and you&rsquo;ll understand.</p>
+<p>Going back to when cache was mentioned though, RAM&rsquo;s primary job is to hold bulk information that&rsquo;s in use a bit closer to the CPU. For example if you load a large image file it&rsquo;ll first get copied to ram and then be processed though cache in chunks, this is because there just simply isn&rsquo;t enough cache on the CPU to hold a large image.</p>
+<h3 id="virtual-memory">
+  Virtual Memory
+  <a class="anchor" href="#virtual-memory">#</a>
+</h3>
+<h4 id="dirty-bit">
+  Dirty bit
+  <a class="anchor" href="#dirty-bit">#</a>
+</h4>
+<h3 id="pages">
+  Pages
+  <a class="anchor" href="#pages">#</a>
+</h3>
+<p>[TODO] Huge Pages ref <a href="https://www.chaoticafractals.com/manual/getting-started/enabling-large-page-support-windows">this</a></p>
+<h3 id="memory-issues-ecc-and-memtest86">
+  Memory issues, ECC, and Memtest86
+  <a class="anchor" href="#memory-issues-ecc-and-memtest86">#</a>
+</h3>
+<p>Memory can have quite a few issues, sometimes resulting in random Blue Screen of Death (BSoD) or Linux Kernel Panics, other times just occasionally corrupting data with no way to know.</p>
+<p>If you&rsquo;re working with super critical data, you can at least know that something has gone wrong by using Error Correction Code (ECC) memory. In an ideal world ECC would just be standard on everything. Unfortunately, Intel is a bag of dicks and uses it for product segmentation and people are cheap: ECC is also more expensive because it requires an extra bit for every byte. This also means that instead of the normal 8 memory dies per stick of RAM, ECC memory actually has 9 dies (usually). The reason there are normally 8 dies is simple- there&rsquo;s 8 bits in a byte. Servers don&rsquo;t work on some magic 9-bit in a byte system, instead, this extra bit per byte is used to ensure the data hasn&rsquo;t been corrupted.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>The math to do this is generally capable of detecting and fixing a single bit flip per byte, and at least detecting a double flip.</p>
+<p>This video explains how that works if you&rsquo;re interested:</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="250" src="https://www.youtube.com/embed/X8jsijhllIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<p>It is worth noting that along with being more expensive, ECC is also usually a tad slower. There&rsquo;s also such thing as Registered/Buffered memory, which you may see with ECC as well. Buffered memory is basically just adding an extra &lsquo;buffer&rsquo; between the read/write and again, it&rsquo;s a server thing- you&rsquo;re unlikely to ever see it on a consumer platform. Just know that if you&rsquo;re buying RAM for a server you may need to be careful to ensure you&rsquo;re getting the right thing.</p>
+<p>When DDR5 comes along, ECC is built into the spec for all levels to some extent because as memory speeds have increased, the likelihood of an error has as well. It&rsquo;s becoming necessary for basic functionality at DDR5 speeds.</p>
+<p>Now, ECC would be great and all, but the memory in the system you&rsquo;re reading this on almost certainly isn&rsquo;t using it, so what can you do?</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Well, for one, you need to get a feel for when something might be a memory error. Generally, if you see issues that you can&rsquo;t attribute to anything in software, where there&rsquo;s no obvious pattern, it&rsquo;s a good bet that it&rsquo;s memory. Assuming you&rsquo;re on an x86(_64) system, like <em>most</em> laptops or desktops, you can check with <a href="https://en.wikipedia.org/wiki/Memtest86">Memtest86(+) (Wikipedia)</a>. It often needs to run for a few hours to find anything, but when it does you&rsquo;ll get a big red error.</p>
+<p>Unfortunately, this probably means you need to buy new RAM. In the absolute worst case, maybe a new CPU if the memory controller has gotten damaged, but this is unlikely.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Memtest86%2B_15_million_errors_2017.jpg/2560px-Memtest86%2B_15_million_errors_2017.jpg" style="zoom:50%;" /></p>
+<p class="attribution ">
+    Image by Андрей Крижановский on Wikipedia, Public Domain
+</p>
+
+  </div>
+  
+</div>
+
+<p>You&rsquo;re far more likely to get RAM errors if you Overclock your RAM as well, so just be smart if you do OC your RAM- though I really don&rsquo;t recomend doing so beyond applying the <a href="https://www.tomshardware.com/reviews/how-to-enable-xmp-ddr4-overclocking,6133.html#:~:text=Intel%20XMP%20is%20an%20automated,few%20clicks%20and%20compatible%20hardware.">XMP profile (Tom&rsquo;s Hardware)</a> your RAM may have shipped with.</p>
+<h3 id="the-future-of-ram">
+  The Future of RAM
+  <a class="anchor" href="#the-future-of-ram">#</a>
+</h3>
+<p>[TODO]</p>
+<p><a href="https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem">In-Memory Processing by UPMEM</a></p>
+<p><a href="https://www.storagereview.com/news/intel-optane-dc-persistent-memory-module-pmm">Intel Optane Persistant Memory</a></p>
+<h3 id="row-hammer">
+  Row Hammer
+  <a class="anchor" href="#row-hammer">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Row Hammer is vulnrability that arrieses due to the way memory is arranged physically and electrically on a memory stick. It let&rsquo;s you flip bits you shouldn&rsquo;t be able to by &lsquo;hammering&rsquo; on the row above or below the target row, hoping that you can induce a bit flip in the target row.</p>
+<p><a href="https://en.wikipedia.org/wiki/Row_hammer">Row Hammer&rsquo;s Wikipedia Page</a> has some a very good overview as well as some example assembly to explain the exploit</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="250" src="https://www.youtube.com/embed/rGaF15-ko5w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<h2 id="the-motherboard">
+  The Motherboard
+  <a class="anchor" href="#the-motherboard">#</a>
+</h2>
+<img src="/mobo.jpg" alt="Motherboard" height="700em">
+<p>This is an older motherboard, but still new enough to have modern parts. Let&rsquo;s start by looking at the the most obvious physical features and move to smaller things from there.</p>
+<p>The most obvious thing to point out is the size of the motherboard. This is a mATX motherboard, which is considered the normal size for most systems. Most gaming or DIY computers will use full size ATX motherboards, which look very similar but are a bit longer vertically, allowing for more expansion slots - those horizontal black bars - among other features. Other form factors include ITX, a smaller form factor with only a single expansion slot, eATX (extended ATX) which is rarely used now, and SSI and EEB which are both server motherboard sizes.</p>
+<p>The large, white square is the CPU socket. This is an older board made for an AM3+ processor. The AM3+ processor line, as well as most consumer processors from AMD use a PGA or Pin Grid Array socket. these CPUs have many pins on the bottom which fall into these holes to make contact. Before the CPU is inserted the metal leaver arm, seen at the bottom of the socket if you look carefully, is raised and the CPU should smoothly plop right in, after which the arm can be lowered. Modern Intel CPUs follow a similar-ish mechanism, only instead of having a bunch of pins that go into holes the &lsquo;pins&rsquo; are actually tiny springy pieces of metal on the motherboard which make contact with pads on the CPU, that socket looks a bit like this, albeit this is an old one:</p>
+<p><img src="/581px-CPU_Socket_775_T.jpg" alt="CPU Socket 775" /></p>
+<p class="attribution ">
+    <a href="https://commons.wikimedia.org/wiki/File:CPU_Socket_775_T.jpg">img source</a>
+</p>
+<p>If you&rsquo;re looking at a server or high end workstation you may actually run into a single motherboard with multiple CPU sockets. These are becoming less common with time, but even though there are multiple CPUs the system still operates as one larger system. For example, I have access to a system with 4, 8 core, 16 thread cpu&rsquo;s to give for a total of of 64 threads. Giving this beautiful sight:<img src="/64thread.png" alt="64t" /></p>
+<p>Clearly, a server with that much horsepower will use a lot of electricity though, and there is some overhead for the system when getting information from one physical CPU to another.</p>
+<p>Above and left of the CPU on you&rsquo;ll see a bunch of copper coils in little boxes and some small metal cylinders, as well as a cluster of these with a large, 4-hole plug a bit further left, directly above the big aluminum heat sink. This all makes up the VRM or Voltage Regulation Module. The connector there is where the CPU power plug from the PC power supply would be plugged in. The power needs to be carefully controlled, filtered, and adjusted based on the needs of the CPU, that&rsquo;s what all of this is for. Generally the beefier and faster a CPU, the larger the VRM. The VRM also needs to dissipate a good amount of heat on higher end systems so many nicer motherboards will cover this up with a large heatsink.</p>
+<p>Moving on from the CPU you&rsquo;ll see 4 vertical slots next to socket, these are where the RAM sticks are inserted. You&rsquo;ll notice they&rsquo;re color coded as to indicate which slots share the communication channel, so in this case you&rsquo;d want to put the first memory stick in the blue slot closest to the socket, followed by the black slot closest to the socket, then repeat.</p>
+<p>While we&rsquo;re looking at this side of the board- next to the RAM slots you&rsquo;ll see two things of note. First, that black circular thing is actually a little buzzer. A lot of even modern systems have these on board to buzz error codes out in morse code if something goes wrong. Below that is a large, 20 or 24 pin connector (most modern systems use the 24pin varient) which is where the power supply is plugged in to provide power to the motherboard (with the exception of the CPU) as well.</p>
+<p>On the other side of the CPU and down a little you&rsquo;ll see a sizable metal heatsink. This is covering the chipset. We&rsquo;ll come back to what the chipset does in a bit. This motherboard is actually a bit weird, on most motherboards the chipset is found almost directly below the RAM, but in general look for a large heatsink and it&rsquo;s probably under that.</p>
+<p>Below the chipset here are 4 expansion slots, all of which use the PCI-e standard in this case. We&rsquo;ll come back to these in a bit.</p>
+<p>In the bottom right of the motherboard there are 6 SATA connectors, here each is a different color (for no apparent reason?). These are for connecting storage like hard drives.</p>
+<p>Vertically in line but closer to the center of the board you&rsquo;ll also spot a coin cell battery. This is so the system can keep time with use of an on board Real Time Clock (RTC) even when fully powered down and disconnected from wall power.</p>
+<p>Along the bottom you&rsquo;ll see various connectors with pins sticking out, these are mostly for front panel connections- where the USB, audio, power button, etc. from the front of your case connect.</p>
+<p>Finally, along the top of the back left edge you&rsquo;ll see the metal tops of the main &lsquo;rear i/o&rsquo; for the computer. These are all the main connections for your system. The bulk of the system&rsquo;s USB ports, networking, and audio ports will be found here.</p>
+<p>So, how do we get any information from the motherboard? Well, in case it wasn&rsquo;t already obvious, the motherboard isn&rsquo;t really one thing. It&rsquo;s more a common interconnect point and routing system than anything; however, it does have some of it&rsquo;s own responsibilities. To start small let&rsquo;s look at one small, but exceedingly import role of the motherboard: fan and temperature control.</p>
+<p>To see what your fans are doing on Linux you&rsquo;ll need to grab the package <code>lm_sensors</code> with yay, then you can run run <code>sudo sensors-decect</code> and mash enter until it&rsquo;s done. After this you should be able to run <code>sensors</code> and see an output similar to this one:</p>
+<img src="/sensors.png" alt="sensors" height="500em">
+<p>Of note, depending on your system, there&rsquo;s a small chance nothing will be detected at all or that some information will be wrong. Even in my case this is true as my CPU fan is reporting 0 RPM. Actually entering your motherboard&rsquo;s UEFI or BIOS settings may expose more information, but we&rsquo;ll talk about that more later.</p>
+<p>Alright, so that&rsquo;s coll and all, but what else can you do?</p>
+<p>Alright, let&rsquo;s move on to seeing the system buses, namely, the pci bus.</p>
+<p>The pci bus is where most of the system&rsquo;s add in cards, controllers, and the like connect. Here&rsquo;s a shortened version of the output of <code>lspci</code> from my system</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">00:00.0 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Root Complex
+00:00.2 IOMMU: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> I/O Memory Management Unit
+00:01.0 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-1fh<span style="color:#f92672">)</span> PCIe Dummy Host Bridge
+00:01.1 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> PCIe GPP Bridge
+ ...
+00:08.1 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Internal PCIe GPP Bridge <span style="color:#ae81ff">0</span> to Bus B
+00:14.0 SMBus: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> FCH SMBus Controller <span style="color:#f92672">(</span>rev 59<span style="color:#f92672">)</span>
+00:14.3 ISA bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> FCH LPC Bridge <span style="color:#f92672">(</span>rev 51<span style="color:#f92672">)</span>
+00:18.0 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Data Fabric: Device 18h; Function <span style="color:#ae81ff">0</span>
+ ...
+00:18.7 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Data Fabric: Device 18h; Function <span style="color:#ae81ff">7</span>
+01:00.0 Non-Volatile memory controller: Phison Electronics Corporation E12 NVMe Controller <span style="color:#f92672">(</span>rev 01<span style="color:#f92672">)</span>
+02:00.0 USB controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset USB 3.1 xHCI Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+02:00.1 SATA controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset SATA Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+02:00.2 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset PCIe Upstream Port <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+03:00.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> <span style="color:#ae81ff">300</span> Series Chipset PCIe Port <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+ ...
+03:07.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> <span style="color:#ae81ff">300</span> Series Chipset PCIe Port <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+07:00.0 USB controller: ASMedia Technology Inc. ASM1143 USB 3.1 Host Controller
+08:00.0 Ethernet controller: Intel Corporation I211 Gigabit Network Connection <span style="color:#f92672">(</span>rev 03<span style="color:#f92672">)</span>
+0a:00.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Device <span style="color:#ae81ff">1470</span> <span style="color:#f92672">(</span>rev c3<span style="color:#f92672">)</span>
+0b:00.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Device <span style="color:#ae81ff">1471</span>
+0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> XL/XT <span style="color:#f92672">[</span>Radeon RX Vega 56/64<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev c3<span style="color:#f92672">)</span>
+0c:00.1 Audio device: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> HDMI Audio <span style="color:#f92672">[</span>Radeon Vega 56/64<span style="color:#f92672">]</span>
+0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+0d:00.1 Audio device: NVIDIA Corporation GP106 High Definition Audio Controller <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+0e:00.0 Non-Essential Instrumentation <span style="color:#f92672">[</span>1300<span style="color:#f92672">]</span>: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Zeppelin/Raven/Raven2 PCIe Dummy Function
+0e:00.2 Encryption controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Platform Security Processor
+0e:00.3 USB controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> USB 3.0 Host Controller
+0f:00.0 Non-Essential Instrumentation <span style="color:#f92672">[</span>1300<span style="color:#f92672">]</span>: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Zeppelin/Renoir PCIe Dummy Function
+0f:00.2 SATA controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> FCH SATA Controller <span style="color:#f92672">[</span>AHCI mode<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev 51<span style="color:#f92672">)</span>
+0f:00.3 Audio device: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> HD Audio Controller
+</code></pre></td></tr></table>
+</div>
+</div><p>Alright, clearly there&rsquo;s a lot going on here, and on first glance it doesn&rsquo;t even look all that useful. But let&rsquo;s look deeper. From this output we can see some interesting things. Starting from the top you&rsquo;ll see there&rsquo;s a lot of internal AMD things that are just handling routing, really these probably don&rsquo;t matter. the first interesting things to look at is <code>01:00.0 Non-Volatile memory controller: Phison Electronics Corporation E12 NVMe Controller (rev 01)</code> which is telling me that my super speedy NVMe solid state drive is at the address 01:00.0 on the pci bus and despite being made by a consumer brand (I think mine&rsquo;s a Silicon Power? though I have another that&rsquo;s made by Samsung) the actual controller on the device is made by Phison, a reputable brand for NVMe controllers.</p>
+<p>next thing of note is</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">02:00.0 USB controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset USB 3.1 xHCI Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+02:00.1 SATA controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset SATA Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You can see here that I have a separate controller for my USB 3.1 ports and that it&rsquo;s sharing pci lanes with my sata controller. In theory, this means If I&rsquo;m working one or both of these really hard, the other may be slower.</p>
+<p>next is:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">07:00.0 USB controller: ASMedia Technology Inc. ASM1143 USB 3.1 Host Controller
+08:00.0 Ethernet controller: Intel Corporation I211 Gigabit Network Connection <span style="color:#f92672">(</span>rev 03<span style="color:#f92672">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>What&rsquo;s interesting here is I have another 3.1 controller, on an entirely different set of lanes. Really, this is a fault of USB that it&rsquo;s not very clear, this is actually a USB 3.1 gen 2 controller, so each port has a top speed of 10gb/s, compared to the 5gb/s of the other controller.</p>
+<p>You&rsquo;ll also see that my network interface is being handled by an Intel network controller, despite this system having an AMD CPU.</p>
+<p>moving on:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> XL/XT <span style="color:#f92672">[</span>Radeon RX Vega 56/64<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev c3<span style="color:#f92672">)</span>
+0c:00.1 Audio device: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> HDMI Audio <span style="color:#f92672">[</span>Radeon Vega 56/64<span style="color:#f92672">]</span>
+0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+0d:00.1 Audio device: NVIDIA Corporation GP106 High Definition Audio Controller <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Here you&rsquo;ll see some devices can actually use multiple IDs for one physical device. both of the 0c:00.x &lsquo;devices&rsquo; are actually for the &lsquo;Vega56&rsquo; graphics card (Often called GPU for graphics processing unit) made by AMD Radeon, while the 0d:00.x devices are for the GTX1060 card made by Nvida that I have in this system as well. Of note, having both of these in one system is exceedingly uncommon, and my use case is strange; however, It is common to see systems which have a gpu integrated into the CPU (which will still appear in this list) and have a separate larger GPU in the system as well.</p>
+<p>If you continue down this list you&rsquo;ll see there&rsquo;s yet another USB controller and a audio controller among other things.</p>
+<p>What&rsquo;s cool is this information relates back to something we saw earlier when looking at the CPU:</p>
+<p><img src="/lstopo.png" alt="lstopo2" /></p>
+<p>See all those PCI ids on the right side, those directly correlate with a lot of the above.</p>
+<p>Finally, if you want a lot more information you can run <code>sudo lspci -v</code> to see even more info about anything, for example, here&rsquo;s the output about my GTX1060 GPU:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>prog-if <span style="color:#ae81ff">00</span> <span style="color:#f92672">[</span>VGA controller<span style="color:#f92672">])</span>
+    Subsystem: Micro-Star International Co., Ltd. <span style="color:#f92672">[</span>MSI<span style="color:#f92672">]</span> GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span>
+    Flags: bus master, fast devsel, latency 0, IRQ <span style="color:#ae81ff">78</span>
+    Memory at f6000000 <span style="color:#f92672">(</span>32-bit, non-prefetchable<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>16M<span style="color:#f92672">]</span>
+    Memory at c0000000 <span style="color:#f92672">(</span>64-bit, prefetchable<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>256M<span style="color:#f92672">]</span>
+    Memory at d0000000 <span style="color:#f92672">(</span>64-bit, prefetchable<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>32M<span style="color:#f92672">]</span>
+    I/O ports at c000 <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>128<span style="color:#f92672">]</span>
+    Expansion ROM at f7000000 <span style="color:#f92672">[</span>disabled<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>512K<span style="color:#f92672">]</span>
+    Capabilities: <span style="color:#f92672">[</span>60<span style="color:#f92672">]</span> Power Management version <span style="color:#ae81ff">3</span>
+    Capabilities: <span style="color:#f92672">[</span>68<span style="color:#f92672">]</span> MSI: Enable+ Count<span style="color:#f92672">=</span>1/1 Maskable- 64bit+
+    Capabilities: <span style="color:#f92672">[</span>78<span style="color:#f92672">]</span> Express Legacy Endpoint, MSI <span style="color:#ae81ff">00</span>
+    Capabilities: <span style="color:#f92672">[</span>100<span style="color:#f92672">]</span> Virtual Channel
+    Capabilities: <span style="color:#f92672">[</span>250<span style="color:#f92672">]</span> Latency Tolerance Reporting
+    Capabilities: <span style="color:#f92672">[</span>128<span style="color:#f92672">]</span> Power Budgeting &lt;?&gt;
+    Capabilities: <span style="color:#f92672">[</span>420<span style="color:#f92672">]</span> Advanced Error Reporting
+    Capabilities: <span style="color:#f92672">[</span>600<span style="color:#f92672">]</span> Vendor Specific Information: ID<span style="color:#f92672">=</span><span style="color:#ae81ff">0001</span> Rev<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> Len<span style="color:#f92672">=</span><span style="color:#ae81ff">024</span> &lt;?&gt;
+    Capabilities: <span style="color:#f92672">[</span>900<span style="color:#f92672">]</span> Secondary PCI Express &lt;?&gt;
+    Kernel driver in use: nouveau
+    Kernel modules: nouveau
+</code></pre></td></tr></table>
+</div>
+</div><p>The most notable thing here is actually at the end:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Kernel driver in use: nouveau
+Kernel modules: nouveau
+</code></pre></td></tr></table>
+</div>
+</div><p>tells us I&rsquo;m using the nouveau driver and kernel modules instead of one of the alternatives on the Nvida card in my system If I wanted to I could switch this over to the proprietary Nvidia driver to get a pretty nice speed boost in some applications.</p>
+<blockquote>
+<p>I&rsquo;m not really worried about this because I&rsquo;m mostly just using the Vega56 card. The nvidia card is there strictly for CUDA support in some workloads.</p>
+</blockquote>
+<p>Much like lspci, there&rsquo;s also <code>lsusb</code>, which as you can imagine, tells us information about the USB devices on the system. I have a LOT of usb devices on this system so I&rsquo;ll just paste in a snippet:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Bus <span style="color:#ae81ff">002</span> Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus <span style="color:#ae81ff">001</span> Device 003: ID 0c45:6340 Microdia Camera
+Bus <span style="color:#ae81ff">001</span> Device 008: ID 28de:1142 Valve Software Wireless Steam Controller
+Bus <span style="color:#ae81ff">001</span> Device 006: ID 258a:0013
+Bus <span style="color:#ae81ff">001</span> Device 005: ID 05e3:0745 Genesys Logic, Inc. Logilink CR0012
+</code></pre></td></tr></table>
+</div>
+</div><p>You&rsquo;ll see here that USB hubs, input devices, webcams, etc. all show up. Anything that&rsquo;s hooked up through USB should appear here. The device with ID 258a:0013 isn&rsquo;t really telling us anything though. What we do know is the first part is the USB Vendor ID. This is an ID that vendors of USB devices have to purchase to uniquely id their products.</p>
+<p>upon looking this id up online, it appears it&rsquo;s used for a generic USB keyboard.</p>
+<p>For completeness I&rsquo;ll mention, the first part of the id, the x&rsquo;s in xxxx:yyyy is the vendor id, while the y&rsquo;s are the product id.</p>
+<p>Finally, I&rsquo;d like to mention <code>dimdecode</code>. according to the manual page:</p>
+<blockquote>
+<p>dmidecode is a tool for dumping a computer&rsquo;s DMI (some say SMBIOS) table contents in a human-readable format. This table contains a description of the system&rsquo;s hardwarecomponents, as well as other useful pieces of information such as serial numbers and BIOS revision. Thanks to this table, you can retrieve this information without having to probe for the actual hardware. While this is a good point in terms of report speed and safeness, this also makes the presented information possibly unreliable.</p>
+</blockquote>
+<p>we&rsquo;ve already used this to get information about the system ram, but other things can be read as well. For example, going back to the pci slots from above running <code>sudo dmidecode --type 9</code> will tell you what physical slots correspond to what bus address among other information, for a full list of available types simply look at the dmidecode man page with <code>man dmidecode</code>.</p>
+<h3 id="chipset">
+  Chipset
+  <a class="anchor" href="#chipset">#</a>
+</h3>
+<p>The chipset is a chip usually located in the bottom right 1/4 of a motherboard underneath a heatsink. The chipset coordinates the data flow between the processor and most of everything else- excluding the few direct-CPU attached things like the Graphics card. Older systems had both a Northbridge and and a SouthBridge as two separate chips, but everything modern has just the single chip, as the Northbridge, which had memory the memory controller, isn&rsquo;t necessary on modern systems where the memory controller has been integrated into the CPU itself.</p>
+<p>For the most part, the chipset on a motherboard will match a certain CPU socket, that is each generation of CPU will have it&rsquo;s own chipset and socket; however, this is not always the case as sometimes one chipset may support multiple CPU generations or a CPU generation will work with multiple chipsets. This is the case with AMD&rsquo;s ryzen line where a first generation Ryzen CPU such as the Ryzen 1700 will work in a motherboard with an x370, x470, or x570 chipset, and a third generation Ryzen CPU such as the Ryzen 3700 will work in any motherboard with one of those as well, albeit running a generation mis-match may result in degraded performance or missing features (such as lacking PCIe 4.0).</p>
+<p>Finally, it&rsquo;s notable that the chipset typically acts as a PCIe lane &lsquo;splitter&rsquo; of sorts, turning (usually) 4 lanes into may more so that more devices may be attached. This can be particularly important when many high bandwidth devices are attached though, as even though these lanes are split, there&rsquo;s still only that original 4 lanes of bandwidth to go around.</p>
+<p><img src="/Chipset.png" alt="Chipset" /></p>
+<p class="attribution ">
+    <a href="https://www.intel.com/dam/www/public/us/en/documents/product-briefs/z370-chipset-product-brief.pdf">Image Source</a>
+</p>
+<p><img src="/chipsetamd.png" alt="chipsetamd" /></p>
+<p class="attribution ">
+    <a href="https://en.wikichip.org/wiki/amd/microarchitectures/zen">Image Source</a>
+</p>
+<h3 id="expansion-slots">
+  Expansion slots
+  <a class="anchor" href="#expansion-slots">#</a>
+</h3>
+<img src="/pciep.jpg" alt="pci expansion" height="500em">
+<blockquote>
+<p>Two PCI-e 1x expansion cards, one for USB 3.0 and one for audio. Of note, most modern motherboards have both functions built in.</p>
+</blockquote>
+<p>Most modern expansion cards connect though the PCI Express or PCIe bus. This standard, much like DDR, has gone though multiple generations of bandwidth doubling. Currently consumer devices offer up to PCIe 3.0 but devices with both 4.0 and 5.0 should be on the market shortly.</p>
+<p>PCIe cards are used for just about anything you could imagine, form adding a more powerful graphics card, more usb ports, a higher end sound card, to some more esoteric things like specific task accelerators (encryption, compression) or even a software defined radio.</p>
+<p>No matter what the device is you have to keep in mind its physical and electrical requirements. That is, do you have a slot long enough to accommodate the card and can you provide power to it.</p>
+<p>This may seem odd, but unlike most connections (think USB or Ethernet) which may support varying speeds (usb2 vs 3) but are still physically the same size, the more bandwidth hungry a PCIe device, the larger the physical connection. The largest available is a 16x connection, while the smallest is a 1x. The most commonly used lane arrangements are 1x, 4x 8x, and 16x. The motherboard shown above has one 16x connector and three 1x connectors. If you have a card that is electrically wired for 4x it will definitly work in any slot physically designed for 4x or greater, and it will still work in a 1x slot of that slot is open ended- this means the &lsquo;back&rsquo; of the slot is open, allowing the card&rsquo;s connector to go past the actual physical connection. Similarly, many 16x physical slots only have 8x actually wired. If you use a card which elecrically needs more connections it will almost certainly still work, but may have degraded performance. Similarly, if you have a card which expects a PCIe gen 3 16x connection but the best you have available is a PCIe gen 2 connection, it will run at half speed. To be extra clear:</p>
+<p>PCIe 1 @ 16x == PCIe 2 @ 8x == PCIe 3 @ 4x</p>
+<p>Similarly, putting a card which only supports PCIe Gen 2 into a Gen 3 slot will not suddenly make the card faster, even if it was to compensate, that is, if the card is made for PCIe Gen 2 @ 16x and you put it in a PCIe Gen 3 @ 8x slot, it will still run at half speed because it&rsquo;s the lowest gen number of the card or the slot that determines how many lanes are actually needed.</p>
+<p>Unfortunately, PCIe lanes, that is if you add together all the available 16x&rsquo;s and 8x&rsquo;s etc. on a given CPU are usually pretty limited. If the only extra card you plan on adding is a graphics card, you&rsquo;ll be fine, but if you intend to add a graphics card, sound card, network card, etc. all at once you may find that you&rsquo;ve either run out of physical slots or that a card is running with less than ideal bandwidth as a 16x slot may &lsquo;give up&rsquo; 8 of it&rsquo;s lanes becoming an 8x slot so that another card can function at all.</p>
+<p>Of note, the number of physical lanes and slots the mother board has probably greatly exceeds the number of lanes actually going to the CPU, so even if it appears you have plenty of room to add cards you may end up accidentally starving one for bandwidth.</p>
+<p>Finally, from a power perspective most motherboards will supply up to 75 watts to a card through the motherboard, but power hungry cards like the Nvidia and AMD graphics cards in my system may require external power connections. Also, some server boards cap PCIe power delivery to only 25 watts without an external power supply, so just be careful with compatibility.</p>
+<p>There are some other standards other than PCIe worth mentioning though.</p>
+<p>Older standards such as PCI, AGP, and ISA were all used before the widespread adoption of PCIe and while their availability is declining, PCI cards are still often for sale, you need to be very careful to only get PCIe cards and not PCI cards if your system doesn&rsquo;t support them.</p>
+<p>Both AGP and ISA have been phased out a long time ago, but very old cards may poke up now and then. If you&rsquo;re into vintage computers you may want to look the standards up to learn more.</p>
+<p><img src="/pciecards.jpg" alt="pciecards" /></p>
+<blockquote>
+<p>Top: a 16x pci-e graphics card and a 1x pcie networking card</p>
+<p>Bottom: an ISA networking card and an AGP graphics card, not pictured is the PCI connector</p>
+</blockquote>
+<h3 id="rombiosuefi">
+  ROM/BIOS/UEFI
+  <a class="anchor" href="#rombiosuefi">#</a>
+</h3>
+<p>Motherboards have to coordinate the communication of all the peripherals on the system and their own internal buses, furthermore, they have to have some sort of minimal configuration settings for setting things like which drive to boot off of or what speed the CPU or RAM should run at. These configuration settings are stored in some ROM or &lsquo;Read Only Memory&rsquo;, which is an independent chip on the motherboard. This configuration is read by the Binary Input Output System (BIOS) or the Unified Extensible Firmware Interface (UEFI). UEFI is essentially just the newer replacement for BIOS, and usually includes a compatibility mode for BIOS based hardware. When you first turn on the system you can typically mash either the delete or F12 key to enter this configuration page. It&rsquo;s typically from this interface that you&rsquo;d select your boot device, change your CPU or RAM clock speed, and set the system time. On that note, the system also likely has a battery on board which power&rsquo;s the on-board real time clock, which allows the system to maintain the time even when disconnected from power. On some systems the ROM is actually volatile meaning if this battery dies and the system is disconnected from power you may loose the BIOS/UEFI settings.</p>
+<p>Of note, you may need to update the UEFI or BIOS of a system which is sometimes done via a special admin command within windows but more commonly done by downloading a file to flash drive, putting the drive in a specific usb port, and loading the update file. When this is done it&rsquo;s common to lose all UEFI/BIOS settings as well, as it overwrites the ROM.</p>
+<p>Finally, it should be noted that it&rsquo;s pretty easy to make your system not boot or boot-loop if you break things here. So, be careful. If you set your fan speeds slower to make the system quieter then everything overheats and dies, well, ヽ（´ー｀）┌</p>
+<p>Because this varies per motherboard there&rsquo;s no universal way to describe how it looks or works. Some boards will support a lot more configuration than others, with really the only nearly definite options you&rsquo;ll find at the time of writing being a switch to enable virtualization extensions (for running virtual machines) and a switch to turn of Secure Boot, which you likely had to do to install Arch to begin with.</p>
+<p>Further reading <a href="https://www.howtogeek.com/56958/htg-explains-how-uefi-will-replace-the-bios/">How To Geek: What Is UEFI, and How Is It Different from BIOS?</a></p>
+<h3 id="vrm">
+  VRM
+  <a class="anchor" href="#vrm">#</a>
+</h3>
+<p>The VRM or &lsquo;Voltage Regulation Module&rsquo; serves a simple but important task of ensuring that the CPU (or processor in question) receives a constant voltage or voltage that makes sense for it&rsquo;s current clock speed.</p>
+<p>Essentially the VRM may contain multiple stages of current and voltage regulation modules. The more of these stages the more stable the voltage and the more current can be delivered. For most cases, this can be left alone, but it&rsquo;s incredibly important when over clocking, as to overclock a CPU or GPU it&rsquo;s usually necessary to increase the voltage, which is typically done from within the BIOS/UEFI or from a configuration utility inside the OS in the case of the GPU.</p>
+<p>You can typically tell how strong a particular VRM is by counting the number of &lsquo;chokes&rsquo; on the board.</p>
+<p>[TODO, add pictures of chokes]</p>
+<h2 id="graphics-card-or-integrated-graphics">
+  Graphics Card (or integrated graphics)
+  <a class="anchor" href="#graphics-card-or-integrated-graphics">#</a>
+</h2>
+<p><img src="/gcards.jpg" alt="gcards" /></p>
+<blockquote>
+<p>A wide array of graphics cards spanning multiple generations. The majority pictured are made by Nvidia</p>
+</blockquote>
+<p>Most &lsquo;beefier&rsquo; systems have a graphics card, but (almost) every computer that can output a video signal has dedicated graphics processing of some sort. For many lower end or low power systems (especially laptops) this graphics processing unit, or GPU, is built into the CPU and uses the systems same ram for video. For larger systems there&rsquo;s typically a larger graphics card (often the graphics card is called a GPU as shorthand; however, the GPU is technically just the processor on the board), which is a separate device hooked up though an expansion connection (like PCIe). Typically these cards differ from their integrated into the CPU counterparts in that they&rsquo;re much, much faster and drink much more power. In general the GPU is required because while CPUs are great at very fast consecutive operations like taking &lsquo;1+1=a, a+1=b, b+1=c&rsquo; the GPU is really good at parallel operations like &lsquo;1+1=a, 2+2=b, a+b=c&rsquo;, where both of the first two operations can be done at the same time by different processing units before being manipulated together in the third operation. In reality, this is because the modern GPU really only treats pushing color data to the screen as a secondary operation, instead it&rsquo;s main purpose is to do complex matrix and vector math which is what goes into drawing polygons in a 3D scene, and these matrix operations are massively parallel. So while a CPU has  at the high end a dozen cores, a GPU may have multiple thousand. These cores are much more limited in what they can do of coarse, and typically run at a lower clock speed than the CPU, but for their purpose they absolutely shred though large data. This has given rise to GpGPU Computing, or General Purpose Graphics Processing Unit Computing, where in the GPU is used for things other than graphics, like accelerating data base searchers or training AI models.</p>
+<p>As a brief note, historically graphics cards served primarily to actually draw to the screen, with some only having a fixed number of characters they could draw for rendering a text interface and others having a quite limited color palette that dictated how final images would look.</p>
+<p>Today, there are three primary manufactures of GPUs: Nvidia, AMD, and Intel.</p>
+<p>The largest player in the space, Nvidia, makes cards targeted primarily to gamers in their GTX and RTX lineup, and has cards meant for professional/compute tasks in their Tesla and Quadro lines. While the two lines are very similar technically they vary mostly in drivers and compute bit depth, with the professional cards providing the ability to do higher resolution floating point calculations easier. This is primarily done for market segmentation though- to prevent professional from buying the much cheaper (albeit still far to expensive) &lsquo;gaming&rsquo; cards. All of Nvidia&rsquo;s cards support CUDA, a programming framework that makes it easier to take advantage of Nvidia&rsquo;s cards for GpGPU purposes.</p>
+<p>AMD is currently offering little competition to Nvidia in the high end; however, their more midrange cards have found great success as they perform plenty well for the majority of games and compute work loads at what is often a fraction of the cost. Of note, AMD cards do not support CUDA, though they do support a variety of open standards that serve the same purpose. This is still an issue though, as many programs that can take advantage of GpGPU acceleration depend on CUDA and therefor require an Nvidia card. Nvidia has frequently been quite hostile to the open source community and their drivers significantly lag behind in quality and performance compared to AMD&rsquo;s for Linux.</p>
+<p>Also of note, AMD makes many &lsquo;APU&rsquo;s or Accelerated Processing Units, which is just branding for their take on graphics integrated into the CPU. However, AMD&rsquo;s integrated graphics, at least at the moment, far out do Intel&rsquo;s offerings. Intel, at the moment, only offers integrated graphics that are less than stellar performers. Despite this, laptops with Intel Integrated Graphics are very common due to their low power usage. Intel&rsquo;s Integrated Graphics have very good drive support though, both on Linux and Windows.</p>
+<p>As of the time of writing, Intel is starting to send prototype graphics cards to vendors in a bid to break out of the integrated graphics only space.</p>
+<p>Moving into the actual hardware itself let&rsquo;s look at three graphics units, starting with Intel Integrated.</p>
+<p>Both Intel and Amd offer integrated graphics of various capability that usually pair reasonably well with the CPU they share the die with. Below is an image of the inner workings of a ryzen cpu with integrated graphics, showing the actual CPU cores (I believe this is a 4 core eight thread system?) in CCX0, the memory controller, and the very large Vega series GPU on the right. This looks to be a Vega11 GPU as you can count the 11 stacks of Compute Units in the GPU section. Of note, if you get a CPU with integrated graphics and don&rsquo;t actually use it because you&rsquo;re getting a separate, more powerful card , then you&rsquo;re effectively paying for a large amount of hardware you&rsquo;re not using. As you can see below, if the GPU was not there, there would be a lot more room to add more CPU cores or other features to the CPU to make it more powerful. Unfortunately, due to market segmentation even if the actual cost to add these extra cores would be the same or less as the iGPU&rsquo;s cost, a CPU of the equivalent size would likely be much more expensive.</p>
+<p>Finally, it should be noted the iGPUs share system memory for graphics memory, which is actually one of their most limiting factors- as system memory (RAM) is optimized for a different kind of access pattern, it is not nearly as fast as GDDR or HMB2, both of which are memory technologies that have been optimized for use with graphics devices.</p>
+<p><img src="/1900px-raven_ridge_die_%28annotated%29.png" alt="1900px-raven_ridge_die_(annotated)" /></p>
+<p class="attribution ">
+    <a href="https://en.wikichip.org/wiki/amd/microarchitectures/zen">Image Source</a>
+</p>
+<p>Moving on to graphics cards, Looking above at the stacks of graphics cards above, you&rsquo;ll probably notice that a graphics card is basically just a full separate motherboard and processor on a card. Really, this is pretty accurate, as there is a separate compute device (the GPU), ram (GDDR or HBM), and io (fan control, etc.) on the board. Of course, the Graphics card can&rsquo;t really be used as a full separate computer, but thinking about it as such isn&rsquo;t entirely wrong either. In fact, graphics cards really harken back to much older systems where it was common to add a math co-processor chip along side the CPU to make some mathematical operations faster.</p>
+<p><strong>Further reading on GPU hardware:</strong></p>
+<p><a href="https://hackaday.io/project/175434-worlds-simplest-ttl-vga-circuit">&ldquo;World&rsquo;s Simplest TTL VGA circuit?&rdquo; - George Foot on Hackaday</a></p>
+<h3 id="hardware-accelerated-decode">
+  Hardware Accelerated Decode
+  <a class="anchor" href="#hardware-accelerated-decode">#</a>
+</h3>
+<p>[TODO]</p>
+<p><a href="https://utcc.utoronto.ca/~cks/space/blog/web/Firefox80VideoAccelConfusion">https://utcc.utoronto.ca/~cks/space/blog/web/Firefox80VideoAccelConfusion</a></p>
+<h2 id="hardware-acceleration">
+  Hardware Acceleration
+  <a class="anchor" href="#hardware-acceleration">#</a>
+</h2>
+<p><a href="https://www.cerebras.net/cerebras-wafer-scale-engine-why-we-need-big-chips-for-deep-learning/">Cerebras Wafer Scale Engine: Why we need big chips for Deep Learning</a></p>
+<h2 id="storage">
+  Storage
+  <a class="anchor" href="#storage">#</a>
+</h2>
+<p><img src="/hdds.jpg" alt="disks" /></p>
+<blockquote>
+<p>Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &lsquo;laptop drive&rsquo; at 2.5&quot;, the left most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd, a micro sd card, and a flash drive. All of which are examples of solid state storage</p>
+</blockquote>
+<p>Permanent storage is rapidly evolving, but the old guard: hard drives and tape storage aren&rsquo;t going anywhere either. But why use one over the other? How do you interact with them in Linux?</p>
+<p>[TODO] mention hdd, ssd, sata, nvme, usb-storage, sd, scsi, u.2, m.2, tape, floppy, zip</p>
+<p>hdparm</p>
+<h3 id="hdds">
+  HDDs
+  <a class="anchor" href="#hdds">#</a>
+</h3>
+<p>Hard disk drives or &lsquo;HDDs&rsquo; are sometimes called &ldquo;spinning rust&rdquo; because unlike other modern storage devices they&rsquo;re fundamentally mechanical.</p>
+<p>Looking at the delidded hard drive you&rsquo;ll see they&rsquo;re pretty simple in their basic construction: a magnetized needle(s) move across (a) platter(s) and flip bits accordingly. These platters typically spin at 5400 or 7200 RPM, with the faster meaning data can be read and written faster as well. Hard drives generally are not used for speed though, as compared to other alternatives they&rsquo;re extraordinary slow. Instead, they run at &lsquo;good enough&rsquo; speeds for most things- like storing video, music, etc. while being much less expensive than solid state options and with a proven reliability and without suffering from data loss when left without power for long periods of time. That said, just like any storage medium, over time data can be corrupted, so backups are still a must.</p>
+<p>When a Hard drive is powered off, the head will typically &lsquo;park&rsquo; off the platter (this is part of why the delidded plater above died, as it parked incorrectly) and transportation should be pretty safe, however, when running and spinning quickly they&rsquo;re pretty fragile, and this is why so many older laptops have dead drives: the gyroscopic effects of spinning something that fast make it resistant to a change in orientation, causing things to scrape, scratch, or otherwise go wrong. Thankfully most 2.5&quot; hard drives have been hardened against this now; however, it&rsquo;s still a good idea to store and run hard drives with as much protection from vibration and shock as possible. In fact, yelling at a hard drive <a href="https://www.youtube.com/watch?v=tDacjrSCeq4">has been shown</a> to hurt performance.</p>
+<p>At the end of the day, for bulk media storage that you still want to be able to access quickly or for backups, hard drives are still one of the best options.</p>
+<p>Most hard drives connect though either SATA or SAS, with almost all consumer drives being SATA, and enterprise drives using a mix. SAS has some extra features and depending on the drive may be capable of writing an reading at the same time, a nifty trick SATA drives can&rsquo;t do without alternating between the two rapidly.</p>
+<p>For bulk storage servers you can get insane capacities, and building one yourself isn&rsquo;t all that hard. Here&rsquo;s mine:<img src="/powervault.jpg" alt="powervault" /></p>
+<blockquote>
+<p>A modified powervault MD1000 with a hard drive poking out and the computer - being used an archive server - it connects to. It currently is only housing three, 3Tb SAS hard drives.</p>
+</blockquote>
+<p>For working with hard drives in Linux you&rsquo;re best friend is <code>hdparm</code> lets use it to look at some disks. First we need to pick a disk to look at, running <code>lsblk</code> you should be able to see all the disks on your system, and I&rsquo;ll be looking at my main data drive which is a 3.7Tb drive on /dev/sdg</p>
+<p>The first thing we should do is get an idea about the disk usage, to do that I&rsquo;ll go to the mount point of the disk on my system ( it&rsquo;s mounted at /run/media/vega/raid despite the fact it&rsquo;s no longer in a raid array, we&rsquo;ll come back to this)</p>
+<p>so first I&rsquo;ll run <code>df -h</code> , that <code>-h</code> on most Linux commands means to make the output human readable, printing things in terms of Gigabytes or Terabytes etc instead of just a raw byte count.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdg2       3.7T  2.3T 1.5T  62%  /run/media/vega/raid
+</code></pre></td></tr></table>
+</div>
+</div><p>Alright, so I already have the disk 62% used, let&rsquo;s give that a closer look by firing up <code>ncdu</code> at the mount point. This will take a little while to scan, the more files the longer it will take. After spending a few minutes to analyze the disk I&rsquo;m greeted with this:</p>
+<p><img src="/ncdu.png" alt="ncdu" /></p>
+<p>From this you should be able to plainly see that the majority of the hard drive is taken up by Archived files, Music, Games, Videos, and Pictures. Pretty Mundane, but I could easily dive into the Archives and see why they&rsquo;re so big and save myself some space</p>
+<p>None of this is really all that interesting though, so what about speed? How fast or slow is the hard drive? Now is where hdparm comes in. Reading the man page you&rsquo;ll find the the <code>-T</code> and <code>-t</code> flags both perform disk read bench marks, one cached reads, the other raw, so let&rsquo;s run <code>sudo hdparm -Tt /dev/sdg</code></p>
+<p>This gives:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/dev/sdg:
+ Timing cached reads:   <span style="color:#ae81ff">22946</span> MB in  2.00 seconds <span style="color:#f92672">=</span> 11492.36 MB/sec
+ Timing buffered disk reads: <span style="color:#ae81ff">556</span> MB in  3.01 seconds <span style="color:#f92672">=</span> 184.91 MB/sec
+</code></pre></td></tr></table>
+</div>
+</div><p>You should immediately notice that cached reads are absolutely insanely high compared to buffered, in reality it&rsquo;s because it was using RAM for cache, and RAM really is that fast. The reads of bulk data on the other hand? A little under 200MB/sec is actually quite fast for a hard drive. Anything between 1-200 is normal. You&rsquo;ll soon see that compared to SSDs though, this is kind of disappointing.</p>
+<p>But, moving on, another few interesting flags available in hdparm are <code>-g</code> which displays the &ldquo;geometry&rdquo; of the drive: cylinders, heads, sectors, etc., <code>-H</code> for tempature.
+This begs the obvious question: what are cylinders, heads, and sectors
+[TODO]</p>
+<p>Another thing of note is S.M.A.R.T tests, while not exclusive to hard drives, they&rsquo;re particularly useful for them as most hard drives give a lot of warning signs before failing out right. In
+order to get in-depth S.M.A.R.T info on your drive, you&rsquo;ll likely need to run a test first, after which you can view the results. To do this on Linux you can run</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yay -S smartmontools
+sudo smartctl -i path/to/disk
+</code></pre></td></tr></table>
+</div>
+</div><p>Hard drives, being the last remaining mechancial part in a computer (aside from fans or liquid cooling pumps) are also pretty prone to failure. If you want to avoid this keep vibrations to a minimum (see <a href="https://www.youtube.com/watch?v=tDacjrSCeq4&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Shouting in the Datacenter (YouTube)</a>), look for disks that are rated for your use case (being on 24/7, being next to many other hard drives, etc) and check the drives MTBF or Mean Time Between Failure. You want this number to be as high as possible, often something like 1,000,000 hours.</p>
+<p>Finally, a quick note about Western Digital Green drives: Linux eats them. Thankfully you can use hdparm to fix this. From the man page:</p>
+<blockquote>
+<p>-J
+Get/set the Western Digital (WD) Green Drive&rsquo;s &ldquo;idle3&rdquo; timeout value.  This timeout controls how often the drive parks its heads and enters a low power  consumption  state.
+The  factory  default is eight (8) seconds, which is a very poor choice for use with Linux.  Leaving it at the default will result in hundreds of thousands of head load/un‐
+load cycles in a very short period of time.  The drive mechanism is only rated for 300,000 to 1,000,000 cycles, so leaving it at the default could result in premature failure
+not to mention the performance impact of the drive often having to wake-up before doing routine I/O.
+WD  supply a WDIDLE3.EXE DOS utility for tweaking this setting, and you should use that program instead of hdparm if at all possible.  The reverse-engineered implementation
+in hdparm is not as complete as the original official program, even though it does seem to work on at a least a few drives.  A full power cycle is required for  any  change
+in setting to take effect, regardless of which program is used to tweak things.
+A  setting  of  30 seconds is recommended for Linux use.  Permitted values are from 8 to 12 seconds, and from 30 to 300 seconds in 30-second increments.  Specify a value of
+zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p>
+</blockquote>
+<p><a href="https://arstechnica.com/gadgets/2020/09/western-digital-is-trying-to-redefine-the-word-rpm/">Western Digital is trying to redefine the word “RPM” (arstechnica)</a></p>
+<p><a href="https://www.youtube.com/watch?v=lsFDp-W1Ks0">What Is ZFS?: A Brief Primer (YouTube, Level1Linux)</a></p>
+<p><a href="https://weinholt.se/articles/non-posix-filesystems/">Non-Posix File Systems (Göran Weinholt&rsquo;s Blog)</a></p>
+<h3 id="ssd">
+  SSD
+  <a class="anchor" href="#ssd">#</a>
+</h3>
+<p>Solid state drives, like HDDs, come in many capacites, speeds, and form factors; however, SSDs come in many, many more than HDDs. The primary two of note at the moment are SATA SSDs and NVMe SSDs. Sata SSDs are typically the same size and shape (though sometimes a bit thinner) as the normal 2.5&quot; laptop hard drive; however, some other standards are used such as mSATA (about a half-credit hard in size) and m.2 (a bit bigger than a stick of gum). Unfortunately, the m.2 spec is slightly confusing, with some drives being SATA based and some being NVMe based, and the m.2 slot itself supporting any mix (just SATA, just NVMe, or both), so when getting a drive you need to be careful that your motherboard&rsquo;s m.2 slot and the drive are compatible.</p>
+<p>The main reason you&rsquo;d want to use NVMe is because it&rsquo;s much, much faster. NVMe drives are often many times faster than their SATA equivilents (usually because Sata is limited to 600MB/s tops), and as of the time of writing, only slightly more expensive, albeit not supported on all systems. Do keep in mind though that NVMe drives will use some of your limited PCI-e lanes, so if you want to add a lot of expansion cards like a GPU, sound card, extra usb ports, etc. you&rsquo;ll need to be careful about that.</p>
+<p>All SSDs, regradless of type, consist of 3 main parts: The Controller, the NAND, and, if they&rsquo;re not garbage, some RAM. (Seriously, don&rsquo;t buy a DRAM-less SSD)</p>
+<p>All three of these can make difference to both perfromance and reliability, though honestly, this is one situation where just sticking name brand is probably the best way to ensure you don&rsquo;t get boned. Samsung, Intel, Silicon Power, Kingston, Crucial, Western Digital, Sandisk, Micro, ADATA, and Toshiba should all be safe bets. It&rsquo;s really not worth saving a buck on a no-name brand when your data is at stake.</p>
+<p>If you do care about the nerdy nitty-gritty, you sholud read about <a href="https://en.wikipedia.org/wiki/Multi-level_cell">Multi Level Cell Flash (Wikipedia)</a>, with the general take away that more levels means more space but worse speeds and durability.</p>
+<p>It&rsquo;s also worth mentioning that new flash types, controllers, and methods to make things even faster keep coming out. One of the most interesting is Intel&rsquo;s Optane SSDs which use 3D XPoint, which, is fast, very low latency, and more durable than flash, but more expensive. It&rsquo;s actually fast enough that in some exotic systems its&rsquo;s starting <a href="https://youtu.be/uHAfTty9UWY">to be used as an alternative to RAM</a> that can also keep it&rsquo;s data though a reboot (unlike normal RAM).</p>
+<p><a href="https://www.youtube.com/watch?v=C6munjMprzU">Recovering File Systems from NAND Flash (YouTube, Defcon 28)</a></p>
+<h3 id="cloud-storage-some-one-elses-drives">
+  Cloud Storage (Some one else&rsquo;s drives)
+  <a class="anchor" href="#cloud-storage-some-one-elses-drives">#</a>
+</h3>
+<p>This is opinioned guide, so now that&rsquo;s about to show: Dont do it. All cloud storage is is someone else&rsquo;s disks. If you want to use it as a backup sure, but I don&rsquo;t see why- it&rsquo;s much less expensive to just backup the reallly important stuff to a hosted server continually and periodically (weekly, monthly, whatever) backup to some external disks that you keep somewhere else. Not to mention the privacy concerns. Like, really? You want to put allllll your family pictures under the all seeing eyes of Google or Microsoft. Nah. I&rsquo;ll pass.</p>
+<p>If you reallllly insist, then check out <a href="https://www.backblaze.com/cloud-backup.html">https://www.backblaze.com/cloud-backup.html</a> (I&rsquo;m not affiliated in anyway, nor do I use the service) as it&rsquo;s probably the safest option and they have good recovery options, like sending you a physical hard drive with your data on it.</p>
+<p>But, seriously, only use cloud for a backup if you have to and never ever ever ever ever use it as a primary storage medium.</p>
+<p>The cloud is not your friend.</p>
+<h3 id="portable">
+  Portable
+  <a class="anchor" href="#portable">#</a>
+</h3>
+<p>Most fixed disk enclosures (Think your normal, off the shelf portable driver) suck, albeit they can be less expensive. I&rsquo;d recommend getting a portable multi-drive enclosure that runs over whatever the fastest connection you have is (Thunderbolt, USB 3.1, etc.). You can even get usb-&gt;nvme adapters, albeit they have a nasty amount of bandwidth limiting.</p>
+<p>Most off-the-shelf flash drives have ass cooling and will over-heat them selves to death when you use them for things like installing operating systems regularly, so I recommend just getting a bulk pack of cheap, low capacity ones to toss when they finally kick the bucket and a few nice USB-&gt;SATA or USB-&gt;NVME adapter for  your main portable storage needs. Failing that, you can always use your phone if you&rsquo;ve got a nice high capacity SD card in it or plenty of spare internal storage. The problem with that is MTP or &lsquo;Media Transfer Protocol&rsquo; is a buggy, slow mess, and there&rsquo;s no other clean way to transfer things from a phone. So ¯\<em>(ツ)</em>/¯</p>
+<blockquote class="twitter-tweet"><p lang="ro" dir="ltr">Recuperación de datos de µSD nivel: F*cking Master of the Universe. <a href="https://t.co/B9egCrW4WJ">pic.twitter.com/B9egCrW4WJ</a></p>&mdash; ChuxMan Skywalker (@MrChuxMan) <a href="https://twitter.com/MrChuxMan/status/1288054419985248257?ref_src=twsrc%5Etfw">July 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>You might also want to look into <a href="https://www.ifixit.com/News/46724/how-to-find-useful-discounted-disks-inside-an-external-hard-drive">Hard Drive Schucking</a> if you&rsquo;re in need of as much storage as you can get your grubby lil&rsquo; <a href="https://www.reddit.com/r/DataHoarder/">r/DataHoarder</a> hands onto.</p>
+<h3 id="the-past">
+  The Past
+  <a class="anchor" href="#the-past">#</a>
+</h3>
+<p>Floopy, Zip Disks, and Tape? Really? Yes. And yes, they&rsquo;re still used, so you should probably know at least a little about them.</p>
+<p>[TODO]</p>
+<p>Floppy, Zip, tape</p>
+<h3 id="raid-and-disk-pools">
+  RAID and Disk Pools
+  <a class="anchor" href="#raid-and-disk-pools">#</a>
+</h3>
+<p>[TODO]</p>
+<p>Zfs, hardware raid, software raid, emulated hardware (bios), etc.</p>
+<h2 id="network-interfaces">
+  Network Interfaces
+  <a class="anchor" href="#network-interfaces">#</a>
+</h2>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/nics.jpg" alt="NICS" height="600em">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>Pictured here are three Network Interface cards or NICs. The three on the left are for WiFi (though some of this form factor may include bluetooth as well) while the one on the right has an ethernet port for wired access. Most computer&rsquo;s will not have a separate card for the wired interface though, as most motherboard&rsquo;s have a wired network interface built in.</p>
+<p>NICs also include the wireless chipset used for connecting to a cell tower and really any radio communication device in general.</p>
+<p>Older NICs include those used for Dial-Up connections and some obscure wireless methods that predate WiFi.</p>
+
+  </div>
+  
+</div>
+
+<h3 id="ethernet">
+  Ethernet
+  <a class="anchor" href="#ethernet">#</a>
+</h3>
+<p>[TODO] rj45, ethernet over infiniband, speed bases</p>
+<h3 id="wifi">
+  WiFi
+  <a class="anchor" href="#wifi">#</a>
+</h3>
+<p>[TODO]</p>
+<p>Channels 12, 13, 14. 2.4 v 5, wifi 6, weird authentication, etc</p>
+<h3 id="high-bandwidth">
+  High Bandwidth
+  <a class="anchor" href="#high-bandwidth">#</a>
+</h3>
+<p>[TODO], infiniband, DMA, 10GbE+, Multigig</p>
+<p>At the end of the day, nothing is faster than a truck filled with drives.</p>
+<h3 id="the-future">
+  The Future
+  <a class="anchor" href="#the-future">#</a>
+</h3>
+<p>[TODO]</p>
+<p>wifi6, 10gbe rj45 and beyond, cellular, sdr</p>
+<h3 id="the-past-1">
+  The Past
+  <a class="anchor" href="#the-past-1">#</a>
+</h3>
+<p>[TODO]</p>
+<p>coax network, infrared, sneakernet</p>
+<h2 id="power-supply">
+  Power Supply
+  <a class="anchor" href="#power-supply">#</a>
+</h2>
+<p>The Power Supply Unit or PSU does what you think. It takes power from the wall and turns it into power for the computer. This isn&rsquo;t the chapter on voltage and current, so I&rsquo;ll spare some of the details, but effectively you want a power supply that can deliver plenty of power and that has clean power. A given power supply usually has a rating like &lsquo;500w&rsquo; for 500 watts, but this is usually a bad indicator, as they could be referring to multiple things- you see a desktop power supply usually outputs multiple voltages (-12, +12, +5, +3.3) and each one of those lines will have a different maximum power output. Typically, the one that&rsquo;s most relevant is the +12 rail, as both the GPU and CPU will likely run on that and they&rsquo;re what draws the most power. So, you can actually check just this rail by taking the voltage (+12V) times the max current (amperage) on that line (let&rsquo;s use 20A) to see the max power (so 12*20=240 watts)</p>
+<p>Also note that the power supply itself may be of varrying quality, with the voltage &lsquo;ripple&rsquo; and the efficiency being important as well. Voltage ripple occurs when the supposed-to-be 12V line instead outputs a signal that&rsquo;s varying a little, so let&rsquo;s say you measure the +12V line and it reads 12.2V now, then a minute later reads 11.8V, that&rsquo;s quite a bit of ripple when you expect a constant +12V. Generally you can trust the power supply is decent about this though so long as the power supply is also pretty efficient. Telling efficiency is easy too, as there&rsquo;s a nifty specification that most PC PSU&rsquo;s have called &ldquo;80 plus&rdquo; and it&rsquo;s rated by a metal-value system, so an 80+ bronze power supply is already (typically) much better than one without the rating, and an 80+ Gold is even better, going on up to Platinum.</p>
+<p>Most PC PSU&rsquo;s are in the ATX format, the same specification used to size motherboards, and the majority of desktops use a standard ATX power supply, though smaller systems may opt for one of the smaller standards such as SFX. Servers typically have their own power supplies which look a bit strange as they&rsquo;re basically the shape of an elongated brick, but they&rsquo;re like that so they can be easily swapped in and out. Often server power supplies are redundant so a new one could be put in while the system is still on in many cases.</p>
+<p>Main takeaway here, if some one is talking about an ATX PSU they&rsquo;re talking about the power supply in a desktop. Often they&rsquo;re (less than safely&hellip;) used in other applications as they&rsquo;re cheap and often easy to find used or salvaged from old systems.</p>
+<p>[TODO] add pictures, ATX 12VO, don&rsquo;t use ATX for lab purpsoses, please.</p>
+<h2 id="cooling">
+  Cooling
+  <a class="anchor" href="#cooling">#</a>
+</h2>
+<p>Blower, air flow vs static pressure, fan size liquid, heat pipes, pwm vs DC control</p>
+<h2 id="peripherals">
+  Peripherals
+  <a class="anchor" href="#peripherals">#</a>
+</h2>
+<h3 id="usb">
+  USB
+  <a class="anchor" href="#usb">#</a>
+</h3>
+<p>[TODO] all the annoyences of USB standards</p>
+<p><a href="https://lab.ktemkin.com/post/why-is-usb3-harder/">USB3: why it&rsquo;s a bit harder than USB2</a></p>
+<h3 id="keyboards">
+  Keyboards
+  <a class="anchor" href="#keyboards">#</a>
+</h3>
+<p>HID or Human Interface Device, is the standard over which most mice, keyboards, and game controllers talk to the computer. Unfortunately, it&rsquo;s also a pretty lame standard. You can&rsquo;t just input arbitrary Unicode or send fancy data back to the keyboard to control fancy RGB lights, because of this it&rsquo;s common to need extra drivers per device</p>
+<p>[TODO]</p>
+<p>5pin din, PS2, USB</p>
+<p><a href="https://github.com/alex/what-happens-when">What Happens When (Github)</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here&#39;s a terrible idea for a keyboard that I&#39;m annoyed I didn&#39;t invent first.<br>Type out morse code by closing your laptop lid! <br><br>from <a href="https://t.co/FfXB2etRUu">https://t.co/FfXB2etRUu</a> <a href="https://t.co/YMJ5XVm8io">pic.twitter.com/YMJ5XVm8io</a></p>&mdash; foone (@Foone) <a href="https://twitter.com/Foone/status/1245610381600382976?ref_src=twsrc%5Etfw">April 2, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h1 id="chapter-31---how-to-know-what-to-buy">
+  Chapter 3.1 - How to know what to buy
+  <a class="anchor" href="#chapter-31---how-to-know-what-to-buy">#</a>
+</h1>
+<p>[TODO - possibly move]</p>
+<h1 id="chapter-32---legacy-hardware">
+  Chapter 3.2 - Legacy Hardware
+  <a class="anchor" href="#chapter-32---legacy-hardware">#</a>
+</h1>
+<p>[TODO]</p>
+<p>Parallel, Serial, Tape, CD, gameport</p>
+<h1 id="chapter-33---architectures">
+  Chapter 3.3 - Architectures
+  <a class="anchor" href="#chapter-33---architectures">#</a>
+</h1>
+<p>From the README.md file at <a href="https://github.com/radareorg/radare2">https://github.com/radareorg/radare2</a></p>
+<blockquote>
+<h2 id="architectures">
+  Architectures
+  <a class="anchor" href="#architectures">#</a>
+</h2>
+<p>i386, x86-64, ARM, MIPS, PowerPC, SPARC, RISC-V, SH, m68k, m680x, AVR, XAP, System Z, XCore, CR16, HPPA, ARC, Blackfin, Z80, H8/300, V810, V850, CRIS, XAP, PIC, LM32, 8051, 6502, i4004, i8080, Propeller, Tricore, CHIP-8, LH5801, T8200, GameBoy, SNES, SPC700, MSP430, Xtensa, NIOS II, Java, Dalvik, WebAssembly, MSIL, EBC, TMS320 (c54x, c55x, c55+, c66), Hexagon, Brainfuck, Malbolge, whitespace, DCPU16, LANAI, MCORE, mcs96, RSP, SuperH-4, VAX.</p>
+</blockquote>
+<p>Which is only further complicated by:</p>
+<blockquote>
+<h2 id="file-formats">
+  File Formats
+  <a class="anchor" href="#file-formats">#</a>
+</h2>
+<p>ELF, Mach-O, Fatmach-O, PE, PE+, MZ, COFF, OMF, TE, XBE, BIOS/UEFI, Dyldcache, DEX, ART, CGC, Java class, Android boot image, Plan9 executable, ZIMG, MBN/SBL bootloader, ELF coredump, MDMP (Windows minidump), WASM (WebAssembly binary), Commodore VICE emulator, QNX, Game Boy (Advance), Nintendo DS ROMs and Nintendo 3DS FIRMs, various filesystems.</p>
+</blockquote>
+<p>and</p>
+<blockquote>
+<h2 id="operating-systems">
+  Operating Systems
+  <a class="anchor" href="#operating-systems">#</a>
+</h2>
+<p>Windows (since XP), GNU/Linux, GNU/Darwin, GNU/Hurd, Apple&rsquo;s {Mac,i,iPad,watch}OS, [Dragonfly|Net|Free|Open]BSD, Android, QNX, Solaris, Haiku, FirefoxOS.</p>
+</blockquote>
+<p>plus, the above lists are by no means exhaustive. Clearly there&rsquo;s no shortage of CPU architectures (virtual or physical) that can be present on a system which can be running any of a number of operating systems which may use a variety of ways of actually storing the executable instructions, so, let&rsquo;s take a look at what all of this actually means. First, let&rsquo;s start with the different architectures you&rsquo;re likely to run into and what makes them different:</p>
+<p>[TODO]</p>
+<p>For more information on embedded architectures and in-depth comparisons look at Chapter 14.1. For info on Virtual machines (for hosting Linux or for languages like Java) look to Chapters 8 and 17</p>
+<p>[TODO] note on hackintoshes</p>
+<p><a href="https://manybutfinite.com/post/how-computers-boot-up/">https://manybutfinite.com/post/how-computers-boot-up/</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/hardware.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-3---into-the-hardware">Chapter 3 - Into The Hardware</a>
+      <ul>
+        <li><a href="#the-cpu">The CPU</a>
+          <ul>
+            <li><a href="#clock-speed">Clock Speed</a></li>
+            <li><a href="#microcode">Microcode</a></li>
+            <li><a href="#cache">Cache</a></li>
+            <li><a href="#interrupts">Interrupts</a></li>
+            <li><a href="#power">Power</a></li>
+            <li><a href="#physically-what-and-where-is-this-thing">Physically, what and where is this thing?</a></li>
+            <li><a href="#numa-nodes-chiplets-die-yield">Numa Nodes? Chiplets? Die Yield?</a></li>
+            <li><a href="#branch-prediction--pipelining">Branch Prediction &amp; Pipelining</a></li>
+            <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
+            <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
+          </ul>
+        </li>
+        <li><a href="#further-reading">Further Reading</a></li>
+        <li><a href="#ram">RAM</a>
+          <ul>
+            <li><a href="#virtual-memory">Virtual Memory</a></li>
+            <li><a href="#pages">Pages</a></li>
+            <li><a href="#memory-issues-ecc-and-memtest86">Memory issues, ECC, and Memtest86</a></li>
+            <li><a href="#the-future-of-ram">The Future of RAM</a></li>
+            <li><a href="#row-hammer">Row Hammer</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-motherboard">The Motherboard</a>
+          <ul>
+            <li><a href="#chipset">Chipset</a></li>
+            <li><a href="#expansion-slots">Expansion slots</a></li>
+            <li><a href="#rombiosuefi">ROM/BIOS/UEFI</a></li>
+            <li><a href="#vrm">VRM</a></li>
+          </ul>
+        </li>
+        <li><a href="#graphics-card-or-integrated-graphics">Graphics Card (or integrated graphics)</a>
+          <ul>
+            <li><a href="#hardware-accelerated-decode">Hardware Accelerated Decode</a></li>
+          </ul>
+        </li>
+        <li><a href="#hardware-acceleration">Hardware Acceleration</a></li>
+        <li><a href="#storage">Storage</a>
+          <ul>
+            <li><a href="#hdds">HDDs</a></li>
+            <li><a href="#ssd">SSD</a></li>
+            <li><a href="#cloud-storage-some-one-elses-drives">Cloud Storage (Some one else&rsquo;s drives)</a></li>
+            <li><a href="#portable">Portable</a></li>
+            <li><a href="#the-past">The Past</a></li>
+            <li><a href="#raid-and-disk-pools">RAID and Disk Pools</a></li>
+          </ul>
+        </li>
+        <li><a href="#network-interfaces">Network Interfaces</a>
+          <ul>
+            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#wifi">WiFi</a></li>
+            <li><a href="#high-bandwidth">High Bandwidth</a></li>
+            <li><a href="#the-future">The Future</a></li>
+            <li><a href="#the-past-1">The Past</a></li>
+          </ul>
+        </li>
+        <li><a href="#power-supply">Power Supply</a></li>
+        <li><a href="#cooling">Cooling</a></li>
+        <li><a href="#peripherals">Peripherals</a>
+          <ul>
+            <li><a href="#usb">USB</a></li>
+            <li><a href="#keyboards">Keyboards</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#chapter-31---how-to-know-what-to-buy">Chapter 3.1 - How to know what to buy</a></li>
+    <li><a href="#chapter-32---legacy-hardware">Chapter 3.2 - Legacy Hardware</a></li>
+    <li><a href="#chapter-33---architectures">Chapter 3.3 - Architectures</a>
+      <ul>
+        <li><a href="#architectures">Architectures</a></li>
+        <li><a href="#file-formats">File Formats</a></li>
+        <li><a href="#operating-systems">Operating Systems</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

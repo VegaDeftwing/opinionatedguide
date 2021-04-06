@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 33 - Security &amp; Exploitation #  I&rsquo;m going to assume at least some prior knowledge here, if you want a quick intro, I recommend going through ./missing-semester-Security so that we can all be on the same page.  Often when we think about Exploitation, better known as hacking, we conjure images of a more-punk-than-cyber cyberpunk person clicking away wildly on a keyboard as code flies by, like the 1995 movie, Hackers, and to some extent this isn&rsquo;t wrong, as one look around the floor at DefCon, will show you.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 33 - Security &amp; Exploitation #  I&rsquo;m going to assume at least some prior knowledge here, if you want a quick intro, I recommend going through ./missing-semester-Security so that we can all be on the same page.  Often when we think about Exploitation, better known as hacking, we conjure images of a more-punk-than-cyber cyberpunk person clicking away wildly on a keyboard as code flies by, like the 1995 movie, Hackers, and to some extent this isn&rsquo;t wrong, as one look around the floor at DefCon, will show you." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/security/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Security | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.2b31fa6d9f5805edd4edeb819cce0a4e19cc387d78889aad9bee44ece282eb52.css" integrity="sha256-KzH6bZ9YBe3U7euBnM4KThnMOH14iJqtm&#43;5E7OKC61I=">
+<script defer src="/en.search.min.bf72a77d83a5d19d69e964a70223c925dc6606a9ef54342a84d8345b16271bd6.js" integrity="sha256-v3KnfYOl0Z1p6WSnAiPJJdxmBqnvVDQqhNg0WxYnG9Y="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;" >    Introduction</p>
+<ul>
+<li><a href="/engineering/engineering/"> 0 - What is this?</a></li>
+<li><a href="/engineering/community/"> Ⅰ - Community</a></li>
+<li><a href="/engineering/howtolearn/"> Ⅱ - Learn How to Learn</a></li>
+</ul>
+<p style="color:#009CDF;" >    Linux & Your Computer</p>
+<ul>
+<li><a href="/engineering/firstgoal/"> 1 - The First Goal</a></li>
+<li><a href="/engineering/arch/"> 2 - Installing Arch Linux</a></li>
+<li><a href="/engineering/hardware/"> 3 - Into The Hardware</a></li>
+<li><a href="/engineering/linuxdirtree/"> 4 - The <em>Root</em> of Things</a></li>
+<li><a href="/engineering/howwework/"> 5 - Working on <em>How</em> we work</a></li>
+<li><a href="/engineering/git/"> 5½- Git</a></li>
+<li><a href="/engineering/linuxshell/">A1 - Using The Linux Shell</a></li>
+</ul>
+<p style="color:#009CDF;" >    Prerequisites</p>
+<ul>
+<li><a href="/engineering/math/">6 - Math</a></li>
+<li><a href="/engineering/physics/">7 - Physics</a></li>
+<li><a href="/engineering/chem/">8 - Chemistry</a></li>
+<li><a href="/engineering/othersubjects/">9 - &lsquo;The Rest&rsquo;</a></li>
+</ul>
+<p style="color:#009CDF;" >    Programming</p>
+<ul>
+<li><a href="/engineering/codeintro/">10 - Let&rsquo;s Write Some Code</a></li>
+<li><a href="/engineering/consequences/">10½- Consequences</a></li>
+<li><a href="/engineering/lowlvl/">11 - Low Level Programming</a></li>
+<li><a href="/engineering/fosscopyright/">11½- FOSS &amp; Copyright</a></li>
+<li><a href="/engineering/codecont/">12 - Yet More Programming</a></li>
+<li><a href="/engineering/fixxingissuses/">12½- Fixing Issues</a></li>
+<li><a href="/engineering/languages/">13 - Programming Languages</a></li>
+<li><a href="/engineering/algorithms/">14 - Algorithms and More</a></li>
+<li><a href="/engineering/bigprog/">15 - Writing a Big Program</a></li>
+<li><a href="/engineering/debugbuildtest/">16 - Debugging, CI &amp; CD</a></li>
+<li><a href="/engineering/multithread/">17 - We&rsquo;ve Got Cores!</a></li>
+<li><a href="/engineering/guiprog/">18 - Graphical Programming</a></li>
+<li><a href="/engineering/game/">19 - Game Programming</a></li>
+<li><a href="/engineering/funcprog/">20 - (((())(()((()(()))))))</a></li>
+<li><a href="/engineering/aiml/">21 - Fine, here&rsquo;s AI/ML</a></li>
+</ul>
+<p style="color:#009CDF;" >    Circuits</p>
+<ul>
+<li><a href="/engineering/circuits1/">22 - Circuits! </a></li>
+<li><a href="/engineering/circuits2/">23 - Semiconductors</a></li>
+<li><a href="/engineering/digitallogic/">24 - Digital Logic</a></li>
+<li><a href="/engineering/embedded/">25 - Embedded Systems</a></li>
+<li><a href="/engineering/pcb/">26 - Let&rsquo;s Make our own PCB</a></li>
+</ul>
+<p style="color:#009CDF;" >    Going Deeper</p>
+<ul>
+<li><a href="/engineering/compileassemble/">27 - Compilers &amp; Assemblers</a></li>
+<li><a href="/engineering/fpga1/">28 - Programmable Logic</a></li>
+<li><a href="/engineering/comparch/">29 - Let&rsquo;s Make our own CPU</a></li>
+</ul>
+<p style="color:#009CDF;" >    Networking & Servers</p>
+<ul>
+<li><a href="/engineering/networking/">30 - Networking</a></li>
+<li><a href="/engineering/servers/">31 - Servers!</a></li>
+<li><a href="/engineering/cloud/">31½- &ldquo;The Cloud&rdquo;</a></li>
+<li><a href="/engineering/databases/">32 - Databases</a></li>
+<li><a href="/engineering/security/"class=active>33 - Security &amp; Exploitation</a></li>
+</ul>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;" >    Making and Hobbies</p>
+<ul>
+<li><a href="/engineering/3dprint/">34 - 3D Printing &amp; CNC</a></li>
+<li><a href="/engineering/hamradio/">35 - Ham Radio</a></li>
+<li><a href="/engineering/history/">36 - Computer History</a></li>
+</ul>
+<p style="color:#009CDF;" >    Wrapping Up</p>
+<ul>
+<li>
+<p><a href="/engineering/wrappingup/">37 - Where next?</a></p>
+</li>
+<li>
+<p><a href="/engineering/cheat/">A2 - Cheat Sheets &amp; Libraries</a></p>
+</li>
+</ul>
+<!--  - [A3 - Bill Of Materials](/engineering/a3-bom/) -->
+<ul>
+<li><a href="/engineering/resources/">A3 - Other Great Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/music/music-getting-started/"> 1 - Getting Started</a></li>
+<li><a href="/music/sound-sources/"> 2 - Sound Sources</a></li>
+<li><a href="/music/theory/"> 3 - Theory</a></li>
+<li><a href="/music/effects/"> 4 - Effects</a></li>
+<li><a href="/music/mix-and-master/"> 5 - Mixing &amp; Mastering</a></li>
+<li><a href="/music/sequencing-and-midi/"> 6 - Sequencing &amp; MIDI</a></li>
+<li><a href="/music/instruments/"> 7 - Instruments</a></li>
+<li><a href="/music/music-software/"> 8 - Software</a></li>
+<li><a href="/music/music-hardware/"> 9 - Hardware</a></li>
+<li><a href="/music/other-resources-music/">A1 - Other Resources</a></li>
+<li><a href="/music/video/">A2 - Video</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/phil/basic-phil/"> 1 - Basic Philosophy</a></li>
+<li><a href="/phil/fallacies/"> 2 - Logical Fallacies</a></li>
+<li><a href="/phil/arguments/"> 3 - Arguments</a></li>
+<li><a href="/phil/community/"> 4 - Community Efforts</a></li>
+<li><a href="/phil/idea-labs/"> 5 - Community Idea Labs</a></li>
+<li><a href="/phil/education/"> 6 - Education</a></li>
+<li><a href="/phil/labor/"> 7 - Labor and Compensation</a></li>
+<li><a href="/phil/copyright/"> 8 - Copyright</a></li>
+<li><a href="/phil/consumerism/"> 9 - Consumerism</a></li>
+<li><a href="/phil/law-and-order/">10 - Law and Order</a></li>
+<li><a href="/phil/infrastructure/">11 - Infrastructure</a></li>
+<li><a href="/phil/religon/">12 - Religion</a></li>
+<li><a href="/phil/sex/">13 - Sex</a></li>
+<li><a href="/phil/medical/">14 - Medical</a></li>
+<li><a href="/phil/foriegn/">15 - Foriegn Involment</a></li>
+<li><a href="/phil/voting/">16 - Voting</a></li>
+<li><a href="/phil/freedoms/">17 - Freedoms and Rights</a></li>
+<li><a href="/phil/duties/">18 - Duties</a></li>
+<li><a href="/phil/phil-and-the-internet/">19 - Internet</a></li>
+<li><a href="/phil/phil-misc/">20 - Misc</a></li>
+<li><a href="/phil/phil-other/">A1 - Other Resources</a></li>
+</ul>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/design/basics/"> 1 - Basics of Art</a></li>
+<li><a href="/design/analog-design/"> 2 - Analog Art</a></li>
+<li><a href="/design/digital-design/"> 3 - Digital Art</a></li>
+<li><a href="/design/ui/"> 4 - UI/UX</a></li>
+<li><a href="/design/d5-3d/"> 5 - 3D</a></li>
+<li><a href="/design/generative-art/"> 6 - Generative Tools</a></li>
+<li><a href="/design/design-other/">A1 - Other Resources</a></li>
+<li><a href="/design/design-intro/">A2 - Inspirational Art</a></li>
+<li>
+</div>
+</li>
+</ul>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/interviews/loial/">   - Loial Otter</a></li>
+<li><a href="/interviews/soatok/">   - Soatok Dreamseeker</a></li>
+<li><a href="/interviews/cadeyratio/">   - Cadey Ratio</a></li>
+</ul>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<ul>
+<li><a href="/other/funlinks/">   - Interesting Links</a></li>
+<li><a href="/other/coolhardware/">   - Cool Hardware</a></li>
+</ul>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Security</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-33---security--exploitation">Chapter 33 - Security &amp; Exploitation</a>
+      <ul>
+        <li><a href="#do-not">DO NOT</a>
+          <ul>
+            <li><a href="#do-not-use-random-crypto-libraries-or-write-your-own">DO NOT use random crypto libraries or write your own</a></li>
+            <li><a href="#do-not-use-algorithms-that-are-broken">DO NOT use algorithms that are broken</a></li>
+            <li><a href="#do-not-think-encryption-is-a-magic-bullet">DO NOT think encryption is a magic bullet</a></li>
+            <li><a href="#do-not-assume-the-crypto-algo-just-works">DO NOT assume the crypto algo &lsquo;Just Works&rsquo;</a></li>
+            <li><a href="#do-not-assume-the-hardware-is-secure">DO NOT assume the hardware is secure</a></li>
+            <li><a href="#do-not-assume-that-things-wont-break">DO NOT assume that things won&rsquo;t break</a></li>
+            <li><a href="#do-not-manage-your-own-memory">DO NOT manage your own memory</a></li>
+            <li><a href="#do-not-assume-that-you-know-who-is-on-the-other-side">DO NOT assume that you know who is on the other side</a></li>
+            <li><a href="#do-not-claim-unhackability">DO NOT claim &lsquo;unhackability&rsquo;</a></li>
+            <li><a href="#do-not-think-that-codebinary">DO NOT think that code=binary</a></li>
+            <li><a href="#do-not-assume-that-your-users-give-a-half-a-shit-about-security">DO NOT assume that your users give a half a shit about security&hellip;</a></li>
+            <li><a href="#or-that-they-have-a-single-clue-about-privacy">&hellip;Or that they have a single clue about privacy</a></li>
+            <li><a href="#do-not-think-that-old--good--new--good">DO NOT think that Old ≠ Good &amp; New ≠ Good</a></li>
+            <li><a href="#do-not-get-over-confident">DO NOT get over confident</a></li>
+            <li><a href="#do-not-trust-humans">DO NOT trust humans</a></li>
+          </ul>
+        </li>
+        <li><a href="#authentication--authorization">Authentication &amp; Authorization</a></li>
+        <li><a href="#cryptography">Cryptography</a></li>
+        <li><a href="#hashing">Hashing</a></li>
+        <li><a href="#security-policies">Security Policies</a></li>
+        <li><a href="#threat-modeling">Threat Modeling</a></li>
+        <li><a href="#network-security">Network Security</a></li>
+        <li><a href="#types-of-exploits">Types of exploits</a>
+          <ul>
+            <li><a href="#software">Software</a></li>
+            <li><a href="#hardware">Hardware</a></li>
+            <li><a href="#social-engineering">Social Engineering</a></li>
+            <li><a href="#physical-security">Physical security</a></li>
+          </ul>
+        </li>
+        <li><a href="#malware">Malware</a></li>
+        <li><a href="#tools-of-the-trade">Tools of the trade</a></li>
+        <li><a href="#responsible-disclosure">Responsible Disclosure</a></li>
+        <li><a href="#iot">IOT</a></li>
+        <li><a href="#infrastructure">Infrastructure</a></li>
+        <li><a href="#elections">Elections</a></li>
+        <li><a href="#getting-some-practice">Getting some practice</a>
+          <ul>
+            <li><a href="#ctf-time">CTF-Time</a></li>
+            <li><a href="#pwnie-island">PWNie Island</a></li>
+          </ul>
+        </li>
+        <li><a href="#where-to-learn-even-more">Where to learn even more:</a></li>
+        <li><a href="#some-hacking-community-fun">Some Hacking Community Fun</a></li>
+        <li><a href="#sacred-texts-of-hacking">Sacred texts of hacking:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-33---security--exploitation">
+  Chapter 33 - Security &amp; Exploitation
+  <a class="anchor" href="#chapter-33---security--exploitation">#</a>
+</h1>
+<blockquote class="book-hint warning">
+  I&rsquo;m going to assume at least some prior knowledge here, if you want a quick intro, I recommend going through <a href="https://missing.csail.mit.edu/2020/security/">./missing-semester-Security</a> so that we can all be on the same page.
+</blockquote>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Often when we think about Exploitation, better known as hacking, we conjure images of a more-punk-than-cyber cyberpunk person clicking away wildly on a keyboard as code flies by, like the <a href="https://en.wikipedia.org/wiki/Hackers_(film)">1995 movie, Hackers</a>, and to some extent this isn&rsquo;t wrong, as one look around the floor at <a href="https://www.defcon.org/">DefCon</a>, will show you. And honestly, that&rsquo;s not by accident. While there are strictly professional security experts, those that work at corporations and banks, a large number do it for the lolz and to bring a little fun back into computing. Calling exploitation &lsquo;hacking&rsquo; is almost a misnomer, as hacking encompass a lot more than exploitation, and exploitation a lot more than hacking. For that reason, before we start, I recommend you watch <a href="https://www.youtube.com/watch?v=wjge1bVobN0">this video</a>, on speed running Super Mario 64, this is a prime example of hacking in a non-harmful manner done for fun.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="https://imgs.xkcd.com/comics/stack.png" alt="STACK"></p>
+<p class="attribution ">
+    <a href="https://xkcd.com/2166/">XKCD #2166</a>
+</p>
+
+  </div>
+  
+</div>
+
+<hr>
+<p>Most books on hacking or security start out either painfully formal talking about how to secure a system or jump straight into breaking into a system.</p>
+<p>Neither of these are probably your biggest concern.</p>
+<p>Instead, you should be thinking &ldquo;How do I write code that isn&rsquo;t horribly fucked for security?&rdquo; then wrap back around to getting a deeper understanding so that you can know how to actually know how to make some of the more complex decisions, and why they matter.</p>
+<p>Let&rsquo;s start with an example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv){
+    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    printf(argv[<span style="color:#ae81ff">1</span>], <span style="color:#f92672">&amp;</span>i);
+    <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
+        printf(<span style="color:#e6db74">&#34;OWO</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Save as ploit1.c,  compile and run with gcc ploit1.c -o ploit</p>
+</blockquote>
+<p>Here, we&rsquo;ve got 8 lines of code, if run it normally, it just echos the input.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~  
+╰─➤  ./ploit <span style="color:#e6db74">&#34;test&#34;</span>
+test%
+</code></pre></td></tr></table>
+</div>
+</div><p>But hang on, the <code>printf</code> isn&rsquo;t doing any checking on the input, what if we put an interger substitution character in there?</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~  
+╰─➤  ./ploit <span style="color:#e6db74">&#34;%d&#34;</span>  
+1875151412%
+</code></pre></td></tr></table>
+</div>
+</div><p>hmmm, alright, can we print a stack pointer?</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~  
+╰─➤  ./ploit <span style="color:#e6db74">&#34;%p&#34;</span>
+0x7ffdaa912034%
+</code></pre></td></tr></table>
+</div>
+</div><p>neat, alright, well there&rsquo;s an interesting printf sequence, %n, which ouputs the number of characters in the string</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~  
+╰─➤  ./ploit <span style="color:#e6db74">&#34;%n&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>There&rsquo;s no output&hellip; but that should tip you off to what&rsquo;s about to happen</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~  
+╰─➤  ./ploit <span style="color:#e6db74">&#34;a%n&#34;</span>
+aOWO
+</code></pre></td></tr></table>
+</div>
+</div><p>Got it. By making the string one character (not including the %n itself) %n&rsquo;s character count output is stored into the interger i, and we trigger the if, printing the string.</p>
+<p>Hopefully you see that this is a big problem. The user was able to change code flow on a <em>print</em> statement. With a little more work the input could be crafted to access arbitary memory of the program, potentially getting the print to divuldge something in memory you&rsquo;d really rather keep private- maybe a password?</p>
+<blockquote class="book-hint info">
+  <p><a href="https://youtu.be/0WvrSfcdq1I">This video from Live Overflow</a> explains this much more in depth in just 10 minutes. Give it a watch.</p>
+<p>See <a href="https://web.ecs.syr.edu/~wedu/Teaching/cis643/LectureNotes_New/Format_String.pdf">These Lecture notes on Format String Vulnerabilities from Syracuse University</a> and <a href="https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html">Intoduction to Format String Exploits from Code Arcana</a> for even more.</p>
+
+</blockquote>
+
+<p>The main thing I want you to take away from this example is this:</p>
+<center><p style="font-size:4em;">
+    SANITIZE YOUR <i>FUCKING</i> INPUTS    
+</p></center>
+<p>Seriously, it&rsquo;s <em>nuts</em> how many exploits are caused by inputs not being checked, allowing for injection attacks. SQL injection letting somebody either read or delete your database? Yep. Cross Site Scripting (XSS). Yep. File Upload attacks? You Bet. Input isn&rsquo;t just text either. It&rsquo;s anything a user can, well, input. Don&rsquo;t be stupid.</p>
+<p>Also note, input includes <em>anything</em> the program reads. There&rsquo;s nothing stopping a user from diving into the programs files and changing some config file or loading in a different .dll/.so library file. Of course, this technically extends all the way to modifying the binary of the executable itself, but at that point the threat modeling is entirely different.</p>
+<p class="tip ">
+    Along with sanitizing inputs, you should also sanitize output where applicable. If the program shouldn&rsquo;t be able to do something, not only should they not be able to force that command in, but that state should be checked for and prevented. </br>See <a href="https://benhoyt.com/writings/dont-sanitize-do-escape/">Don’t try to sanitize input. Escape output.</a> from Ben Hoyt.
+</p>
+<h2 id="do-not">
+  DO NOT
+  <a class="anchor" href="#do-not">#</a>
+</h2>
+<h3 id="do-not-use-random-crypto-libraries-or-write-your-own">
+  DO NOT use random crypto libraries or write your own
+  <a class="anchor" href="#do-not-use-random-crypto-libraries-or-write-your-own">#</a>
+</h3>
+<p>I would hope I don&rsquo;t have to justify this. If the library isn&rsquo;t common, hasn&rsquo;t been audited, and you&rsquo;re not super confident that it&rsquo;s safe: DO NOT use it.</p>
+<p>Similarly, crypto is hard, unless you want to go into it (which is cool, go for it, just be prepared for a lot of math) and understand what you&rsquo;re getting yourself into, don&rsquo;t try to write crypto code yourself.</p>
+<h3 id="do-not-use-algorithms-that-are-broken">
+  DO NOT use algorithms that are broken
+  <a class="anchor" href="#do-not-use-algorithms-that-are-broken">#</a>
+</h3>
+<p>I would seriously hope this is a &lsquo;No Shit&rsquo;. Unfortunately, it seems it&rsquo;s not. So, allow me:</p>
+<p>DO NOT USE: MD5, DES (Including Tripple DES), SHA-1*, AES-EBC, AES-CBC without a <a href="https://en.wikipedia.org/wiki/CBC-MAC">MAC</a></p>
+<p>Alright, so what should you use? Well, the answer is obviously &ldquo;It depends on what you want&rdquo;, but in general the recommendations from <a href="https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html">Cryptographic Right Answers</a> are probably a good place to start.</p>
+<p>[TODO]</p>
+<p><a href="https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/">https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/</a></p>
+<h3 id="do-not-think-encryption-is-a-magic-bullet">
+  DO NOT think encryption is a magic bullet
+  <a class="anchor" href="#do-not-think-encryption-is-a-magic-bullet">#</a>
+</h3>
+<blockquote>
+<p>Our mysterious hero ran from the evil forces, carrying his trusty cyberdeck with all the information the resistance needed to win, but if it fell into the wrong hands it would all be over. Unfortunately, there were to many- He was surrounded! He feared not though, for his disk was encrypted by AES-4096! While the resistance may not get the data, the evil forces wouldn&rsquo;t have it either! He taunted his captors, &ldquo;You&rsquo;ll never get that data!&rdquo;</p>
+<p>They took his cyberdeck from his bag, and wiggled the mouse to find it had only been asleep, the disks still accessible.</p>
+</blockquote>
+<p>Full disk encryption probably doesn&rsquo;t do you any good. - <a href="https://sockpuppet.org/blog/2014/04/30/you-dont-want-xts/">https://sockpuppet.org/blog/2014/04/30/you-dont-want-xts/</a></p>
+<h3 id="do-not-assume-the-crypto-algo-just-works">
+  DO NOT assume the crypto algo &lsquo;Just Works&rsquo;
+  <a class="anchor" href="#do-not-assume-the-crypto-algo-just-works">#</a>
+</h3>
+<p><strong>YOU have to know how to apply it</strong></p>
+<p>[TODO]</p>
+<p><a href="https://soatok.blog/2021/01/20/please-stop-encrypting-with-rsa-directly/">https://soatok.blog/2021/01/20/please-stop-encrypting-with-rsa-directly/</a></p>
+<h3 id="do-not-assume-the-hardware-is-secure">
+  DO NOT assume the hardware is secure
+  <a class="anchor" href="#do-not-assume-the-hardware-is-secure">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/FktI4qSjzaE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>This is one of <em>many</em> side channel attacks on hardware directly. My point here is simple: it&rsquo;s <del>turtles</del> compromised all the way down.</p>
+<p>Along with this, you also shouldn&rsquo;t make to many assumptions that your code is running in a &lsquo;real&rsquo; environment. The code may well be running in a virtual machine or in a container.</p>
+<h3 id="do-not-assume-that-things-wont-break">
+  DO NOT assume that things won&rsquo;t break
+  <a class="anchor" href="#do-not-assume-that-things-wont-break">#</a>
+</h3>
+<h4 id="overflow">
+  Overflow
+  <a class="anchor" href="#overflow">#</a>
+</h4>
+<h4 id="stack-smashing">
+  Stack Smashing
+  <a class="anchor" href="#stack-smashing">#</a>
+</h4>
+<h4 id="active-tampering">
+  Active Tampering
+  <a class="anchor" href="#active-tampering">#</a>
+</h4>
+<h3 id="do-not-manage-your-own-memory">
+  DO NOT manage your own memory
+  <a class="anchor" href="#do-not-manage-your-own-memory">#</a>
+</h3>
+<p>Okay, so, this is weird advice. Obviously, sometimes, you literally have to play around with pointers, there&rsquo;s nothing you can do about it. The thing is <a href="https://www.zdnet.com/article/microsoft-70-percent-of-all-security-bugs-are-memory-safety-issues/">70 percent of all security bugs are memory safety issues</a>. So, this is a big fucking problem.</p>
+<p>To some extent, you can mitigate this by using a higher level language, but that then requires you actually know what you&rsquo;re doing anyway, and the abstraction can actually bite you in the ass even harder. To prove this point, let&rsquo;s look at python.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">is</span> y
+True
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">257</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">257</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">is</span> y
+False
+</code></pre></td></tr></table>
+</div>
+</div><p>so 1 is 1, but 1001 is not 1001? Well, yes and no</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> id(x)
+<span style="color:#ae81ff">140514241382704</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> id(y)
+<span style="color:#ae81ff">140514241382704</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">257</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">257</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> id(x)
+<span style="color:#ae81ff">140514228628624</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> id(y)
+<span style="color:#ae81ff">140514228628496</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The reference (pointer) for values below 256 are the same, in the documentation</p>
+<blockquote>
+<p>The current implementation keeps an array of integer objects for all integers between <code>-5</code> and <code>256</code>, when you create an int in that range you actually just get back a reference to the existing object.</p>
+</blockquote>
+<p>So, the problem her is that instead of <code>x is y</code> this comparison should have been <code>x == y</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">257</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">257</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">==</span> y
+True
+</code></pre></td></tr></table>
+</div>
+</div><p>The point being, memory management is really, really fucking hard to get right and full of gotcha&rsquo;s, even in something as high level as Python.</p>
+<p>There is no silver bullet here. What can help is, first of all, not using C if you can. Rust, C++, whatever. While I&rsquo;m not a huge fan of object orientation, It does at least, when used correctly, help avoid some of these fuckups. Rust&rsquo;s forced compile-time check&rsquo;s do a great job of ensuring safety too. You should also put your program though <a href="https://valgrind.org">valgrind</a> and probably some sort of <a href="https://owasp.org/www-community/Source_Code_Analysis_Tools">source code analysis tools</a> like <a href="http://splint.org">splint (C)</a>, flawfinder, <a href="https://github.com/PyCQA/bandit">bandit (Py)</a>, or CPPcheck. Still, don&rsquo;t expect the tools to catch everything. Memory leaks may still sneak by, you may somehow still manage to do a use-after-free, or have some corner case that can segfault.</p>
+<p>Assert statements help too, forcing things to break when conditions aren&rsquo;t met.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">assert</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;x should be 1&#34;</span>
+Traceback (most recent call last):
+  File <span style="color:#e6db74">&#34;&lt;stdin&gt;&#34;</span>, line <span style="color:#ae81ff">1</span>, <span style="color:#f92672">in</span> <span style="color:#f92672">&lt;</span>module<span style="color:#f92672">&gt;</span>
+<span style="color:#a6e22e">AssertionError</span>: x should be <span style="color:#ae81ff">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="do-not-assume-that-you-know-who-is-on-the-other-side">
+  DO NOT assume that you know who is on the other side
+  <a class="anchor" href="#do-not-assume-that-you-know-who-is-on-the-other-side">#</a>
+</h3>
+<p>I&rsquo;m not trying to be ᏕᎮᎧᎧᏦᎩ, I mean that the server, human, client, whatever that you <em>think</em> you&rsquo;re talking to, may not actually be who you <em>are</em> talking to. By this I generally mean one of two things:</p>
+<p>Either you have a Man In The Middle (MITM) or somebody is being a sneaky douchebag and pretending to be someone else.</p>
+<p>For MITM, it&rsquo;s more or less what it sounds like. If Alice (A) is trying to talk to Bob (B), it would normally look like A⇄B, but for a MITM, there&rsquo;s someone (let&rsquo;s call them Mallory (M)) receiving and forwarding all the traffic bidirectionally, that is A⇄M⇄B, yet to both Alice and Bob, this is transparent, that is both Alice and Bob only see A⇄B despite it actually being A⇄M⇄B. M <em>could</em> only be eavesdropping, not changing the content at all, could be changing only the data necessary to see the conversation (hijacking the key exchange and message signatures), or change the messages outright.</p>
+<p>It could also be the case that M is just a sneaky douchebag (that&rsquo;s a technical term), and is just pretending to be B outright, B isn&rsquo;t even part of the connection.</p>
+<p>Some things you should consider:</p>
+<ul>
+<li>Neither side needs to be a machine. It&rsquo;s very possible that the deceit is that somebody is simply lying about who they are on a call.</li>
+<li>It&rsquo;s not just that you need to trust the other side is who they say they are, you need to know they wont listen to someone that pretends to be you.
+<ul>
+<li>This exact problem leads to people being able to carry out a <a href="https://en.wikipedia.org/wiki/SIM_swap_scam">SIM swap scam (Wikipedia)</a></li>
+</ul>
+</li>
+<li>While verification of identity is important, so is looking up that identity in the first place. If you always call the wrong number, always connect to the wrong URL, etc. You&rsquo;re asking for someone to come along and fill that role.</li>
+</ul>
+<h3 id="do-not-claim-unhackability">
+  DO NOT claim &lsquo;unhackability&rsquo;
+  <a class="anchor" href="#do-not-claim-unhackability">#</a>
+</h3>
+<p>If you do, and you get hacked, it goes from being tragic to funny, and it&rsquo;s a huge welcome sign to bored hackers that <em>will</em> find a way in.</p>
+<details >
+  <summary>Examples of &#39;unhackable&#39; systems:</summary>
+  <div class="markdown-inner">
+    <p><a href="https://techcrunch.com/2019/05/10/eyedisk-encrypted-flash-drive-unhackable/">‘Unhackable’ encrypted flash drive eyeDisk is, as it happens, hackable (TechCrunch)</a></p>
+<hr>
+<p><img src="/unhackable1.jpg" alt="unhackable" title=":size=50%"></p>
+
+  </div>
+</details>
+
+<h3 id="do-not-think-that-codebinary">
+  DO NOT think that code=binary
+  <a class="anchor" href="#do-not-think-that-codebinary">#</a>
+</h3>
+<p>The code you write is not the code that will run.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">999</span>; i<span style="color:#f92672">++</span>){
+            result <span style="color:#f92672">=</span> result <span style="color:#f92672">+</span> i;
+    }
+    <span style="color:#66d9ef">return</span>(result<span style="color:#f92672">%</span><span style="color:#ae81ff">255</span>);
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>When this code is compiled with even basic optimization (<code>-O</code>), this is the assembly output:</p>
+<pre><code class="language-assembly" data-lang="assembly">main: # @main
+  mov eax, 231
+  ret
+</code></pre>
+  </div>
+  
+</div>
+
+<p>Notice it&rsquo;s not actually doing any math? It&rsquo;s just storing the result as a constant in the program. The compiler did some magic, realized the programmer was being lazy and not doing math ahead of time, so did the math once. This is normal. Don&rsquo;t make the assumption that the code you write will necessarily be the code the machine runs.</p>
+<h3 id="do-not-assume-that-your-users-give-a-half-a-shit-about-security">
+  DO NOT assume that your users give a half a shit about security&hellip;
+  <a class="anchor" href="#do-not-assume-that-your-users-give-a-half-a-shit-about-security">#</a>
+</h3>
+<p>They don&rsquo;t. Maybe a small fraction do. Maybe a few will even have fancy USB authentication keys, be generating random 64 character long passwords filled with symbols. The majority though? The majority will be using some standard password they use everywhere else that has already been compromised, which they&rsquo;d know if they bothered to check <a href="https://haveibeenpwned.com">https://haveibeenpwned.com</a></p>
+<p>Also don&rsquo;t think that even halfway decent password requirements will stop users from using shit passwords or just frustrate the hell out of them. Instead, let them know there&rsquo;s a minimum length, that passphrases like <a href="https://xkcd.com/936/">CorrectHorseBatteryStaple</a> work well, and that any password that&rsquo;s common will be denied - check if the hash of their password matches the hash of any of the passwords in some common password dictionary like <a href="https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt">this list of the top 10 million passwords</a>.</p>
+<p>Similarly, unless you know you&rsquo;re audience is already technical, don&rsquo;t assume that your users will have the even the slightest clue about what an HTTPS certificate is, how to use a public/private key pair, or anything else related to crypto.</p>
+<p>There&rsquo;s a reason torrent clients verify the hash automatically, that browsers show a little lock, and that telegram lets users <a href="https://www.slashgear.com/telegram-debuts-voice-calls-uses-emoji-codes-to-verify-security-30480357/">check their keys with emoji</a>.</p>
+<p>Also don&rsquo;t make your users change passwords on a schedule. We all hate it, <a href="https://pages.nist.gov/800-63-FAQ/#q-b05">It&rsquo;s not even recomended anymore</a>, and it&rsquo;s just a royal PITA.</p>
+<h3 id="or-that-they-have-a-single-clue-about-privacy">
+  &hellip;Or that they have a single clue about privacy
+  <a class="anchor" href="#or-that-they-have-a-single-clue-about-privacy">#</a>
+</h3>
+<p>[TODO]</p>
+<p><a href="https://0l.wtf/posts/4_visual_browser_fingerprinting.html">https://0l.wtf/posts/4_visual_browser_fingerprinting.html</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A quick reminder of why &quot;it&#39;s only metadata&quot; is a bad argument... <a href="https://t.co/lAG5PA1QZG">pic.twitter.com/lAG5PA1QZG</a></p>&mdash; Jake Williams (@MalwareJake) <a href="https://twitter.com/MalwareJake/status/1361022885687664646?ref_src=twsrc%5Etfw">February 14, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h4 id="what-about-on-the-job-or-at-school">
+  What about on the job or at school?
+  <a class="anchor" href="#what-about-on-the-job-or-at-school">#</a>
+</h4>
+<h3 id="do-not-think-that-old--good--new--good">
+  DO NOT think that Old ≠ Good &amp; New ≠ Good
+  <a class="anchor" href="#do-not-think-that-old--good--new--good">#</a>
+</h3>
+<p>&hellip; Middleaged doesn&rsquo;t mean good either I guess.</p>
+<p>Basically, just because something is new and shiny and claims to be 200% as fast and 4x as secure, doesn&rsquo;t mean it&rsquo;s safe. Similarly, just because something is old and well vetted, doesn&rsquo;t mean it is perfect either. Code that&rsquo;s been living in the Linux Kernel for decades or even in the <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3156">sudo binary</a> can have bugs.</p>
+<p>Basically, what I&rsquo;m saying is you should be careful when choosing what to use, patch shit when vulnerabilities are found, and despite how handy using some new kid on the block library looks, you might wanna avoid it if you&rsquo;re handling sensitive data.</p>
+<h3 id="do-not-get-over-confident">
+  DO NOT get over confident
+  <a class="anchor" href="#do-not-get-over-confident">#</a>
+</h3>
+<p>You should expect something to fail. Data <strong>will</strong> leak. You <strong>will</strong> have an &lsquo;oh shit&rsquo; moment. The shit will, in fact, hit the fan, splatter all over the room, and seep into the carpet.</p>
+<p>The best you can do is have a plan for when this happens and do your best to make sure that when it does the damage- both short and long term- is minimal.</p>
+<p>Basically this comes down to two things: Backups and maintaining uptime. For backups:</p>
+<blockquote>
+<p>The 3-2-1 rule can aid in the backup process. It states that there should be at least 3 copies of the data, stored on 2 different types of storage media, and one copy should be kept offsite, in a remote location</p>
+</blockquote>
+<p>For uptime, well, that&rsquo;s more complicated. If you&rsquo;re trying to keep 99.99%+ uptime, you&rsquo;ll have to get creative with automatic failovers, software defined networking/storage, etc.</p>
+<p>That said, trying to get umpteen 9&rsquo;s of uptime is a bit crazy for most things anyway.</p>
+<h3 id="do-not-trust-humans">
+  DO NOT trust humans
+  <a class="anchor" href="#do-not-trust-humans">#</a>
+</h3>
+<p>Customer support exists to bypass security. Users exist to find bugs you wouldn&rsquo;t think possible. hackers exist to show you that you suck at programming. humans in general exist to do things that to other humans seems totally illogical.</p>
+<p>Don&rsquo;t trust humans. <a href="https://www.youtube.com/watch?v=7tScAyNaRdQ">They&rsquo;re Made Out of Meat.</a></p>
+<hr>
+<p><img src="https://imgs.xkcd.com/comics/messaging_systems.png" alt="xkcd messaging systems" style="zoom:100%; display: block; margin-left: auto; margin-right: auto;" /></p>
+<blockquote>
+<p>&lsquo;SMS is just the worst, but I&rsquo;m having trouble convincing people to adopt my preferred system, TLS IRC with a local server and a patched DOSBox gateway running in my mobile browser.&rsquo;</p>
+</blockquote>
+<p class="attribution ">
+    <a href="https://xkcd.com/2365/">XKCD #2365</a>
+</p>
+<p>Before we go any further, I want to get something out of the way:</p>
+<p>Security is important, and should be taken seriously. <strong>But</strong> it&rsquo;s also a field of people who are tired of your shit, Karen. We don&rsquo;t wear suits and we won&rsquo;t do something just to look &lsquo;professional&rsquo;.</p>
+<p>If I want to curse, if I want to put furry art on these pages, I will do as I fucking please.</p>
+<p>Real &lsquo;Security Professionals&rsquo; own the word hacker, and real hackers don&rsquo;t give a shit about what society tells them to do. Hacking is about finding how systems can do something far outside of what the original desigener ever even considered, about finding solutions so elegant they&rsquo;re art, about breaking boundries. If you want to keep with professionalism or tradition you&rsquo;re in the wrong place.</p>
+<p>As <a href="https://soatok.blog/2020/10/08/vanity-vendors-and-vulnerabilities/">Soatok</a> put it:</p>
+<blockquote>
+<p>If people who are sharing great content–be it on Twitter or on their personal blog–do something that prevents you from sharing their content with your coworkers, the problem isn’t us.</p>
+<p>No, the real problem is your coworkers and bosses, and the unquestioned culture of anal-retentive diversity-choking bullshit that pervades business everywhere.</p>
+</blockquote>
+<hr>
+<h2 id="authentication--authorization">
+  Authentication &amp; Authorization
+  <a class="anchor" href="#authentication--authorization">#</a>
+</h2>
+<p>Authentication != Identity</p>
+<p><a href="https://permission.site">https://permission.site</a></p>
+<h2 id="cryptography">
+  Cryptography
+  <a class="anchor" href="#cryptography">#</a>
+</h2>
+<p><a href="https://soatok.blog/2020/06/10/how-to-learn-cryptography-as-a-programmer/">How To Learn Cryptography as a Programmer (Soatok)</a></p>
+<p><a href="https://soatok.blog/2020/10/23/solving-for-why-furry-blogging-about-cryptography/">A furry writes about Cryptography but trust me you should actually read this (Soatok)</a></p>
+<h2 id="hashing">
+  Hashing
+  <a class="anchor" href="#hashing">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/S9JGmA5_unY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Note there&rsquo;s general two &lsquo;classes&rsquo; of hashing- hashing for cryptographic security (Passwords) and for just general usage, the cryptographic ones typically are significantly more computationally intensive to make it harder to brute force all possible keys. Also most cryptographic hashing algorithms go to much greater lengths to avoid collisions. Also, salting is relevant here: <a href="https://en.wikipedia.org/wiki/Salt_%28cryptography%29">Salting (Wikipedia)</a></p>
+<h2 id="security-policies">
+  Security Policies
+  <a class="anchor" href="#security-policies">#</a>
+</h2>
+<p>Metadata can bite you in the ass</p>
+<h2 id="threat-modeling">
+  Threat Modeling
+  <a class="anchor" href="#threat-modeling">#</a>
+</h2>
+<h2 id="network-security">
+  Network Security
+  <a class="anchor" href="#network-security">#</a>
+</h2>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <ul>
+<li>
+<p>Email sucks</p>
+</li>
+<li>
+<p>PGP really sucks</p>
+</li>
+<li>
+<p>Firewalls, intrusion detection, DNS blackholes, Fail2Ban, etc.</p>
+</li>
+<li>
+<p>DoS/DDoS</p>
+<p>MitM</p>
+<p>XXS</p>
+<p><a href="https://www.youtube.com/watch?v=zv0kZKC6GAM&amp;ab_channel=TomScott">How The Self-Retweeting Tweet Worked: Cross-Site Scripting (XSS) and Twitter (Youtube - Tom Scott)</a></p>
+<p>MAC/IP spoofing</p>
+<p>sniffing</p>
+<p>DNS: <a href="https://www.xudongz.com/blog/2017/idn-phishing/">idn-phishing</a></p>
+<p><a href="https://blog.adafruit.com/2017/08/02/wificactus-when-you-need-to-know-about-hackers-wearablewednesday/">Wifi Cactus</a></p>
+</li>
+</ul>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/phyxius.jpg" alt="phyxius"></p>
+<blockquote>
+<p><a href="https://furrynetwork.com/artwork/1647029/hacker-dragon/">Source</a>, <a href="https://www.furaffinity.net/user/halybs/">Artist</a> (used with permission from Phyxius)</p>
+</blockquote>
+
+  </div>
+  
+</div>
+
+<h2 id="types-of-exploits">
+  Types of exploits
+  <a class="anchor" href="#types-of-exploits">#</a>
+</h2>
+<p>[TODO] - where to put return oriented programming, super old hardware/software - &lsquo;the home router&rsquo;,</p>
+<p>Otherwise known as hacking, exploitation of software is always alluring, though in reality like many things it is much less glamorous than the news or tv make it out to be. Before I get into it I want to plug &lsquo;The Art of Exploitation&rsquo; by Jon Erickson again, as it truly is a masterpiece that describes exploiting in a way that just makes sense</p>
+<p>[TODO]</p>
+<p>passive V active attacks - monitoriring/obtaining contents of message V Tampering, Dos, Replay, Faking ID</p>
+<h3 id="software">
+  Software
+  <a class="anchor" href="#software">#</a>
+</h3>
+<p><code>strings</code></p>
+<p>Injection - SQL</p>
+<p>breaking hashes</p>
+<p>Heap/buffer overflow</p>
+<p>dangling pointers</p>
+<p>code-injection</p>
+<p>places you don&rsquo;t expect to have code like PDFs</p>
+<p>clock attacks</p>
+<p>Race conditions</p>
+<p>Path traversal</p>
+<p>format string</p>
+<p>pseudo-random</p>
+<p>Fuzzing</p>
+<h3 id="hardware">
+  Hardware
+  <a class="anchor" href="#hardware">#</a>
+</h3>
+<p><a href="https://www.youtube.com/watch?v=ZmZuKA-Rst0&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Intro to Hardware Reversing: Finding a UART and getting a shell (YouTube)</a></p>
+<p>Talk about CPU bugs</p>
+<p>Power side channel</p>
+<p>Timing attacks</p>
+<p>pseudo-random (hardware side)</p>
+<p>Hardware trust (HID injection)</p>
+<p>replay attacks</p>
+<p>radio, rfid, etc</p>
+<p>rowhammer, Heartbleed</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Holly s**t. Keyboard tap audio keylogger 🧐<a href="https://t.co/EAzwaVMyp3">https://t.co/EAzwaVMyp3</a> <a href="https://t.co/40hzZSEVWJ">pic.twitter.com/40hzZSEVWJ</a></p>&mdash; gorelics (@gorelics) <a href="https://twitter.com/gorelics/status/1338897626109014019?ref_src=twsrc%5Etfw">December 15, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h3 id="social-engineering">
+  Social Engineering
+  <a class="anchor" href="#social-engineering">#</a>
+</h3>
+<p>Phishing</p>
+<p>spoofing (email, phone)</p>
+<p>UTF-8 v ASCII</p>
+<p>click jacking</p>
+<p>expired certificate</p>
+<p>default passwords</p>
+<p>honey pots</p>
+<p>stalkerware (Should this be moved?)</p>
+<h3 id="physical-security">
+  Physical security
+  <a class="anchor" href="#physical-security">#</a>
+</h3>
+<p>Lock picking as a last resort</p>
+<p><a href="https://www.youtube.com/watch?v=HGg9mypLcH0">Law School for Lockpickers [YouTube, DEF CON 28]</a></p>
+<p>data destruction</p>
+<h2 id="malware">
+  Malware
+  <a class="anchor" href="#malware">#</a>
+</h2>
+<blockquote>
+<p>Section here about not being a dick</p>
+</blockquote>
+<p>Viruses</p>
+<p>polymorphic</p>
+<p>boot-record/rootkit</p>
+<p>trojan</p>
+<p>logic/compression bomb</p>
+<p>logic/time bombs</p>
+<p>ransomware</p>
+<p>adware/spyware</p>
+<h2 id="tools-of-the-trade">
+  Tools of the trade
+  <a class="anchor" href="#tools-of-the-trade">#</a>
+</h2>
+<p>Many tools in common with debugging (gdb - gef, hex editors, logic analzer)</p>
+<p>and testing (fuzzing)</p>
+<p>decompilers, dissassembly, analysis</p>
+<p><a href="https://github.com/plasma-disassembler/plasma">https://github.com/plasma-disassembler/plasma</a></p>
+<p>Wireshark</p>
+<p>Cheatengine</p>
+<p>dynamic linking</p>
+<p>Sandboxing</p>
+<h2 id="responsible-disclosure">
+  Responsible Disclosure
+  <a class="anchor" href="#responsible-disclosure">#</a>
+</h2>
+<p><a href="https://adamcaudill.com/2015/11/19/responsible-disclosure-is-wrong/">https://adamcaudill.com/2015/11/19/responsible-disclosure-is-wrong/</a></p>
+<h2 id="iot">
+  IOT
+  <a class="anchor" href="#iot">#</a>
+</h2>
+<h2 id="infrastructure">
+  Infrastructure
+  <a class="anchor" href="#infrastructure">#</a>
+</h2>
+<h2 id="elections">
+  Elections
+  <a class="anchor" href="#elections">#</a>
+</h2>
+<h2 id="getting-some-practice">
+  Getting some practice
+  <a class="anchor" href="#getting-some-practice">#</a>
+</h2>
+<p><a href="https://gtfobins.github.io">https://gtfobins.github.io</a></p>
+<p><a href="https://gist.github.com/netspooky/c6db0034d2728a6906fe27248061d4ac">A 64 bit bind shell ELF binary in 172 bytes. (GitHub Gist)</a></p>
+<h3 id="ctf-time">
+  CTF-Time
+  <a class="anchor" href="#ctf-time">#</a>
+</h3>
+<h3 id="pwnie-island">
+  PWNie Island
+  <a class="anchor" href="#pwnie-island">#</a>
+</h3>
+<p><a href="https://www.youtube.com/watch?v=RDZnlcnmPUA">Let&rsquo;s Play/Hack - Pwn Adventure 3: Pwnie Island (YouTube, LiveOverflow)</a> (Here he&rsquo;s playing a game where you have to exploit it to win)</p>
+<p><a href="https://www.youtube.com/watch?v=LTlBElDPDDM">How To Learn Something New? - Game Devlog #1 (YouTube, LiveOverflow)</a> (Here he&rsquo;s making a game where you&rsquo;re supposed to exploit it)</p>
+<h2 id="where-to-learn-even-more">
+  Where to learn even more:
+  <a class="anchor" href="#where-to-learn-even-more">#</a>
+</h2>
+<p>Live Overflow, Youtube: <a href="https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w/playlists">https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w/playlists</a></p>
+<p>Phrack : <a href="http://www.phrack.org/">http://www.phrack.org/</a></p>
+<p>Defcon Media Server : <a href="https://media.defcon.org/">https://media.defcon.org/</a></p>
+<p>As mentioned above in <a href="#chapter-17--compilers-and-assemblers">Chapter 17- Compilers and Assemblers</a> At this point I highly recommend &lsquo;<a href="https://nostarch.com/hacking2.htm">The Art of Exploitation</a>&rsquo; by Jon Erickson</p>
+<p><a href="https://microcorruption.com/">https://microcorruption.com/</a> , <a href="https://ctftime.org/">https://ctftime.org/</a> ,</p>
+<p>CTF time,</p>
+<p><a href="https://nagarrosecurity.com/blog/interactive-buffer-overflow-exploitation">https://nagarrosecurity.com/blog/interactive-buffer-overflow-exploitation</a></p>
+<p><a href="https://github.com/blacklanternsecurity/writehat">Writehat (GitHub)</a> - &ldquo;A pentest reporting tool written in Python. Free yourself from Microsoft Word.&rdquo;</p>
+<h2 id="some-hacking-community-fun">
+  Some Hacking Community Fun
+  <a class="anchor" href="#some-hacking-community-fun">#</a>
+</h2>
+<p><a href="https://www.youtube.com/watch?v=6D1LnMj0Yt0&amp;ab_channel=LiveOverflow">Bash injection without letters or numbers (YouTube, LiveOverflow)</a></p>
+<p><a href="https://www.youtube.com/watch?v=Jwpg-AwJ0Jc">Pwned By The Owner: What Happens When You Steal A Hacker&rsquo;s Computer (YouTube, Defcon)</a></p>
+<p><a href="https://www.youtube.com/watch?v=UBaVek2oTtc">How a Hacker Convinced Motorola to Send Him Source Code</a></p>
+<p><a href="https://www.youtube.com/watch?v=bouYRMItWnI">Diabetics Are Hacking Their Own Insulin Pumps</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Wow. <a href="https://twitter.com/sparkfun?ref_src=twsrc%5Etfw">@sparkfun</a> made an app that searches for nearby bluetooth devices that might be ATM/gas pump skimmers.<br><br>That&#39;s some real cyberpunk shit. <a href="https://t.co/CLsI5RKxMC">pic.twitter.com/CLsI5RKxMC</a></p>&mdash; foone (@Foone) <a href="https://twitter.com/Foone/status/910217984098017281?ref_src=twsrc%5Etfw">September 19, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><a href="https://readhacker.news/s/4hqd9">Does register selection matter to performance on x86 CPUs? </a></p>
+<p><a href="https://codeofmatt.com/list-of-2020-leap-day-bugs/">Leap Day Bugs</a></p>
+<p><a href="https://www.youtube.com/watch?v=Jwpg-AwJ0Jc">DEF CON 18 - Zoz - Pwned By The Owner: What Happens When You Steal A Hacker&rsquo;s Computer (YouTube)</a></p>
+<p><a href="https://www.youtube.com/watch?v=bouYRMItWnI">Diabetics Are Hacking Their Own Insulin Pumps (YouTube)</a></p>
+<p><a href="https://github.com/minimaxir/big-list-of-naughty-strings">Big List of Naughty Strings (Github)</a></p>
+<p><a href="https://github.com/tomer8007/widevine-l3-decryptor">Widevine L3 Decryptor</a></p>
+<p><a href="https://justine.storage.googleapis.com/ape.html">αcτµαlly pδrταblε εxεcµταblε</a></p>
+<h2 id="sacred-texts-of-hacking">
+  Sacred texts of hacking:
+  <a class="anchor" href="#sacred-texts-of-hacking">#</a>
+</h2>
+<p>From <a href="https://wiki.xxiivv.com/#development:">https://wiki.xxiivv.com/#development:</a></p>
+<blockquote>
+<p>The Four Essential Freedoms:</br>
+The freedom to run the program as you wish, for any purpose.</br>
+The freedom to study how the program works, and change it.</br>
+The freedom to redistribute copies so you can help others.</br>
+The freedom to distribute copies of your modified versions to others.</p>
+</blockquote>
+<p>The hacker and information freedom community has multiple &lsquo;sacred texts&rsquo; if you will, which I think do a good job of outlining some of the ideologies of the communities. Probably the most famous is the Guerrilla Open Access Manifesto written by Aaron Swartz, an amazing man that, according to Wikipedia &ldquo;was involved in the development of the web feed format RSS and the Markdown publishing format, the organization Creative Commons, and the website framework web.py, and was a co-founder of the social news site Reddit&rdquo;. Due to his extensive work in online politics his Wikipedia page almost acts like a hub of sorts for relevant information: <a href="https://en.wikipedia.org/wiki/Aaron_Swartz">https://en.wikipedia.org/wiki/Aaron_Swartz</a>. His most famous text though is probably the Guerrilla Open Access Manifesto.</p>
+<details >
+  <summary>&#39;Guerrilla Open Access Manifesto:</summary>
+  <div class="markdown-inner">
+    <blockquote>
+<p>Information is power. But like all power, there are those who want to keep it for
+themselves. The world&rsquo;s entire scientific and cultural heritage, published over centuries
+in books and journals, is increasingly being digitized and locked up by a handful of
+private corporations. Want to read the papers featuring the most famous results of the
+sciences? You&rsquo;ll need to send enormous amounts to publishers like Reed Elsevier.</p>
+<p>There are those struggling to change this. The Open Access Movement has fought
+valiantly to ensure that scientists do not sign their copyrights away but instead ensure
+their work is published on the Internet, under terms that allow anyone to access it. But
+even under the best scenarios, their work will only apply to things published in the future.
+Everything up until now will have been lost.</p>
+<p>That is too high a price to pay. Forcing academics to pay money to read the work of their
+colleagues? Scanning entire libraries but only allowing the folks at Google to read them?
+Providing scientific articles to those at elite universities in the First World, but not to
+children in the Global South? It&rsquo;s outrageous and unacceptable.</p>
+<p>&ldquo;I agree,&rdquo; many say, &ldquo;but what can we do? The companies hold the copyrights, they
+make enormous amounts of money by charging for access, and it&rsquo;s perfectly legal —
+there&rsquo;s nothing we can do to stop them.&rdquo; But there is something we can, something that&rsquo;s
+already being done: we can fight back.</p>
+<p>Those with access to these resources — students, librarians, scientists — you have been
+given a privilege. You get to feed at this banquet of knowledge while the rest of the world
+is locked out. But you need not — indeed, morally, you cannot — keep this privilege for
+yourselves. You have a duty to share it with the world. And you have: trading passwords
+with colleagues, filling download requests for friends.</p>
+<p>Meanwhile, those who have been locked out are not standing idly by. You have been
+sneaking through holes and climbing over fences, liberating the information locked up by
+publishers and sharing them with your friends.</p>
+<p>But all of this action goes on in the dark, hidden underground. It&rsquo;s called stealing or
+piracy, as if sharing a wealth of knowledge were the moral equivalent of plundering a
+ship and murdering its crew. But sharing isn&rsquo;t immoral — it&rsquo;s a moral imperative. Only
+those blinded by greed would refuse to let a friend make a copy.</p>
+<p>Large corporations, of course, are blinded by greed. The laws under which they operate
+require it — their shareholders would revolt at anything less. And the politicians they
+have bought off back them, passing laws giving them the exclusive power to decide who
+can make copies.</p>
+<p>There is no justice in following unjust laws. It&rsquo;s time to come into the light and, in the
+grand tradition of civil disobedience, declare our opposition to this private theft of public
+culture.</p>
+<p>We need to take information, wherever it is stored, make our copies and share them with
+the world. We need to take stuff that&rsquo;s out of copyright and add it to the archive. We need
+to buy secret databases and put them on the Web. We need to download scientific
+journals and upload them to file sharing networks. We need to fight for Guerilla Open
+Access.</p>
+<p>With enough of us, around the world, we&rsquo;ll not just send a strong message opposing the
+privatization of knowledge — we&rsquo;ll make it a thing of the past. Will you join us?</p>
+<p>Aaron Swartz</p>
+<p>July 2008, Eremo, Italy</p>
+</blockquote>
+<p>If you&rsquo;d like more information on Swartz&rsquo;s infulence you can watch a documentry on him <a href="https://www.youtube.com/watch?v=vXr-2hwTk58&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz&amp;index=367&amp;t=0s">here</a></p>
+
+  </div>
+</details>
+
+<p>Another one that you should read is <em>The Conscience of a Hacker</em> written by &lsquo;The Mentor&rsquo; in &lsquo;86:</p>
+<details >
+  <summary>The Conscience of a Hacker</summary>
+  <div class="markdown-inner">
+    <blockquote>
+<p>Another one got caught today, It&rsquo;s all over the papers.
+&ldquo;Teenager Arrested in Computer Crime Scandal&rdquo;, &ldquo;Hacker arrested
+after Bank Tampering&rdquo;&hellip;</p>
+<p>Damn kids. They&rsquo;re all alike.</p>
+<p>But did you, in your three-piece psychology and 1950&rsquo;s
+technobrain, ever take a look behind the eyes of a hacker? did
+you ever wonder what made him tick, what forces shaped him, what
+may have molded him?</p>
+<p>I am a hacker. Enter my world.</p>
+<p>Mine is a world that begins with school&hellip; I&rsquo;m smarter than
+most of the other kids, this crap they teach us bores me&hellip;
+Come on&hellip;  Ain&rsquo;t Got All Day!!
+Damn underachiever. They&rsquo;re all alike.</p>
+<p>I&rsquo;m in junior high or high school. I&rsquo;ve listened to the
+teachers explain for the fifteenth time how to reduce a
+fraction. I understand it. &ldquo;No Ms. Smith, I didn&rsquo;t show my work.
+I did it in my head&hellip;&rdquo;</p>
+<p>Damn kid. Probably copied it. They&rsquo;re all alike.</p>
+<p>I made a discovery today. I found a computer. Wait a xecond,
+this is cool. It does what I want it to. if it makes a mistake,
+it&rsquo;s because I screwed it up. Not Because it doesn&rsquo;t like me&hellip;
+Or feels threatend by me&hellip;
+Or thinks I&rsquo;m a smart ass&hellip;
+Or doesn&rsquo;t like teaching and shouldn&rsquo;t be here&hellip;</p>
+<p>Damn kid. All he does is play games. They&rsquo;re all alike.</p>
+<p>And then it happened&hellip; a door opened to a world&hellip; rushing
+through the phone line like junk through an addict&rsquo;s veins, an
+electronic impulse is sent out, a refuge from the day-to-day
+incompetencies is sought&hellip; a board is found.</p>
+<p>&ldquo;this is it&hellip; this is wwhere I belong&hellip;&rdquo;</p>
+<p>I know everyone herre&hellip; even if I&rsquo;ve never met them, never
+talked to them, may never hear from them again&hellip; I know you
+all&hellip;</p>
+<p>Damn kid. tying up the phone line again. They&rsquo;re all alike&hellip;
+Come on&hellip;  Ain&rsquo;t Got All Day!!
+You bet your ass we&rsquo;re all alike&hellip; we&rsquo;ve been spoon-fed baby
+food at school when we hungered for steak&hellip; the bits of meat
+that you did let slip through were prechewed and tasteless.
+We&rsquo;ve been dominated by sadist, or ignored by the apathetic. The
+few that had something to teach us found us willing pupils, but
+those few are like drops of water in the desert.</p>
+<p>This is our world now&hellip; the world of the electron and the
+switch, the beauty of the baud. We make use of a service already
+existing without paying for what could be dirt-cheap if it
+wasn&rsquo;t run by profiteering gluttons, and you call us criminals.
+we explore&hellip; and you call us criminals. We seek after
+knoledge&hellip; and you call us criminals. We exist without skin
+color, without nationality, without religous bias&hellip; and you
+call us criminals. You build atomic bombs, you wage wars, you
+murder, cheat, and lie to us and try to make us believe it&rsquo;s for
+our own good, yet we&rsquo;re the criminals.</p>
+<p>Yes, I am a criminal. My crime is that of curiosity. My crime
+is that of judging people by what they say and think, not what
+they look like. My crime is that of outsmarting you, something
+that you will never forgive me for.</p>
+<p>Come on&hellip;  Ain&rsquo;t Got All Day!!</p>
+<p>I am a hacker, and this is my manifesto. You may stop this
+individual, but you can&rsquo;t stop us all&hellip; after all, we&rsquo;re all alike.</p>
+<p>+++The Mentor+++
+Racketeers</p>
+</blockquote>
+
+  </div>
+</details>
+
+<div hidden><img src="/irules.jpg" alt="internet rules" style="zoom:100%; display: block; margin-left: auto; margin-right: auto;" /></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/security.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-33---security--exploitation">Chapter 33 - Security &amp; Exploitation</a>
+      <ul>
+        <li><a href="#do-not">DO NOT</a>
+          <ul>
+            <li><a href="#do-not-use-random-crypto-libraries-or-write-your-own">DO NOT use random crypto libraries or write your own</a></li>
+            <li><a href="#do-not-use-algorithms-that-are-broken">DO NOT use algorithms that are broken</a></li>
+            <li><a href="#do-not-think-encryption-is-a-magic-bullet">DO NOT think encryption is a magic bullet</a></li>
+            <li><a href="#do-not-assume-the-crypto-algo-just-works">DO NOT assume the crypto algo &lsquo;Just Works&rsquo;</a></li>
+            <li><a href="#do-not-assume-the-hardware-is-secure">DO NOT assume the hardware is secure</a></li>
+            <li><a href="#do-not-assume-that-things-wont-break">DO NOT assume that things won&rsquo;t break</a></li>
+            <li><a href="#do-not-manage-your-own-memory">DO NOT manage your own memory</a></li>
+            <li><a href="#do-not-assume-that-you-know-who-is-on-the-other-side">DO NOT assume that you know who is on the other side</a></li>
+            <li><a href="#do-not-claim-unhackability">DO NOT claim &lsquo;unhackability&rsquo;</a></li>
+            <li><a href="#do-not-think-that-codebinary">DO NOT think that code=binary</a></li>
+            <li><a href="#do-not-assume-that-your-users-give-a-half-a-shit-about-security">DO NOT assume that your users give a half a shit about security&hellip;</a></li>
+            <li><a href="#or-that-they-have-a-single-clue-about-privacy">&hellip;Or that they have a single clue about privacy</a></li>
+            <li><a href="#do-not-think-that-old--good--new--good">DO NOT think that Old ≠ Good &amp; New ≠ Good</a></li>
+            <li><a href="#do-not-get-over-confident">DO NOT get over confident</a></li>
+            <li><a href="#do-not-trust-humans">DO NOT trust humans</a></li>
+          </ul>
+        </li>
+        <li><a href="#authentication--authorization">Authentication &amp; Authorization</a></li>
+        <li><a href="#cryptography">Cryptography</a></li>
+        <li><a href="#hashing">Hashing</a></li>
+        <li><a href="#security-policies">Security Policies</a></li>
+        <li><a href="#threat-modeling">Threat Modeling</a></li>
+        <li><a href="#network-security">Network Security</a></li>
+        <li><a href="#types-of-exploits">Types of exploits</a>
+          <ul>
+            <li><a href="#software">Software</a></li>
+            <li><a href="#hardware">Hardware</a></li>
+            <li><a href="#social-engineering">Social Engineering</a></li>
+            <li><a href="#physical-security">Physical security</a></li>
+          </ul>
+        </li>
+        <li><a href="#malware">Malware</a></li>
+        <li><a href="#tools-of-the-trade">Tools of the trade</a></li>
+        <li><a href="#responsible-disclosure">Responsible Disclosure</a></li>
+        <li><a href="#iot">IOT</a></li>
+        <li><a href="#infrastructure">Infrastructure</a></li>
+        <li><a href="#elections">Elections</a></li>
+        <li><a href="#getting-some-practice">Getting some practice</a>
+          <ul>
+            <li><a href="#ctf-time">CTF-Time</a></li>
+            <li><a href="#pwnie-island">PWNie Island</a></li>
+          </ul>
+        </li>
+        <li><a href="#where-to-learn-even-more">Where to learn even more:</a></li>
+        <li><a href="#some-hacking-community-fun">Some Hacking Community Fun</a></li>
+        <li><a href="#sacred-texts-of-hacking">Sacred texts of hacking:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
