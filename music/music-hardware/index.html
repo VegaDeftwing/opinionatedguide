@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.994ea6631e257b088d086e7598ea80bc30c02f6a8180455c428da3e8554c7bc7.css" integrity="sha256-mU6mYx4lewiNCG51mOqAvDDAL2qBgEVcQo2j6FVMe8c=">
-<script defer src="/en.search.min.913945cd1447b2ee2d8172d80c94f401908b28f476f952f3400d630aa413c512.js" integrity="sha256-kTlFzRRHsu4tgXLYDJT0AZCLKPR2&#43;VLzQA1jCqQTxRI="></script>
+<script defer src="/en.search.min.9705c722e497aa500f2ab4b31b7a4778991bc8ae09083ac34277cf8121dafda2.js" integrity="sha256-lwXHIuSXqlAPKrSzG3pHeJkbyK4JCDrDQnfPgSHa/aI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -472,22 +472,58 @@ https://github.com/alex-shpak/hugo-book
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
-    Some devices may have almost everything in this chain internally. This is true of a lot of digital insturments, like the Elektron Digitakt pictured here:
+    <p>Some devices may have almost everything in this chain internally. This is true of a lot of digital insturments, like the Elektron Digitakt pictured here:</p>
+<p>The Digitakt is a drum machine that uses samples saved internally as .wav files. It&rsquo;s basically just a very specialized computer in a box.</p>
+
   </div>
   
   <div class="flex-even markdown-inner">
-    [TODO]
+    <img src="/digitakt.jpg" alt="">
   </div>
   
 </div>
 
-<p>Though the really confusing thing to beginers is when the device is digital, but has both analog input and outputs. Just like there&rsquo;s a DAC (<strong>D</strong>igital to <strong>A</strong>nalog <strong>C</strong>onverter) you&rsquo;ll often be working with ADCs or <strong>A</strong>nalog to <strong>D</strong>igital <strong>C</strong>onverters.</p>
-<p>[TODO]</p>
-<p>[TODO] show guitar bit-crusher to explain DAC and ADC better.</p>
-<p>Hopefully that was enough to get you up to speed on the basics. Unfortunately, while some gear is obvious (A normal acoustic guitar is analog, a MIDI controller is digital) some music gear really blurs the lines, or even twists them outright. The Behringer DeepMind line, for example, is a purely analog synth with digital control&rsquo;s and a big ol' screen. Meanwhile, the Modor NF-1 is a digital synth that looks and tries to emulate the sound and feel of analog equipment. Plus, there&rsquo;s a ton of synths now that have analog oscillators and filters, but then do DSP (Digital Signal Processing) based effects or the other way around- with digital oscillators and analog filters. What I&rsquo;m trying to say is, it&rsquo;s complicated.</p>
+<p>Though the really confusing thing to beginers is when the device is digital, but has both analog input and outputs. Just like there&rsquo;s a DAC (<strong>D</strong>igital to <strong>A</strong>nalog <strong>C</strong>onverter) for analog output you&rsquo;ll often be working with ADCs or <strong>A</strong>nalog to <strong>D</strong>igital <strong>C</strong>onverters to take your analog input and use it on your computer (or internally, like in a digital guitar pedal)</p>
+<p>For the most basic possible example, let&rsquo;s look at a bit-crusher and sample rate reducer pedal. These pedals basically just hook a DAC directly into an ADC, then let you purposelly mess up the conversion.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Bit crushing, as explained back in the effects chapter, is just purposefully reducing the range of values a sample of digital audio can be. So, while an 8-bit audio point can be any whole number up to</p>
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(2^8 = 256\)
+</span>
+, a lower-bit sample might only be able to be represented by <span>
+  \(2^6 = 64\)
+</span>
+ possible values, which will really start to sound pretty distorted. Similarly, sample rate reduction distorts the audio by intentionally limiting the rate at which new digital samples of the input audio are aquired. As long as samples are gotten at a rate at least twice that of the highest frequency in the input audio, there will be no difference, but as this goes below that, the convertor simply doesn't get enough data to reproduce the input signal.
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>This effect is <em>inheritly</em> digital. It&rsquo;s really just purposely doing digital to analog conversion poorly. If we want it as a guitar pedal, that means the pedal has to first convert the analog signal to digital, then convert the digital signal back to analog.</p>
+<p><img src="/bitcrusher.svg" alt=""></p>
+<p class="attribution ">
+    note, this isn&rsquo;t meant to be a real schematic. It&rsquo;s heavily simplified.
+</p>
+
+  </div>
+  
+</div>
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/FNa3uyWfL_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Hopefully that was enough to get you up to speed on the basics of analog vs digital. Unfortunately, while some gear is obvious (A normal acoustic guitar is analog, a MIDI controller is digital) some music gear really blurs the lines, or even twists them outright. The Behringer DeepMind line, for example, is a purely analog synth with digital control&rsquo;s and a big ol' screen. Meanwhile, the Modor NF-1 is a digital synth that looks and tries to emulate the sound and feel of analog equipment. Plus, there&rsquo;s a ton of synths now that have analog oscillators and filters, but then do DSP (Digital Signal Processing) based effects or the other way around- with digital oscillators and analog filters. What I&rsquo;m trying to say is, it&rsquo;s complicated.</p>
 <p>There are a lot of &lsquo;Analog Purists&rsquo; out there, who will claim an analog oscillator just sounds better, or that it adds something extra to their sound. To some extent, they&rsquo;re not wrong. But, I think this is also largely because people are comparing often free digital sources and effects to analog ones and, as with most things in life, you often get what you pay for. I&rsquo;d actually argue that in most cases, paid digital tools and hardware is a better value than the analog gear. <a class="ptr">(1)</a><a class="ptr">(2)</a><a class="ptr">(3)</a> What I&rsquo;m trying to say is, in most cases, weather or not a tool is analog or digital shouldn&rsquo;t really factor into your choice of what to buy. Your choice should be determined by what sounds good, what is enjoyable to play, and if the device offers all the features you need and want. <em>In very few cases</em> will a device being analog be a &lsquo;feature&rsquo; that matters.<a class="ptr">(4)</a> Instead, the feature that matters with analog gear is often the hands on feel that usually comes with a device being analog, like all the articulations that a player can get out of a guitar.<a class="ptr">(5)</a> At the same time, this isn&rsquo;t exclusive to analog instruments anymore, as MPE controllers (I&rsquo;ll get to them later) have made it possible to get a TON of expression out of a digital controller, arguably more than I can out of my guitar- so again, the guitar being <em>analog</em> isn&rsquo;t the feature that mattered. When buying gear, try to dig down and ask yourself <em>why</em> you want a tool - for how it sounds, how it feels to play, etc. - and ask yourself if there&rsquo;s competing products that meet the same needs, then you&rsquo;ll easily avoid the elitism that analog purists bring with them.<a class="ptr">(6)</a></p>
+<p>A few more notes:</p>
+<p>I want to point out that there is a valid concern that your ADCs and DACs are of decent quality. Some people are crazy about this and want to spend thousands of dollars on brand name ADCs and DACs, but honestly I&rsquo;ve found that it&rsquo;s more just a matter of &lsquo;is it good enough&rsquo; is really just the bar to hit, as long as it&rsquo;s not causing a ludicrious amount of noise and can capture enough of the dynamic range (difference between playing softly and loud) of your instrument you&rsquo;re good to go. In my experiance, USB powered devices tend to have the worst time with noise, as the power going in is so &lsquo;dirty&rsquo; that the DAC/ADC ends up putting this noise into the signal. A lot of equipment will discuss this in regard to the <strong>S</strong>ignal to <strong>N</strong>oise <strong>R</strong>atio (SNR).</p>
+<p>Some people get crazy about sample rate. For a <em>final recording</em> there is <strong>absolutely no reason</strong> to exceed 24bit/48khz audio. Even that is really overkill. On the other hand, <em>during recording</em> there can be rather significantly audible differences in oversampled (that is 80khz+) audio, as the virtual instruments have more headroom to work with to avoid a side effect of digital audio called aliasing. You can learn more about this in <div class="best ">
+    <img src="/best.svg" width="20em" style="float: left; margin: 0px 6px 0px 0px;"/>
+    <a href="https://www.youtube.com/watch?v=-jCwIsT0X8M">Samplerates: the higher the better, right?</a> from FabFilter on YouTube.
+</div></p>
+<p>Finally, I want to briefly mention that as you add more equipment, you&rsquo;re very likely to run into an issue with <a href="https://en.wikipedia.org/wiki/Ground_loop_%28electricity%29">ground loops</a>. If you plug in a piece of gear and start hearing a hum or significantly more noise, this is likely the problem. Check out <a href="https://www.youtube.com/watch?v=q2c6fKOu-vo">6 simple and cheap ways to fix hum, buzz and ground loop noise</a> from Loopop on YouTube.</p>
 <hr>
-<p>Hopefully that all made sense and you feel a bit less lost about what is probably one of the most divisive topics in music hardware today. Let&rsquo;s move on and try to barrel though all the technical crap so we can get to the fun stuff later on. Let&rsquo;s start with something you&rsquo;re already familiar with, but dive in a little deeper: A normal ol' audio jack.</p>
+<p>Hopefully that all made sense and you feel a bit less lost about both the differences between analog and digital, and why it is probably one of the most divisive topics in music hardware. Let&rsquo;s move on barreling though all the technical crap so we can get to the fun stuff later on. Let&rsquo;s start with something you&rsquo;re already familiar with, but dive in a little deeper: A normal ol' audio jack.</p>
 <h2 id="trs-35mm--inch">
   TRS? 3.5mm? ¼ inch?
   <a class="anchor" href="#trs-35mm--inch">#</a>
