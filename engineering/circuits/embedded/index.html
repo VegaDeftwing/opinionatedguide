@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 25 - Embedded Systems #  [TODO]
+What is an Embedded System? #  [TODO] need source PWM, SPI, I2C, What&rsquo;s going on?! #  Driving a PAL TV over RF thanks to PWM harmonics (Hackaday)
+Playing around - Hello World and blink #  Making an Embedded System project - 1 - Humidity Sensor #  Making an Embedded System project - 2 - MIDI Controller (with piezzo) #  Making an Embedded System project - 3 - Stepper Motor Music #  adapted from floppy drives, but less expensive">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 25 - Embedded Systems #  [TODO]
+What is an Embedded System? #  [TODO] need source PWM, SPI, I2C, What&rsquo;s going on?! #  Driving a PAL TV over RF thanks to PWM harmonics (Hackaday)
+Playing around - Hello World and blink #  Making an Embedded System project - 1 - Humidity Sensor #  Making an Embedded System project - 2 - MIDI Controller (with piezzo) #  Making an Embedded System project - 3 - Stepper Motor Music #  adapted from floppy drives, but less expensive" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/circuits/embedded/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Embedded | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.e4d8d4b03d460ded8adfc5e1377ea6bfe63c1b1f9dcb59ee8173646e8ee1b06a.css" integrity="sha256-5NjUsD1GDe2K38XhN36mv&#43;Y8Gx&#43;dy1nugXNkbo7hsGo=">
+<script defer src="/en.search.min.4103629ee0ecbb0d52fb8775510589068d7cf545c2164532030b6f409b96b994.js" integrity="sha256-QQNinuDsuw1S&#43;4d1UQWJBo189UXCFkUyAwtvQJuWuZQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+<dt>3 </dt><dd> <a href="/engineering/linux/hardware/">Into The Hardware</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">The First Goal</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+<dt>6 </dt><dd> <a href="/engineering/math/math/">Math</a></dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/"class=active>Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>6 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>8 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Embedded</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-25---embedded-systems">Chapter 25 - Embedded Systems</a>
+      <ul>
+        <li><a href="#what-is-an-embedded-system">What is an Embedded System?</a></li>
+        <li><a href="#pwm-spi-i2c-whats-going-on">PWM, SPI, I2C, What&rsquo;s going on?!</a></li>
+        <li><a href="#playing-around---hello-world-and-blink">Playing around - Hello World and blink</a></li>
+        <li><a href="#making-an-embedded-system-project---1---humidity-sensor">Making an Embedded System project - 1 - Humidity Sensor</a></li>
+        <li><a href="#making-an-embedded-system-project---2---midi-controller-with-piezzo">Making an Embedded System project - 2 - MIDI Controller (with piezzo)</a></li>
+        <li><a href="#making-an-embedded-system-project---3---stepper-motor-music">Making an Embedded System project - 3 - Stepper Motor Music</a></li>
+        <li><a href="#real-time-operating-systems">Real Time Operating Systems</a></li>
+        <li><a href="#other-weird-and-cool-projects">Other weird and cool projects:</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-141---embedded-hardware-comparison">Chapter 14.1 - Embedded Hardware comparison</a>
+      <ul>
+        <li><a href="#arduino--atmega32p">Arduino ≠ Atmega32p</a></li>
+        <li><a href="#stm-32">STM 32</a></li>
+        <li><a href="#things-youll-want-to-know-exist-that-i-dont-know-where-else-to-put">Things you&rsquo;ll want to know exist that I don&rsquo;t know where else to put:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-25---embedded-systems">
+  Chapter 25 - Embedded Systems
+  <a class="anchor" href="#chapter-25---embedded-systems">#</a>
+</h1>
+<p>[TODO]</p>
+<h2 id="what-is-an-embedded-system">
+  What is an Embedded System?
+  <a class="anchor" href="#what-is-an-embedded-system">#</a>
+</h2>
+<p><img src="/pos.png" alt="pos" /></p>
+<p class="attribution ">
+    [TODO] need source
+</p>
+<h2 id="pwm-spi-i2c-whats-going-on">
+  PWM, SPI, I2C, What&rsquo;s going on?!
+  <a class="anchor" href="#pwm-spi-i2c-whats-going-on">#</a>
+</h2>
+<p><a href="https://hackaday.com/2020/08/26/driving-a-pal-tv-over-rf-thanks-to-pwm-harmonics/">Driving a PAL TV over RF thanks to PWM harmonics (Hackaday)</a></p>
+<h2 id="playing-around---hello-world-and-blink">
+  Playing around - Hello World and blink
+  <a class="anchor" href="#playing-around---hello-world-and-blink">#</a>
+</h2>
+<h2 id="making-an-embedded-system-project---1---humidity-sensor">
+  Making an Embedded System project - 1 - Humidity Sensor
+  <a class="anchor" href="#making-an-embedded-system-project---1---humidity-sensor">#</a>
+</h2>
+<h2 id="making-an-embedded-system-project---2---midi-controller-with-piezzo">
+  Making an Embedded System project - 2 - MIDI Controller (with piezzo)
+  <a class="anchor" href="#making-an-embedded-system-project---2---midi-controller-with-piezzo">#</a>
+</h2>
+<h2 id="making-an-embedded-system-project---3---stepper-motor-music">
+  Making an Embedded System project - 3 - Stepper Motor Music
+  <a class="anchor" href="#making-an-embedded-system-project---3---stepper-motor-music">#</a>
+</h2>
+<p>adapted from floppy drives, but less expensive</p>
+<hr>
+<p>[TODO] <a href="https://interrupt.memfault.com/blog/tag/zero-to-main/">From Zero to main() (Interupt)</a></p>
+<h2 id="real-time-operating-systems">
+  Real Time Operating Systems
+  <a class="anchor" href="#real-time-operating-systems">#</a>
+</h2>
+<p>RIOT-OS, MBED, etc</p>
+<p>[TODO note, MBED was used on the euclidean drum project for its event queue]</p>
+<p>talk about scheduling (CFS, etc)</p>
+<h2 id="other-weird-and-cool-projects">
+  Other weird and cool projects:
+  <a class="anchor" href="#other-weird-and-cool-projects">#</a>
+</h2>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">a lot of people have been mocking this video but having tried it, I can confirm this is actually the most reliable way to fake keyboard events on windows 10. <a href="https://t.co/kTz5a6YlTI">https://t.co/kTz5a6YlTI</a></p>&mdash; foone (@Foone) <a href="https://twitter.com/Foone/status/1247233159596367883?ref_src=twsrc%5Etfw">April 6, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><a href="https://groups.google.com/forum/message/raw?msg=comp.lang.ada/E9bNCvDQ12k/1tezW24ZxdAJ">Of Course It Leaks!</a></p>
+<p><a href="https://hackaday.com/2019/04/23/the-simplest-of-pseudo-random-number-generators/">&ldquo;The Simplest of Pseudo Random Number Generators&rdquo; - Hackaday</a></p>
+<p><a href="https://dmitry.gr/?r=05.Projects&amp;proj=30.%20Reverse%20Engineering%20an%20Unknown%20Microcontroller">Reverse Engineering an Unknown Microcontroller (Dmitry.GR)</a></p>
+<h1 id="chapter-141---embedded-hardware-comparison">
+  Chapter 14.1 - Embedded Hardware comparison
+  <a class="anchor" href="#chapter-141---embedded-hardware-comparison">#</a>
+</h1>
+<p>[TODO, Pi V RockPi4 V Arduinos V x86, ref architecture information from chapter 3.3]</p>
+<p>mention pi sd card performance / stability limits and pi advantages in how common it is</p>
+<h2 id="arduino--atmega32p">
+  Arduino ≠ Atmega32p
+  <a class="anchor" href="#arduino--atmega32p">#</a>
+</h2>
+<p class="tip ">
+    I <strong>really</strong> want to make this clear: Arduino is a framework. Not a specific hardware platform. Different Arduino devices can run with wildly different specs and support wildly different features.
+</p>
+<h2 id="stm-32">
+  STM 32
+  <a class="anchor" href="#stm-32">#</a>
+</h2>
+<p><a href="https://hackaday.com/2021/01/20/blue-pill-vs-black-pill-transitioning-from-stm32f103-to-stm32f411/">The &lsquo;Black Pill&rsquo; (STM32F411) is replacing the &lsquo;Blue Pill&rsquo; (STM32F103) (Hackaday)</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">First up is the brains of the operation: an STM32F103. Not a lightweight chip: It&#39;s a Cortex M3 @ 72MHz. It&#39;s got 256kB of flash and 48kB of RAM and that&#39;s a 100-pin TQFP package!<a href="https://t.co/oPCeo7XMpe">https://t.co/oPCeo7XMpe</a> <a href="https://t.co/niDPuIFBPT">pic.twitter.com/niDPuIFBPT</a></p>&mdash; Stargirl 🌠 (@theavalkyrie) <a href="https://twitter.com/theavalkyrie/status/1328555704676913153?ref_src=twsrc%5Etfw">November 17, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><a href="https://allshire.org/getting-started-robotics/">Getting Started in Robotics (Arthur Allshire&rsquo;s Blog)</a></p>
+<h2 id="things-youll-want-to-know-exist-that-i-dont-know-where-else-to-put">
+  Things you&rsquo;ll want to know exist that I don&rsquo;t know where else to put:
+  <a class="anchor" href="#things-youll-want-to-know-exist-that-i-dont-know-where-else-to-put">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/qKy98Cbcltw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Circuits/embedded.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-25---embedded-systems">Chapter 25 - Embedded Systems</a>
+      <ul>
+        <li><a href="#what-is-an-embedded-system">What is an Embedded System?</a></li>
+        <li><a href="#pwm-spi-i2c-whats-going-on">PWM, SPI, I2C, What&rsquo;s going on?!</a></li>
+        <li><a href="#playing-around---hello-world-and-blink">Playing around - Hello World and blink</a></li>
+        <li><a href="#making-an-embedded-system-project---1---humidity-sensor">Making an Embedded System project - 1 - Humidity Sensor</a></li>
+        <li><a href="#making-an-embedded-system-project---2---midi-controller-with-piezzo">Making an Embedded System project - 2 - MIDI Controller (with piezzo)</a></li>
+        <li><a href="#making-an-embedded-system-project---3---stepper-motor-music">Making an Embedded System project - 3 - Stepper Motor Music</a></li>
+        <li><a href="#real-time-operating-systems">Real Time Operating Systems</a></li>
+        <li><a href="#other-weird-and-cool-projects">Other weird and cool projects:</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-141---embedded-hardware-comparison">Chapter 14.1 - Embedded Hardware comparison</a>
+      <ul>
+        <li><a href="#arduino--atmega32p">Arduino ≠ Atmega32p</a></li>
+        <li><a href="#stm-32">STM 32</a></li>
+        <li><a href="#things-youll-want-to-know-exist-that-i-dont-know-where-else-to-put">Things you&rsquo;ll want to know exist that I don&rsquo;t know where else to put:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

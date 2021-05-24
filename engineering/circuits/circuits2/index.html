@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 23 - Circuits &amp; Semiconductors #  When I was a kid I thought about circuits as being alive, like Cells at Work!, only little electrons going around busily keeping the heart of my toy working instead of anthropomorphic red blood cells working in the human body.
+Now, as an adult - and a computer and electrical engineer at that - I still find this thought endearing. Though I&rsquo;ve now come to see the physics and art of electronics to be even more beautiful when their true nature is really understood.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 23 - Circuits &amp; Semiconductors #  When I was a kid I thought about circuits as being alive, like Cells at Work!, only little electrons going around busily keeping the heart of my toy working instead of anthropomorphic red blood cells working in the human body.
+Now, as an adult - and a computer and electrical engineer at that - I still find this thought endearing. Though I&rsquo;ve now come to see the physics and art of electronics to be even more beautiful when their true nature is really understood." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/circuits/circuits2/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Circuits2 | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.e4d8d4b03d460ded8adfc5e1377ea6bfe63c1b1f9dcb59ee8173646e8ee1b06a.css" integrity="sha256-5NjUsD1GDe2K38XhN36mv&#43;Y8Gx&#43;dy1nugXNkbo7hsGo=">
+<script defer src="/en.search.min.4103629ee0ecbb0d52fb8775510589068d7cf545c2164532030b6f409b96b994.js" integrity="sha256-QQNinuDsuw1S&#43;4d1UQWJBo189UXCFkUyAwtvQJuWuZQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+<dt>3 </dt><dd> <a href="/engineering/linux/hardware/">Into The Hardware</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">The First Goal</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+<dt>6 </dt><dd> <a href="/engineering/math/math/">Math</a></dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/"class=active>Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>6 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>8 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Circuits2</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-23---circuits--semiconductors">Chapter 23 - Circuits &amp; Semiconductors</a></li>
+    <li><a href="#chapter-231---semiconductors">Chapter 23.1 - Semiconductors</a>
+      <ul>
+        <li><a href="#semiconductors">Semiconductors?</a></li>
+        <li><a href="#diodes-the-one-way-road">Diodes, the one way road</a>
+          <ul>
+            <li><a href="#diode-logic">Diode Logic</a></li>
+          </ul>
+        </li>
+        <li><a href="#transistors">Transistors</a>
+          <ul>
+            <li><a href="#pnp-v-npn">PNP V NPN</a></li>
+            <li><a href="#tigbt-mosfets">tIGBT, Mosfets?</a></li>
+          </ul>
+        </li>
+        <li><a href="#integrated-circuits">Integrated Circuits</a>
+          <ul>
+            <li><a href="#555-opamp-74-series-logic">555, OpAmp, 74-Series Logic</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#chapter-232---op-amps--filters">Chapter 23.2 - Op-Amps &amp; Filters</a>
+      <ul>
+        <li><a href="#op-amps">Op-Amps</a></li>
+        <li><a href="#optical-electronics">Optical Electronics</a></li>
+        <li><a href="#crystal-oscillators">Crystal Oscillators</a></li>
+        <li><a href="#pwm">PWM</a></li>
+        <li><a href="#adcdac">ADC/DAC</a></li>
+        <li><a href="#active-filters">Active Filters</a></li>
+        <li><a href="#waveguides">Waveguides</a></li>
+        <li><a href="#audio-devices">Audio Devices</a></li>
+        <li><a href="#todo">TODO</a></li>
+        <li><a href="#relating-ac-and-music">Relating AC and Music</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-233---rare-and-dangerous-componets">Chapter 23.3 - Rare and Dangerous Componets</a>
+      <ul>
+        <li><a href="#continued-reading">Continued Reading:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-23---circuits--semiconductors">
+  Chapter 23 - Circuits &amp; Semiconductors
+  <a class="anchor" href="#chapter-23---circuits--semiconductors">#</a>
+</h1>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>When I was a kid I thought about circuits as being alive, like <a href="https://en.wikipedia.org/wiki/Cells_at_Work!">Cells at Work!</a>, only little electrons going around busily keeping the heart of my toy working instead of anthropomorphic red blood cells working in the human body.</p>
+<p>Now, as an adult - and a computer and electrical engineer at that - I still find this thought endearing. Though I&rsquo;ve now come to see the physics and art of electronics to be even more beautiful when their true nature is really understood.</p>
+<p>There&rsquo;s a joke you&rsquo;ll hear about those that work with these low level physics or that arrange logic gates to make full CPUs- that our job and passions boil down to teaching rocks to think.</p>
+<p>So, let&rsquo;s lean how to teach some rocks.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/noisedeck1.gif" alt=""></p>
+<p class="attribution ">
+    ©Vega, made with <a href="https://noisedeck.app">Noisedeck</a>
+</p>
+
+  </div>
+  
+</div>
+
+<hr>
+<p>[TODO]</p>
+<p>Show everything in a circuit sim, fix heading levels (this is a mess)</p>
+<p>Possibly break up this chapter? Transistors, the opamp, etc alone may each justify their own chapters</p>
+<p>That said, I don&rsquo;t want to get to in the mud of transistor physics. I really want to focus on how/when/why to use what, not how they work as the physics is both pretty hard to grasp and not super useful. Still would like to mention that switching is what uses power and like process size things, but maybe not the chemistry or electron tunneling effects, at least not in great detail</p>
+<h1 id="chapter-231---semiconductors">
+  Chapter 23.1 - Semiconductors
+  <a class="anchor" href="#chapter-231---semiconductors">#</a>
+</h1>
+<p>TODO, looks very good briefly scrolling though it: <a href="https://lcamtuf.coredump.cx/electronics/">https://lcamtuf.coredump.cx/electronics/</a></p>
+<p>Digilent&rsquo;s &lsquo;Real Aanlog&rsquo; course looks okay too, and I might write this guide assuming their analog parts kit: <a href="https://learn.digilentinc.com/classroom/realanalog/">https://learn.digilentinc.com/classroom/realanalog/</a></p>
+<h2 id="semiconductors">
+  Semiconductors?
+  <a class="anchor" href="#semiconductors">#</a>
+</h2>
+<p><a href="https://youtu.be/sfTXZP2DB20">Will gallium nitride electronics change the world? (YouTube, Engadget)</a></p>
+<p>[TODO] pic of silicon bulb</p>
+<p><a href="https://en.wikipedia.org/wiki/Wafer_(electronics)">https://en.wikipedia.org/wiki/Wafer_(electronics)</a></p>
+<p>P/N junctions, etc.</p>
+<h2 id="diodes-the-one-way-road">
+  Diodes, the one way road
+  <a class="anchor" href="#diodes-the-one-way-road">#</a>
+</h2>
+<blockquote>
+<p>A <strong>diode</strong> is a two-terminal electronic component that conducts current primarily in one direction (asymmetric conductance); it has low (ideally zero) resistance in one direction, and high (ideally infinite) resistance in the other.</p>
+</blockquote>
+<p class="attribution ">
+    <a href="https://en.wikipedia.org/wiki/Diode">Diode page on Wikipedia</a> (which is actually super good)
+</p>
+<p>Alright, so in very basic terms, it&rsquo;s a part that only lets current flow in one direction (idealy). A one-way road for current. If you put a sine wave in, you&rsquo;ll get a sine-wave chopped in half out. Now, this assumes everything is ideal, as you&rsquo;ll really get more like the top 40% of the wave out, but we&rsquo;ll get to those details in a bit. For now, I recomend watching this video:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/Ll0IOk_Ltfc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>[TODO]</p>
+<p>zeener, normal, bipolar</p>
+<ul>
+<li>varistors , sparkgaps</li>
+<li>Leds - getting current both ways, LED safety</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=7FYHt5XviKc">Zener Diode (YouTube - EEVblog)</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Varicap">Varicaps (Wikipedia)</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Tunnel_diode">Tunnel Diodes (Wikipedia)</a></p>
+<p><a href="https://simplifier.neocities.org/diode.html">DIY Diode (Simplifier)</a> <a href="https://simplifier.neocities.org/diode2.html">Part 2</a> <a href="https://simplifier.neocities.org/diode3.html">Part 3</a> <a href="https://simplifier.neocities.org/powerdiode.html">Part 4: Power Diode</a></p>
+<h3 id="diode-logic">
+  Diode Logic
+  <a class="anchor" href="#diode-logic">#</a>
+</h3>
+<p><a href="https://hackaday.io/project/11677-the-diode-clock">The Diode Clock</a></p>
+<h2 id="transistors">
+  Transistors
+  <a class="anchor" href="#transistors">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://djjondent.blogspot.com/2019/05/transistor-families.html">Transistor Families (JonDent - Blogspot)</a></p>
+<p><a href="https://www.electronics-tutorials.ws/transistor/tran_1.html">Bipolar Transistor @ electronics-tutorials.ws</a></p>
+<p>tubes and how they work</p>
+<p><a href="https://simplifier.neocities.org/triode.html">DIY Triode (Simplifier)</a> <a href="https://simplifier.neocities.org/triode2.html">Part 2</a> <a href="https://simplifier.neocities.org/triode3.html">Part 3</a> <a href="https://simplifier.neocities.org/triode4.html">Part 4</a> <a href="https://simplifier.neocities.org/power.html">Part 5: Power Triode</a> <a href="https://simplifier.neocities.org/power2.html">Part 6: Power Triode 2</a> <a href="https://simplifier.neocities.org/portable.html">Part 7: Portable Triode</a>, <a href="https://simplifier.neocities.org/tetrode.html">Tetrode</a></p>
+<h3 id="pnp-v-npn">
+  PNP V NPN
+  <a class="anchor" href="#pnp-v-npn">#</a>
+</h3>
+<h3 id="tigbt-mosfets">
+  tIGBT, Mosfets?
+  <a class="anchor" href="#tigbt-mosfets">#</a>
+</h3>
+<h4 id="tubes">
+  Tubes
+  <a class="anchor" href="#tubes">#</a>
+</h4>
+<p><a href="https://hackaday.com/2020/09/01/that-elusive-valve-amp-sound-for-not-a-lot-there-has-to-be-a-catch/">That Elusive Valve Amp Sound, For Not a Lot! (There has to be a Catch) (hackday.com)</a></p>
+<h2 id="integrated-circuits">
+  Integrated Circuits
+  <a class="anchor" href="#integrated-circuits">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://hackaday.com/2019/05/20/integrated-circuits-can-be-easy-to-understand-with-the-right-teachers/">https://hackaday.com/2019/05/20/integrated-circuits-can-be-easy-to-understand-with-the-right-teachers/</a>
+<a href="https://www.youtube.com/watch?v=VNzkhZBjo5k&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Uncovering the Silicon: Demystifying How Chips are Built and How They Work (YouTube)</a></p>
+<p><a href="http://www.righto.com/2014/05/reverse-engineering-tl431-most-common.html">Reverse-engineering the TL431</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Distortion pedal with all homemade semiconductors, only one external component (cap for AC coupling) <a href="https://t.co/M7t3Gl1m5P">pic.twitter.com/M7t3Gl1m5P</a></p>&mdash; Sam Zeloof (@szeloof) <a href="https://twitter.com/szeloof/status/1280249239495479297?ref_src=twsrc%5Etfw">July 6, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Finally I learned how to do focus stacking with my macro (non-microscope) shots. 226 shots, 50µm camera shift per frame. Laowa 25mm F2.8@F4 on WeMacro rail. Stitched in Helicon Focus (pyramid, smoothing=1). 1 original photo for comparison. <a href="https://twitter.com/hashtag/WeMacro?src=hash&amp;ref_src=twsrc%5Etfw">#WeMacro</a> <a href="https://twitter.com/laowa_lens?ref_src=twsrc%5Etfw">@laowa_lens</a> <a href="https://twitter.com/hashtag/heliconfocus?src=hash&amp;ref_src=twsrc%5Etfw">#heliconfocus</a> <a href="https://t.co/yCdCIBXMRv">pic.twitter.com/yCdCIBXMRv</a></p>&mdash; Zeptobars (@Zeptobars) <a href="https://twitter.com/Zeptobars/status/1105594474036686852?ref_src=twsrc%5Etfw">March 12, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h3 id="555-opamp-74-series-logic">
+  555, OpAmp, 74-Series Logic
+  <a class="anchor" href="#555-opamp-74-series-logic">#</a>
+</h3>
+<p><a href="https://www.youtube.com/watch?v=fLaexx-NMj8&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">555 Timer IC (YouTube)</a></p>
+<p><a href="http://www.555-timer-circuits.com/555-amplifier.html">555 as an amplifier (don&rsquo;t actually do this!)</a></p>
+<p><a href="https://www.hackster.io/news/tiny-transistors-clever-tt555-is-a-pin-compatible-555-timer-built-from-discrete-components-40f684ef8c98">Tiny Transistors' Clever TT555 Is a Pin-Compatible 555 Timer Built from Discrete Components (Hackster.io)</a></p>
+<p>potato semi</p>
+<h1 id="chapter-232---op-amps--filters">
+  Chapter 23.2 - Op-Amps &amp; Filters
+  <a class="anchor" href="#chapter-232---op-amps--filters">#</a>
+</h1>
+<h2 id="op-amps">
+  Op-Amps
+  <a class="anchor" href="#op-amps">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/7FYHt5XviKc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="optical-electronics">
+  Optical Electronics
+  <a class="anchor" href="#optical-electronics">#</a>
+</h2>
+<p>[TODO]</p>
+<h2 id="crystal-oscillators">
+  Crystal Oscillators
+  <a class="anchor" href="#crystal-oscillators">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://www.youtube.com/watch?v=wcJXA8IqYl8">Piezoelectricity - Why hitting crystals makes electricity (YouTube)</a></p>
+<h2 id="pwm">
+  PWM
+  <a class="anchor" href="#pwm">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://hackaday.com/2020/08/26/driving-a-pal-tv-over-rf-thanks-to-pwm-harmonics/">Driving a PAL tv over RF thanks to PWM harmonics (Hackaday)</a></p>
+<h2 id="adcdac">
+  ADC/DAC
+  <a class="anchor" href="#adcdac">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://en.wikipedia.org/wiki/Fourier_transform">https://en.wikipedia.org/wiki/Fourier_transform</a></p>
+<p>Nyquist</p>
+<h2 id="active-filters">
+  Active Filters
+  <a class="anchor" href="#active-filters">#</a>
+</h2>
+<p><a href="http://sim.okawa-denshi.jp/en/">http://sim.okawa-denshi.jp/en/</a></p>
+<p><a href="https://www.youtube.com/watch?v=6JbOAxCAxGo">Chebyshev Filters (YouTube - All About Electronics)</a></p>
+<p><a href="https://youtu.be/lc6QT8VjqVc">Butterworth Filters (YouTube - All About Electronics)</a></p>
+<p>[TODO]</p>
+<h2 id="waveguides">
+  Waveguides
+  <a class="anchor" href="#waveguides">#</a>
+</h2>
+<p><a href="https://www.youtube.com/watch?v=r9-m17IPOco">Waveguides Explained (YouTube)</a></p>
+<h2 id="audio-devices">
+  Audio Devices
+  <a class="anchor" href="#audio-devices">#</a>
+</h2>
+<p>[TODO]</p>
+<p>speakers, piezos, amps, mics and pickup patters</p>
+<h2 id="todo">
+  TODO
+  <a class="anchor" href="#todo">#</a>
+</h2>
+<p>add motors, analog meters, various connection standards, radio, flex/pressure sense, grounding (chassis, digital, analog, ground planes, etc.), solar/photo reactive,</p>
+<h2 id="relating-ac-and-music">
+  Relating AC and Music
+  <a class="anchor" href="#relating-ac-and-music">#</a>
+</h2>
+<p>[TODO]</p>
+<p>Relate back to things like ADSR, Distortion, Reverb / Echo, Decibels (audio), etc. Use VCV RACK</p>
+<h1 id="chapter-233---rare-and-dangerous-componets">
+  Chapter 23.3 - Rare and Dangerous Componets
+  <a class="anchor" href="#chapter-233---rare-and-dangerous-componets">#</a>
+</h1>
+<ul>
+<li>Dangerous
+<ul>
+<li>Tesla coils</li>
+<li>High voltage/current/hot/whatever</li>
+<li>Don&rsquo;t pretend to be an electrician</li>
+<li>Don&rsquo;t use ATX psus for dumb things</li>
+</ul>
+</li>
+<li>Rare/Expensive
+<ul>
+<li>Tubes, NOS parts, etc.</li>
+</ul>
+</li>
+</ul>
+<h2 id="continued-reading">
+  Continued Reading:
+  <a class="anchor" href="#continued-reading">#</a>
+</h2>
+<p>[TODO]</p>
+<p>At this point I highly recommend <em>&lsquo;Practical Electronics for Inventors&rsquo;</em> ISBN 978-1259587542, namely chapters 2-12, and 15-16. It&rsquo;s a very large, detailed book that does it&rsquo;s best to keep things, well, practical.</p>
+<p><a href="https://taleri.files.wordpress.com/2014/02/practical_electronics_for_inventors_-_scherz_paul.pdf">https://taleri.files.wordpress.com/2014/02/practical_electronics_for_inventors_-_scherz_paul.pdf</a></p>
+<p><a href="https://web.archive.org/web/20120114234704/http://wiki.openhardware.org/Hardware_Isn%27t_Generally_Copyrightable">Hardware isn&rsquo;t generally copyrightable</a></p>
+<p><a href="https://hackaday.io/contest/174093-2020-circuit-sculpture-challenge">Hackady.io 2020 Circuit Sculuture Challange</a></p>
+<p><a href="https://www.youtube.com/watch?v=3DeOPN1Cl1Y">RGB LED, Inductively Powered, Frequency Controlled (YouTube, Wolf Tronix)</a></p>
+<p><a href="https://www.youtube.com/watch?v=IrB-FPcv1Dc">How to protect circuits from reversed voltage polarity! (YouTube, AfroTechMods)</a></p>
+<p><a href="https://hackaday.com/2020/12/03/remoticon-video-circuit-sculpture-workshop/">Circuit Sculpture Workshop (Hackaday, Kristina Panos)</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Current_loop">Current Loop (Wikipedia)</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Circuits/circuits2.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-23---circuits--semiconductors">Chapter 23 - Circuits &amp; Semiconductors</a></li>
+    <li><a href="#chapter-231---semiconductors">Chapter 23.1 - Semiconductors</a>
+      <ul>
+        <li><a href="#semiconductors">Semiconductors?</a></li>
+        <li><a href="#diodes-the-one-way-road">Diodes, the one way road</a>
+          <ul>
+            <li><a href="#diode-logic">Diode Logic</a></li>
+          </ul>
+        </li>
+        <li><a href="#transistors">Transistors</a>
+          <ul>
+            <li><a href="#pnp-v-npn">PNP V NPN</a></li>
+            <li><a href="#tigbt-mosfets">tIGBT, Mosfets?</a></li>
+          </ul>
+        </li>
+        <li><a href="#integrated-circuits">Integrated Circuits</a>
+          <ul>
+            <li><a href="#555-opamp-74-series-logic">555, OpAmp, 74-Series Logic</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#chapter-232---op-amps--filters">Chapter 23.2 - Op-Amps &amp; Filters</a>
+      <ul>
+        <li><a href="#op-amps">Op-Amps</a></li>
+        <li><a href="#optical-electronics">Optical Electronics</a></li>
+        <li><a href="#crystal-oscillators">Crystal Oscillators</a></li>
+        <li><a href="#pwm">PWM</a></li>
+        <li><a href="#adcdac">ADC/DAC</a></li>
+        <li><a href="#active-filters">Active Filters</a></li>
+        <li><a href="#waveguides">Waveguides</a></li>
+        <li><a href="#audio-devices">Audio Devices</a></li>
+        <li><a href="#todo">TODO</a></li>
+        <li><a href="#relating-ac-and-music">Relating AC and Music</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-233---rare-and-dangerous-componets">Chapter 23.3 - Rare and Dangerous Componets</a>
+      <ul>
+        <li><a href="#continued-reading">Continued Reading:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

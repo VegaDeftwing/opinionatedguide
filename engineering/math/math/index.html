@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 6 - Math #   The next few chapters are, regrettably, necessary for developing your knack. Math, Physics, and Chemistry and fundamental to all engineering fields and while something about each of the three subjects finds a way to make the 16 year old high schooler in us release a long, exasperated groan. I think this is mostly due to each of these things being taught in a way that takes the fun and interesting parts out and replaces them with trying to learn skills that have largely been outdated by the advent of calculators, computers, and the internet.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 6 - Math #   The next few chapters are, regrettably, necessary for developing your knack. Math, Physics, and Chemistry and fundamental to all engineering fields and while something about each of the three subjects finds a way to make the 16 year old high schooler in us release a long, exasperated groan. I think this is mostly due to each of these things being taught in a way that takes the fun and interesting parts out and replaces them with trying to learn skills that have largely been outdated by the advent of calculators, computers, and the internet." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/math/math/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Math | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.e4d8d4b03d460ded8adfc5e1377ea6bfe63c1b1f9dcb59ee8173646e8ee1b06a.css" integrity="sha256-5NjUsD1GDe2K38XhN36mv&#43;Y8Gx&#43;dy1nugXNkbo7hsGo=">
+<script defer src="/en.search.min.4103629ee0ecbb0d52fb8775510589068d7cf545c2164532030b6f409b96b994.js" integrity="sha256-QQNinuDsuw1S&#43;4d1UQWJBo189UXCFkUyAwtvQJuWuZQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+<dt>3 </dt><dd> <a href="/engineering/linux/hardware/">Into The Hardware</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">The First Goal</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+<dt>6 </dt><dd> <a href="/engineering/math/math/"class=active>Math</a></dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>6 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>8 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Math</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-6---math">Chapter 6 - Math</a></li>
+    <li><a href="#chapter-11---math">Chapter 11 - Math</a>
+      <ul>
+        <li><a href="#1---algebra">1 - Algebra</a>
+          <ul>
+            <li><a href="#number-systems">Number Systems</a></li>
+            <li><a href="#notation">Notation</a></li>
+            <li><a href="#order-of-operations">Order of Operations</a></li>
+            <li><a href="#simplification">Simplification</a></li>
+            <li><a href="#looking-at-some-equations">Looking at some equations</a></li>
+          </ul>
+        </li>
+        <li><a href="#1---accuracy-and-precision">1¼ - Accuracy and Precision</a></li>
+        <li><a href="#1---coordinate-systems">1½ - Coordinate Systems</a></li>
+        <li><a href="#1---primes--factors">1¾ - Primes &amp; Factors</a></li>
+        <li><a href="#1---number-bases">1⅘ - Number Bases</a></li>
+        <li><a href="#2---discrete-math--logic">2 - Discrete Math &amp; Logic</a>
+          <ul>
+            <li><a href="#notation-1">Notation</a></li>
+            <li><a href="#logic">Logic</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---geometry-and-trigonometry">3 - Geometry and Trigonometry</a>
+          <ul>
+            <li><a href="#geometry">Geometry</a></li>
+            <li><a href="#trigonometry">Trigonometry</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---topology">3½ - Topology</a></li>
+        <li><a href="#3---non-euclidian-spaces">3¾ - Non-Euclidian Spaces</a>
+          <ul>
+            <li><a href="#fractals">Fractals</a></li>
+          </ul>
+        </li>
+        <li><a href="#4---calculus">4 - Calculus</a></li>
+        <li><a href="#5---differential-equations">5 - Differential Equations</a></li>
+        <li><a href="#6---matrix-theory--linear-algebra">6 - Matrix Theory / Linear Algebra</a></li>
+        <li><a href="#6---numerical-analysis">6½ - Numerical Analysis</a></li>
+        <li><a href="#7---signals--systems">7 - Signals &amp; Systems</a></li>
+        <li><a href="#8---set-theory">8 - Set Theory</a></li>
+        <li><a href="#9---probabilitystats">9 - Probability/Stats</a>
+          <ul>
+            <li><a href="#basics">Basics</a></li>
+            <li><a href="#random-variables">Random Variables</a></li>
+            <li><a href="#chaos">Chaos</a></li>
+            <li><a href="#todo">TODO</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-6---math">
+  Chapter 6 - Math
+  <a class="anchor" href="#chapter-6---math">#</a>
+</h1>
+<iframe width="100%" height="450" src="https://www.youtube.com/embed/g8vHhgh6oM0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>The next few chapters are, regrettably, necessary for developing your knack. Math, Physics, and Chemistry and fundamental to all engineering fields and while something about each of the three subjects finds a way to make the 16 year old high schooler in us release a long, exasperated groan. I think this is mostly due to each of these things being taught in a way that takes the fun and interesting parts out and replaces them with trying to learn skills that have largely been outdated by the advent of calculators, computers, and the internet. I&rsquo;ll do my best to keep this chapter interesting by showing some of the fun parts of math and linking to the most entertaining videos and &lsquo;hands on&rsquo; resources that I can. So, let&rsquo;s get mathy!</p>
+<p class="tip ">
+    As with all of OpGuides, please skip around as necessary. I suspect the start of this math chapter will be stuff many readers already know, especially those currently in college.
+</p>
+<p>This video on <a href="https://www.youtube.com/watch?v=Kp2bYWRQylk">How to Read Math (YouTube, Dominic Walliman)</a> and the cheat sheet from it, <a href="https://live.staticflickr.com/4671/40544016221_61cf8944d1_h.jpg">How To Read Math, Cheat Sheet (Flickr, Dominic Walliman)</a> may help you get your brain juices flowing.</p>
+<p>If you&rsquo;re reading this as someone that&rsquo;s trying to refresh on what they learned in high school, I do still recommend reading what I have on this page, but Professor Leonard&rsquo;s <a href="https://www.youtube.com/watch?v=9OOrhA2iKak&amp;list=PLDesaqWTN6ESsmwELdrzhcGiRhk5DjwLP">College Algebra and Trigonometry</a> course on YouTube is probably your best bet for getting back up to speed, though it is long enough to take a week of full time watching to get through.</p>
+<h1 id="chapter-11---math">
+  Chapter 11 - Math
+  <a class="anchor" href="#chapter-11---math">#</a>
+</h1>
+<p>[TODO] some motivation, Klein bottle guy, non-euclidean games, fractals, colatz conjecture, math in music, etc.</p>
+<h2 id="1---algebra">
+  1 - Algebra
+  <a class="anchor" href="#1---algebra">#</a>
+</h2>
+<blockquote class="book-hint info">
+  This section is a tad bit misnamed, as instead of covering just Algebra I&rsquo;ll be covering most things you&rsquo;d learn in a high school Algebra class along side it, plus probably a bit extra.
+</blockquote>
+
+<h3 id="number-systems">
+  Number Systems
+  <a class="anchor" href="#number-systems">#</a>
+</h3>
+<p>To get started, let&rsquo;s look at &lsquo;Number Systems&rsquo;. Essentially, there are a variety of &lsquo;types&rsquo; of numbers, rather than get all philosophical let&rsquo;s just dive in and I think you&rsquo;ll get the gist.</p>
+<h4 id="ℕ---natural-numbers">
+  ℕ - Natural Numbers
+  <a class="anchor" href="#%e2%84%95---natural-numbers">#</a>
+</h4>
+<p>Natural Numbers are the dead basic set of numbers, 1, 2, 3, 4, 5, etc. note, this this doesn&rsquo;t include fractions, decimals, etc. or the number 0. <strong>Whole Numbers</strong> is the set of natural numbers <em>and</em> the number 0, so 0, 1, 2, 3&hellip;</p>
+<h4 id="ℤ---integers">
+  ℤ - Integers
+  <a class="anchor" href="#%e2%84%a4---integers">#</a>
+</h4>
+<p>Alright, Natural and Whole numbers are great and all, but what if we want to represent a deficit or debt? Negative numbers would definitely be nice- introducing <em>Integers</em>, this is just the set of Whole numbers <em>and</em> the their inverses, so &hellip;. -3, -2, -1, 0, 1, 2, 3 &hellip;</p>
+<p class="tip ">
+    If you come from a programming background, do note that what programming languages call integers is ever so slightly different. Namely, mathematically integers include arbitrarily large numbers, but in programming most <code>int</code> types are bounded by how many bits they can store, for example, an 8 bit signed integer can only hold values ranging from -128 to 127.
+</p>
+<h4 id="ℚ---rational-numbers">
+  ℚ - Rational Numbers
+  <a class="anchor" href="#%e2%84%9a---rational-numbers">#</a>
+</h4>
+<p>Alright, so, what if we want to represent the number of slices in a pie? Sure, we could say that pie has been cut into 6 slices and 1 of the slices is gone, so 5 remain, but the obviously natural way to say this is 5/6 of the pie is left, and like that we&rsquo;ve invented rational numbers.</p>
+<p>A rational number is any number that can be written as an integer over an integer. so 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \( \frac{1}{2} \text{ and } \frac{-1}{2} \)
+</span>
+ are both obviously valid. &lsquo;Improper&rsquo; fractions, that is fractions where the top is bigger than the bottom, like <span>
+  \( \frac{4}{3} \text{ and } \frac{-3}{2} \)
+</span>
+ are both valid too.</p>
+<p>Of note, these can be written as <em>mixed numbers</em> too, that is <span>
+  \( \frac{4}{3} = 1\frac{1}{3} \)
+</span>
+, as <span>
+  \( \frac{3}{3} = 1 \text{ so the remaining } \frac{1}{3} \)
+</span>
+ is just written next to it.</p>
+<p>Note, that rational numbers do include numbers with an infinite repeating decimal, that is while <span>
+  \( \frac{1}{2} \text{ can be written as } .5 \)
+</span>
+, <span>
+  \( \frac{1}{3} \text{ has a repeating decimal, } \frac{1}{3} = .333333... = .\overline{33} \)
+</span>
+, where the line over the 3&rsquo;s implies that the 3&rsquo;s repeat infinitely. This <em>is</em> still a rational number.</p>
+<h4 id="--irrational-numbers">
+    - Irrational Numbers
+  <a class="anchor" href="#--irrational-numbers">#</a>
+</h4>
+<p>Alright then, what&rsquo;s an irrational number?</p>
+<p>Well, this is easier to answer with a few examples, the most well know of which is <span>
+  \( \pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499... \)
+</span>
+</p>
+<p>&hellip; I think you get the idea.</p>
+<p>Irrational numbers are numbers where the decimal doesn&rsquo;t repeat and as such can <em>not</em> be written as an integer over another integer. Because pi is a geometrically defined constant, it may be easier to look at something a bit more tangible.</p>
+<p>the square root of a number is just the number that when multiplied with itself gives the number in question, so the square root of 4 is 2 because 2*2 is 4, the square root of 9 is 3 because 3*3 is 9, etc.</p>
+<p>But what about the square root of 2? well <span>
+  \( \sqrt{2} = 1.414213562373.... \)
+</span>
+ you get the idea. Like with pi, it&rsquo;s a number that goes on forever, with no repeating pattern.</p>
+<p>Later on you&rsquo;ll see other irrational constants like <span>
+  \( e = 2.718281828459.... \)
+</span>
+ and The Golden Ratio <span>
+  \( \frac{1&#43;\sqrt{5}}{2} = 1.618033988749.... \)
+</span>
+</p>
+<h4 id="ℝ---real-numbers">
+  ℝ - Real Numbers
+  <a class="anchor" href="#%e2%84%9d---real-numbers">#</a>
+</h4>
+<p>Finally, we&rsquo;re up to the normal number line, that is, we now have the set of all numbers on the number line, all the way from -∞ to +∞, (often written as ±∞) pick any number, with as many random numbers before or after the decimal point as you want, and that&rsquo;s a real number.</p>
+<h4 id="hahahugoshortcode-s13-hbhb---imaginary-numbers">
+  <span>
+  \( i \)
+</span>
+ - Imaginary Numbers
+  <a class="anchor" href="#hahahugoshortcode-s13-hbhb---imaginary-numbers">#</a>
+</h4>
+<p><img src="/wtf.gif" alt="" /></p>
+<p>Yep, that&rsquo;s pretty much everyone&rsquo;s first reaction. What in the hell is an imaginary number?</p>
+<p>Well, okay, remember before how I said a square root was just whatever number you need to multiply with itself to get the number, so <span>
+  \( \sqrt{4} = 2 \)
+</span>
+? This has a problem, a negative number times a negative number is always positive, so <span>
+  \( 3 * 3 = 9, -3 * 3 = -9, \text{ but } -3 * -3 = 9 \)
+</span>
+ So, what would the square root of a negitive number be? There are no two numbers that can multiply to give us -1, so, we made one up! <span>
+  \( \sqrt{-1} = i \)
+</span>
+</p>
+<p>furthermore, <span>
+  \( \sqrt{-4} = 2i \)
+</span>
+</p>
+<p>i being equal to <span>
+  \(\sqrt{-1}\)
+</span>
+ has some interesting properties with exponents. Naturally exponentiation is the inverse of a root, that is <span>
+  \( 3^2 = 9, \text{ as } \sqrt{9} = 3 \text{ implies that } \sqrt{9}^2=9\)
+</span>
+,</p>
+<p>When taken to negitive numbers, we can see this effect, so <span>
+  \( \sqrt{-1}^2=-1 \text{ implies } \sqrt{-1}^2 = i^2 = i* i = -1\)
+</span>
+</p>
+<p>So what if we keep taking <em>i</em> to higher powers?</p>
+<p><span>
+  \( i * i = i^2 = -1 \text{ and } i * i * i = i^3 = -i \text{ and } i * i * i *i = i^4 = 1\)
+</span>
+ then this pattern repeats, so <span>
+  \( i^5 =  i^4 * i = 1 * i = i \text{ and } i^6 = i^4 * i^2 = -1 \text{ and so on,  } i^7 = -i,  i^8 = 1, i^9 = i \)
+</span>
+ and so on.</p>
+<p class="tip ">
+    Note, you may also see &lsquo;j&rsquo; used instead &lsquo;i&rsquo; to represent imaginary numbers.
+</p>
+<p>While you&rsquo;re inital reaction may be &ldquo;Who cares?&rdquo;, I assure you you&rsquo;ll see the value of this in a bit.</p>
+<h4 id="ℂ---complex-numbers">
+  ℂ - Complex Numbers
+  <a class="anchor" href="#%e2%84%82---complex-numbers">#</a>
+</h4>
+<p>Complex numbers then, the end of this adventure for most sane people, are just Real numbers with imaginary numbers, written together, so this is numbers like <span>
+  \( 32 &#43; 4i \text{ or } 420.69 - 2i\)
+</span>
+. This brings about something called the complex plane, as now if we want to plot these numbers we can no longer use a simple number line, but instead need an axis for each part, one for the Real (ℝ) part, and one for the imaginary part.</p>
+<p>Here&rsquo;s a video to help you understand imaginary and complex numbers, albeit it does assume you&rsquo;ve at least seen both a little bit before.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/5PcpBw5Hbwo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://en.wikipedia.org/wiki/Hypercomplex_number">Hypercomplex numbers</a> are also a thing, this term includes <a href="https://en.wikipedia.org/wiki/Quaternion">Quaternions</a> which are used in some very high level physics, but otherwise you&rsquo;ll most likely never work with these.</p>
+<h4 id="infinity">
+  Infinity
+  <a class="anchor" href="#infinity">#</a>
+</h4>
+<p>Diving into the weeds for a bit, let&rsquo;s poke the concept of Infinity:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/3s7h2MHQtxc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/OxGsU8oIWjY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3 id="notation">
+  Notation
+  <a class="anchor" href="#notation">#</a>
+</h3>
+<h4 id="-----mod">
+  +, -, *, ÷, mod
+  <a class="anchor" href="#-----mod">#</a>
+</h4>
+<p>If you don&rsquo;t know that addition, subtraction, multiplication, and division are, I think you&rsquo;re in the wrong place&hellip;</p>
+<p>That said, there are some things you may not be used to. For starters, multiplication can be written in a variety of ways. of course there&rsquo;s the classic <span>
+  \( 2 \times 2 = 4 \)
+</span>
+ but you may also see <span>
+  \( 2 \cdot 2 = 4 \)
+</span>
+ or <span>
+  \( 2 * 2 = 4 \)
+</span>
+ or just <span>
+  \( 2(2) = 4 \)
+</span>
+, where parentheses with no operation in between imply multiplication.</p>
+<p>Typically, the <span>
+  \( 2 \cdot 2 = 4 \)
+</span>
+ and parentheses methods are used on paper, while the <span>
+  \( 2 * 2 = 4 \)
+</span>
+ is used on computer screens as it&rsquo;s easy to type. <span>
+  \( 2 \times 2 = 4 \)
+</span>
+ is generally not preferred as it can be confused with other operations you&rsquo;ll see later.</p>
+<p>Something to keep in mind is that addition and multiplication are both, both commutative and associative, while subtraction and division are not. What this means is that while <span>
+  \( 2 &#43; 3 = 3 &#43; 2 \text{ but, } 2 - 3 \neq 3 - 2 \)
+</span>
+ (The Commutative Property) similarly, <span>
+  \( 2 * 3 = 3 * 2 \text{ but, } 2 \div 3 \neq 3 \div 2 \)
+</span>
+</p>
+<p>Furthermore, <span>
+  \( (2 &#43; 3) &#43; 4 = 3 &#43; (2 &#43; 4) \text{ but, } (2 - 3) - 4 \neq 2 - (3 - 4) \)
+</span>
+ and <span>
+  \( (2 * 3) * 4 = 3 * (2 * 4) \text{ but, } (2 \div 3) \div 4 \neq 2 \div (3 \div 4) \)
+</span>
+, by the Associative Property.</p>
+<p>Finally, for multiplication, you should keep in mind how to do multiplication on grouped items</p>
+<p>[TODO] $a*(x+y)$ and $(a+b)(x+y)$ - FOIL</p>
+<p>For division, there&rsquo;s some terminology you should know. First of all, in <span>
+  \( \frac{a}{b} \)
+</span>
+, a is the <em>numerator</em> and b is the <em>denominator</em>. The <em>reciprocal</em> of <span>
+  \( \frac{a}{b} \)
+</span>
+ is <span>
+  \( \frac{b}{a} \)
+</span>
+. This is actually pretty useful, for example, given <span>
+  \( \frac{a}{\frac{b}{c}} \)
+</span>
+ you can write this as,  <span>
+  \( a * \frac{c}{b} \)
+</span>
+</p>
+<p>Modulo is something you&rsquo;ll see in programming a lot, in programming it&rsquo;s usually represented with the percent sign.</p>
+<p>Modulo is just the reminder after division, so 7%3 is 1, because 3 goes into 7 twice, with <strong>1</strong> left over.</p>
+<h4 id="---log">
+  ^, √, !, log()
+  <a class="anchor" href="#---log">#</a>
+</h4>
+<p>exponents, written as either <span>
+  \( a^x \text{ or }  \)
+</span>
+a^x or exp(x) if the base is &lsquo;e&rsquo;, that is <span>
+  \( e^x \)
+</span>
+, are pretty simple to understand, they&rsquo;re just repeated multiplication, so <span>
+  \( a^3 = a * a * a  \)
+</span>
+</p>
+<p>This results in a few &lsquo;rules&rsquo; for exponents which are fairly easy to understand, with the exception of the not at all intuitive <span>
+  \( a^0 = 1  \)
+</span>
+</p>
+<table>
+<thead>
+<tr>
+<th>Exponent Rule</th>
+<th>Assume a≠0 and b≠0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product Rule</td>
+<td><span>
+  \( a^x * a^y = a^{x&#43;y}  \)
+</span>
+</td>
+</tr>
+<tr>
+<td>Quotient Rule</td>
+<td><span>
+  \( a^x / a^y = a^{x-y}  \)
+</span>
+</td>
+</tr>
+<tr>
+<td>Power Rule</td>
+<td><span>
+  \(  (a^x) ^y = a^{x*y}\)
+</span>
+</td>
+</tr>
+<tr>
+<td>Power of a Product Rule</td>
+<td><span>
+  \( (a*b)^x = a^x*b^x  \)
+</span>
+</td>
+</tr>
+<tr>
+<td>Power of a Fraction Rule</td>
+<td><span>
+  \( (\frac{a}{b})^x = (\frac{a^x}{b^x}) \)
+</span>
+</td>
+</tr>
+<tr>
+<td>Fractional Exponent</td>
+<td><span>
+  \( a^{\frac{x}{y}} = \sqrt[y]{a^x} \)
+</span>
+</td>
+</tr>
+<tr>
+<td>Negitive Exponent</td>
+<td><span>
+  \( a^{-x} = \frac{1}{a^x} \)
+</span>
+</td>
+</tr>
+<tr>
+<td>Zero Exponent <strong>¡easy to forget!</strong></td>
+<td><span>
+  \(  a^0 = 1 \)
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>alright, so why do I say these are intuitive? Let&rsquo;s take the product rule for example. Let&rsquo;s look at <span>
+  \(  2^2 * 2^3 = 2^5 \)
+</span>
+ this is true because <span>
+  \(  2^2 = 2*2 , 2^3 = 2 * 2 * 2 \text{, so multiplied together they&#39;re }(2 * 2) * (2 * 2 * 2) \text{ and as multiplication is associative that is } 2*2*2*2*2 =  2^5 \)
+</span>
+, generally, any of these rules can be figured out by just writing out examples like these, expanding the exponent out like this, and seeing what happens.</p>
+<p>Alright, so now we can look at roots. The most common root you&rsquo;ll work with is the square root, which is what is implied when seeing a root symbol with no number in the crevice, though can be written explicitly as <span>
+  \( \sqrt[2]{n} \)
+</span>
+, though as you should&rsquo;ve notice in the exponent rules other roots are possible, for example the cube root, which is <span>
+  \( \sqrt[3]{n} \)
+</span>
+ is just whatever number you need to multiply with itself 3 times to get n, so for example <span>
+  \( \sqrt[3]{8} = 2 \text{ as } 2 * 2 * 2 = 8 \)
+</span>
+</p>
+<p>As implied by the Fractional exponent rule, roots can be written as fractional exponents, that is <span>
+  \( \sqrt[2]{n} = n^{1/2} \)
+</span>
+ often it&rsquo;s actually more convenient to enter this notation into a calculator or programming language anyway. It can even just be nice for working on paper as when writing something like <span>
+  \( \frac{1}{\sqrt{ \text{some really long equation here}}} \)
+</span>
+ it can be easy to miss the top bar and forget it&rsquo;s there, compared to <span>
+  \( \frac{1}{( \text{some really long equation here})^{\frac{1}{2}}} \)
+</span>
+ where the power sticks out more.</p>
+<p>Next, there&rsquo;s factorial, written with the <strong>!</strong>, it just means to multiply the number with the number prior down to 1, so  <span>
+  \( 4! = 4 * 3 *2 * 1 \)
+</span>
+</p>
+<p>Finally, let&rsquo;s look at Logarithms:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/cEvgcoyZvB4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h5 id="scientific-notation">
+  Scientific Notation
+  <a class="anchor" href="#scientific-notation">#</a>
+</h5>
+<p>Say you have a really big number like 2,340,000,000,000,000,000 or a really small number 0.000000567 in either case, writing out and counting the zeros is very cumbersome and easy to mess up. For this reason, scientific notation is common. In scientific notation, those numbers would be written as <span>
+  \( 2.34 \times 10^{18} \)
+</span>
+ and <span>
+  \( 5.67 \times 10^{-7} \)
+</span>
+ respectively. In each case, it&rsquo;s just a matter of moving the numbers so that there&rsquo;s only one digit before the decimal, then listing to what power of 10 you need to multiply this number by to get the original number- meaning the power will be the same as the number of 0&rsquo;s in the original number. You may see calculators show this with a big &lsquo;E&rsquo; instead of writing the <span>
+  \( x.xxxx \times 10^{y} \)
+</span>
+, for example <span>
+  \( 5.67 \times 10^{-7} \)
+</span>
+ is often shown as 5.67E-7</p>
+<p>[TODO] beyond scientific notation for REALLY big numbers video&hellip; numberphile?</p>
+<h4 id="---------">
+  =, &lt;, &gt;, ≤, ≥, ≠, &laquo;, &raquo;, ≈, ∝
+  <a class="anchor" href="#---------">#</a>
+</h4>
+<p>The equal sign is pretty obvious, it just means that what ever is on each side is equal. The implications of this will lead us deeper into algebra though as we actually solve equations. There&rsquo;s some really obvious equalities, those that lack variables, so things like <span>
+  \( 1 &#43; 2 = 3 \)
+</span>
+  or any of the equalities shown to this point really. Where equality gets a bit more interesting is when there&rsquo;s an unknown (variable, same thing). For example, <span>
+  \( 1 &#43; x = 3 \)
+</span>
+ here we cane see pretty obviously that x must be 2. We&rsquo;ll go into how to actually solve for these unknowns with non-obvious equations in a bit.</p>
+<p>Less Than and Greater Than are similarly simple, they just state that one side has a bigger number than the other. The &lsquo;&gt;&rsquo; or &lsquo;&lt;&rsquo; symbols should always &lsquo;eat&rsquo; the bigger number, that is the open side faces the bigger number, and the pointy side points to the smaller. <span>
+  \( 2 &lt; 3 \)
+</span>
+ and <span>
+  \( 4 &gt; 3 \)
+</span>
+ are examples of this. When variable are involved, it usually means there are multiple solutions. <span>
+  \( x &gt; 3 \)
+</span>
+ for example, is satisfied for any x greater than 3, right down to 3.0000000000&hellip;00001 all the way up to ∞. Similarly, there are &lsquo;or equal to&rsquo; variants of less than and greater than, which are written with a bar underneath so <span>
+  \( x \geq 3 \)
+</span>
+ is satisfied for x equal to 3 to ∞, so the 3 <em>is</em> included with the &lsquo;or equal to part.&rsquo;</p>
+<p>≠ means &lsquo;Not Equal To&rsquo;, and as the name impiles it&rsquo;s just saying the two sides can&rsquo;t be equal so with <span>
+  \( x \neq 0 \)
+</span>
+,  x can be any value, except for 0.</p>
+<p>Next are MUCH greater and less than, written with a double less than or greater than sign, so <span>
+  \( \gg \text{ or } \ll \)
+</span>
+ these are weird for people new to the idea, because they&rsquo;re sort of fluid and depend on the situation. Generally they&rsquo;re used to say &ldquo;This number is so small that it doesn&rsquo;t effect the outcome&rdquo; or &ldquo;This number is large that it dominates the outcome&rdquo;</p>
+<p>Next up, is ≈ or &ldquo;Approximately Equal To&rdquo;. This is for when you know your answer is off by some amount, due to impercesion in computation but it&rsquo;s still close enough for whatever you need to use it for. For example <span>
+  \( \pi \approx 3.1416 \)
+</span>
+</p>
+<p>Finally, there&rsquo;s ∝ for &lsquo;proportional to&rsquo;. This just means the two equations are only different by a multiplited constant. For example, say <span>
+  \( y = kx \)
+</span>
+, where k is a constant (some number that can&rsquo;t change) then <span>
+  \( y \propto x \)
+</span>
+. This is useful for when two equations are representing something massively different in scale, but we want to indicate that they have the same behavior.</p>
+<h4 id="x--x-x-">
+  |x|, ∆, ⌊x⌋, ⌈x⌉, ±
+  <a class="anchor" href="#x--x-x-">#</a>
+</h4>
+<p>The <span>
+  \( |x| \)
+</span>
+ symbol means &ldquo;Absolute Value&rdquo;, which, is really just a fancy way of saying &ldquo;Make it positive.&rdquo;, so <span>
+  \( |3| = 3 \)
+</span>
+, no change, but <span>
+  \( |-3| = 3 \)
+</span>
+.</p>
+<p class="tip ">
+    Later on you&rsquo;ll also see something called the &lsquo;Determinate&rsquo;, this uses the same notation, two vertical bars, but is totally different. Thankfully it&rsquo;s not hard to tell apart, as the determinate is a matrix operation, meaning there will be a grid of numbers between the bars instead of a single expression.
+</p>
+<p>Delta, <span>
+  \( \Delta \)
+</span>
+, is the change between two things, so from 10 to 20 degrees is a delta of 10 degrees. It is usally used with real units like this, giving us the difference between the final and inital values in an experiment. So really it&rsquo;s just Final Value - Initial Value. You may also see <span>
+  \( \Delta t \)
+</span>
+ or <span>
+  \( \Delta x \)
+</span>
+, this would be change in time and change in position (usually) respectively. Note that Δ can be negitive.</p>
+<p><span>
+  \( \left \lfloor{x}\right \rfloor \)
+</span>
+ is the &lsquo;floor&rsquo; of x. Similarly, <span>
+  \( \left \lceil{x}\right \rceil \)
+</span>
+ is the &lsquo;ceiling&rsquo; of x. Very basically, For floor this just means to drop everything after the decmial right off, so <span>
+  \( \left \lfloor{1.534}\right \rfloor = 1 \)
+</span>
+. For ceiling, it means to go up 1 and take the decimal off. <span>
+  \( \left \lceil{1.001}\right \rceil = 1\)
+</span>
+</p>
+<p>Finally, for lack of a better place to put it, let&rsquo;s look at ±. This is &lsquo;Plus or Minus&rsquo; and it just means to do both, for example 3±2 gives us 1 and 5 as answers. Usually when this symbol is used, one of the two answers ends up being thrown out as invalid, but not always.</p>
+<h4 id="f-x-f--g">
+  <em>f</em> (<em>x</em>), (<em>f</em> ∘ <em>g</em>)
+  <a class="anchor" href="#f-x-f--g">#</a>
+</h4>
+<p>[TODO]</p>
+<h4 id="ab-a-b">
+  (<em>a</em>,<em>b</em>), [a, b]
+  <a class="anchor" href="#ab-a-b">#</a>
+</h4>
+<p>[TODO]</p>
+<h4 id="-π">
+  ∑, Π
+  <a class="anchor" href="#-%cf%80">#</a>
+</h4>
+<p>[TODO]</p>
+<p><a href="https://www.rapidtables.com/math/symbols/Basic_Math_Symbols.html">https://www.rapidtables.com/math/symbols/Basic_Math_Symbols.html</a></p>
+<h3 id="order-of-operations">
+  Order of Operations
+  <a class="anchor" href="#order-of-operations">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/mathmeme.jpg" alt=""></p>
+<p class="attribution ">
+    <a href="">Yes, I did make my own stupid math meme just for this. Fite me.</a>
+</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    We&rsquo;ve all seen these incredibly stupid memes going around social media at one point (Reason №876 to quit FaceBook), but why do people argue over the answer? The real answer is because it&rsquo;s a really stupid problem. It has ambuguity baked into it, because of a lack of perentheses the solution is truly a bit ambiguous. That said, the &lsquo;accepted&rsquo; correct answers will either be 2/3 or 6 because of PEMDAS, which is, in itself a crappy acroynm, and sholud probably be written as (PE)(MD)(AS), let me explain.
+  </div>
+  
+</div>
+
+<p>PEMDAS stands for Perentheses, Exponents, Multiplication, Division, Addition, Subtraction, and is in general the correct order to do math operations. so given a mess like <span>
+  \( \frac{4*(1 &#43; 2)^3}{2&#43;1} &#43; 1 \)
+</span>
+ we can solve it in order. Here though, I have to point out the first failing in the PEMDAS accronym, division <em>with a bar</em> implies perentheses, as you&rsquo;ll have to do the 2+1 on the bottom before you can do the divison anyway. That said, let&rsquo;s look at this step by step</p>
+<span>
+  \[\frac{4*(1 &#43; 2)^3}{2&#43;1} &#43; 1 = \frac{4*(3)^3}{2&#43;1}  &#43; 1= \frac{4*(3)^3}{3} &#43; 1 = \frac{4*9}{3} &#43; 1= \frac{36}{3} &#43;1  = 12&#43;1 = 13\]
+</span>
+
+<p>In step 1 and 2 I did perenthes in top and the implied perenthes on the bottom, then in step 3 I did the exponent, followed by the multipliation and divison in steps 4 and 5, finally in the last step I did the +1 that was hanging off the entire time.</p>
+<blockquote class="book-hint info">
+  The P for Perenthes in PEMDAS can mean really any grouping symbol, so brackets [] or braces {}, whatever.
+</blockquote>
+
+<p>So, what&rsquo;s the problem with with the math equation in the start and why do people disagree? Well, Divison and Multiplication don&rsquo;t have to be done in that order, same for addition and substraction, instead they should be done all together, but going from left to right, so <span>
+  \( 1 &#43; 2 &#43; 3 - 4 &#43; 1 - 2 \)
+</span>
+ for example can be done in order left to right giving us 1, <strong>not</strong> doing this: <span>
+  \( (1 &#43; 2 &#43; 3) - (4 &#43; 1) - 2 \)
+</span>
+ which gives -1. Just to be crystal clear, <strong>1 not -1</strong> is correct here. So, applying this to the above social media meme, it&rsquo;s the same problem but with multiplication, implied with the 3(3) after doing the addition, and the divison. Some people interpret PEMDAS literally, meaning multiplication is done before division <em>always</em>. These people are wrong. So, with the meme the problem looks like this:</p>
+<span>
+  \[\frac{6}{3(1&#43;2)} = \frac{6}{3(3)} = \frac{6}{9} = \frac{2}{3}\]
+</span>
+
+<p>But see what I did there? I wrote the fraction as a bar, not as <strong>÷</strong>, and here, because this problem is written crappily, that actually changes the solution! And I know what you&rsquo;re thinking- Division is divison, how could that matter?? And you&rsquo;re right, it is. It matters because the bar implies that order, but if I go back to using a division sign look what happens:</p>
+<span>
+  \[6\div3(1&#43;2) = 6\div3(3) = 2(3) = 6​\]
+</span>
+
+<p>And there&rsquo;s the problem. Now, you&rsquo;re probably thinking <strong>&ldquo;What fucking dipshit let math be ambiguous?&quot;</strong> and the answer is really that this problem is just stupid. In any real problem the ambuguity here should be fixed by whoever is writing it in the first place, and since other than in textbooks math doesn&rsquo;t just appear from thin air, the true order of the operations should be specified clearly with perentheses, either as</p>
+<span>
+  \[6\div(3(1&#43;2))) \text{   -OR-   } (6\div3)(1&#43;2)) \text{   -OR-   } \frac{6}{3(1&#43;2)}​\]
+</span>
+
+<p>where in the last option the bar implies the parentheses.</p>
+<h3 id="simplification">
+  Simplification
+  <a class="anchor" href="#simplification">#</a>
+</h3>
+<p>Before we can get to doing useful things with these operations, it helps to be proficient at simplifying an equation. For example say we have</p>
+<p><span>
+  \(3x^2&#43;3&#43;(2-x)(4-x)&#43;2=12&#43;(3&#43;(x*2))&#43;2\)
+</span>
+ before we ever solve for x, we&rsquo;ll want to turn this into something much easier to work with. When doing this, we need to make sure to keep the equality the same, that is if we had <span>
+  \(3&#43;x=4\)
+</span>
+ we need to not accidentally change it into <span>
+  \(3&#43;x=5\)
+</span>
+, changing the answer.</p>
+<p>This generally means that we can only either do basic operations to get an equivalent value or do the same operation to both sides. Ironically, often simplification actually requires expansion first, that is doing math like the <span>
+  \((2-x)(4-x)\)
+</span>
+ to get <span>
+  \(8-2x-4x&#43;x^2\)
+</span>
+ which can then be reduced back down to <span>
+  \(x^2-6x&#43;8\)
+</span>
+.</p>
+<p>For the example equation, the most obvious thing to start with is the +2 that&rsquo;s common to both sides. This is our first example of using the same operation on both sides- the idea being as long as we apply the same operation on both sides of the equality the meaning won&rsquo;t change. That is, the solution to <span>
+  \(x&#43;3=2\)
+</span>
+ is the same as the solution to <span>
+  \(x&#43;3&#43;2=2&#43;2\)
+</span>
+, but we can take advantage of this to get rid of terms too. For example, with <span>
+  \(x&#43;3=2\)
+</span>
+ we can subtract 3 from both sides to get <span>
+  \(x=-1\)
+</span>
+ (seeing how this might lead to solving the equation?) In our example equation, both end in a +2 so we can &ldquo;cancel this out&rdquo; by subtracting 2 from both sides.</p>
+<span>
+  \[\begin{aligned}
+
+3x^2&#43;3&#43;(2-x)(4-x)&#43;2&amp;=12&#43;(3&#43;(x*2))&#43;2​ \\
+
+3x^2&#43;3&#43;(2-x)(4-x)&amp;=12&#43;(3&#43;(x*2))​
+
+\end{aligned} \]
+</span>
+
+<p>but because we did the same operation to both sides of the equality, the answer didn&rsquo;t change</p>
+<blockquote class="book-hint warning">
+  ☠☠☠ The following is an easy place to screw up ☠☠☠
+</blockquote>
+
+<p>Keep in mind, whatever you do you need to do to both sides and <em>the entirety</em> of both sides, not just one term. For example, If you were to only divide one term on each side by 2 this is <strong>not</strong> keeping equivalence. You <em>can</em> divide both sides in full by two, sure, but you can&rsquo;t just pick one term from each side and selectively divide that <em>term</em> by two. That is <span>
+  \(4&#43;2x=8\)
+</span>
+ can become <span>
+  \(2-x=4\)
+</span>
+ but <em>not</em> <span>
+  \(\frac{4}{2}&#43;2x=\frac{8}{2}\)
+</span>
+ which is <span>
+  \(2&#43;2x=4\)
+</span>
+. You can see this as the solution to <span>
+  \(4&#43;2x=8\)
+</span>
+ is <span>
+  \(x=2\)
+</span>
+ but the solution to <span>
+  \(2&#43;2x=4\)
+</span>
+ is <span>
+  \(x=1\)
+</span>
+. So, just be sure if you do some arbitrary operation you do it to <strong>both sides</strong> and the entirety of the side, not just one term.</p>
+<p>Back to our big equation: next, let&rsquo;s FOIL out that <span>
+  \((2-x)(4-x)\)
+</span>
+&hellip;</p>
+<span>
+  \[\begin{aligned}
+
+3x^2&#43;3&#43;(8-2x-4x&#43;x^2)&amp;=12&#43;(3&#43;(x*2))​\\
+
+3x^2&#43;3&#43;(x^2-6x&#43;8)&amp;=12&#43;(3&#43;(x*2))​
+
+\end{aligned} \]
+</span>
+
+<p>with that done, we can get rid of some of those parentheses</p>
+<span>
+  \[3x^2&#43;3&#43;x^2-6x&#43;8=12&#43;3&#43;2x\]
+</span>
+
+<p>then, we can combine like terms&hellip;</p>
+<span>
+  \[4x^2-6x&#43;11=15&#43;2x\]
+</span>
+
+<p>and subtract $2x$ from both sides</p>
+<span>
+  \[\begin{aligned}
+
+4x^2-6x-2x&#43;11&amp;=15&#43;2x-2x​\\
+
+4x^2-8x&#43;11&amp;=15​
+
+\end{aligned} \]
+</span>
+
+<p>then subtract 15 from both sides</p>
+<span>
+  \[\begin{aligned}
+
+ 4x^2-8x&#43;11-15&amp;=15-15​\\
+
+ 4x^2-8x-4&amp;=0​
+
+\end{aligned} \]
+</span>
+
+<p>And now we&rsquo;re fully simplified. You <strong>can&rsquo;t</strong> combine the <span>
+  \(x^2\)
+</span>
+ and x terms.</p>
+<p>This general process applies to any equation. It&rsquo;s like a little puzzle, you just want to take the complex equation you have, do the same thing to both sides or do the math that&rsquo;s internal to one side. Sometimes it&rsquo;s more complicated to do this. For example, you might need to square root both sides to &ldquo;cancel out&rdquo; both sides being squared, for example <span>
+  \(x^2=25\)
+</span>
+ to <span>
+  \(\sqrt{x^2} = \sqrt{25}\)
+</span>
+ to <span>
+  \(x=5\)
+</span>
+, but here this only works because we&rsquo;re square rooting everything on both sides.</p>
+<h3 id="looking-at-some-equations">
+  Looking at some equations
+  <a class="anchor" href="#looking-at-some-equations">#</a>
+</h3>
+<h4 id="linear">
+  Linear
+  <a class="anchor" href="#linear">#</a>
+</h4>
+<p>[TODO] replaces these desmos graphs with something custom using <a href="https://jsxgraph.uni-bayreuth.de/wp/index.html">https://jsxgraph.uni-bayreuth.de/wp/index.html</a></p>
+<p>it&rsquo;ll be uglier, but I don&rsquo;t like loading something this large, and jsxgraph will be more flexible anyway. Since I literally never write js this is proving to be a bit rough. Working on getting something that will show the slope and intercept values as two arbitrary points on the line are moved on a graph.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JXG</span>.<span style="color:#a6e22e">JSXGraph</span>.<span style="color:#a6e22e">initBoard</span>(<span style="color:#e6db74">&#39;jxgbox&#39;</span>, { 
+    <span style="color:#a6e22e">boundingbox</span><span style="color:#f92672">:</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>], <span style="color:#a6e22e">axis</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>
+});
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">create</span>(<span style="color:#e6db74">&#39;point&#39;</span>,[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>], {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;A&#39;</span>,<span style="color:#a6e22e">size</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>});
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">create</span>(<span style="color:#e6db74">&#39;point&#39;</span>,[<span style="color:#ae81ff">2</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;B&#39;</span>,<span style="color:#a6e22e">size</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>});
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">li</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">create</span>(<span style="color:#e6db74">&#39;line&#39;</span>,[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>], {<span style="color:#a6e22e">strokeColor</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;#00ff00&#39;</span>,<span style="color:#a6e22e">strokeWidth</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>});
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">create</span>(<span style="color:#e6db74">&#39;point&#39;</span>,[<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">X</span>, <span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">Y</span>], {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;S&#39;</span>,<span style="color:#a6e22e">size</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>});
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">li2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">create</span>(<span style="color:#e6db74">&#39;line&#39;</span>,[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>], {<span style="color:#a6e22e">strokeColor</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;#00ff00&#39;</span>,<span style="color:#a6e22e">strokeWidth</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span>});
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+<span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">function</span>(){<span style="color:#a6e22e">p3</span>.<span style="color:#a6e22e">moveTo</span>(<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">X</span>,<span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">Y</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>; },<span style="color:#ae81ff">1000</span>);
+</code></pre></td></tr></table>
+</div>
+</div><p>is what I have so far, but it appears the .X and .Y getters are not working as I expect. This should give me an &lsquo;S&rsquo; point that I can then line segment to A and B to get the right angle &lsquo;stair&rsquo; step slope.</p>
+<iframe src="https://www.desmos.com/calculator/srmm3mfqcj" width="100%" height="500px" style="border: 1px solid #ccc" frameborder=0></iframe>
+<h4 id="polynomials">
+  Polynomials
+  <a class="anchor" href="#polynomials">#</a>
+</h4>
+<h5 id="parabolas">
+  Parabolas
+  <a class="anchor" href="#parabolas">#</a>
+</h5>
+<iframe src="https://www.desmos.com/calculator/teki6din5m" width="100%" height="500px" style="border: 1px solid #ccc" frameborder=0></iframe>
+<h4 id="systems-of-equations">
+  Systems of Equations
+  <a class="anchor" href="#systems-of-equations">#</a>
+</h4>
+<p>Nobody should do these by hand unless they&rsquo;re dead simple</p>
+<p>Imaginary numbers, systems of equations</p>
+<h2 id="1---accuracy-and-precision">
+  1¼ - Accuracy and Precision
+  <a class="anchor" href="#1---accuracy-and-precision">#</a>
+</h2>
+<p>For lack of a better place to put it and not wanting to wait until the much latter section on probability, I&rsquo;d like to briefly mention the difference between Accuracy and Precision. Typically, this is represented as</p>
+<h2 id="1---coordinate-systems">
+  1½ - Coordinate Systems
+  <a class="anchor" href="#1---coordinate-systems">#</a>
+</h2>
+<p>So, up until now you&rsquo;ve only seen the XY &lsquo;Cartesian&rsquo; coordinate system, but I did gloss over some details. For starters, when refering to points in the Cartesian plane, you may hear the term quadrants, these are the 4 infinite corners of the plane, coming out from the &lsquo;+&rsquo; shape at (0,0). Slightly counter intuitively, they&rsquo;re numbered from starting in the top right and going <em>counter</em> clockwise.</p>
+<p>[TODO] picture here</p>
+<p>The Cartesian coordinate system can be expanded into high dimensions as well, but you&rsquo;re unlike to work with more than 3, to form space defined with XYZ</p>
+<p>[TODO] picture here</p>
+<p>There are a few other coordinate systems you&rsquo;ll likely come across though: Polar, Cylindrical, and Spherical.</p>
+<p>[TODO] all 3 of those</p>
+<h2 id="1---primes--factors">
+  1¾ - Primes &amp; Factors
+  <a class="anchor" href="#1---primes--factors">#</a>
+</h2>
+<p>Alright, so maybe not something you&rsquo;ll use everday, but you still should know the basics of primes, espically if you want to understand <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">Public-key cryptography</a>. So, what&rsquo;s a prime?</p>
+<p>A prime is an number where the only two whole numbers that you can multiply to get to that number are 1 and itself.</p>
+<p>2? Prime. 1*2 is the only option.</p>
+<p>3? Prime. 1*3 is the only option.</p>
+<p>4? Not Prime. 2*2 = 4, as does 1*4</p>
+<p>103801? Prime. only two numbers that can multiplied together to get it are 1 and 103801.</p>
+<p>I think you get the gist. One of the neat applications of primes is that multiplying two prime numbers together makes for a number that&rsquo;s not quite prime, but whose only other fators are two two numbers that you multiplied together, so say we take 103801 * 7 to get 726607, the only two whole numbers other than 1 and itself that can be multiplied to get 726607 are 103801 and 7.</p>
+<p>There are also &lsquo;antiprimes&rsquo; (or &lsquo;highly composite numbers&rsquo;), from Wikipedia:</p>
+<blockquote>
+<p>&hellip; an <strong>antiprime number</strong>, is a <a href="https://en.wikipedia.org/wiki/Positive_number">positive</a> <a href="https://en.wikipedia.org/wiki/Integer">integer</a> with more <a href="https://en.wikipedia.org/wiki/Divisor">divisors</a> than any smaller positive integer has</p>
+</blockquote>
+<p>so, technically 1, 2, 4, and 6 are all antiprime. But where it gets interesting is with larger numbers. For example, 360 is anti prime as you get get to it with <span>
+  \( 2*2*2*2*3*3*5​\)
+</span>
+, which is 7 primes multiplied together, more than it takes to get to any number prior. These numbers are really easy to work with because of this, and it makes it really convient for the number of degrees in a circle as it can be divided so easily.</p>
+<h2 id="1---number-bases">
+  1⅘ - Number Bases
+  <a class="anchor" href="#1---number-bases">#</a>
+</h2>
+<p><a href="https://hackaday.com/2021/01/01/number-bases-stretch-the-mind/">Number Bases Strech the Mind (Hackaday)</a></p>
+<h2 id="2---discrete-math--logic">
+  2 - Discrete Math &amp; Logic
+  <a class="anchor" href="#2---discrete-math--logic">#</a>
+</h2>
+<p><a href="http://discrete.openmathbooks.org/dmoi3/">http://discrete.openmathbooks.org/dmoi3/</a></p>
+<div class="best ">
+    <img src="/best.svg" width="20em" style="float: left; margin: 0px 6px 0px 0px;"/>
+    <a href="https://yurichev.com/writings/Math-for-programmers.pdf">Math For Programmers (pdf)</a>
+</div>
+<h3 id="notation-1">
+  Notation
+  <a class="anchor" href="#notation-1">#</a>
+</h3>
+<p><a href="https://en.wikipedia.org/wiki/List_of_mathematic_operators">https://en.wikipedia.org/wiki/List_of_mathematic_operators</a></p>
+<h3 id="logic">
+  Logic
+  <a class="anchor" href="#logic">#</a>
+</h3>
+<h4 id="many-valued-logic">
+  Many Valued Logic
+  <a class="anchor" href="#many-valued-logic">#</a>
+</h4>
+<h4 id="fuzzy-logic">
+  Fuzzy Logic
+  <a class="anchor" href="#fuzzy-logic">#</a>
+</h4>
+<h2 id="3---geometry-and-trigonometry">
+  3 - Geometry and Trigonometry
+  <a class="anchor" href="#3---geometry-and-trigonometry">#</a>
+</h2>
+<h3 id="geometry">
+  Geometry
+  <a class="anchor" href="#geometry">#</a>
+</h3>
+<h4 id="notation-2">
+  Notation
+  <a class="anchor" href="#notation-2">#</a>
+</h4>
+<p>∥, ⊥,</p>
+<h3 id="trigonometry">
+  Trigonometry
+  <a class="anchor" href="#trigonometry">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/yBw67Fb31Cs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://www.youtube.com/playlist?list=PL0o_zxa4K1BVCB8iCVCGOES9pEF6byTMT">Learning Trig playlist on YouTube by &lsquo;The Organic Chemistry Tutor&rsquo;</a></p>
+<h4 id="notation-3">
+  Notation
+  <a class="anchor" href="#notation-3">#</a>
+</h4>
+<h2 id="3---topology">
+  3½ - Topology
+  <a class="anchor" href="#3---topology">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/AmgkSdhK4K8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/_hjRvZYkAgA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/AAsICMPwGPY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<p>But, this is supposed to be about engineering, so why do we need it?</p>
+<p>[TODO] topology optimization and generative design</p>
+<h2 id="3---non-euclidian-spaces">
+  3¾ - Non-Euclidian Spaces
+  <a class="anchor" href="#3---non-euclidian-spaces">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/zQo_S3yNa2w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3 id="fractals">
+  Fractals
+  <a class="anchor" href="#fractals">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/gB9n2gHsHN4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/GiAj9WW1OfQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="4---calculus">
+  4 - Calculus
+  <a class="anchor" href="#4---calculus">#</a>
+</h2>
+<p><a href="https://adit.io/posts/2018-02-18-Introduction-To-Calculus-With-Derivatives.html">Introduction To Calculus With Derivatives (adit.io)</a></p>
+<p>[] TODO limits before video</p>
+<blockquote class="book-hint info">
+  Below is a 12 video series that totals about 3.25 hours.
+</blockquote>
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://blog.plover.com/math/exponential.html">The Exponential Function is a Miracle (Mark Dominus)</a></p>
+<h2 id="5---differential-equations">
+  5 - Differential Equations
+  <a class="anchor" href="#5---differential-equations">#</a>
+</h2>
+<blockquote class="book-hint info">
+  Below is a 5 video series that totals about 1.5 hours.
+</blockquote>
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLZHQObOWTQDNPOjrT6KVlfJuKtYTftqH6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="6---matrix-theory--linear-algebra">
+  6 - Matrix Theory / Linear Algebra
+  <a class="anchor" href="#6---matrix-theory--linear-algebra">#</a>
+</h2>
+<blockquote class="book-hint info">
+  Below is a 15 video series that totals a bit under 3 hours.
+</blockquote>
+
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://graphicallinearalgebra.net/2015/06/09/matrices-diagrammatically/">Matricies, Diagrammatically</a></p>
+<p><a href="http://joshua.smcvt.edu/linearalgebra/book.pdf">Linear Algebra - Jim Hefferson</a></p>
+<p><a href="https://scholarworks.gvsu.edu/cgi/viewcontent.cgi?article=1021&amp;context=books">Linear Algebra and Applications: An Inquiry-Based Approach</a></p>
+<h2 id="6---numerical-analysis">
+  6½ - Numerical Analysis
+  <a class="anchor" href="#6---numerical-analysis">#</a>
+</h2>
+<p><a href="https://en.wikipedia.org/wiki/Bisection_method">Bisection Method</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton&rsquo;s Method</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Secant_method">Secant Method</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Lagrange_polynomial">Lagrange Polynomial</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Divided_differences">Divided Differences</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Linear_interpolation">Linear Interpolation</a>, <a href="https://en.wikipedia.org/wiki/Bilinear_interpolation">Bilinear Interpolation</a>, <a href="https://en.wikipedia.org/wiki/Bicubic_interpolation">Bicubic Interpolation</a>, <a href="https://en.wikipedia.org/wiki/Multivariate_interpolation">Spatial Interpolation</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Cubic_Hermite_spline">Cubic Spline</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Numerical_differentiation">Numerical Differentiation</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Trapezoidal_rule">Trapezoidal Rule</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Simpson%27s_rule">Simpson&rsquo;s Rule</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Romberg%27s_method">Romberg Integration</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo Method</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Condition_number">Condition Number</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Least_squares">Least Squares</a></p>
+<h2 id="7---signals--systems">
+  7 - Signals &amp; Systems
+  <a class="anchor" href="#7---signals--systems">#</a>
+</h2>
+<blockquote class="book-hint warning">
+  There&rsquo;s a ton of content available on Signals and Systems in Video form, but honestly I don&rsquo;t think any of it is great. The MIT OpenCourseWare series linked below is probably the best I can find, but it&rsquo;s also still only 480p
+</blockquote>
+
+<p><a href="https://www.youtube.com/watch?v=-FHm2pQmiSM&amp;list=PLUl4u3cNGP61kdPAOC7CzFjJZ8f1eMUxs&amp;ab_channel=MITOpenCourseWare">MIT Signals and Systems Lectures (YouTube)</a></p>
+<p>But, if you&rsquo;d rather learn out of a textbook, if you go looking online you might just be able to stumble upon a 100% super-duper legal way to obtain <code>Alan V. Oppenheim, Alan S. Willsky, with S. Hamid-Signals and Systems</code> with ISBN <code>978-0138147570</code> published by Prentice Hall which is now a subsidiary of Pearson, a textbook publisher which can, and this is 100% true, go fuck themselves.</p>
+<hr>
+<p>One of the most important things in Signals is the Fourier Transform. Fortunately, quality content about it is abundant. This site, <div class="best ">
+    <img src="/best.svg" width="20em" style="float: left; margin: 0px 6px 0px 0px;"/>
+    <a href="http://www.jezzamon.com/fourier/">An Interactive Introduction to the Fourier Transform</a>
+</div></p>
+<p>provides a great introduction for developing an intuition about it graphically, while &ldquo;<a href="https://www.youtube.com/watch?v=spUNpyF58BY">But what is the Fourier Transform? A visual introduction. (YouTube, 3Blue1Brown)</a>&rdquo; goes a bit more into the math by the end.</p>
+<p>[TODO] put in all notes from class here to provide a half decent resource</p>
+<p><strong>Extra Resources:</strong></p>
+<p><a href="https://betterexplained.com/articles/intuitive-convolution/">Intuitive Guide to Convolution</a></p>
+<p><a href="https://en.wikibooks.org/wiki/Signals_and_Systems">https://en.wikibooks.org/wiki/Signals_and_Systems</a></p>
+<p><a href="https://www.youtube.com/watch?v=s8rsR_TStaA&amp;list=PLBlnK6fEyqRhG6s3jYIU48CqsT5cyiDTO&amp;index=1&amp;ab_channel=NesoAcademy">A 313 Part - not even kidding - playlist on Signals and Systems on YouTube</a></p>
+<p><a href="https://www.youtube.com/playlist?list=PL5D4A7494C03A0227">A 95 Video series, in case that 313 parter left you needing more.</a></p>
+<p><a href="https://www.analog.com/en/education/education-library/scientist_engineers_guide.html#Foundations">The Scientist &amp; Engineer&rsquo;s Guide to Digital Signal Processing, 1999 (Analog Devices)</a></p>
+<p><a href="https://hackaday.com/2020/11/13/dsp-spreadsheet-the-goertzel-algorithm-is-fouriers-simpler-cousin/">DSP Spreadsheet: The Goertzel Algorithm is Fourier&rsquo;s Simpler Cousin (Hackaday, Al Williams)</a></p>
+<p><a href="https://www.youtube.com/watch?v=n2y7n6jw5d0&amp;ab_channel=ZachStar">What does the Laplace Transform really tell us? (Zach Star, YouTube)</a></p>
+<p><a href="https://photo.stackexchange.com/questions/40401/what-does-frequency-mean-in-an-image">What does frequency mean in an image (Stack Exchange)</a></p>
+<p><a href="https://www.youtube.com/watch?v=cyN-CRNrb3E&amp;ab_channel=TobiasGl%C3%BCck">Tripple Pendulum on a Cart</a> &amp; <a href="https://www.youtube.com/watch?v=qjhAAQexzLg&amp;ab_channel=SteveBrunton">Inverted Pendulum on a Cart (Steve Brunton&rsquo;s Control Bootcamp on YouTube)</a></p>
+<h2 id="8---set-theory">
+  8 - Set Theory
+  <a class="anchor" href="#8---set-theory">#</a>
+</h2>
+<p>This video</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/HeQX2HjkcNo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="9---probabilitystats">
+  9 - Probability/Stats
+  <a class="anchor" href="#9---probabilitystats">#</a>
+</h2>
+<p>Why, where are these used, etc.</p>
+<p>bring up music things, part failure rates, tollerences, etc.</p>
+<h3 id="basics">
+  Basics
+  <a class="anchor" href="#basics">#</a>
+</h3>
+<p>For the following I&rsquo;ll be using a dice roll example, where the events are the total of two die. The <em>Sample Space</em> of this is</p>
+<p>$ S = {2,3,4,5,6,7,8,9,10,11,12}$</p>
+<p>Note, that 1 isn&rsquo;t possible as the lowest is both die being &lsquo;1&rsquo;.</p>
+<p>Let&rsquo;s look at the probability of these outcomes,</p>
+<table>
+<thead>
+<tr>
+<th>die2↓, die1→</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>While there are 11 (2-12) unique outcomes, there are 36 possible outcomes from the two die, which are shown in the table above.</p>
+<p>If you follow the diagonal you can see that there is only one way to get 2 or 12, two ways to get 3 or 11, and so on, this gives this table:</p>
+<table>
+<thead>
+<tr>
+<th>Total of two die</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Probability</td>
+<td>1/36</td>
+<td>2/36</td>
+<td>3/36</td>
+<td>4/36</td>
+<td>5/36</td>
+<td>6/36</td>
+<td>5/36</td>
+<td>4/36</td>
+<td>3/36</td>
+<td>2/36</td>
+<td>1/36</td>
+</tr>
+</tbody>
+</table>
+<p>Now, let&rsquo;s say we want the probability that we roll an even number (2,4,6,8,10,12) we can just sum their respective probabilities, so $\frac{1}{36}+\frac{3}{36}+\frac{5}{36}+\frac{5}{36}+\frac{3}{36}+\frac{1}{36} = \frac{18}{36} = \frac{1}{2}$</p>
+<p>Lets go ahead and call this event A, so P[A] = 1/2</p>
+<p>Similarly, we can define a new rule, Event B, such that the roll total is greater than 9, that comes out to be 1/6, so P[B]=1/6</p>
+<p>Statistical Independence</p>
+<p>Event A and event B are statistically independent if and only if (<em>iff</em>)</p>
+<p>$P[AB] = P[A]P[B]$</p>
+<p>Conditional probability</p>
+<p>$ P[A|B]P[B]=P[AB]=P[B|A]P[A]$</p>
+<p>Sub experiments &amp; Tree diagrams</p>
+<p>Law of total probability</p>
+<p>Bayes Rule</p>
+<p>Counting methods</p>
+<p>combinations and permutations</p>
+<p>with or without replacement</p>
+<h3 id="random-variables">
+  Random Variables
+  <a class="anchor" href="#random-variables">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/mBCiKUzwdMs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Probability Mass Function (PMF)</p>
+<p>Types of RV&rsquo;s</p>
+<p>[TODO] <a href="http://www.math.wm.edu/~leemis/chart/UDR/UDR.html">http://www.math.wm.edu/~leemis/chart/UDR/UDR.html</a></p>
+<table>
+<thead>
+<tr>
+<th>Distribution Name</th>
+<th>PMF</th>
+<th>Mean</th>
+<th>Variance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bernoulli</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Geometric</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Binomial</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Pascal</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Discrete Uniform</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Poisson</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Cumulative Distribution Function (CDF)</p>
+<p>functions of Random Variables</p>
+<p>Families of continuous RVs</p>
+<p>Conditional Probability Mass Fn &amp; Conditional Expected Value</p>
+<p>Gaussian Random Variables / Normal RVs (same thing)</p>
+<p>[TODO] <a href="https://mc-stan.org/users/documentation/">https://mc-stan.org/users/documentation/</a></p>
+<p>[TODO] <a href="https://youtu.be/pneluWj-U-o">The Fisher Information (YouTube - Mutual Information)</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I did it. <a href="https://t.co/eMEmUw0HSY">pic.twitter.com/eMEmUw0HSY</a></p>&mdash; Zillion Ross (@ZillionRoss) <a href="https://twitter.com/ZillionRoss/status/1331387290887680000?ref_src=twsrc%5Etfw">November 25, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h3 id="chaos">
+  Chaos
+  <a class="anchor" href="#chaos">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/fDek6cYijxI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/idpOunnpKTo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/ovJcsL7vyrk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<h3 id="todo">
+  TODO
+  <a class="anchor" href="#todo">#</a>
+</h3>
+<p><a href="https://en.wikipedia.org/wiki/Space_syntax,">https://en.wikipedia.org/wiki/Space_syntax,</a> <a href="https://en.wikipedia.org/wiki/List_of_network_theory_topics">https://en.wikipedia.org/wiki/List_of_network_theory_topics</a></p>
+<p>Game Theory</p>
+<p><a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">https://en.wikipedia.org/wiki/Directed_acyclic_graph</a></p>
+<p>CAS, Solvers, Sympy, <a href="https://github.com/Z3Prover/z3">https://github.com/Z3Prover/z3</a> → <a href="http://www.cs.toronto.edu/~victorn/tutorials/z3_SAT_2019/index.html">http://www.cs.toronto.edu/~victorn/tutorials/z3_SAT_2019/index.html</a> &amp; <a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Math/math.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-6---math">Chapter 6 - Math</a></li>
+    <li><a href="#chapter-11---math">Chapter 11 - Math</a>
+      <ul>
+        <li><a href="#1---algebra">1 - Algebra</a>
+          <ul>
+            <li><a href="#number-systems">Number Systems</a></li>
+            <li><a href="#notation">Notation</a></li>
+            <li><a href="#order-of-operations">Order of Operations</a></li>
+            <li><a href="#simplification">Simplification</a></li>
+            <li><a href="#looking-at-some-equations">Looking at some equations</a></li>
+          </ul>
+        </li>
+        <li><a href="#1---accuracy-and-precision">1¼ - Accuracy and Precision</a></li>
+        <li><a href="#1---coordinate-systems">1½ - Coordinate Systems</a></li>
+        <li><a href="#1---primes--factors">1¾ - Primes &amp; Factors</a></li>
+        <li><a href="#1---number-bases">1⅘ - Number Bases</a></li>
+        <li><a href="#2---discrete-math--logic">2 - Discrete Math &amp; Logic</a>
+          <ul>
+            <li><a href="#notation-1">Notation</a></li>
+            <li><a href="#logic">Logic</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---geometry-and-trigonometry">3 - Geometry and Trigonometry</a>
+          <ul>
+            <li><a href="#geometry">Geometry</a></li>
+            <li><a href="#trigonometry">Trigonometry</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---topology">3½ - Topology</a></li>
+        <li><a href="#3---non-euclidian-spaces">3¾ - Non-Euclidian Spaces</a>
+          <ul>
+            <li><a href="#fractals">Fractals</a></li>
+          </ul>
+        </li>
+        <li><a href="#4---calculus">4 - Calculus</a></li>
+        <li><a href="#5---differential-equations">5 - Differential Equations</a></li>
+        <li><a href="#6---matrix-theory--linear-algebra">6 - Matrix Theory / Linear Algebra</a></li>
+        <li><a href="#6---numerical-analysis">6½ - Numerical Analysis</a></li>
+        <li><a href="#7---signals--systems">7 - Signals &amp; Systems</a></li>
+        <li><a href="#8---set-theory">8 - Set Theory</a></li>
+        <li><a href="#9---probabilitystats">9 - Probability/Stats</a>
+          <ul>
+            <li><a href="#basics">Basics</a></li>
+            <li><a href="#random-variables">Random Variables</a></li>
+            <li><a href="#chaos">Chaos</a></li>
+            <li><a href="#todo">TODO</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

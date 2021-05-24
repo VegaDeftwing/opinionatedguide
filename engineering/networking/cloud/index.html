@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 31½ - &ldquo;The Cloud&rdquo; #  Some people will tell you the cloud is the future, that someday everybody will rent computational power from a handful of services like AWS.
+These people are nuts.
+The cloud is just someone eles&rsquo;s computer. Unless your business is going though a period of extreme growth it makes no sense to use a cloud provider like AWS or Azure. It does make plenty of sense to buy a VPS (Virtual Private Server) for hosting a website or game server or a personal website like this one, but at scale?">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 31½ - &ldquo;The Cloud&rdquo; #  Some people will tell you the cloud is the future, that someday everybody will rent computational power from a handful of services like AWS.
+These people are nuts.
+The cloud is just someone eles&rsquo;s computer. Unless your business is going though a period of extreme growth it makes no sense to use a cloud provider like AWS or Azure. It does make plenty of sense to buy a VPS (Virtual Private Server) for hosting a website or game server or a personal website like this one, but at scale?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/networking/cloud/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Cloud | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.e4d8d4b03d460ded8adfc5e1377ea6bfe63c1b1f9dcb59ee8173646e8ee1b06a.css" integrity="sha256-5NjUsD1GDe2K38XhN36mv&#43;Y8Gx&#43;dy1nugXNkbo7hsGo=">
+<script defer src="/en.search.min.4103629ee0ecbb0d52fb8775510589068d7cf545c2164532030b6f409b96b994.js" integrity="sha256-QQNinuDsuw1S&#43;4d1UQWJBo189UXCFkUyAwtvQJuWuZQ="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+<dt>3 </dt><dd> <a href="/engineering/linux/hardware/">Into The Hardware</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">The First Goal</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+<dt>6 </dt><dd> <a href="/engineering/math/math/">Math</a></dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/"class=active>"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>6 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>8 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Cloud</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-31---the-cloud">Chapter 31½ - &ldquo;The Cloud&rdquo;</a>
+      <ul>
+        <li><a href="#comparison-of-vendors">Comparison of Vendors</a>
+          <ul>
+            <li><a href="#compute">Compute</a></li>
+            <li><a href="#storage">Storage</a></li>
+            <li><a href="#databases">Databases</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#dev-tools">Dev Tools</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-31---the-cloud">
+  Chapter 31½ - &ldquo;The Cloud&rdquo;
+  <a class="anchor" href="#chapter-31---the-cloud">#</a>
+</h1>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Some people will tell you the cloud is the future, that someday everybody will rent computational power from a handful of services like AWS.</p>
+<p>These people are nuts.</p>
+<p>The cloud is just someone eles&rsquo;s computer. Unless your business is going though a period of extreme growth it makes no sense to use a cloud provider like AWS or Azure. It does make plenty of sense to buy a VPS (Virtual Private Server) for hosting a website or game server or a personal website like this one, but at scale? No.</p>
+<p>Unfortunately, &ldquo;The Cloud&rdquo; isn&rsquo;t going anywhere. AWS, Azure, and Google Cloud probably host the vast majority of websites you visit and the backends for apps you use. So we may as well understand it&hellip; if for no other reason than to be able to hold educated arguments against it.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/yellsatcloud2.webp" alt="Old Vega Yells at Cloud">
+<p class="attribution ">
+    Character owned by Vega, art by <a href="https://twitter.com/Talon_Creations">Talon Creations</a> and Vega
+  </div>
+  
+</div>
+
+<p>So, my opinion out of the way, let&rsquo;s look at what the cloud is. Generally, there are a few kinds of cloud services, here they&rsquo;re listed in increasing level of abstraction:</p>
+<ul>
+<li><strong>IaaS</strong> - Infrastructure as a Service
+<ul>
+<li>Hardware servers, virtual machines, storage, networking, etc. The depth of services provided varies, but generally this is just getting a bare system, with no</li>
+</ul>
+</li>
+<li><strong>PaaS</strong> - Platform as a Service
+<ul>
+<li>Generally PaaS adds another layer of abstraction, as the client (you) don&rsquo;t need to worry about the underlying hardware, but instead can use provider specific programming languages and development tools to setup what you need.</li>
+</ul>
+</li>
+<li><strong>SaaS</strong> - Software as a Service
+<ul>
+<li>SaaS goes up yet another layer, here the client (you) are not buying something on which you can host your own software and tools, but are buying the (usually monthly) access and support for existing tools. Adobe&rsquo;s CreativeCloud and Office365 are good (albeit evil) examples.</li>
+</ul>
+</li>
+<li><strong>FaaS / Serverless</strong> - Function as a Service
+<ul>
+<li>The provider starts up or shuts down virtual machines and otherwise allocates resources on demand as they are called upon. It&rsquo;s not that there is no sever, it&rsquo;s just that the computation is done on demand and then the results saved to disk, such that they can be called upon later.</li>
+<li>See <a href="https://en.wikipedia.org/wiki/Serverless_computing">Serverless Computing</a> on Wikipedia for more information, as well as a list of advantages and disadvantages.</li>
+</ul>
+</li>
+</ul>
+<p>To put this in a nice lil' table, the stuff in blue is <em>done for you</em>, while you need to handle the things shown in gray.</p>
+<style>
+.models {
+    width: 100%;
+    text-align: center;
+}
+.models th {
+background: #fff3;
+word-wrap: break-word;
+text-align: center;
+}
+.models > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(-n) > td:nth-child(1) { background: #009cdf55; }
+.models > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(n+5) > td:nth-child(2) { background: #009cdf55; }
+.models > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(n+3) > td:nth-child(3) { background: #009cdf55; }
+.models > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(n) > td:nth-child(4) { background: #009cdf55; }
+</style>
+<div class="models">
+<table>
+<thead>
+<tr>
+<th>Traditional:</th>
+<th>Infrastructure as a Service</th>
+<th>Platform as a Service</th>
+<th>Software as a Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Applications</td>
+<td>Applications</td>
+<td>Applications</td>
+<td>Applications</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>Data</td>
+<td>Data</td>
+<td>Data</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>Runtime</td>
+<td>Runtime</td>
+<td>Runtime</td>
+</tr>
+<tr>
+<td>Middleware</td>
+<td>Middleware</td>
+<td>Middleware</td>
+<td>Middleware</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>OS</td>
+<td>OS</td>
+<td>OS</td>
+</tr>
+<tr>
+<td>Virtualization</td>
+<td>Virtualization</td>
+<td>Virtualization</td>
+<td>Virtualization</td>
+</tr>
+<tr>
+<td>Servers</td>
+<td>Servers</td>
+<td>Servers</td>
+<td>Servers</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Storage</td>
+<td>Storage</td>
+<td>Storage</td>
+</tr>
+<tr>
+<td>Networking</td>
+<td>Networking</td>
+<td>Networking</td>
+<td>Networking</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Obviously, for each thing done for you you&rsquo;ve giving up more control, abstracting away that complexity to the provider.</p>
+<p><a href="https://www.cockroachlabs.com/blog/2021-cloud-report/">GCP Outpaces Azure, AWS in the 2021 Cloud Report (Cockroarch Labs)</a></p>
+<p><a href="https://www.geekwire.com/2018/dropbox-saved-almost-75-million-two-years-building-tech-infrastructure/">Dropbox saved almost $75 million over two years by building its own tech infrastructure (GeekWire)</a></p>
+<p>[TODO] Service Level Agreements, reallly cheap VPS,</p>
+<h2 id="comparison-of-vendors">
+  Comparison of Vendors
+  <a class="anchor" href="#comparison-of-vendors">#</a>
+</h2>
+<p>[TODO] Add Google Cloud to list, mention they&rsquo;re all sorta evil.</p>
+<blockquote>
+<p>Note, I&rsquo;m not going to directly compare pricing between these services because that&rsquo;s both rather variable and because the cost is often in terms of resource usage, which can be calculated in so many different way that the only real way to compare is to actually run something. Similarly, comparing uptime is also mostly useless as there are different metrics used and because of service contracts any provider will do everything in its power to appear to have umpteen 9&rsquo;s of uptime.</p>
+</blockquote>
+<h3 id="compute">
+  Compute
+  <a class="anchor" href="#compute">#</a>
+</h3>
+<h4 id="cpu">
+  CPU
+  <a class="anchor" href="#cpu">#</a>
+</h4>
+<p>For x86-64 CPU compute both offer a range of speed tier both for GPU and CPU, making direct comparison difficult.</p>
+<p>AWS EC2-C5 offers Intel Skylake CPUs that support AVX-512, nice if you have a highly vectorized workload. Azure does offer some of the same CPU, with AVX-512, but many of their CPUs are AMD&rsquo;s EPYC line which while EPYC should give Azure the lead in efficiency that should lead to reduced costs for the consumer, no AMD CPUs have AVX-512 and the EPYCs in particular sometimes have a hard time distributing compute over their internal CCX complexes.</p>
+<p>Also interesting, AWS offers EC2 A1, which lets you deploy to 64 bit arm cores instead of x86, which for workloads that work well on it can lead to cost savings or security benefits given the mess that was Meltdown and Spectre.</p>
+<h4 id="gpu">
+  GPU
+  <a class="anchor" href="#gpu">#</a>
+</h4>
+<p>AWS appears to only offer Nvidia GPUs, buying into the Nvidia CUDA ecosystem while Azure offers a mix of GPUs from AMD and Nvidia, covering both CUDA and OpenCL workloads well.</p>
+<h3 id="storage">
+  Storage
+  <a class="anchor" href="#storage">#</a>
+</h3>
+<p>AWS-S3, EBS, EFS, Glacier, &hellip; There&rsquo;s a lot here. There&rsquo;s flexibility among offerings that suit various needs, from &lsquo;object storage&rsquo;, network file systems, and long term backups on cheap, bulk storage.</p>
+<p>Azure offers similar (and much better named) flexibility, with options like Azure Disks for bulk storage attached to a VM, &lsquo;Azure Blobs&rsquo; for an S3 equivalent, and &ldquo;Azure Files&rdquo; for a network file system.</p>
+<p>Generally it seems there&rsquo;s a pretty 1-to-1 match between Microsoft&rsquo;s and Amazon&rsquo;s offerings. The differences start to show a bit more when it comes to dev tools and libraries available to work with them though.</p>
+<h3 id="databases">
+  Databases
+  <a class="anchor" href="#databases">#</a>
+</h3>
+<p>So that I can talk about this all without trying to name everything, so just go look at <a href="https://aws.amazon.com/products/databases/">This list of datbase products offered from AWS</a> and <a href="https://azure.microsoft.com/en-us/product-categories/databases/">This page from Azure</a></p>
+<p>As you can see, both offer products covering all the normal database options. Azure, rather strangely, offers hosting of multiple SQL back ends, while AWS has <a href="https://aws.amazon.com/rds/instance-types/">multiple instance types</a> for RDS, while Azure seems to just offer flexible options that automatically scale. This means less control, but also less management overhead and concerns for needing to upgrade or downgrade the instance latter. That said, for very large projects the industry is starting to move to non-relational anyway for it&rsquo;s lower overhead and ease in making it distributed and Cosmos DB, is, uh, lacking. The first chat I included from Azures' docs shows that Azure dos have some Redis cache options, but AWS has Dynamo, Memcached, and Redis.</p>
+<p>On top of all of that AWS offers a graphDB, which I can&rsquo;t find Azure even competing with at all.</p>
+<p>The only advantage that I can really find in Azure&rsquo;s database offerings is the options for SQL being varied enough to support multiple SQL implementations.</p>
+<h3 id="security">
+  Security
+  <a class="anchor" href="#security">#</a>
+</h3>
+<p>The <a href="https://buckets.grayhatwarfare.com">number of open AWS S3 buckets</a> that can be found on GitHub shows right off the bat that security is more down to the developer than the ecosystem. Anything I can write here is going to be largely marketing fluff from each company, that said, there are some security offerings:</p>
+<p>AWS offers &lsquo;Inspector&rsquo; which &quot; automatically assesses resources for vulnerabilities or deviations from best practices, and then produces a detailed list of security findings prioritized by level of severity&quot; - so in plain English, it tries to find anywhere your code or deployed app is vulnerable to a known CVE. Azure offers &ldquo;Azure Security Center&rdquo; which is similar.</p>
+<p>Further, though all of 2020 AWS has had 3 CVEs and two other notices (<a href="https://aws.amazon.com/security/security-bulletins/?card-body.sort-by=item.additionalFields.bulletinDateSort&amp;card-body.sort-order=desc&amp;awsf.bulletins-year=year%232020">source</a>) but Microsoft has made even finding a list of vulnerabilities difficult, but I think going <a href="https://msrc.microsoft.com/update-guide/vulnerability">here</a> setting the date range to all of 2020 and searching for azure is as close as I&rsquo;ll get. That turns up 26 CVEs, of which 25 are really on them, 9 of them are elevation of privilege and and one of them is an RCE. Given Azure is the significantly smaller of the two so will have less attention on it, that&rsquo;s especially not great.</p>
+<h3 id="dev-tools">
+  Dev Tools
+  <a class="anchor" href="#dev-tools">#</a>
+</h3>
+<p>AWS powers enough of the internet that when it goes down it seems the entire internet follows suit. Anadectodely this popularity seems to be from AWS&rsquo;s extensive dev tools and documentation. Further, AWS&rsquo;s larger popularity means many 3rd party libraries for various languages and frameworks exist to make development even easier.</p>
+<p>Further separating things, while Microsoft has tried to make their development more platform agnostic recently with the whole &ldquo;MS &lt;3 Linux&rdquo; thing, from personal experience I can tell you their stuff is rather annoying to work with if you don&rsquo;t buy in to the platform as a whole, while AWS has been pretty OS and development environment agnostic from the start.</p>
+<p>So, while Azure effectively has the <a href="https://azure.microsoft.com/en-us/product-categories/developer-tools/">single bullet point of visual studio</a>, AWS has all of this</p>
+<img src="/awstools.png" alt="AWS Tools" height="700em" style="-webkit-filter: invert(.85);">
+<p>As a very lazy metric, just searching Github (Which is owned by MS and hosted on Azure), we find this:</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/azurerepos.png">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/awsrepos.png">
+  </div>
+  
+</div>
+
+<p>I&rsquo;m not going to pretend that having double the repos means AWS is twice as good, but what it does mean is that developers are choosing it. That could be because it&rsquo;s cheaper or some other unrelated factor, but it could well be because it has much better documentation  (something extremely evident in trying to do find this information in the first place) and because it has better tools developed by Amazon and the community.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/cloud.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-31---the-cloud">Chapter 31½ - &ldquo;The Cloud&rdquo;</a>
+      <ul>
+        <li><a href="#comparison-of-vendors">Comparison of Vendors</a>
+          <ul>
+            <li><a href="#compute">Compute</a></li>
+            <li><a href="#storage">Storage</a></li>
+            <li><a href="#databases">Databases</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#dev-tools">Dev Tools</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
