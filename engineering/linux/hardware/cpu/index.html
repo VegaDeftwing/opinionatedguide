@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1 - The CPU #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  These are CPUS or Central Processing Units. They&rsquo;re the beating heart of your computer, doing the day-to-day number crunching. The rectangular one of one of the first CPU&rsquo;s in the lineage leading up to CPU&rsquo;s like the ones used in desktop&rsquo;s today, with further successors shown in order from top left to the bottom right. The metal-capped one at the bottom right, while old, is visually quite representative of a modern desktop CPU, though the CPUs in a laptop or smart phone do look quite different still.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="1 - The CPU #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  These are CPUS or Central Processing Units. They&rsquo;re the beating heart of your computer, doing the day-to-day number crunching. The rectangular one of one of the first CPU&rsquo;s in the lineage leading up to CPU&rsquo;s like the ones used in desktop&rsquo;s today, with further successors shown in order from top left to the bottom right. The metal-capped one at the bottom right, while old, is visually quite representative of a modern desktop CPU, though the CPUs in a laptop or smart phone do look quite different still." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/linux/hardware/cpu/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>CPU | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
+<script defer src="/en.search.min.a81cbc840a46a401f5f2c12df8e62f89b70b6511cbe9f2f73bc0319e8c359b7b.js" integrity="sha256-qBy8hApGpAH18sEt&#43;OYvibcLZRHL6fL3O8Axnow1m3s="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/sigandsys"> Signals & Systems</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.10</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>6 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Intereact With Computer Sucks</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>CPU</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1---the-cpu">1 - The CPU</a>
+      <ul>
+        <li><a href="#clock-speed">Clock Speed</a></li>
+        <li><a href="#microcode">Microcode</a></li>
+        <li><a href="#cache">Cache</a></li>
+        <li><a href="#interrupts">Interrupts</a></li>
+        <li><a href="#power">Power</a></li>
+        <li><a href="#physically-what-and-where-is-this-thing">Physically, what and where is this thing?</a></li>
+        <li><a href="#numa-nodes-chiplets-die-yield">Numa Nodes? Chiplets? Die Yield?</a></li>
+        <li><a href="#branch-prediction--pipelining">Branch Prediction &amp; Pipelining</a></li>
+        <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
+        <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="1---the-cpu">
+  1 - The CPU
+  <a class="anchor" href="#1---the-cpu">#</a>
+</h1>
+<script>
+    document.getElementById("hardwareMenu").open = true;
+</script>
+<img class="center" src="/cpus.jpg" alt="CPUS" height="400em">
+<p>These are CPUS or Central Processing Units. They&rsquo;re the beating heart of your computer, doing the day-to-day number crunching. The rectangular one of one of the first CPU&rsquo;s in the lineage leading up to CPU&rsquo;s like the ones used in desktop&rsquo;s today, with further successors shown in order from top left to the bottom right. The metal-capped one at the bottom right, while old, is visually quite representative of a modern desktop CPU, though the CPUs in a laptop or smart phone do look quite different still.</p>
+<p>One of the nifty things we do pretty easily in linux is get information about our hardware directly. Just as when we were installing Arch and we used <code>lsblk</code> to see an overview of the disks on the system, we can use some other tools to find out some other information about the system. Let&rsquo;s start off basic and see what CPU you have. Go ahead and run</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+╰─➤  cat /proc/cpuinfo
+</code></pre></td></tr></table>
+</div>
+</div><p>This is actually just using that same <code>cat</code> command we used before. This time we&rsquo;re using it to read the system generated file that tells us about the processor in this system. I&rsquo;m going to provide the output from my system for reference:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">processor       : <span style="color:#ae81ff">0</span>
+vendor_id       : AuthenticAMD
+cpu family      : <span style="color:#ae81ff">23</span>
+model           : <span style="color:#ae81ff">1</span>
+model name      : AMD Ryzen <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">1700</span> Eight-Core Processor
+stepping        : <span style="color:#ae81ff">1</span>
+microcode       : 0x8001137
+cpu MHz         : 2018.119
+cache size      : <span style="color:#ae81ff">512</span> KB
+physical id     : <span style="color:#ae81ff">0</span>
+siblings        : <span style="color:#ae81ff">16</span>
+core id         : <span style="color:#ae81ff">0</span>
+cpu cores       : <span style="color:#ae81ff">8</span>
+apicid          : <span style="color:#ae81ff">0</span>
+initial apicid  : <span style="color:#ae81ff">0</span>
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : <span style="color:#ae81ff">13</span>
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb hw_pstate sme ssbd sev ibpb vmmcall fsgsbase bmi1 avx2 smep bmi2 rdseed adx smap clflushopt sha_ni xsaveopt xsavec xgetbv1 xsaves clzero irperf xsaveerptr arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif overflow_recov succor smca
+bugs            : sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass
+bogomips        : 7688.44
+TLB size        : <span style="color:#ae81ff">2560</span> 4K pages
+clflush size    : <span style="color:#ae81ff">64</span>
+cache_alignment : <span style="color:#ae81ff">64</span>
+address sizes   : <span style="color:#ae81ff">43</span> bits physical, <span style="color:#ae81ff">48</span> bits virtual
+power management: ts ttp tm hwpstate eff_freq_ro <span style="color:#f92672">[</span>13<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>14<span style="color:#f92672">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Alright, that&rsquo;s a whole lot of information, let&rsquo;s break it down.</p>
+<p>First of all, almost all modern Central Processing Units (CPUs) have multiple cores, and as with most things in computers the&rsquo;re counted from 0, so on a 4 core computer you&rsquo;ll have cores 0, 1, 2, and 3. Multiple cores simply let your computer do things in parallel, running multiple programs or tasks at the same time</p>
+<p>Next is the vendor ID, family, model, name, and stepping. My processor is an AMD Ryzen 7 1700. There&rsquo;s a pretty good chance your CPU will be made by Intel, and as such the family, model, name, and what not will reflect that. AMD and Intel are practically the only two laptop and desktop CPU providers, though in the feature we&rsquo;ll work with boards that use CPU&rsquo;s made by other manufactures. Really, most of this doesn&rsquo;t matter. Some CPUs are nicer than others, and if you follow the market or care it&rsquo;s easy to get a sense of a CPU&rsquo;s speed just based on it&rsquo;s name, but let&rsquo;s move on for now.</p>
+<p>Next is</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">microcode       : 0x8001137
+cpu MHz         : 2018.119
+cache size      : <span style="color:#ae81ff">512</span> KB
+</code></pre></td></tr></table>
+</div>
+</div><p>Each of these things is very important, but I&rsquo;m going to start with cpu MHz as it&rsquo;s probably the easiest to understand, however, to understand this we&rsquo;ll need to get even a bit lower level than this and learn about the electronic component that changed humanity: the transistor.</p>
+<h2 id="clock-speed">
+  Clock Speed
+  <a class="anchor" href="#clock-speed">#</a>
+</h2>
+<img class="center" src="/transistor.jpg" alt="Transistors" height="400em">
+<p>However, to get to that we&rsquo;ve gotta go just a bit further down the rabbit hole to the relay. Relays are super simple to understand, they&rsquo;re just a metal switch that is pulled open or closed using another input signal (usually a magnet pulling/pushing the switch closed/open) basically imagine a light switch, where the switch itself is controlled by yet another electrical signal. Relays are slow though, they require a physical metal plate to move to change the connection. Because of this they have limited reliability and worth note they&rsquo;re actually loud. You can hear an audible click of the switch as they change state.</p>
+<blockquote>
+<p>If this is already interesting to you, here&rsquo;s a <a href="https://www.youtube.com/watch?v=k1hJoalcK68">video</a> demonstrating a relay computer you can actually buy</p>
+</blockquote>
+<p>Enter the vacuum tube. Though rarely used today outside of high end audio and old radios, for a period of time the logic inside a computer used these tubes. Essentially theres three important parts of the tube, the Cathode, Plate and Grid. Put very simply the Cathode emits electrons and the Plate collects them. Where it gets interesting is the grid in between. By applying a voltage to the grid a signal can be controlled giving us the same ability to turn something on or off by a third wire as in the relay.</p>
+<blockquote>
+<p>Worth note but irreverent for digital electronics, tubes and transistors can actually pass only a percentage of the input back out, based proportionally on the input. This actually means that both tubes and transistors can act as an amplifier, using a small input range to control a much larger signal. A single tube or transistor in conjunction with other supporting components can be used to make a functional amplifier.</p>
+</blockquote>
+<p>Though the real break though here was the fact that this was no longer a mechanical system. With relays there was a very slow limit on the rate at which they could respond reliably, but with tubes this increased exponentially. Tubes were still expensive, large, and power hungry though. However, with their advent early computers saw a massive boost in speed with a decrease in cost</p>
+<p>Finally, enter the transistor. The physics here isn&rsquo;t that far removed from the vacuum tube, only now instead of a vacuum the electrons are moving though a semiconductor - typically silicon. Again this brought a massive shrink in physical size and increase in that rate at which it could respond. Pictured above are two discrete transistors, however, this is where things get mind blowing:</p>
+<p>The Ryzen 1700 CPU in the computer I&rsquo;m typing this on has 4,800,000,000 transistors in a package that is only 213 mm², and finally, we can refrence the number output by <code>cat /proc/cpuinfo</code></p>
+<p>At the moment I got that output the transistors where being turned on and off at a rate of 2018Mhz. or 2Ghz. However, this system can run up to roughly 3.8Ghz. The faster this speed the faster your computer; however, your CPU will also use more power and run hotter. It&rsquo;s for this reason that most systems adjust the speed based on load. Doing simple things like writing this document and as seen with that output my system runs at nearly half speed which is actually the slowest it can run. Because the computer is hardly doing anything right now the majority of that switching is actually just doing nothing but using power running &lsquo;no operation instructions&rsquo; the functional equivalent of just running 0+0 while it it waits for something to do.</p>
+<p>The OS itself actually tells the processor what speed it should be running at. In Windows, when you change your power plan to &lsquo;high performance&rsquo; one of the major things it does is not allow the processor to run at a slower speed, and in Linux you can similarly control this using some cpu speed commands. We&rsquo;ll get to that later though.</p>
+<p>Finally it&rsquo;s worth note that on some systems, primarily high end desktops, you can actually run your processor outside of factor specifications by increasing the maximum clock rate of the processor. Doing this can lead to system stability issues and obviously leads to a higher power usage and heat output though. This process is known as &lsquo;overclocking&rsquo;  as your taking the internal clock of the processor beyond it&rsquo;s rating. My CPU, a Ryzen 1700, has actually been over clocked in order to get 3.8Ghz at all times on all of the cores.</p>
+<h2 id="microcode">
+  Microcode
+  <a class="anchor" href="#microcode">#</a>
+</h2>
+<p>Modern processors are very, very complicated. So complicated in fact that there is a full very tiny computer in your processor. This computer does multiple things, but the main one we&rsquo;ll talk about is the translation between types of machine code. In order to understand this we&rsquo;ll need to look a basic program written in the language &lsquo;C&rsquo;.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    This code first makes two integers, <code>a</code> and <code>b</code>, gives them values, then adds them together and stores the result back into a. Finally, the program returns a 0 to the operating system in order to say &ldquo;I ran without errors&rdquo;.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#66d9ef">int</span> a;
+  <span style="color:#66d9ef">int</span> b;
+  a <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+  b <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>;
+  a <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Unlike python which get&rsquo;s converted to something the computer can understand as it executes C is compiled before hand. This makes it so programs written in C are much, much faster than those written in python, though obviously C code is more difficult to write. Compilation is the process of turning a program into a file full of instructions the computer actually understands. This happens in two steps, first the program is turned into assembly code, for the above code this results in the output to the right:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">        push    rbp
+        mov     rbp, rsp
+        mov     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">8</span>
+        mov     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>], <span style="color:#ae81ff">16</span>
+        mov     eax, DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>]
+        add     DWORD PTR [rbp<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>], eax
+        mov     eax, <span style="color:#ae81ff">0</span>
+        pop     rbp
+        ret
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see, this is incredibly difficult to read to a &lsquo;normal&rsquo; person, so even though we&rsquo;re not there yet.</p>
+
+  </div>
+  
+</div>
+
+<p>This in turn gets turned into binary as can bee seen by this screenshot generated using <a href="https://godbolt.org/">https://godbolt.org/</a></p>
+<p><img src="/godbolt.png" alt="godbolt" /></p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <table>
+<thead>
+<tr>
+<th>Binary (0b)</th>
+<th>Hex (0x)</th>
+<th>Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0100</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0101</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0110</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>0111</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>9</td>
+<td>9</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr>
+<td>1011</td>
+<td>B</td>
+<td>11</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>C</td>
+<td>12</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>D</td>
+<td>13</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>E</td>
+<td>14</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>F</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>See the weird numbers next to each instruction? like <strong>4004b255</strong>? That&rsquo;s a base 16 number or hexadecimal usually referred to as &lsquo;Hex&rsquo;. Hex is what is used by most computer guys to represent numbers because computers operate in base 2, or binary- like 01001100, which is very difficult to read and type accurately, however, base 10, the normal numbering system your used to, makes translating between binary and decimal a bit uncomfortable as the common factor is 5, an number that is both odd and in turn not a factor of two, where as 16 is 2^4 (2*2*2*2) so that means we can easily represent binary like this:</p>
+<p>Okay, so now those 1&rsquo;s and 0&rsquo;s are what your computer actually reads to run instructions. We&rsquo;ll come back to this later, but since we&rsquo;re here I&rsquo;ll drop this <a href="https://www-user.tu-chemnitz.de/~heha/viewchm.php/hs/x86.chm/x86.htm">link</a></p>
+<p>Where you can see how these 1&rsquo;s and 0&rsquo;s are arranged to tell the computer what to do. That is super advanced for where we are now though, so let&rsquo;s get back on track- what the hell is micro code already?</p>
+<p>Well, it turns out that modern processors are still compatible with some really, really old code. All the way back to the first 8086 processor made by Intel in 1978. It was here that the x86 instruction set - the instructions like &lsquo;mov&rsquo; , &lsquo;push&rsquo;, and &lsquo;add&rsquo; above that define the x86 architecture were born. Originally these were 16bit CPUs, that is each instruction only had 16 1&rsquo;s and 0&rsquo;s but soon the i386 came along and used 32bits. Back when 32 bit computers were common this is what this was in reference to.</p>
+
+  </div>
+  
+</div>
+
+<p>As with all things technology progressed and 64bit cpu&rsquo;s came along. Many attempts were made to make 32bit programs run with backwards comparability at high speeds on these CPU&rsquo;s, though in the end AMD made the method used today, dubbed the x86_64 instruction set. Overtime this instruction set was expanded with various additions. We can actually see the names of these additions that are available on the CPU in the system by looking yet again at the output of <code>cat /proc/cpuinfo</code> and looking at the flags section. While not all of these signify instruction set additions, many do. The most common &lsquo;famous&rsquo; if you will is SSE, of which there have been multiple revision, the first version alone adds <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">70 instructions</a>, which are used to make math faster</p>
+<p>Alright, so finally, enter Mircocode. At some point all of this became a lot to manage and processor designs evolved even further, getting exponentially more complicated and faster with more and more instructions, so they added this little computer which has the primary duty of turning the mess of countless possible instructions into yet even smaller instructions that the heavy duty &lsquo;real&rsquo; processor does. Every once in a while a problem will be found in the way this is done, or a security vulnerability in the hardware itself may be found, and your CPU manufacture will release a microcode update.</p>
+<p>That update version is what you see on that line of <code>cat /proc/cpuinfo</code></p>
+<p>Now, at the beginning of this guide I said I wouldn&rsquo;t provide useless information, and I&rsquo;m sure that all looks pretty useless without more context. In general, this is interesting because you can (and will need to) write some assembly code by hand every now and then. Thankfully, its usually not x86 assembly which is very, very difficult to write but instead assembly on much smaller, micro controllers (basically really tiny computers), where that assembly is necessary because the system is so limited.</p>
+<h2 id="cache">
+  Cache
+  <a class="anchor" href="#cache">#</a>
+</h2>
+<p>Okay, next up is cache. Cache, just like in the real world, is a small place to store things. Most people like to think the majority of what a computer does is raw number crunching, doing hard math, but the truth is more often than not it&rsquo;s just moving data around. This follows a path from slowest and cheapest storage up to the fastest but most expensive. Typically this order looks a bit like</p>
+<p>Hard Drive -&gt; Solid State Drive -&gt; Ram -&gt; Cache -&gt; Registers , where the price for storage on a hard drive can be under $0.10Gb, Ram upwards of $10Gb, and Cache and registers, which are storage baked directly onto the CPU, cost much, much, more to implement.  It&rsquo;s of note that these not only are digitally faster with each jump, but also usually physically close. A hard drive can be 10&rsquo;s of feet of wire from the CPU while the RAM can be a few inches at best, and the cache and registers are physically in the CPU dye. Most of the data above the HDD/SSD level is actually just smaller subsets of each previous pool. In fact, on modern CPU&rsquo;s there are actually usually 3 levels of cache, each with a progressively smaller size but increase in proximity to the executed instruction.</p>
+<p>Put simply, just as with adding more Random Access Memory (RAM) to your system, having more cache means more information can be within arm&rsquo;s reach of the CPU to do work on at any moment.</p>
+<p>Let&rsquo;s take a look. install the <code>hwloc</code> package using yay and then run <code>lstopo</code> and you should get an output that looks a bit like this</p>
+<p><img src="/lstopo.png" alt="lstopo" title=":size=75%"/></p>
+<p>The stuff on the right are connections around the system, you can ignore those for now, but see the various cache layers, designated by L3, L2, L1d and L1i, and you can see how each core has it&rsquo;s own cache. Finally, you can see that each core has two processing units? Hey, wait, what&rsquo;s that all about?</p>
+<p>Hyper threading, or SMT, or whatever the new term is for it, is a way of adding paths for doing things to keep every part of the CPU active. We&rsquo;ll go into this more later, but for now, suffice it to say it&rsquo;s a way of getting just a bit more performance out of a system.</p>
+<h2 id="interrupts">
+  Interrupts
+  <a class="anchor" href="#interrupts">#</a>
+</h2>
+<p>While not listed in the /proc/cpuinfo output , it&rsquo;s still relevant to bring up CPU interrupts, which are, fittingly, listed in /proc/interupts</p>
+<p><img src="/procint.png" alt="procint" /></p>
+<blockquote>
+<p>Output of <code>cat /proc/interupts</code> on my system</p>
+</blockquote>
+<p><img src="/netdataint.png" alt="netdataint" /></p>
+<blockquote>
+<p>Output of information for the first 3 cores on my system displayed graphically using Netdata</p>
+</blockquote>
+<p>CPU interrupts are a bit confusing because the term interrupt can refer to the action itself, the code that executes, or the general concept. In general a CPU interrupt is when something needs to poke the CPU to tell it to interrupt what it&rsquo;s doing. This can be when physical pin in the CPU gets a signal, a timer going off, or a program dividing by 0. We&rsquo;ll cover this more in depth later, but from the hardware perspective what&rsquo;s relevant is the CPU is generally so fast compared to other actions that the rest of the system mostly just triggers an interrupt to let the CPU know that a task the CPU asked to be done has completed. The most common example is requesting data from disk (Hard drive or SSD) takes so long, even at just a few milliseconds, that the CPU can get millions of things done while it waits for the request to be fulfilled. So rather than waste that time having the CPU poke the device asking &ldquo;Are you done yet? Are you done yet?&rdquo; the disk (or the controller it&rsquo;s hooked up to, like the chipset) issues an interrupt to the CPU to let it know a task has completed. USB works in a similar way, though the really old keyboards with the circular connector (PS2) actually did interrupt the CPU directly on each key press.</p>
+<p>We&rsquo;ll come back and explore this more later, but if you&rsquo;re really interested you can read ahead by going over these links and reading these man pages: <a href="https://www.oreilly.com/library/view/understanding-the-linux/0596005652/ch04s06.html">Oreilly on Interupts</a>, <a href="https://www.oreilly.com/library/view/understanding-the-linux/0596005652/ch04s02.html">Oreilly cont.</a>, <code>man trap</code>,  <code>man syscall</code>,</p>
+<h2 id="power">
+  Power
+  <a class="anchor" href="#power">#</a>
+</h2>
+<p>the CPU is one of the most power hungry parts of your computer, and as such it does some interesting things to try to keep it&rsquo;s power usage lower. Namely, it&rsquo;ll turn it&rsquo;s clock speed to do less operations per second as previously mentioned, but theres other things like entering sleep and hibernation states the processor is also capable of. The main thing you might want to concern yourself with from a performance to power consumption stand point is how aggressive this clock speed changing is. You can go as extreme as to tell the system to never let the processor get to full speed or to say &lsquo;only run at max speed all the time&rsquo;. The latter is actually quite useful as often it can take quite a few clock cycles after a heavy load is started for the processor to come up to speed, but if it&rsquo;s always running full steam ahead this is a non issue. This entire topic is particularly relevent to laptops, and on Arch you may want to install a program to manage some of this for you or set sane defaults to save battery. I&rsquo;ve had good luck using the <code>tlp</code> package. the <code>cpupower</code> package is helpful for looking at how arch handles cpu scaling and it lets you directly set these min and max frequencies or pick the scaling governor to handle how aggressive the switching is.https://wiki.archlinux.org/index.php/CPU_frequency_scaling#cpupower</p>
+<p>I very strongly recommend looking into this on any system though, as by default some CPUs will run at the minimum frequency only.</p>
+<p><img src="/cpupower.png" alt="cpupower" title=":size=70%"/></p>
+<p>If you want to actually see how much power is used, <code>rapl</code> should do the trick, just be sure to actually put the system under load first- <code>stress-ng --cpu 16</code> (or whatever your thread count is) should work.</p>
+<p><img src="/rapl.png" alt="rapl" /></p>
+<p>We&rsquo;ll talk about delivering power to the CPU in a bit, when we talk about the Voltage Regulation Module (VRM) on the Motherboard.</p>
+<h2 id="physically-what-and-where-is-this-thing">
+  Physically, what and where is this thing?
+  <a class="anchor" href="#physically-what-and-where-is-this-thing">#</a>
+</h2>
+<p>The CPU is on a square or rectangular board that is usually covered by a large heat sink used to keep it cool under load. It connects to the motherboard via hundreds of small, gold plated pins to send and receive signals (which well will discuss in depth later) from all around the system. Even though most modern CPUs are x86_64, generation to generation and cross manufacturer there are changes in the number of pins and the way they are arranged, meaning getting a new processor that&rsquo;s not from the same generation usually won&rsquo;t work. Furthermore, most laptops have soldered on processors that can not be upgraded to begin with.</p>
+<h2 id="numa-nodes-chiplets-die-yield">
+  Numa Nodes? Chiplets? Die Yield?
+  <a class="anchor" href="#numa-nodes-chiplets-die-yield">#</a>
+</h2>
+<p>[TODO]</p>
+<h2 id="branch-prediction--pipelining">
+  Branch Prediction &amp; Pipelining
+  <a class="anchor" href="#branch-prediction--pipelining">#</a>
+</h2>
+<p>I don&rsquo;t want to dive toooo deep into the weeds, but because of the Meltdown and Spectre vulnerabilities, I find it necessary to briefly talk about branch prediction.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Basically, modern CPUs do a very good job of guessing what path of code will be executed on branches, that is code like this:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> condition <span style="color:#f92672">==</span> <span style="color:#66d9ef">True</span>:
+	doThing()
+<span style="color:#66d9ef">else</span>:
+	doOtherThing()
+</code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<p>The CPU will do a good job guessing which path will actually be taken. This is done because CPUs are actually <em>pipelined</em>.</p>
+<p>CPUs have to do a few things per each instruction, generally they need to FETCH the instruction, DECODE what that instruction is telling the CPU to do, EXECUTE that instruction, and then WRITE BACK the result of the computation.</p>
+<p>This could be done in order,</p>
+<img src="/wopipe.svg" style="-webkit-filter: invert(1);">
+<p>but because the CPU uses different parts internally, they can be pipelined, sort of like an assembly line. While one instruction is in WRITE BACK, the next instruction is being EXECUTED, the next-next instruction is being DECODED, and the next-next-next is being FETCHED.</p>
+<img src="/wpipe.svg" style="-webkit-filter: invert(1);">
+<p>Now, there&rsquo;s a lot more that goes into this, times where this doesn&rsquo;t work -like if two instructions work on the same data, have to wait for write back before that data can be executed on- but the relevant bit here is that as much as we can, we want to keep this pipe line full. That is, we want to keep each point in the assembly line busy. To do this, the above code with an <code>if</code> utilizes branch prediction, and assuming it&rsquo;s correct, is able to keep the pipeline full and running like normal. If it&rsquo;s wrong, it has to empty the pipeline, go back, and do the correct instructions instead.</p>
+<p>The issue with this that lead to the Spectre bug was that the assumed correct path to be executed may include a security level elevation, that is, it might be code that should only be able to be executed by the administrator (root) user, but in the prediction code there&rsquo;s no check there, so if the prediction can be abused, code can be executed as an admin- a doomsday level vulnerability.</p>
+<p>Meltdown is similar- you can read how it works on <a href="https://en.wikipedia.org/wiki/Meltdown_%28security_vulnerability%29#Mechanism">Wikipedia</a> (actually human readable and explained well).</p>
+<h2 id="a-note-on-x86-vendors-and-cpu-politics">
+  A note on x86, vendors, and CPU politics
+  <a class="anchor" href="#a-note-on-x86-vendors-and-cpu-politics">#</a>
+</h2>
+<p>[TODO]</p>
+<p>china trying to make their own silicon , apple to own SOC (<a href="https://www.reddit.com/r/assholedesign/comments/gq2nfu/adobe_slaps_you_with_an_early_cancellation_fee/frsvjxi?utm_source=share&amp;utm_medium=web2x&amp;context=3">Called it</a>), etc.</p>
+<p><a href="https://www.agner.org/forum/viewtopic.php?f=1&amp;t=6">https://www.agner.org/forum/viewtopic.php?f=1&amp;t=6</a></p>
+<h2 id="other-things-done-by-the-cpu">
+  Other things done by the CPU:
+  <a class="anchor" href="#other-things-done-by-the-cpu">#</a>
+</h2>
+<p>The CPU has a lot of dedicated hardware inside for specific functions, for example many CPUs have a dedicated hardware random number generator.</p>
+<h2 id="further-reading">
+  Further Reading
+  <a class="anchor" href="#further-reading">#</a>
+</h2>
+<p>If you want to know about the internals of the CPU itself, check out <a href="/engineering/deeper/comparch/">Chapter 29 - Let&rsquo;s Make our own CPU</a> which goes into the componets of the CPU, why they&rsquo;re made the way they are, and what the future of CPU architecture may look like.</p>
+<p><a href="https://www.flamingspork.com/blog/2020/11/25/why-you-should-use-nproc-and-not-grep-proc-cpuinfo/">Why you should use &lsquo;nproc&rsquo; and not grep /proc/cpuinfo</a></p>
+<p><a href="https://youtu.be/HNwWQ9zGT-8">Spyware at The Hardware Level - Intel ME &amp; AMD PSP (YouTube, Mental Outlaw)</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/cpu.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1---the-cpu">1 - The CPU</a>
+      <ul>
+        <li><a href="#clock-speed">Clock Speed</a></li>
+        <li><a href="#microcode">Microcode</a></li>
+        <li><a href="#cache">Cache</a></li>
+        <li><a href="#interrupts">Interrupts</a></li>
+        <li><a href="#power">Power</a></li>
+        <li><a href="#physically-what-and-where-is-this-thing">Physically, what and where is this thing?</a></li>
+        <li><a href="#numa-nodes-chiplets-die-yield">Numa Nodes? Chiplets? Die Yield?</a></li>
+        <li><a href="#branch-prediction--pipelining">Branch Prediction &amp; Pipelining</a></li>
+        <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
+        <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

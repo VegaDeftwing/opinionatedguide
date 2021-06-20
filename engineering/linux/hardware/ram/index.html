@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="2 - RAM #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  This is RAM or Random Access Memory. The above two sticks are the normal sized used in desktop PCs, this form factor is called a DIM while the bottom two are from laptops and are called SO-DIMS, the placement of the notch is an indicator of the generation of RAM, with nearly all modern ram being a consecutive generation of the DDR standard.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="2 - RAM #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  This is RAM or Random Access Memory. The above two sticks are the normal sized used in desktop PCs, this form factor is called a DIM while the bottom two are from laptops and are called SO-DIMS, the placement of the notch is an indicator of the generation of RAM, with nearly all modern ram being a consecutive generation of the DDR standard." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/linux/hardware/ram/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>RAM | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
+<script defer src="/en.search.min.a81cbc840a46a401f5f2c12df8e62f89b70b6511cbe9f2f73bc0319e8c359b7b.js" integrity="sha256-qBy8hApGpAH18sEt&#43;OYvibcLZRHL6fL3O8Axnow1m3s="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/sigandsys"> Signals & Systems</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.10</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>6 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Intereact With Computer Sucks</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>RAM</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#2---ram">2 - RAM</a>
+      <ul>
+        <li><a href="#virtual-memory">Virtual Memory</a>
+          <ul>
+            <li><a href="#dirty-bit">Dirty bit</a></li>
+            <li><a href="#pages">Pages</a></li>
+          </ul>
+        </li>
+        <li><a href="#memory-issues-ecc-and-memtest86">Memory issues, ECC, and Memtest86</a></li>
+        <li><a href="#the-future-of-ram">The Future of RAM</a></li>
+        <li><a href="#row-hammer">Row Hammer</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="2---ram">
+  2 - RAM
+  <a class="anchor" href="#2---ram">#</a>
+</h1>
+<script>
+    document.getElementById("hardwareMenu").open = true;
+</script>
+<p><img src="/ram.jpg" alt="RAM" /></p>
+<p>This is RAM or Random Access Memory. The above two sticks are the normal sized used in desktop PCs, this form factor is called a DIM while the bottom two are from laptops and are called SO-DIMS, the placement of the notch is an indicator of the generation of RAM, with nearly all modern ram being a consecutive generation of the DDR standard. At the time of writing (Q2,2019) DDR4 is common in new, medium to high end devices, with many DDR3 devices still being used. Of note many more compact devices solder the ram chips directly to the board, meaning there is no form factor to consider.</p>
+<p>Just like the CPU, RAM has a speed at which it operates as well, Typically it&rsquo;s listed in MHz still, but speeds range from ~1.8Ghz to ~3.8Ghz at the time of writing, dependent DDR3 or 4. While DDR4 has faster clock speeds, it does typically have a higher overall latency, meaning there&rsquo;s a longer delay between when when data is requested to when it&rsquo;s delivered, albeit at a much higher total throughput. This is a massive topic in of itself, yet is also pretty niche as outside of some pretty specialized applications RAM speed and latency has a relatively minor impact, though faster is typically better.</p>
+<p>okay, let&rsquo;s move on to ram in Linux.</p>
+<p>While support for this will vary depending on your motherboard, you should be able to see information about your ram by running <code>sudo dmidecode --type 17</code></p>
+<p>The output will probably repeat multiple times, printing once for each physical stick of ram in your system. I actually have 4 sticks, but I&rsquo;ll just be showing one:</p>
+<img src="/dmiram.png" alt="DMI Ram" height="600em">
+<p>You should note that many of the things mentioned above can be seen here, though I do want to look at some things here.</p>
+<p>First, size. This is an 8Gb or 8192Mb stick of ram. Obviously the more ram the better, but you may find strange ram configurations where there&rsquo;s a mix of ram sizes in a system. This can be bad for performance though, because of memory channels.</p>
+<p>Most modern systems use 2 or 3 memory channels, to simplify a bit, it makes it so two sticks of ram can have their speed be used in parallel. Think about it like a parking lot, if you have a total of 4 parking lots you could, theoretically, hook them all up in a straight line with one entrance/exit shared among them. This would be pretty stupid though, as it would severely bottleneck traffic going though. Instead you may want to add a separate entrance and exit for each, but that quickly becomes expensive. Instead, most systems use a mix of the two, connecting a pair of sticks together, allowing for added capacity, but allowing for multiple pairs to be inserted independently. A lot of people don&rsquo;t fully fill all the available memory slots on their motherboard though, so instead of having 4 lots with 2 entrances you should be able to have 2 and 2, unless you mistakingly put the sticks in wrong, leaving one &lsquo;entrance&rsquo; closed entirely while the other now has a ton of capacity. On my motherboard these &lsquo;lots&rsquo; are labeled A1, A2, B1, and B2. Looking above you can see the stick we&rsquo;re looking at here is the A1 lot. It&rsquo;s because of this that you should ideally have a multiple of as many sticks of ram as you do memory channels. For example, if you have a two channel motherboard and CPU then you want either 2, 4, or 8 sticks of ram. Most motherboards top out at 4 sticks though, with 2 channel and 2 sticks being the most common configuration.</p>
+<p>Next, I want to look at the line that says &lsquo;Type Detail: Synchronous Unbuffered (Unregistered)&rsquo; this is referencing another type of ram, which is buffered and error correcting (ECC) memory. I&rsquo;ll come back to this.</p>
+<p>I also want to point out the voltage. Much like a CPU the voltage a Ram module runs at is important, and needs to be kept very stable. However, it may need bumped up if the RAM is running at a particularly high speed or if it&rsquo;s set higher than factory (overclocked).</p>
+<p>Some RAM actually includes a special memory profile, often called XMPP, which can be applied in the BIOS/UEFI settings to make sure you&rsquo;re getting the absolute best performance out of you RAM before manual overclocking. This may actually overclock your CPU a bit as well as a bit of a side effect.</p>
+<p>There&rsquo;s a program on your system called <code>free</code> which can be used to see how much RAM you have, how much is in use, etc. Let&rsquo;s run free with the -h flag so we can see the amounts with nice units.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">╭─vega@lyrae ~
+╰─➤  free -h
+              total        used        free      shared  buff/cache   available
+Mem:           31Gi       4.5Gi        23Gi       488Mi       3.3Gi        26Gi
+</code></pre></td></tr></table>
+</div>
+</div><p>You can see I have 32Gb of RAM total (it get&rsquo;s truncated to 31 because it&rsquo;s actually like 31.99, units are weird), with ony 4.5Gb used. Most people complain about Chrome eating all their RAM but the truth is unused RAM is wasted RAM. The OS will manage RAM for you, and if you run out start using swap (that partition we made eariler).</p>
+<p>Let&rsquo;s take a deeper dive, reading the man page for free with <code>man free</code> we can see it uses information from /proc/meminfo, so lets look at that file ourselves using <code>cat /proc/meminfo</code>.</p>
+<p>One of the most interesting things to point out here is the concept of Dirty memory.</p>
+<p>&lsquo;Dirty&rsquo; memory is the amount of information that has been modified in memory, but that has not been saved back onto the permanent storage (SSD/HDD). If you were to suddenly lose power this information would be lost.</p>
+<p>Pagefaults and misses are also important. Because these topics are a bit hard to summarize I&rsquo;m going to recommend you read <a href="https://en.wikipedia.org/wiki/Page_fault">the Wikipedia page on Pagefaults</a> and on <a href="https://en.wikipedia.org/wiki/CPU_cache#Cache_miss">Cache Misses</a>. It&rsquo;s okay if you don&rsquo;t understand everything you&rsquo;re reading. Hopefully as you read more later and gain more experience the terms you didn&rsquo;t know will &lsquo;click&rsquo; and you&rsquo;ll understand.</p>
+<p>Going back to when cache was mentioned though, RAM&rsquo;s primary job is to hold bulk information that&rsquo;s in use a bit closer to the CPU. For example if you load a large image file it&rsquo;ll first get copied to ram and then be processed though cache in chunks, this is because there just simply isn&rsquo;t enough cache on the CPU to hold a large image.</p>
+<h2 id="virtual-memory">
+  Virtual Memory
+  <a class="anchor" href="#virtual-memory">#</a>
+</h2>
+<h3 id="dirty-bit">
+  Dirty bit
+  <a class="anchor" href="#dirty-bit">#</a>
+</h3>
+<h3 id="pages">
+  Pages
+  <a class="anchor" href="#pages">#</a>
+</h3>
+<p>[TODO] Huge Pages ref <a href="https://www.chaoticafractals.com/manual/getting-started/enabling-large-page-support-windows">this</a></p>
+<h2 id="memory-issues-ecc-and-memtest86">
+  Memory issues, ECC, and Memtest86
+  <a class="anchor" href="#memory-issues-ecc-and-memtest86">#</a>
+</h2>
+<p>Memory can have quite a few issues, sometimes resulting in random Blue Screen of Death (BSoD) or Linux Kernel Panics, other times just occasionally corrupting data with no way to know.</p>
+<p>If you&rsquo;re working with super critical data, you can at least know that something has gone wrong by using Error Correction Code (ECC) memory. In an ideal world ECC would just be standard on everything. Unfortunately, Intel is a bag of dicks and uses it for product segmentation and people are cheap: ECC is also more expensive because it requires an extra bit for every byte. This also means that instead of the normal 8 memory dies per stick of RAM, ECC memory actually has 9 dies (usually). The reason there are normally 8 dies is simple- there&rsquo;s 8 bits in a byte. Servers don&rsquo;t work on some magic 9-bit in a byte system, instead, this extra bit per byte is used to ensure the data hasn&rsquo;t been corrupted.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>The math to do this is generally capable of detecting and fixing a single bit flip per byte, and at least detecting a double flip.</p>
+<p>This video explains how that works if you&rsquo;re interested:</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="250" src="https://www.youtube.com/embed/X8jsijhllIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<p>It is worth noting that along with being more expensive, ECC is also usually a tad slower. There&rsquo;s also such thing as Registered/Buffered memory, which you may see with ECC as well. Buffered memory is basically just adding an extra &lsquo;buffer&rsquo; between the read/write and again, it&rsquo;s a server thing- you&rsquo;re unlikely to ever see it on a consumer platform. Just know that if you&rsquo;re buying RAM for a server you may need to be careful to ensure you&rsquo;re getting the right thing.</p>
+<p>When DDR5 comes along, ECC is built into the spec for all levels to some extent because as memory speeds have increased, the likelihood of an error has as well. It&rsquo;s becoming necessary for basic functionality at DDR5 speeds.</p>
+<p>Now, ECC would be great and all, but the memory in the system you&rsquo;re reading this on almost certainly isn&rsquo;t using it, so what can you do?</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Well, for one, you need to get a feel for when something might be a memory error. Generally, if you see issues that you can&rsquo;t attribute to anything in software, where there&rsquo;s no obvious pattern, it&rsquo;s a good bet that it&rsquo;s memory. Assuming you&rsquo;re on an x86(_64) system, like <em>most</em> laptops or desktops, you can check with <a href="https://en.wikipedia.org/wiki/Memtest86">Memtest86(+) (Wikipedia)</a>. It often needs to run for a few hours to find anything, but when it does you&rsquo;ll get a big red error.</p>
+<p>Unfortunately, this probably means you need to buy new RAM. In the absolute worst case, maybe a new CPU if the memory controller has gotten damaged, but this is unlikely.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Memtest86%2B_15_million_errors_2017.jpg/2560px-Memtest86%2B_15_million_errors_2017.jpg" style="zoom:50%;" /></p>
+<p class="attribution ">
+    Image by Андрей Крижановский on Wikipedia, Public Domain
+</p>
+
+  </div>
+  
+</div>
+
+<p>You&rsquo;re far more likely to get RAM errors if you Overclock your RAM as well, so just be smart if you do OC your RAM- though I really don&rsquo;t recomend doing so beyond applying the <a href="https://www.tomshardware.com/reviews/how-to-enable-xmp-ddr4-overclocking,6133.html#:~:text=Intel%20XMP%20is%20an%20automated,few%20clicks%20and%20compatible%20hardware.">XMP profile (Tom&rsquo;s Hardware)</a> your RAM may have shipped with.</p>
+<h2 id="the-future-of-ram">
+  The Future of RAM
+  <a class="anchor" href="#the-future-of-ram">#</a>
+</h2>
+<p>[TODO]</p>
+<p><a href="https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem">In-Memory Processing by UPMEM</a></p>
+<p><a href="https://www.storagereview.com/news/intel-optane-dc-persistent-memory-module-pmm">Intel Optane Persistant Memory</a></p>
+<h2 id="row-hammer">
+  Row Hammer
+  <a class="anchor" href="#row-hammer">#</a>
+</h2>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Row Hammer is vulnrability that arrieses due to the way memory is arranged physically and electrically on a memory stick. It let&rsquo;s you flip bits you shouldn&rsquo;t be able to by &lsquo;hammering&rsquo; on the row above or below the target row, hoping that you can induce a bit flip in the target row.</p>
+<p><a href="https://en.wikipedia.org/wiki/Row_hammer">Row Hammer&rsquo;s Wikipedia Page</a> has some a very good overview as well as some example assembly to explain the exploit</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="250" src="https://www.youtube.com/embed/rGaF15-ko5w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/ram.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#2---ram">2 - RAM</a>
+      <ul>
+        <li><a href="#virtual-memory">Virtual Memory</a>
+          <ul>
+            <li><a href="#dirty-bit">Dirty bit</a></li>
+            <li><a href="#pages">Pages</a></li>
+          </ul>
+        </li>
+        <li><a href="#memory-issues-ecc-and-memtest86">Memory issues, ECC, and Memtest86</a></li>
+        <li><a href="#the-future-of-ram">The Future of RAM</a></li>
+        <li><a href="#row-hammer">Row Hammer</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

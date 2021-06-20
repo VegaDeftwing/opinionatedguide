@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="3 - The Motherboard #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  This is an older motherboard, but still new enough to have modern parts. Let&rsquo;s start by looking at the the most obvious physical features and move to smaller things from there.
+The most obvious thing to point out is the size of the motherboard. This is a mATX motherboard, which is considered the normal size for most systems. Most gaming or DIY computers will use full size ATX motherboards, which look very similar but are a bit longer vertically, allowing for more expansion slots - those horizontal black bars - among other features.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="3 - The Motherboard #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  This is an older motherboard, but still new enough to have modern parts. Let&rsquo;s start by looking at the the most obvious physical features and move to smaller things from there.
+The most obvious thing to point out is the size of the motherboard. This is a mATX motherboard, which is considered the normal size for most systems. Most gaming or DIY computers will use full size ATX motherboards, which look very similar but are a bit longer vertically, allowing for more expansion slots - those horizontal black bars - among other features." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/linux/hardware/motherboard/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Motherboard | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
+<script defer src="/en.search.min.a81cbc840a46a401f5f2c12df8e62f89b70b6511cbe9f2f73bc0319e8c359b7b.js" integrity="sha256-qBy8hApGpAH18sEt&#43;OYvibcLZRHL6fL3O8Axnow1m3s="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/sigandsys"> Signals & Systems</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.10</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>6 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Intereact With Computer Sucks</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Motherboard</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#3---the-motherboard">3 - The Motherboard</a>
+      <ul>
+        <li><a href="#chipset">Chipset</a></li>
+        <li><a href="#expansion-slots">Expansion slots</a></li>
+        <li><a href="#rombiosuefi">ROM/BIOS/UEFI</a></li>
+        <li><a href="#vrm">VRM</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="3---the-motherboard">
+  3 - The Motherboard
+  <a class="anchor" href="#3---the-motherboard">#</a>
+</h1>
+<script>
+    document.getElementById("hardwareMenu").open = true;
+</script>
+<img class="center" src="/mobo.jpg" alt="Motherboard" height="700em">
+<p>This is an older motherboard, but still new enough to have modern parts. Let&rsquo;s start by looking at the the most obvious physical features and move to smaller things from there.</p>
+<p>The most obvious thing to point out is the size of the motherboard. This is a mATX motherboard, which is considered the normal size for most systems. Most gaming or DIY computers will use full size ATX motherboards, which look very similar but are a bit longer vertically, allowing for more expansion slots - those horizontal black bars - among other features. Other form factors include ITX, a smaller form factor with only a single expansion slot, eATX (extended ATX) which is rarely used now, and SSI and EEB which are both server motherboard sizes.</p>
+<p>The large, white square is the CPU socket. This is an older board made for an AM3+ processor. The AM3+ processor line, as well as most consumer processors from AMD use a PGA or Pin Grid Array socket. these CPUs have many pins on the bottom which fall into these holes to make contact. Before the CPU is inserted the metal leaver arm, seen at the bottom of the socket if you look carefully, is raised and the CPU should smoothly plop right in, after which the arm can be lowered. Modern Intel CPUs follow a similar-ish mechanism, only instead of having a bunch of pins that go into holes the &lsquo;pins&rsquo; are actually tiny springy pieces of metal on the motherboard which make contact with pads on the CPU, that socket looks a bit like this, albeit this is an old one:</p>
+<p><img src="/581px-CPU_Socket_775_T.jpg" alt="CPU Socket 775" /></p>
+<p class="attribution ">
+    <a href="https://commons.wikimedia.org/wiki/File:CPU_Socket_775_T.jpg">img source</a>
+</p>
+<p>If you&rsquo;re looking at a server or high end workstation you may actually run into a single motherboard with multiple CPU sockets. These are becoming less common with time, but even though there are multiple CPUs the system still operates as one larger system. For example, I have access to a system with 4, 8 core, 16 thread cpu&rsquo;s to give for a total of of 64 threads. Giving this beautiful sight:<img src="/64thread.png" alt="64t" /></p>
+<p>Clearly, a server with that much horsepower will use a lot of electricity though, and there is some overhead for the system when getting information from one physical CPU to another.</p>
+<p>Above and left of the CPU on you&rsquo;ll see a bunch of copper coils in little boxes and some small metal cylinders, as well as a cluster of these with a large, 4-hole plug a bit further left, directly above the big aluminum heat sink. This all makes up the VRM or Voltage Regulation Module. The connector there is where the CPU power plug from the PC power supply would be plugged in. The power needs to be carefully controlled, filtered, and adjusted based on the needs of the CPU, that&rsquo;s what all of this is for. Generally the beefier and faster a CPU, the larger the VRM. The VRM also needs to dissipate a good amount of heat on higher end systems so many nicer motherboards will cover this up with a large heatsink.</p>
+<p>Moving on from the CPU you&rsquo;ll see 4 vertical slots next to socket, these are where the RAM sticks are inserted. You&rsquo;ll notice they&rsquo;re color coded as to indicate which slots share the communication channel, so in this case you&rsquo;d want to put the first memory stick in the blue slot closest to the socket, followed by the black slot closest to the socket, then repeat.</p>
+<p>While we&rsquo;re looking at this side of the board- next to the RAM slots you&rsquo;ll see two things of note. First, that black circular thing is actually a little buzzer. A lot of even modern systems have these on board to buzz error codes out in morse code if something goes wrong. Below that is a large, 20 or 24 pin connector (most modern systems use the 24pin varient) which is where the power supply is plugged in to provide power to the motherboard (with the exception of the CPU) as well.</p>
+<p>On the other side of the CPU and down a little you&rsquo;ll see a sizable metal heatsink. This is covering the chipset. We&rsquo;ll come back to what the chipset does in a bit. This motherboard is actually a bit weird, on most motherboards the chipset is found almost directly below the RAM, but in general look for a large heatsink and it&rsquo;s probably under that.</p>
+<p>Below the chipset here are 4 expansion slots, all of which use the PCI-e standard in this case. We&rsquo;ll come back to these in a bit.</p>
+<p>In the bottom right of the motherboard there are 6 SATA connectors, here each is a different color (for no apparent reason?). These are for connecting storage like hard drives.</p>
+<p>Vertically in line but closer to the center of the board you&rsquo;ll also spot a coin cell battery. This is so the system can keep time with use of an on board Real Time Clock (RTC) even when fully powered down and disconnected from wall power.</p>
+<p>Along the bottom you&rsquo;ll see various connectors with pins sticking out, these are mostly for front panel connections- where the USB, audio, power button, etc. from the front of your case connect.</p>
+<p>Finally, along the top of the back left edge you&rsquo;ll see the metal tops of the main &lsquo;rear i/o&rsquo; for the computer. These are all the main connections for your system. The bulk of the system&rsquo;s USB ports, networking, and audio ports will be found here.</p>
+<p>So, how do we get any information from the motherboard? Well, in case it wasn&rsquo;t already obvious, the motherboard isn&rsquo;t really one thing. It&rsquo;s more a common interconnect point and routing system than anything; however, it does have some of it&rsquo;s own responsibilities. To start small let&rsquo;s look at one small, but exceedingly import role of the motherboard: fan and temperature control.</p>
+<p>To see what your fans are doing on Linux you&rsquo;ll need to grab the package <code>lm_sensors</code> with yay, then you can run run <code>sudo sensors-decect</code> and mash enter until it&rsquo;s done. After this you should be able to run <code>sensors</code> and see an output similar to this one:</p>
+<img src="/sensors.png" alt="sensors" height="500em">
+<p>Of note, depending on your system, there&rsquo;s a small chance nothing will be detected at all or that some information will be wrong. Even in my case this is true as my CPU fan is reporting 0 RPM. Actually entering your motherboard&rsquo;s UEFI or BIOS settings may expose more information, but we&rsquo;ll talk about that more later.</p>
+<p>Alright, so that&rsquo;s coll and all, but what else can you do?</p>
+<p>Alright, let&rsquo;s move on to seeing the system buses, namely, the pci bus.</p>
+<p>The pci bus is where most of the system&rsquo;s add in cards, controllers, and the like connect. Here&rsquo;s a shortened version of the output of <code>lspci</code> from my system</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">00:00.0 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Root Complex
+00:00.2 IOMMU: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> I/O Memory Management Unit
+00:01.0 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-1fh<span style="color:#f92672">)</span> PCIe Dummy Host Bridge
+00:01.1 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> PCIe GPP Bridge
+ ...
+00:08.1 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Internal PCIe GPP Bridge <span style="color:#ae81ff">0</span> to Bus B
+00:14.0 SMBus: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> FCH SMBus Controller <span style="color:#f92672">(</span>rev 59<span style="color:#f92672">)</span>
+00:14.3 ISA bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> FCH LPC Bridge <span style="color:#f92672">(</span>rev 51<span style="color:#f92672">)</span>
+00:18.0 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Data Fabric: Device 18h; Function <span style="color:#ae81ff">0</span>
+ ...
+00:18.7 Host bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Data Fabric: Device 18h; Function <span style="color:#ae81ff">7</span>
+01:00.0 Non-Volatile memory controller: Phison Electronics Corporation E12 NVMe Controller <span style="color:#f92672">(</span>rev 01<span style="color:#f92672">)</span>
+02:00.0 USB controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset USB 3.1 xHCI Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+02:00.1 SATA controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset SATA Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+02:00.2 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset PCIe Upstream Port <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+03:00.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> <span style="color:#ae81ff">300</span> Series Chipset PCIe Port <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+ ...
+03:07.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> <span style="color:#ae81ff">300</span> Series Chipset PCIe Port <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+07:00.0 USB controller: ASMedia Technology Inc. ASM1143 USB 3.1 Host Controller
+08:00.0 Ethernet controller: Intel Corporation I211 Gigabit Network Connection <span style="color:#f92672">(</span>rev 03<span style="color:#f92672">)</span>
+0a:00.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Device <span style="color:#ae81ff">1470</span> <span style="color:#f92672">(</span>rev c3<span style="color:#f92672">)</span>
+0b:00.0 PCI bridge: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Device <span style="color:#ae81ff">1471</span>
+0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> XL/XT <span style="color:#f92672">[</span>Radeon RX Vega 56/64<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev c3<span style="color:#f92672">)</span>
+0c:00.1 Audio device: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> HDMI Audio <span style="color:#f92672">[</span>Radeon Vega 56/64<span style="color:#f92672">]</span>
+0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+0d:00.1 Audio device: NVIDIA Corporation GP106 High Definition Audio Controller <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+0e:00.0 Non-Essential Instrumentation <span style="color:#f92672">[</span>1300<span style="color:#f92672">]</span>: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Zeppelin/Raven/Raven2 PCIe Dummy Function
+0e:00.2 Encryption controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> Platform Security Processor
+0e:00.3 USB controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> USB 3.0 Host Controller
+0f:00.0 Non-Essential Instrumentation <span style="color:#f92672">[</span>1300<span style="color:#f92672">]</span>: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Zeppelin/Renoir PCIe Dummy Function
+0f:00.2 SATA controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> FCH SATA Controller <span style="color:#f92672">[</span>AHCI mode<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev 51<span style="color:#f92672">)</span>
+0f:00.3 Audio device: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> Family 17h <span style="color:#f92672">(</span>Models 00h-0fh<span style="color:#f92672">)</span> HD Audio Controller
+</code></pre></td></tr></table>
+</div>
+</div><p>Alright, clearly there&rsquo;s a lot going on here, and on first glance it doesn&rsquo;t even look all that useful. But let&rsquo;s look deeper. From this output we can see some interesting things. Starting from the top you&rsquo;ll see there&rsquo;s a lot of internal AMD things that are just handling routing, really these probably don&rsquo;t matter. the first interesting things to look at is <code>01:00.0 Non-Volatile memory controller: Phison Electronics Corporation E12 NVMe Controller (rev 01)</code> which is telling me that my super speedy NVMe solid state drive is at the address 01:00.0 on the pci bus and despite being made by a consumer brand (I think mine&rsquo;s a Silicon Power? though I have another that&rsquo;s made by Samsung) the actual controller on the device is made by Phison, a reputable brand for NVMe controllers.</p>
+<p>next thing of note is</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">02:00.0 USB controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset USB 3.1 xHCI Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+02:00.1 SATA controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD<span style="color:#f92672">]</span> X370 Series Chipset SATA Controller <span style="color:#f92672">(</span>rev 02<span style="color:#f92672">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You can see here that I have a separate controller for my USB 3.1 ports and that it&rsquo;s sharing pci lanes with my sata controller. In theory, this means If I&rsquo;m working one or both of these really hard, the other may be slower.</p>
+<p>next is:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">07:00.0 USB controller: ASMedia Technology Inc. ASM1143 USB 3.1 Host Controller
+08:00.0 Ethernet controller: Intel Corporation I211 Gigabit Network Connection <span style="color:#f92672">(</span>rev 03<span style="color:#f92672">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>What&rsquo;s interesting here is I have another 3.1 controller, on an entirely different set of lanes. Really, this is a fault of USB that it&rsquo;s not very clear, this is actually a USB 3.1 gen 2 controller, so each port has a top speed of 10gb/s, compared to the 5gb/s of the other controller.</p>
+<p>You&rsquo;ll also see that my network interface is being handled by an Intel network controller, despite this system having an AMD CPU.</p>
+<p>moving on:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> XL/XT <span style="color:#f92672">[</span>Radeon RX Vega 56/64<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev c3<span style="color:#f92672">)</span>
+0c:00.1 Audio device: Advanced Micro Devices, Inc. <span style="color:#f92672">[</span>AMD/ATI<span style="color:#f92672">]</span> Vega <span style="color:#ae81ff">10</span> HDMI Audio <span style="color:#f92672">[</span>Radeon Vega 56/64<span style="color:#f92672">]</span>
+0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+0d:00.1 Audio device: NVIDIA Corporation GP106 High Definition Audio Controller <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Here you&rsquo;ll see some devices can actually use multiple IDs for one physical device. both of the 0c:00.x &lsquo;devices&rsquo; are actually for the &lsquo;Vega56&rsquo; graphics card (Often called GPU for graphics processing unit) made by AMD Radeon, while the 0d:00.x devices are for the GTX1060 card made by Nvida that I have in this system as well. Of note, having both of these in one system is exceedingly uncommon, and my use case is strange; however, It is common to see systems which have a gpu integrated into the CPU (which will still appear in this list) and have a separate larger GPU in the system as well.</p>
+<p>If you continue down this list you&rsquo;ll see there&rsquo;s yet another USB controller and a audio controller among other things.</p>
+<p>What&rsquo;s cool is this information relates back to something we saw earlier when looking at the CPU:</p>
+<p><img src="/lstopo.png" alt="lstopo2" /></p>
+<p>See all those PCI ids on the right side, those directly correlate with a lot of the above.</p>
+<p>Finally, if you want a lot more information you can run <code>sudo lspci -v</code> to see even more info about anything, for example, here&rsquo;s the output about my GTX1060 GPU:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">0d:00.0 VGA compatible controller: NVIDIA Corporation GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev a1<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>prog-if <span style="color:#ae81ff">00</span> <span style="color:#f92672">[</span>VGA controller<span style="color:#f92672">])</span>
+    Subsystem: Micro-Star International Co., Ltd. <span style="color:#f92672">[</span>MSI<span style="color:#f92672">]</span> GP106 <span style="color:#f92672">[</span>GeForce GTX <span style="color:#ae81ff">1060</span> 6GB<span style="color:#f92672">]</span>
+    Flags: bus master, fast devsel, latency 0, IRQ <span style="color:#ae81ff">78</span>
+    Memory at f6000000 <span style="color:#f92672">(</span>32-bit, non-prefetchable<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>16M<span style="color:#f92672">]</span>
+    Memory at c0000000 <span style="color:#f92672">(</span>64-bit, prefetchable<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>256M<span style="color:#f92672">]</span>
+    Memory at d0000000 <span style="color:#f92672">(</span>64-bit, prefetchable<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>32M<span style="color:#f92672">]</span>
+    I/O ports at c000 <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>128<span style="color:#f92672">]</span>
+    Expansion ROM at f7000000 <span style="color:#f92672">[</span>disabled<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>512K<span style="color:#f92672">]</span>
+    Capabilities: <span style="color:#f92672">[</span>60<span style="color:#f92672">]</span> Power Management version <span style="color:#ae81ff">3</span>
+    Capabilities: <span style="color:#f92672">[</span>68<span style="color:#f92672">]</span> MSI: Enable+ Count<span style="color:#f92672">=</span>1/1 Maskable- 64bit+
+    Capabilities: <span style="color:#f92672">[</span>78<span style="color:#f92672">]</span> Express Legacy Endpoint, MSI <span style="color:#ae81ff">00</span>
+    Capabilities: <span style="color:#f92672">[</span>100<span style="color:#f92672">]</span> Virtual Channel
+    Capabilities: <span style="color:#f92672">[</span>250<span style="color:#f92672">]</span> Latency Tolerance Reporting
+    Capabilities: <span style="color:#f92672">[</span>128<span style="color:#f92672">]</span> Power Budgeting &lt;?&gt;
+    Capabilities: <span style="color:#f92672">[</span>420<span style="color:#f92672">]</span> Advanced Error Reporting
+    Capabilities: <span style="color:#f92672">[</span>600<span style="color:#f92672">]</span> Vendor Specific Information: ID<span style="color:#f92672">=</span><span style="color:#ae81ff">0001</span> Rev<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> Len<span style="color:#f92672">=</span><span style="color:#ae81ff">024</span> &lt;?&gt;
+    Capabilities: <span style="color:#f92672">[</span>900<span style="color:#f92672">]</span> Secondary PCI Express &lt;?&gt;
+    Kernel driver in use: nouveau
+    Kernel modules: nouveau
+</code></pre></td></tr></table>
+</div>
+</div><p>The most notable thing here is actually at the end:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Kernel driver in use: nouveau
+Kernel modules: nouveau
+</code></pre></td></tr></table>
+</div>
+</div><p>tells us I&rsquo;m using the nouveau driver and kernel modules instead of one of the alternatives on the Nvida card in my system If I wanted to I could switch this over to the proprietary Nvidia driver to get a pretty nice speed boost in some applications.</p>
+<blockquote>
+<p>I&rsquo;m not really worried about this because I&rsquo;m mostly just using the Vega56 card. The nvidia card is there strictly for CUDA support in some workloads.</p>
+</blockquote>
+<p>Much like lspci, there&rsquo;s also <code>lsusb</code>, which as you can imagine, tells us information about the USB devices on the system. I have a LOT of usb devices on this system so I&rsquo;ll just paste in a snippet:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Bus <span style="color:#ae81ff">002</span> Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus <span style="color:#ae81ff">001</span> Device 003: ID 0c45:6340 Microdia Camera
+Bus <span style="color:#ae81ff">001</span> Device 008: ID 28de:1142 Valve Software Wireless Steam Controller
+Bus <span style="color:#ae81ff">001</span> Device 006: ID 258a:0013
+Bus <span style="color:#ae81ff">001</span> Device 005: ID 05e3:0745 Genesys Logic, Inc. Logilink CR0012
+</code></pre></td></tr></table>
+</div>
+</div><p>You&rsquo;ll see here that USB hubs, input devices, webcams, etc. all show up. Anything that&rsquo;s hooked up through USB should appear here. The device with ID 258a:0013 isn&rsquo;t really telling us anything though. What we do know is the first part is the USB Vendor ID. This is an ID that vendors of USB devices have to purchase to uniquely id their products.</p>
+<p>upon looking this id up online, it appears it&rsquo;s used for a generic USB keyboard.</p>
+<p>For completeness I&rsquo;ll mention, the first part of the id, the x&rsquo;s in xxxx:yyyy is the vendor id, while the y&rsquo;s are the product id.</p>
+<p>Finally, I&rsquo;d like to mention <code>dimdecode</code>. according to the manual page:</p>
+<blockquote>
+<p>dmidecode is a tool for dumping a computer&rsquo;s DMI (some say SMBIOS) table contents in a human-readable format. This table contains a description of the system&rsquo;s hardwarecomponents, as well as other useful pieces of information such as serial numbers and BIOS revision. Thanks to this table, you can retrieve this information without having to probe for the actual hardware. While this is a good point in terms of report speed and safeness, this also makes the presented information possibly unreliable.</p>
+</blockquote>
+<p>we&rsquo;ve already used this to get information about the system ram, but other things can be read as well. For example, going back to the pci slots from above running <code>sudo dmidecode --type 9</code> will tell you what physical slots correspond to what bus address among other information, for a full list of available types simply look at the dmidecode man page with <code>man dmidecode</code>.</p>
+<h2 id="chipset">
+  Chipset
+  <a class="anchor" href="#chipset">#</a>
+</h2>
+<p>The chipset is a chip usually located in the bottom right 1/4 of a motherboard underneath a heatsink. The chipset coordinates the data flow between the processor and most of everything else- excluding the few direct-CPU attached things like the Graphics card. Older systems had both a Northbridge and and a SouthBridge as two separate chips, but everything modern has just the single chip, as the Northbridge, which had memory the memory controller, isn&rsquo;t necessary on modern systems where the memory controller has been integrated into the CPU itself.</p>
+<p>For the most part, the chipset on a motherboard will match a certain CPU socket, that is each generation of CPU will have it&rsquo;s own chipset and socket; however, this is not always the case as sometimes one chipset may support multiple CPU generations or a CPU generation will work with multiple chipsets. This is the case with AMD&rsquo;s ryzen line where a first generation Ryzen CPU such as the Ryzen 1700 will work in a motherboard with an x370, x470, or x570 chipset, and a third generation Ryzen CPU such as the Ryzen 3700 will work in any motherboard with one of those as well, albeit running a generation mis-match may result in degraded performance or missing features (such as lacking PCIe 4.0).</p>
+<p>Finally, it&rsquo;s notable that the chipset typically acts as a PCIe lane &lsquo;splitter&rsquo; of sorts, turning (usually) 4 lanes into may more so that more devices may be attached. This can be particularly important when many high bandwidth devices are attached though, as even though these lanes are split, there&rsquo;s still only that original 4 lanes of bandwidth to go around.</p>
+<p><img src="/Chipset.png" alt="Chipset" /></p>
+<p class="attribution ">
+    <a href="https://www.intel.com/dam/www/public/us/en/documents/product-briefs/z370-chipset-product-brief.pdf">Image Source</a>
+</p>
+<p><img src="/chipsetamd.png" alt="chipsetamd" /></p>
+<p class="attribution ">
+    <a href="https://en.wikichip.org/wiki/amd/microarchitectures/zen">Image Source</a>
+</p>
+<h2 id="expansion-slots">
+  Expansion slots
+  <a class="anchor" href="#expansion-slots">#</a>
+</h2>
+<img class="center" src="/pciep.jpg" alt="pci expansion" height="500em">
+<blockquote>
+<p>Two PCI-e 1x expansion cards, one for USB 3.0 and one for audio. Of note, most modern motherboards have both functions built in.</p>
+</blockquote>
+<p>Most modern expansion cards connect though the PCI Express or PCIe bus. This standard, much like DDR, has gone though multiple generations of bandwidth doubling. Currently consumer devices offer up to PCIe 3.0 but devices with both 4.0 and 5.0 should be on the market shortly.</p>
+<p>PCIe cards are used for just about anything you could imagine, form adding a more powerful graphics card, more usb ports, a higher end sound card, to some more esoteric things like specific task accelerators (encryption, compression) or even a software defined radio.</p>
+<p>No matter what the device is you have to keep in mind its physical and electrical requirements. That is, do you have a slot long enough to accommodate the card and can you provide power to it.</p>
+<p>This may seem odd, but unlike most connections (think USB or Ethernet) which may support varying speeds (usb2 vs 3) but are still physically the same size, the more bandwidth hungry a PCIe device, the larger the physical connection. The largest available is a 16x connection, while the smallest is a 1x. The most commonly used lane arrangements are 1x, 4x 8x, and 16x. The motherboard shown above has one 16x connector and three 1x connectors. If you have a card that is electrically wired for 4x it will definitly work in any slot physically designed for 4x or greater, and it will still work in a 1x slot of that slot is open ended- this means the &lsquo;back&rsquo; of the slot is open, allowing the card&rsquo;s connector to go past the actual physical connection. Similarly, many 16x physical slots only have 8x actually wired. If you use a card which elecrically needs more connections it will almost certainly still work, but may have degraded performance. Similarly, if you have a card which expects a PCIe gen 3 16x connection but the best you have available is a PCIe gen 2 connection, it will run at half speed. To be extra clear:</p>
+<p>PCIe 1 @ 16x == PCIe 2 @ 8x == PCIe 3 @ 4x</p>
+<p>Similarly, putting a card which only supports PCIe Gen 2 into a Gen 3 slot will not suddenly make the card faster, even if it was to compensate, that is, if the card is made for PCIe Gen 2 @ 16x and you put it in a PCIe Gen 3 @ 8x slot, it will still run at half speed because it&rsquo;s the lowest gen number of the card or the slot that determines how many lanes are actually needed.</p>
+<p>Unfortunately, PCIe lanes, that is if you add together all the available 16x&rsquo;s and 8x&rsquo;s etc. on a given CPU are usually pretty limited. If the only extra card you plan on adding is a graphics card, you&rsquo;ll be fine, but if you intend to add a graphics card, sound card, network card, etc. all at once you may find that you&rsquo;ve either run out of physical slots or that a card is running with less than ideal bandwidth as a 16x slot may &lsquo;give up&rsquo; 8 of it&rsquo;s lanes becoming an 8x slot so that another card can function at all.</p>
+<p>Of note, the number of physical lanes and slots the mother board has probably greatly exceeds the number of lanes actually going to the CPU, so even if it appears you have plenty of room to add cards you may end up accidentally starving one for bandwidth.</p>
+<p>Finally, from a power perspective most motherboards will supply up to 75 watts to a card through the motherboard, but power hungry cards like the Nvidia and AMD graphics cards in my system may require external power connections. Also, some server boards cap PCIe power delivery to only 25 watts without an external power supply, so just be careful with compatibility.</p>
+<p>There are some other standards other than PCIe worth mentioning though.</p>
+<p>Older standards such as PCI, AGP, and ISA were all used before the widespread adoption of PCIe and while their availability is declining, PCI cards are still often for sale, you need to be very careful to only get PCIe cards and not PCI cards if your system doesn&rsquo;t support them.</p>
+<p>Both AGP and ISA have been phased out a long time ago, but very old cards may poke up now and then. If you&rsquo;re into vintage computers you may want to look the standards up to learn more.</p>
+<p><img src="/pciecards.jpg" alt="pciecards" /></p>
+<blockquote>
+<p>Top: a 16x pci-e graphics card and a 1x pcie networking card</p>
+<p>Bottom: an ISA networking card and an AGP graphics card, not pictured is the PCI connector</p>
+</blockquote>
+<h2 id="rombiosuefi">
+  ROM/BIOS/UEFI
+  <a class="anchor" href="#rombiosuefi">#</a>
+</h2>
+<p>Motherboards have to coordinate the communication of all the peripherals on the system and their own internal buses, furthermore, they have to have some sort of minimal configuration settings for setting things like which drive to boot off of or what speed the CPU or RAM should run at. These configuration settings are stored in some ROM or &lsquo;Read Only Memory&rsquo;, which is an independent chip on the motherboard. This configuration is read by the Binary Input Output System (BIOS) or the Unified Extensible Firmware Interface (UEFI). UEFI is essentially just the newer replacement for BIOS, and usually includes a compatibility mode for BIOS based hardware. When you first turn on the system you can typically mash either the delete or F12 key to enter this configuration page. It&rsquo;s typically from this interface that you&rsquo;d select your boot device, change your CPU or RAM clock speed, and set the system time. On that note, the system also likely has a battery on board which power&rsquo;s the on-board real time clock, which allows the system to maintain the time even when disconnected from power. On some systems the ROM is actually volatile meaning if this battery dies and the system is disconnected from power you may loose the BIOS/UEFI settings.</p>
+<p>Of note, you may need to update the UEFI or BIOS of a system which is sometimes done via a special admin command within windows but more commonly done by downloading a file to flash drive, putting the drive in a specific usb port, and loading the update file. When this is done it&rsquo;s common to lose all UEFI/BIOS settings as well, as it overwrites the ROM.</p>
+<p>Finally, it should be noted that it&rsquo;s pretty easy to make your system not boot or boot-loop if you break things here. So, be careful. If you set your fan speeds slower to make the system quieter then everything overheats and dies, well, ヽ（´ー｀）┌</p>
+<p>Because this varies per motherboard there&rsquo;s no universal way to describe how it looks or works. Some boards will support a lot more configuration than others, with really the only nearly definite options you&rsquo;ll find at the time of writing being a switch to enable virtualization extensions (for running virtual machines) and a switch to turn of Secure Boot, which you likely had to do to install Arch to begin with.</p>
+<p>Further reading <a href="https://www.howtogeek.com/56958/htg-explains-how-uefi-will-replace-the-bios/">How To Geek: What Is UEFI, and How Is It Different from BIOS?</a></p>
+<h2 id="vrm">
+  VRM
+  <a class="anchor" href="#vrm">#</a>
+</h2>
+<p>The VRM or &lsquo;Voltage Regulation Module&rsquo; serves a simple but important task of ensuring that the CPU (or processor in question) receives a constant voltage or voltage that makes sense for it&rsquo;s current clock speed.</p>
+<p>Essentially the VRM may contain multiple stages of current and voltage regulation modules. The more of these stages the more stable the voltage and the more current can be delivered. For most cases, this can be left alone, but it&rsquo;s incredibly important when over clocking, as to overclock a CPU or GPU it&rsquo;s usually necessary to increase the voltage, which is typically done from within the BIOS/UEFI or from a configuration utility inside the OS in the case of the GPU.</p>
+<p>You can typically tell how strong a particular uVRM is by counting the number of &lsquo;chokes&rsquo; on the board.</p>
+<p>[TODO, add pictures of chokes]</p>
+<hr>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/zxGqGCtPxn4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/motherboard.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#3---the-motherboard">3 - The Motherboard</a>
+      <ul>
+        <li><a href="#chipset">Chipset</a></li>
+        <li><a href="#expansion-slots">Expansion slots</a></li>
+        <li><a href="#rombiosuefi">ROM/BIOS/UEFI</a></li>
+        <li><a href="#vrm">VRM</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

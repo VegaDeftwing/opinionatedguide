@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="5 - Storage #   document.getElementById(&#34;hardwareMenu&#34;).open = true;   Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &lsquo;laptop drive&rsquo; at 2.5&quot;, the left most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd, a micro sd card, and a flash drive. All of which are examples of solid state storage">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="5 - Storage #   document.getElementById(&#34;hardwareMenu&#34;).open = true;   Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &lsquo;laptop drive&rsquo; at 2.5&quot;, the left most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd, a micro sd card, and a flash drive. All of which are examples of solid state storage" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/linux/hardware/storage/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Storage | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
+<script defer src="/en.search.min.a81cbc840a46a401f5f2c12df8e62f89b70b6511cbe9f2f73bc0319e8c359b7b.js" integrity="sha256-qBy8hApGpAH18sEt&#43;OYvibcLZRHL6fL3O8Axnow1m3s="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/sigandsys"> Signals & Systems</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.10</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+<dt>3 </dt><dd> <a href="/music/instruments/">Instruments</a></dd>
+<dt>4 </dt><dd> <a href="/music/effects/">Effects</a></dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>6 </dt><dd> <a href="/music/music-software/">Software</a></dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Intereact With Computer Sucks</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Storage</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#5---storage">5 - Storage</a>
+      <ul>
+        <li><a href="#hdds">HDDs</a></li>
+        <li><a href="#ssd">SSD</a></li>
+        <li><a href="#cloud-storage-some-one-elses-drives">Cloud Storage (Some one else&rsquo;s drives)</a></li>
+        <li><a href="#portable">Portable</a></li>
+        <li><a href="#the-past">The Past</a></li>
+        <li><a href="#raid-and-disk-pools">RAID and Disk Pools</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="5---storage">
+  5 - Storage
+  <a class="anchor" href="#5---storage">#</a>
+</h1>
+<script>
+    document.getElementById("hardwareMenu").open = true;
+</script>
+<p><img src="/hdds.jpg" alt="disks" /></p>
+<blockquote>
+<p>Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &lsquo;laptop drive&rsquo; at 2.5&quot;, the left most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd, a micro sd card, and a flash drive. All of which are examples of solid state storage</p>
+</blockquote>
+<p>Permanent storage is rapidly evolving, but the old guard: hard drives and tape storage aren&rsquo;t going anywhere either. But why use one over the other? How do you interact with them in Linux?</p>
+<p>[TODO] mention hdd, ssd, sata, nvme, usb-storage, sd, scsi, u.2, m.2, tape, floppy, zip</p>
+<p>hdparm</p>
+<h2 id="hdds">
+  HDDs
+  <a class="anchor" href="#hdds">#</a>
+</h2>
+<p>Hard Disk Drives or &lsquo;HDDs&rsquo; are sometimes called &ldquo;spinning rust&rdquo; because unlike other modern storage devices they&rsquo;re fundamentally mechanical.</p>
+<p>Looking at the de-lidded hard drive you&rsquo;ll see they&rsquo;re pretty simple in their basic construction: a magnetized needle(s) move across (a) platter(s) and flip bits accordingly. These platters typically spin at 5400 or 7200 RPM, with the faster meaning data can be read and written faster as well. Hard drives generally are not used for speed though, as compared to other alternatives they&rsquo;re extraordinary slow. Often, you&rsquo;ll hear them called &ldquo;spinning rust&rdquo; now, making fun of how antiquated the idea of mechanical storage seems in the first place.</p>
+<p>HDDs generally run at &lsquo;good enough&rsquo; speeds for most things- like storing video, music, etc. while being much less expensive than solid state options for a given amount of storage, and with a proven reliability and without suffering from data loss when left without power for long periods of time. That said, just like any storage medium, over time data can be corrupted, so backups are still a must.</p>
+<p>When a Hard drive is powered off, the head will typically &lsquo;park&rsquo; off the platter (this is part of why the delidded plater above died, as it parked incorrectly) and transportation should be pretty safe, however, when running and spinning quickly they&rsquo;re pretty fragile, and this is why so many older laptops have dead drives: the gyroscopic effects of spinning something that fast make it resistant to a change in orientation, causing things to scrape, scratch, or otherwise go wrong. Thankfully most 2.5&quot; hard drives have been hardened against this now; however, it&rsquo;s still a good idea to store and run hard drives with as much protection from vibration and shock as possible. In fact, yelling at a hard drive <a href="https://www.youtube.com/watch?v=tDacjrSCeq4">has been shown</a> to hurt performance.</p>
+<p>At the end of the day, for bulk media storage that you still want to be able to access quickly or for backups, hard drives are still one of the best options.</p>
+<p>Most hard drives connect though either SATA or SAS, with almost all consumer drives being SATA, and enterprise drives using a mix. SAS has some extra features and depending on the drive may be capable of writing an reading at the same time, a nifty trick SATA drives can&rsquo;t do without alternating between the two rapidly.</p>
+<p>For bulk storage servers you can get insane capacities, and building one yourself isn&rsquo;t all that hard. Here&rsquo;s mine:<img src="/powervault.jpg" alt="powervault" /></p>
+<blockquote>
+<p>A modified powervault MD1000 with a hard drive poking out and the computer - being used an archive server - it connects to. It currently is only housing three, 3Tb SAS hard drives.</p>
+</blockquote>
+<p>For working with hard drives in Linux you&rsquo;re best friend is <code>hdparm</code> lets use it to look at some disks. First we need to pick a disk to look at, running <code>lsblk</code> you should be able to see all the disks on your system, and I&rsquo;ll be looking at my main data drive which is a 3.7Tb drive on /dev/sdg</p>
+<p>The first thing we should do is get an idea about the disk usage, to do that I&rsquo;ll go to the mount point of the disk on my system ( it&rsquo;s mounted at /run/media/vega/raid despite the fact it&rsquo;s no longer in a raid array, we&rsquo;ll come back to this)</p>
+<p>so first I&rsquo;ll run <code>df -h</code> , that <code>-h</code> on most Linux commands means to make the output human readable, printing things in terms of Gigabytes or Terabytes etc instead of just a raw byte count.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdg2       3.7T  2.3T 1.5T  62%  /run/media/vega/raid
+</code></pre></td></tr></table>
+</div>
+</div><p>Alright, so I already have the disk 62% used, let&rsquo;s give that a closer look by firing up <code>ncdu</code> at the mount point. This will take a little while to scan, the more files the longer it will take. After spending a few minutes to analyze the disk I&rsquo;m greeted with this:</p>
+<p><img src="/ncdu.png" alt="ncdu" /></p>
+<p>From this you should be able to plainly see that the majority of the hard drive is taken up by Archived files, Music, Games, Videos, and Pictures. Pretty Mundane, but I could easily dive into the Archives and see why they&rsquo;re so big and save myself some space</p>
+<p>None of this is really all that interesting though, so what about speed? How fast or slow is the hard drive? Now is where hdparm comes in. Reading the man page you&rsquo;ll find the the <code>-T</code> and <code>-t</code> flags both perform disk read bench marks, one cached reads, the other raw, so let&rsquo;s run <code>sudo hdparm -Tt /dev/sdg</code></p>
+<p>This gives:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/dev/sdg:
+ Timing cached reads:   <span style="color:#ae81ff">22946</span> MB in  2.00 seconds <span style="color:#f92672">=</span> 11492.36 MB/sec
+ Timing buffered disk reads: <span style="color:#ae81ff">556</span> MB in  3.01 seconds <span style="color:#f92672">=</span> 184.91 MB/sec
+</code></pre></td></tr></table>
+</div>
+</div><p>You should immediately notice that cached reads are absolutely insanely high compared to buffered, in reality it&rsquo;s because it was using RAM for cache, and RAM really is that fast. The reads of bulk data on the other hand? A little under 200MB/sec is actually quite fast for a hard drive. Anything between 1-200 is normal. You&rsquo;ll soon see that compared to SSDs though, this is kind of disappointing.</p>
+<p>But, moving on, another few interesting flags available in hdparm are <code>-g</code> which displays the &ldquo;geometry&rdquo; of the drive: cylinders, heads, sectors, etc., <code>-H</code> for tempature.
+This begs the obvious question: what are cylinders, heads, and sectors
+[TODO]</p>
+<p>Another thing of note is S.M.A.R.T tests, while not exclusive to hard drives, they&rsquo;re particularly useful for them as most hard drives give a lot of warning signs before failing out right. In
+order to get in-depth S.M.A.R.T info on your drive, you&rsquo;ll likely need to run a test first, after which you can view the results. To do this on Linux you can run</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yay -S smartmontools
+sudo smartctl -i path/to/disk
+</code></pre></td></tr></table>
+</div>
+</div><p>Hard drives, being the last remaining mechancial part in a computer (aside from fans or liquid cooling pumps) are also pretty prone to failure. If you want to avoid this keep vibrations to a minimum (see <a href="https://www.youtube.com/watch?v=tDacjrSCeq4&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Shouting in the Datacenter (YouTube)</a>), look for disks that are rated for your use case (being on 24/7, being next to many other hard drives, etc) and check the drives MTBF or Mean Time Between Failure. You want this number to be as high as possible, often something like 1,000,000 hours.</p>
+<p>Finally, a quick note about Western Digital Green drives: Linux eats them. Thankfully you can use hdparm to fix this. From the man page:</p>
+<blockquote>
+<p>-J
+Get/set the Western Digital (WD) Green Drive&rsquo;s &ldquo;idle3&rdquo; timeout value.  This timeout controls how often the drive parks its heads and enters a low power  consumption  state.
+The  factory  default is eight (8) seconds, which is a very poor choice for use with Linux.  Leaving it at the default will result in hundreds of thousands of head load/un‐
+load cycles in a very short period of time.  The drive mechanism is only rated for 300,000 to 1,000,000 cycles, so leaving it at the default could result in premature failure
+not to mention the performance impact of the drive often having to wake-up before doing routine I/O.
+WD  supply a WDIDLE3.EXE DOS utility for tweaking this setting, and you should use that program instead of hdparm if at all possible.  The reverse-engineered implementation
+in hdparm is not as complete as the original official program, even though it does seem to work on at a least a few drives.  A full power cycle is required for  any  change
+in setting to take effect, regardless of which program is used to tweak things.
+A  setting  of  30 seconds is recommended for Linux use.  Permitted values are from 8 to 12 seconds, and from 30 to 300 seconds in 30-second increments.  Specify a value of
+zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p>
+</blockquote>
+<p><a href="https://arstechnica.com/gadgets/2020/09/western-digital-is-trying-to-redefine-the-word-rpm/">Western Digital is trying to redefine the word “RPM” (arstechnica)</a></p>
+<p><a href="https://www.youtube.com/watch?v=lsFDp-W1Ks0">What Is ZFS?: A Brief Primer (YouTube, Level1Linux)</a></p>
+<p><a href="https://weinholt.se/articles/non-posix-filesystems/">Non-Posix File Systems (Göran Weinholt&rsquo;s Blog)</a></p>
+<h2 id="ssd">
+  SSD
+  <a class="anchor" href="#ssd">#</a>
+</h2>
+<p>Solid state drives, like HDDs, come in many capacites, speeds, and form factors; however, SSDs come in many, many more than HDDs. The primary two of note at the moment are SATA SSDs and NVMe SSDs. Sata SSDs are typically the same size and shape (though sometimes a bit thinner) as the normal 2.5&quot; laptop hard drive; however, some other standards are used such as mSATA (about a half-credit hard in size) and m.2 (a bit bigger than a stick of gum). Unfortunately, the m.2 spec is slightly confusing, with some drives being SATA based and some being NVMe based, and the m.2 slot itself supporting any mix (just SATA, just NVMe, or both), so when getting a drive you need to be careful that your motherboard&rsquo;s m.2 slot and the drive are compatible.</p>
+<p>The main reason you&rsquo;d want to use NVMe is because it&rsquo;s much, much faster. NVMe drives are often many times faster than their SATA equivilents (usually because Sata is limited to 600MB/s tops), and as of the time of writing, only slightly more expensive, albeit not supported on all systems. Do keep in mind though that NVMe drives will use some of your limited PCI-e lanes, so if you want to add a lot of expansion cards like a GPU, sound card, extra usb ports, etc. you&rsquo;ll need to be careful about that.</p>
+<p>All SSDs, regradless of type, consist of 3 main parts: The Controller, the NAND, and, if they&rsquo;re not garbage, some RAM. (Seriously, don&rsquo;t buy a DRAM-less SSD)</p>
+<p>All three of these can make difference to both perfromance and reliability, though honestly, this is one situation where just sticking name brand is probably the best way to ensure you don&rsquo;t get boned. Samsung, Intel, Silicon Power, Kingston, Crucial, Western Digital, Sandisk, Micro, ADATA, and Toshiba should all be safe bets. It&rsquo;s really not worth saving a buck on a no-name brand when your data is at stake.</p>
+<p>If you do care about the nerdy nitty-gritty, you sholud read about <a href="https://en.wikipedia.org/wiki/Multi-level_cell">Multi Level Cell Flash (Wikipedia)</a>, with the general take away that more levels means more space but worse speeds and durability.</p>
+<p>It&rsquo;s also worth mentioning that new flash types, controllers, and methods to make things even faster keep coming out. One of the most interesting is Intel&rsquo;s Optane SSDs which use 3D XPoint, which, is fast, very low latency, and more durable than flash, but more expensive. It&rsquo;s actually fast enough that in some exotic systems its&rsquo;s starting <a href="https://youtu.be/uHAfTty9UWY">to be used as an alternative to RAM</a> that can also keep it&rsquo;s data though a reboot (unlike normal RAM).</p>
+<p><a href="https://www.youtube.com/watch?v=C6munjMprzU">Recovering File Systems from NAND Flash (YouTube, Defcon 28)</a></p>
+<h2 id="cloud-storage-some-one-elses-drives">
+  Cloud Storage (Some one else&rsquo;s drives)
+  <a class="anchor" href="#cloud-storage-some-one-elses-drives">#</a>
+</h2>
+<p>This is opinioned guide, so now that&rsquo;s about to show: Dont do it. All cloud storage is is someone else&rsquo;s disks. If you want to use it as a backup sure, but I don&rsquo;t see why- it&rsquo;s much less expensive to just backup the reallly important stuff to a hosted server continually and periodically (weekly, monthly, whatever) backup to some external disks that you keep somewhere else. Not to mention the privacy concerns. Like, really? You want to put allllll your family pictures under the all seeing eyes of Google or Microsoft. Nah. I&rsquo;ll pass.</p>
+<p>If you reallllly insist, then check out <a href="https://www.backblaze.com/cloud-backup.html">https://www.backblaze.com/cloud-backup.html</a> (I&rsquo;m not affiliated in anyway, nor do I use the service) as it&rsquo;s probably the safest option and they have good recovery options, like sending you a physical hard drive with your data on it.</p>
+<p>But, seriously, only use cloud for a backup if you have to and never ever ever ever ever use it as a primary storage medium.</p>
+<p>The cloud is not your friend.</p>
+<h2 id="portable">
+  Portable
+  <a class="anchor" href="#portable">#</a>
+</h2>
+<p>Most fixed disk enclosures (Think your normal, off the shelf portable driver) suck, albeit they can be less expensive. I&rsquo;d recommend getting a portable multi-drive enclosure that runs over whatever the fastest connection you have is (Thunderbolt, USB 3.1, etc.). You can even get usb-&gt;nvme adapters, albeit they have a nasty amount of bandwidth limiting.</p>
+<p>Most off-the-shelf flash drives have ass cooling and will over-heat them selves to death when you use them for things like installing operating systems regularly, so I recommend just getting a bulk pack of cheap, low capacity ones to toss when they finally kick the bucket and a few nice USB-&gt;SATA or USB-&gt;NVME adapter for  your main portable storage needs. Failing that, you can always use your phone if you&rsquo;ve got a nice high capacity SD card in it or plenty of spare internal storage. The problem with that is MTP or &lsquo;Media Transfer Protocol&rsquo; is a buggy, slow mess, and there&rsquo;s no other clean way to transfer things from a phone. So ¯\<em>(ツ)</em>/¯</p>
+<blockquote class="twitter-tweet"><p lang="ro" dir="ltr">Recuperación de datos de µSD nivel: F*cking Master of the Universe. <a href="https://t.co/B9egCrW4WJ">pic.twitter.com/B9egCrW4WJ</a></p>&mdash; ChuxMan Skywalker (@MrChuxMan) <a href="https://twitter.com/MrChuxMan/status/1288054419985248257?ref_src=twsrc%5Etfw">July 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>You might also want to look into <a href="https://www.ifixit.com/News/46724/how-to-find-useful-discounted-disks-inside-an-external-hard-drive">Hard Drive Schucking</a> if you&rsquo;re in need of as much storage as you can get your grubby lil' <a href="https://www.reddit.com/r/DataHoarder/">r/DataHoarder</a> hands onto.</p>
+<h2 id="the-past">
+  The Past
+  <a class="anchor" href="#the-past">#</a>
+</h2>
+<p>Floopy, Zip Disks, and Tape? Really? Yes. And yes, they&rsquo;re still used, so you should probably know at least a little about them.</p>
+<p>[TODO]</p>
+<p>Floppy, Zip, tape</p>
+<h2 id="raid-and-disk-pools">
+  RAID and Disk Pools
+  <a class="anchor" href="#raid-and-disk-pools">#</a>
+</h2>
+<p>[TODO]</p>
+<p>Zfs, hardware raid, software raid, emulated hardware (bios), etc.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/storage.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#5---storage">5 - Storage</a>
+      <ul>
+        <li><a href="#hdds">HDDs</a></li>
+        <li><a href="#ssd">SSD</a></li>
+        <li><a href="#cloud-storage-some-one-elses-drives">Cloud Storage (Some one else&rsquo;s drives)</a></li>
+        <li><a href="#portable">Portable</a></li>
+        <li><a href="#the-past">The Past</a></li>
+        <li><a href="#raid-and-disk-pools">RAID and Disk Pools</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
