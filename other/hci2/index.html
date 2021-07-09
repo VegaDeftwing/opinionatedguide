@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
-<script defer src="/en.search.min.66bc1746877f0eb9b91898a3fb72ccceccdd8ed3fb1171289ed1227862479bc9.js" integrity="sha256-ZrwXRod/Drm5GJij&#43;3LMzszdjtP7EXEontEieGJHm8k="></script>
+<script defer src="/en.search.min.0f692e5fd26768c091a6fb825a78843fe4782c7cb5caad113f29f17ae8f173dd.js" integrity="sha256-D2kuX9JnaMCRpvuCWniEP&#43;R4LHy1yq0RPynxeujxc90="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -731,7 +731,7 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
   <div class="flex-even markdown-inner">
     <p>Did you get a gaming, racing chair that cost about $100 off of ebay? Yeah, you&rsquo;ll regret that one soon enough.</p>
 <p><img src="/racingchair.jpg" alt=""></p>
-<p>Even if you got a normal office chair, if it wasn&rsquo;t exorbitantly expensive it probably sucks. I did like two weeks of stressing about finding something good and thankfully finally got a good recommendation from a friend, but otherwise it&rsquo;s like $500 SteelCase chair or having a bolt poke though the butt-foam until it&rsquo;s leaving a permanent indentation into your butt.</p>
+<p>Even if you got a normal office chair, if it wasn&rsquo;t exorbitantly expensive it probably sucks. I did like two weeks of stressing about finding something good and thankfully finally got a good recommendation from a friend, but otherwise it&rsquo;s like $500 SteelCase chair or having a bolt poke though the seat&rsquo;s foam until it&rsquo;s leaving a permanent indentation into your butt.</p>
 <p>It&rsquo;s not like we even <em>need</em> innovation here, (as proven by the influx of hot garbage &lsquo;gaming&rsquo; chairs) we just need something affordable that&rsquo;s not garbage or plagued by fake reviews or reviews from another product attached to the new listing (Fix your shit amazon.)</p>
 <blockquote>
 <p>The chair on the right is the one my friend recommended, <a href="https://www.amazon.com/dp/B00450P182/ref=cm_sw_r_other_apa_i_oG.1EbSZR4NZP">here&rsquo;s a link to it on Amazon</a></p>
@@ -1392,40 +1392,47 @@ button, though possibly only because it was the only way to login to that servic
   <a class="anchor" href="#storage-hardware-and-file-systems-suck">#</a>
 </h4>
 <p>The hardware issue is mostly a side effect of trying to market technical differences to people who ultimately just want a place to drop their files. A normal user shouldn&rsquo;t have to know what all the various specs of a HDD or SSD mean to know what to buy.</p>
-<p>That said, holy shit do manufactures suck at this. Everything from <a href="https://arstechnica.com/gadgets/2020/09/western-digital-is-trying-to-redefine-the-word-rpm/">Western Digital redefining &lsquo;RPM&rsquo;</a> to <a href="https://arstechnica.com/gadgets/2020/05/western-digital-gets-sued-for-sneaking-smr-disks-into-its-nas-channel/">Western Digital uses SMR on NAS drives</a>,</p>
+<p>That said, holy shit do manufactures suck at this. Everything from <a href="https://arstechnica.com/gadgets/2020/09/western-digital-is-trying-to-redefine-the-word-rpm/">Western Digital redefining &lsquo;RPM&rsquo;</a> to <a href="https://arstechnica.com/gadgets/2020/05/western-digital-gets-sued-for-sneaking-smr-disks-into-its-nas-channel/">Western Digital uses SMR on NAS drives</a>,   <a href="https://www.youtube.com/watch?v=ybIXsrLCgdM">DRAM-less SSDs</a> and <a href="https://youtu.be/bGY9hEVk_Bc?t=3744">Bait-and-switch in regards to SSD performance</a>.</p>
 <blockquote>
 <p>SMR, or Shielded Magnetic Recording, has a few issues that make it problematic for Network Attached Storage (NAS) systems using multiple disks, particularly if the NAS is running ZFS, a common file system made exactly for this use case.</p>
 </blockquote>
-<p>on hard drives, to <a href="https://www.youtube.com/watch?v=ybIXsrLCgdM">DRAM-less SSDs</a> and <a href="https://youtu.be/bGY9hEVk_Bc?t=3744">Bait-and-switch in regards to SSD performance</a>.</p>
-<ul>
-<li>why the fuck are we still using NTFS and EXT4 and not ZFS and LVM
-<ul>
-<li>Microsoft, not merging some fucking filesystems</li>
-<li><a href="https://github.com/maharmstone/btrfs">https://github.com/maharmstone/btrfs</a> (WinBtrfs)</li>
-</ul>
-</li>
-<li>Hard drives are just, bad
-<ul>
-<li>Screaming at them makes them run worse <a href="https://www.youtube.com/watch?v=tDacjrSCeq4">Shouting In The Datacenter</a>
-<ul>
-<li>I have a subwoffer right next to mine</li>
-</ul>
-</li>
-<li>Feeling the inertia in a laptop</li>
-</ul>
-</li>
-</ul>
+<p>But the issues go beyond that. While a bit controversial, I think literally any modern filesystem (BTRFS, ZFS, or even EXT4) is <em>much</em> better than the mess that is NTFS, yet, Microsoft only officially supports NTFS, FAT(/32), and ReFS- all of which sorta suck.</p>
+<p>There is no fucking reason everyone - Microsoft, Apple, Linux, etc. - can&rsquo;t fucking agree on <em>something</em> and avoid the massive fustercluck that is using FAT32, a filesystem that can only store files up to 4GB, as the only common system that &ldquo;just works&rdquo;.</p>
+<blockquote>
+<p>Note, you can use <a href="https://github.com/maharmstone/btrfs" title="WinBtrfs">BTRFS on Windows</a>, using 3rd party tools. Technically, the same is true of EXT2/3/4 too, but I don&rsquo;t trust it to not eat my data.</p>
+</blockquote>
+<p>Ideally, we&rsquo;d be using <a href="https://en.wikipedia.org/wiki/Logical_Volume_Manager_%28Linux%29">Logical Volume Managment</a> so that the entire filesystem can have snap shots, partitions could be resized, or use multiple physical disks</p>
+<p>I also don&rsquo;t get how in 2021, some system are still booting off of spinning rust? Hell, why are we really using it at all. Yes, I know the price per GB is much lower, but we&rsquo;re talking about something that is so sensitive to vibration that <a href="https://www.youtube.com/watch?v=tDacjrSCeq4">Shouting In The Datacenter</a> is a problem. This is extra dumb when you consider a lot of computers or game consoles will be right next to speakers and subwoffers. Every time I pickup a laptop with an HDD and I can feel the inertia of the disk it makes me cringe.</p>
 <h4 id="cloud-storage-is-a-terrible-idea">
   Cloud Storage is a terrible idea
   <a class="anchor" href="#cloud-storage-is-a-terrible-idea">#</a>
 </h4>
-<p>To keep the core of this issue brief: The cloud is just someone else&rsquo;s computer. You can&rsquo;t ever be certain of what they&rsquo;ll do to your data, if they won&rsquo;t have some random DMCA complaint take something down, if they won&rsquo;t suddenly increase price and essentially hold continued access to your data at ransom, if they&rsquo;ll mine your data for targeted advertising, or if you&rsquo;re data will accidentally be public because of bad security. Just&hellip; don&rsquo;t.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>To keep the core of this issue brief: The cloud is just someone else&rsquo;s computer. You can never be certain of what they&rsquo;ll do to your data.</p>
+<p>You can&rsquo;t be sure they won&rsquo;t have some random DMCA complaint take something down.</p>
+<p>You can&rsquo;t be sure they won&rsquo;t suddenly increase price and essentially hold continued access to your data at ransom</p>
+<p>You can&rsquo;t be sure they won&rsquo;t mine your data for targeted advertising</p>
+<p>You can&rsquo;t be sure your data won&rsquo;t accidentally be public because of bad security.</p>
+<p style="text-align: center;"> Just don't put your data in the cloud.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/yellsatcloud2.webp" alt="Old Vega Yells at Cloud">
+<p class="attribution ">
+    Character owned by Vega, art by <a href="https://twitter.com/Talon_Creations">Talon Creations</a> and Vega
+  </div>
+  
+</div>
+
 <p>That said, I will admit two valid uses:</p>
 <ol>
 <li>Collaborative Editing. GSuite is actually pretty cool.</li>
 <li>Backup but only if the service is <em>only</em> backup and you already have at least an on site backup. For example, I think <a href="https://www.backblaze.com">Backblaze</a> is actually a pretty neat service and it seems like they do things reasonably. The ship you a hard drive option here is what makes it make sense to me. Note, I&rsquo;ve never actually used Backblaze.</li>
 </ol>
-<p>But 1. still has it&rsquo;s issues, especially if the format the collaborative documents are saved as are only viewable on that cloud platform.</p>
+<p>But 1. still has issues, especially if the format the collaborative documents are saved as are only valid on that cloud platform. Think like .docx for Word, but what does GSuite use? Can you be sure it&rsquo;ll work offline?</p>
 <p>I&rsquo;d also like to mention the idea of distributed computation here as well, as It can be used for both the storage of and computation on data. I think that having a <em>true</em> distributed system in place, one where all users contribute compute and storage for it&rsquo;s use, makes sense. The obvious ask is to get it to be self sufficient. This brings up the idea of balanced usage to contribution, I think the easiest solution is to simply use a system of computational debt tied to each user account. If the user is creating more computational debt than the average debt the system can sustain then that user should be handicapped in bandwidth accordingly. This does sort of bring us full circle in &lsquo;can I just trade debt with someone, or sell them my computational time&rsquo; such that we&rsquo;re back to crypto based services again though, and I <strong>really</strong> don&rsquo;t like this idea for two reasons:</p>
 <ol>
 <li>This system needs real time computation and bandwidth, and these vary in value just like how electricity peak hours cost more.</li>
