@@ -82,9 +82,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 3½ - Architectures #  [TODO]
-From the README.md file at https://github.com/radareorg/radare2
- Architectures #  i386, x86-64, ARM, MIPS, PowerPC, SPARC, RISC-V, SH, m68k, m680x, AVR, XAP, System Z, XCore, CR16, HPPA, ARC, Blackfin, Z80, H8/300, V810, V850, CRIS, XAP, PIC, LM32, 8051, 6502, i4004, i8080, Propeller, Tricore, CHIP-8, LH5801, T8200, GameBoy, SNES, SPC700, MSP430, Xtensa, NIOS II, Java, Dalvik, WebAssembly, MSIL, EBC, TMS320 (c54x, c55x, c55&#43;, c66), Hexagon, Brainfuck, Malbolge, whitespace, DCPU16, LANAI, MCORE, mcs96, RSP, SuperH-4, VAX.">
+<meta name="description" content="Chapter 3½ - Architectures #  Instruction Set Architectures #  Today, there are two main computer architectures you&rsquo;ll use x86_64 and ARM. You&rsquo;ve probably heard this in passing, but you may not know what they are. These are Instruction Set Architectures (ISA), and they define the list of insturctions your computer can understand and the basics about how those insturctions are laid out.
+Let&rsquo;s say we have a fictional computer, really old, that&rsquo;s only 8-bit (most modern systems are 32 or 64bit) this would mean we get eight 1&rsquo;s and 0&rsquo;s to define our instruction.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -96,9 +95,8 @@ From the README.md file at https://github.com/radareorg/radare2
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 3½ - Architectures #  [TODO]
-From the README.md file at https://github.com/radareorg/radare2
- Architectures #  i386, x86-64, ARM, MIPS, PowerPC, SPARC, RISC-V, SH, m68k, m680x, AVR, XAP, System Z, XCore, CR16, HPPA, ARC, Blackfin, Z80, H8/300, V810, V850, CRIS, XAP, PIC, LM32, 8051, 6502, i4004, i8080, Propeller, Tricore, CHIP-8, LH5801, T8200, GameBoy, SNES, SPC700, MSP430, Xtensa, NIOS II, Java, Dalvik, WebAssembly, MSIL, EBC, TMS320 (c54x, c55x, c55&#43;, c66), Hexagon, Brainfuck, Malbolge, whitespace, DCPU16, LANAI, MCORE, mcs96, RSP, SuperH-4, VAX." />
+<meta property="og:description" content="Chapter 3½ - Architectures #  Instruction Set Architectures #  Today, there are two main computer architectures you&rsquo;ll use x86_64 and ARM. You&rsquo;ve probably heard this in passing, but you may not know what they are. These are Instruction Set Architectures (ISA), and they define the list of insturctions your computer can understand and the basics about how those insturctions are laid out.
+Let&rsquo;s say we have a fictional computer, really old, that&rsquo;s only 8-bit (most modern systems are 32 or 64bit) this would mean we get eight 1&rsquo;s and 0&rsquo;s to define our instruction." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/linux/hardware/architectures/" /><meta property="article:section" content="Engineering" />
 
@@ -108,7 +106,7 @@ From the README.md file at https://github.com/radareorg/radare2
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
-<script defer src="/en.search.min.0f692e5fd26768c091a6fb825a78843fe4782c7cb5caad113f29f17ae8f173dd.js" integrity="sha256-D2kuX9JnaMCRpvuCWniEP&#43;R4LHy1yq0RPynxeujxc90="></script>
+<script defer src="/en.search.min.06bdf94bd1f35707376d396d3251f06ca92960d7c4de81c7a901565bf91d575a.js" integrity="sha256-Br35S9HzVwc3bTltMlHwbKkpYNfE3oHHqQFWW/kdV1o="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -434,9 +432,9 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-3---architectures">Chapter 3½ - Architectures</a>
       <ul>
-        <li><a href="#architectures">Architectures</a></li>
-        <li><a href="#file-formats">File Formats</a></li>
-        <li><a href="#operating-systems">Operating Systems</a></li>
+        <li><a href="#instruction-set-architectures">Instruction Set Architectures</a></li>
+        <li><a href="#operating-systems-and-syscalls">Operating Systems and SysCalls</a></li>
+        <li><a href="#executable-file-formats">Executable File Formats</a></li>
       </ul>
     </li>
   </ul>
@@ -454,34 +452,48 @@ https://github.com/alex-shpak/hugo-book
   Chapter 3½ - Architectures
   <a class="anchor" href="#chapter-3---architectures">#</a>
 </h1>
-<p>[TODO]</p>
-<p>From the README.md file at <a href="https://github.com/radareorg/radare2">https://github.com/radareorg/radare2</a></p>
-<blockquote>
-<h2 id="architectures">
-  Architectures
-  <a class="anchor" href="#architectures">#</a>
+<h2 id="instruction-set-architectures">
+  Instruction Set Architectures
+  <a class="anchor" href="#instruction-set-architectures">#</a>
 </h2>
+<p>Today, there are two main computer architectures you&rsquo;ll use x86_64 and ARM. You&rsquo;ve probably heard this in passing, but you may not know what they are. These are Instruction Set Architectures (ISA), and they define the list of insturctions your computer can understand and the basics about how those insturctions are laid out.</p>
+<p>Let&rsquo;s say we have a fictional computer, really old, that&rsquo;s only 8-bit (most modern systems are 32 or 64bit) this would mean we get eight 1&rsquo;s and 0&rsquo;s to define our instruction. We might decide to have the first 4 bit&rsquo;s hold the OpCode (short for Operation Code) We might decide that any insturction starting with 0000 is a store, 0001 a move, 0010 a jump, 0011 an add, and so on. Then, we might say the other four bits should represent registers, that is locations of other numbers. So we might have 00110110 where the 0011 means add, and the next two bits, 01, mean registers 1 and the next two bits,  10, mean register 2. For this, we&rsquo;d probably have to assume the result gets stored in one of these registers, so it might bee that 00110110 means add the numbers in register 1 and register 2 and store the result back into register 1.</p>
+<p>Alright, so, that&rsquo;s pretty easy to understand.</p>
+<p>The next thing you should know is that generally, there&rsquo;s two kind of insturction sets CISC and RISC. CISC is Complex Instruction Set Computer, and RISC is Reduced Instruction Set Computer. The names are pretty self explanatory. While CISC may have a ton of specialty insturctions for doing bigger tasks in one instruction (for exmaple, <a href="https://www.felixcloutier.com/x86/pshufb">PSHUFB: Packed Shuffle Bytes</a> or <a href="https://www.felixcloutier.com/x86/mpsadbw">MPSADBW: Compute Multiple Packed Sums of Absolute Difference</a>, if you&rsquo;d like to have your brain hurt for a moment). This is compared to RISC, where there&rsquo;s usually dramitically less intstructions. A bit counterintuitively, RISC has generally been found to be a bit faster now, because even though the individual instructions can&rsquo;t do as much, they can be pipelined (a topic we&rsquo;ll go over later) much more easily.</p>
+<p>Just for comparison, check out this ARM assembly code cheat sheet from <a href="https://azeria-labs.com/assembly-basics-cheatsheet/">Azeria Labs</a> vs this x86 opcode cheat sheet:</p>
+<p><img src="/cheatsheetv1.3-1920x1080.png" alt="cheatsheetv1.3-1920x1080" /></p>
+<p><img src="/x86_opcode_structure_and_instruction_overview.png" alt="x86_opcode_structure_and_instruction_overview" /></p>
+<p>It&rsquo;s also a bit stunning just how rarely a lot of x86_64 instructions are even used:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/pepijndevos?ref_src=twsrc%5Etfw">@pepijndevos</a> re: &quot;Does a compiler use all x86 instructions?&quot; 942 unique instructions, most common are mov, lea, call, int, je, jmp, cmp. 25 instructions appear only once. <a href="https://t.co/IJtI4Y5rJD">pic.twitter.com/IJtI4Y5rJD</a></p>&mdash; Vega Deftwing (@Vega_DW) <a href="https://twitter.com/Vega_DW/status/1392329312683057154?ref_src=twsrc%5Etfw">May 12, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>Part of what makes this so complicated is the variety of insturctions available even for what sounds like a standard set. Not all processors with the same ISA <em>actually support</em> the same instructions. Both x86_64 and ARM have gotten a lot of instruction set extensions, see <a href="https://en.wikipedia.org/wiki/X86_instruction_listings#Added_in_specific_processors">Wikipedia&rsquo;s x86 instruction listings</a> just to get an idea of this. You may even see some of these mentioned in conversation about what CPU to buy, for exmaple, at the time of writing only a subset of modern desktop processors support <a href="https://en.wikipedia.org/wiki/AVX-512">AVX-512</a>, a 512-bit insturction (yes, that&rsquo;s a thing, even on 64bit systems) that should make some workloads faster.</p>
+<p>There&rsquo;s <em>a lot</em> more to computer architecure than this. I only touched on the differenc in instruction sets, not how two processors that both impliment the same insturction set may varry wildly in actual implementation or how there are different schools of thought when it comes to having memory be <a href="https://en.wikipedia.org/wiki/Harvard_architecture">seperate</a> or <a href="https://en.wikipedia.org/wiki/Von_Neumann_architecture">combined</a> for data and instructions. We&rsquo;ll come back to that later though, in Chapter 29: <a href="/engineering/deeper/comparch/">Let&rsquo;s Make our own CPU</a>.</p>
+<p>I do want to leave you with something to ponder though- here&rsquo;s a list of ISAs supported by <a href="https://github.com/radareorg/radare2">Radare2</a>, a reverse engineering toolkit:</p>
+<blockquote>
+<p><strong>Architectures</strong></p>
 <p>i386, x86-64, ARM, MIPS, PowerPC, SPARC, RISC-V, SH, m68k, m680x, AVR, XAP, System Z, XCore, CR16, HPPA, ARC, Blackfin, Z80, H8/300, V810, V850, CRIS, XAP, PIC, LM32, 8051, 6502, i4004, i8080, Propeller, Tricore, CHIP-8, LH5801, T8200, GameBoy, SNES, SPC700, MSP430, Xtensa, NIOS II, Java, Dalvik, WebAssembly, MSIL, EBC, TMS320 (c54x, c55x, c55+, c66), Hexagon, Brainfuck, Malbolge, whitespace, DCPU16, LANAI, MCORE, mcs96, RSP, SuperH-4, VAX.</p>
 </blockquote>
-<p>Which is only further complicated by:</p>
-<blockquote>
-<h2 id="file-formats">
-  File Formats
-  <a class="anchor" href="#file-formats">#</a>
+<p class="attribution ">
+    From the README.md file at <a href="https://github.com/radareorg/radare2">https://github.com/radareorg/radare2</a>
+</p>
+<h2 id="operating-systems-and-syscalls">
+  Operating Systems and SysCalls
+  <a class="anchor" href="#operating-systems-and-syscalls">#</a>
 </h2>
+<p>For lack of a better place to put it, it&rsquo;s worth pointing out that just because a program is made up of the correct instructions for a given processor, doesn&rsquo;t nessessarily mean it will run on that architeure without some surrounding context to make it work correctly. The most obvious thing that mucks things up in this regrad is the Operating System being used. Obviously a program written for Windows and a program written for Linux (usually) won&rsquo;t run on the other without some sort of compatability layer like <a href="https://www.winehq.org">Wine</a> or <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL</a>. This is mostly because pretty much any non trivial program will need to use system calls (often abriviated to &lsquo;syscall&rsquo;) which is, very basically, just the OS specifying that any request for hardware access (say, opening a file, writing data to disk, getting network access, etc). This list of system calls and how they&rsquo;re requested will vary bettewen operating systems. So now we have a mix of Insturction Set Architectures (with a mix of extensions) <em>and</em> a mix of operating systems, so that must be the full picture right?</p>
+<p>Ha. No. But before I go further, I do want to point out that while I mentioned Windows and Linux, obviously there&rsquo;s a lot more than this. There&rsquo;s MacOS, Android, iOS, and a huge varity of smaller projects like TempleOS and Haiku.</p>
+<h2 id="executable-file-formats">
+  Executable File Formats
+  <a class="anchor" href="#executable-file-formats">#</a>
+</h2>
+<p>So, what else contributes to the incompatabilites? Well, one major one is the large varity of executable formats. Some of these formats are effectively just a bunch of insturctions for their respective architecture with a little bit of information tacked on to point to shared system libraries, others (like java jars) are executable formats that depend on using a virtual machine to try to work around the incompatablity issues between ISAs and Operating Systems.</p>
+<blockquote>
+<p><strong>File Formats</strong></p>
 <p>ELF, Mach-O, Fatmach-O, PE, PE+, MZ, COFF, OMF, TE, XBE, BIOS/UEFI, Dyldcache, DEX, ART, CGC, Java class, Android boot image, Plan9 executable, ZIMG, MBN/SBL bootloader, ELF coredump, MDMP (Windows minidump), WASM (WebAssembly binary), Commodore VICE emulator, QNX, Game Boy (Advance), Nintendo DS ROMs and Nintendo 3DS FIRMs, various filesystems.</p>
 </blockquote>
-<p>and</p>
-<blockquote>
-<h2 id="operating-systems">
-  Operating Systems
-  <a class="anchor" href="#operating-systems">#</a>
-</h2>
-<p>Windows (since XP), GNU/Linux, GNU/Darwin, GNU/Hurd, Apple&rsquo;s {Mac,i,iPad,watch}OS, [Dragonfly|Net|Free|Open]BSD, Android, QNX, Solaris, Haiku, FirefoxOS.</p>
-</blockquote>
-<p>plus, the above lists are by no means exhaustive. Clearly there&rsquo;s no shortage of CPU architectures (virtual or physical) that can be present on a system which can be running any of a number of operating systems which may use a variety of ways of actually storing the executable instructions, so, let&rsquo;s take a look at what all of this actually means. First, let&rsquo;s start with the different architectures you&rsquo;re likely to run into and what makes them different:</p>
-<p>[TODO]</p>
-<p>For more information on embedded architectures and in-depth comparisons look at Chapter 14.1. For info on Virtual machines (for hosting Linux or for languages like Java) look to Chapters 8 and 17</p>
+<p class="attribution ">
+    From the README.md file at <a href="https://github.com/radareorg/radare2">https://github.com/radareorg/radare2</a>
+</p>
+<hr>
 <p>[TODO] note on hackintoshes</p>
 <p><a href="https://manybutfinite.com/post/how-computers-boot-up/">https://manybutfinite.com/post/how-computers-boot-up/</a></p>
 </article>
@@ -534,9 +546,9 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-3---architectures">Chapter 3½ - Architectures</a>
       <ul>
-        <li><a href="#architectures">Architectures</a></li>
-        <li><a href="#file-formats">File Formats</a></li>
-        <li><a href="#operating-systems">Operating Systems</a></li>
+        <li><a href="#instruction-set-architectures">Instruction Set Architectures</a></li>
+        <li><a href="#operating-systems-and-syscalls">Operating Systems and SysCalls</a></li>
+        <li><a href="#executable-file-formats">Executable File Formats</a></li>
       </ul>
     </li>
   </ul>
