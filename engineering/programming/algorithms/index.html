@@ -82,17 +82,12 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 14 - Discrete Math, Algorithms, Data Structures, and Not Sucking at Programming ™* #  [TODO] Directed Acyclic Graphs
+<meta name="description" content="Chapter 14 - Discrete Math, Algorithms, Data Structures, and Not Sucking at Programming ™* #  Brute Force Algorithms #  Backtracking #   [TODO] Directed Acyclic Graphs
 [TODO] Finite State Machines
 [TODO] e-graphs? https://egraphs-good.github.io
 [TODO] http://courses.csail.mit.edu/6.851/
 [TODO] &lsquo;Tree Traversal&rsquo; on Algorithm Archive
-*With some complexity analysis too.
-[TODO]
-https://www.mattkeeter.com/blog/2021-03-01-happen/
-[TODO] I also have discreete math in the chapter 11, math&hellip; not sure what do do about this&hellip;
-Truth tables, binary, logical equlivencies, propositional logic,
-Sets, functions, relations, recurrence, induction, combonation, graphs, isomorphsm,">
+Divide and Conquer #  Master Theorm #  Decrease and Conquer #  Branch and Bound #  Kernelization #  Cacheing #  *With some complexity analysis too.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -104,17 +99,12 @@ Sets, functions, relations, recurrence, induction, combonation, graphs, isomorph
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 14 - Discrete Math, Algorithms, Data Structures, and Not Sucking at Programming ™* #  [TODO] Directed Acyclic Graphs
+<meta property="og:description" content="Chapter 14 - Discrete Math, Algorithms, Data Structures, and Not Sucking at Programming ™* #  Brute Force Algorithms #  Backtracking #   [TODO] Directed Acyclic Graphs
 [TODO] Finite State Machines
 [TODO] e-graphs? https://egraphs-good.github.io
 [TODO] http://courses.csail.mit.edu/6.851/
 [TODO] &lsquo;Tree Traversal&rsquo; on Algorithm Archive
-*With some complexity analysis too.
-[TODO]
-https://www.mattkeeter.com/blog/2021-03-01-happen/
-[TODO] I also have discreete math in the chapter 11, math&hellip; not sure what do do about this&hellip;
-Truth tables, binary, logical equlivencies, propositional logic,
-Sets, functions, relations, recurrence, induction, combonation, graphs, isomorphsm," />
+Divide and Conquer #  Master Theorm #  Decrease and Conquer #  Branch and Bound #  Kernelization #  Cacheing #  *With some complexity analysis too." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/algorithms/" /><meta property="article:section" content="Engineering" />
 
@@ -124,7 +114,7 @@ Sets, functions, relations, recurrence, induction, combonation, graphs, isomorph
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
-<script defer src="/en.search.min.06bdf94bd1f35707376d396d3251f06ca92960d7c4de81c7a901565bf91d575a.js" integrity="sha256-Br35S9HzVwc3bTltMlHwbKkpYNfE3oHHqQFWW/kdV1o="></script>
+<script defer src="/en.search.min.b6b3fea23b8d38894a1380e63e76a9be1c6920f7749222a72db7678097443dd7.js" integrity="sha256-trP&#43;ojuNOIlKE4DmPnapvhxpIPd0kiKnLbdngJdEPdc="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -450,7 +440,20 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-14---discrete-math-algorithms-data-structures-and-not-sucking-at-programming-">Chapter 14 - Discrete Math, Algorithms, Data Structures, and Not Sucking at Programming ™*</a>
       <ul>
-        <li>
+        <li><a href="#brute-force-algorithms">Brute Force Algorithms</a>
+          <ul>
+            <li><a href="#backtracking">Backtracking</a></li>
+          </ul>
+        </li>
+        <li><a href="#divide-and-conquer">Divide and Conquer</a>
+          <ul>
+            <li><a href="#master-theorm">Master Theorm</a></li>
+          </ul>
+        </li>
+        <li><a href="#decrease-and-conquer">Decrease and Conquer</a></li>
+        <li><a href="#branch-and-bound">Branch and Bound</a></li>
+        <li><a href="#kernelization">Kernelization</a></li>
+        <li><a href="#cacheing">Cacheing</a>
           <ul>
             <li><a href="#rooster-form-">Rooster form:-</a></li>
             <li><a href="#set-builder-form-">Set Builder form:-</a></li>
@@ -462,7 +465,7 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#brute-force">Brute Force</a></li>
           </ul>
         </li>
-        <li><a href="#divide-and-conquer">Divide and Conquer</a></li>
+        <li><a href="#divide-and-conquer-1">Divide and Conquer</a></li>
         <li><a href="#data-structures">Data structures</a></li>
         <li><a href="#practice">Practice</a></li>
         <li><a href="#locality">Locality</a>
@@ -489,11 +492,44 @@ https://github.com/alex-shpak/hugo-book
   Chapter 14 - Discrete Math, Algorithms, Data Structures, and Not Sucking at Programming ™*
   <a class="anchor" href="#chapter-14---discrete-math-algorithms-data-structures-and-not-sucking-at-programming-">#</a>
 </h1>
+<h2 id="brute-force-algorithms">
+  Brute Force Algorithms
+  <a class="anchor" href="#brute-force-algorithms">#</a>
+</h2>
+<h3 id="backtracking">
+  Backtracking
+  <a class="anchor" href="#backtracking">#</a>
+</h3>
+<hr>
 <p>[TODO] <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graphs</a></p>
 <p>[TODO] <a href="https://en.wikipedia.org/wiki/Finite-state_machine">Finite State Machines</a></p>
 <p>[TODO] e-graphs? <a href="https://egraphs-good.github.io">https://egraphs-good.github.io</a></p>
 <p>[TODO] <a href="http://courses.csail.mit.edu/6.851/">http://courses.csail.mit.edu/6.851/</a></p>
 <p>[TODO]  <a href="https://www.algorithm-archive.org/contents/tree_traversal/tree_traversal.html">&lsquo;Tree Traversal&rsquo; on Algorithm Archive</a></p>
+<h2 id="divide-and-conquer">
+  Divide and Conquer
+  <a class="anchor" href="#divide-and-conquer">#</a>
+</h2>
+<h3 id="master-theorm">
+  Master Theorm
+  <a class="anchor" href="#master-theorm">#</a>
+</h3>
+<h2 id="decrease-and-conquer">
+  Decrease and Conquer
+  <a class="anchor" href="#decrease-and-conquer">#</a>
+</h2>
+<h2 id="branch-and-bound">
+  Branch and Bound
+  <a class="anchor" href="#branch-and-bound">#</a>
+</h2>
+<h2 id="kernelization">
+  Kernelization
+  <a class="anchor" href="#kernelization">#</a>
+</h2>
+<h2 id="cacheing">
+  Cacheing
+  <a class="anchor" href="#cacheing">#</a>
+</h2>
 <p>*<strong>With some complexity analysis too.</strong></p>
 <p>[TODO]</p>
 <p><a href="https://www.mattkeeter.com/blog/2021-03-01-happen/">https://www.mattkeeter.com/blog/2021-03-01-happen/</a></p>
@@ -543,9 +579,9 @@ The Union of Set A = {1,3, 5, 6} and Set B = {1, 2, 4, 6} is</p>
   Brute Force
   <a class="anchor" href="#brute-force">#</a>
 </h3>
-<h2 id="divide-and-conquer">
+<h2 id="divide-and-conquer-1">
   Divide and Conquer
-  <a class="anchor" href="#divide-and-conquer">#</a>
+  <a class="anchor" href="#divide-and-conquer-1">#</a>
 </h2>
 <h2 id="data-structures">
   Data structures
@@ -626,7 +662,20 @@ The Union of Set A = {1,3, 5, 6} and Set B = {1, 2, 4, 6} is</p>
   <ul>
     <li><a href="#chapter-14---discrete-math-algorithms-data-structures-and-not-sucking-at-programming-">Chapter 14 - Discrete Math, Algorithms, Data Structures, and Not Sucking at Programming ™*</a>
       <ul>
-        <li>
+        <li><a href="#brute-force-algorithms">Brute Force Algorithms</a>
+          <ul>
+            <li><a href="#backtracking">Backtracking</a></li>
+          </ul>
+        </li>
+        <li><a href="#divide-and-conquer">Divide and Conquer</a>
+          <ul>
+            <li><a href="#master-theorm">Master Theorm</a></li>
+          </ul>
+        </li>
+        <li><a href="#decrease-and-conquer">Decrease and Conquer</a></li>
+        <li><a href="#branch-and-bound">Branch and Bound</a></li>
+        <li><a href="#kernelization">Kernelization</a></li>
+        <li><a href="#cacheing">Cacheing</a>
           <ul>
             <li><a href="#rooster-form-">Rooster form:-</a></li>
             <li><a href="#set-builder-form-">Set Builder form:-</a></li>
@@ -638,7 +687,7 @@ The Union of Set A = {1,3, 5, 6} and Set B = {1, 2, 4, 6} is</p>
             <li><a href="#brute-force">Brute Force</a></li>
           </ul>
         </li>
-        <li><a href="#divide-and-conquer">Divide and Conquer</a></li>
+        <li><a href="#divide-and-conquer-1">Divide and Conquer</a></li>
         <li><a href="#data-structures">Data structures</a></li>
         <li><a href="#practice">Practice</a></li>
         <li><a href="#locality">Locality</a>
