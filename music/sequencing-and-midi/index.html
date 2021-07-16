@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
-<script defer src="/en.search.min.174454be022dc62f1a1b9e65f740f0d5557bd3a3cf3eae120d525e5487726b96.js" integrity="sha256-F0RUvgItxi8aG55l90Dw1VV706PPPq4SDVJeVIdya5Y="></script>
+<script defer src="/en.search.min.a80685c0a9aaeead7e452bac497080a1712cdb3df32a0ef153020873dd37bb02.js" integrity="sha256-qAaFwKmq7q1&#43;RSusSXCAoXEs2z3zKg7xUwIIc903uwI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -444,6 +444,7 @@ https://github.com/alex-shpak/hugo-book
       <ul>
         <li><a href="#sequencing">Sequencing</a>
           <ul>
+            <li><a href="#step-sequencing">Step Sequencing</a></li>
             <li><a href="#piano-rolls">Piano Rolls</a></li>
             <li><a href="#timeline">Timeline</a></li>
           </ul>
@@ -474,11 +475,116 @@ https://github.com/alex-shpak/hugo-book
   Sequencing
   <a class="anchor" href="#sequencing">#</a>
 </h2>
-<p>The definition of a sequence is pretty obvious, but don&rsquo;t be misled by the name- a &ldquo;sequence&rdquo; is not always just a list of notes to be played one after the other. Sometimes there&rsquo;s overlap, gaps (rests), bends from one note to another (legato) and almost always information about how hard a note is pressed and how long it should be held for are saved. Probably the most common way of entering a sequence is using a <strong>piano roll</strong></p>
+<p>The definition of a sequence is pretty obvious, but don&rsquo;t be misled by the name- a &ldquo;sequence&rdquo; is not always just a list of notes to be played one after the other. Sometimes there&rsquo;s overlap, gaps (rests), bends from one note to another (legato) and almost always information about how hard a note is pressed and how long it should be held for are saved.</p>
+<h3 id="step-sequencing">
+  Step Sequencing
+  <a class="anchor" href="#step-sequencing">#</a>
+</h3>
+<p>The easiest to understand sequencing method is step sequencing. You&rsquo;ll generally see two types of step sequencing: Pitch &amp; Trigger. Let&rsquo;s look at trigger, which is usually used on drums, first:</p>
+<h4 id="drum-sequencing">
+  Drum Sequencing
+  <a class="anchor" href="#drum-sequencing">#</a>
+</h4>
+<p><img src="/stepseq.png" alt="step sequencer in VCV Rack" /></p>
+<p><audio controls loop src="/sequencerexample-003.wav"></audio></p>
+<p class="attribution ">
+    This should automatically loop, but there may be a slight delay when it does.</br> The darker green dots just indicate the sequencer&rsquo;s position when I took the screenshot
+</p>
+<p>Here, I&rsquo;ve set up a simple step sequence in VCV rack, the gist is that on each clock pulse (beat) the sequence moves right by one step, until it loops back around. If the light is lit, that row will output a trigger.</p>
+<p>So, on that top row, we have</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Which, effectively just means the bass drum will play every every 4th beat. This gives the kick drum a super basic, repetitive pattern. If I had done every other beat, it would just be twice as fast. You can see how the other drums have more complex patterns though, and you should be able to look at the screenshot above and see how that pattern matches the sound.</p>
+<p>This setup for a step sequencer is almost painfully simple, and doesn&rsquo;t leave a ton of options. Probably the biggest missing thing here is velocity, which means there&rsquo;s not a way in this patch to adjust the volume of each hit. Rather than make this all about VCV though, I recommend you take a look at the step sequencer in the Elektron Digitakt, which is almost obnoxiously powerful. My point here isn&rsquo;t to convince you to run out and buy hardware, but rather to show that simple step sequencing, when done with care, can go a long way. For this, I recommend watching <a href="https://www.youtube.com/watch?v=g5bHONbDXDI">Beats From Scratch / Elektron Digitakt Minimal Techno Jam</a> from Ihor on Youtube, which was feature on the percussion page as well. You almost certainly won&rsquo;t follow everything going on, but you should see that he can adjust certain parameters and &lsquo;lock&rsquo; them to a step, like choosing only one step in a sequence to be a higher pitch.</p>
+<p>Before moving on though, I do want to help you actually make these simple step/gate sequences. For as simple as it sounds to make basic drum sequences, it&rsquo;s <em>really</em> not. You&rsquo;ll often end up making just really basic 4-on-the-floor techno (with exactly the bass drum as in the demo sequence above) or just something that sounds like ass. The normal recommendation for this is <a href="https://www.amazon.com/Drum-Machine-Patterns-Leonard-Corp/dp/0881888877">this 260 Drum Machine Patterns</a> book (that you can probably find PDFs of online) but <a href="https://www.attackmagazine.com/technique/beat-dissected/">Beat Dissected from Attack Magazine</a> and this <a href="https://shittyrecording.studio">$10 physical / FREE .PDF Drum patterns book</a> I think are better.</p>
+<h4 id="note-and-value-sequencing">
+  Note and Value Sequencing
+  <a class="anchor" href="#note-and-value-sequencing">#</a>
+</h4>
+<p><img src="/analogstepseq.png" alt="" /></p>
+<p><audio controls loop src="/analogseq-005.wav"></audio></p>
+<p>Alright, so, obviously there&rsquo;s a lot more going on here. That&rsquo;s intentional, but the idea is still pretty much the same. Here, we have 4 rows of 8 knobs, and just like above each beat advanced the sequence a step forward. The difference here is that at each step we&rsquo;re sending something more than just a trigger for something to happen- we&rsquo;re sending a value. These values need to mean something though. Here, I&rsquo;ve setup two simple synth voices, one on top one on bottom. The green <em>Pitch 1</em> Sequence controls the pitch of one voice, while the blue <em>Pitch 2</em> sequence gets the pitch of the other. Similarly, each voice has a filter and there&rsquo;s two sequence controlling the filter&rsquo;s cutoff frequencies.</p>
+<p>Some of the complexity here comes from trying to make these values fit into shapes we want. For both pitch sequences (green and blue) they need to pass through a <em>Quantizer</em> first, which just makes sure the values coming out of the sequencer are actual notes, not just random pitches that don&rsquo;t even correspond to a key on the keyboard. See in the bottom left scope how on the step between the <em>TIME</em> and <em>TRIG</em> knobs there&rsquo;s both a blue line and a pink line? The pink line here is the value <em>after</em> the quantizer, and you can see there is a difference, so it is doing something.</p>
+<p>Looking at the second scope, you can see in pink the original signal coming from the Filter 2 sequence, and in blue the signal after passing through a <em>Slew limiter</em> which is making it have smoother transitions, instead of the sharp transitions (vertical edges) of the original sequence. This is just making the filter transition a little smoother.</p>
+<h4 id="getting-some-variety">
+  Getting Some Variety
+  <a class="anchor" href="#getting-some-variety">#</a>
+</h4>
+<p>One thing you should notice pretty quick once you start playing with sequencers on you own is that they get incredibly boring. The repetition repetition repetition will drive you mad. Fortunately, there&rsquo;s a ton of neat sequencers out there, and even most of the basic ones can be used in interesting ways to keep them moving. Even looking at the sequencer in the above patch, with only 8 steps, you can change the direction to make it run backwards or hook up other events to make it jump to particular step.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    One of the more common methods to add variety is to just to sequence your sequences (usually this is called scenes) which while <em>can</em> be done by putting multiple sequences (or a multi-lane sequencer like the Bogaudio PGMR sequencer that was used above ) through and sequencing that switch, is a bit tedious to setup.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/metaseq.png" alt="">
+  </div>
+  
+</div>
+
+<p>Instead, you&rsquo;ll probably want to run something which does it more natively. Most DAWs support this idea pretty easily, but if you&rsquo;re looking for something in VCV and willing to pay, the <a href="https://library.vcvrack.com/ZZC-Phaseque/Phaseque">ZZC Phaseque</a> is pretty nice. Another way to do it is using the <a href="https://library.vcvrack.com/Stoermelder-P1/EightFaceMk2">Stoermelder 8FACE mk2</a> and any sequencer (like the PGMR used so far) but that setup is still a tad awkward. (or the <a href="https://library.vcvrack.com/Stoermelder-P1/Transit">Stoermelder Transit</a> if you want to morph between sequencer states, but that&rsquo;s sorta weird?)</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Step sequencers can also get pretty crazy with a lot of built in features, so if you&rsquo;re in need of some inspiration there&rsquo;s plenty of options. Some will feature randomization and probability, others will feature per-step ratcheting/repeats, some will let you select steps on a grid with up, down, left, and right instead of just forwards and backwards. Step sequencing doesn&rsquo;t have to be boring!</p>
+<p class="attribution ">
+    Pictured, L→R, T→B: <a href="https://library.vcvrack.com/Geodesics/Entropia">Geodesics Entropia</a>, <a href="https://library.vcvrack.com/Bidoo/dTrOY">Bidoo dTrOY</a>, <a href="https://library.vcvrack.com/Mog/Network">Mog Network</a>, <a href="https://library.vcvrack.com/ImpromptuModular/Phrase-Seq-16">Impromptu Phrase Seq 16</a>, <a href="https://library.vcvrack.com/AriaSalvatrice/Darius">Aria Salvatrice Darius</a>, <a href="https://library.vcvrack.com/JW-Modules/GridSeq">JW GridSeq</a>, <a href="https://library.vcvrack.com/ZZC-Phaseque/Phaseque">ZZC Phaseque</a> (non-free), <a href="https://library.vcvrack.com/SlimeChild-Substation/SlimeChild-Substation-PolySeq">Slime Child Audio Polyrhythm Sequencer</a> (non-free) all running in <a href="https://vcvrack.com">VCV Rack</a>
+</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/crazystepseq.jpg" alt="">
+  </div>
+  
+</div>
+
 <h3 id="piano-rolls">
   Piano Rolls
   <a class="anchor" href="#piano-rolls">#</a>
 </h3>
+<p>Probably the most common way of entering a sequence is using a <strong>piano roll</strong></p>
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -572,6 +678,7 @@ https://github.com/alex-shpak/hugo-book
       <ul>
         <li><a href="#sequencing">Sequencing</a>
           <ul>
+            <li><a href="#step-sequencing">Step Sequencing</a></li>
             <li><a href="#piano-rolls">Piano Rolls</a></li>
             <li><a href="#timeline">Timeline</a></li>
           </ul>
