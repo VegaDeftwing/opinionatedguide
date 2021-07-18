@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad0308efab5925e236a70e884444b6e278626996da9d1b2411966f1a0e3cccf0.css" integrity="sha256-rQMI76tZJeI2pw6IRES24nhiaZbanRskEZZvGg48zPA=">
-<script defer src="/en.search.min.c2902ecafca4c0c41a6eab16506efb320a28c77062bc08cd200feec566f28965.js" integrity="sha256-wpAuyvykwMQabqsWUG77Mgoox3BivAjNIA/uxWbyiWU="></script>
+<script defer src="/en.search.min.1b8ff8947bdf21ea46cfd61c88aced9c5e49968d771f9cf13482fbc16a7f6d84.js" integrity="sha256-G4/4lHvfIepGz9YciKztnF5Jlo13H5zxNIL7wWp/bYQ="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -452,11 +452,19 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#using-polyphony-for-modulation">Using Polyphony For Modulation</a></li>
           </ul>
         </li>
+        <li><a href="#when-i-send-clock-to-module-name-it-doesnt-work-right">When I send clock to [Module Name] it doesn&rsquo;t work right!</a>
+          <ul>
+            <li><a href="#more-on-clocking">More on Clocking:</a></li>
+          </ul>
+        </li>
+        <li><a href="#cv-midi-doesnt-work">CV-MIDI doesn&rsquo;t work</a></li>
         <li><a href="#how-do-i-add-those-labels-onto-modules">How do I add those labels onto modules?</a></li>
         <li><a href="#how-do-i-change-my-wire-colors">How do I change my wire colors?</a></li>
         <li><a href="#how-do-i-add-cv-control-of-a-knob-that-doesnt-have-a-cv-input">How do I add CV control of a knob that doesn&rsquo;t have a CV input?</a></li>
         <li><a href="#how-do-i-get-that-fancy-dimmed-with-bright-lights-effect-ive-seen-in-youtube-videos">How do I get that fancy dimmed with bright lights effect I&rsquo;ve seen in YouTube videos?</a></li>
         <li><a href="#vcv-runs-like-shit">VCV runs like shit</a></li>
+        <li><a href="#how-do-i-interface-vcv-with-other-software">How do I interface VCV with other software?</a></li>
+        <li><a href="#how-do-i-interface-vcv-with-eurorack-hardware">How do I interface VCV with Eurorack hardware?</a></li>
       </ul>
     </li>
   </ul>
@@ -517,6 +525,38 @@ https://github.com/alex-shpak/hugo-book
 <p>I like to use random modulation a lot, and <a href="https://library.vcvrack.com/VultModulesFree/Caudal">Vult&rsquo;s Caudal</a> module is awesome for this, but it doesn&rsquo;t have global attenuation and offsets, if you want to add that in you can set up a patch like this, using a Merge, Split, and the <a href="https://library.vcvrack.com/wiqid-anomalies/2at">Wiqid 2at</a>:</p>
 <p><img src="/abusedpoly.png" alt="" /></p>
 <p>By doing this, you can either make a nice, random signal poly cable, great for keeping all the notes coming from a polyphonic source from being identical or you can run it through split, effectively just adding a global attenuator and offset to Caudal for quick control over your patch.</p>
+<h2 id="when-i-send-clock-to-module-name-it-doesnt-work-right">
+  When I send clock to [Module Name] it doesn&rsquo;t work right!
+  <a class="anchor" href="#when-i-send-clock-to-module-name-it-doesnt-work-right">#</a>
+</h2>
+<p>Different modules have different clocking standards. <a href="https://library.vcvrack.com/Valley/Topograph">Topograph</a>, for example, needs an input clock that&rsquo;s multiplied by 24 by default. You might see this written as 24ppqn which is <strong>p</strong>eaks <strong>p</strong>er <strong>q</strong>uarter <strong>n</strong>ote. Strangely, <a href="https://library.vcvrack.com/Valley/uGraph">μGraph</a>, the smaller version of Topograph, defaults to only 4ppqn. The advantage to the higher clock multiplier is if you change your tempo these modules can adapt to the new tempo more quickly, as they need to &lsquo;hear&rsquo; at least two clicks before they can lock on.</p>
+<p>If you&rsquo;re trying to send clock to external gear via CV-MIDI, you&rsquo;ll probably need to give it 24ppqn too. Also, racks MIDI clock out is&hellip; not great. It&rsquo;s pretty unstable and can make some gear unhappy.</p>
+<h3 id="more-on-clocking">
+  More on Clocking:
+  <a class="anchor" href="#more-on-clocking">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    While you&rsquo;ll often see <a href="https://library.vcvrack.com/ImpromptuModular/Clocked">Impromptu&rsquo;s Clocked</a> used as the main clock source on YouTube, I actually recommend using ZZC&rsquo;s <a href="https://library.vcvrack.com/ZZC/Clock">Clock</a> and <a href="https://library.vcvrack.com/ZZC/DivExp">Div expander</a>, especially since you can use the phase outputs they provide with <a href="https://library.vcvrack.com/ZZC/FN-3">FN-3</a> to get clock sync&rsquo;d lfo&rsquo;s very easily. Even cooler, if you use a sequencer on the Div expander and FN-3, you can get amazing clock sync&rsquo;d modulation sequences.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/clocksyncdmod.png" alt="">
+  </div>
+  
+</div>
+
+<p>I also recommend keeping your clocking interesting. It you just have your sequencer be driven by a constant clock it might not be as interesting as you like. You can always use a gate sequencer as a &lsquo;clock&rsquo; source for your sequencer and have gates be triggered more rhythmically.</p>
+<p>If you want some random clocking, try using <a href="https://library.vcvrack.com/Geodesics/Fate">Geodesics&rsquo; Fate</a> (which is also amazing at adding randomness to note sequences), <a href="https://library.vcvrack.com/AudibleInstruments/Branches">Audible Instruments' Bernoulli Gate (Branches)</a> or <a href="https://library.vcvrack.com/AudibleInstruments/Marbles">Random Sampler (Marbles)</a>, <a href="https://library.vcvrack.com/Grayscale/Permutation6">Grayscale&rsquo;s Permutation</a>,  or <a href="https://library.vcvrack.com/SLM/mux-freak">SLM&rsquo;s Mux Freak</a>. Each has it&rsquo;s own method of adding madness to clocking.</p>
+<p class="attribution ">
+    or, if you&rsquo;re feeling really spicy, there&rsquo;s <a href="https://library.vcvrack.com/AriaSalvatrice/Darius">Arias Salvatrice&rsquo;s Darius</a>, which is basically a lot of Bernoulli Gates chained together
+</p>
+<h2 id="cv-midi-doesnt-work">
+  CV-MIDI doesn&rsquo;t work
+  <a class="anchor" href="#cv-midi-doesnt-work">#</a>
+</h2>
+<p>If you want to constantly update the note value you&rsquo;re sending out of a sequence, you&rsquo;ll need to tie the gate input high. Otherwise, the note will only change on each gate activation/trigger. Also, if your triggers are too short, some midi interfaces will miss the message too.</p>
 <h2 id="how-do-i-add-those-labels-onto-modules">
   How do I add those labels onto modules?
   <a class="anchor" href="#how-do-i-add-those-labels-onto-modules">#</a>
@@ -544,6 +584,26 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>VCV needs a computer with a good CPU and not totally shit graphics processing. It probably won&rsquo;t run super well on your laptop, especially with some of the more CPU-heavy modules, like Plateau. You might be able to get it to run better by going to Engine → Threads in the top menu, and selecting whatever says &ldquo;most modules&rdquo; by it. Though, in my experience, going one or two down from that can help on very powerful systems. If you&rsquo;ve got 16 threads, 6 or 7 seems to be the sweet spot, for example.</p>
 <p>Also make sure you have Engine→Sample Rate set to something sane. I run at 44100 because I like to use CPU heavy modules and make big patches, but if you want a bit better sound VCV does actually benefit quite a bit from oversampling, just be aware setting this higher will absolutely tank performance.</p>
+<p>If you&rsquo;re running Linux and extraordinary unlucky, you might be dealing with a bug that&rsquo;s causing Rack to try to render at like 3000 FPS, which tanks performance and can crash your entire graphics stack to lock up. <a href="https://gitlab.com/torkel104/libstrangle">LibStrangle</a> fixes the problem.</p>
+<h2 id="how-do-i-interface-vcv-with-other-software">
+  How do I interface VCV with other software?
+  <a class="anchor" href="#how-do-i-interface-vcv-with-other-software">#</a>
+</h2>
+<p>The most common way you&rsquo;ll see is uning VCV Bridge. Unfortunately, Bridge is sorta a pain to get, eats CPU, and just doesn&rsquo;t run well.</p>
+<p>So, your options are:</p>
+<ul>
+<li>Use VCV Bridge, hope it doesn&rsquo;t crash or eat too much CPU</li>
+<li>Wait until VCV rack 2.0 drops, and with it the $100 version that works as a VST Plugin</li>
+<li>You can use <a href="https://give.academy/downloads/2018/03/03/ODeusASIOLinkPro/">ASIO Link Pro</a> on Windows, or Jack on Linux (which you should be anyway). <a href="https://www.youtube.com/watch?v=e5au-hkvnFA">This video from <em>VCV Rack Ideas</em></a> explains how to setup ASIO Link Pro.</li>
+<li>Use <a href="https://github.com/bsp2/VeeSeeVSTRack">VeeSeeVST Rack</a>, which is based on a pretty old version of Rack and has limited plugin selection</li>
+<li>Use something other than VCV entirely, like <a href="https://cherryaudio.com/voltage-modular">Voltage Modular</a>, <a href="https://www.softube.com/modular">Softube Modular</a>, or maybe <a href="https://www.reasonstudios.com/en/reason/rack-plugin">Reason Rack</a>,</li>
+</ul>
+<p>If you want to load VSTs inside of Rack, you&rsquo;ll have to get <a href="https://library.vcvrack.com/VCV-Host/Host">VCV Host</a>, which is not free. It&rsquo;s also not perfect about plugin support, but it&rsquo;s still by far the biggest bang for your buck you can add to rack, albeit the UI is a bit clunky at times.</p>
+<h2 id="how-do-i-interface-vcv-with-eurorack-hardware">
+  How do I interface VCV with Eurorack hardware?
+  <a class="anchor" href="#how-do-i-interface-vcv-with-eurorack-hardware">#</a>
+</h2>
+<p>Pretty much the only way to do it directly is with either the Expert Sleepers ES-8 or ES-9 or with an audio interface that supports ADAT and the ES-3 and ES-6. Just like all things eurorack, these are expensive.</p>
 </article>
  
       
@@ -603,11 +663,19 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#using-polyphony-for-modulation">Using Polyphony For Modulation</a></li>
           </ul>
         </li>
+        <li><a href="#when-i-send-clock-to-module-name-it-doesnt-work-right">When I send clock to [Module Name] it doesn&rsquo;t work right!</a>
+          <ul>
+            <li><a href="#more-on-clocking">More on Clocking:</a></li>
+          </ul>
+        </li>
+        <li><a href="#cv-midi-doesnt-work">CV-MIDI doesn&rsquo;t work</a></li>
         <li><a href="#how-do-i-add-those-labels-onto-modules">How do I add those labels onto modules?</a></li>
         <li><a href="#how-do-i-change-my-wire-colors">How do I change my wire colors?</a></li>
         <li><a href="#how-do-i-add-cv-control-of-a-knob-that-doesnt-have-a-cv-input">How do I add CV control of a knob that doesn&rsquo;t have a CV input?</a></li>
         <li><a href="#how-do-i-get-that-fancy-dimmed-with-bright-lights-effect-ive-seen-in-youtube-videos">How do I get that fancy dimmed with bright lights effect I&rsquo;ve seen in YouTube videos?</a></li>
         <li><a href="#vcv-runs-like-shit">VCV runs like shit</a></li>
+        <li><a href="#how-do-i-interface-vcv-with-other-software">How do I interface VCV with other software?</a></li>
+        <li><a href="#how-do-i-interface-vcv-with-eurorack-hardware">How do I interface VCV with Eurorack hardware?</a></li>
       </ul>
     </li>
   </ul>
