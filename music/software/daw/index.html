@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Digital Audio Workstations&#43; #   document.getElementById(&#34;softMenu&#34;).open = true; A Digital Audio Workstations is software that allows you to record and edit audio, host and play digital instruments, arrange the parts in a time line, and mix the audio together. The most common DAWs you&rsquo;ll see are Ableton Live (Often called just &ldquo;Ableton&rdquo; or &ldquo;Live&rdquo;) and FL Studio, but there are plenty of other options as well, many of which are listed below.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #c448c7;}
+  a:active{color: #c448c7;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Digital Audio Workstations&#43; #   document.getElementById(&#34;softMenu&#34;).open = true; A Digital Audio Workstations is software that allows you to record and edit audio, host and play digital instruments, arrange the parts in a time line, and mix the audio together. The most common DAWs you&rsquo;ll see are Ableton Live (Often called just &ldquo;Ableton&rdquo; or &ldquo;Live&rdquo;) and FL Studio, but there are plenty of other options as well, many of which are listed below." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/music/software/daw/" /><meta property="article:section" content="Music" />
+
+
+
+<title>Daw | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.0b609ecb59056155031b471e4613de34bc0c51278c0de2848e6c7d4b2faa1281.css" integrity="sha256-C2Cey1kFYVUDG0ceRhPeNLwMUSeMDeKEjmx9Sy&#43;qEoE=">
+<script defer src="/en.search.min.406897edd8638d68570be338de954d82dc26924b34f419f0ed5359c898576b08.js" integrity="sha256-QGiX7dhjjWhXC&#43;M43pVNgtwmkks09Bnw7VNZyJhXawg="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/sigandsys"> Signals & Systems</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.10</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>30 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>31½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>33½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<!--  - [24 - ](/engineering/24-/) -->
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>5 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital-design/">Digital Art</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Intereact With Computers Sucks</a></dd>
+</dil>
+</div>
+<p><br /></p>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/" >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Daw</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#digital-audio-workstations">Digital Audio Workstations+</a>
+      <ul>
+        <li><a href="#session-view-based">Session View Based:</a></li>
+        <li><a href="#arrangement-view-based">Arrangement View Based:</a></li>
+        <li><a href="#modular-based">Modular Based:</a></li>
+        <li><a href="#trackers">Trackers:</a></li>
+        <li><a href="#almost-daws">Almost DAWs</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="digital-audio-workstations">
+  Digital Audio Workstations+
+  <a class="anchor" href="#digital-audio-workstations">#</a>
+</h1>
+<script>    document.getElementById("softMenu").open = true;</script>
+<p>A <strong>D</strong>igital <strong>A</strong>udio <strong>W</strong>orkstations is software that allows you to record and edit audio, host and play digital instruments, arrange the parts in a time line, and mix the audio together. The most common DAWs you&rsquo;ll see are Ableton Live (Often called just &ldquo;Ableton&rdquo; or &ldquo;Live&rdquo;) and FL Studio, but there are plenty of other options as well, many of which are listed below.</p>
+<p>The definition of a DAW is a bit fuzzy, as tools like VCV Rack and Audacity- both of which we&rsquo;ve seen previously- have features that make them very DAW like and can be used to make full tracks (assuming you have hardware instruments to record into Audacity)</p>
+<p>Before you look at this list I want to stress that every DAW has its issues.</p>
+<p>[TODO] why are none of these good</p>
+<p>Digital Audio Workstations or &lsquo;DAWs&rsquo; come in many flavors, so let&rsquo;s look at the differences between the above in depth [TODO]</p>
+<p>Trackers, vs non liner, vs modular, etc.</p>
+<p><strong>NOTE: this list is far from exhaustive. Instead, I&rsquo;ve tried to list the main ones and some that I think are particularly cool.</strong></p>
+<h2 id="session-view-based">
+  Session View Based:
+  <a class="anchor" href="#session-view-based">#</a>
+</h2>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Session View Daws" id="tabs-Session View Daws-0" checked="checked" />
+  <label for="tabs-Session View Daws-0">Ableton Live</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="ableton-live">Ableton Live</h3>
+<p><strong>Ableton Live</strong> isn&rsquo;t very stable (lacks plugin sandboxing), has a mediocre piano roll, makes modulation a bit of a pain. Its main feature is its popularity, as there is a ton of educational content, great hardware support, and a fair amount of Ableton specific plugins. As the name implies, it also works pretty well for live recording, and has the best audio stretching and quantization, meaning even if you play slightly out of time it&rsquo;s easy to fix.</p>
+<p>lil' aside: Ableton makes organizing VSTs a tad awkward, so you should know it will follow shortcuts in the folder you set as your VST plugin directory.</p>
+<div class="book-columns flex flex-wrap">
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#77FF77;margin-bottom:0px;" >GOOD</p>
+<hr>
+<ul>
+<li>Popular</li>
+<li>Great hardware support</li>
+<li>Access to Ableton only plugins - Including Max4Live</li>
+<li>Great audio quantization</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#FF4444;margin-bottom:0px;" >BAD</p>
+<hr>
+<ul>
+<li>Expensive, paid updates</li>
+<li>Piano Roll sorta sucks</li>
+<li>Unstable (No plugin sandboxing)</li>
+<li>M4L devices needed to do many basic things</li>
+<li>Modulation is often awkward</li>
+<li>A lot of the UI is small</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+</div>
+<p><a href="https://www.youtube.com/watch?v=W8CMgThLpHc">How To Ableton Like a Pro (YouTube)</a></p>
+</div><input type="radio" class="toggle" name="tabs-Session View Daws" id="tabs-Session View Daws-1"  />
+  <label for="tabs-Session View Daws-1">Bitwig</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="bitwig">Bitwig</h3>
+<p><strong>Bitwig</strong> is basically Ableton Live but with some added features, and it&rsquo;s more stable. Bitwig also has &lsquo;The Grid&rsquo;- basically a little built in modular synth system. It&rsquo;s not like VCV, as it&rsquo;s a bit lower level but it can still be used for <a href="https://www.youtube.com/watch?v=mu5A7QQbuho&amp;feature=youtu.be&amp;ab_channel=Sparvn%C3%A4tter">Generative Music</a> or <a href="https://www.youtube.com/watch?v=bwi8rVXp-Q0&amp;ab_channel=PolarityMusic">doing complex routing, like fading between effects</a>. It also has really easy to use modulation, basically letting you drop an LFO, envelope, etc. onto any parameter of a VST or built in device.</p>
+<div class="book-columns flex flex-wrap">
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#77FF77;margin-bottom:0px;" >GOOD</p>
+<hr>
+<ul>
+<li>More or less the same as Ableton for the basics</li>
+<li>TONS of modulation options
+<ul>
+<li>lil' modular synth built in</li>
+</ul>
+</li>
+<li>Still good - albeit not Ableton good- hardware support</li>
+<li>Great audio quantization</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#FF4444;margin-bottom:0px;" >BAD</p>
+<hr>
+<ul>
+<li>Expensive, paid updates</li>
+<li>Piano Roll sorta sucks- doesn&rsquo;t even have scale highlighting
+<ul>
+<li>MPE works beautifully though</li>
+</ul>
+</li>
+<li>Not as many built in devices as Ableton</li>
+<li>Better multi monitor support than Ableton</li>
+<li>Not as popular as Ableton
+<ul>
+<li>Less support</li>
+<li>Can&rsquo;t use Ableton specific devices</li>
+</ul>
+</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+</div>
+</div></div>
+
+<h2 id="arrangement-view-based">
+  Arrangement View Based:
+  <a class="anchor" href="#arrangement-view-based">#</a>
+</h2>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Arrangement View Based" id="tabs-Arrangement View Based-0" checked="checked" />
+  <label for="tabs-Arrangement View Based-0">FL Studio</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="fl-studio">FL Studio</h3>
+<p><strong>Fruity Loops Studio</strong> is a great DAW. If you&rsquo;re more into hand arranging than recording your MIDI controller for writing songs: FL Studio is <em>perfect.</em> The piano roll is so damn good that it will make you hate the piano roll in everything else. Unfortunately, hardware controller support isn&rsquo;t as good as Ableton, the UI is a bit cluttered, and audio quantization just isn&rsquo;t there&hellip; well? sorta. There is a paid plugin for pitch correction that kicks the ass out of everything else because it&rsquo;s built into the already awesome piano roll.</p>
+<p>If we&rsquo;re being honest, FL is where most EDM producers get their start with a pirated copy. I&rsquo;m not condoning the piracy, but I&rsquo;m certainly not about to judge if you want to try before you buy. It&rsquo;s a damn nice DAW, and if I didn&rsquo;t have hardware that works particularly well with Ableton I&rsquo;d probably use it.</p>
+<div class="book-columns flex flex-wrap">
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#77FF77;margin-bottom:0px;" >GOOD</p>
+<hr>
+<ul>
+<li>One time purchase, lifetime free updates</li>
+<li>FUCKING AMAZING PIANO ROLL</li>
+<li>On more expensive versions espically, the built in devices are awesome</li>
+<li>Has a good mobile app, for working on the go</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#FF4444;margin-bottom:0px;" >BAD</p>
+<hr>
+<ul>
+<li>UI can get sorta messy</li>
+<li>Complex routing is a bit annoying</li>
+<li>A tad CPU heavy</li>
+<li>Audio recording is awkward as fuck</li>
+<li>Doesn&rsquo;t play well with a lot of hardware
+<ul>
+<li>MIDI controller support is meh</li>
+<li>lacks the CV/Gate abilities of Bitwig and Ableton</li>
+</ul>
+</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+</div>
+</div><input type="radio" class="toggle" name="tabs-Arrangement View Based" id="tabs-Arrangement View Based-1"  />
+  <label for="tabs-Arrangement View Based-1">Reaper</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="reaper">Reaper</h3>
+<p><strong>Reaper</strong> is incredibly feature full and probably <em>technically</em> the best DAW but it&rsquo;s user interface is pretty bad and requires a lot of menu diving, to the point where in my opinion it&rsquo;s totally unusable. It does offer the ability to view what you&rsquo;ve put into your piano roll as actual sheet music and It&rsquo;s hugely customizable, with multiple user-facing programming options- ReaScript and JSFX. If you&rsquo;re already a highly technical user and don&rsquo;t mind getting your hands dirty with code, need a sheet music view, or want something with incredibly low CPU overhead, Reaper is probably your best choice.</p>
+<div class="book-columns flex flex-wrap">
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#77FF77;margin-bottom:0px;" >GOOD</p>
+<hr>
+<ul>
+<li>Cheap ($60 at time of writing)
+<ul>
+<li>Free trial that doesn&rsquo;t end&hellip; but like, don&rsquo;t be that guy.</li>
+</ul>
+</li>
+<li>Highly customizable
+<ul>
+<li>you can script literally everything.</li>
+</ul>
+</li>
+<li>Stable as hell</li>
+<li>Low CPU usage</li>
+<li>Supposedly sounds better?</li>
+<li>Actual Notation editing</li>
+<li>MIDI (w/ MPE) and OSC support</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#FF4444;margin-bottom:0px;" >BAD</p>
+<hr>
+<ul>
+<li>Sub menus with sub menus</li>
+<li>Option overload</li>
+<li>Almost total lack of built in instruments and effects</li>
+<li>Kinda shit piano roll</li>
+<li>lack of bulit in support for common MIDI controllers</li>
+<li>Kinda Ugly, even with themes</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+</div>
+</div><input type="radio" class="toggle" name="tabs-Arrangement View Based" id="tabs-Arrangement View Based-2"  />
+  <label for="tabs-Arrangement View Based-2">Garage Band</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="garage-band">Garage Band</h3>
+<p><strong>Garage Band</strong> [TODO]</div><input type="radio" class="toggle" name="tabs-Arrangement View Based" id="tabs-Arrangement View Based-3"  />
+  <label for="tabs-Arrangement View Based-3">ProTools</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="protools">ProTools</h3>
+<p><strong>ProTools</strong> [TODO]</div><input type="radio" class="toggle" name="tabs-Arrangement View Based" id="tabs-Arrangement View Based-4"  />
+  <label for="tabs-Arrangement View Based-4">Luna</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="luna">LUNA</h3>
+<p><strong>LUNA</strong> [TODO]</div></div>
+
+<h2 id="modular-based">
+  Modular Based:
+  <a class="anchor" href="#modular-based">#</a>
+</h2>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Modular Based" id="tabs-Modular Based-0" checked="checked" />
+  <label for="tabs-Modular Based-0">VCV</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="vcv">VCV</h3>
+<p><strong>VCV</strong> isn&rsquo;t really DAW, so lacks good ways to do automation and complex sequencing, at least without work arounds. For generative music, it&rsquo;s still probably your best bet. That said, you can absolutely make awesome tracks in it, though they really need to be performed and recorded live. This means you may need to do multiple takes if you accidently mess something up while playing.</p>
+<p>For good performances, you&rsquo;ll probably want a MIDI controller with a lot of knobs, which can be epensive or large. Ideally this could be done via banks of knobs that can be changed in hardware (like the Behringer BCR2000 and X-Touch Mini or Faderfox EC4) but this has also been reported to not work totally smoothly.</p>
+<p>VCV may also lead you down the path of Eurorack or a hybrid Eurorack and VCV setup, and that is stupid epensive.</p>
+<div class="book-columns flex flex-wrap">
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#77FF77;margin-bottom:0px;" >GOOD</p>
+<hr>
+<ul>
+<li>Free and open source-ish</li>
+<li>A crazy amount of free modules</li>
+<li>Cross platform (Windows, Linux, Mac)</li>
+<li>Can do things a real hardware rack can&rsquo;t</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#FF4444;margin-bottom:0px;" >BAD</p>
+<hr>
+<ul>
+<li>Paid modules needed to host VSTs</li>
+<li>Less ideal for structured songs
+<ul>
+<li>unless using an external sequencer</li>
+</ul>
+</li>
+<li>Eats CPU, a lot of cool modules un-optimized</li>
+<li>It&rsquo;s not really a DAW?</li>
+<li>Still no support to host VCV as a VST in a &lsquo;real&rsquo; DAW
+<ul>
+<li>workarounds exist, but they&rsquo;re often awkward</li>
+</ul>
+</li>
+<li>Not 100% stable</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+</div>
+</div><input type="radio" class="toggle" name="tabs-Modular Based" id="tabs-Modular Based-1"  />
+  <label for="tabs-Modular Based-1">Reason</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="reason">Reason</h3>
+<p><strong>Reason</strong> [TODO]</div><input type="radio" class="toggle" name="tabs-Modular Based" id="tabs-Modular Based-2"  />
+  <label for="tabs-Modular Based-2">Voltage Modular</label>
+  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Modular Based" id="tabs-Modular Based-3"  />
+  <label for="tabs-Modular Based-3">Reaktor</label>
+  <div class="book-tabs-content markdown-inner"></div></div>
+
+<h2 id="trackers">
+  Trackers:
+  <a class="anchor" href="#trackers">#</a>
+</h2>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Trackers" id="tabs-Trackers-0" checked="checked" />
+  <label for="tabs-Trackers-0">Renoise</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="renoise">Renoise</h3>
+<p><strong>Renoise</strong> is a neat combination of a modern DAW and old school trackers. This means there is no classic piano roll, but instead the notes are entered as text into a vertical display. Usually raw samples of audio are used as instruments, and this lets you do neat things like specify a sound to be played backwards, be rapidly rolled, panned per note, etc. Generally, trackers are associated with a few specific genres- most notably Chiptune and Jungle</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/OIxFjXE_D0o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div><input type="radio" class="toggle" name="tabs-Trackers" id="tabs-Trackers-1"  />
+  <label for="tabs-Trackers-1">OpenMPT</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="openmpt">OpenMPT</h3>
+</div><input type="radio" class="toggle" name="tabs-Trackers" id="tabs-Trackers-2"  />
+  <label for="tabs-Trackers-2">Deflemask</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="deflemask">Deflemask</h3>
+<p><strong>Deflemask</strong> [TODO]</div><input type="radio" class="toggle" name="tabs-Trackers" id="tabs-Trackers-3"  />
+  <label for="tabs-Trackers-3">Sunvox</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="sunvox">Sunvox</h3>
+<p><strong>Sunvox</strong> [TODO]</p>
+<p>available for free on desktop, paid on moblie</p>
+</div></div>
+
+<h2 id="almost-daws">
+  Almost DAWs
+  <a class="anchor" href="#almost-daws">#</a>
+</h2>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Almost-Daws" id="tabs-Almost-Daws-0" checked="checked" />
+  <label for="tabs-Almost-Daws-0">Audacity</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="audacity">Audacity</h3>
+<p><strong>Audacity</strong>, like VCV, isn&rsquo;t a DAW. It&rsquo;s really just an audio editor. It&rsquo;s free and open source, and while the UI isn&rsquo;t great, you&rsquo;ll be hard pressed to find anything better for doing quick edits or recording in a few clips. Full songs <em>could</em> be made in audacity, but it&rsquo;s not made for that.</p>
+<div class="book-columns flex flex-wrap">
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#77FF77;margin-bottom:0px;" >GOOD</p>
+<hr>
+<ul>
+<li>Free and Open Source</li>
+<li>Opens very fast</li>
+<li>Runs on a potato</li>
+<li>Great for quick edits</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  <div class="flex-even markdown-inner">
+    <p style="color:#FF4444;margin-bottom:0px;" >BAD</p>
+<hr>
+<ul>
+<li>Not really a DAW</li>
+<li>No VST support</li>
+<li>Basic as hell editing, only enveloping is audio level</li>
+<li>Kinda ugly, crappy UI</li>
+</ul>
+  </div>
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+</div>
+<div class="book-columns flex flex-wrap">
+  <div class="flex-even markdown-inner">
+    Audacity, despite being FOSS, did recently change owners and they should be putting a lot more work into it. There has been some missteps with the community since this change, but overall it should bring good things in the future →
+  </div>
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/RMWNvwLiXIQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+</div><input type="radio" class="toggle" name="tabs-Almost-Daws" id="tabs-Almost-Daws-1"  />
+  <label for="tabs-Almost-Daws-1">Oscistudio</label>
+  <div class="book-tabs-content markdown-inner"><h3 id="oscistudio">Oscistudio</h3>
+<p><strong>Oscistudio</strong> [TODO]</div></div>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Software/daw.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#digital-audio-workstations">Digital Audio Workstations+</a>
+      <ul>
+        <li><a href="#session-view-based">Session View Based:</a></li>
+        <li><a href="#arrangement-view-based">Arrangement View Based:</a></li>
+        <li><a href="#modular-based">Modular Based:</a></li>
+        <li><a href="#trackers">Trackers:</a></li>
+        <li><a href="#almost-daws">Almost DAWs</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
