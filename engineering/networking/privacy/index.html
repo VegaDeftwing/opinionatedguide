@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 40½ - Your Guide to Privacy #   &#34; Arguing that you don&rsquo;t care about the right to privacy because you have nothing to hide is no different than saying you don&rsquo;t care about free speech because you have nothing to say. &#34;  - Edward Snowden, in his Reddit AMA   Privacy online is a joke. No matter what you do, you&rsquo;re still going to be tracked so much that advertisers and the big tech companies (Facebook, Google, Microsoft, etc.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 40½ - Your Guide to Privacy #   &#34; Arguing that you don&rsquo;t care about the right to privacy because you have nothing to hide is no different than saying you don&rsquo;t care about free speech because you have nothing to say. &#34;  - Edward Snowden, in his Reddit AMA   Privacy online is a joke. No matter what you do, you&rsquo;re still going to be tracked so much that advertisers and the big tech companies (Facebook, Google, Microsoft, etc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/networking/privacy/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Privacy | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/"class=active>Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Privacy</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-40---your-guide-to-privacy">Chapter 40½ - Your Guide to Privacy</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-40---your-guide-to-privacy">
+  Chapter 40½ - Your Guide to Privacy
+  <a class="anchor" href="#chapter-40---your-guide-to-privacy">#</a>
+</h1>
+<hr>
+<div style="display: block; width: 84%; text-align: center;margin-left: auto; margin-right: auto;">
+<p class="test Edward Snowden, in his [Reddit AMA](https://www.reddit.com/r/IAmA/comments/36ru89/just_days_left_to_kill_mass_surveillance_under/crglgh2?utm_source=share&amp;utm_medium=web2x&amp;context=3)" style="font-size:1.2em;color:#ddd;"><i><b>"</b>
+    Arguing that you don&rsquo;t care about the right to privacy because you have <u>nothing to hide</u> is no different than saying you don&rsquo;t care about free speech because <u>you have nothing to say</u>.
+<b>"</b></i>
+</p>
+</div>
+<div style="display: block; width: 80%; margin-left: auto; margin-right: auto;">
+<p style="font-size:.85em;color:#aaa;"> 
+    - Edward Snowden, in his <a href="https://www.reddit.com/r/IAmA/comments/36ru89/just_days_left_to_kill_mass_surveillance_under/crglgh2?utm_source=share&amp;utm_medium=web2x&amp;context=3">Reddit AMA</a>
+</div>
+<hr>
+<p>Privacy online is a joke. No matter what you do, you&rsquo;re still going to be tracked so much that advertisers and the big tech companies (Facebook, Google, Microsoft, etc.) all know way more about you than you&rsquo;d like. <em>Technically</em>, most of these companies will provide various opt-outs. Realistically, you shouldn&rsquo;t expect these to stop anyone. You can be 110% your data is being sold. So, what can you do?</p>
+<ol start="0">
+<li>
+<p><strong>Acknowledge you can not win</strong>, but you can still fight back.</p>
+</li>
+<li>
+<p><strong>Don&rsquo;t buy <em>smart</em>-XYZ devices</strong>. No smart bulbs, toasters, fridges, ovens, thermostats, TVs, or doorbells. And, look, I get it. Each offers a pretty legitimate convenience. But between the ability for companies to change a one time payment into a <a href="https://www.consumerreports.org/smart-home/wink-tells-users-pay-up-or-we-will-disable-smart-home-hub/">subscribtion after purchase</a>, devices phoning home even if you don&rsquo;t <a href="https://www.amazon.com/Amazon-Sidewalk/b?node=21328123011">connect them to your wifi</a>, and <a href="https://arstechnica.com/tech-policy/2019/08/police-can-get-your-ring-doorbell-footage-without-a-warrant-report-says/">IOT cameras letting police in without a warrant</a> I think it&rsquo;s pretty clear they don&rsquo;t respect you as a user. Where you draw the line is a personal choice. Obviously, it&rsquo;s hard to function without having a <del>Internet connected camera, microphone, and GPS</del> smartphone in your pocket. But what about a smart watch? Do advertisers need to know your heart rate, how hard you&rsquo;ve been trying to work out, or how many steps you got in each day? What can be derived from all this data combined? Can they see if you&rsquo;re on your period or currently sick to advertise pads or drugs directly at you?</p>
+<p>For the love of fuck don&rsquo;t buy a smart speaker or anything Alexa enabled. I honestly can not believe I have to say this.</p>
+</li>
+<li>
+<p><strong>Block as much shit as you can</strong>. Ads and trackers and cookies may not <em>all</em> be malicious, but enough are that the ad industry dug its own grave: block their dumb asses. You won&rsquo;t ever get full coverage, some things will slip though BUT setting up a <a href="https://pi-hole.net">Pi-hole</a>, using uBlock-Origin (or <a href="https://adnauseam.io">adnauseam</a>), and DuckDuckGo (until you need Google, but defaulting to DDG helps) makes for a good start.</p>
+</li>
+<li>
+<p><strong>Delete, Opt-Out, or Lie</strong> - Much like reduce, reuse, recycle, this order matters. <strong>Delete</strong> anything you don&rsquo;t need, don&rsquo;t use, or don&rsquo;t trust. If you don&rsquo;t use Facebook for anything other than talking to people you don&rsquo;t like and seeing when someone you haven&rsquo;t talked to in a decade has a kid, <a href="https://www.eff.org/deeplinks/2020/12/facebooks-laughable-campaign-against-apple-really-against-users-and-small">delete it</a>. If you trust a service&rsquo;s <strong>Opt-out</strong> functionality, do so! Yeah, it&rsquo;s bullshit that you have to opt-out instead of opt-in in the first place, but for now that is what it is. Dig through settings on everything you can and turn off all that tracking, spying, bullshit. Go into your browser settings and turn on &lsquo;Do Not Track&rsquo; for the approximately 0% of site&rsquo;s that respect it. Go into your Google settings and turn off and clear location history. Do all of this about once a year, as this shit will re-enable itself. It&rsquo;s really only about an hour of diving into settings to stop like 75% of the bullshit.</p>
+<p><strong>From here, the &ldquo;This is a pain in the ass&rdquo; levels starts to surpass what most people will deal with.</strong> This is by design. But, if you <em>really</em> care about your privacy, this will make a significant improvement and might result in you getting less spam calls and physical junk mail as a side effect.</p>
+<p>Unfortunately, Opting out requires both that you know who your data is being collected in the first place and that the offending asshats even offer an opt-out in the first place.</p>
+<blockquote>
+<p>A great example of the latter being <a href="https://clearview.ai/legal">Clearview.ai</a>, which from wikipedia is &ldquo;an American facial recognition company, providing software to companies, law enforcement, universities, and individuals. The company&rsquo;s algorithm matches faces to a database of more than three billion images indexed from the Internet, including social media applications&rdquo;- Basically, they stole your face from Facebook, Twitter, and everywhere else, and sell the ability to have a computer recognize you to law enforcement. They&rsquo;re assholes, selling to a <a href="https://en.wikipedia.org/wiki/Clearview_AI#Customer_list">huge list</a> of other assholes. Want to opt out? Hah, no. Not unless you live in Illinois or California, the only states to pass legislation telling them to fuck off.</p>
+</blockquote>
+<p>So&hellip; What can you do? Well, if you&rsquo;re serious about it you can plow though this <a href="https://github.com/yaelwrites/Big-Ass-Data-Broker-Opt-Out-List">&ldquo;Big Ass Data Broker Opt-Out List&rdquo;</a>, and <a href="https://simpleoptout.com">This list</a>, and this <a href="https://optout.networkadvertising.org/?c=1">opt-out tool</a>,  <em>try</em> to Opt-Out of as much as you can. Or you could pay out the ass for a service like <a href="https://joindeleteme.com">DeleteMe</a> or <a href="https://www.privacyduck.com">PrivacyDuck</a> to do this shit for you, not that I really trust them to be all that through, and there&rsquo;s some they can&rsquo;t really remove you from in the first place. But ultimately, you really can&rsquo;t stop it and you&rsquo;ll just be opt&rsquo;d back in when these companies change hands or restructure or just feel like it. If you want to use the internet as normal- using YouTube and Twitter and Reddit - you&rsquo;ll just have to acknowledge to to some extent your stuck with it.</p>
+<p>Some of the optouts are also a massive pain in the ass, for example, to <a href="https://support.google.com/maps/answer/1725632?hl=en#zippy=,how-do-i-opt-my-access-point-out-of-google-location-services">opt out of letting Google</a> use your wifi name for determining location, you have to change your wifi&rsquo;s name to end in <code>_nomap</code>, and to make matters worse, you need to put <code>_optout</code> in the name to get out of Microsoft&rsquo;s wifi tracking garbage, but, <code>_nomap</code> needs to be at the ned, so that means your ssid has to be something like <code>MyCoolWiFiName_optout_nomap</code> which means that making the choice to opt-out means you don&rsquo;t get to choose your wifi name.🤦‍♂️</p>
+<p>That brings us to <strong>Lie</strong>. If you can&rsquo;t Delete and you can&rsquo;t opt-out then you can still lie. To lie, you must first try to delete the truth. Seach how to reset your advertising ID on as much as you can<a class="ptr">(1)</a>, log out of everything, delete all your cookies, then use tools like <a href="https://trackthis.link">&lsquo;Track This.'</a> to &lsquo;seed&rsquo; your new identity, and add something like <a href="https://chrome.google.com/webstore/detail/noiszy/immakaidhkcddagdjmedphlnamlcdcbg">Noiszy</a> (or this <a href="https://github.com/essandess/isp-data-pollution">python based web crawler</a>) on top to keep the history polluted. Unfortunately, this still isn&rsquo;t enough because as soon as you log back into Facebook, Twitter, Google, YouTube, etc. your identity will be re-associated. The best way around this is to use a separate browser strictly for social media. Firefox works particularly well, as you can <a href="https://addons.mozilla.org/en-US/firefox/addon/facebook-container/">throw Facebook into it&rsquo;s own little jail</a>.</p>
+<p>Keep in mind, you&rsquo;re probably used to a pretty tailored experience from <em>The Almighty Algorithm</em> such that most YouTube, Google News, etc. recommendations are probably things you&rsquo;ll be interested in and agree with (or <em>strongly</em> disagree with, as hate still gets you to read things). If you pollute this ID, you&rsquo;ll likely get complete shit as it&rsquo;s <a href="https://signal.org/blog/the-instagram-ads-you-will-never-see/">kinda creepy</a> how much the algorithm can figure out the things you like and who you are. If not complete random shit, <em>The Algorithm</em> might just see you as something else entirely, and this can <em>seriously</em> impact what you get exposed to- check out <a href="http://www.their.tube">TheirTube</a> for an idea of how bad it gets.</p>
+<p>One of my favorite lies you can do is change your browser&rsquo;s <a href="https://en.wikipedia.org/wiki/User_agent#User_agent_identification">user agent string</a> to hide a little bit. This doesn&rsquo;t <em>really</em> stop tracking, as identifiers like your screen resolution, javascript interpreter, active graphics card, etc. (see <a href="https://0l.wtf/blog/4_visual_browser_fingerprinting.html">Visual Browser Fingerprinting</a>) can all be used in conjunction to pretty accurately identify you. Still, changing the user agent string can help you hide, and making it the same as <a href="https://developers.google.com/search/docs/advanced/crawling/googlebot">googlebot&rsquo;s</a> will often let you bypass paywalls. You can use browser extensions to do this too, just be careful to make sure you trust the extension.</p>
+</li>
+</ol>
+<p>There are a lot of things I didn&rsquo;t mention here, such as globally disabling javascript<a class="ptr">(2)</a>, because they&rsquo;re really the nuclear option and end up being significantly inconvenient to even technical users. Being online is a trade of convenience verses privacy by nature, the problem is that many users are either unaware of the trade at all, ignorant of the depth to which they&rsquo;re being mined and exposed, or apathetic. At the same time, advertisers and conglomerates have sought to wring from us every drop of data that can be found and paid off governments to prevent the passage of any consumer protecting legislation. This has resulted in the situation we have now where the only ones that fight back are those with enough of a technical background to do so, and so the tools assume a certain level of technical prowess and ability to make your own replacement. Don&rsquo;t want a ring doorbell? &ldquo;Just use a raspberry pi and a camera module and host your own server for it!&rdquo; my fellow hackers will say, as if the average user is capable of setting up a pi, let alone the server, forwarded network connection, firewall, and security shit that is necessary for it.</p>
+<p>There&rsquo;s also an ironic point where going to overkill with privacy makes you stand out more. If you don&rsquo;t get 100% anonymization you&rsquo;re going to stand out as one hell of a weird data point. If you don&rsquo;t get banned from the service for looking weird, you&rsquo;ll sure as hell be flagged and watched. If you go from Russia to Canada to Mexico in the three page visits, your reported OS and screen resolution change on each, and you block all trackers and ads you can be sure as shit you show up as a red flag. See <a href="https://thereader.mitpress.mit.edu/the-fantasy-of-opting-out/">&ldquo;The Fantasy of Opting Out&rdquo;</a> from <em>The MIT Press Reader</em>.</p>
+<ol hidden id="footnotes">
+	<li>Or just make a new account dedicated to this false identity. Just make sure to log out of everything first (or use a different browser) otherwise the old account and new account will still be linked, defeating the purpose.</li>
+    <li>Or using TOR, a DIY VPN, DNSCrypt, E2E chats, etc. I deemed these a bit to technical for this page for now. I might make a 'for the nerds' section latter, feel free to submit a PR if you think otherwise.</li>
+</ol>
+<p>There&rsquo;s also the point of not being spied on by the government, but at least for now there&rsquo;s really jack shit you can do about that outside of what&rsquo;s listed above if you still want to even exist on the internet and not join the Amish in how you use technology.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/XEVlyP4_11M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/privacy.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-40---your-guide-to-privacy">Chapter 40½ - Your Guide to Privacy</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MIDI in Detail #  Musical Instrument Digital Interface, or MIDI is what it sounds like, the primary way to get data between devices digitally. Want to tell a hardware synth to play a sequence you arranged on your computer? MIDI. Want to play notes into your computer using a keyboard? MIDI. Want to sequence drums, with varying &lsquo;velocity&rsquo; on each hit? MIDI.
+Sounds Great?
+For the most part, yeah. Everything works together and you can make all your hardware speak the same language.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #c448c7;}
+  a:active{color: #c448c7;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="MIDI in Detail #  Musical Instrument Digital Interface, or MIDI is what it sounds like, the primary way to get data between devices digitally. Want to tell a hardware synth to play a sequence you arranged on your computer? MIDI. Want to play notes into your computer using a keyboard? MIDI. Want to sequence drums, with varying &lsquo;velocity&rsquo; on each hit? MIDI.
+Sounds Great?
+For the most part, yeah. Everything works together and you can make all your hardware speak the same language." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/music/midi/" /><meta property="article:section" content="Music" />
+
+
+
+<title>Midi | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/"class=active>MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Midi</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#midi-in-detail">MIDI in Detail</a>
+      <ul>
+        <li><a href="#types-of-midi-messages">Types of Midi Messages</a>
+          <ul>
+            <li><a href="#channels">Channels</a></li>
+            <li><a href="#notes">Notes</a></li>
+            <li><a href="#ccs">CC&rsquo;s</a></li>
+            <li><a href="#pitchbend">Pitchbend</a></li>
+            <li><a href="#clock--transport">Clock &amp; Transport</a></li>
+            <li><a href="#program-change">Program Change</a></li>
+            <li><a href="#sysex">SysEX</a></li>
+          </ul>
+        </li>
+        <li><a href="#midis-physical-connections--throughput">MIDI&rsquo;s Physical Connections &amp; Throughput</a>
+          <ul>
+            <li><a href="#midi-over-usb">MIDI over USB</a></li>
+            <li><a href="#5-pin-din">5-Pin DIN</a></li>
+            <li><a href="#trs-a--trs-b--ts">TRS-A &amp; TRS-B &amp; TS?</a></li>
+            <li><a href="#midi-through">MIDI Through</a></li>
+            <li><a href="#virtual-midi-ports">Virtual MIDI Ports</a></li>
+            <li><a href="#bandwidth">Bandwidth</a></li>
+            <li><a href="#eurorack-midicv">Eurorack MIDI⇄CV</a></li>
+          </ul>
+        </li>
+        <li><a href="#midi-20">MIDI 2.0</a></li>
+        <li><a href="#open-sound-control">Open Sound Control</a></li>
+        <li><a href="#mackie-control--hui">Mackie Control / HUI</a></li>
+        <li><a href="#ableton-link">Ableton Link</a></li>
+        <li><a href="#midi-routing-hardware">MIDI Routing Hardware</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="midi-in-detail">
+  MIDI in Detail
+  <a class="anchor" href="#midi-in-detail">#</a>
+</h1>
+<p><strong>M</strong>usical <strong>I</strong>nstrument <strong>D</strong>igital <strong>I</strong>nterface, or <strong>MIDI</strong> is what it sounds like, the primary way to get data between devices digitally. Want to tell a hardware synth to play a sequence you arranged on your computer? MIDI. Want to play notes into your computer using a keyboard? MIDI. Want to sequence drums, with varying &lsquo;velocity&rsquo; on each hit? MIDI.</p>
+<p>Sounds Great?</p>
+<p>For the most part, yeah. Everything works together and you can make all your hardware speak the same language. Let your keyboard talk to your computer, your computer talk to your drums, now you can play the drums with your keyboard! Send automation from your computer to a parameter on your synth to vary the sound over time, whatever. MIDI is pretty much carries all the information about your music expect the audio itself.</p>
+<p>The Catch? MIDI is outright ancient by technology standards, having come out in 1981. It&rsquo;s so damn old, that it&rsquo;s (mostly) a 7-bit standard. Worse, over time the standard has had extensions bolted on and so older devices may not work exactly as expected. Now, ideally, a musician shouldn&rsquo;t have to know what this means and the gear should stay out of the way. Unfortunately, we&rsquo;ve been sticking with this standard for so long that basically everything abuses it in one way or another to the extent you sorta have to know how it works. So, 7-bit, what does that mean?</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Well, it&rsquo;s talking about bits, so 1&rsquo;s and 0&rsquo;s. For each message in midi, you get 7 bit&rsquo;s of data. So, when you turn a knob it can range from 0000000 to 1111111, which, works out to be 0 to 127.</p>
+<p>This means each knob, even if it feels smooth to you, only has 128 distinct levels whatever it&rsquo;s talking to can receive. This is <em>really</em> bad. But, wait, it gets worse. This applies to <em>almost</em> everything in MIDI, so how hard you hit the keys and how finely you can set the volume with a physical slider. This really just isn&rsquo;t fine enough control.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/quantization.webp" alt=" ">
+<p class="attribution ">
+    Here, this sine wave is being forced down to 4-bits, making the discrete levels obvious. If you imagine this is what is happening to the knob as you turn it, you could see how this would limit your possibilities and might make setting the knob to a sweet spot difficult.
+  </div>
+  
+</div>
+
+<p>Because of MIDI&rsquo;s age and lack of resolution, there&rsquo;s a whole fustercluck of things that have been done to make working with digital instruments work better over the years. Some you might see include</p>
+<ul>
+<li>MIDI <strong>N</strong>on-<strong>R</strong>egistered <strong>P</strong>art <strong>N</strong>umber (<a href="https://en.wikipedia.org/wiki/NRPN">NRPN</a>) is one way MIDI controllers can send higher resolution signals (14bit so, 0 to 16383) by putting two, 7-bit CC&rsquo;s values together</li>
+<li><strong>O</strong>pen <strong>S</strong>ound <strong>C</strong>ontrol (OSC) <em>isn&rsquo;t</em> MIDI, but rather a competing standard that&rsquo;s much higher resolution and can work over ip (wifi), but it&rsquo;s not universally supported like MIDI</li>
+<li><strong>M</strong>ackie <strong>C</strong>ontrol <strong>U</strong>niversal (MCU) is a fustercluck that has been bolted onto a lot of MIDI controllers. It mostly provides a &lsquo;universal&rsquo; mapping for common functions like mute, solo, track select, EQ and what not. It basically just sits on top MIDI.</li>
+<li><strong>M</strong>idi <strong>P</strong>olyphonic <strong>E</strong>xpression (MPE) is probably the most convoluted of the workarounds, but it will require some more explanation, so I&rsquo;ll come back to this in a second.</li>
+</ul>
+<p>&ldquo;Alright&rdquo;, I hear you thinking, &ldquo;MIDI is an old dumpster fire, what is it good for then?&rdquo;</p>
+<p>Well, it&rsquo;s pretty much still the only one you can sequence notes in your DAW, nearly all instruments interface with each other and a computer using MIDI, and MIDI controllers exist in about every shape and form you could think of- from a traditional keyboard to just a huge grid of knobs. MIDI&rsquo;s age also means that it is ludicrously compatible, as you can plug in hardware from over 30 years ago and it will still just work.</p>
+<p>So, let&rsquo;s dive into the details and see how MIDI actually functions</p>
+<h2 id="types-of-midi-messages">
+  Types of Midi Messages
+  <a class="anchor" href="#types-of-midi-messages">#</a>
+</h2>
+<h3 id="channels">
+  Channels
+  <a class="anchor" href="#channels">#</a>
+</h3>
+<p>While not a message in itself, it&rsquo;s necessary to note that MIDI connections provide 16 channels of communication. Usually each device only uses one channel at a time. You can use this for multiple things: If your keyboard makes changing the active channel easy, you may want to setup a different instrument on each channel. With this you could switch between playing a piano or synth sound on channels 1 and 2 easily. The other primary use is if you have multiple hardware devices that receive MIDI messages and make sound, like synthesizers and drum machines. You can chain them together with MIDI Through (more on this later) and have each one listen for notes on it&rsquo;s own channel while using less cables.</p>
+<h3 id="notes">
+  Notes
+  <a class="anchor" href="#notes">#</a>
+</h3>
+<p>MIDI notes range from 0 to 127, with the highest note, 127, being a G9 @ 12543.9hz and the lowest, note 0, being a C-1 at 8.176hz. Obviously this is more than the standard full 88-key piano.</p>
+<p>Given human hearing starts at about 20hz, the lowest notes are inaudible except for harmonics assuming no octave shifting or other quirks. As such, these lowest notes are often re-purposed for control messages. Even if they&rsquo;re not, a lot of sound sources will only respond to a limited range of these notes anyway.</p>
+<p>While MIDI does have an <a href="https://en.wikipedia.org/wiki/MIDI_tuning_standard">extension</a> for supporting alternate tunings, it&rsquo;s rarely directly supported. As microtonal and other non-12TET (12 True Equal Temperament) scales have become common, various tools exist to use MIDI pitch messages, which we&rsquo;ll look at in a bit, to force notes to a chosen scale anyway.</p>
+<p>General MIDI, one of various MIDI extensions (that often get ignored anyway) also defines a few specific instruments to belong to specific midi channels and program change messages (rarely used unless listening to midi files directly with soundfonts) one of these is a drum setting, which is really the only one that is still commonly used, and is generally close to the normal mapping you&rsquo;ll see in tools like Ableton&rsquo;s Drum Rack. If you buy an electronic drum kit or use a drum machine, it&rsquo;s likely to at least try to respect this mapping from notes to drum sounds. Of course, you can still make any note map to any sound you like and ignore this altogether if you want.</p>
+<details >
+  <summary>General MIDI Drum Map</summary>
+  <div class="markdown-inner">
+    </br>
+<blockquote>
+<p>Note, the cells in blue are the notes used by Ableton (and in turn many DAWs which copied them) for their Drum Rack device, which is typically shown as 4x4 grid of pads, with the lowest note in the bottom left. There is no requirement that you follow the general-midi mapping when assigning samples, but it is probably good practice to match it up as well as you can. If you can&rsquo;t, try to at least make parts spit in the same area frequency wise- put high-pitch samples on the higher-pitch spots and so on. This will make changing kits much easier.</p>
+</blockquote>
+<div class="book-columns flex flex-wrap">
+  <div class="flex-even markdown-inner">
+    <style>
+.drum th {
+background: #fff3;
+word-wrap: break-word;
+}
+.drum2 th {
+background: #fff3;
+word-wrap: break-word;
+}
+.drum3 th {
+}
+.drum > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(n+2) > td:nth-child(2) { background: #009cdf55; }
+.drum > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(n+18) > td:nth-child(2) { background: #22222222; }
+</style>
+<div class="drum">
+<table>
+<thead>
+<tr>
+<th>KEY</th>
+<th>NOTE</th>
+<th>SOUND</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>35</strong></td>
+<td>B0</td>
+<td>Acoustic Bass Drum</td>
+</tr>
+<tr>
+<td><strong>36</strong></td>
+<td>C1</td>
+<td>Bass Drum 1</td>
+</tr>
+<tr>
+<td><strong>37</strong></td>
+<td>C#1</td>
+<td>Side Stick</td>
+</tr>
+<tr>
+<td><strong>38</strong></td>
+<td>D1</td>
+<td>Acoustic Snare</td>
+</tr>
+<tr>
+<td><strong>39</strong></td>
+<td>Eb1</td>
+<td>Hand Clap</td>
+</tr>
+<tr>
+<td><strong>40</strong></td>
+<td>E1</td>
+<td>Electric Snare</td>
+</tr>
+<tr>
+<td><strong>41</strong></td>
+<td>F1</td>
+<td>Low Floor Tom</td>
+</tr>
+<tr>
+<td><strong>42</strong></td>
+<td>F#1</td>
+<td>Closed Hi Hat</td>
+</tr>
+<tr>
+<td><strong>43</strong></td>
+<td>G1</td>
+<td>High Floor Tom</td>
+</tr>
+<tr>
+<td><strong>44</strong></td>
+<td>Ab1</td>
+<td>Pedal Hi-Hat</td>
+</tr>
+<tr>
+<td><strong>45</strong></td>
+<td>A1</td>
+<td>Low Tom</td>
+</tr>
+<tr>
+<td><strong>46</strong></td>
+<td>Bb1</td>
+<td>Open Hi-Hat</td>
+</tr>
+<tr>
+<td><strong>47</strong></td>
+<td>B1</td>
+<td>Low-Mid Tom</td>
+</tr>
+<tr>
+<td><strong>48</strong></td>
+<td>C2</td>
+<td>Hi Mid Tom</td>
+</tr>
+<tr>
+<td><strong>49</strong></td>
+<td>C#2</td>
+<td>Crash Cymbal 1</td>
+</tr>
+<tr>
+<td><strong>50</strong></td>
+<td>D2</td>
+<td>High Tom</td>
+</tr>
+<tr>
+<td><strong>51</strong></td>
+<td>Eb2</td>
+<td>Ride Cymbal 1</td>
+</tr>
+<tr>
+<td><strong>52</strong></td>
+<td>E2</td>
+<td>Chinese Cymbal</td>
+</tr>
+<tr>
+<td><strong>53</strong></td>
+<td>F2</td>
+<td>Ride Bell</td>
+</tr>
+<tr>
+<td><strong>54</strong></td>
+<td>F#2</td>
+<td>Tambourine</td>
+</tr>
+<tr>
+<td><strong>55</strong></td>
+<td>G2</td>
+<td>Splash Cymbal</td>
+</tr>
+<tr>
+<td><strong>56</strong></td>
+<td>Ab2</td>
+<td>Cowbell</td>
+</tr>
+<tr>
+<td><strong>57</strong></td>
+<td>A2</td>
+<td>Crash Cymbal 2</td>
+</tr>
+</tbody>
+</table>
+</div>
+  </div>
+  <div class="flex-even markdown-inner">
+    <div class="drum2">
+<table>
+<thead>
+<tr>
+<th>KEY</th>
+<th>NOTE</th>
+<th>SOUND</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>58</strong></td>
+<td>Bb2</td>
+<td>Vibraslap</td>
+</tr>
+<tr>
+<td><strong>59</strong></td>
+<td>B2</td>
+<td>Ride Cymbal 2</td>
+</tr>
+<tr>
+<td><strong>60</strong></td>
+<td>C3</td>
+<td>Hi Bongo</td>
+</tr>
+<tr>
+<td><strong>61</strong></td>
+<td>C#3</td>
+<td>Low Bongo</td>
+</tr>
+<tr>
+<td><strong>62</strong></td>
+<td>D3</td>
+<td>Mute Hi Conga</td>
+</tr>
+<tr>
+<td><strong>63</strong></td>
+<td>Eb3</td>
+<td>Open Hi Conga</td>
+</tr>
+<tr>
+<td><strong>64</strong></td>
+<td>E3</td>
+<td>Low Conga</td>
+</tr>
+<tr>
+<td><strong>65</strong></td>
+<td>F3</td>
+<td>High Timbale</td>
+</tr>
+<tr>
+<td><strong>66</strong></td>
+<td>F#3</td>
+<td>Low Timbale</td>
+</tr>
+<tr>
+<td><strong>67</strong></td>
+<td>G3</td>
+<td>High Agogo</td>
+</tr>
+<tr>
+<td><strong>68</strong></td>
+<td>Ab3</td>
+<td>Low Agogo</td>
+</tr>
+<tr>
+<td><strong>69</strong></td>
+<td>A3</td>
+<td>Cabasa</td>
+</tr>
+<tr>
+<td><strong>70</strong></td>
+<td>Bb3</td>
+<td>Maracas</td>
+</tr>
+<tr>
+<td><strong>71</strong></td>
+<td>B3</td>
+<td>Short Whistle</td>
+</tr>
+<tr>
+<td><strong>72</strong></td>
+<td>C4</td>
+<td>Long Whistle</td>
+</tr>
+<tr>
+<td><strong>73</strong></td>
+<td>C#4</td>
+<td>Short Guiro</td>
+</tr>
+<tr>
+<td><strong>74</strong></td>
+<td>D4</td>
+<td>Long Guiro</td>
+</tr>
+<tr>
+<td><strong>75</strong></td>
+<td>Eb4</td>
+<td>Claves</td>
+</tr>
+<tr>
+<td><strong>76</strong></td>
+<td>E4</td>
+<td>Hi Wood Block</td>
+</tr>
+<tr>
+<td><strong>77</strong></td>
+<td>F4</td>
+<td>Low Wood Block</td>
+</tr>
+<tr>
+<td><strong>78</strong></td>
+<td>F#4</td>
+<td>Mute Cuica</td>
+</tr>
+<tr>
+<td><strong>79</strong></td>
+<td>G4</td>
+<td>Open Cuica</td>
+</tr>
+<tr>
+<td><strong>80</strong></td>
+<td>Ab4</td>
+<td>Mute Triangle</td>
+</tr>
+<tr>
+<td><strong>81</strong></td>
+<td>A4</td>
+<td>Open Triangle</td>
+</tr>
+</tbody>
+</table>
+</div>
+  </div>
+</div>
+<p><strong>Ableton Drum Rack Mapping According to General Midi:</strong></p>
+<div class="drum3">
+<table>
+<tbody>
+  <tr>
+    <td>High-Mid Tom (C2)</td>
+    <td>Crash (C#2)</td>
+    <td>High Tom (D2)</td>
+    <td>Ride (Eb2)</td>
+  </tr>
+  <tr>
+    <td>Pedal Hi-Hat (Ab1)</td>
+    <td>Low Tom (A1)</td>
+    <td>Open Hat (B#1)</td>
+    <td>Low-Mid Tom (B1)</td>
+  </tr>
+  <tr>
+    <td>Electric Snare (E1)</td>
+    <td>Low Floor Tom (F1)</td>
+    <td>Closed Hat (F#1)</td>
+    <td>High Floor Tom (G1)</td>
+  </tr>
+  <tr>
+    <td>Bass (C1)</td>
+    <td>Side Stick (C#1)</td>
+    <td>Acoustic Snare (D1)</td>
+    <td>Clap (Eb1)</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+  </div>
+</details>
+
+<h4 id="velocity">
+  Velocity
+  <a class="anchor" href="#velocity">#</a>
+</h4>
+<p>Every MIDI note also gets sent with a corresponding velocity message. If you strike a key hard, it&rsquo;ll send a higher velocity value, soft, lower. If the controller doesn&rsquo;t support this, typically the note will be sent with a velocity of 127 (the maximum value) on every note. There&rsquo;s also a bit of strangeness where the note-off event (the release of a note) actually sends its own velocity as well. Typically, this is 0, though other values are possible.</p>
+<p>Not all instruments/plugins/software will respond to velocity, and some may respond in different ways. A piano emulation for example may actually try to replicate the different ways piano keys sound when hit with more or less power, while a drum sampler may only vary the volume or ignore velocity entirely.</p>
+<h4 id="aftertouch">
+  Aftertouch
+  <a class="anchor" href="#aftertouch">#</a>
+</h4>
+<p>Aftertouch is a sort of continuous velocity message. It&rsquo;s not nearly as commonly supported, but the idea is to send so that the pressure of your finger over time can change something about the sound. Unfortunately, aftertouch is <em>usually</em> shared by all the notes you&rsquo;re holding at a given moment, and only the highest value (most pressure) is sent. Devices that send multiple aftertouch messages are significantly less common- this is partly because until MIDI 2.0 becomes more common, the only good way to do it is with <strong>M</strong>IDI <strong>P</strong>olyphonic <strong>E</strong>xpression capable controllers, which send each note on a separate MIDI channel, and then abuse this to make each channel aftertouch message only be associated with a single note. This is a bit hacky, but has become a sort of bolted-on standard to MIDI, and so a lot of software (though far from all) supports it now. Probably the most recognizable MPE controller is the ROLI seboard, which I linked back in the <a href="/music/instruments/">Instruments</a> chapter. MPE controllers tend to be on the very expensive side of things though.</p>
+<h3 id="ccs">
+  CC&rsquo;s
+  <a class="anchor" href="#ccs">#</a>
+</h3>
+<p>MIDI <strong>C</strong>ontrol <strong>C</strong>hange messages are what they sound like. They&rsquo;re used to represent turning knobs or moving sliders- controls. You can then move these knobs to control whatever you like, and with most DAWs you can record these movements to play them back or edit them after the fact later- just like with notes.</p>
+<p>Generally, controls get mapped to whatever parameter you want using <strong>MIDI Learn</strong>. This is a feature in most software where you click the &lsquo;Learn&rsquo; button, click the parameter you want to control, and then move the physical control you want to map it to. Then, click the &lsquo;Learn&rsquo; button again to resume normal operation. Now that physical knob or slider or whatever will control the virtual knob/slider.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Here I&rsquo;m controlling various parameters of a patch in VCV rack using a MIDI CC →CV module, though the better way to do this is probably to use <a href="https://library.vcvrack.com/Core/MIDI-Map">MIDI-MAP</a> which let&rsquo;s you map a virtual knob to physical knob without the wire, which is generally a bit nicer to use. I&rsquo;ve only used the wire breakout module here as I think it makes it more clear what&rsquo;s going on.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="250" src="https://www.youtube.com/embed/eHYCmPawQdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<p>Typically, you&rsquo;ll also be able to record and edit your adjustments of MIDI CC&rsquo;s after the fact. This is <em>usually</em> done in the same place as all other automation in whatever software you&rsquo;re using, and typically in the same area that you place clips of MIDI note data, in most software that will look something like this:</p>
+<p><img src="/music/CCAutomationLanes.svg" alt="CCAutomationLanes" /></p>
+<p>Because MIDI CC&rsquo;s are only 7-bit (like the nearly the rest of MIDI) the resolution is trash and many programs will actually interpolate (morph) between values. This prevents knobs from feeling like they&rsquo;re clicky with only so many positions and instead makes them behave more like you&rsquo;d actually expect, though not all software does this.</p>
+<p>There&rsquo;s a few special &lsquo;reserved&rsquo; CC&rsquo;s, though often you can just override them to do whatever you want anyway. However, before we got to that list of reserved CC&rsquo;s I want to take a small detour to understand just what the fuck an NRPN is.</p>
+<p>NRPN stands for Non-Registered Parameter Number, and is a weird tidbit in the midi standard where some control messages may actually use two messages to send one value. This is because MIDI is, as previously mentioned, fucking old and only 7 bits. Well, if we use 7-bits of one message to represent the higher bits (Most Significant Bits or MSB) and 7-bits of another to represent the lower bits (Least Significant Bits or LSB) we can get much finer resolution messages. By going from only having 7 bits (that is seven 1&rsquo;s and 0&rsquo;s) to represent our number to 14 bits, we go from only being able to represent numbers from 0 to 127 all the way to 0 to 16383. This makes knobs go from feeling like you&rsquo;re snapping to discrete values to feeling smooth.</p>
+<p>Unfortunately, NRPN support is super fucked up and support for it varies pretty wildly from program to program, and few controllers actually support it. Still, it&rsquo;s worth mentioning as until MIDI 2.0 picks up steam, we&rsquo;re stuck dealing with using whatever hacks we can to get more resolution out of things. So, now, in this list of &lsquo;reserved&rsquo; MIDI CC&rsquo;s you&rsquo;ll see some CC&rsquo;s have a <code>+nn</code> next to them, for programs that support NRPNs, this the CC&rsquo;s that would be used in conjunction with the normal one to provide more resolution.</p>
+<table>
+<thead>
+<tr>
+<th>CC</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 (+33)</td>
+<td>Mod Wheel</td>
+<td>One of the two wheels/touch strips on many keyboard controllers</td>
+</tr>
+<tr>
+<td>7 (+39)</td>
+<td>Volume</td>
+<td>Sometimes this is per-track, sometimes it&rsquo;s the master volume</td>
+</tr>
+<tr>
+<td>8 or 10 (+40 or 42)</td>
+<td>Pan</td>
+<td>0=Left, 127=Right, 64=Center</td>
+</tr>
+<tr>
+<td>64</td>
+<td>Sustain Pedal</td>
+<td>When high (&gt;64) hold all notes played until the CC goes low. Usually a pedal for piano</td>
+</tr>
+<tr>
+<td>65, 66, 67, 68</td>
+<td>Portamento, Sostenuto, Soft, Legato</td>
+<td>These CC&rsquo;s aren&rsquo;t often supported, but provide the other pedal controls that some MIDI keyboards will have as foot pedals. <strong>Very few VSTs will respond to these correctly.</strong></td>
+</tr>
+<tr>
+<td>120</td>
+<td>Mute</td>
+<td>Channel Mute, but sometimes acts as master mute, depends on implimentation</td>
+</tr>
+<tr>
+<td>123</td>
+<td>All Off</td>
+<td>Force all MIDI notes OFF, not always supported</td>
+</tr>
+</tbody>
+</table>
+<p>You&rsquo;ll notice that all the extra resolution CC&rsquo;s (these provide the LSB) are exactly 32 higher than the original. In fact, depending on the software you may be able to corolate any of the first 32 CCs to there +32 counterpart, 1 with 33, 2 with 34, and so on. Again, this is all relatively uncommon, but you should be aware of it.</p>
+<p>Of note, most software represents interal states with more than 7-bits of resolution, so moving the software knob will often let you get to more exact values if you need to get something between to &lsquo;clicks&rsquo; of the knob turn. Also, usually your DAWs internal automation routing will have more than 7-bits of resolution too, so if you make a curve or ramp for a software knob to turn itself, it won&rsquo;t sound like it&rsquo;s clicking to 127 discrete values.</p>
+<h4 id="cc-feedback">
+  CC Feedback?
+  <a class="anchor" href="#cc-feedback">#</a>
+</h4>
+<p>MIDI CC&rsquo;s are, typically, a one-way communication. For <em>most</em> controllers, this is fine, as the knobs aren&rsquo;t motorized and can&rsquo;t move to reflect new values if you change a value with your mouse or automation effects the value. Though, this isn&rsquo;t always true - Some controllers do actually have a ring of LEDs around knobs, motorized faders, or lights above the keys. In these cases, the device needs to both send and receive data. Not all software will support controllers that do this, but most will. It may be referred to as different things, for example, in Ableton Live if you enable &lsquo;Remote&rsquo; in the MIDI settings of an device&rsquo;s input (output from Ableton) connection, it will send value updates to the controller so that parameters can be shown like this (see <a href="https://help.ableton.com/hc/en-us/articles/209774205-Live-s-MIDI-Ports">this Ableton help page</a> for more info) in VCV <a href="https://library.vcvrack.com/Stoermelder-P1/MidiCat">stoermelder&rsquo;s MIDI-CAT</a> is the only way I know of to do this kind of feedback.</p>
+<h4 id="sustain">
+  Sustain
+  <a class="anchor" href="#sustain">#</a>
+</h4>
+<p>In the above table, the Sustain on CC 64 is listed. This CC is particularly important as when it&rsquo;s high, notes will continue to play as if the note off message never happened until it is let go. This is really fun to play with.</p>
+<p>If you&rsquo;re using a pino VST, there&rsquo;s at least a small chance that CC&rsquo;s 65-68 will work as intended to emulate the other pedals on a real piano as well.</p>
+<p>Sometimes the sustain CC is used as a control that is assumed to be on a pedal and would only be wanted as a momentary action, such as a repeated striking of the note or enabling a very heavy effect. This is relatively common in music plugins that emulate other instruments. For example, in a guitar emulation, the sustain pedal may act as a palm mute switch instead.</p>
+<p>On most physical controllers that offer a sustain pedal, it is attached via a 1/4&quot; TS cable on the back. You can get sustain pedals for pretty cheap that work with this both &lsquo;piano style&rsquo; that look like traditional piano pedals, and synth style, that are flat switches. I&rsquo;ve had better luck with the latter, as my <a href="https://www.amazon.com/Single-Momentary-Pedal-Footswitch-Keyboard/dp/B000UP8S0Y/">Korg PS-1 Footswitch (Amazon)</a> has held up rather well.</p>
+<h3 id="pitchbend">
+  Pitchbend
+  <a class="anchor" href="#pitchbend">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/pitchwheel.webp">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>Pitchbend is inherently a simple idea, play a note, move this wheel and the note will &lsquo;bend&rsquo; in pitch up or down, similar to a whammy bar on a guitar. There are some things you should know about how it works in MIDI though:</p>
+<p>Throughout this page I&rsquo;ve been referencing MIDI typically only being 7-bit. MIDI pitch bend is the main reason for this &ldquo;typically&rdquo; as it is a 14 bit value, so it ranges from 0 to 16383 instead of the 0 to 127 of everything else. This is necessary as pitch bend is used for, well, bending the pitch of a note. If it only had 127 values, you&rsquo;d be able to hear as  it snapped to particular pitches. The pitch bend can go both ways, so a value of 8192 (half of 16383) represents no pitch bend. Confusingly, the range of the pitch bend varies by the software or hardware you&rsquo;re sending the pitch bend message too. The &lsquo;default&rsquo; range is ±2 semitones; however, I&rsquo;ve found that both ±12 semitones (1 octave up, and 1 octave down) as well as ±24 semitones are reasonably common as well.</p>
+
+  </div>
+  
+</div>
+
+<p>While the pitchbend MIDI message supports 14bits of resolution, may MIDI controllers will not actually read in 14 bits of resolution, so they will feel less smooth than the standard actually allows for. If you like to play with pitchbend a lot, this may be something you want to research before buying a MIDI controller.</p>
+<h3 id="clock--transport">
+  Clock &amp; Transport
+  <a class="anchor" href="#clock--transport">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>In the last chapter, <a href="/music/sequencing-and-midi/">Sequencing &amp; MIDI</a>, clocks were shown briefly. Basically, the idea is to send the tempo around to every other device/module/plugin/etc. that needs it so that everything can stay in sync. It&rsquo;s like the &lsquo;click&rsquo; the drummer feels internally that the rest of the band plays to.</p>
+<p>Generally, this clock is displayed as your tempo, in Beats Per Minute, or <strong>BPM</strong>. There is some other subtle things you need to be aware of though. The biggest being Swing: most software will let you set in an amount of <em>swing</em> which makes the beat go duh duh-duh, duh duh-duh, almost as if the drummer is always a bit late on one note so rushes to catch up, but does this consistently.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/basicanalogstep.gif" alt=" ">
+<p class="attribution ">
+    A clock driving a step sequencer in VCV Rack
+  </div>
+  
+</div>
+
+<h4 id="clock">
+  Clock
+  <a class="anchor" href="#clock">#</a>
+</h4>
+<p>Imagine you&rsquo;re back in the &rsquo;80s designing the MIDI protocol. How would you impliment clocking? Would you send every device one message that is the tempo, followed by maybe an extra message for swing, or other different parameters? That seems pretty reasonable, though does fail if we want smooth transistions in tempo, and you&rsquo;ll still need to compenstate for offsets in timing from signal latency.</p>
+<p>What you probably didn&rsquo;t think is &ldquo;Let&rsquo;s just send a fuck load of clock ticks down the wire&rdquo;.</p>
+<p>This is exactly what MIDI clocking does. By default, it&rsquo;s 24 pulses per quarter note (ppqn), and this is used to distribute clock around. This is a very, very stupid design. Yes, it&rsquo;s the 80&rsquo;s and even the idea of making music with computers - computers which had heavy hardware contraints mind you - was new, but come on, what the fuck?!</p>
+<p>Anyway, here we are. So, what are the implications of this:</p>
+<ul>
+<li>MIDI clock does not have built in time-correction. If there&rsquo;s a 2ms delay coming out your computer, a 2ms delay for the device to process the midi input, and a 5ms delay on the audio from the device back into your recording interface, you&rsquo;ll need to offset the input by -7ms. This is extraordianly awkward, as the device now needs to know <em>future</em> inputs.</li>
+<li>MIDI clock can have stability issues. If the tempo is 120BPM, that&rsquo;s 2 notes a second, so at 24ppqn, 48 pulses a second, which comes out to be 1 pulse every 20.833 milliseconds. This will absolutely varry a bit, if we assume the clock varries even by ±1 millisecond that will thow us off to anywhere from 45.8 to 50.4 pulses a second, which equates to about 114.5 to 126.1 BPM. That&rsquo;s a lot of varience for a pretty minor hickup in our clock signal. Even if it averages out, there&rsquo;s still a good chance some of the beats will hit at weird times, causing phasing issues. See <a href="https://www.youtube.com/watch?v=qyuSIR0z-lQ">this video from Expert Sleepers (YouTube)</a> to see how this actually looks.</li>
+</ul>
+<p>Just be aware this may cause you problems and that none of the solutions to the problem are any fun. Also, MIDI Through only makes the problem worse- more on that in a bit</p>
+<h4 id="transport--mmc">
+  Transport &amp; MMC
+  <a class="anchor" href="#transport--mmc">#</a>
+</h4>
+<img src="/music/transport.svg" alt=" " height="80em" class="center">
+<p>MIDI Machine Control or MMC is the part of the MIDI spec that defines the ability for devices to send and receive transport control messages. These include play, pause, stop, record start and stop, as well as fast-forward and rewind among others you can see <a href="https://en.wikipedia.org/wiki/MIDI_Machine_Control">In the Wikipedia article</a>. Technically, these are sent as SysEx messages, which I&rsquo;ll touch on in a bit, but unlike the broader use of SysEx messages, these messages are pretty universally supported.</p>
+<h4 id="midi-time-code">
+  Midi Time Code
+  <a class="anchor" href="#midi-time-code">#</a>
+</h4>
+<p>MIDI Time Code or MTC is what is used for devices to talk to each other and say what part of a song their at. Say you have a DAW playing most of your tracks and a drum machine taking care of drums, that is supposed to play different patterns at different times. You could send a midi note or program change or other message to change pattern if the device supports it, but having it change the pattern based on time code works a bit better. For example, if there&rsquo;s a long section playing the same pattern and you seek to it, you may not end up triggering that special message to tell it to change. With MTC the drum machine could say &ldquo;Oh, We&rsquo;re 20 seconds in, I need to play the drums for this section now!&rdquo; and, ideally, even catch up halfway though the pattern, so the drum beat doesn&rsquo;t get off as you seek around to a different place in the song you&rsquo;re working on.</p>
+<p>So, how does it work? Get ready for a wild ride.</p>
+<img src="/nonfree/character/inhale.webp" alt=" " height="160em">
+<p>MTC is actually based on SMPTE Timecode, so what&rsquo;s that? SMPTE stands for <em>Society of Motion Picture and Television Engineers</em>, so SMPTE Timecode is, unsurprisingly, for video time codes. In video, each picture shown is a frame, and there were multiple standards for how many frames should appear per second- the <em>FPS</em>. Unlike in gaming, this is a fixed, standard number for video <em>except</em> that the standard varied by region for older, analog television. As such, MIDI clock is actually based on &lsquo;frames per second&rsquo; and there are multiple competing standards, but let&rsquo;s work our way to that:</p>
+<p>If you&rsquo;ve ever used old game consoles (like the NES) with the composite video out, you may have encountered some of these standards, namely NTSC and PAL. In North America NTSC is standard, while across the pond you&rsquo;d find PAL (and SECAM, but that isn&rsquo;t relevant here). The biggest difference between NTSC and PAL is the frame rate -</p>
+<p>But before we get to to frame rate, we need to talk power line frequency - In most of North America the mains power from the wall is 60Hz, and pretty much everywhere else it&rsquo;s 50Hz. This is relevant, as NTSC and PAL video each had a frame rate that was half of the power line frequency: 30Hz for NTSC and 25Hz for PAL.</p>
+<p>So, now we&rsquo;re almost there, there&rsquo;s actually yet another complication, the time code could also be 24Hz (to match the 24FPS of film as was standard in theaters) or 29.97Hz because NTSC had to be slowed this slight amount to accommodate adding color to otherwise black and white video.</p>
+<p>Alright, so all of that is to say, MIDI timecode is based on one of four <em>frame rates</em> despite not actually having frames: 24, 25, 29.97, or 30Hz.</p>
+<p>Things only get weirder though, as technically, MIDI Timecode is based on the time of day and it repeats after 24 hours, so there&rsquo;s a hard limit on tracks to 24 hours (not that you&rsquo;d probably ever hit this anyway).</p>
+<p>Not yet satisfied with how much of a mess this is, MIDI timecode is actually broken into 8, 4-bit sized pieces that are then sent on every 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\frac{1}{4}\)
+</span>
+ frame, but that means to send the full 32 bits for one time code, 2 frames actually have to pass, so the resolution is only to every 2 frames, or 12, 12.5, 14.985, or 15Hz depending on the video standard used. This effectively means when seeking you&rsquo;re limited to somewhere between 0.0833 and .0667 seconds jumps.</p>
+<h3 id="program-change">
+  Program Change
+  <a class="anchor" href="#program-change">#</a>
+</h3>
+<p>Program change messages are generally used for switching between presets on a device. They&rsquo;re also used by General MIDI with some default settings for instruments to belong to a certain channel, which allows some media players to play back MIDI files with the correct instrument assigned per track, albeit these default instruments usually sound quite bad. This isn&rsquo;t really used anymore, though it might be of interest if you&rsquo;re trying to write music that&rsquo;s supposed to sound like it&rsquo;s from a 90&rsquo;s video game.</p>
+<p>Generally though, you&rsquo;ll just use program change messages to alternate between presets of a hardware or software device. Keep in mind, these changes are usually abrupt, so if you only want to adjust two knobs or something, you may be better off using CC&rsquo;s to smoothly transition from one state to the other.</p>
+<h3 id="sysex">
+  SysEX
+  <a class="anchor" href="#sysex">#</a>
+</h3>
+<p>System Exclusive Messages- typically just called &ldquo;SysEx&rdquo;. The name sorta says it all, these are messages that are specific to a given device (or software). It&rsquo;s often used for firmware updates, though may also be used for configuration, uploading presets or sounds, and even just sending control messages on some older hardware. Usually, if your device updates via SysEx it will have a nice GUI updater, but if that fails you may have to use something else. On Windows, <a href="http://www.midiox.com">MIDI-OX</a> is complicated, but probably your best bet. If you want to send SysEX from your DAW for live control, it may be complicated. Ableton supports it, but only using M4L, which is expensive. For other DAWS, YMMV. Renoise, for example, has decent support with 3rd party utilities like <a href="https://www.renoise.com/tools/guru">Guru</a> providing hardware mappings for some popular synths. Meanwhile, Bitwig and FL Studio can&rsquo;t send SysEx at all.</p>
+<h2 id="midis-physical-connections--throughput">
+  MIDI&rsquo;s Physical Connections &amp; Throughput
+  <a class="anchor" href="#midis-physical-connections--throughput">#</a>
+</h2>
+<p>So, there are multiple physical connections that MIDI data can run though- USB, TRS, and 5-pin DIN.</p>
+<img src="/music/midipinout.svg" alt=" ">
+<h3 id="midi-over-usb">
+  MIDI over USB
+  <a class="anchor" href="#midi-over-usb">#</a>
+</h3>
+<p>MIDI can run over just about any USB connection you&rsquo;re used to- micro, mini, USB-C, and often that chonky square one that printers still use. There are four things you should know about USB midi:</p>
+<ol>
+<li><em>Typically</em> it&rsquo;s two way. The usb connection will provide both MIDI <em>to</em> and <em>from</em> the connected device.</li>
+<li>USB devices have the concept of <em>Host</em> and <em>Device</em>. This means that with USB MIDI devices you can run into a situation where you may want to connect something that expects to have a USB <em>device</em> (like a keyboard) attached to it, but you want to connect a host (like your computer) and use it as a device. This may requrie you use an adapter.</li>
+<li>USB MIDI is <em>much</em> faster than the other MIDI standards</li>
+<li>USB MIDI can often lead to ground loop problems or noise in connected devices. You may be able to fix this by either using &ldquo;Hum Destroyers&rdquo; (Ground loop isolators) on the audio connections or using a USB power isolator on the USB connection. These don&rsquo;t always work though.</li>
+</ol>
+<h3 id="5-pin-din">
+  5-Pin DIN
+  <a class="anchor" href="#5-pin-din">#</a>
+</h3>
+<p>This is the old school way that MIDI works.</p>
+<ol>
+<li>The connection is <em>optoisolated</em> this means that ground isn&rsquo;t sent over the cable, preventing ground loops. This may be a fix if a device offers both USB and 5-Pin DIN midi.</li>
+<li>Despite being a 5-pin cable, only 3 pins are used</li>
+<li>The cable <strong>is not bidirectional</strong>- if the device you&rsquo;re connecting needs to send data to something and get data back, you&rsquo;ll need two cables</li>
+</ol>
+<h3 id="trs-a--trs-b--ts">
+  TRS-A &amp; TRS-B &amp; TS?
+  <a class="anchor" href="#trs-a--trs-b--ts">#</a>
+</h3>
+<ol>
+<li>There are 3 conflicting MIDI over normal-audio-jack &ldquo;standards&rdquo;. Fortunately, TRS-A (as shown in the figure above) has been made a real standard now and should be used exclusively on newer equipment. TRS-B and TS only devices are still out there though, so be sure to check</li>
+<li>Like 5-Pin DIN MIDI, MIDI over TRS is optoisolated, so you shouldn&rsquo;t have to worry about ground loops</li>
+<li>TRS MIDI is also often used on guitar pedals, though it shouldn&rsquo;t be confused with guitar pedal expression input or control voltage, which are both analog communication not digital like MIDI</li>
+<li>There are plenty of adapters out there to go between TRS MIDI and 5-Pin DIN, but again, make sure it&rsquo;s the right TRS Standard (A/B)</li>
+<li>The cable <strong>is not bidirectional</strong>- if the device you&rsquo;re connecting needs to send data to something and get data back, you&rsquo;ll need two cables</li>
+</ol>
+<h3 id="midi-through">
+  MIDI Through
+  <a class="anchor" href="#midi-through">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>From this,</p>
+<script src="/mermaid.min.js"></script>
+  <script>mermaid.initialize({
+  "flowchart": {
+    "useMaxWidth":true
+  },
+  "theme": "neutral",
+  "themeCSS": ".edgePath path { fill: white; }"
+}
+)</script>
+<p class="mermaid">
+graph LR
+    A[Controller] --> B(Device 1)
+    A --> C(Device 2)
+    A --> D(Device 3)
+</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>To this:</p>
+<p class="mermaid">
+graph LR
+    A[Controller] --> B(Device 1)
+    B --> C(Device 2)
+    C --> D(Device 3)
+</p>
+
+  </div>
+  
+</div>
+
+<p>MIDI though is a feature where there&rsquo;s an extra MIDI port that just passes the input data along. Say you have your computer with one USB→5-Pin DIN MIDI adapter so you send that data first to a polyphonic synth, listening on channel 1, for playing chords and that synth has a midi though so you can connect that to the input of your next device, say a drum machine, and have that react to inputs on channel 2, and so on. This just allows for a much cleaner cable setup.</p>
+<img src="/music/midithru.svg" alt=" ">
+<p>MIDI though may or may not actually pass the output of the device too, so if that synth keyboard is acting as an <em>input</em> device to the computer (not playing sound as notes are sent to it <em>from</em> the computer) then it may or may not put those notes its playing out the midi-though, it just depends on the device. Here, I&rsquo;ve shown a setup where the first device does have an input MIDI connection sending data to the computer, with a second connection. Most USB to 5-Pin DIN MIDI adapters will have one 5-Pin DIN Input and one 5-Pin DIN output. Meanwhile, many MIDI sound-making-device (synths, drum machines, etc) will only have an input and maybe a though, and many MIDI controllers (keyboards etc. that don&rsquo;t make their own sounds) will only have a MIDI output, no input. What this means is often, if you&rsquo;re going to be using MIDI though, you&rsquo;ll want to have a device that you want acting as both an input and output first in your chain, followed by devices that only need MIDI Input.</p>
+<p>Confused?</p>
+<p>Alright, so, because 5-Pin DIN and TRS MIDI are both one way, the though acts only as an output, meaning you can chain devices <em>but</em> those devices will only receive data, not send it. Essentially, the main use of this is getting one USB→MIDI adapter to sequence many sound-making devices, and usually sharing clock among all of them.</p>
+<p>The big other use of MIDI though is when you&rsquo;ve got a device doing MIDI over USB, but the device has a MIDI output or though such that the device can act as USB →5-Pin Din/TRS MIDI adapter for another piece of gear.</p>
+<p>In my setup I have a MIDI controller pedal that allows me to send whatever MIDI messages I want with my feet (handy when holding a guitar) and it is connected via USB to my computer, so that I can control any software effects I want to run my guitar though. This same pedal also has a 5-Pin DIN output, that will both output messages it generates and messages it receives though USB (acting as a though) and I&rsquo;m sending that signal up to a multi-effect guitar pedal. This means I can use the controller pedal as a controller for both software effects and the hardware multieffect pedal simultaneously, but even better, it means I can send data from my software, though the controller pedal, and out to the multi-effect pedal. This makes for an extraordinarily flexible setup. It&rsquo;s really nice for sending CC&rsquo;s to the hardware pedal and software simultaneously, recording the CC automation, then playing it back if I want to do a second take or multi-track.</p>
+<p>There is one final issue you may have with MIDI though that you should be aware of- as previously mentioned, some devices will just pass the MIDI input to the Though unaffected, even if that device can add it&rsquo;s own MIDI data, others will add on their own output. In the former case, <em>some</em> devices will literally just connect the in to the though electrically, resulting in no delay, while some will buffer the midi signal digitally and output it again, this ends up adding a very slight delay. In the latter case, this delay is almost gaurenteed. The delay is really a concern as it ends up affecting the MIDI clock signal as well, which means the clocking can get more delayed with each MIDI though. This is typically not a problem in reality, as the effects are usually not perceptible, but you should still be aware of it.</p>
+<h3 id="virtual-midi-ports">
+  Virtual MIDI Ports
+  <a class="anchor" href="#virtual-midi-ports">#</a>
+</h3>
+<p>Virtual MIDI ports are quite handy, as they allow you to route MIDI messages between two software programs on your computer, mix multiple midi devices together, etc.</p>
+<p><strong>Arch Linux</strong> (should work in other distros too): Make a file called <code>snd-seq-dummp.conf</code> in <code>/etc/modprobe.d/</code> and put <code>options snd-seq-dummy ports=4</code> in it. You may also need to use the application <code>a2jmidid</code> with the <code>-e</code> flag to route MIDI though Jack Audio applications, though most programs can use Jack for audio and ALSA for MIDI. Restart, and now you should have more virtual ports. You can check by looking though /dev for more midi devices. There&rsquo;s a lot of options here, as with all things Linux, so you should probably read <a href="https://wiki.archlinux.org/title/Professional_audio#MIDI">some Wiki Pages</a>. Depending on the complexity of what you&rsquo;re trying to setup, <a href="http://das.nasophon.de/mididings/">mididings</a> may be of use to you as well.</p>
+<p><strong>Windows:</strong> use <a href="http://www.tobias-erichsen.de/software/loopmidi.html">Loop MIDI</a> by Tobias Erichsen</p>
+<p><strong>MAC:</strong> Built in with <code>Audio MIDI Setup</code>, open that and goto &lsquo;IAC Driver&rsquo; then check &lsquo;Device is Online&rsquo;</p>
+<h3 id="bandwidth">
+  Bandwidth
+  <a class="anchor" href="#bandwidth">#</a>
+</h3>
+<p>One thing you need to be aware of that a combonation of which of these physical connections you&rsquo;re using and what the devices you&rsquo;re using have for processing power will determine the maximum rate that you can push MIDI messages to a given device.</p>
+<p>If you&rsquo;re just playing the keyboard, you have nothing to worry about. If you&rsquo;re playing the keyboard, twisting a few knobs, using the pitch-wheel, and sending clock data you might start pushing it. If you&rsquo;d like to use MIDI data to send an LFO or an envelope, you might find that things just don&rsquo;t work. If you imagine that you want a nice 10Hz sine wave MIDI CC LFO that uses the full 0-127 range, that means you&rsquo;d need to send 128*2*10 = 2560 midi messages a second, each message needs 3 bytes, one to say the message is a CC, one to specify which CC it is, and one to send the actual data, a byte is 8 bits, so this means 24bits per message so we have 2560*24 bits per second = 61,440 bits per second. By default, the &lsquo;lowest spec&rsquo; default <strong>5-pin DIN MIDI only supports 31,250 bits per second</strong>, we&rsquo;ve already asked for about double that just by sending one LFO. Fortunately, USB Midi generally allows for <em>significantly</em> more data to pushed down the pipe, with some usb MIDI devices even requiring MIDI 3.0 which means these devices have a reason to need <em>more</em> than the ~480,000,000 bits per second USB 2.0 can do. This isn&rsquo;t your Grandma&rsquo;s MIDI.</p>
+<h3 id="eurorack-midicv">
+  Eurorack MIDI⇄CV
+  <a class="anchor" href="#eurorack-midicv">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/fh-2.webp">
+<p class="attribution ">
+    The Expert Sleepers FH-2
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>One common place to run into issues is with MIDI⇄CV.</p>
+<p>Doing MIDI to CV with an MPE controller is particularly difficult, so you should expect to need a nicer adapter that explicitly says it will work. Going the other way around, CV to MIDI, is even more complicated due to these bandwidth considerations. Even with the bandwidth of USB, CV→MIDI adapters will still top out at pretty slow LFOs (<strong>you absolutely will never be able to do CV→MIDI at audio rate!</strong>) and, if they&rsquo;re really slamming the USB controller or OS level virtual MIDI devices, they can cause more extreme issues- lots of software crashing ahead for those that go this route.</p>
+<p>That said, it does seem some devices are more user friendly than others. While my experience with Expert Sleepers FH-2 for CV→MIDI has been a headache, it appears the Befaco <em>CV Thing</em> and <em>VCMC</em> work much more smoothly. I suspect this largely comes down how much the MIDI output bandwidth is being limited.</p>
+
+  </div>
+  
+</div>
+
+<p>The FH-2 appears to just try to throw as much data down the pipe as it can muster, while the Befaco modules seem to apply sane rate limiting- but that also means that they will not feel as smooth or support as fast of input LFOs.</p>
+<p>If you can, you&rsquo;re probably better off either using something like the ExpertSleepers ES-8, ES-9, or ES-3+ES-6 to take audio in directly and using software that supports using audio as modulation (some workarounds may be necessary, such as using envelope followers) or using one of the very few modules that impliment OSC (more on that later). Honestly though, doing CV→MIDI is a bit of a fools errand, especially for modulation (CCs). The only real practical use is if you <em>really</em> want to sequence something that doesn&rsquo;t have a CV input with a eurorack sequencer, otherwise you&rsquo;re better off just finding dedicated MIDI equipment that does the kind of input you want.</p>
+<h4 id="over-network">
+  Over Network
+  <a class="anchor" href="#over-network">#</a>
+</h4>
+<p>Look, I&rsquo;m not going to say you can&rsquo;t do wireless or networked midi. You definitely can. It&rsquo;s just that there&rsquo;s alway something that goes wrong. The &lsquo;normal&rsquo; way to do it is using RTP MIDI. This should work cross platform:</p>
+<ul>
+<li>Windows, use <a href="https://www.tobias-erichsen.de/software/rtpmidi.html">rtpMIDI</a> by Tobias Erichsen</li>
+<li>Mac, use the built in network-MIDI tools</li>
+<li>Linux, use <a href="https://github.com/ravelox/pimidi">RaveloxMIDI</a></li>
+</ul>
+<p>Sometimes this works 100% perfectly, other times it&rsquo;s a fucking nightmare. Best of luck.</p>
+<h2 id="midi-20">
+  MIDI 2.0
+  <a class="anchor" href="#midi-20">#</a>
+</h2>
+<p>MIDI 2.0 is the new spec that aims to be both backwards compatible with the MIDI as described up to this point, but fix all of the massive clusterfucks that have arisn over the years- providing higher bandwidth, bi-directional communication, higher resolution controls, native support for MPE-style devices, better clock syncronization, profiles based on use case, etc. Basically, it&rsquo;s not a total shit storm like what we have now. Unfortunately, MIDI 1.0 isn&rsquo;t going anywhere any time soon, mostly because there&rsquo;s already such a huge backlog of supported hardware and it&rsquo;s cheap to impliment. So, MIDI 2.0 is the future we will hopefully slowly creep into.</p>
+<h2 id="open-sound-control">
+  Open Sound Control
+  <a class="anchor" href="#open-sound-control">#</a>
+</h2>
+<p><strong>I can&rsquo;t belive it&rsquo;s not MIDI!</strong></p>
+<p>OSC is an alternative to MIDI you&rsquo;ll often see used when either higher resolution controls (more than the 0-127 of MIDI) or network control (using your phone as a control surface over WIFI, for example) is needed. Support is a bit all over the place, as a lot of major DAWs don&rsquo;t have built in support but can work with 3rd party tools, but there are very few hardware synths and controllers that use it, making it mostly useful for software controller implimentions that provide touch-screen knobs and faders - like <a href="https://hexler.net/touchosc#get">Touch OSC</a> for mobile devices, speciality controllers like using the <a href="https://www.ultraleap.com">Leap Motion</a> for sending control messages, or over-the network colaborative jamming - where each player can send signals  that other players can use, each from their own laptop. There are various <a href="https://library.vcvrack.com/?query=&amp;brand=trowaSoft&amp;tag=&amp;license=">OSC Modules</a> for VCV Rack.</p>
+<h2 id="mackie-control--hui">
+  Mackie Control / HUI
+  <a class="anchor" href="#mackie-control--hui">#</a>
+</h2>
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/Human_User_Interface_Protocol)">
+<p>
+    Human User Interface Protocol (commonly abbreviated to HUI) is a proprietary MIDI communications protocol for interfacing between a hardware audio control surface and digital audio workstation (DAW) software. It was first created by Mackie and Digidesign in 1997 for use with Pro Tools, and is now part of the Mackie Control Universal (MCU) protocol.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/Human_User_Interface_Protocol">Wikipedia</a>
+    </div>
+</div>
+<p>So, MCU and HUI are <em>technically</em> different things, but they seem to be used interchangeably. But, what is it good for?</p>
+<p><strong>M</strong>ackie <strong>C</strong>ontrol <strong>U</strong>niversal (MCU) is a fustercluck of a non-standard developed by Mackie, a particular hardware manufacture, for one of their hardware controllers. While originally MCU was made for Apple&rsquo;s <em>Logic</em> DAW, it eventually the control &lsquo;standard&rsquo; found its way into other DAWs. It mostly provide a &lsquo;universal&rsquo; mapping for common functions like mute, solo, track select, EQ and what not. It&rsquo;s especially nice as MCU is 10bit (1024 values) and bidirectional - the controller can show the current volume or whatever on a screen easily- though it all still runs over MIDI, so devices using it mostly use USB MIDI. The specifics of how MCU works is sort of a nightmare to dig up, <a href="https://forum.cockos.com/showthread.php?t=101328">this thread</a> is probably a good starting place should you have to look into it for some reason. The main take away is that HUI is used to provide this deeper integration into your DAW than normal MIDI provides alone, and that quite a few controllers now support it, for example <a href="https://novationmusic.com/en/keys/launchkey">&lsquo;Launch&rsquo; series devices from Novation</a>, the <a href="https://www.studiologic-music.com/products/mixface/">Studiologic Mixface</a>, and <a href="https://www.behringer.com/product.html?modelCode=P0B1X">Behringer X-Touch</a>, just to name a few. Just ctrl+f on these pages for HUI or MCU and you&rsquo;ll see it. Most of these controllers have a focus on what would traditionally be at a large mixing console- per track volume faders, pan, eq, and track selection (which track you want to arm for recording).</p>
+<h2 id="ableton-link">
+  Ableton Link
+  <a class="anchor" href="#ableton-link">#</a>
+</h2>
+<p><strong>Alright everyone, syncronize your watches!</strong></p>
+<p>Ableton Link works in more than just Ableton, it&rsquo;s a protocol for sending clock to multiple devices or software that makes synchronization relatively easy. It supports sending the clock and adding/subtracting an offset to correct for latency in whatever connection you&rsquo;re using. It <em>is not</em> sent over MIDI or OSC or another existing music protocol. It&rsquo;s its own thing that gets sent over the network. While some hardware has added support for Link, it&rsquo;s still largely a software thing at the time of writing. There is even a <a href="https://library.vcvrack.com/StellareModular-Link/Link2">link module</a> for VCV Rack.</p>
+<p>It is provided as a dual licensed standard, from <a href="https://github.com/Ableton/link">the Link repo</a>:</p>
+<blockquote>
+<p>Ableton Link is dual <a href="https://github.com/Ableton/link/blob/master/LICENSE.md">licensed</a> under GPLv2+ and a proprietary license. If you would like to incorporate Link into a proprietary software application, please contact <a href="mailto:link-devs@ableton.com">link-devs@ableton.com</a>.</p>
+</blockquote>
+<h2 id="midi-routing-hardware">
+  MIDI Routing Hardware
+  <a class="anchor" href="#midi-routing-hardware">#</a>
+</h2>
+<p>[TODO] <a href="https://blokas.io/midihub/">Blookas MIDIhub</a>, <a href="https://conductivelabs.com/mrcc/">MRCC - MIDI Router Control Center</a>, <a href="https://www.e-rm.de/multiclock/">Multiclock</a>, <a href="https://www.ebay.com/itm/264758845793?hash=item3da4db6161:g:I38AAOSw~7le4BKS">Teensy 4.1 based 8in/8out interface</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/midi.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#midi-in-detail">MIDI in Detail</a>
+      <ul>
+        <li><a href="#types-of-midi-messages">Types of Midi Messages</a>
+          <ul>
+            <li><a href="#channels">Channels</a></li>
+            <li><a href="#notes">Notes</a></li>
+            <li><a href="#ccs">CC&rsquo;s</a></li>
+            <li><a href="#pitchbend">Pitchbend</a></li>
+            <li><a href="#clock--transport">Clock &amp; Transport</a></li>
+            <li><a href="#program-change">Program Change</a></li>
+            <li><a href="#sysex">SysEX</a></li>
+          </ul>
+        </li>
+        <li><a href="#midis-physical-connections--throughput">MIDI&rsquo;s Physical Connections &amp; Throughput</a>
+          <ul>
+            <li><a href="#midi-over-usb">MIDI over USB</a></li>
+            <li><a href="#5-pin-din">5-Pin DIN</a></li>
+            <li><a href="#trs-a--trs-b--ts">TRS-A &amp; TRS-B &amp; TS?</a></li>
+            <li><a href="#midi-through">MIDI Through</a></li>
+            <li><a href="#virtual-midi-ports">Virtual MIDI Ports</a></li>
+            <li><a href="#bandwidth">Bandwidth</a></li>
+            <li><a href="#eurorack-midicv">Eurorack MIDI⇄CV</a></li>
+          </ul>
+        </li>
+        <li><a href="#midi-20">MIDI 2.0</a></li>
+        <li><a href="#open-sound-control">Open Sound Control</a></li>
+        <li><a href="#mackie-control--hui">Mackie Control / HUI</a></li>
+        <li><a href="#ableton-link">Ableton Link</a></li>
+        <li><a href="#midi-routing-hardware">MIDI Routing Hardware</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

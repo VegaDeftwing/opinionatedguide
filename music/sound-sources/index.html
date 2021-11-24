@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Methods of making noise #  Samples #  A snippet of a .wav file open in audacity  A sample is exactly as the name implies- a &lsquo;sample&rsquo; of audio. Sample is a pretty broad term though, so usually some more terms are applied to help categorize them. The easiest to explain is what is usually meant by sample: a small audio file that contains one sound, like one drum hit or one piano key press.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #c448c7;}
+  a:active{color: #c448c7;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+</style>
+<meta property="og:title" content="Sound Sources" />
+<meta property="og:description" content="Methods of making noise #  Samples #  A snippet of a .wav file open in audacity  A sample is exactly as the name implies- a &lsquo;sample&rsquo; of audio. Sample is a pretty broad term though, so usually some more terms are applied to help categorize them. The easiest to explain is what is usually meant by sample: a small audio file that contains one sound, like one drum hit or one piano key press." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/music/sound-sources/" /><meta property="article:section" content="Music" />
+
+
+
+<title>Sound Sources | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/"class=active>Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Sound Sources</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#methods-of-making-noise">Methods of making noise</a>
+      <ul>
+        <li><a href="#samples">Samples</a>
+          <ul>
+            <li><a href="#field-recordings-tape-loops-and-other-sampling-goodness">Field Recordings, Tape Loops, and other sampling goodness</a></li>
+          </ul>
+        </li>
+        <li><a href="#basic-oscillators">Basic Oscillators</a></li>
+        <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
+        <li><a href="#wavetables">Wavetables</a></li>
+        <li><a href="#fm-synthesis">FM Synthesis</a></li>
+        <li><a href="#granular-synthesis">Granular Synthesis</a></li>
+        <li><a href="#feedback-todo">Feedback [TODO]</a></li>
+        <li><a href="#phase-distortion-todo">Phase Distortion [TODO]</a></li>
+        <li><a href="#physical-modeling--karplus-strong-todo">Physical Modeling &amp; Karplus Strong [TODO]</a></li>
+        <li><a href="#noise-todo">Noise? [TODO]</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="methods-of-making-noise">
+  Methods of making noise
+  <a class="anchor" href="#methods-of-making-noise">#</a>
+</h1>
+<h2 id="samples">
+  Samples
+  <a class="anchor" href="#samples">#</a>
+</h2>
+<p><img src="/music/Audacity.webp" alt="Audacity" /></p>
+<span class="smalltext ">
+    A snippet of a .wav file open in audacity
+</span>
+<p>A sample is exactly as the name implies- a &lsquo;sample&rsquo; of audio. Sample is a pretty broad term though, so usually some more terms are applied to help categorize them. The easiest to explain is what is usually meant by sample: a small audio file that contains one sound, like one drum hit or one piano key press. These can either be samples made or collected for the sole purpose of use in later music (like hitting record, playing one drum hit, then stopping, to create a small drum sample) or a sample lifted (with often dubious legality) from another recording. It&rsquo;s worth noting that fair use is really not something you can rely on here, but it&rsquo;s also pretty common. #notlegaladvice</p>
+<p>The next kind of sample worth looking at is a loop. These are longer and are usually, well, loopable. If you play them on repeat they typically sound continuous. Often these will be of drums or guitar. The term &lsquo;loop&rsquo; is often used broadly for audio snippets of this length though, so not all loops loop. Usually when using a loop it&rsquo;s best to do some mangling, swapping some beats or putting on destructive effects to transform it in some way. This prevents your audio from just sounding like layered tracks from another artist mashed together and is a good way to put creativity into what you make.</p>
+<p>Another term you might hear are stems. Stems are just separate recordings of each part of a song - say the vocals as one audio file and the drums as another, these would make up the stems.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Samples are also, sort of ironically, made of samples. But these words mean two different things in that sentence. The sample of sound is made up digitally of a bunch of different points in a wave, usually captured ~44 thousand times a second- whatever the sampling rate is (commonly 44.1, 48, or 96 <a class="ptr">(1)</a>). This is what gives us the image above, where the originally pretty smooth looking wave, when zoomed in, we can see is made of these discrete points.</p>
+<p>This is particularly relevant to making music for multiple reasons:</p>
+<ul>
+<li>When change the speed/pitch by a non integer value, we have to &lsquo;interpolate&rsquo; extra points into this.</li>
+<li>When we slow down or make a sample lower pitch there&rsquo;s only so much data to use, at really low pitches the wave will start to sound sort of low-fi</li>
+<li>When chopping a sample to start playback at any point, we want to chop at a 0-crossing to avoid a sharp transition (which equates to high pitch sound)</li>
+</ul>
+<ol hidden id="footnotes">
+    <li>The Nyquist-Shannon Sampling Therom <a href="https://en.wikipedia.org/wiki/Nyquist–Shannon_sampling_theorem">(Wikipedia)</a> , put very basically, just says your sampling rate needs to be twice as high as the highest frequency in your source to be reproduced exactly. Because human hearing ranges roughly from 20 to 20khz, sampling at 40khz or above should be sufficient. Unfortunately, there's more too it than that, especially as generating waves in a virtual synth can benefit in sound quality for various reason from 'oversampling' - running above 44.1 or 48khz. Unfortunately, the higher the sampling rate the more work the computer has to do.
+    </li>
+</ol>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/music/wavfile.png" alt="wavfile"></p>
+<blockquote>
+<p>Zoomed in view of the snipped, showing the individual points in the sample</p>
+</blockquote>
+
+  </div>
+  
+</div>
+
+<p><img src="/music/sampler.webp" alt="sampler" /></p>
+<blockquote>
+<p>Bitwig Studio&rsquo;s Sampler. Here pitch tracking is enabled, making it so the sample can be played sped up or slowed down to pitch chromatically along the keyboard. Bitwig&rsquo;s Sampler is pretty similar to many other samplers in other DAWs like Ableton Live or modules like Simpliciter In VCV rack</p>
+</blockquote>
+<p>Here, we&rsquo;re looking at the sampler device in in Bitwig Studio, though most of this should be similar in other software. Starting with the obvious, the sample wave form in the middle. Here I have loaded a sample which has multiple drum sound in it, but I&rsquo;ve zoomed in on one sample and placed these yellow flags to denote the start an end points. Bitwig&rsquo;s sampler, like many others, will try to snap these points to aforementioned zero crossings.  You&rsquo;ll also see next to the file name that the keyboard icon is blue and says 100% and next to that the root is set to C3. This means that if I play the C3 key on my keyboard it will play the sample as is, but if I play a different key it will slow playback down or speed playback up to match the pitch to the key I&rsquo;m playing. The root being C3 is because, say I hit and recorded the A4 key on my piano- it&rsquo;s nice to be able to correct for the pitch of the sample in the keyboard tracking.</p>
+<p>Still in the same section of the window but below the first yellow flag that denotes the start, you&rsquo;ll see two smaller yellow flag icons that have a time specified. These are the times in the sample where the start and end flags are placed. Left of that you&rsquo;ll also see an arrow with an R over it, that&rsquo;s the button to tell it you want to play the sample in reverse. To the right, there&rsquo;s some loop options. Right now it&rsquo;s in &lsquo;Single Shot&rsquo; mode. If the button to trigger the sample is held for longer than the length of the sample, it will still only play once. The other two options are a forward repeat, the equivilent of leaving a song on loop, and a &lsquo;ping-pong&rsquo; loop, where the slice will play forwards then-backwards then forwards then &hellip;. as long as the gate is held.</p>
+<p>I also want to mention the freeze ability in this sampler- the snowflake below the end-time indicator. When enabled sample playback has to be done manually - and new controls to do so become available. Think of it like a record that you have to spin yourself. This can lead to some really cool sounds.</p>
+<p>Finally, you&rsquo;ll see below that snowflake is a RAM indicator. When lit, the sample is stored in RAM, not on disk. In general, this is probably what you want. It might be helpful to do otherwise though if you&rsquo;re either low on memory or you&rsquo;re trying to load some absolutely massive samples.</p>
+<p>[TODO] Multisamples</p>
+<p><img src="/music/simpliciter.webp" alt="simpliciter" title=":size=50%"/></p>
+<span class="smalltext ">
+    &lsquo;Simpliciter&rsquo; module in VCV rack, a sampler with transient detection, Sound On Sound (SOS) looping, and variable speed (pitch) playback
+</span>
+<p>Unlike the bitwig sampler, this sampler, &lsquo;Simpliciter&rsquo; in VCV Rack can take in live input to layer sounds or record the inital sample. In general you should see a lot of the same controls I talked about above exposed in this UI. There are some extra neat ones here though, including the ability to detect peaks as is enabled in the lower left in this screenshot. With this and a longer sample file with multiple drums you can just select the drum sample you want on each play-trigger.</p>
+<p>This video from Omri Cohen goes pretty in depth:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/bY6-Vxwdj_k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3 id="field-recordings-tape-loops-and-other-sampling-goodness">
+  Field Recordings, Tape Loops, and other sampling goodness
+  <a class="anchor" href="#field-recordings-tape-loops-and-other-sampling-goodness">#</a>
+</h3>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Check out the tape loop labyrinths of Justin Lakes. <a href="https://t.co/b8cTReWrWg">https://t.co/b8cTReWrWg</a> <a href="https://t.co/zULT0LaZtH">pic.twitter.com/zULT0LaZtH</a></p>&mdash; Tabs Out 🧻 (@tabsout) <a href="https://twitter.com/tabsout/status/949395722008489985?ref_src=twsrc%5Etfw">January 5, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>[TODO]</p>
+<p><a href="https://soundslikenoise.org">https://soundslikenoise.org</a></p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/JZ-yp2cCGbQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="basic-oscillators">
+  Basic Oscillators
+  <a class="anchor" href="#basic-oscillators">#</a>
+</h2>
+<p>Generally there are a few kinds of oscillators you should know about, but first, what&rsquo;s an oscillator?</p>
+<p>Well, very simply, it&rsquo;s a thing that oscillates- moves in a repeating pattern. Generally there are three ways you&rsquo;ll hear Oscillators refereed to as being VCO, DCO, or LFO. You may also see Oscillators in general refereed to with the abbreviation osc. Unfortunately, that can be confusing because OSC can also mean Open Sound Control, something I&rsquo;ll get into in the Sequencing and MIDI chapter in a bit.</p>
+<p>A <strong>VCO</strong> is a Voltage Controlled Oscillator. Back in VCV you saw these being emulated where each volt of constant input applied made the oscillator oscillates at twice the speed, one octave higher. In real life, VCOs tend to be a bit unstable and have minor pitch drift. While this may sound like a negative, it&rsquo;s generally seen as a feature, as stacked, slightly out of tune oscillators sound really good. In fact, VCV Rack&rsquo;s basic VCO, &lsquo;VCO-1&rsquo;, emulates this behavior by default.</p>
+<p>A <strong>DCO</strong> is a Digitally Controlled Oscillator. These (usually) exhibit no pitch drift and are far easier to tune.</p>
+<p>Note that some hardware may go from a digital input to a VCO internally, or take a voltage pitch signal as input but just sample it to use a DCO internally.</p>
+<p>an <strong>LFO</strong> is a Low Frequency Oscillator, they can still be either digital or analog (DCO or VCO), but they typically have a max frequency of around a hundred hertz and are meant to be used to control other things, not make sound to hear directly.</p>
+<p>Some oscillators, whether digital or analog, cover enough range to be either a &lsquo;normal&rsquo; oscillator used for sounds you&rsquo;re intended to hear or an LFO, so there&rsquo;s not always a clear distinction.</p>
+<blockquote class="book-hint info ">
+  <p><strong>Analog? Digital?</strong></p>
+<p>Avoiding the complex explanation of what actually makes an oscilator analog or digital, here&rsquo;s what you need to know:</p>
+<p>no, really it&rsquo;s a matter of a few things:</p>
+<ul>
+<li>Analog systems have some natural pitch drift and non-linearity (distortion), this makes them sound &lsquo;warmer&rsquo;</li>
+<li>Most analog designs can handle audio-rate modulation by default, you&rsquo;re not fighting a limited sample rate</li>
+<li>If you record at very high bit depth / rate or direct to analog media (tape), it&rsquo;s relevent to not have the computational overhead on the sources, so analog oscilators help with that.</li>
+<li>Analog is low latency: a DSP based source/effect will incurr latency due to the neccitity of a sample buffer. <em>technically</em> you can somewhat avoid this with dedicated DSP/FGPA hardware, but even then there&rsquo;s some.
+<ul>
+<li>This also means analog systems are great for feedback patching</li>
+</ul>
+</li>
+<li>Digital (DSP) oscilators can get complexity and polyphony for cheaper, so they&rsquo;re good for really complex timbres, for example with wavetables, which I&rsquo;ll cover in a bit</li>
+</ul>
+<p>So, which is better? Neither! If you want to go all analog or all digital, that&rsquo;s cool, but both have their strengths and weaknesses.</p>
+
+</blockquote>
+
+<p>Of note, you&rsquo;ll often hear people call non voltage controlled oscillators VCO&rsquo;s anyway. ╮(─▽─)╭</p>
+<p>Oscillators usually have very simple wave shapes as outputs. Typically, you&rsquo;ll see Sine ∿ , Triangle ʌ , Square ⎍ , and Saw waves as outputs. You may see other, more exotic wave forms though.</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Waveforms.svg/557px-Waveforms.svg.png" alt="Waveforms" style="-webkit-filter: invert(.85);">
+<p>Often, the square wave output has PWM or &lsquo;Pulse Width Modulation&rsquo; control:</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Duty_Cycle_Examples.png" style="-webkit-filter: invert(.85);zoom:75%;" />
+<p>Varying the pulse width over time sounds really good, to give it a shot try setting this up in VCV:</p>
+<p><img src="/music/PWMosc.webp" alt="PWMosc" /></p>
+<blockquote class="book-hint info ">
+  Here I&rsquo;ve set the LFO to be bi-polar with the switch on the left, and VCO-1&rsquo;s PWM CV knob has been turned up to make the input do something.
+</blockquote>
+
+<p>Some oscillators will also have Sync, either Hard or Soft. Sync, in general, makes the waveform reset once it gets an input from another oscillator. This means you&rsquo;ll need two oscillators to do sync.</p>
+<blockquote>
+<p><strong>Oscillator sync</strong> is a feature in some synthesizers with two or more VCOs, DCOs, or &ldquo;virtual&rdquo; oscillators. As one oscillator finishes a cycle, it resets the period of another oscillator, forcing the latter to have the same <a href="https://en.wikipedia.org/wiki/Frequency">base frequency</a>.</p>
+<p>[For <strong>Hard Sync</strong>] If the [following oscillator] is tuned to a lower frequency than the [controlling oscillator] it will be forced to repeat before it completes an entire cycle, and if it is tuned to a higher frequency it will be forced to repeat partway through a second or third cycle.</p>
+<p>[&hellip;] There are several other kinds of sync which may also be called <strong>Soft Sync</strong>.</p>
+<p><strong>Reversing Sync</strong></p>
+<p>This form of oscillator sync is less common. This form is very similar to Hard Sync, with one small difference. In Reversing Soft Sync, rather than resetting to zero, the wave is inverted; that is, its direction is reversed. Reversing Soft Sync is more associated with analog triangle core oscillators than analog sawtooth core oscillators.</p>
+<p><strong>Threshold or Weak Sync</strong></p>
+<p>Several kinds of Soft Sync use comparison thresholds:</p>
+<ul>
+<li>Hard Sync which is disabled when the frequency or amplitude of the slave crosses a user-defined threshold.</li>
+<li>Hard Sync which is disabled when the frequency of the [following oscillator] extends too high above or too far below the frequency of the [leading oscillator].</li>
+<li>Hard Sync which is disabled when the frequency of the [following oscillator] is lower than the frequency of the [leading oscillator].</li>
+</ul>
+<p>Soft Sync may accurately refer to any of these, depending on the synthesizer or manufacturer in question.</p>
+<p><strong>Phase Advance &lsquo;Sync&rsquo;</strong></p>
+<p>The phase of the slave is advanced by some amount when the [leading] oscillator level crosses some threshold. Used for audio synthesis, this may give an audible effect similar to Soft Sync.</p>
+<p><strong>Reset Inhibit Sync</strong></p>
+<p>When the [leading] oscillator crosses some threshold, the normal reset of the [following oscillator] is disabled: it will stick at its final level, positive or negative. When the [leader] crosses back over some threshold, the [following oscillator] is reset.</p>
+<p><strong>Overlap Sync</strong></p>
+<p>In this method, the current wave completes but a new waveform is generated at the sync pulse. The tail of the old wave and the new wave are output summed if they overlap.</p>
+</blockquote>
+<p class="attribution ">
+    <a href="https://en.wikipedia.org/wiki/Oscillator_sync">https://en.wikipedia.org/wiki/Oscillator_sync</a>
+</p>
+<p>I&rsquo;d also like to briefly mention oscillator cores. Especially in VCOs, knowing what the &lsquo;core&rsquo; of an oscillator is can make a difference. The core is simply the waveform from which the other waveform are derived. Generally, there are three kinds you&rsquo;ll see (though others are possible): Triangle, Saw, and Trapezoid core. To get an idea of what a core is, lets look at the saw.</p>
+<p>You can think of making a saw wave as just progressively counting higher with time. So, at t=0, we start at 0, at t=1 we go to 1, etc. until at, let&rsquo;s say t=10, we reset back to 0, and count back up to 10. If we assume this process is continuous, that is we could look at any decimal, like at t=1.12 the wave is at 1.12, we&rsquo;ve generated a sawtooth wave. This is our core. Now, we can say whenever that &lsquo;core&rsquo; wave is less than 5, output 0 on the square output. If it&rsquo;s greater than 5, output 10. If the blue wave is that core oscilator, the pink wave is the result (ignore the awkward spikes at the transition points)</p>
+<p><img src="/music/cores.webp" alt="cores" /></p>
+<p>The core used will often change the features of the oscillator. Generally, saw core oscillators are the cheapest and most common but also the least capable. Triangle and trapezoid cores often offer extra features, such as outputs other than the common sine, tri, saw, square.</p>
+<p>Finally, I&rsquo;d like to bring up harmonics.</p>
+<p>The really dumb version: If the wave has quick transitions (cliffs, ridges, etc) it&rsquo;s going to be more harmonically rich, and therefore have more &lsquo;sonic content&rsquo; above the base frequency. For example, say you play a 440hz sine wave. It will have no harmonics, it will be a pure, 440hz tone. But, if you play a 440hz square wave?  That&rsquo;ll have a ton of harmonics, actually, by definition, it will have <strong>odd</strong> harmonics. If you care about the mathy stuff you can read <a href="http://www.jezzamon.com/fourier/">An Interactive Introduction to Fourier Transforms by
+Jez Swanson</a>. But, the relevant bit for for musical stuff is that these harmonics, the phase relationship between them, and how they change over time is what makes a sound sound like <em>that sound</em>. It&rsquo;s what makes a piano sound like a piano, etc.</p>
+<p>Anyway, knowing what these harmonics add to a sound make a big difference. Often with synths, you&rsquo;ll find you have separate control or outputs of the even and odd harmonics. This is sort of what you expect.</p>
+<p>For example, say we have a 100hz &lsquo;base&rsquo; sound. Then the even harmonics would be 200, 400, 600, 800, etc. Odd harmonics will be at 300, 500, 700, etc. Note that humans can only hear up to 20,000 hertz anyway, so, technically it&rsquo;s impossible for you to hear a true square wave (Well, technically a <em>true</em> square wave would have infinite energy, so it&rsquo;s impossible for more than one reason).</p>
+<p>I&rsquo;ll spare you going any deeper into terminology like the difference between harmonics and overtones, but, and here&rsquo;s the important parts:</p>
+<ul>
+<li>Even harmonics have the perfect octaves and 5th, while odd harmonics have 3rds- which turns into dominant seventh chords</li>
+<li>If you add in a lower harmonic (say you have a sub-octave pedal on your guitar) your brain will (usually) perceive the note as being the lowest frequency in that harmonic series available</li>
+<li>Distortion is literally just adding harmonics to the sound, clipping a sine wave (a form of distortion) is a really easy way to see this</li>
+</ul>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/Wx_kugSemfY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="additive-and-subtractive-synthesis">
+  Additive and Subtractive Synthesis
+  <a class="anchor" href="#additive-and-subtractive-synthesis">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLrnjie9klQEkZGar3zZ4hRurU_kUDk7Md" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>[TODO] making a basic subtractive synth voice in VCV</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/SCujIf5eJ2w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="wavetables">
+  Wavetables
+  <a class="anchor" href="#wavetables">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/8DjnDVWKaEs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Note, that not all wavetable synths have the linear FM (discussed in the next section), Phase mod / distortion, and wavefolding that pigments has, though many do.</p>
+<p>I really recommend using <a href="https://blamsoft.com/vcv-rack/xfx-wave/">Blamsoft&rsquo;s XFX-Wave</a> for VCV rack to try out Wavetable synthesis. Also in VCV, <a href="https://library.vcvrack.com/TinyTricks/WAVE">Tiny Tricks Wave</a> is a neat way to experiment with recording your own tables- just hook up three signals and press &lsquo;capture&rsquo;.</p>
+<p><img src="/music/VCVWavetables.webp" alt="" /></p>
+<p>You may also hear about <a href="https://xferrecords.com/products/serum">XFer Serum</a>, it&rsquo;s the sort of EDM/Dubstep standard synth, and is a powerhouse for wavetables. It&rsquo;s incredibly popular, so there&rsquo;s a ton of great wavetable packs for it too (I particularly like the <a href="https://www.echosoundworks.com/coda">Coda</a> pack). Because Serum is so popular, it&rsquo;s wavetable format is supported by most other wavetable synths as well, so if you&rsquo;re jonesn' for more wavetables, looking up free packs for serum can be a good place to start.</p>
+<p>Serum is pretty expensive though, so you may want to check out <a href="https://vital.audio">VITAL</a> (which TBH I think is a bit better anyway)</p>
+<p>There are of course, many, many other Wavetable synths out there, but I can&rsquo;t mention all of them. If you do want to check out more though, I recommend looking into <a href="https://kilohearts.com/products/phase_plant">Phase Plant (VST)</a>, <a href="https://www.modalelectronics.com/argon8/">Argon8 (Standalone Synth)</a>, <a href="https://www.perfectcircuit.com/harvestman-piston-honda-mk3.html">Piston Honda MKⅢ (Eurorack)</a>, Plaits &amp; Braids (Eurorack or <a href="https://library.vcvrack.com/Atelier/AtelierPalette">VCV</a>), Cursus Iteritas (<a href="https://www.perfectcircuit.com/noise-eng-cursus-iteritas-black.html">Eurorack</a> or <a href="https://www.reasonstudios.com/shop/rack-extension/cursus-iteritas-vereor/">Reason</a>), and the <a href="https://www.perfectcircuit.com/asm-hydrasynth-desktop.html">Hydrasynth (Desktop)</a>.</p>
+<p>The Spherical Wavetable Navigator from 4MS is too cool to not link a video too as well:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/qosfee4qJbM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="fm-synthesis">
+  FM Synthesis
+  <a class="anchor" href="#fm-synthesis">#</a>
+</h2>
+<img src="/music/dx7.webp" alt="dx7" style="-webkit-filter: invert(.9);zoom:75%;">
+<p class="attribution ">
+    <a href="https://scsynth.org/t/coding-fm-synthesis-algorithms/1381">Source (Likely originally from the Yahmaha DX7 Manual)</a>
+</p>
+<p>Frequency Modulation or FM, is just the simply when you let the output of one oscillator modulate the frequency of another oscillator. Usually this is done in simple ratios and, ideals, uses linear, through zero modulation.</p>
+<p>First, Let&rsquo;s start with linear vs exponential FM. It&rsquo;s worth noting that most pitch tracking is exponential since our music system itself is inherently exponential (each octave is a doubling, that is the frequency between C5 and C4 is twice the frequency between C3 and C4). This causes a problem though, if we modulate with exponential FM, say with a sine wave that is +/- 1V (2Vpp) and we start with an A4 at 440hz, then we&rsquo;ll swing up to 880hz and down to 220hz. Fine right? Not so much. If this modulation is meant to simply give us a more harmonically interesting A as we mix in different octaves that won&rsquo;t be the effect, as now we&rsquo;re (to oversimplify) at 880hz half the time and 220hz half the time, and if we average those, 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\frac{880&#43;220}{2}\)
+</span>
+, then we don&rsquo;t still get the original A 440hz but rather we get 550Hz, so, we&rsquo;ve detuned. Linear FM won&rsquo;t be able to follow the V/Oct standard (though some may use the Hz/V standard) but will keep you in tune as you modulate. This, however, begins to pose a more interesting problem. Imagine you want to modulate a 100hz signal by +/- 200hz. Clearly, that would mean going as high as 300hz, but what happens when we get past the first half of that negative signal and hit 0hz? Well, this is where having a Though Zero FM (TZFM) capability comes in handy, as this issue is solved sonically by actually inverting the phase of the signal when crossing the 0Hz point. While this may seem an odd solution, it does produce sounds that line up with what our ears expect.</p>
+<p>Exponential FM and V/Oct, assuming the same scaling, are the same thing though so sometimes you can actually view it more as a second V/Oct input. For example, you could use the Exp FM input to specify the note, and then the normal V/Oct input to change the octave. Of note however, this may not always work as the Exp FM input may be AC coupled, meaning that DC values, like note data, will not be able to get through and instead you&rsquo;ll just hear a &ldquo;ping&rdquo; as the pitch is modulated at the cutoff of the AC coupling filter, in these cases the Exp FM input will have a minimum frequency that the input signal can oscillate at to perform properly.</p>
+<p>When talking about Linear FM, I mentioned that simple ratios are best. This isn&rsquo;t entirely true, but they will produce the least complicated harmonics, and while complicated harmonics are <em>awesome</em> it&rsquo;s also really easy to make something that sounds awful.</p>
+<p>Becasue FM synthesis is a pretty complicated topic to wrap your head around, I recommend giving these three videos a watch:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/L1QZuEuMD_E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/P4EYqMEH6Dc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/2BmFnA0YsUc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="granular-synthesis">
+  Granular Synthesis
+  <a class="anchor" href="#granular-synthesis">#</a>
+</h2>
+<p>There are many, many granular synths and effects, but, I&rsquo;d like to start with a video review from Loopop of the Tasty Chips GR-1, as I think the hardware does a good job of showing what&rsquo;s going on and Loopop does a great job explaining as well:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/1RWOoEj3mwU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>This video from Red Means Recording goes over a ton of VSTS that do this well.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/zwLXD3cxOkk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Finally, I want to mention Arbhar, Morphagene, and Clouds- but rather than try to poorly explain the three I&rsquo;m going to link videos again. Note that &lsquo;Simpliciter&rsquo;, the sampler I mentioned earlier is pretty similar to Morphagene and that Clouds is available in VCV rack.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/YuRPdbqJK-U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/IjcDnax9yLY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="feedback-todo">
+  Feedback [TODO]
+  <a class="anchor" href="#feedback-todo">#</a>
+</h2>
+<p>[TODO]</p>
+<h2 id="phase-distortion-todo">
+  Phase Distortion [TODO]
+  <a class="anchor" href="#phase-distortion-todo">#</a>
+</h2>
+<p>[TODO]</p>
+<h2 id="physical-modeling--karplus-strong-todo">
+  Physical Modeling &amp; Karplus Strong [TODO]
+  <a class="anchor" href="#physical-modeling--karplus-strong-todo">#</a>
+</h2>
+<p>+ Waveguides</p>
+<h2 id="noise-todo">
+  Noise? [TODO]
+  <a class="anchor" href="#noise-todo">#</a>
+</h2>
+<p>Colored Noise, using it to make drums, etc</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/sources.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#methods-of-making-noise">Methods of making noise</a>
+      <ul>
+        <li><a href="#samples">Samples</a>
+          <ul>
+            <li><a href="#field-recordings-tape-loops-and-other-sampling-goodness">Field Recordings, Tape Loops, and other sampling goodness</a></li>
+          </ul>
+        </li>
+        <li><a href="#basic-oscillators">Basic Oscillators</a></li>
+        <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
+        <li><a href="#wavetables">Wavetables</a></li>
+        <li><a href="#fm-synthesis">FM Synthesis</a></li>
+        <li><a href="#granular-synthesis">Granular Synthesis</a></li>
+        <li><a href="#feedback-todo">Feedback [TODO]</a></li>
+        <li><a href="#phase-distortion-todo">Phase Distortion [TODO]</a></li>
+        <li><a href="#physical-modeling--karplus-strong-todo">Physical Modeling &amp; Karplus Strong [TODO]</a></li>
+        <li><a href="#noise-todo">Noise? [TODO]</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

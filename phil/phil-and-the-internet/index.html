@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The fight for the Internet is never ending. At the time of writing, Senate Majority Leader Mitch McConnell tried to tie anti §230 legislation to the $2000 stimulus checks, and my own Congress Critter, Ben Sasse (R,Nebraska), along with Jeff Merkley (D,Oregon) are trying to push though SISEA - the Stop Internet Sexual Exploitation Act, which on paper sounds like it&rsquo;s doing good to stop the possibility of revenge porn. Unfortunately, they want to do this by requiring that all people in porn expressly give the site written consent with identity verification.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #E23838;}
+  a:active{color: #E23838;}
+  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
+  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
+</style>
+<meta property="og:title" content="Phil and The Internet" />
+<meta property="og:description" content="The fight for the Internet is never ending. At the time of writing, Senate Majority Leader Mitch McConnell tried to tie anti §230 legislation to the $2000 stimulus checks, and my own Congress Critter, Ben Sasse (R,Nebraska), along with Jeff Merkley (D,Oregon) are trying to push though SISEA - the Stop Internet Sexual Exploitation Act, which on paper sounds like it&rsquo;s doing good to stop the possibility of revenge porn. Unfortunately, they want to do this by requiring that all people in porn expressly give the site written consent with identity verification." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/phil/phil-and-the-internet/" /><meta property="article:section" content="Phil" />
+
+
+
+<title>Phil and The Internet | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/"class=active>Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Phil and The Internet</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#politics-and-the-internet">Politics and The Internet</a>
+      <ul>
+        <li><a href="#the-important-laws-you-need-to-understand">The important laws you need to understand:</a>
+          <ul>
+            <li><a href="#cda-no-pronz--230">CDA (no pronz) &amp; §230</a></li>
+            <li><a href="#dmca-attempting-to-fix-230-poorly">DMCA (<em>attempting</em> to fix 230, poorly)</a></li>
+            <li><a href="#fostasesta-breaking-230">FOSTA/SESTA (Breaking 230)</a></li>
+            <li><a href="#sopa--pipa-trying-to-break-everything">SOPA &amp; PIPA (Trying to break everything)</a></li>
+            <li><a href="#coppa--cipa-breaking-things-for-the-children">COPPA &amp; CIPA (Breaking things&hellip; For the children!)</a></li>
+            <li><a href="#gdpr-they-tried">GDPR (They tried)</a></li>
+            <li><a href="#earn-it-breaking-things-more">EARN IT (Breaking things more)</a></li>
+            <li><a href="#patriot-act--fisa-watching-you">Patriot Act &amp; FISA (Watching you)</a></li>
+            <li><a href="#cfaa-hack-the-planet">CFAA (Hack The Planet?)</a></li>
+            <li><a href="#net-neutrality-and-the-buying-of-the-fcc">Net Neutrality (and the buying of the FCC)</a></li>
+            <li><a href="#hipaa-attempting-to-unfuck-healthcare-a-wee-bit">HIPAA (attempting to unfuck healthcare a wee bit)</a></li>
+            <li><a href="#earn-it">EARN IT</a></li>
+          </ul>
+        </li>
+        <li><a href="#private-internet-policing">Private Internet Policing</a></li>
+        <li><a href="#centralization--monopoly">Centralization &amp; Monopoly</a>
+          <ul>
+            <li><a href="#protecting-general-computation">Protecting general computation</a></li>
+            <li><a href="#encryption-and-illegal-numbers">Encryption and illegal numbers</a></li>
+            <li><a href="#do-you-own-your-hardware-software">Do you own your hardware? software?</a></li>
+            <li><a href="#format-shifting">Format shifting</a></li>
+          </ul>
+        </li>
+        <li><a href="#data-and-privacy">Data and Privacy</a></li>
+        <li><a href="#terms-of-service-and-eulas">Terms of Service and EULAs</a></li>
+        <li><a href="#stalkerware">Stalkerware</a></li>
+        <li><a href="#ai">AI</a></li>
+        <li><a href="#google-amp">Google Amp</a></li>
+        <li><a href="#social-media">Social Media</a>
+          <ul>
+            <li><a href="#censorship">Censorship</a></li>
+            <li><a href="#federation">Federation</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><div style="background: #111; border: solid red; width: 100%;">
+<p>The fight for the Internet is never ending. At the time of writing, Senate Majority Leader Mitch McConnell tried to tie anti §230 legislation to the $2000 stimulus checks, and my own Congress Critter, Ben Sasse (R,Nebraska), along with Jeff Merkley (D,Oregon) are trying to push though <strong>SISEA - the Stop Internet Sexual Exploitation Act</strong>, which on paper sounds like it&rsquo;s doing good to stop the possibility of revenge porn. Unfortunately, they want to do this by <strong>requiring that all people in porn expressly give the site written consent with identity verification</strong>. This is exceedingly stupid for a variety of reasons:</p>
+<ul>
+<li>This is essentially a restriction on free speech as it makes it illegal for sites to host content that users would very likely <em>want</em> to be able to publish anonymously.</li>
+<li>It puts established sex workers at risk, as <del>if</del> when a site gets hacked as it&rsquo;s inevitable, that information could be used for a huge variety of horrors.</li>
+<li>It also seeks to add a 24/7 support line to report content, and limits content in violation to be taken down in under 2 hours. This will be <em>huge</em> burden for legitimate sites, and encourage users to go to much darker corners of the internet where content is freely updated, but where the sites have no incentive to comply with laws that are sensible for protecting minors or other vulnerable people.</li>
+<li>It super-ultra fucks undocumented sex workers</li>
+</ul>
+<p>The fact that they can claim &ldquo;oh lookie it&rsquo;s bipartisan!&rdquo; is really just them trying to sneak a fucking porn ban though. Fuck that.</p>
+<p>Please call and write your congress critters, and let them know this is some stupid bullshit. Then ask your friends to do so as well.</p>
+<p>You can use <a href="https://www.house.gov/representatives/find-your-representative">Find My Representative (house.gov)</a> if you need to look up who represents you.</p>
+<p>If you&rsquo;re outside the US, this will still very likely affect you. Hell, PornHub is a Canadian site, but they&rsquo;ll still likely have to comply, so please still spread the message.</p>
+</div>
+<h1 id="politics-and-the-internet">
+  Politics and The Internet
+  <a class="anchor" href="#politics-and-the-internet">#</a>
+</h1>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/Px6wr3OgnJA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="the-important-laws-you-need-to-understand">
+  The important laws you need to understand:
+  <a class="anchor" href="#the-important-laws-you-need-to-understand">#</a>
+</h2>
+<h3 id="cda-no-pronz--230">
+  CDA (no pronz) &amp; §230
+  <a class="anchor" href="#cda-no-pronz--230">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/phil/hazbin.gif" alt="Hazbin Hotel"></p>
+<p class="attribution ">
+    <a href="https://www.youtube.com/watch?v=Zlmswo0S0e0&amp;vl=en&amp;ab_channel=Vivziepop">Hazbin Hotel Pilot (Viziepop, YouTube)</a>
+</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <blockquote>
+<p>The <strong>Communications Decency Act of 1996</strong> (<strong>CDA</strong>) was the <a href="https://en.wikipedia.org/wiki/United_States_Congress">United States Congress</a>&rsquo;s first notable attempt to regulate <a href="https://en.wikipedia.org/wiki/Pornography">pornographic</a> material on the <a href="https://en.wikipedia.org/wiki/Internet">Internet</a>. In the 1997 landmark case <em><a href="https://en.wikipedia.org/wiki/Reno_v._ACLU">Reno v. ACLU</a></em>, the <a href="https://en.wikipedia.org/wiki/United_States_Supreme_Court">United States Supreme Court</a> struck the act&rsquo;s anti-indecency provisions.</p>
+</blockquote>
+<p class="attribution ">
+    <a href="https://en.wikipedia.org/wiki/Communications_Decency_Act">Communications Decency Act (Wikipedia)</a>
+</p>
+
+  </div>
+  
+</div>
+
+<p>Alright, so it was some failed law that tried to ban porn? Well, yeah, <strong>BUT</strong> it did pass and was only later, in the afforementioned Reno v ACLU case, struck down - and there, only the anti-indecency provisions. This left one very, very inportant little bit, <em>Section 230</em>,  that today the entire internet relies on, <strong>The 26 words that created the internet:</strong></p>
+<blockquote>
+<p><strong>No provider or user of an interactive computer service shall be treated as the publisher or speaker of any information provided by another information content provider</strong></p>
+</blockquote>
+<p>In human language, this means Section 230 is what protects Facebook from being liable when some dipshit posts a pirated movie to Facebook, makes a terrorist threat, or just spreads libel. Similarly, it gives the platforms moderation privileges, that is if some nazi joins your group chat, you can give him the boot.</p>
+<p>The big problem right now is whether or not fact checking, where a little box shows up under a tweet or YouTube video to say something like &ldquo;Science knows Climate Change is man made and a big fucking problem&rdquo; or &ldquo;Biden won the election, stop being such a little bitch&rdquo; is allowed, or if it makes the site a <em>publisher</em>, there by taking away their §230 protections.</p>
+<p>Here, this video covers everything I could say a lot better than I can easily write here, so here&rsquo;s the two things I&rsquo;d say are pretty much required reading, <a href="https://www.eff.org/deeplinks/2020/12/section-230-good-actually">Section 230 is Good Actually (EFF.org)</a> and this video from DEF CON:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/678EW8v09z8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://www.wired.com/story/section-230-internet-sacred-law-false-idol/"> Everything You’ve Heard About Section 230 Is Wrong from Wired is really god but <strong>is behind a paywall</strong></a></p>
+<h3 id="dmca-attempting-to-fix-230-poorly">
+  DMCA (<em>attempting</em> to fix 230, poorly)
+  <a class="anchor" href="#dmca-attempting-to-fix-230-poorly">#</a>
+</h3>
+<p>Alright, so 230 made sites not liable at all (ish) but this actually isn&rsquo;t great either, as what is someone supposed to do if they get their copyrighted work posted online? No reasonable person (or business) can afford to sue literally every time someone posts their shit, so, the DMCA - the <em>Digital Millennium Copyright Act</em>-  was born, to steal from Wikipeda:</p>
+<blockquote>
+<p>It criminalizes production and dissemination of technology, devices, or services intended to circumvent measures that control access to copyrighted works (commonly known as <a href="https://en.wikipedia.org/wiki/Digital_rights_management">digital rights management</a> or DRM). It also criminalizes the act of circumventing an access control, whether or not there is actual infringement of copyright itself.</p>
+</blockquote>
+<p>But this has a whole host of issues. I&rsquo;m going to redirect this to <a href="https://www.eff.org/pages/unintended-consequences-fifteen-years-under-dmca">This page from the EFF</a> though, as I think that does a much better job of explaining the issues, and then you might want to read <a href="https://en.wikipedia.org/wiki/Digital_Millennium_Copyright_Act#Criticisms">This list of Criticisms of the DMCA</a> on the Wikipedia page for the DMCA.</p>
+<p>More recently, the <a href="https://github.com/github/dmca/blob/master/2020/10/2020-10-23-RIAA.md">DMCA takedown</a> of YouTube-dl, a program that lets users download videos from YouTube among many, many other video sites, was a big issue that riled up the technical world, and for which it seems most people think was a flagrant misuse of the DMCA against a tool, not a specific instance of infringing content. Extra stupid when you realize the computer itself could also be argued to be the tool enabling infringement.</p>
+<p>The abuse of automated, algorithmic takedowns for the sake of keeping up with the DMCA has also resulted in <a href="https://www.vice.com/en/article/bvxb94/is-this-beverly-hills-cop-playing-sublimes-santeria-to-avoid-being-livestreamed">cops playing music to prevent videos from being on social media (VICE)</a>.</p>
+<h4 id="exceptions">
+  Exceptions
+  <a class="anchor" href="#exceptions">#</a>
+</h4>
+<p>Alright, so the DMCA is dumpster fire burning with a raging satanic hell blaze which only emits darkness, but thankfully the sentient darkness that represents the American people has carved away a few crumbs that we can use to sustain ourselves with in these dire times. The list below are things for which you can safely outright ignore the DMCA and break into things as you please. I&rsquo;ll go over my favorites, but <a href="https://en.wikipedia.org/wiki/Digital_Millennium_Copyright_Act#Anti-circumvention_exemptions">here&rsquo;s the list in full on Wikipedia</a>.</p>
+<ul>
+<li>Ebooks can be stripped for the sake of using a text-to-speech system</li>
+<li>Snippets of Movie/Video DRM can be stripped for the purposes of criticism/review, education, and accessibility</li>
+<li>While not directly stated, an exception for &lsquo;Jailbreaking&rsquo; and &lsquo;Rooting&rsquo; Iphones and Androids was made, so that&rsquo;s allowed.</li>
+<li>Forcing 3D printers to use 3rd party filament</li>
+<li>&ldquo;Computer programs, where the circumvention is undertaken on a lawfully acquired device or machine on which the computer program operates solely for the purpose of good-faith security research and does not violate any applicable law&rdquo;</li>
+<li>In general, if you&rsquo;re doing it so you can repair the device, you&rsquo;re all clear as well.</li>
+</ul>
+<h3 id="fostasesta-breaking-230">
+  FOSTA/SESTA (Breaking 230)
+  <a class="anchor" href="#fostasesta-breaking-230">#</a>
+</h3>
+<p><a href="https://en.wikipedia.org/wiki/Stop_Enabling_Sex_Traffickers_Act">FOSTA and SESTA (Wikipedia)</a>, the &lsquo;Fight Online Sex Trafficking Act&rsquo; and &lsquo;Stop Enabling Sex Traffickers Act&rsquo; are both massive failures. Their original goal is more or less in the name, but even the U.S. Department of Justice said it was a bad idea. Again, I&rsquo;m going to hand this off to better sources. The first link there, to the wikipedia article, has a large section on the criticism of the bills. I strongly encourage you read it, and <a href="https://www.eff.org/deeplinks/2018/03/how-congress-censored-internet">this article</a> from the EFF does a good job of going into its problems too.</p>
+<p>These are the bills that caused <a href="https://www.craigslist.org/about/FOSTA">Craigslist to remove their &lsquo;personals&rsquo; section</a>.</p>
+<h3 id="sopa--pipa-trying-to-break-everything">
+  SOPA &amp; PIPA (Trying to break everything)
+  <a class="anchor" href="#sopa--pipa-trying-to-break-everything">#</a>
+</h3>
+<p>SOPA, or the <a href="https://en.wikipedia.org/wiki/Stop_Online_Piracy_Act">Stop Online Piracy Act (Wikipedia)</a> from ~2012 was a <em>big</em> deal at the time. Google, Facebook, Twitter, Amazon, eBay, Tumblr, Mozilla (Firefox), Mojang (Minecraft), Wikipedia, and more were all active in letting users know this bill was bad news. It was effective, but it was one hell of a fight. <a href="https://en.wikipedia.org/wiki/PROTECT_IP_Act">PIPA (Wikipedia)</a>, the &lsquo;PROTECT IP Act&rsquo; was just the senate version of the bill, but it is still worth reading up on it quickly, especially the &lsquo;Reception&rsquo; section of the linked Wikipedia article.</p>
+<p>For a slightly dramatized, dubstep recap: (skip to 2:28)</p>
+<iframe width="100%" height="300" src="https://www.youtube.com/embed/Hag2JWC8qZ0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3 id="coppa--cipa-breaking-things-for-the-children">
+  COPPA &amp; CIPA (Breaking things&hellip; For the children!)
+  <a class="anchor" href="#coppa--cipa-breaking-things-for-the-children">#</a>
+</h3>
+<p><a href="https://en.wikipedia.org/wiki/Child_Online_Protection_Act">COPA (Wikipedia)</a>, the Child Online Protection Act, passed in &lsquo;98 and seeks to keep minors online safe, mostly this just resulting in the &lsquo;Are you 18?&rsquo; checks that surely no minor has ever lied to bypass.</p>
+<p>Oh, what&rsquo;s that, that&rsquo;s COPA with one &lsquo;P&rsquo;, my bad, here&rsquo;s <a href="https://en.wikipedia.org/wiki/Children%27s_Online_Privacy_Protection_Act#Criticisms">COPPA (Wikipedia)</a>, Child Online <em>PRIVACY</em> Protection Act. which if you read up on you&rsquo;ll see has been a mess for free speech, hurts small business, fails to protect kids anyway, and only seeks to create an artificial (and broken) &lsquo;safe space&rsquo; online for kids, which is especially dumb as it ignores the most obvious problem: no kid <em>wants</em> to be treated like a kid. Moreover, why the <em>fuck</em> should kids get privacy protection until 13 and then ope, just like that fuck em&rsquo; we&rsquo;ll collect all their information and sell it to advertisers, what magical thing happens at 14 that makes collecting and selling your data okay?</p>
+<p><a href="https://en.wikipedia.org/wiki/Children%27s_Internet_Protection_Act">CIPA (Wikipedia)</a>, the Children&rsquo;s Internet Protection Act, is a free speech fuck you to all children as it requires web filtering. The <a href="https://en.wikipedia.org/wiki/American_Civil_Liberties_Union">ACLU</a> and <a href="https://en.wikipedia.org/wiki/American_Library_Association">ALA</a> both challenged CIPA, arguing that the filtering it would necessitate at public libraries would limit free speech, and they won&hellip;. and then lost on appeal, with the stipulation that on request a librarian unblock content for an adult. Of course, this is still a major fuck you to kids. It&rsquo;s more or less normalized school web filters that are far to overzealous, as anybody that went to high school since the 2010&rsquo;s can tell you. Hell, my public school even had sites blocked for &lsquo;Alternative Beliefs&rsquo;.</p>
+<p>Look, I&rsquo;m not against protecting kids online, no 8 year old should be exposed to 2 girls and a cup. I know for a fact that some kids get <em>fucked up</em> seeing this shit to early. My mom&rsquo;s a family law attorney, and while obviously case specifics are kept quiet, general ideas like &lsquo;saw a kid got addicted to porn because the dad showed it to him&rsquo; are things I&rsquo;ve heard. It&rsquo;s awful. I get it. But you can&rsquo;t stop a shitty parent with legislation no matter how hard you try.</p>
+<p class="tip ">
+    <strong>Alright, here&rsquo;s my rant:</strong> </br></br>Kids need to be able to look things up and be trusted. I know it&rsquo;s rough, nobody want&rsquo;s a 12 year old looking up porn, but maybe the <strong>parents</strong> should actually have that talk and explain that stuff, answering any and all questions, rather than making the kid have to look it up in the first place. Sex education (in the US at least) is largely abstinence only and primarily serves to just make teens feel like shit about their bodies and choices. But, even beyond that, kids in general need to be able to fuck up gracefully. I get it, the internet always remembers, so we don&rsquo;t want them exchanging nudes or writing about some illegal thing they did. Sure. But on the other hand cutting them off from &lsquo;real&rsquo; social media create a divide that tells them they can&rsquo;t even be trusted to make the most basic of responsible decisions, which destroys self confidence and independence. It keeps kids from looking into alternative religions and values, it keeps kids from having access to resources to cope with potential abuse they may be going though. </br></br>The only reality in which this shit makes any sense is when parents understand to help them bypass it when ready, those parents exclusively have their kids best interests in mind, and those interests aren&rsquo;t in any way clouded by personal values instead of what is actually best for the kid.</br></br>Kids should be given full access and punished (with adequate calm explanation of why it was wrong) for accessing things they&rsquo;ve been told not to, not be restricted form accessing those things in the first place. This still has privacy problems (re: kid trying to lookup information about abusive parents) but it&rsquo;s a start. </br></br> This is only made extra stupid when you consider that the only possible filter that will work to completely eliminate the &lsquo;bad&rsquo; sources is a allow-sites list, as otherwise it will be a game of endless wack-a-mole, yet this allowed sites list could never come close to encompassing the wider network of amazing information from smaller sites (like this one) thus depriving kids of resources.</br></br><strong>TLDR:</strong> Parents need to be parents, not blindly trust content filters.
+</p>
+<h3 id="gdpr-they-tried">
+  GDPR (They tried)
+  <a class="anchor" href="#gdpr-they-tried">#</a>
+</h3>
+<p class="tip ">
+    Note, unlike the rest of the items in this list, the GDPR is NOT legislation from the United States, instead it&rsquo;s applicable to all EU residents
+</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">US websites when they don&#39;t want to comply to the GDPR:<br><br>&quot;Sorry, we want to track you, but because of EU&#39;s GDPR, we can&#39;t, so f* off, we won&#39;t show you our website&#39;s content.&quot; <a href="https://t.co/70LuYcYotH">pic.twitter.com/70LuYcYotH</a></p>&mdash; Samantaz (@SamantazFox) <a href="https://twitter.com/SamantazFox/status/1340624879234781185?ref_src=twsrc%5Etfw">December 20, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h3 id="earn-it-breaking-things-more">
+  EARN IT (Breaking things more)
+  <a class="anchor" href="#earn-it-breaking-things-more">#</a>
+</h3>
+<p><a href="https://www.youtube.com/watch?v=fvpWEzOOaRA&amp;feature=youtu.be&amp;t=26931">All About Section 230, The EARN IT Act and What They Mean for Free Speech and Privacy</a></p>
+<h3 id="patriot-act--fisa-watching-you">
+  Patriot Act &amp; FISA (Watching you)
+  <a class="anchor" href="#patriot-act--fisa-watching-you">#</a>
+</h3>
+<h3 id="cfaa-hack-the-planet">
+  CFAA (Hack The Planet?)
+  <a class="anchor" href="#cfaa-hack-the-planet">#</a>
+</h3>
+<p>[TODO] internet&rsquo;s own boy: Aaron Swartz</p>
+<p><strong>Update, June 3rd 2021: The Supreme Court has restricted the scope of the CFAA, making it less awful</strong></p>
+<p>The opionion can be read <a href="https://www.supremecourt.gov/opinions/20pdf/19-783_k53l.pdf">here</a>. The average person only really needs read point <em>(d)</em> from the syllabus:</p>
+<blockquote>
+<p>(d) The Government’s interpretation of the “exceeds authorized access” clause would attach criminal penalties to a breathtaking amount of commonplace computer activity. For instance, employers commonly state that computers and electronic devices can be used only for business purposes. On the Government’s reading, an employee who sends a personal e-mail or reads the news using a work computer has violated the CFAA. The Government speculates that other provisions might limit its prosecutorial power, but its charging practice and policy indicate otherwise. The Government’s approach would also inject arbitrariness into the assessment of criminal liability, because whether conduct like Van Buren’s violated the CFAA would depend on how an employer phrased the policy violated (as a “use” restriction or an “access” restriction). Pp. 17–20.</p>
+</blockquote>
+<p>So, this ruling has significantly reduced the cluster-fuck that CFAA created.</p>
+<h3 id="net-neutrality-and-the-buying-of-the-fcc">
+  Net Neutrality (and the buying of the FCC)
+  <a class="anchor" href="#net-neutrality-and-the-buying-of-the-fcc">#</a>
+</h3>
+<h3 id="hipaa-attempting-to-unfuck-healthcare-a-wee-bit">
+  HIPAA (attempting to unfuck healthcare a wee bit)
+  <a class="anchor" href="#hipaa-attempting-to-unfuck-healthcare-a-wee-bit">#</a>
+</h3>
+<p><a href="https://www.mnot.net/blog/2020/08/28/for_the_users">https://www.mnot.net/blog/2020/08/28/for_the_users</a> RFC8890</p>
+<h3 id="earn-it">
+  EARN IT
+  <a class="anchor" href="#earn-it">#</a>
+</h3>
+<p><a href="https://medium.com/tech-thoughts-by-thegreatonion/how-the-earn-it-bill-undermines-americans-rights-online-8894d17cc427">https://medium.com/tech-thoughts-by-thegreatonion/how-the-earn-it-bill-undermines-americans-rights-online-8894d17cc427</a></p>
+<h2 id="private-internet-policing">
+  Private Internet Policing
+  <a class="anchor" href="#private-internet-policing">#</a>
+</h2>
+<p><a href="https://www.economist.com/finance-and-economics/credit-card-firms-are-becoming-reluctant-regulators-of-the-web/21805450">Credit-card firms are becoming reluctant regulators of the web (The Economist)</a></p>
+<h2 id="centralization--monopoly">
+  Centralization &amp; Monopoly
+  <a class="anchor" href="#centralization--monopoly">#</a>
+</h2>
+<p>Cloudflare, AWS, etc.</p>
+<p><a href="https://www.tbray.org/ongoing/When/202x/2021/10/08/The-WOrst-Case">Worst Case (Tim Bray @ tbray.org)</a></p>
+<p><a href="https://arstechnica.com/gadgets/2021/11/google-sends-anti-regulation-propaganda-to-small-businesses-using-google-maps/">Google sends anti-regulation propaganda to small businesses using Google Maps (arsTechnica)</a></p>
+<h3 id="protecting-general-computation">
+  Protecting general computation
+  <a class="anchor" href="#protecting-general-computation">#</a>
+</h3>
+<h3 id="encryption-and-illegal-numbers">
+  Encryption and illegal numbers
+  <a class="anchor" href="#encryption-and-illegal-numbers">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/CINVwWHlzTY?list=PL96C35uN7xGLLeET0dOWaKHkAlPsrkcha" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://en.wikipedia.org/wiki/Illegal_number">https://en.wikipedia.org/wiki/Illegal_number</a></p>
+<p><a href="https://en.wikipedia.org/wiki/High-bandwidth_Digital_Content_Protection#Master_key_release">HDCP master key release (Wikipedia) </a> [TODO, + background on what HDCP is]</p>
+<p><a href="http://www.catb.org/~esr/hdcp-master.txt">http://www.catb.org/~esr/hdcp-master.txt</a></p>
+<p><a href="http://libraryofbabel.info">http://libraryofbabel.info</a></p>
+<p><a href="https://www.wikiwand.com/en/Texas_Instruments_signing_key_controversy">https://www.wikiwand.com/en/Texas_Instruments_signing_key_controversy</a></p>
+<p><a href="https://science.slashdot.org/story/20/05/25/0136238/texas-instruments-makes-it-harder-to-run-programs-on-its-calculators">https://science.slashdot.org/story/20/05/25/0136238/texas-instruments-makes-it-harder-to-run-programs-on-its-calculators</a></p>
+<h3 id="do-you-own-your-hardware-software">
+  Do you own your hardware? software?
+  <a class="anchor" href="#do-you-own-your-hardware-software">#</a>
+</h3>
+<h3 id="format-shifting">
+  Format shifting
+  <a class="anchor" href="#format-shifting">#</a>
+</h3>
+<h2 id="data-and-privacy">
+  Data and Privacy
+  <a class="anchor" href="#data-and-privacy">#</a>
+</h2>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/fCUTX1jurJ4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<hr>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/OFRjZtYs3wY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://news.ycombinator.com/item?id=25441986">COMMENTS on &ldquo;Facebook criticizes Apple’s iOS privacy changes with full-page newspaper ads&rdquo; on Hacker News</a></p>
+<h2 id="terms-of-service-and-eulas">
+  Terms of Service and EULAs
+  <a class="anchor" href="#terms-of-service-and-eulas">#</a>
+</h2>
+<p><a href="https://tosdr.org/">Terms of Service Didn&rsquo;t Read</a></p>
+<h2 id="stalkerware">
+  Stalkerware
+  <a class="anchor" href="#stalkerware">#</a>
+</h2>
+<p><a href="https://every.to/divinations/creeping-as-a-service-craas">Creeping As A Service</a></p>
+<h2 id="ai">
+  AI
+  <a class="anchor" href="#ai">#</a>
+</h2>
+<p><a href="https://hackaday.com/2020/12/05/sufficiently-advanced-technology-and-justice/">Sufficently Advaced Technology and Justice (Hackaday, Elliot Williams)</a></p>
+<h2 id="google-amp">
+  Google Amp
+  <a class="anchor" href="#google-amp">#</a>
+</h2>
+<p><a href="https://www.polemicdigital.com/google-amp-go-to-hell/">Google AMP Can go to Hell (Polemic Digital)</a></p>
+<h2 id="social-media">
+  Social Media
+  <a class="anchor" href="#social-media">#</a>
+</h2>
+<p><a href="https://www.theguardian.com/commentisfree/2014/jun/30/facebook-sad-manipulating-emotions-socially-responsible-company">Facebook deliberately made people sad. This ought to be the final straw (The Guardian) (2014)</a></p>
+<h3 id="censorship">
+  Censorship
+  <a class="anchor" href="#censorship">#</a>
+</h3>
+<p>Parler V Mastadon V Twitter</p>
+<h3 id="federation">
+  Federation
+  <a class="anchor" href="#federation">#</a>
+</h3>
+<p><a href="https://fediverse.party/en/miscellaneous">Fediverse.party</a></p>
+<hr>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/k1BneeJTDcU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Phil/Internet.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#politics-and-the-internet">Politics and The Internet</a>
+      <ul>
+        <li><a href="#the-important-laws-you-need-to-understand">The important laws you need to understand:</a>
+          <ul>
+            <li><a href="#cda-no-pronz--230">CDA (no pronz) &amp; §230</a></li>
+            <li><a href="#dmca-attempting-to-fix-230-poorly">DMCA (<em>attempting</em> to fix 230, poorly)</a></li>
+            <li><a href="#fostasesta-breaking-230">FOSTA/SESTA (Breaking 230)</a></li>
+            <li><a href="#sopa--pipa-trying-to-break-everything">SOPA &amp; PIPA (Trying to break everything)</a></li>
+            <li><a href="#coppa--cipa-breaking-things-for-the-children">COPPA &amp; CIPA (Breaking things&hellip; For the children!)</a></li>
+            <li><a href="#gdpr-they-tried">GDPR (They tried)</a></li>
+            <li><a href="#earn-it-breaking-things-more">EARN IT (Breaking things more)</a></li>
+            <li><a href="#patriot-act--fisa-watching-you">Patriot Act &amp; FISA (Watching you)</a></li>
+            <li><a href="#cfaa-hack-the-planet">CFAA (Hack The Planet?)</a></li>
+            <li><a href="#net-neutrality-and-the-buying-of-the-fcc">Net Neutrality (and the buying of the FCC)</a></li>
+            <li><a href="#hipaa-attempting-to-unfuck-healthcare-a-wee-bit">HIPAA (attempting to unfuck healthcare a wee bit)</a></li>
+            <li><a href="#earn-it">EARN IT</a></li>
+          </ul>
+        </li>
+        <li><a href="#private-internet-policing">Private Internet Policing</a></li>
+        <li><a href="#centralization--monopoly">Centralization &amp; Monopoly</a>
+          <ul>
+            <li><a href="#protecting-general-computation">Protecting general computation</a></li>
+            <li><a href="#encryption-and-illegal-numbers">Encryption and illegal numbers</a></li>
+            <li><a href="#do-you-own-your-hardware-software">Do you own your hardware? software?</a></li>
+            <li><a href="#format-shifting">Format shifting</a></li>
+          </ul>
+        </li>
+        <li><a href="#data-and-privacy">Data and Privacy</a></li>
+        <li><a href="#terms-of-service-and-eulas">Terms of Service and EULAs</a></li>
+        <li><a href="#stalkerware">Stalkerware</a></li>
+        <li><a href="#ai">AI</a></li>
+        <li><a href="#google-amp">Google Amp</a></li>
+        <li><a href="#social-media">Social Media</a>
+          <ul>
+            <li><a href="#censorship">Censorship</a></li>
+            <li><a href="#federation">Federation</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

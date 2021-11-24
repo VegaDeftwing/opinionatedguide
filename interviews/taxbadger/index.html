@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An Interview with Laguna of Tax Badger, LLC #  08/26/2021
+﻿﻿Laguna Crale is a bright pink Tax Badger that has made a name for himself with Tax Badger, LLC where he has made waves in the furry artist and NSFW content creator communities for being open and accepting of these professions. He&rsquo;s freely given helpful pointers on his Twitter, @TaxBadgerLLC to help those questioning how to handle transitioning from making content as a hobby to making it a real, legal self-employment career.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #FFB900;}
+  a:active{color: #FFB900;}
+  ::-webkit-scrollbar-thumb {background: #FFB900 !important;}
+  ::-webkit-scrollbar-thumb {background: #FFB900 !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="An Interview with Laguna of Tax Badger, LLC #  08/26/2021
+﻿﻿Laguna Crale is a bright pink Tax Badger that has made a name for himself with Tax Badger, LLC where he has made waves in the furry artist and NSFW content creator communities for being open and accepting of these professions. He&rsquo;s freely given helpful pointers on his Twitter, @TaxBadgerLLC to help those questioning how to handle transitioning from making content as a hobby to making it a real, legal self-employment career." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/interviews/taxbadger/" /><meta property="article:section" content="Interviews" />
+
+
+
+<title>Taxbadger | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/"class=active>Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Taxbadger</strong>
+
+  <label for="toc-control">
+    
+  </label>
+</div>
+
+
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="an-interview-with-laguna-of-tax-badger-llc">
+  An Interview with Laguna of Tax Badger, LLC
+  <a class="anchor" href="#an-interview-with-laguna-of-tax-badger-llc">#</a>
+</h1>
+<p><strong>08/26/2021</strong></p>
+<p>﻿﻿<!-- This document is wirtten in a format called markdown. If you've never seen it before, that's fine. The gist is all the formatting is done in the text itself. Text with **two asterics** around it is bold, *one* is italic, and the things with less than and greater than signs and dashes you see here are comments that won't appear in the final page. if you want a link just do [link text in the square brackets](https://actuallLinkHere.com). If you really want to go nuts, you can technically mix in html too, so things like YouTube or Twitter embeds work too. If you want to put in a table, fancy math, colums of text, pictures, or footnotes let me know and I'll get that done for you. I know you just got that good looking website made too, so if you want any resourced from it emeded into my site I can do that as well- though the dark theme of my site may be an issue for some of that. --></p>
+<!-- I'd like to have at least one image of your sona to put in the top, so if you could send me something to put there that you have full permision to let me embed on my site that would be lovely. -->
+<!-- I've used the name Laguna here as from twitter stalking it looks like that's what you prefer? Feel free to change the text to whatever you want though.-->
+<!-- if there are any questions you prefer not to answer, that's fine! Just put comment tags like this around the question. -->
+<img src="/nonfree/interviews/LagunaTaxBadger_Window.png" alt="Laguna of Tax Badger, LLC" height="250em">
+<!-- feel free to edit this intro blurb: -->
+<p><strong>Laguna Crale is a bright pink Tax Badger that has made a name for himself with Tax Badger, LLC where he has made waves in the furry artist and NSFW content creator communities for being open and accepting of these professions. He&rsquo;s freely given helpful pointers on his Twitter, <a href="https://twitter.com/TaxBadgerLLC">@TaxBadgerLLC</a> to help those questioning how to handle transitioning from making content as a hobby to making it a real, legal self-employment career. He&rsquo;s also an economics major, kinky married gay man, and outspoken about the state of democracy in the United States.</strong></p>
+<p><strong>Thank you for taking the time for this interview Laguna. How would you describe yourself? What are you passionate about and why?</strong></p>
+<p>Opening with the hard questions! I’m Laguna, the Tax Badger. I’ve been a furry since I was 13, and the community means more to me than I can describe. I’m here to help people! Especially the people who don’t know where else to turn.</p>
+<p><strong>Do you turn away clients if you think the NSFW content they make is harmful?</strong>
+It depends – I would turn away clients whose content is explicitly illegal. But for some clients, who are able to make that distinction between fiction and reality, they still need help with taxes. Pedophilia and bestiality are firmly in the illegal camp, though.</p>
+<p><strong>Is it difficult to keep up with the constant changes to how taxes work over the last few years?</strong></p>
+<p>That’s been one of the easier parts of the job, actually! Research has always been a strong suite of mine, so the tax law changes have been just a part of my tax upkeep. I’m actually going to be a little disappointed in the coming years when the changes slow down!</p>
+<p><strong>What is your take on <em>OnlyFans</em> recent choice to shoot itself in the foot à la Tumblr?</strong></p>
+<p>(This interview was presented prior to the reversal, and answered afterwards.)
+I view it as an inherent problem with capitalism, and especially the concentration of wealth that laissez-faire capitalism promotes. OnlyFans, like any business, needs financial security. Those offering financial security get to decide what goes and what doesn’t – for example, PayPal doesn’t allow sales of adult goods and services. Capitalism has decided that ‘adult’ is bad, even though it’s a part of everyone’s lives. There’s no room for other parties to disagree, due to the concentration of wealth; meaning that as a society, we are at a disadvantage seeking to change what’s taboo.</p>
+<p><strong>There have been reports that <em>OnlyFans</em> is only doing this because of payment processors not wanting to be associated- the same thing that happened to PornHub with Mastercard and Visa. Because of this, there have been suggestions that creators should look into a platform based on cryptocurrency to avoid this happening again. What do you think?</strong></p>
+<p>While I do think another payment platform is going to be critical in correcting the foundational issues, I don’t think that cryptocurrency is the correct venue.</p>
+<p><strong>What else should content creators look for in the next NSFW content platform?</strong></p>
+<p>Transparency! Any ‘Large business’ platform that fails at transparency will be less likely to explore options that retain their NSFW creators when finances become an issue. A more transparent business will be more receptive to its userbase, and act accordingly.</p>
+<p><strong>What are the tax implications of NFTs? Is there anything artists should know before using them?</strong></p>
+<p>Oh God. I… haven’t thought about this, haha.</p>
+<p>So, there are two answers, depending on the results of IP laws coming to a conclusion on NFTs. The first, if NFTs are considered a purchase of IP, is that you would recognize the gains and losses on NFTs on 8949, much like cryptocurrency or stocks. (It would functionally be identical to the purchase and sale of collectibles, like prototype Super Mario cartridges). In this case, a short term sale would be taxed as ordinary income, and long term sales (holding the NFT for more than a year) would get the advantaged Capital Gains rate.</p>
+<p>The other answer is that NFTs are not a purchase of IP, in which case you’re buying and selling… money. To the extent that, you do not recognize the loss (since you didn’t lose anything) but you DO recognize the gains (as you were paid for a thing), which would report on 1040 Schedule 1 line 8 other income, and be taxed as ordinary income.</p>
+<p>Tl;dr don’t buy NFTs what are you doing</p>
+<p><strong>Do you think there&rsquo;s a best choice among Patreon, Buy Me a Coffee, Ko-fi, etc.?</strong></p>
+<p>Social Economies of Scale! The best choice is the platforms that the most people use. I know a lot of people don’t like FurAffinity, but that’s also why you can’t get rid of FurAffinity – there isn’t a userbase elsewhere that gets you the publicity and ease of market access. (I guess there’s inkbunny, but… it’s better to not, haha).</p>
+<p><strong>The furry artists seems to be all over the place for what they charge, what do you think is the best way for an artist to gauge how much they should charge for a given piece?</strong></p>
+<p>I’ve discussed this before! I think that determining your buyout length is the greatest metric; you should be looking to sell out of slots in more than an hour, and less than 24. If you’re selling out in less than an hour, you can raise your prices – you have enough demand that while some people will no longer be able to afford your art, you still have clients who will fill your slots. If you’re over 24 hours, though, you may not have the fandom awareness for those prices; consider running a sale until you’re seeing those slots fill up at a pace you’re happy with!</p>
+<p><strong>Do you think artists should ask for tax on top of the sale price or is the norm of it being included already too strong?</strong></p>
+<p>I think incorporating tax into the price is simply more consumer friendly. The price on the box is the price you pay! Do note that commissions are not subject to sales tax in most states, so the only tax to be charged is income tax.</p>
+<p><strong>What do you think government could <del>have done</del> do better to help support the self employed and gig workers during the pandemic?</strong></p>
+<p>Controversial hot take: I think they’re handling self-employed/gig workers just fine? Perhaps better oversight in the Small Business Loans to make sure the firms that needed the resources were more easily able to get it, and better oversight for what determines a contractor and an employee.</p>
+<!-- the (1) here will become a clickable foot note with the text you can see at the bottom of the page -->
+<p><strong>I&rsquo;ve seen some online vendors implementing Purchasing Power Parity (PPP)<a class="ptr">(1)</a>, where the price will change depending on the purchasing power of country where you&rsquo;re buying from. What do you think about this: is it good or bad?</strong></p>
+<p>I’m neutral! This is already done by big business – a $300 Nintendo Switch (US) is $343 (EU) is $272 (Japan). Just make sure that you’re noting the amount recognized!</p>
+<p><strong>What are your thoughts on Universal Basic Income (UBI)?</strong></p>
+<p>Necessary for the continuing functioning of capitalist economies. Note that capitalist economies aren’t bad, just that their <em>extremes</em> are bad. And the US market is closer to the extreme than is healthy.</p>
+<p><strong>Should minimum wage be increased? Should it be equal everywhere, tied to the cost of living, or something else?</strong></p>
+<p>That depends on the implementation of UBI. If there is UBI, I don’t think the minimum wage is necessary. If there ISN’T UBI, then our minimum wage definitely needs to increase. I also would like to see an income cap (a 100% tax bracket).</p>
+<p><strong>There&rsquo;s recently been talk about the power of Big Tech in the US. Some of this has resulted in scrutiny over how these business just buy all competition, mostly startups, that have any innovative ideas. Should the motivation for startup founders to innovate so they can get big enough to get the big bought-out paycheck worth more or less to society than having the smaller businesses offering competition?</strong></p>
+<p>I have to laugh that I already touched on this, haha. Unfortunately, in our society, getting bought out IS the innovation pathway; innovation alone won’t be able to offer competition to the entrenched powers of the market.</p>
+<p><strong>What&rsquo;s your take on the <em>Tax Cuts and Jobs Act of 2017</em> (otherwise known as Trump&rsquo;s Tax Reform)</strong></p>
+<p>Makes good fire starter.</p>
+<p><strong>What&rsquo;s the most important skill that you&rsquo;ve taught yourself?</strong></p>
+<p>How to communicate. I have mild autism, so communication has always been difficult. I still have difficulty reading an interaction, and I still say the wrong things (it’s why you’ll hear me stutter and go ‘um’ a hundred times in a single conversation), but I don’t think that I’d be where I’m at if I hadn’t developed any communication skills.</p>
+<p><strong>Is there any skill that you spent too much time developing that you wish you hadn&rsquo;t?</strong></p>
+<p>There isn’t – regret doesn’t help anyone! Everything I’ve learned, everything I’ve done, good or bad, has made me the badger I am today. Whether that’s from improving myself, or learning what I shouldn’t do in the future, if I hadn’t done the thing in question, I wouldn’t have that information now.</p>
+<p><strong>What&rsquo;s the biggest &lsquo;Oh Shit&rsquo; moment you&rsquo;ve ever had, be it one you caught in time or not?</strong></p>
+<p>My keyboard at H&amp;R block was sticking, so I accidentally reported someone’s real estate tax paid with an extra 0. The state kindly told them that was wrong, and updated the number for the client. I’ve made sure to not repeat that!</p>
+<p><strong>What do you do for fun? Any books, movies, TV shows, etc. that you&rsquo;d recommend?</strong></p>
+<p>Magic: the Gathering, Video Games (especially Zelda Randomizers, especially the 3D Zelda randomizers), talking with friends, D&amp;D. I don’t watch things, though, so I’m missing a LOT of pop culture knowledge.</p>
+<p><strong>What&rsquo;s the best advice you&rsquo;ve ever received? Worst?</strong></p>
+<p>“You miss 100% of the shots you don’t take.” Reach out and ask, try, before dismissing it. Even if you’re certain it’s a 1% chance of happening… You might get that 1 if you try. It’s impossible if you don’t.</p>
+<p>“Don’t go to sleep angry.”  The idea behind this piece of advice is to resolve issues so that nobody’s left to stew… but tackling the issue with a fogged head is a very easy to make the situation worse, or prevent its resolution. Go take a nap and look at it without the emotional distress!</p>
+<p><strong>Do you have any obscure hobbies?</strong></p>
+<p>I think being a badger on the internet would have to be the most obscure interest I have. 😉</p>
+<p><strong>What hobby do you want to get into but haven&rsquo;t had a chance to dive into yet?</strong></p>
+<p>Miniature painting. I’ve painted a couple, but when I had just gotten all the resources to really start painting as a hobby, Tax Badger took off and I had no time!</p>
+<ol hidden id="footnotes">
+    <li>Notably for my readers both <a href="https://draculatheme.com/pro">Dracula Theme Pro</a> and <a href="https://wizardzines.com">Wizard Zines</a> do this.</li>
+</ol>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Interviews/taxbadger.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

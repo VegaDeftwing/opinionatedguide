@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Idea Labs #  This page is heavily inspired by Idea Labs and Echo Chambers, which is Part 8 of The Story Of Us. It&rsquo;s a long read, but worth the time- you could read just the one part; however, I think it will be harder to understand without the previous 7 parts as context. Rather than try to repeat here what is put so well there, I&rsquo;m going to recommend you read at least that section and come back here.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #E23838;}
+  a:active{color: #E23838;}
+  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
+  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
+</style>
+<meta property="og:title" content="Idea Labs" />
+<meta property="og:description" content="Idea Labs #  This page is heavily inspired by Idea Labs and Echo Chambers, which is Part 8 of The Story Of Us. It&rsquo;s a long read, but worth the time- you could read just the one part; however, I think it will be harder to understand without the previous 7 parts as context. Rather than try to repeat here what is put so well there, I&rsquo;m going to recommend you read at least that section and come back here." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/phil/idea-labs/" /><meta property="article:section" content="Phil" />
+
+
+
+<title>Idea Labs | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/"class=active>Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Idea Labs</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#idea-labs">Idea Labs</a>
+      <ul>
+        <li><a href="#1-facilitate-novel-good-ideas">1. Facilitate Novel, Good Ideas</a>
+          <ul>
+            <li><a href="#host-or-join-an-open-organized-small-active-community">Host or join an open, organized, small, active community</a></li>
+            <li><a href="#host-or-join-a-community-knowledge-garden">Host or join a community knowledge garden</a></li>
+            <li><a href="#keep-a-personal-knowledge-garden-too">Keep a <em>Personal</em> knowledge garden too</a></li>
+            <li><a href="#seek-experiences-outside-your-comfort-zone-brencourage-others-to-do-so-too">Seek experiences outside your comfort zone, <BR>Encourage Others to do so too</a></li>
+            <li><a href="#relate-experiences-across-disciplines">Relate experiences across disciplines</a></li>
+            <li><a href="#realize-the-sources-available-to-you">Realize the sources available to you</a></li>
+            <li><a href="#be-aware-of-your-own-biases">Be aware of your own biases</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-prevent-diseased-ideas-from-spreading">2. Prevent Diseased Ideas From Spreading</a>
+          <ul>
+            <li><a href="#facts-though-the-feelings">Facts though the feelings</a></li>
+            <li><a href="#good-looking-bullshit-p-hacking-fake-science-and-academia-at-its-worst">Good looking Bullshit: P-hacking, Fake Science, and Academia at its worst</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-never-mark-a-good-idea-as-diseased-or-a-diseased-idea-as-good">3. Never Mark A Good Idea as Diseased or A Diseased Idea as Good</a></li>
+        <li><a href="#religion">Religion?</a></li>
+        <li><a href="#a-small-exception">A small exception</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="idea-labs">
+  Idea Labs
+  <a class="anchor" href="#idea-labs">#</a>
+</h1>
+<p>This page is heavily inspired by <a href="https://waitbutwhy.com/2019/10/idea-labs-echo-chambers.html">Idea Labs and Echo Chambers</a>, which is Part 8 of <a href="https://waitbutwhy.com/2019/08/story-of-us.html">The Story Of Us</a>. It&rsquo;s a long read, but worth the time- you could read just the one part; however, I think it will be harder to understand without the previous 7 parts as context. Rather than try to repeat here what is put so well there, I&rsquo;m going to recommend you read at least that section and come back here.</p>
+<p>Read it? Cool.</p>
+<p>The big take away is free speech &amp; spread of ideas = good, echo chambers = bad. And, like, yeah? That&rsquo;s pretty hard to disagree with. However, it reminds me of the often repeated line &ldquo;There&rsquo;s no such thing as a stupid idea!&rdquo; and that quote really, really drives me nuts.</p>
+<p>Unfortunately, some ideas, even when we can make well thought out arguments for why the idea itself is absolute bunk and the supposed evidence for their idea is also bunk, still persist. Obviously, this is on a spectrum: Flat Earthers? Idiots. Those that think there has been extraterrestrial life on earth before? Maybe worth listening to. Those that think aliens built the pyramids and that someday they&rsquo;ll send beams of light into the sky to call down our gray skinned, big headed overlords to provide us with infinite energy, end hunger, and cure cancer? Back to idiots. Extraordinary claims require extraordinary evidence and all that jazz.</p>
+<p>So why does it matter if someone has a stupid idea:</p>
+<ol>
+<li>Stupid ideas keep us from the truth- if a huge number of people believe the earth is flat, that&rsquo;s a huge number of people that think something that is demonstrably false</li>
+<li>Stupid ideas can hurt people - Anti-vax, racism, sexism, etc.</li>
+</ol>
+<p>So, what should we do?</p>
+<p>Generally, I&rsquo;ve seen two ways to go about dealing with stupid ideas:</p>
+<ol>
+<li>Debate them, make them look dumb</li>
+<li>De-platfrom them, don&rsquo;t let the idea spread</li>
+</ol>
+<p>Both have the same issue though: they spread the idea further</p>
+<ol>
+<li>Debating them <strong>gives them a platform</strong> and by acknowledging their idea, makes it look like a legitimate option with the same standing as the idea that&rsquo;s not a load of shit. Think climate change, flat-earth, or creationism debates. It also exposes the idea to more people.</li>
+<li>De-platforming makes the echo chamber even stronger as the people with the idea will form their own communities instead of talking in the public where they can be called out. Plus, it often makes these people feel <em>more confident</em> in their ideas because &ldquo;The public is scared of the truth!&rdquo; or something alone those lines. Deplatforming may make the idea less discoverable; however, it does make it much easier for someone on the tipping point of falling in to get sucked in and stay there.</li>
+</ol>
+<p>So, which is the right answer?</p>
+<p>This is philosophy. There is no right answer. Ideally, we&rsquo;d actually be able to convince the idiots to stop being idiots, but historically that doesn&rsquo;t really work. Deplatforming can work, but it can lead to extremism on both sides, and can be abused. It&rsquo;s a bit of a nuclear option, and if we use it wrong, it can hurt people. As much as I, personally, am for deplatforming anti-vax talk show hosts, I&rsquo;ve also seen the havoc caused by &ldquo;the other side&rdquo; getting payment processors and big websites to stop supporting sexual content, hurting sex workers.</p>
+<p>There&rsquo;s a lot of debate around this too, <a href="https://blog.mozilla.org/en/mozilla/we-need-more-than-deplatforming/">Mozilla published &ldquo;We Need More than Deplatforming&rdquo;</a> which received <a href="https://news.ycombinator.com/item?id=25690941">heavy criticism on Hacker News</a>. Meanwhile, <a href="https://easydns.com/blog/2018/11/02/a-heretics-guide-to-deplatforming/">A Heretics Guide to Deplatforming</a> resulted in <a href="https://news.ycombinator.com/item?id=18365851">mixed, but some pro-moderation comments on Hacker News</a>. Ultimately, it boils down to two age-old questions about free speech:</p>
+<ol>
+<li>Should speech that harms others be &ldquo;free&rdquo;?</li>
+<li>Should a given venue/platform be required to let you say whatever you want there?</li>
+</ol>
+<p>The answer to 2. seems to be of more importance again, now, in the internet era. Strangely, It seems this has largely been decided for physical spaces, where if I walk into a business and start going on about how &ldquo;all these damn ░░░░░ keep making ░░░░░ worse for us and they should go back where they came from!&rdquo; I&rsquo;m going to get kicked out, and everyone is fine with that. Meanwhile, if Facebook or Twitter kick me out, some people will argue I have a <em>right</em> to be there. Personally, I think this is a load of shit. If you want to post your hate, go post it on your own site. Nobody is obligated to give you the platform on which to preach your shit from. I think the larger argument comes when lower-level infrastructure providers choose whether or not you can use their services for given speech. Should Amazon have the right to say &ldquo;If you post hate speech we won&rsquo;t let you host your website on AWS?&rdquo; (Amazon Web Services is a common server platform on which you could put your own, custom made website). On one hand, Amazon is a private business and should be able to refuse service, on the other hand, there&rsquo;s a limited number of hosting providers that could allow you to deploy a large website with lots of traffic. Is this the same as limiting more traditional infrastructure, like roads, to only those we think deserve a voice?</p>
+<p>As for 1. - IMHO, yeah, free speech should probably be free <em>from government retaliation</em>, even if it&rsquo;s hate speech. Otherwise, there&rsquo;s a huge risk of abuse and the loss of the free exchange of good ideas. This is my opinion though, and this opinion is deserving of a page in this chapter of OpGuides all its own. Suffice to say, there are good arguments on both sides. Obviously, some limits should apply no matter what- the &ldquo;don&rsquo;t yell fire in a crowded theater&rdquo; rules still apply.</p>
+<p>All of that said, to some extent, <strong>deplatforming is necessary</strong> because a lot of people with shit ideas know how to spread them in a way that prevents even logical debate from refuting it. Largely, this is done by using one of a handful of tactics:</p>
+<ol>
+<li>By spewing shit faster than the opponent can respond with corrections for - that is <a href="https://www.youtube.com/watch?v=wmVkJvieaOA">Never play defense (YouTube, The Alt-Right Playbook by Innuendo Studios)</a></li>
+<li>By moving the goalpost <strong>or</strong> change the topic subtly - that is <a href="https://www.youtube.com/watch?v=CaPgDQkmqqM">Control the conversation (YouTube, The Alt-Right Playbook by Innuendo Studios)</a></li>
+<li>By talking about their points publicly, they manage to go <a href="https://www.youtube.com/watch?v=Gq0ZHgKT2tc">Mainstream (YouTube, The Alt-Right Playbook by Innuendo Studios)</a></li>
+<li>By stretching the meaning of something, in a way that&rsquo;s not <em>technically</em> false - see <a href="https://www.youtube.com/watch?v=Ui-ArJRqEvU">The Ship of Theseus (YouTube, The Alt-Right Playbook by Innuendo Studios)</a></li>
+</ol>
+<p>The <strong>only way</strong> to stop this is to <em>not debate them</em> and to <em>remove their platform</em>. If you play fair and want to actually question ideas, you&rsquo;re good. If you&rsquo;re here to spread hate, hurt people, and (intentionally or not) use tactics that prevent real debate, you should lose your platform. I think, as a society, we&rsquo;re pretty good at knowing where this line is. The issue of false-positives is real and platforms still need to be careful to avoid over moderation and turning into echo chambers or not allowing honestly, good faith criticism. Still, most platform are actually on the opposite side of this: Twitter for example is still full of people saying extreme threats towards trans people.</p>
+<hr>
+<p>Not to miss the forest for the tress, it&rsquo;s worth pointing out that, largely, competing ideas and seeing things differently is a driving force of knowledge and understanding. Limiting our intake to only views we agree with, whether we&rsquo;re aware of it or not, is bad. It&rsquo;s the reason why headlines like <a href="https://techstartups.com/2020/09/18/6-corporations-control-90-media-america-illusion-choice-objectivity-2020/">These 6 corporations control 90% of the media outlets in America. (TechStartups)</a> and <a href="https://www.youtube.com/watch?v=GvtNyOzGogc">Last Week Tonight&rsquo;s piece on Sinclair Broadcast Group</a> are so terrifying: We don&rsquo;t want all of our information to be filtered and have opinions baked in. The problem is we now have multiple, conflicting goals:</p>
+<ol>
+<li>Facilitate the spread of as many good, novel ideas as possible</li>
+<li>Prevent the spread of <em>diseased</em> ideas- ideas that can pass for being good, can spread quickly, but are actually shit.</li>
+<li>Never accidentally mark a good idea as diseased or a diseased idea as good</li>
+</ol>
+<p>So, how do we do this?</p>
+<p>Let&rsquo;s look at each piece</p>
+<h2 id="1-facilitate-novel-good-ideas">
+  1. Facilitate Novel, Good Ideas
+  <a class="anchor" href="#1-facilitate-novel-good-ideas">#</a>
+</h2>
+<p>So, while we want to avoid bad ideas, we still want to generate as many novel, good ideas as we can. It&rsquo;s easy to be negative and list the things that prevent this from happening (gatekeeping, lack of access to resources, etc) but I think this page needs some positivity, so what can be done to make things easier?</p>
+<h3 id="host-or-join-an-open-organized-small-active-community">
+  Host or join an open, organized, small, active community
+  <a class="anchor" href="#host-or-join-an-open-organized-small-active-community">#</a>
+</h3>
+<blockquote>
+<p>Note, you&rsquo;ll probably want to be in multiple groups, each related to a topic you&rsquo;re interested in. It&rsquo;s often best to be in both a general and specific chat. For example, if you&rsquo;re into guitar, join/host a community focused on music and a community focused on guitar.</p>
+</blockquote>
+<p><strong>Open</strong> - All are welcome until they show a reason not to be</p>
+<p><strong>Organized</strong> - Chat is kept reasonably on topic, tangents welcome, but only for limited periods of time. If there&rsquo;s sub-topics, each topic has its own space.</p>
+<p><strong>Small</strong> - Communities over about 30 active members tend to become unpersonal. You should maintain smaller pods like this to keep things actually flowing. This does mean some segregation in the community, but it also keeps the chat feeling like a chat and not a place just for showcases or tough questions.</p>
+<p><strong>Active</strong> - Active means more than just ongoing participation. It means events, competitions, chances to demonstarte knowledge and challage one another. Give people a time to look forward to and plan to interact in advance. Services like <a href="https://www.gather.town">https://www.gather.town</a>, <a href="https://www.calla.chat">https://www.calla.chat</a>, or even using <a href="https://www.highfidelity.com/blog/how-to-create-a-minecraft-mod-with-spatial-audio-voice-chat">Spacial Audio With Minecraft</a></p>
+<p>If you&rsquo;re lucky, there may be a <a href="https://wiki.hackerspaces.org/List_of_Hacker_Spaces">hackerspace near you</a>, it&rsquo;s worth checking at least ↓</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/nsiYTBQpIJ8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>I&rsquo;ll touch more on community resources and what a healthy community looks like in the next page, <a href="/phil/community/">Community Efforts</a></p>
+<h3 id="host-or-join-a-community-knowledge-garden">
+  Host or join a community knowledge garden
+  <a class="anchor" href="#host-or-join-a-community-knowledge-garden">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/phil/groupwork.svg" alt="Group Work">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>A community is great, but having a community repository of ideas and knowledge is even better. Everyone brings a different background, and with enough contributors a lot can happen. Small contributions, every day, over the course of a long time can make something much bigger than you may initially think possible.</p>
+<p>While I love OpGuides, even I acknowledge the way it is setup makes contribution less than seamless. If you&rsquo;re going to setup a knowledge garden of your own, make sure it&rsquo;s setup in a way that everyone in the community finds accessible. If everyone knows how to use git, then maybe something like a fork of this site is a good start, otherwise, something like <a href="https://js.wiki">Wiki.js</a> may work better.</p>
+<p>If you can, find a way to incentivize contribution to the garden</p>
+
+  </div>
+  
+</div>
+
+<h3 id="keep-a-personal-knowledge-garden-too">
+  Keep a <em>Personal</em> knowledge garden too
+  <a class="anchor" href="#keep-a-personal-knowledge-garden-too">#</a>
+</h3>
+<p>As much as it&rsquo;s nice to have all the community pages to fall back on, having a hand pruned, personal database of links and information is immensely helpful. If you keep it private, you can associate it with your TODOs and a daily journal as well. Tools like <a href="https://obsidian.md">https://obsidian.md</a> and <a href="https://github.com/zadam/trilium">https://github.com/zadam/trilium</a> work well for this</p>
+<h3 id="seek-experiences-outside-your-comfort-zone-brencourage-others-to-do-so-too">
+  Seek experiences outside your comfort zone, <BR>Encourage Others to do so too
+  <a class="anchor" href="#seek-experiences-outside-your-comfort-zone-brencourage-others-to-do-so-too">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/phil/sarahcomfortzone.webp">
+<p class="attribution ">
+    Comic by <a href="https://sarahcandersen.com/about">Sarah Scribbles</a>
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>One of the biggest ways to <em>stop</em> gaining knowledge is to just keep doing the same thing over and over again or only tacking projects that you know you have the skills to do. It&rsquo;s only when pushed with new challenges that people really learn. <strong>Try things you expect to fail at and welcome the failures</strong>. Everyone sucks at everything the first time they try it.</p>
+<p>For me, my biggest inspiration is seeing people like <a href="https://www.youtube.com/c/thethoughtemporium">The Thought Emporium</a> work on projects that just <em>sound</em> like they should only be possible when tackled by huge teams of people - like genetic engineering and detecting antimater - and turning them into projects that take a few weeks (albeit they still require some pricey equipment)</p>
+<p>Be sure to document your failures too, both in your personal and community knowledge gardens if you can. Science is largely focused on the successes, but sometimes sharing failures so that you can remind your future self and warn others about the wrong steps is worth more than a success.</p>
+<p>To some extent, all of this requires a few things that a lot of people think that they lack: Confidence and Dedication. Fortunately, both of those are things that being part of a larger community and keeping a log of your past experience will help with.</p>
+
+  </div>
+  
+</div>
+
+<h3 id="relate-experiences-across-disciplines">
+  Relate experiences across disciplines
+  <a class="anchor" href="#relate-experiences-across-disciplines">#</a>
+</h3>
+<p>Pick any two interests and mix em' together. Into music and electronics? Build a synth. Into drones and art? Make a light show. Into speed running videos games and writing comics? Write a comic about the struggles of a speed runner. These intersections of interests are where magic happens.</p>
+<h3 id="realize-the-sources-available-to-you">
+  Realize the sources available to you
+  <a class="anchor" href="#realize-the-sources-available-to-you">#</a>
+</h3>
+<p>Sometimes, it&rsquo;s easy to think &ldquo;I just need to take a class on this&rdquo; or &ldquo;I can&rsquo;t afford the tutor&rdquo; etc. But, come on. There is free information on literally every topic you could ever want to look into. With websites like SciHub, ArXiv, and LibGen you can find any academic source you&rsquo;d want. Plus, YouTube has amazing presentations from experts about an ever growing list of increasingly specific topics. Even better if you ever want to talk to an expert, most would <em>love</em> to talk to you too - just send them an email. All of this is entirely free, it doesn&rsquo;t cost you a dime.</p>
+<p>See all those interviews on this page? The first one I published was with an engineer that worked on high speed cameras then next up was a big name security researcher - all I did was shoot them a message and say &ldquo;Hey, are you interested in doing an interview for my website?&rdquo;. If all you want is to talk about what that person is passionate about, most will be more than willing to hang out for a bit. Yeah, sometimes you&rsquo;ll send an email and never get a response but more often than not you&rsquo;ll get the chance to chat one-on-one with someone that has a wealth of knowledge to share. Hell, you may even accidentally end up teaching them something, especially if you&rsquo;re applying their knowledge in a novel way.</p>
+<p>If you&rsquo;re willing to share what you make too, the open source community is full of amazing software and hardware projects, often with great documentation.</p>
+<h3 id="be-aware-of-your-own-biases">
+  Be aware of your own biases
+  <a class="anchor" href="#be-aware-of-your-own-biases">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/phil/propaganda.webp">
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>When most people think biases, they think &lsquo;racist&rsquo; or &lsquo;wealthy&rsquo; or something societal, but <a href="https://en.wikipedia.org/wiki/List_of_cognitive_biases">Cognitive Biases (Wikipedia)</a> are just as important to recognize. Some of these biases are just human nature, some are the result of seeing repeated ads or hearing the same quotes over and over again, without really thinking about the implications of them.</p>
+<p>I highly recommend going though the list on that linked Wikipedia page, but there&rsquo;s a few major ones I&rsquo;d like to point out that are not covered on the <a href="/phil/fallacies/">Logical Fallacies+</a> page:</p>
+
+  </div>
+  
+</div>
+
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/List_of_cognitive_biases)">
+<p>
+    <table>
+<thead>
+<tr>
+<th>Bias</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Curse_of_knowledge">Curse of knowledge</a></td>
+<td>When better-informed people find it extremely difficult to think about problems from the perspective of lesser-informed people.</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Law_of_the_instrument">Law of the instrument</a></td>
+<td>An over-reliance on a familiar tool or methods, ignoring or under-valuing alternative approaches. &ldquo;If all you have is a hammer, everything looks like a nail.&rdquo;</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Framing_effect_(psychology)">Framing effect</a></td>
+<td>Drawing different conclusions from the same information, depending on how that information is presented.</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Disposition_effect">Disposition effect</a></td>
+<td>The tendency to sell an asset that has accumulated in value and resist selling an asset that has declined in value.</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Loss_aversion">Loss aversion</a></td>
+<td>The perceived disutility of giving up an object is greater than the utility associated with acquiring it.</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Illusory_truth_effect">Illusory truth effect</a></td>
+<td>A tendency to believe that a statement is true if it is easier to process, or if it has been stated multiple times, regardless of its actual veracity.</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Not_invented_here">Not invented here</a></td>
+<td>Aversion to contact with or use of products, research, standards, or knowledge developed outside a group.</td>
+</tr>
+</tbody>
+</table>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/List_of_cognitive_biases">Wikipedia</a>
+    </div>
+</div>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/vKA4w2O61Xo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="2-prevent-diseased-ideas-from-spreading">
+  2. Prevent Diseased Ideas From Spreading
+  <a class="anchor" href="#2-prevent-diseased-ideas-from-spreading">#</a>
+</h2>
+<p>Calling an idea &lsquo;Diseased&rsquo; may sound a bit like it&rsquo;s a term from the Thought Police from Orwell&rsquo;s <em>1984</em>. Yet, I think it&rsquo;s a fair term. Some ideas start out incorrect, yet more or less benign, but then pick up more and more malicious elements and hooks into our psyche until they act as diseases that is hard to shake and often chronic. They bury into our brains using tricks not of the thinking mind, but of faith or prejudice or instinct. They reaffirm what we <em>want</em> to believe or they allow us to ignore truths, often about ourselves, that we&rsquo;d rather not think of.</p>
+<p>Some of these ideas, other than being false, are more or less harmless. Others, especially when used to foster action, can lead to bloodshed. There is, of course, the risk for a good idea to be labeled diseased. Maybe a culture of homophobia has become so prevalent that even thinking gay people deserve to marry is seen as a disease of the mind. This is obviously awful, yet if we let simple majority pick what ideas are okay, it is also inevitable. So when I called an idea <em>diseased</em> I mean that it has all of these qualities:</p>
+<ol>
+<li><strong>It is false.</strong> Not just the majority of people think it is false, but that by some <em>ground truth</em> it can be shown to be false. This is difficult when talking abortion access or homophobia, but even in those cases there is data that can be used to show the argument- such as the <a href="https://williamsinstitute.law.ucla.edu/press/ncvs-lgbt-violence-press-release/">rate of violent crime done to LGBT people</a> or <a href="https://www.scidev.net/global/news/abortion-rates-highest-where-legally-restricted-study/">Abortion rates being highest where legally restricted</a>. It may even be that the majority of people think a diseased idea is true, that just makes it an epidemic.</li>
+<li><strong>It has emotional backing</strong> - almost all ideas that are harmful but spread quickly have an emotional basis- be it abortion, homophobia, religious persecution, racism, etc.</li>
+<li><strong>It has good looking bullshit to back it up</strong> - At some point someone, somewhere has put in effort to make a very convincing argument using bullshit in one way or another. Maybe P-hacking, maybe publishing in a journal that sounds good but has poor standards, maybe just getting on prime-time television with a celebrity endorsement. What matters is that this idea has something that is giving it undeserved legitimacy.</li>
+</ol>
+<p>So, how to we stop these ideas from spreading? Our only options are to <strong>help people see the facts though their feelings</strong> or to <strong>remove the good looking bullshit</strong></p>
+<h3 id="facts-though-the-feelings">
+  Facts though the feelings
+  <a class="anchor" href="#facts-though-the-feelings">#</a>
+</h3>
+<p><strong>Facts do care about your feelings</strong></p>
+<p>In a debate, what&rsquo;s important <em>is not</em> the facts, but how people remember the interaction. If you&rsquo;re always playing defense, correcting your opponent, you&rsquo;ll look weak. This is how other people will remember the situation- our brains don&rsquo;t remember the good arguments and the minor details, they remember who spoke with conviction and made us feel things. So, how can you present facts and get past people&rsquo;s feelings to actually change their minds?</p>
+<ol>
+<li>
+<p>Don&rsquo;t let them control the conversation or make you play defense</p>
+<p>Keep the conversation on topic, even if it means letting misinformation be said. Do not interrupt to correct them.</p>
+<p>Don&rsquo;t let them ask &ldquo;the next question&rdquo; as if you&rsquo;ve already agreed to a premise</p>
+<p>Keep them spending just as much time answering questions as you are</p>
+</li>
+<li>
+<p>Don&rsquo;t make them feel guilty, but explain how society may have let them learn something wrong</p>
+<p><strong>DONT:</strong> &ldquo;Using the term gay as in insult will make LGBT people around you feel uncomfortable&rdquo;</p>
+<p><strong>DO:</strong> &ldquo;You heard &lsquo;gay&rsquo; used as in insult in middle school over and over again- of course you picked up the association that you did - but just because society largely used derogatory words for different races for a long time didn&rsquo;t make that right either&rdquo;</p>
+</li>
+<li>
+<p>Don&rsquo;t show them the correct information to start, show them how what they think may have been presented with an agenda, may be misleading, or may be from a bad source</p>
+<p><strong>DONT:</strong> &ldquo;According to NOAA&rsquo;s 2020 Annual Climate Report the combined land and ocean temperature has increased at an average rate of 0.13 degrees Fahrenheit ( 0.08 degrees Celsius) per decade since 1880; however, the average rate of increase since 1981 (0.18°C / 0.32°F) has been more than twice that rate&rdquo; (<a href="https://www.climate.gov/news-features/understanding-climate/climate-change-global-temperature">source</a>)</p>
+<p><strong>DO:</strong> &ldquo;Every year, the world&rsquo;s five largest publicly owned oil and gas companies spend approximately $200 million on lobbying designed to control, delay or block binding climate-motivated policy&rdquo; (<a href="https://www.forbes.com/sites/niallmccarthy/2019/03/25/oil-and-gas-giants-spend-millions-lobbying-to-block-climate-change-policies-infographic/?sh=2296563f7c4f">source</a>). &ldquo;Polls conducted in May 2020 showed that just 22% of Americans who vote Republican believed climate change is man-made, compared with 72% of Democrats&rdquo; (<a href="https://www.bbc.com/news/stories-53640382">source</a>) despite this, 98% of climate researchers agreeing that it is a problem (<a href="https://www.pnas.org/content/early/2010/06/04/1003187107">source</a>)</p>
+</li>
+</ol>
+<h3 id="good-looking-bullshit-p-hacking-fake-science-and-academia-at-its-worst">
+  Good looking Bullshit: P-hacking, Fake Science, and Academia at its worst
+  <a class="anchor" href="#good-looking-bullshit-p-hacking-fake-science-and-academia-at-its-worst">#</a>
+</h3>
+<p>For this section, I think the best way to show you the problem is to just let you see it first hand. Here&rsquo;s a bunch of links and videos, I think you&rsquo;ll get the idea if you watch a handful of them.</p>
+<div class="book-columns flex flex-wrap">
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  
+  <div class="flex-even markdown-inner">
+    <span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="https://www.youtube.com/watch?v=0Rnq1NpHdmw">Scientific Studies (Last Week Tonight, YouTube)</a>
+</span>
+<p><a href="https://www.youtube.com/watch?v=0b_eHBZLM6U">Coronavirus: Conspiracy Theories (Last Week Tonight, YouTube)</a>
+  </div>
+  
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  
+  
+  <div class="flex-even markdown-inner">
+    <p><a href="https://en.wikipedia.org/wiki/Academic_journal_publishing_reform">Academic journal publishing reform (Wikipedia)</a></p>
+<p><a href="https://en.wikipedia.org/wiki/List_of_scholarly_publishing_stings">List of scholarly publishing stings (Wikipedia)</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Predatory_publishing">Predatory Publishing (Wikipedia)</a></p>
+
+  </div>
+  
+  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
+  
+  
+</div>
+</br>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/ras_VYgA77Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/Gx0fAjNHb1M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <iframe width="100%" height="200" src="https://www.youtube.com/embed/42QuXLucH3Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+  
+</div>
+
+<p>Academia and the publishing houses have also made extreme efforts to keep science, even that which is publicly funded, behind paywalls. Fortunately, efforts like SciHub, ArXiv, and LibGen have dramatically increased access to the output of academia for the public, though the fight is still ongoing. I really recommend watching this documentary on the story of Aaron Swartz, a young man that tried to fight this system at the cost of his life.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/9vz06QO3UkQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>I&rsquo;d also like to touch on paid-for research. It&rsquo;s easy to think this is a problem of the past, that it was a problem back when cigarette companies bouught research to hide that they caused cancer- but guess what! That&rsquo;s still a problem: <a href="https://prospect.org/health/juul-taking-academic-corruption-to-new-level/">Juul: Taking Academic Corruption to a New Level (The American Post)</a></p>
+<h2 id="3-never-mark-a-good-idea-as-diseased-or-a-diseased-idea-as-good">
+  3. Never Mark A Good Idea as Diseased or A Diseased Idea as Good
+  <a class="anchor" href="#3-never-mark-a-good-idea-as-diseased-or-a-diseased-idea-as-good">#</a>
+</h2>
+<p>Until about the 17th century most people believed the Earth was the center of the universe, and that all celestial bodies rotated around it. This, on it&rsquo;s own, is <em>not</em> a bad idea. It was an attempt to explain a natural process. The problem turned out to be the over confidence in this assumption, and the refusal of evidence contrary - especially by the church which held great power at the time. The problem for us, today, is to have the foresight to recognize when we may be making the same mistakes and catch them early, while still not allowing stupid shit to get though. This creates a natural tension. For example, vaccines &amp; cigarettes:</p>
+<p>Should we look into the safety of Vaccines? Of course! But it only takes a little fear mongering and one <a href="https://en.wikipedia.org/wiki/Andrew_Wakefield">crazy ex-physician</a> with a known <a href="https://en.wikipedia.org/wiki/Lancet_MMR_autism_fraud#Conflict_of_interest">conflict of interest</a> writing a paper linking vaccines to autism to result in countless extra deaths.</p>
+<p>Should we look into the safety of cigarettes? Yeah, no shit. However, our over hesitancy to declare them cancerous doubtlessly lead to tons more cancer world wide. Why? Because of ton of academic papers, funded by the cigarette companies, that basically boiled down to &ldquo;Yeah, people are getting cancer more, but maybe that&rsquo;s plastic use, or this, or that - you don&rsquo;t <em>know</em> that it&rsquo;s cigarettes causing it&rdquo;, and then, when the link became undeniable, they just spun it as &ldquo;Of course, we&rsquo;ve always told you it can cause cancer, but you knew that going in!&rdquo;</p>
+<span class="smalltext ">
+    Of note, I could also really say Nazis fall into this boat too, as a failing to identify their ideas as evil and convince enough people of that to stop it lead to WWⅡ; however, I think that is to reductive of history and of the efforts of people who did actually try to stop it from the start. Also I don&rsquo;t want to add fuel to the fire of <a href="https://en.wikipedia.org/wiki/Godwin's_law">Godwin&rsquo;s Law</a>
+</span>
+<p>In both of these, the cost of failing to declare the studies as bullshit from the start resulted in deaths. While one was an over-abundance of caution, the other was a lack of. Both should be appreciated as equally dangerous.</p>
+<p>Meanwhile, failing to let new ideas surface because they sound crazy can cause similar issues. Unfortunately, these examples are a lot harder to identify. There&rsquo;s the obvious poster child examples, like the light bulb that supposedly got  significant push back for never having the possibility of being commercially viable, or Airplanes and the story of the Wright Brothers. The real question is what inventions did we lose or get a hundred years late because the ideas were ridiculed?</p>
+<p>We can never fully making mistakes. Some bad ideas will get though, and propagate enough to become diseased. Some good ideas will be squashed early. We should try our best though. This means encouraging people with new ideas to test them out while also helping people recognize what may make an idea dangerous - while avoiding falling into patterns that lead to not questioning our own beliefs and without going off the deep end and questioning everything that keeps society moving.</p>
+<p>Balance skepticism with openness.</p>
+<hr>
+<h2 id="religion">
+  Religion?
+  <a class="anchor" href="#religion">#</a>
+</h2>
+<p>I very intentionally didn&rsquo;t bring religion into any of this, because I am aware of my own biases. That said, I think some may find the series <a href="https://www.youtube.com/watch?v=lroKN5gdm08&amp;list=PL3IOkNR8_9gpQa5teO1xQANB-3MiY17uk">Philosophical Failures of Christian Apologetics (AntiCitizenX, YouTube)</a> interesting. I think it makes some interesting points and may even be interesting for readers that are currently on the fence about religion. I want to be clear, I don&rsquo;t see <em>any</em> religion as a &ldquo;diseased idea&rdquo; as I put it above; however, I do see many of the things that many religions preach as such. I think having belief in a higher power is fine, especially since mortality is scary and it can help. What I don&rsquo;t think is fine is claiming that higher power justifies ignoring scientific studies or hating a group of people because of a bullshit excuse provided by (or grossly grafted onto) that belief system. Your religion (or lack of) doesn&rsquo;t give you a right to be a dick or be ignorant.</p>
+<hr>
+<h2 id="a-small-exception">
+  A small exception
+  <a class="anchor" href="#a-small-exception">#</a>
+</h2>
+<p>I said the best thing you can do is to remove the platform, right? Well, there&rsquo;s another, risky, option: Let them look like absolute idiots on your platform without being directly malicious. Let them trip over themselves. This requires a lot of skill, a particularly poorly informed but confident individual, and an unsympathetic character. There&rsquo;s a lot of reasons you shouldn&rsquo;t try to do this, but when done well it can be a work of art. That said, this same though may well be why Trump won the 2016 election, as he was shown on every news station but not taken seriously- so proceed with caution.</p>
+<blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">There&#39;s power in understanding a position you oppose better than people who support it. You can avoid looking foolish like this. <a href="https://t.co/jTzX2lhQs7">https://t.co/jTzX2lhQs7</a></p>&mdash; Kye Fox (@KyeFox) <a href="https://twitter.com/KyeFox/status/1455519411503251463?ref_src=twsrc%5Etfw">November 2, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/NzDhm808oU4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Phil/idealabs.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#idea-labs">Idea Labs</a>
+      <ul>
+        <li><a href="#1-facilitate-novel-good-ideas">1. Facilitate Novel, Good Ideas</a>
+          <ul>
+            <li><a href="#host-or-join-an-open-organized-small-active-community">Host or join an open, organized, small, active community</a></li>
+            <li><a href="#host-or-join-a-community-knowledge-garden">Host or join a community knowledge garden</a></li>
+            <li><a href="#keep-a-personal-knowledge-garden-too">Keep a <em>Personal</em> knowledge garden too</a></li>
+            <li><a href="#seek-experiences-outside-your-comfort-zone-brencourage-others-to-do-so-too">Seek experiences outside your comfort zone, <BR>Encourage Others to do so too</a></li>
+            <li><a href="#relate-experiences-across-disciplines">Relate experiences across disciplines</a></li>
+            <li><a href="#realize-the-sources-available-to-you">Realize the sources available to you</a></li>
+            <li><a href="#be-aware-of-your-own-biases">Be aware of your own biases</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-prevent-diseased-ideas-from-spreading">2. Prevent Diseased Ideas From Spreading</a>
+          <ul>
+            <li><a href="#facts-though-the-feelings">Facts though the feelings</a></li>
+            <li><a href="#good-looking-bullshit-p-hacking-fake-science-and-academia-at-its-worst">Good looking Bullshit: P-hacking, Fake Science, and Academia at its worst</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-never-mark-a-good-idea-as-diseased-or-a-diseased-idea-as-good">3. Never Mark A Good Idea as Diseased or A Diseased Idea as Good</a></li>
+        <li><a href="#religion">Religion?</a></li>
+        <li><a href="#a-small-exception">A small exception</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

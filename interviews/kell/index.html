@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An Interview with Kell Bengal #  7/27/2021
+Thank you for taking the time for this interview Kell. I know you work on robots, and teach others to do so as well, and are from the continent where everything wants to kill you, but I don&rsquo;t know much else: How would you describe yourself? What are you passionate about and why?
+I would describe myself as an engineer, first and foremost.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #FFB900;}
+  a:active{color: #FFB900;}
+  ::-webkit-scrollbar-thumb {background: #FFB900 !important;}
+  ::-webkit-scrollbar-thumb {background: #FFB900 !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="An Interview with Kell Bengal #  7/27/2021
+Thank you for taking the time for this interview Kell. I know you work on robots, and teach others to do so as well, and are from the continent where everything wants to kill you, but I don&rsquo;t know much else: How would you describe yourself? What are you passionate about and why?
+I would describe myself as an engineer, first and foremost." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/interviews/kell/" /><meta property="article:section" content="Interviews" />
+
+
+
+<title>Kell | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/"class=active>Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Kell</strong>
+
+  <label for="toc-control">
+    
+  </label>
+</div>
+
+
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="an-interview-with-kell-bengal">
+  An Interview with Kell Bengal
+  <a class="anchor" href="#an-interview-with-kell-bengal">#</a>
+</h1>
+<p><strong>7/27/2021</strong></p>
+<img src="/nonfree/interviews/kelltemp.svg" alt="Kell Bengal" height="200em">
+<p><strong>Thank you for taking the time for this interview Kell. I know you work on robots, and teach others to do so as well, and are from the continent where everything wants to kill you, but I don&rsquo;t know much else: How would you describe yourself? What are you passionate about and why?</strong></p>
+<p>I would describe myself as an engineer, first and foremost.  I put great stock in my identity as a professional problem solver, and rather view engineers and anyone who uses scientific knowledge and principles to solve problems as being the plank that stands between civilisation itself and oblivion.  While that may sound melodramatic, it is because of engineers, technicians, doctors and scientists that we have medicine, power, factories, modern agriculture, and autonomy that provides for our way of life.  Commensurate with that, I feel a great responsibility to use my skills and talents for good or for awesome, both to improve quality of life, reduce the impact of humanity, and to make the world a little more interesting.  I&rsquo;m passionate about building cool things, solving problems, advancing big cat conservation, and advocacy for LGBT* folks.</p>
+<p><strong>What are some your favorite projects you&rsquo;ve worked on?</strong></p>
+<p>By far, my favourite project is my bipedal robot.  I&rsquo;ve had a love of walking robotic war machines since I was quite young and that passion has never waned.  I&rsquo;m slowly putting together giant walking robot which which to crush my enemies&hellip; at 1/50th scale, due to budget limitations.  As a project, it combines difficult control theory, demanding electrical design, hard mechanical design, and an absolutely horrendous integration problem.  It&rsquo;s a hell of a challenge and I&rsquo;m loving it.</p>
+<p><strong>What part of what project has been the most difficult and/or most rewarding thing you&rsquo;ve ever worked on?</strong></p>
+<p>In 2010 I co-founded a drone company developing a 25 kg fully-electric ducted fan drone for carrying a 5 kg payload for an hour.  By far, that has been the most difficult work I&rsquo;ve ever done; it pushed the very limits of what contemporary technology was capable of, and we resorted to contracting specialists in aerodynamics, materials and electrodynamics in order to make a solution happen.  When it flew, it blotted out the sun, and it was terribly impressive to see overhead.  Also, each prototype cost $0.25M, so you held your heart in your hand each time one left the ground.  It happened to be the first time I&rsquo;d managed a whole team of engineers myself, so I not only had to deal with technical challenges, but also management, logistics and ordering, which I&rsquo;d never had to tackle to quite a scale before.  Was it rewarding?  Well, I thought it would be, right up until the company folded due to events it couldn&rsquo;t control.  I really thought it would make me a multi-milionaire.</p>
+<p><strong>What are some lessons you learned the hard way for how to teach engineering topics to others?</strong></p>
+<p>I have a list of engineering maxim&rsquo;s that I have slowly accumulated in my time as an engineer and educator.  Every single one of them is written in blood from things that have gone wrong in the past, or challenges I&rsquo;ve overcome.  The wisdom of most of them is self-evident.
+Pauline&rsquo;s Laws:</p>
+<style>
+ol.c {list-style-type: upper-roman; line-height: 1.7; font-size: 1em;}
+</style>
+<ol class="c">
+<li>Prototypes are expensive; experiments are expensive; experimental prototypes are very expensive.</li>
+<li>It takes at least three prototypes.</li>
+<li>The most elegant solution is often the correct one.</li>
+<li>Any obvious solution to a research problem has either already been tried or isn’t a solution.</li>
+<li>Simple, simple, simple; robust, robust, robust; test, test, test.</li>
+<li>A good engineer is worth three ordinary engineers.  A bad engineer is worth negative two engineers.</li>
+<li>Be a fucking professional.</li>
+<li>Engineers thrive on good management; accountants and administrators are not managers.</li>
+<li>Do it right again the next time.</li>
+<li>If your functional design is not sexy, it’s not functional enough.</li>
+<li>Only solve one impossible problem at a time.</li>
+<li>Creativity isn’t using every crayon in the box.</li>
+<li>Design to build less.<br></li>
+</ol>
+<p><strong>What things to really wish other teachers would stop doing/teaching incorrectly?</strong></p>
+<p>There is an idea that getting students building early in their engineering degrees will get them hooked and engaged and thus improve retension and investment in their studies.  While that might be true, it has the added problem that it gives students the erroneous idea that one need not think deeply or critically before designing a solution to a problem.  This results in engineers whose first instinct is to start hacking away at the first approach that pops into their heads, without truly understanding the nature of the thing to be solved.  There are relatively few problems that require an engineer but which do not necessitate substantial contemplation prior to crafting a solution.  I see it in my fourth year design/build class.  I frequently will show up to the last day of testing with a system I put together the night before, but based on all the intuition I&rsquo;d gained from watching how the teams were tackling it.  Very often my night-before &ldquo;Dark Horse&rdquo; solution will outperform the overly complicated or hacky attempts worked on for a whole semester.</p>
+<p><strong>What languages and frameworks do you like and dislike for embedded development? Why?</strong></p>
+<p>I program in C because C is nice and close to the bare metal, which is crucial for dynamical control systems.  I know that it lacks many of the comfortable resources and capabilities of more modern languages, but every target has a GCC compiler and almost everyone knows C.  It is fairly straight forward to convert our control designs developed in Matlab M to work in C.  Outside of the embedded sphere, I also code in Matlab M, as mentioned, and also Python.</p>
+<p><strong>What technological advancements throughout your time as an engineering nerd have made the biggest difference to your everyday work? What do you miss about the &ldquo;old way of doing things?&quot;</strong></p>
+<p>Arguably, the advent of drones has been the largest, but only because that&rsquo;s my area of expertise.  I have watched them evolve from being research curiosities to a whole field of study, all the way to being something you could buy off the shelf of a department store.  It&rsquo;s great not having to hand-make rotorblades any more, but there was a meditation to it and it really made you value your vehicle to fly something where every single part was literally hand-made.</p>
+<p><strong>Here in the states, electrical and mechanical engineering are seen as a field dominated by &ldquo;Traditional Values&rdquo;, has that been an issue for you at all, being that you&rsquo;re trans?</strong></p>
+<p>Not in the least.  I&rsquo;ve been thrilled by the acceptance of my peers.  That said, we&rsquo;re academics so we tend to be very progressive people who judge you on the content of your moral character and not the colour of your skin, the god you pray to, or who you love or how.  Even as a professional, I don&rsquo;t hide being transgender, but nobody has given me any trouble to my face.  It helps that I&rsquo;m very good at what I do and widely respected, I guess.</p>
+<p><strong>You&rsquo;ve got a P.H.D, do you think pursuing that level of education is worth it?</strong></p>
+<p>A PhD is one of those things that people do for a variety of reasons, some more valid than others.  Some people have a specific goal of being a professor, and the only way to do that is with a PhD.  Others want to do the sorts of jobs that require that level of qualification (eg. nuclear systems technician, semiconductor physicist).  Others still are deeply in love with their topic and find the PhD as a way of engaging with it further, on a deeper level than could be achieved in the undergrad or in industry.  Some people feel obliged to get a PhD to somehow prove their intelligence, or just like the idea of having &lsquo;Dr&rsquo; in front of their names, or simply had nothing better to do than continue studying.  I, personally, am deeply in love with my topic (though I certainly also had something to prove), and I love the sort of work I do now - for me it was absolutely the right chioce.</p>
+<p><strong>What very stupid mistakes do you often see very smart people make that drive you mad?</strong></p>
+<p>I&rsquo;m surrounded by very smart people, as a matter of course, both within and outside of the university.  Perhaps the key failing is in losing sight of the limits of one&rsquo;s own competence.  If you are a smart person, you put a lot of stock in being right about things - it&rsquo;s probably how you earn your wage.  Usually, you are certainly right about your particular topic, and very often right about topic areas surrounding it.  However, it&rsquo;s easy to generalise that confidence in your specialisation for confidence in other areas in which you may not be fully informed.  While it might sound like arrogance or hubris, really it&rsquo;s just a careless mistake of scope creep: without training or special grounding in a topic, one may make pronouncements on a topic with limited awareness using the same casual intuition that operates flawlessly in a domain where one has true mastery.  For this reason, I very often bring up the limits of my competence as a &lsquo;ring fence&rsquo; for any conversation near the edges thereof, in case I should risk crossing the border.</p>
+<p><strong>How has the global silicon/part shortage affected you?</strong></p>
+<p>Frustratingly, the Bosch B**055 IMU family and ST STM32F772 microcontroller family have been difficult to source.  We&rsquo;re buying cheap, older flight controllers to salvage parts from.</p>
+<p><strong>What&rsquo;s the most important skill that you&rsquo;ve taught yourself?</strong></p>
+<p>Synthetic thinking.  When solving a problem, it is not enough to optimise for a single problem, a single attribute or a single parameter.  For truly excellent design, you must optimise a myriad of (often conflicting) design priorities in a way that is elegant, compact, cheap, reliable and rugged.  Through years of engineering and hobby design projects I have gotten very good at thinking outside the box and challenging assumptions.  The most valuable part of this is to question everything you think you know about the problem, the requirements, the limitations and the goals.  Push every boundary of the envelop and see what moves.  Once you truly know what is important, you can often cut to the heart of the problem and attack the kernel of the underlying engineering challenge.  It&rsquo;s rare to meet someone else who does this implicitly.</p>
+<p><strong>Is there any skill that you spent too much time developing that you wish you hadn&rsquo;t?</strong></p>
+<p>Politics.  I&rsquo;ve been described as the best politician in the engineering faculty, and I wish I did not have to have that skill.  While valuable for surviving the cut-throat academic environment, I would much rather have put those brain-cells to work finding better ways of making cars fly.</p>
+<p><strong>What&rsquo;s the biggest &lsquo;Oh Shit&rsquo; moment you&rsquo;ve ever had, be it one you caught in time or not?</strong></p>
+<p>Well&hellip; I once destroyed a $2000 IMU from CSIRO, but I managed to get it fixed without anyone really knowing, so I don&rsquo;t know if that counts.  I&rsquo;ve had a few drone crashes and unscheduled disassemblies that were expensive, but not exactly disastrous.  I&rsquo;ve been blessed to avoid any truly dangerous mishaps.  Perhaps the one that rises above the rest was one time at a start-up, we took 8.5 kg of lithium batteries out of storage at our workshop (which was the garage of a three story house we were renting), and they spontaneously ignited.  I was asleep in an upstairs bedroom of the house when the fire alarm went off; the wife of one of the other founders alerted me that there was a fire and I ran downstairs to respond to it.  Nothing puts Lipo fires out.  The only solution was to open the doors to the shed, drag the batteries (which were on a carpet tile) out onto the driveway and let them smoke off.  The house was undamaged by the fire, but the smoke caused a mess - it was $​50k to clean it all.  However, it only occurred to me afterwards that I&rsquo;d walked into a smoke-filled room with no face mask, no breathing apparatus, no training, no idea of what I was facing&hellip; I didn&rsquo;t realize I&rsquo;d put my life on the line for it.  I feel I jumped the right way, but it was a sobering thought.</p>
+<p><strong>What do you do for fun? Any books, movies, TV shows, etc. that you&rsquo;d recommend?</strong></p>
+<p>I engineer hobby electronic toys, particularly watches.  I enjoy the works of Peter F. Hamilton, Iain M. Banks and Philip K. Dick.  My favourite film is The Hunt for Red October.</p>
+<p><strong>Who are your biggest inspirations? What creators do you think are way to underrated and deserve a shout out?</strong></p>
+<p>My hero and personal savior is Kelly Johnson, of Skunkworks fame.  He was regarded as a brilliant &lsquo;intuitive engineer&rsquo; and I&rsquo;m inspired by his preparedness to cut the crap and do what it takes to solve problems and deal squarely.  Nobody adequately appreciates Gustav Whitehead, Elmer Sperry, Gus Grissom, Michael Collins or John Young - the first astronaut to smuggle a sandwich into space.</p>
+<p><strong>What&rsquo;s the best advice you&rsquo;ve ever received? Worst?</strong></p>
+<p>The best advice I&rsquo;ve ever received was given to me by myself: when I was feeling intimidated by what I&rsquo;d have to do to get into engineering school, I told myself &ldquo;don&rsquo;t be afraid of hard work&rdquo;.  I realised this was a weakness of mine, and I sought to use self-discipline to turn it into a strength.  I&rsquo;ve never shirked working hard to achieve my goals.  The worst advice I&rsquo;ve ever received was &ldquo;it doesn&rsquo;t matter what your first job out of university is - you can make your way to do whatever job you want in time&rdquo;.  That&rsquo;s bullshit and I encourage anyone who receives that advice to disregard it.  Life is short, and you should always be working to your goal.  Even if you can&rsquo;t take a direct step, have a plan where each step gets you incrementally closer, and where a pathway exists between where you are now and where you want to be.</p>
+<p><strong>What is your favorite &lsquo;hidden gem&rsquo; tool?</strong></p>
+<p>I use an IDE called MikroC for coding PIC microcontrollers in C.  It&rsquo;s a buggy, frustrating and awful platform, but it makes an otherwise difficult problem comparatively easy.  Alas, the modern advent of HAL libraries will probably render it obsolete, but for now it&rsquo;s keeping me going.</p>
+<p>My favourite hardware tool is actually a set of Align metric hex-drivers.  They are convenient, ergonomic and reliable.  I&rsquo;ve used them at three different organisations on two continents, and I doubt my current set will be the last I ever own.</p>
+<p><strong>Do you have any obscure hobbies?</strong></p>
+<p>I enjoy metal casting and singing opera.</p>
+<p><strong>What hobby do you want to get into but haven&rsquo;t had a chance to dive into yet?</strong></p>
+<p>Uplift of non-sentient lifeforms.  I expect I will need to crack the longevity problem before I have a chance to tackle that one, though.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Interviews/kell.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

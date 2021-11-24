@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Letting Society Advance Though Art and Innovation #  This video from Tom Scott on YouTube is a very good intro to everything I&rsquo;ll be talking about on this page, I&rsquo;ll assume you&rsquo;ve watched it so that I don&rsquo;t have to repeat everything that he says here.
+ What is Copyright? #  [TODO]
+What&rsquo;s Wrong With that? #  Watch a police officer admit to playing Taylor Swift to keep a video off YouTube (The Verge)">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #E23838;}
+  a:active{color: #E23838;}
+  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
+  ::-webkit-scrollbar-thumb {background: #E23838 !important;}
+</style>
+<meta property="og:title" content="Copyright" />
+<meta property="og:description" content="Letting Society Advance Though Art and Innovation #  This video from Tom Scott on YouTube is a very good intro to everything I&rsquo;ll be talking about on this page, I&rsquo;ll assume you&rsquo;ve watched it so that I don&rsquo;t have to repeat everything that he says here.
+ What is Copyright? #  [TODO]
+What&rsquo;s Wrong With that? #  Watch a police officer admit to playing Taylor Swift to keep a video off YouTube (The Verge)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/phil/copyright/" /><meta property="article:section" content="Phil" />
+
+
+
+<title>Copyright | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/"class=active>Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Copyright</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#letting-society-advance-though-art-and-innovation">Letting Society Advance Though Art and Innovation</a>
+      <ul>
+        <li><a href="#what-is-copyright">What is Copyright?</a></li>
+        <li><a href="#whats-wrong-with-that">What&rsquo;s Wrong With that?</a></li>
+        <li><a href="#how-do-we-fix-it">How do we fix it?</a></li>
+        <li><a href="#piracy">Piracy?</a></li>
+        <li><a href="#open-directories">Open Directories</a></li>
+        <li><a href="#for-the-hackers-makers-and-engineers">For the Hackers, Makers, and Engineers</a></li>
+      </ul>
+    </li>
+    <li><a href="#patents">Patents</a></li>
+    <li><a href="#for-the-furries">For the furries</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="letting-society-advance-though-art-and-innovation">
+  Letting Society Advance Though Art and Innovation
+  <a class="anchor" href="#letting-society-advance-though-art-and-innovation">#</a>
+</h1>
+<p>This video from Tom Scott on YouTube is a very good intro to everything I&rsquo;ll be talking about on this page, I&rsquo;ll assume you&rsquo;ve watched it so that I don&rsquo;t have to repeat everything that he says here.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/1Jwo5qc78QU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="what-is-copyright">
+  What is Copyright?
+  <a class="anchor" href="#what-is-copyright">#</a>
+</h2>
+<p>[TODO]</p>
+<h2 id="whats-wrong-with-that">
+  What&rsquo;s Wrong With that?
+  <a class="anchor" href="#whats-wrong-with-that">#</a>
+</h2>
+<p><a href="https://www.theverge.com/2021/7/1/22558292/police-officer-video-taylor-swift-youtube-copyright">Watch a police officer admit to playing Taylor Swift to keep a video off YouTube (The Verge)</a></p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/tk862BbjWx4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!--
+
+LICENCE PENDING, NOT YET APPROVED FOR PUBLISHING
+
+### Shinkwrap Licenses
+
+> End User License Agreements, or EULAs for short, are a one sided contract, often imposed by a company with superior bargaining power to set terms to an end user. A particularly troublesome version of this is pejoratively called the “shrinkwrap license” as they are included in software, and often cannot be read until after the package has been purchased and opened.
+> A prime example is the license for Microsoft Visual Studio (Enterprise Edition), a developer software for the purpose of creating software. The problematic clause is one that forbids duplication of the functionality of Microsoft Access, and further forbids competition with the same, and even delegates this to the reasonable opinion of Microsoft <a class="ptr">(1)</a>.
+>
+> Bluntly, this means any piece of software created by Visual Studio can be declared in violation of the EULA on this clause simply because Microsoft darn well *says* it does. This allows arbitrary enforcement at Microsoft’s sheer whim just on fiat alone, which leads to an imbalance of power between Microsoft and the end user.
+>
+> Additionally, restraining the end user from competition or reimplementation of one of Microsoft’s own products is anticompetitive <a class="ptr">(2)</a>, and tends towards monopolistic practice, something Microsoft has in fact gotten in trouble with before <a class="ptr">(3)</a>.
+>
+> Furthermore, shrinkwrap licenses in general are unfair to the consumer because they may not be returnable by the place of origin, and in fact many stores, including Walmart, specifically forbid returns of copyrighted material for refund, at least for movies, and presumably the same restriction also applies to software. It is further theorized that this prohibition is imposed as a matter of copyright law and not merely Walmart’s corporate policy.
+> Standard procedure, however, spelled out by many EULAs demands that the software in question be returned to the place of purchase for refund, which may conflict with the return policy of the store of purchase, and ironically, may also contradict copyright law itself.
+>
+> A purchaser who acquires software subject to an EULA is thus treated unfairly, as in many cases the EULA is not even readable before purchase (hence the term “shrinkwrap license”) and they are deprived of an opportunity to evaluate the EULA before purchase, a decision that has a material impact on their finances if the store subsequently refuses to honor a return if the purchaser does in fact reject the license after purchase and attempts to exercise their remedy under the EULA to return said software.
+>
+> Shrinkwrap licenses are also unfair to the store, as they attempt to impose a duty on the store to accept a return for a product after it has already been purchased, which at a minimum will entail additional labor to restock, and if necessary, repack the software, in addition to transaction fees to a bank if the purchaser used a credit or debit card to make the purchase. The store may not have even agreed to the EULA itself, and thus it may have a duty imposed upon it that it did not agree to, or the alternative of being in a position to deny an end user their own remedy as spelled out by the publisher of the software in the previous paragraph of this essay.
+>
+> EULAs are often used unfairly by companies with more bargaining power than their customers, and impose unfair burdens on consumers and retailers alike. However, Microsoft’s particular EULA for Visual Studio goes beyond the general case by effecting monopolistic practices and restraining the end user’s ability to code their software as they see fit, and in so doing restraining trade in the economic sense by giving its own software a privileged status above that of the end user, and is a continuation of a pattern of behavior for which Microsoft has already been censured.
+
+<p class="attribution ">
+    Raymond Jennings, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+</p>
+
+-->
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I AM DYING<br><br>I just got a copyright claim for *TYPING ON MY KEYBOARD* <a href="https://t.co/EUSzQun8ik">pic.twitter.com/EUSzQun8ik</a></p>&mdash; Hector Martin (@marcan42) <a href="https://twitter.com/marcan42/status/1420807961518088194?ref_src=twsrc%5Etfw">July 29, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h2 id="how-do-we-fix-it">
+  How do we fix it?
+  <a class="anchor" href="#how-do-we-fix-it">#</a>
+</h2>
+<p>I think to further address any issues we first need to look into how these issues have come to exist. In general, as a society advances new issues will arise. Computers and the Internet have shown us just how incredibly things can progress and how amazing un-hindered, open information flow can change the world. The Internet has served as an educational tool of unparalleled utility to my generation and has allowed me to learn things that I otherwise would have never had access to. Of course this also means the same for bad actors. Though acting in bad faith also now have the same unparalleled access to personal information of the masses and individuals can now use their anonymity and an Internet connection to do harm both to individuals via cyberbullying and trolling, but also to businesses as we move to a world that more heavily relies on ecommerce and the digital information they store becomes increasingly sensitive.</p>
+<p>Unfortunately, the law is often far to slow or far to fast to react, leading to laws that simultaneously fail to protect our rights as smaller creators and punish many to harshly.<a class="ptr">(4)</a></p>
+<p>&hellip;</p>
+<p>Today, the most obvious example of this is the <a href="https://en.wikipedia.org/wiki/Electronics_right_to_repair">Right to Repair movement</a>, a movement that has computer hackers and farmers fighting side by side to protect consumer rights.</p>
+<p>Copyright, DMCA</p>
+<p>Patents</p>
+<blockquote>
+<p>HEVC is heavily patented. There are no less than <a href="https://www.mpegla.com/programs/hevc/patent-list/">7,200 patents</a> covering this compression method. This includes 39 patents from Apple: CN 03816739.5, 200810082232.0, 201210009977.0; DE 603 34 804.1, 603 41 992.5, 603 41 994.1; FR 1532746, 2326019, 2328283; GB 1532746, 2326019, 2328283; IT 1532746, 2326019, 2328283; JP 5385233; KR 850,810, 1,210,015; and US 7,292,636, 7,339,991, 7,551,674, 7,769,084, 8,090,023, 8,090,026, 8,094,724, 8,094,729, 8,630,339, 8,711,924, 8,737,462, 8,737,468, 8,737,484, 8,743,951, 8,817,883, 8,831,106, 8,837,580, 8,837,597, 8,934,546, 8,934,551, 8,942,287. This should be enough to discourage any company from using HEIF, even if it does offer a better compression versus file size ratio</p>
+<p><a href="https://www.hackerfactor.com/blog/index.php?/archives/833-HEIC-Yeah.html">https://www.hackerfactor.com/blog/index.php?/archives/833-HEIC-Yeah.html</a></p>
+</blockquote>
+<p>Patent trolls</p>
+<p>Societal standards of art, making fun of something because it&rsquo;s different</p>
+<p>What we should do about this:</p>
+<p>[TODO]
+Marvel, Pink Floyd, and Minecraft Vs Web comics, indie, and Minetest.</p>
+<h2 id="piracy">
+  Piracy?
+  <a class="anchor" href="#piracy">#</a>
+</h2>
+<p>[TODO] ethics of piracy, when it&rsquo;s okay, who it affects, etc.</p>
+<blockquote class="book-hint warning ">
+  Because these many of these sites are tecnically hosting illegal content, they tend to change domains a lot. One of the better ways to be sure you&rsquo;re not going to a <a href="https://en.wikipedia.org/wiki/Honeypot_(computing)">Honeypot</a>, a fake site used to catch people, is to check what domain the Wikipedia article refers to, for example for scihub:</p>
+<img src="/phil/scihubsite.webp" alt="Scihib link on wikipedia" height="500em">
+</blockquote>
+
+<p><a href="https://github.com/Igglybuff/awesome-piracy">Awesome Piracy (GitHub)</a></p>
+<p><a href="https://sci-hub.do">Sci-hub.do</a></p>
+<h2 id="open-directories">
+  Open Directories
+  <a class="anchor" href="#open-directories">#</a>
+</h2>
+<p>[TODO what is an open directory]</p>
+<p><a href="https://www.reddit.com/r/opendirectories/">https://www.reddit.com/r/opendirectories/</a></p>
+<p><a href="https://the-eye.eu/public/">https://the-eye.eu/public/</a></p>
+<h2 id="for-the-hackers-makers-and-engineers">
+  For the Hackers, Makers, and Engineers
+  <a class="anchor" href="#for-the-hackers-makers-and-engineers">#</a>
+</h2>
+<p>Cory Dottorow is a huge name when it comes to speaking on how copyright matters to those of us that like to create with code and wires. I really recomend reading his post about why <a href="https://locusmag.com/2020/09/cory-doctorow-ip/">There are no digital rights, only human rights.</a> and watching this video about the <a href="https://www.youtube.com/watch?v=gbYXBJOFgeI">War on General-Purpose Computing</a>.</p>
+<h1 id="patents">
+  Patents
+  <a class="anchor" href="#patents">#</a>
+</h1>
+<p>[TODO] e-ink, 3D-printing, MX keys, Loading screen game until expired ; patent trolls ;</p>
+<div class="quote TaylorAlexander on [this hacker news thread](https://news.ycombinator.com/item?id=27785255)">
+<p>
+    <p>Yes more on 3D printers:
+The first FDM 3D printers went on sale in 1995 for $50k. Ten years later they were $25k. Then in 2008 the patents expired. By 2011 a halfway decent printer was $1800. By 2018 $300 3D printers were available worldwide.</p>
+<p>I joined the community in 2010, bought my own printer in 2011, and I saw the community operating with my own two eyes. Thousands of people all over the world innovating without patents to improve the situation.</p>
+<p>The idea that patents promote innovation is absurd. The primary function of the patent is to stop innovation. All those thousands of people who wanted to improve 3D printers were legally prevented from innovating while the patent was in effect.</p>
+<p>I remember in 2012 people on the mailing list talking about 3D printing on to a belt that could move. Literally no one on the mailing list wanted to risk infringing on the Makerbot patent for this even though makerbot quickly stopped selling their belt printer and never sold a new one. To this day the only belt printers that are for sale is a printer with the carriage off angle from the belt to avoid infringing the makerbot patent that hasn’t been used in years.</p>
+<p>The rate of innovation would be higher without patents. We’re hurting ourselves for the benefit of those who amassed large patent portfolios so they can charge rent on old designs instead of innovating.</p>
+<p>Imagine the health and wealth that could be generated worldwide if we let every country copy the best MRI machines we have, and all our battery factories and chip designs. That wealth would immeasurably improve the lives of people the world over, and it would come back to us in the US as new economic trading partners with their own infrastructure. Along the way they’d find 100x cost savings or better and our medical care would be cheaper.</p>
+<p>We are truly shouting ourselves in the foot with patents.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - TaylorAlexander on <a href="https://news.ycombinator.com/item?id=27785255">this hacker news thread</a>
+    </div>
+</div>
+<div class="quote lettergram on [this hacker news thread](https://news.ycombinator.com/item?id=27785255)">
+<p>
+    <p>Having spent a significant amount of time developing and patenting new technology — I think patents are both necessary, BUT need an overhaul.
+Particularly, I think design patents are likely positive, but I think utility patents need a different mechanism. For instance, I think the patent should work for X% of revenue of a given item is provided to the patent holder, provided they don’t reach an agreement. This would ensure anyone can use patents and the revenue would be defined. I also think a patent should be limited to 3 years without it being put to use. “Use” should have a lower bar, but effectively made or reduced revenue in some manner.</p>
+<p>In reality, you can build what you and ignore patents. Patents don’t matter until you are in business and make money. At which point, if someone uses you; you’re already successful and they’ll want a slice of that success. This is the advice I’ve always been given (from investors and attorneys, off record).</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - lettergram on <a href="https://news.ycombinator.com/item?id=27785255">this hacker news thread</a>
+    </div>
+</div>
+<div class="quote bee_rider on [this hacker news thread](https://news.ycombinator.com/item?id=27785255)">
+<p>
+    <p>A bounty system for patent invalidation might be nice. An idea could be:</p>
+<ul>
+<li>
+<p>When you get a patent, you put up a bond.</p>
+</li>
+<li>
+<p>If someone invalidates your patent, they get the bond.</p>
+</li>
+<li>
+<p>Otherwise, you get it back when your patent expires</p>
+</li>
+</ul>
+<p>An extra, funny, probably impractical idea is that when filing for the patent, you decide on the value of the bond. But, the value of the bond is the maximum payout you can be awarded for a given instance of infringement. So, you have to essentially &lsquo;price&rsquo; the value of your patent yourself.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - bee_rider on <a href="https://news.ycombinator.com/item?id=27785255">this hacker news thread</a>
+    </div>
+</div>
+<hr>
+<h1 id="for-the-furries">
+  For the furries
+  <a class="anchor" href="#for-the-furries">#</a>
+</h1>
+<p>No, you can not copyright your species or make a &lsquo;closed&rsquo; species. While I am not a lawyer, I can say with a pretty high degree of certainty that your claims of copyright over a fictional species would not stand up in court.</p>
+<p>Here&rsquo;s some other people telling you exactly the same thing:</p>
+<p><a href="https://forums.furaffinity.net/threads/clearing-confusion-about-closed-species-and-i-copyright-this-species-character.135077/">Lakota Wolf on Fur Affinity</a>, <a href="https://aminoapps.com/c/furry-amino/page/blog/closed-species-dont-exist/d37B_6pxHbuEKLg7Mb74wg40e17EelGdKR7#:~:text=Is%20it%20possible%20to%20copyright,their%20services,%20but%20not%20copyright.">Valkyrie on Furry Amino</a></p>
+<p>The TLDR? You can&rsquo;t copyright an idea.</p>
+<hr>
+<p>Also in response to <a href="https://www.deviantart.com/riipurr/journal/Closed-Species-and-Copyright-I-Asked-a-Lawyer-802440301">Closed Species and Copyright: I Asked a Lawyer</a> from Riipurr</p>
+<blockquote>
+<p>[&hellip;] if the character still resembles Doraemon enough, you can get sued for it.”</p>
+</blockquote>
+<p>Yeah, that doesn&rsquo;t mean anything. You can be sued for <em>anything</em>. Weather or not a judge will agree with you is a wildly different question. While, again, IANAL, I have read <em>way to much</em> copyright law and work with people that actively push the limits of the Digital Millenium Copyright Act (DMCA) and know enough to justify my donations to the EFF.</p>
+<p>If someone were to trace your work. Definitely, that&rsquo;s copying, you&rsquo;re in the right, you&rsquo;d win.</p>
+<p>If someone were to draw what was <em>very</em> obviously your character with minor tweaks, again, you&rsquo;d win.</p>
+<p>If someone were to draw a new character, with significantly different markings, but of the same species? Probably not. Unless your species has some <em>incredibly</em> specific details that are in of themselves a copyrightable work that the person also copies you&rsquo;re going to have a hard time. You do seem to get this as you say</p>
+<blockquote>
+<p>we were mainly discussing about species with distinguishable physical features and not simple hybrids like a plain cat with wings, etc. You’d have to make the cat’s silhouette unique enough to make it its own, new thing (like scarfoxes)</p>
+</blockquote>
+<p>But, really? Looking at <a href="https://www.deviantart.com/scarfoxchronicles/art/Scarfox-Head-Chart-871694096">Scarfoxes</a> I&rsquo;d really question the claim that there&rsquo;s enough copyrightable material here. Remember, <em>ideas</em> are not copyrightable. To me, this looks like you&rsquo;re claiming the <em>idea</em> of making a fox like character with upright ears and a stiched-style face is the copyright. If the silloute were to exactly match one of these, yeah, that&rsquo;s infringement, but making something that uses a similar <em>idea</em> is not. Similarly, you can&rsquo;t copyright a word- that would be trademark, and unless you intend to file for it you don&rsquo;t get it by default like you do copyright.</p>
+<p>Further down you even said</p>
+<blockquote>
+<p>To be frank, I don’t quite care about the legality of all these. It’s just that people who excuse ripping off artists and others because “duuhhh laws say I can” really annoy me.</p>
+</blockquote>
+<p>Yeah. And that&rsquo;s fine. But you need to realize that when you&rsquo;re trying to claim copyright of something so broad you&rsquo;re saying &ldquo;This <em>idea</em> belongs to me&rdquo; seemingly unaware that you&rsquo;re possibly infringing on the ablity of other artists to make things that honestly weren&rsquo;t inspried by your work, that just happen to be similar.</p>
+<p>At the end of the day, this comment is the one that matters:</p>
+<blockquote>
+<p><a href="https://www.deviantart.com/juriscat"><img src="https://a.deviantart.net/avatars-big/j/u/juriscat.gif?3" alt="JurisCat's avatar" style="zoom:25%;" /></a> <a href="https://www.deviantart.com/juriscat">JurisCat</a> - <a href="https://www.deviantart.com/comments/1/802440301/4745375467">Jun 20, 2019</a></p>
+<p>One thing to consider about this, though, is that people are unlikely to sue over characters being copied because typically the legal fees would be too high to make it worth suing.</p>
+</blockquote>
+<blockquote>
+<p><a href="https://www.deviantart.com/riipurr"><img src="https://a.deviantart.net/avatars-big/r/i/riipurr.gif?14" alt="Riipurr's avatar" style="zoom:25%;" /></a> <a href="https://www.deviantart.com/riipurr">Riipurr</a> - <a href="https://www.deviantart.com/comments/1/802440301/4745387918">Jun 20, 2019</a></p>
+<p>Most definitely! This is simply an answer to something that&rsquo;s been bothering me for a while.</p>
+</blockquote>
+<p><em>THIS</em>. It&rsquo;s often not worth your time to sue, so unless you&rsquo;re <em>damn</em> sure that somebody is infringing - that is it&rsquo;s traced, the outlines match, the colors and markings are exactly the same - you wouldn&rsquo;t. That&rsquo;s exactly the point of <strong>copy</strong>right. It&rsquo;s in the name.</p>
+<p>This is <em>not</em> an attack on <a href="https://www.deviantart.com/riipurr">Riipur</a> (seriously, I don&rsquo;t even know them, and their art is actually bomb as hell), rather it&rsquo;s a statment to the furry comunity: <em>Quit. Your. Bullshit.</em></p>
+<p>Because this really bothers me, here&rsquo;s a list of examples I find particularly offensive:</p>
+<p><a href="https://catarazzo.wixsite.com/selvageist">This species</a> by <a href="https://www.deviantart.com/katxicon">Kataxicon</a>, was even directly called a Wendigo, an existing mythological creature, before she renamed it to Selvageist.</p>
+<p><a href="https://www.deviantart.com/flnch-face/art/P-K-Chatbox-Talpi-870007723">The &ldquo;Phish-Keepers&rdquo;</a> by <a href="https://www.deviantart.com/flnch-face">Flnch-Face</a> is literally just a water dragon.</p>
+<p><a href="https://www.deviantart.com/birdywren/art/Shork-810332517">This &ldquo;Shark-Wolf&rdquo;</a> species by <a href="https://www.deviantart.com/alfeddy">Alfeddy</a> speaks for itself.</p>
+<p>I could literally go though deviant-art and find these all day.</p>
+<p>If you do this, as an artist, you are <em>harming</em> the furry community by claiming ownership over an idea. It deters other artists from being able to draw things they <em>do</em> have the right to, and it&rsquo;s really just a form of gatekeeping. I do understand the desire to claim your own work and get the value you deserve out of it, but closed species are often stepping over the line and claiming ownership of an idea, something you do not have the right to do.</p>
+<p>Yeah, our current copyright system is 300% ultra forked for small creators. I understand. And yeah, I&rsquo;d be super pissed off if some nazi-fur made a dutch angel dragon and paraded it around.</p>
+<p>But then we come to the real solution: If you want to have a closed species, you need to make sure it really does pass the bar where others would associate the species with you, that any creature, regardless of colors and sub-designs, is so obviously a derivative that everyone recognizes it (and as such could associate it with you). Examples of this are easy: Protogens, Sergals, and Dutch Angel Dragons (albeit the last one is hella debatable)</p>
+<p>So next time you&rsquo;re thinking about calling your Lynx-duck hybrid a closed species,</p>
+<iframe src="https://giphy.com/embed/KYLLQg2fqs5blnO4sj" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/velma-stop-that-you-KYLLQg2fqs5blnO4sj"></a></p>
+<ol hidden id="footnotes">
+	<li>Microsoft Corporation.  “MICROSOFT VISUAL BASIC/VISUAL C++ 6.0 ENTERPRISE EDITIONS” <a href="download.microsoft.com/documents/useterms/Visual%20Basic%20Enterprise_6.0_English_11762fc4-f3b9-4bf5-a513-b4a9b76b4f60.pdf">availabe here</a>  3 Jun 2020</li>
+	<li>United States House of Representatives.  “Monopolies and Combinations in Restraint of Trade”  Title 15, United States Code, Chapter 1  3 Jun 2020</li>
+	<li>United States District Court for the District of Columbia.  U.S. v Microsoft  Civil Action No. 98-1232  3 Jun 2020</li>
+	<li>By 'slow' I'm primarily referring to the lack of or incompetence of consumer data protection law. <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation">GDPR</a> is definitely a step in the right direction on this; however, that is both only for the EU and was implemented far too late. By 'fast' I had the <a href="https://en.wikipedia.org/wiki/Digital_Millennium_Copyright_Act">DMCA</a> in mind, which is wildly considered to be both overreaching and to harsh. Simultaneously, we lack real power as consumers, copyright is a game the rich can play with expensive laywers and the small creator can't afford to defend.</li>
+</ol></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Phil/copyright.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#letting-society-advance-though-art-and-innovation">Letting Society Advance Though Art and Innovation</a>
+      <ul>
+        <li><a href="#what-is-copyright">What is Copyright?</a></li>
+        <li><a href="#whats-wrong-with-that">What&rsquo;s Wrong With that?</a></li>
+        <li><a href="#how-do-we-fix-it">How do we fix it?</a></li>
+        <li><a href="#piracy">Piracy?</a></li>
+        <li><a href="#open-directories">Open Directories</a></li>
+        <li><a href="#for-the-hackers-makers-and-engineers">For the Hackers, Makers, and Engineers</a></li>
+      </ul>
+    </li>
+    <li><a href="#patents">Patents</a></li>
+    <li><a href="#for-the-furries">For the furries</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Appendix 1 - Using the Linux Shell #  ./missing-semester - The Shell
+./missing-semester - Shell Tools and Scripting
+./missing-semester - Data Wrangling
+What The Shell? #  Okay, first question you probably have after I&rsquo;ve been using them interchangebly &lsquo;What is a Shell and is it different from a terminal?&rsquo;
+Yes, they&rsquo;re different, but before I talk about the shell it&rsquo;s easier to talk about the Terminal.
+The Terminal is a piece of hardware, or, rather was a piece of hardware.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Appendix 1 - Using the Linux Shell #  ./missing-semester - The Shell
+./missing-semester - Shell Tools and Scripting
+./missing-semester - Data Wrangling
+What The Shell? #  Okay, first question you probably have after I&rsquo;ve been using them interchangebly &lsquo;What is a Shell and is it different from a terminal?&rsquo;
+Yes, they&rsquo;re different, but before I talk about the shell it&rsquo;s easier to talk about the Terminal.
+The Terminal is a piece of hardware, or, rather was a piece of hardware." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/linux/linuxshell/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Linuxshell | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.6811b24c7ced4c055b435a53954c0a9f66e91772c74c6c8549394bb0b6773f4b.css" integrity="sha256-aBGyTHztTAVbQ1pTlUwKn2bpF3LHTGyFSTlLsLZ3P0s=">
+<script defer src="/en.search.min.f681b47e0939f83b1bf14f8cf50ffa5a8fba6b3ddbfcec7c02ba8f46b831c012.js" integrity="sha256-9oG0fgk5&#43;Dsb8U&#43;M9Q/6Wo&#43;6az3b/Ox8ArqPRrgxwBI="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/"class=active>Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dt>18 </dt><dd> <a href="/phil/freedoms/">Freedoms & Rights</a></dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/hci2/">The Way We Interact With Computers Sucks</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">5</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Linuxshell</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#appendix-1---using-the-linux-shell">Appendix 1 - Using the Linux Shell</a>
+      <ul>
+        <li><a href="#what-the-shell">What The Shell?</a></li>
+        <li><a href="#the-basic-commands">The Basic Commands</a></li>
+        <li><a href="#tab-completion-and-faster-navigation">Tab Completion and faster navigation</a></li>
+        <li><a href="#io-redirection">I/O redirection</a></li>
+        <li><a href="#wild-cards--regex">Wild Cards &amp; Regex</a></li>
+        <li><a href="#job-control">Job Control</a></li>
+        <li><a href="#shortcuts">Shortcuts</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#performance-analysis">Performance Analysis</a></li>
+        <li><a href="#aliases-and-customization">Aliases and customization</a>
+          <ul>
+            <li><a href="#aliases">Aliases</a></li>
+            <li><a href="#customization">Customization</a></li>
+          </ul>
+        </li>
+        <li><a href="#shell-scripting">Shell Scripting</a></li>
+        <li><a href="#alternative-shells">Alternative Shells</a></li>
+        <li><a href="#alternative-commands">Alternative commands</a></li>
+        <li><a href="#useful-non-stock-cli-tools">Useful Non-Stock CLI Tools</a></li>
+        <li><a href="#displaying-data-in-the-terminal">Displaying Data in the terminal</a></li>
+        <li><a href="#a-note-on-graphical-ish-terminal-programs">A note on Graphical-ish terminal programs</a></li>
+        <li><a href="#how-might-the-terminal-evolve">How might the terminal evolve?</a></li>
+        <li><a href="#common-graphical-linux-utils">Common Graphical Linux Utils</a></li>
+        <li><a href="#graphical-environments">Graphical Environments++</a></li>
+        <li><a href="#free-graphical-utilities">Free Graphical Utilities</a>
+          <ul>
+            <li><a href="#office--daily">Office &amp; Daily</a></li>
+            <li><a href="#av">A/V</a></li>
+            <li><a href="#social">Social</a></li>
+            <li><a href="#programming">Programming</a></li>
+            <li><a href="#engineering">Engineering</a></li>
+            <li><a href="#system">System</a></li>
+            <li><a href="#irl">IRL</a></li>
+            <li><a href="#other">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="#paid-graphical-utilities">Paid Graphical Utilities</a></li>
+        <li><a href="#self-hosted--services">Self hosted / Services</a></li>
+        <li><a href="#other-linux-distros-that-are-neat">Other Linux Distros that are neat</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="appendix-1---using-the-linux-shell">
+  Appendix 1 - Using the Linux Shell
+  <a class="anchor" href="#appendix-1---using-the-linux-shell">#</a>
+</h1>
+<p><a href="https://missing.csail.mit.edu/2020/course-shell/">./missing-semester - The Shell</a></p>
+<p><a href="https://missing.csail.mit.edu/2020/shell-tools/">./missing-semester - Shell Tools and Scripting</a></p>
+<p><a href="https://missing.csail.mit.edu/2020/data-wrangling/">./missing-semester - Data Wrangling</a></p>
+<h2 id="what-the-shell">
+  What The Shell?
+  <a class="anchor" href="#what-the-shell">#</a>
+</h2>
+<p>Okay, first question you probably have after I&rsquo;ve been using them interchangebly &lsquo;What is a Shell and is it different from a terminal?&rsquo;</p>
+<p>Yes, they&rsquo;re different, but before I talk about the shell it&rsquo;s easier to talk about the Terminal.</p>
+<p>The Terminal is a piece of hardware, or, rather <em>was</em> a piece of hardware. For example, here&rsquo;s an old IBM 3151.</p>
+<p><img src="/eng/mergedterms.webp" alt="mergedterms" /></p>
+<p>Now, don&rsquo;t mistake this for a CRT monitor like everyone was using in the early 2000&rsquo;s, this is a <em>terminal</em> it has a serial connection in the back that only reciveves messages of text from the computer it&rsquo;s attached to, and it can only display text on it&rsquo;s dim green screen. Before the days of graphical computing everything was though a text only interface that you&rsquo;d usually read on one of these. Fortunately, technology has gotten much, much better.</p>
+<p>So in the exact same way that you can <em>emulate</em> an old video game console to play retro games on your computer, the terminal itself is emulated on Linux. If you really wanted to you could hook up an old terminal like the above, but it&rsquo;s much easier to open a terminal emulator. Of course, just as there are multiple different emulators for some old consoles, there are multiple options for terminal emulation. A few different terminals are shown on the right in that picture (Cool Retro Terminal, Terminus α, and Kitty), and just as hardware may have different features, different terminals can as well. Just like the hardware however, the terminals don&rsquo;t do anything on their own, that is where the <strong>shell</strong> comes in. The shell is the program your terminal is usually running when it opens. By default on most Linux Systems it&rsquo;s Bash and on Windows it&rsquo;s CMD or Powershell, but there&rsquo;s many, many alternative shells. These shells all serve a few main functions</p>
+<ul>
+<li>Work as a sort of dispatcher for other commands. For example, when you run <code>ls</code> the shell let&rsquo;s <code>ls</code> print to the terminal before taking back control)</li>
+<li>Provide content redirection facilities. For example, when you run<code>ls &gt; somefile</code> the shell is handling the <code>&gt;</code> which tells it to take the output from the running program (ls) and put it into the file (some file).</li>
+<li>Provide scripting capability. Allowing for programming by chaining other commands. We&rsquo;ll look at this more in a bit.</li>
+<li>Provide basic niceities (history, tab completion, automatic suggestions, etc.)</li>
+</ul>
+<p>But others may include some weirder things, for example, <a href="https://xon.sh">xonsh</a> is a shell that will let you mix python and other commands. (note, it tends to act weird for somethings. I like having it as a secondary shell that&rsquo;s available, but use ZSH as my primary shell.)</p>
+<p>In the above picture, all of the text prompts on the emulated terminals are being generated by ZSH, the difference in color and font is due to the settings for the terminal emulator - again restating how the terminal handles &lsquo;hardware&rsquo; things while the Shell only sends text.</p>
+<p>You may also here terminals called a TTY or Teletype, both are for historical reasons. On that note, you can change your active tty in Linux by using <code>CTRL+ALT+F[n]</code> where <code>F[n]</code> is any of the function keys. Interestingly, the graphical &lsquo;shell&rsquo; actually runs in one of these TTYs, usually TTY7. You can actually interact with these TTYs by sending text to <code>/dev/tty[n]</code> without switching to it directly, similarly <code>/dev/tty</code> is always your current terminal, so for example <code>echo hello &gt; /dev/tty</code> will echo hello normally, but <code>echo hello &gt; /dev/tty2</code> will send hello to the terminal you could get to with <code>CTRL+ALT+F2</code></p>
+<p>As a very brief aside, you may see pictures in some terminals. This is possible with some neat hackery both on part of the shell and terminal emulator. I&rsquo;ve even seen some that can render 3D graphics. This isn&rsquo;t your grandpa&rsquo;s terminal anymore.</p>
+<h2 id="the-basic-commands">
+  The Basic Commands
+  <a class="anchor" href="#the-basic-commands">#</a>
+</h2>
+<p>Of note, while the majority of these commands should be available on nearly any unix system you may use, many of the alternate recommendations may not be.</p>
+<ul>
+<li>
+<p><strong>man</strong> &ldquo;man [command/topic]&rdquo;, ex, &ldquo;man ascii&rdquo;, bring up an in depth manual page for a given command/topic.</p>
+<ul>
+<li>
+<p>Alternative recommendation: <a href="https://github.com/tldr-pages/tldr"><strong>tldr</strong></a> actually digestible and much faster when it gives enough info</p>
+</br>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>pwd</strong> - Print working directory - literally just a command to tell you the file path to where you are</p>
+</li>
+<li>
+<p><strong>ls</strong> - list - list the files/folders in the current directory, lots of flags available</p>
+<ul>
+<li>Alternative recommendation: <strong>exa</strong> or <strong><a href="https://github.com/Peltoche/lsd">lsd</a></strong></li>
+</ul>
+</li>
+<li>
+<p><strong>cd</strong> - change directory, if you can&rsquo;t use this may god have mercy</p>
+<ul>
+<li>Alternative recommendation: <strong>j (for <a href="https://github.com/wting/autojump">autojump</a>)</strong></li>
+<li>note that <code>cd ..</code> will move back by one folder.</li>
+</ul>
+</li>
+<li>
+<p><strong>mv</strong> - move (or rename) a file to a new location (or name)</p>
+<ul>
+<li>Alternative recommendation: <strong>rsync</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>rm</strong> - remove a file</p>
+</li>
+<li>
+<p><strong>touch</strong> - create an empty file, or change last accessed time of existing file</p>
+</li>
+<li>
+<p><strong>mkdir &amp; rmdir</strong> - make or remove an empty directory (folder)</p>
+</li>
+<li>
+<p><strong>cat</strong> - output the contents of a file</p>
+<ul>
+<li>Alternative recommendation: <strong>bat</strong>, <strong>less</strong>, <strong>more</strong>, <strong>fltrdr</strong>, or an editor like <strong>vim</strong> or <strong>nano</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>date</strong> - output current date and time</p>
+</li>
+<li>
+<p><strong>chmod &amp; chown</strong> - change a file or folders permissions or owner</p>
+</li>
+<li>
+<p><strong>ln</strong> - make a symbolic / hard link (shortcut)</p>
+</li>
+<li>
+<p><strong>du &amp; df</strong> - Disk usage and disk free, <strong>df</strong> will show you how much room you have left per disk, <strong>du</strong> serves to help find what&rsquo;s using up your disk</p>
+<ul>
+<li>Alternative recommendation: <strong>ncdu</strong> and <a href="https://github.com/muesli/duf"><strong>duf</strong></a></li>
+</ul>
+</li>
+<li>
+<p><strong>clear</strong> - clear the screen of text- (only use in scripts)</p>
+<ul>
+<li>Alternative recommendation: <strong>ctrl + l</strong> , much faster</li>
+</ul>
+</li>
+<li>
+<p><strong>passwd</strong> - change a users password</p>
+</li>
+<li>
+<p><strong>sudo &amp; su</strong> - run a command as another user, typically root</p>
+</li>
+<li>
+<p><strong>head &amp; tail</strong> - print a number of lines from the top or bottom of a file</p>
+</li>
+<li>
+<p><strong>tee</strong> - mostly used with pipes to print output to terminal as well as put it into a file</p>
+</li>
+<li>
+<p><strong>grep, sed, awk, tr</strong> - the &lsquo;big four&rsquo; commands used for text processing in a terminal. <strong>grep</strong> (and <strong>egrep</strong>) are used for search, for example running <code>ls | grep myfile</code> to confirm a file is indeed in a folder. <strong>sed</strong> is used for text/character replacement. <strong>awk</strong> is a programming language in it&rsquo;s own right, used primarily for selecting text fields by separator, for example only printing the permissions column in the output of <code>ls -l</code></p>
+</li>
+<li>
+<p><strong>w</strong> -  show who is currently logged in and what they&rsquo;re running, epically applicable on shared servers if you need to see if there&rsquo;s an active ssh connection to your system</p>
+</li>
+<li>
+<p><strong>tar, gzip, bzip, zip</strong> - all used for making compressed folders (like .zip files)</p>
+</li>
+<li>
+<p><strong>ssh , scp, ftp</strong> - used for doing remote access, letting you run commands on one system from another</p>
+</li>
+<li>
+<p><strong>diff</strong> - show the differences between two files</p>
+</li>
+<li>
+<p><strong>sort</strong> - sort input by a number of criteria</p>
+</li>
+<li>
+<p><strong>uniq</strong> - remove duplicate entries</p>
+<ul>
+<li><strong>fdupes</strong> is recommended if the goal is to identify duplicate files</li>
+</ul>
+</li>
+<li>
+<p><strong>export</strong> - used to set environment variables, these for example use <code>export EDITOR=nano</code> to use nano as your terminal text viewer by default.</p>
+</li>
+<li>
+<p><strong>systemctl</strong> - literally system control, wayyy to big to cover quickly, used for everything from setting services to run on boot, shutting down/restarting the system, to viewing logs. Look up Systemd for more information. This is probably the least-universal of the tools listed here, but <em>most</em> linux systems have switched to Systemd now for better or worse.</p>
+</li>
+<li>
+<p><strong>ip, ping, &amp; dig</strong> - <strong>ip</strong> is used to view as well as modify aspects of network configuration at the more hardware-level, such as turning on/off a networking interface.  <strong>ping</strong> allows you to see if you&rsquo;re able to reach a site/ip address, and <strong>dig</strong> allows you to check if you&rsquo;re able to turn a domain name to an ip, such as checking the ip address that archlinux.org points to with <code>dig archlinux.org</code></p>
+</li>
+<li>
+<p><strong>ps</strong> - process management: listing processing, finding the parent of a particular process, etc.</p>
+<ul>
+<li>Alternative recommendation: <a href="https://github.com/dalance/procs">procs (Github)</a></li>
+</ul>
+</li>
+<li>
+<p><strong>free</strong> - display information about system RAM usage</p>
+</li>
+<li>
+<p><strong>top</strong> - a graphical-ish view of the running processes, ram, and CPU usage</p>
+<ul>
+<li>Alternative recommendation: <strong>htop</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>kill</strong>, murder a process in various ways</p>
+</li>
+<li>
+<p><strong>whereis</strong> - find the location of an executable, ex <code>whereis ls</code> will tell you it&rsquo;s in <code>/usr/bin/ls</code></p>
+</li>
+<li>
+<p><strong>wget, curl</strong> - retrieve a web page</p>
+<ul>
+<li>
+<p>Alternative recommendation: <strong>lynx</strong>, <strong>w3m</strong>, or <strong>brow.sh</strong></p>
+<p class="tip ">
+    Heads up, you may ocassionly see installation instructions for things on github that ask you to use <code>curl www.example.com/script.sh | bash</code> - <strong>DON&rsquo;T</strong>. It&rsquo;s <a href="https://www.idontplaydarts.com/2016/04/detecting-curl-pipe-bash-server-side/">not safe</a>. Instead, you can curl the script, check that it&rsquo;s something you want to run with <code>cat script.sh</code>, and then run it with <code>./script.sh</code>.
+</p>
+</li>
+<li>
+<p><a href="https://joeferner.github.io/2015/07/15/linux-command-line-html-and-awk/">Parsing HTML with w3m and awk (Joe Ferner&rsquo;s Blog)</a></p>
+</li>
+<li>
+<p><strong>lynx</strong> + <strong>fltrdr</strong> can be paired together to read web pages super fast</p>
+<pre tabindex="0"><code>lynx -dump http://www.example.com | fltrdr
+
+w/ shell script below in /bin named 'q' 
+(or whatever you want) you can just run 'q example.com'
+
+#!/bin/bash
+lynx -dump $1 | fltrdr
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="tab-completion-and-faster-navigation">
+  Tab Completion and faster navigation
+  <a class="anchor" href="#tab-completion-and-faster-navigation">#</a>
+</h2>
+<p>Probably the most useful shortcut for using the shell is tab completion. This is used when you need to type a really long command or chain of commands, say I want to run ncmpcpp, a name that is both long and hard to remember, instead of just typing the full name I can type <code>ncm</code> and press tab, and ta-da suddenly the full name is inserted. If you happen to have another package that has multiple possible endings say you want to run <code>lstopo</code> but you have <code>ls, lsusb, lstopo</code> all on your system, most shells will display a menu underneath with all the possible options. This is nice for commands, but the true power comes in file names, say I want to run <code>cat /etc/pacman.d/mirrorlist</code> while that&rsquo;s not too awful to type out, you could easily type <code>cat /e</code> press tab, get <code>cat /etc/</code> add pac to get <code>cat /etc/pac</code> press tab, get <code>cat /etc/pacman.d/</code> type mir and tab and get the full command, while that sounds complicated it actually speeds using the command line up rather significantly and prevents spelling mistakes</p>
+<p>Next up for navigation is directory shortcuts, these can be massive time savers, the most obvious is <code>~</code> which is just short hand for the location of the current shell users home directory, so in my case <code>~</code> is the exact same as typing out <code>/home/vega</code>. The next two have already been touched on which are <code>.</code> for the current directory and <code>..</code> for the previous directory. Depending on the shell and arbitrary number of dots may take you back and arbitrary number of directories. Give it a shot! If nothing else you can always use <code>../../..</code> to navigate back as necessary. Finally, <code>-</code> represents the last directory you were in so if your in <code>~/Downloads</code> and then <code>cd /etc/pacman.d/</code>, running <code>cd -</code> will bring you back to downloads.</p>
+<p>The most advanced form of built in linux navigation comes in the form of <code>pushd</code> and <code>popd</code>, which as their names imply push and pop directories to a stack (a special kind of list) of directories. Like a stack of any item you can put or &lsquo;push&rsquo; an item on top, and take or &lsquo;pop&rsquo; an item off. Running <code>dirs -v</code> will show you a numbered list of the stack, you can navigate to the top item with <code>popd</code> or and arbitrary item with <code>cd ~#</code> where # is the number as shown by <code>dirs -v</code>.</p>
+<p>Finally, there&rsquo;s one more super handy way to get around your file system but it&rsquo;s a non-standard tool so most systems or servers you use other than your own will not have it installed, and that&rsquo;s autojump. Put simply it takes a good guess about where you want to go by only typing part of the name of a folder you&rsquo;ve navigated to before, so say you have a long file path <code>/mnt/data/archived/january2000/pictures/family/vacation/</code> you can get back to it again by simply running <code>j vac</code> which is obviously much simpler. It works the vast majority of the time in practice, only having issues if you don&rsquo;t include enough letters leading to ambiguity.</p>
+<h2 id="io-redirection">
+  I/O redirection
+  <a class="anchor" href="#io-redirection">#</a>
+</h2>
+<p>for the hard core, you can read good documentation here: <a href="https://www.tldp.org/LDP/abs/html/io-redirection.html">https://www.tldp.org/LDP/abs/html/io-redirection.html</a></p>
+<ul>
+<li>stdin (&lt;) (&laquo;)</li>
+</ul>
+<p>[TODO]</p>
+<ul>
+<li>stdout (&gt;) (&raquo;)</li>
+</ul>
+<p>[TODO]</p>
+<ul>
+<li>stderr (2&gt;) (2&raquo;)</li>
+</ul>
+<p>[TODO]</p>
+<p>Note, <code>&amp;&gt;</code> redirects both stderr and stdout</p>
+<ul>
+<li>pipes ( | ) and <a href="https://www.networkworld.com/article/3251853/why-use-named-pipes-on-linux.html">nammed pipes</a></li>
+</ul>
+<p><a href="http://www.ivarch.com/programs/pv.shtml">pv - Pipe Viewer</a></p>
+<p>Finally, the weirdest and rarely used <code>&lt;&gt;</code> operator can be used to directly attch file descriptions and read/write files dirctly, this is rearely used as it&rsquo;s kind of a pita, but if you need to script something advanced it&rsquo;s available. Stollen from the above advanced link:</p>
+<blockquote>
+<p>[j]&lt;&gt;filename</p>
+<p>Open file &ldquo;filename&rdquo; for reading and writing,
+and assign file descriptor &ldquo;j&rdquo; to it.
+If &ldquo;filename&rdquo; does not exist, create it.
+If file descriptor &ldquo;j&rdquo; is not specified, default to fd 0, stdin.</p>
+<p>An application of this is writing at a specified place in a file.</p>
+<p>echo 1234567890 &gt; File    # Write string to &ldquo;File&rdquo;.
+exec 3&lt;&gt; File             # Open &ldquo;File&rdquo; and assign fd 3 to it.
+read -n 4 &lt;&amp;3             # Read only 4 characters.
+echo -n . &gt;&amp;3             # Write a decimal point there.
+exec 3&gt;&amp;-                 # Close fd 3.
+cat File                  # ==&gt; 1234.67890</p>
+<p>Random access, by golly.</p>
+</blockquote>
+<h2 id="wild-cards--regex">
+  Wild Cards &amp; Regex
+  <a class="anchor" href="#wild-cards--regex">#</a>
+</h2>
+<p>Regular Expressions or &lsquo;Regex&rsquo; are an incredibly powerful tool used to match strings in a logical way. For example, say you wanted to find all the phone numbers on page that started with the area code 555, the next three digits were any number, and the last four digits could be represented as either numbers or letters, and &lsquo;-&rsquo; separating each group. With regex that&rsquo;s easy, the regular expression for this looks like:</p>
+<p><code>5{3}-[0-9]{3}-[a-zA-Z0-9]{4}</code></p>
+<p>Which while I could explain, I think just staring at that a little while should make it obvious and ideally the mental effort will lead to a better understanding. Regex can do a lot more than this though. Go ahead and checkout <a href="https://regex101.com">https://regex101.com</a> and give it a shot.</p>
+<p>regex can be used with a bunch of common tools like awk, sed, and grep. This means you can do fancy things like chain ls and grep together with a pipe to find any file matching a pattern or chain commands to rename any file containing characters which may be invalid in NTFS ( The file system used by Windows) to be valid before doing a transfer.</p>
+<p>Also, you may find <a href="https://blog.robertelder.org/regular-expression-visualizer/">The Regular Expression Visualizer, Simulator &amp; Cross-Compiler Tool</a> useful.</p>
+<p>If you&rsquo;re really lazy, <a href="https://github.com/pemistahl/grex">Grex</a> is &ldquo;[automatically generates] a single regular expression from user-provided test cases. The resulting expression is guaranteed to match the test cases which it was generated from.&rdquo;</p>
+<p>Note that not all things that seem like a good fit are a good fit for regex, for example, <a href="http://www.ex-parrot.com/pdw/Mail-RFC822-Address.html">email</a>.</p>
+<p>[TODO] <a href="https://www.debuggex.com">https://www.debuggex.com</a></p>
+<p><a href="https://www.youtube.com/watch?v=bgBWp9EIlMM">Regular Expressions - Enough to be Dangerous (YouTube, Engineer man)</a></p>
+<p><a href="https://octobanana.com/software/crex">Crex (Octobanana git repo)</a> - &ldquo;Explore, test, and check regular expressions in the terminal.&rdquo;</p>
+<h2 id="job-control">
+  Job Control
+  <a class="anchor" href="#job-control">#</a>
+</h2>
+<p>[TODO]</p>
+<ul>
+<li>
+<p>fg: brings a specified suspended job from the background to foreground.</p>
+</li>
+<li>
+<p>bg: send a specified job to the background or lists background jobs if no jobs are specified</p>
+</li>
+<li>
+<p>jobs: list all running jobs</p>
+</li>
+<li>
+<p>&amp; operator: when added after a command, it runs the job in the background and outputs its PID.</p>
+</li>
+</ul>
+<h2 id="shortcuts">
+  Shortcuts
+  <a class="anchor" href="#shortcuts">#</a>
+</h2>
+<h4 id="jobs">
+  Jobs
+  <a class="anchor" href="#jobs">#</a>
+</h4>
+<ul>
+<li>Ctrl+z: suspend a job to the background.</li>
+<li>Ctrl+c: sends a SIGNINT to the current running job and kills it; if sent before entering a command, it clears the current line in the prompt</li>
+<li>Ctrl+d: sends a quit signal - can be used to exit certain applications or exit a terminal</li>
+<li>jobs -l or ps -a: see jobs</li>
+</ul>
+<h4 id="screen">
+  Screen
+  <a class="anchor" href="#screen">#</a>
+</h4>
+<ul>
+<li>Ctrl+l: clear screen except current line</li>
+<li>Ctrl+u: clear current prompt line</li>
+</ul>
+<h4 id="command-history">
+  Command History
+  <a class="anchor" href="#command-history">#</a>
+</h4>
+<ul>
+<li>Ctrl+r: search through command history in reverse</li>
+</ul>
+<h4 id="directory-navigation">
+  Directory Navigation
+  <a class="anchor" href="#directory-navigation">#</a>
+</h4>
+<ul>
+<li>cd -: to last dir</li>
+<li>cd: go to home if entered without arguments</li>
+<li>reptyr to move</li>
+<li>pushd/popd &amp; dirs to use path stack</li>
+<li>history, and !№ to run that cmd</li>
+<li>ctrl-left/right to nav args</li>
+<li>expansion with mv /path/meh.{md,txt}</li>
+</ul>
+<h2 id="performance-analysis">
+  Performance Analysis
+  <a class="anchor" href="#performance-analysis">#</a>
+</h2>
+<p><img src="/eng/linuxperftools.webp" alt="Linux Performance Tools" /></p>
+<h2 id="aliases-and-customization">
+  Aliases and customization
+  <a class="anchor" href="#aliases-and-customization">#</a>
+</h2>
+<h3 id="aliases">
+  Aliases
+  <a class="anchor" href="#aliases">#</a>
+</h3>
+<p>Aliases are custom names assigned to commands. The command <code>alias</code> will display the current aliases set in your shell. An alias maps to a specific command which is run when the alias in entered.
+Aliases are useful if you have long commands that are used often. Entering <code>alias suinstall='sudo apt-get install'</code> will temporarily allow you to use <code>suinstall</code> instead of typing <code>sudo apt-get install</code>. Any switches and arguments the command takes can be used with the alias. The alias is lost when the current terminal session is closed.</p>
+<p>To make aliases permanent, add them to your shell&rsquo;s configuration file (.bashrc or .zshrc).</p>
+<h3 id="customization">
+  Customization
+  <a class="anchor" href="#customization">#</a>
+</h3>
+<p>Aliases are one way to customize your shell. Most shell customization occurs in the shells configuration file, usually stored as a hidden file in the home directory. .bashrc and .zshrc are the configuration files for bash and zsh. The files are loaded every time a terminal is started up and can set up its environment by loading aliases and custom functions and setting terminal colors and variables like PATH and EDITOR.</p>
+<p><a href="https://github.com/zsh-users/zsh-autosuggestions">https://github.com/zsh-users/zsh-autosuggestions</a></p>
+<p>[TODO]</p>
+<h2 id="shell-scripting">
+  Shell Scripting
+  <a class="anchor" href="#shell-scripting">#</a>
+</h2>
+<p>[TODO] xargs, sed, awk, fzf, grep,</p>
+<p><a href="https://shellmagic.xyz/">https://shellmagic.xyz/</a></p>
+<p><a href="https://wiki.bash-hackers.org/">https://wiki.bash-hackers.org/</a></p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    [TODO] text on what shell scripting is
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/eng/basherrorsb0rk.webp" alt="b0rk bash erros" title=":size=70%"></p>
+<p class="attribution ">
+    source: <a href="https://twitter.com/b0rk">b0rk on Twitter</a>, check out <a href="https://wizardzines.com">https://wizardzines.com</a> for more
+</p>
+
+  </div>
+  
+</div>
+
+<p><a href="https://betterdev.blog/minimal-safe-bash-script-template/">Minimal Safe Bash Script Template (Maciej Radzikowski)</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> file in *
+<span style="color:#66d9ef">do</span>
+	whatever command on $file
+<span style="color:#66d9ef">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> file in *.png
+<span style="color:#66d9ef">do</span>
+	waifu2x-ncnn-vulkan -n <span style="color:#ae81ff">1</span> -s <span style="color:#ae81ff">2</span> -i $file -o $file
+<span style="color:#66d9ef">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You may also be interested in <a href="https://github.com/bbugyi200/funky">Funky</a> or <a href="https://direnv.net">Direnv</a> for having scripts that load/unload when you enter and leave a folder in the terminal</p>
+<h2 id="alternative-shells">
+  Alternative Shells
+  <a class="anchor" href="#alternative-shells">#</a>
+</h2>
+<p>When we installed arch we actually changed the default shell from bash to zsh, but there are other options such as fish, csh, and xonsh among others</p>
+<p>[TODO]</p>
+<h2 id="alternative-commands">
+  Alternative commands
+  <a class="anchor" href="#alternative-commands">#</a>
+</h2>
+<ul>
+<li>bat
+<ul>
+<li>alternative to <code>cat</code>, capable of syntax highlighting and line numbering</li>
+</ul>
+</li>
+<li>exa, lsd
+<ul>
+<li>alternatives to <code>ls</code>, eaiser on the eyes</li>
+<li>You could also use <code>ranger</code> or <code>nnn</code> two fully featured terminal file browsers</li>
+</ul>
+</li>
+<li>fd
+<ul>
+<li>altertnative to <code>find</code>, doesn&rsquo;t suck</li>
+</ul>
+</li>
+<li>htop, gtop
+<ul>
+<li>alternatives to <code>top</code>, doesn&rsquo;t suck</li>
+</ul>
+</li>
+<li>prettyping
+<ul>
+<li>alternative to <code>ping</code>, pretty</li>
+</ul>
+</li>
+<li>diff-so-fancy, icdiff, <a href="https://github.com/dandavison/delta">Delta</a>
+<ul>
+<li>alternative to <code>diff</code>, but better</li>
+</ul>
+</li>
+<li>ncdu and <a href="https://github.com/bootandy/dust">dust</a>
+<ul>
+<li>while much slower than <code>du</code> it&rsquo;s great for finding out what&rsquo;s eating storage space</li>
+</ul>
+</li>
+<li><a href="https://github.com/theryangeary/choose">choose</a>
+<ul>
+<li>user friendly, simple alternative to awk/cut</li>
+</ul>
+</li>
+<li><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a>
+<ul>
+<li>&ldquo;ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files. ripgrep has first class support on Windows, macOS and Linux, with binary downloads available for <a href="https://github.com/BurntSushi/ripgrep/releases">every release</a>. ripgrep is similar to other popular search tools like The Silver Searcher, ack and grep.&rdquo;</li>
+<li><strong>TLDR</strong>: Search into your text files really fast with regex support.</li>
+<li><a href="https://phiresky.github.io/blog/2019/rga--ripgrep-for-zip-targz-docx-odt-epub-jpg/">RGA</a> is like ripgrep on steroids- seaches though PDFs, ebooks, office docs, compressed files, etc.</li>
+<li><a href="https://semgrep.dev/docs/getting-started/">Semgrep</a> may be a better fit for doing code stuff</li>
+</ul>
+</li>
+<li><a href="https://fluff.haus/kokoscript/echowo">echowo</a>
+<ul>
+<li>alternative to echo, but significantly furrier</li>
+</ul>
+</li>
+<li><a href="https://github.com/Canop/broot">broot</a>
+<ul>
+<li>alternative to <code>tree</code>, but optimizes for available screen space, and navigate the tree and cd to it</li>
+</ul>
+</li>
+<li><a href="https://mosh.org">mosh</a>
+<ul>
+<li>alternative to ssh, but better for unstable connections, shows local typing without the input-loop (and so is more responsive) and is just genearlly a lot better&hellip; just not standard. You can make it work with only ssh though, no root needed.</li>
+</ul>
+</li>
+</ul>
+<h2 id="useful-non-stock-cli-tools">
+  Useful Non-Stock CLI Tools
+  <a class="anchor" href="#useful-non-stock-cli-tools">#</a>
+</h2>
+<ul>
+<li>
+<p>tldr</p>
+<ul>
+<li>tldr, &lsquo;for too long didn&rsquo;t read&rsquo; provides a quick, easy to read version of the man page for many common linux commands. Forget how to use <code>tar</code> ? just run <code>tldr tar</code></li>
+</ul>
+</li>
+<li>
+<p>autojump</p>
+<ul>
+<li>refrence above description in faster navigation</li>
+</ul>
+</li>
+<li>
+<p>mpd + ncmpcpp</p>
+<ul>
+<li>&lsquo;music player daemon&rsquo; and &lsquo;ncurses music player client plus plus&rsquo; are two cli tools that work in tandem to provide an experiance that I presonally find superiour to any graphical music player</li>
+</ul>
+</li>
+<li>
+<p>irssi</p>
+<ul>
+<li>full featured IRC client, chat right from your terminal</li>
+</ul>
+</li>
+<li>
+<p>screenfetch</p>
+<ul>
+<li>get some nift stats about your terminal, add to your shell&rsquo;s RC file to be one of the cool kids</li>
+</ul>
+</li>
+<li>
+<p><a href="https://joeyh.name/code/moreutils/">moreutils</a></p>
+<ul>
+<li>&ldquo;moreutils is a growing collection of the unix tools that nobody thought to write long ago when unix was young.&rdquo;</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/octobanana/hr">hr</a></p>
+<ul>
+<li>Need some way to visually seperate things, this literally just makes a horizontal line in the terminal</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/octobanana/fltrdr">fltrdr</a></p>
+<ul>
+<li>Wanna read at 1000wpm, this is the tool for you.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/octobanana/crex">crex</a></p>
+<ul>
+<li>test regular expressions in the terminal</li>
+</ul>
+</li>
+<li>
+<p>lynx, w3m, browsh</p>
+<ul>
+<li>Browse the web from a terminal (not a joke and actually useful)</li>
+</ul>
+</li>
+<li>
+<p>entr</p>
+<ul>
+<li>monitor file system for changes</li>
+</ul>
+</li>
+<li>
+<p>noti</p>
+<ul>
+<li>send a graphical system notification when a command finishes</li>
+</ul>
+</li>
+<li>
+<p>progress</p>
+<ul>
+<li>start a command and have no way to see what its doing (rsync, cp, etc)? This is your tool</li>
+</ul>
+</li>
+<li>
+<p>figlet, toilet, banner</p>
+<ul>
+<li>makes big text, run <code>figlet Your Text Here</code> and see your text in big, ascii letters</li>
+</ul>
+</li>
+<li>
+<p>no more secrets</p>
+<ul>
+<li>reveal text in a martix effect.. I&rsquo;m streching the meaning of useful here</li>
+</ul>
+</li>
+<li>
+<p>stress-ng</p>
+<ul>
+<li>stresstest your system in pretty much any super specific way you can think of, or hammer your cpu to test an overclock</li>
+</ul>
+</li>
+<li>
+<p>pandoc</p>
+<ul>
+<li>convert between damn near any text format to any other format</li>
+</ul>
+</li>
+<li>
+<p>taskwarrior</p>
+<ul>
+<li>keep track of To-Do&rsquo;s and tasks, can also be paired with timewarrior for timetracking</li>
+</ul>
+</li>
+<li>
+<p>waifu2x (many forks available)</p>
+<ul>
+<li>Upscale and de-noise images zoom-and-enhance style but for real-    this ones' a bit GPU intensive because it uses AI</li>
+</ul>
+</li>
+<li>
+<p>youtube-dl</p>
+<ul>
+<li>despite the name this tool can download videos or audio from almost any page on the internet, even supporting playlists in many cases too.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/mikf/gallery-dl">gallery-dl</a> is good for grabbing albums from photo hosting websites</p>
+</li>
+<li>
+<p><a href="https://github.com/ericfreese/rat">rat</a></p>
+<ul>
+<li>&ldquo;Compose shell commands to build terminal applications&rdquo;</li>
+</ul>
+</li>
+<li>
+<p>magic-wormhole</p>
+<ul>
+<li>tool for getting a file between two systems easily and secure, just run <code>wormhole send</code> and <code>wormhole recive</code> on the respective systems</li>
+</ul>
+</li>
+<li>
+<p>Ix, Gist</p>
+<ul>
+<li>Paste tools, like pastebin</li>
+</ul>
+</li>
+<li>
+<p>DMIDecode</p>
+<ul>
+<li>get info from BIOS</li>
+</ul>
+</li>
+<li>
+<p>hexyl</p>
+<ul>
+<li>pretty terminal based hex viewer</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/sustrik/uxy">UXY</a></p>
+<ul>
+<li>
+<p>&ldquo;UXY tool also wraps some common UNIX tools and exports their output in UXY format.&rdquo;</p>
+<p>&ldquo;UXY is a tool to manipulate UXY format, which is a basically a two-dimenstional table that&rsquo;s both human- and machine-readable.&rdquo;</p>
+<p>This gives a nice format for manipulation of commands though pipes for super complex shell scripting</p>
+</li>
+</ul>
+</li>
+<li>
+<p>lsof</p>
+<ul>
+<li>list what files a runnig process has open</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/charmbracelet/glow">glow</a> or <a href="https://github.com/lunaryorn/mdcat">mdcat</a></p>
+<ul>
+<li>display markdown files in the terminal</li>
+</ul>
+</li>
+</ul>
+<p>While some of these may be included, they&rsquo;re some of the OG addons or tools to make included things better:</p>
+<ul>
+<li>
+<p>tmux</p>
+<ul>
+<li>multiplex your termianal, open multiple terminals in your terminal, usefull in non-graphicas ttys espically</li>
+</ul>
+</li>
+<li>
+<p>vim + extensions (neovim, spacevim, etc)</p>
+<ul>
+<li>the old school text editor meets new school</li>
+</ul>
+</li>
+<li>
+<p>GDB + gef</p>
+<ul>
+<li>GDB, the original debugger, has it&rsquo;s faults. GEF, a config file for GDB on steroids, fixes many of them. While originally made for exploit developers, many people use it for everyday debugging</li>
+</ul>
+</li>
+<li>
+<p>resh</p>
+<ul>
+<li>replacement for ctrl+r history seach</li>
+</ul>
+</li>
+<li>
+<p>optipng, jpegoptim</p>
+<ul>
+<li>Each works with it&rsquo;s respective image format and does some trial-and-error magic to re-compress the file no-lossy-er than it was to save space. No info loss but often a large file size reduction!</li>
+</ul>
+</li>
+</ul>
+<h2 id="displaying-data-in-the-terminal">
+  Displaying Data in the terminal
+  <a class="anchor" href="#displaying-data-in-the-terminal">#</a>
+</h2>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    [TODO] info about various librarier and tools that show data using text based graphics or via terminals that can render SVGs/images
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">💡FAQ about displaying stuff in a terminal <a href="https://t.co/XQBOezyJAx">pic.twitter.com/XQBOezyJAx</a></p>&mdash; Kate (but with plastic reindeer antlers on) (@thingskatedid) <a href="https://twitter.com/thingskatedid/status/1316074032379248640?ref_src=twsrc%5Etfw">October 13, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><a href="https://graphviz.org">graphviz</a> provides <code>dot</code> among other tools, this thread also mentions <a href="https://saitoha.github.io/libsixel/">libsixel</a>, <a href="https://gist.github.com/katef/fb4cb6d47decd8052bd0e8d88c03a102">plot.awk</a>, <a href="https://github.com/katef/kgt/">KGT (Kate&rsquo;s Grammer Tools)</a>, <a href="https://github.com/katef/libfsm/">libFSM</a> for turning regex into FSMs.</p>
+
+  </div>
+  
+</div>
+
+<h2 id="a-note-on-graphical-ish-terminal-programs">
+  A note on Graphical-ish terminal programs
+  <a class="anchor" href="#a-note-on-graphical-ish-terminal-programs">#</a>
+</h2>
+<p>like <a href="https://www.brow.sh">brow.sh</a> [TODO]</p>
+<h2 id="how-might-the-terminal-evolve">
+  How might the terminal evolve?
+  <a class="anchor" href="#how-might-the-terminal-evolve">#</a>
+</h2>
+<p><a href="https://blog.replit.com/clui">CLUI: Building a Graphical Command Line (Repelit)</a></p>
+<h2 id="common-graphical-linux-utils">
+  Common Graphical Linux Utils
+  <a class="anchor" href="#common-graphical-linux-utils">#</a>
+</h2>
+<p>[TODO]</p>
+<p>Mostly taken from <a href="https://wiki.archlinux.org/index.php/List_of_applications">https://wiki.archlinux.org/index.php/List_of_applications</a> and <a href="https://github.com/Kickball/awesome-selfhosted">https://github.com/Kickball/awesome-selfhosted</a></p>
+<h2 id="graphical-environments">
+  Graphical Environments++
+  <a class="anchor" href="#graphical-environments">#</a>
+</h2>
+<p>Gnome, KDE, Pantheon,</p>
+<p>Rofi, Polybar, j4,</p>
+<p>Compton</p>
+<p>Nitrogen, pywal, (feh),</p>
+<h2 id="free-graphical-utilities">
+  Free Graphical Utilities
+  <a class="anchor" href="#free-graphical-utilities">#</a>
+</h2>
+<h3 id="office--daily">
+  Office &amp; Daily
+  <a class="anchor" href="#office--daily">#</a>
+</h3>
+<p>Libreoffice, Xournal++,</p>
+<p>thunar + bulk rename, nautilus, Filezilla, Deluge, qBitTorrent,</p>
+<p>Firefox, Min, Vivalidi,</p>
+<p>Marktext, Typora, Notable</p>
+<p>Geogebra</p>
+<p>Evolution</p>
+<p>Evince</p>
+<h3 id="av">
+  A/V
+  <a class="anchor" href="#av">#</a>
+</h3>
+<p>Feh, Nomacs</p>
+<p>Rawtherepee, Krita, Gimp, Darktable</p>
+<p>Inkscape,</p>
+<p>Blender, Pencil2D, OpenToonz</p>
+<p>Goxel,</p>
+<p>Pithos, Gnome-Music,</p>
+<p>Cadence (jack2)</p>
+<p>Audacity, Ardour, LMMS, non, Radium</p>
+<p>Giada</p>
+<p>VCV Rack</p>
+<p>Guitarix</p>
+<p>PureData, SonicPi, ORCA</p>
+<p>Processing, VVVV,</p>
+<p>VLC</p>
+<p>DaVinci Resolve</p>
+<p>Cheese, Motion, OBS</p>
+<h3 id="social">
+  Social
+  <a class="anchor" href="#social">#</a>
+</h3>
+<p>Thunderbird</p>
+<p>LBRY</p>
+<p>Discord, Telegram, qTox, HexChat, SRain, Riot/Fractal ,</p>
+<h3 id="programming">
+  Programming
+  <a class="anchor" href="#programming">#</a>
+</h3>
+<p>Okteta</p>
+<p>Gitkraken</p>
+<p>Code, Atom, Sublime, Code::Blocks, Eclipse, Netbeans, IntelliJ, Sublime</p>
+<p>PyCharm, Spyder</p>
+<p>Cutter, Node-Red</p>
+<p>Etherape/cap, Wireshark</p>
+<h3 id="engineering">
+  Engineering
+  <a class="anchor" href="#engineering">#</a>
+</h3>
+<p>FreeCAD, LibreCAD, KiCad, CircuitSim, Fritzing</p>
+<p>PulseView, Arduino, PlatformIO</p>
+<h3 id="system">
+  System
+  <a class="anchor" href="#system">#</a>
+</h3>
+<p>Alacritty, urxvt, Deepin-Terminal, Hyper,</p>
+<p>Baobab, Filelight, GParted, VeraCrypt</p>
+<p>Syncthing</p>
+<p>Etcher</p>
+<p>lsusb, lshw, lstopo, usbview,</p>
+<p>Firewall frontend?</p>
+<p>ClamAV</p>
+<p>deepin-screesshot, scrot</p>
+<h3 id="irl">
+  IRL
+  <a class="anchor" href="#irl">#</a>
+</h3>
+<p>Gnome-Maps</p>
+<p>Gnome-Weather</p>
+<p>Celestia</p>
+<p>Stellarium</p>
+<h3 id="other">
+  Other
+  <a class="anchor" href="#other">#</a>
+</h3>
+<p>GnuRadio, SDRAngel</p>
+<h2 id="paid-graphical-utilities">
+  Paid Graphical Utilities
+  <a class="anchor" href="#paid-graphical-utilities">#</a>
+</h2>
+<p>Renoise, Bitwig</p>
+<h2 id="self-hosted--services">
+  Self hosted / Services
+  <a class="anchor" href="#self-hosted--services">#</a>
+</h2>
+<p>Netdata</p>
+<p>VPN (Wiregaurd)</p>
+<p>Snort, Suritica</p>
+<p>Gitea, Gitlab</p>
+<p>Mathics</p>
+<p>LAMP stack</p>
+<p>Couchpotato, headphones</p>
+<p>mpd, ampache</p>
+<p>Owncloud, NextClound</p>
+<p>Samba</p>
+<p>DAT, IPFS</p>
+<p>Convos.by</p>
+<p>Ix , 0bin (pastebin)</p>
+<p>Mathics</p>
+<p>TaskWeb (TaskWarrior)</p>
+<h2 id="other-linux-distros-that-are-neat">
+  Other Linux Distros that are neat
+  <a class="anchor" href="#other-linux-distros-that-are-neat">#</a>
+</h2>
+<p><a href="https://www.gobolinux.org">Gobo Linux</a></p>
+<blockquote>
+<p>GoboLinux is an alternative <strong>Linux distribution</strong> which
+redefines the entire filesystem hierarchy.</p>
+<p>In GoboLinux you don&rsquo;t need a package database because
+the <strong>filesystem is the database</strong>: each program resides in its own directory,
+such as /Programs/LibX11/1.6.9 and /Programs/GCC/9.2.0.</p>
+</blockquote>
+<p><a href="https://bedrocklinux.org">Bedrock Linux</a></p>
+<blockquote>
+<p>Bedrock Linux is a meta Linux distribution which allows users to mix-and-match components from other, typically incompatible distributions. Bedrock integrates these components into one largely cohesive system.</p>
+<p>For example, one could have:</p>
+<ul>
+<li>Debian&rsquo;s stable coreutils</li>
+<li>Arch&rsquo;s cutting edge kernel</li>
+<li>Void&rsquo;s runit init system</li>
+<li>A pdf reader with custom patches automatically maintained by Gentoo&rsquo;s portage</li>
+<li>A font from Arch&rsquo;s AUR</li>
+<li>Games running against Ubuntu&rsquo;s libraries</li>
+<li>Business software running against CentOS&rsquo;s libraries</li>
+</ul>
+<p>All at the same time and working together mostly as though they were packaged for the same distribution.</p>
+</blockquote>
+<p><a href="https://nixos.org">NixOS</a></p>
+<blockquote>
+<p>Nix builds packages in isolation from each other. This ensures that they are reproducible and don&rsquo;t have undeclared dependencies, so <strong>if a package works on one machine, it will also work on another</strong>.</p>
+</blockquote>
+<p><a href="https://www.qubes-os.org">Qubes OS</a></p>
+<blockquote>
+<p>see <a href="https://www.qubes-os.org/intro/">https://www.qubes-os.org/intro/</a> - basically everything gets it&rsquo;s own VM for security sake</p>
+</blockquote>
+<p><a href="https://tails.boum.org">Tails Linux</a></p>
+<blockquote>
+<p>Tails is a portable operating system that protects against surveillance and censorship.</p>
+</blockquote>
+<p><a href="https://debiandog.github.io/doglinux/zz01debiandogjessie.html">Debian Dog</a></p>
+<blockquote>
+<p>This is the only distro I could find that will actually work somewhat well on systems with <em>ancient</em> x86 CPUs (586,686-pae)</p>
+</blockquote>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/linuxshell.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#appendix-1---using-the-linux-shell">Appendix 1 - Using the Linux Shell</a>
+      <ul>
+        <li><a href="#what-the-shell">What The Shell?</a></li>
+        <li><a href="#the-basic-commands">The Basic Commands</a></li>
+        <li><a href="#tab-completion-and-faster-navigation">Tab Completion and faster navigation</a></li>
+        <li><a href="#io-redirection">I/O redirection</a></li>
+        <li><a href="#wild-cards--regex">Wild Cards &amp; Regex</a></li>
+        <li><a href="#job-control">Job Control</a></li>
+        <li><a href="#shortcuts">Shortcuts</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#performance-analysis">Performance Analysis</a></li>
+        <li><a href="#aliases-and-customization">Aliases and customization</a>
+          <ul>
+            <li><a href="#aliases">Aliases</a></li>
+            <li><a href="#customization">Customization</a></li>
+          </ul>
+        </li>
+        <li><a href="#shell-scripting">Shell Scripting</a></li>
+        <li><a href="#alternative-shells">Alternative Shells</a></li>
+        <li><a href="#alternative-commands">Alternative commands</a></li>
+        <li><a href="#useful-non-stock-cli-tools">Useful Non-Stock CLI Tools</a></li>
+        <li><a href="#displaying-data-in-the-terminal">Displaying Data in the terminal</a></li>
+        <li><a href="#a-note-on-graphical-ish-terminal-programs">A note on Graphical-ish terminal programs</a></li>
+        <li><a href="#how-might-the-terminal-evolve">How might the terminal evolve?</a></li>
+        <li><a href="#common-graphical-linux-utils">Common Graphical Linux Utils</a></li>
+        <li><a href="#graphical-environments">Graphical Environments++</a></li>
+        <li><a href="#free-graphical-utilities">Free Graphical Utilities</a>
+          <ul>
+            <li><a href="#office--daily">Office &amp; Daily</a></li>
+            <li><a href="#av">A/V</a></li>
+            <li><a href="#social">Social</a></li>
+            <li><a href="#programming">Programming</a></li>
+            <li><a href="#engineering">Engineering</a></li>
+            <li><a href="#system">System</a></li>
+            <li><a href="#irl">IRL</a></li>
+            <li><a href="#other">Other</a></li>
+          </ul>
+        </li>
+        <li><a href="#paid-graphical-utilities">Paid Graphical Utilities</a></li>
+        <li><a href="#self-hosted--services">Self hosted / Services</a></li>
+        <li><a href="#other-linux-distros-that-are-neat">Other Linux Distros that are neat</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
