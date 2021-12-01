@@ -110,13 +110,13 @@ when starting out, do it on binaries you can actually run in a debugger and see 
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.10657294f9f85f13c334d37af651ea05e282d921e2a9e976cd4537d309dcfe10.css" integrity="sha256-EGVylPn4XxPDNNN69lHqBeKC2SHiqel2zUU30wnc/hA=">
-<script defer src="/en.search.min.92a2d5b30182c9a98264976c34012a2e00f09e6363cf6b2caea5c71ea00cb5c4.js" integrity="sha256-kqLVswGCyamCZJdsNAEqLgDwnmNjz2ssrqXHHqAMtcQ="></script>
+<script defer src="/en.search.min.0fc35792c8b8a6a444ee25b908d51e9c15a305005003d0f34359e3c63afa7b1b.js" integrity="sha256-D8NXksi4pqRE7iW5CNUenBWjBQBQA9DzQ1njxjr6exs="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
 
-  
+  <script src="/sw-register.js"></script>
 </head>
 
 <body dir=>
@@ -606,10 +606,10 @@ Not particular tools necessarily, but like theory and how to think
 <p>the process, at least for me and most of the folks i&rsquo;ve talked to, is one of iteration - start with what you know, use that to figure out other stuff. now you know more things, repeat.</p>
 <p>So:</p>
 <ol>
-<li>go for easy wins as much as you can. Strings! I love strings (mind you I don&rsquo;t do malware much). See a printf(&ldquo;access_check: ACL rule %d check denies action %s for user %s&rdquo;, foo, bar, baz)? Rename that function to access_check, rename foo to &ldquo;acl_rule&rdquo;, rename bar to &ldquo;acl_action&rdquo;, rename baz to &ldquo;user&rdquo;. Now follow those back as far as you can, with everything that calls access_check. Something calls access_check(woof, bark, meow)? woof is acl_rule, bark is acl_action, meow is user. if you use Binary Ninja right it&rsquo;ll do a lot of this for you, not sure about other tools these days.</li>
+<li>go for easy wins as much as you can. Strings! I love strings (mind you I don&rsquo;t do malware much). See a <code>printf(&quot;access_check: ACL rule %d check denies action %s for user %s&quot;, foo, bar, baz)</code>? Rename that function to access_check, rename foo to &ldquo;acl_rule&rdquo;, rename bar to &ldquo;acl_action&rdquo;, rename baz to &ldquo;user&rdquo;. Now follow those back as far as you can, with everything that calls access_check. Something calls <code>access_check(woof, bark, meow)</code>? woof is acl_rule, bark is acl_action, meow is user. if you use Binary Ninja right it&rsquo;ll do a lot of this for you, not sure about other tools these days.</li>
 </ol>
 <p>Look for logging functions especially - not only are they helpful, often they&rsquo;re called by macros that pass the function name as an argument - you can set the name of hundreds of functions with a script that way.</p>
-<p>Also, symbols obviously help- not just exported/local symbols either. Use imports! if something&rsquo;s passed as the first argument to open, that&rsquo;s a filename.</p>
+<p>Also, symbols obviously help- not just exported/local symbols either. Use imports! if something&rsquo;s passed as the first argument to <code>open</code>, that&rsquo;s a filename.</p>
 <ol start="2">
 <li>structs structs structs structs. again, binary ninja does really well here because it propagates type information. but for most binaries I encounter, figuring out a handful of structs and looking at how they&rsquo;re passed between functions pretty much makes it clear exactly what&rsquo;s going on.</li>
 <li>DON&rsquo;T GET STUCK. if you can&rsquo;t figure out roughly what a function does (enough to give it a name) within a few minutes or so of looking at it, bookmark the function and move on- reverse other stuff. Very good chance that&rsquo;ll make it obvious what the function does. If not - remember why you are reversing this binary. If you&rsquo;re doing it to hunt for vulns&hellip; does the function handle user input or do security-critical things? If not, MOVE ON.</li>
@@ -625,7 +625,7 @@ Not particular tools necessarily, but like theory and how to think
 
 
 <hr>
-<p><a href="https://0x41.cf/reversing/2021/07/21/reversing-x86-and-c-code-for-beginners.html">Reversing for dummies - x86 assembly and C code (Beginner/ADHD friendly) (0x41.cf)</a> also looks good, but I haven&rsquo;t gotten the chance to go though either link yet!</p>
+<p><a href="https://0x41.cf/reversing/2021/07/21/reversing-x86-and-c-code-for-beginners.html">Reversing for dummies - x86 assembly and C code (Beginner/ADHD friendly) (0x41.cf)</a> and <a href="https://pwn.college/modules/reversing.html">pwn.college</a> also look good, but I haven&rsquo;t gotten the chance to go though either link yet!</p>
 <h2 id="circuits">
   Circuits
   <a class="anchor" href="#circuits">#</a>
