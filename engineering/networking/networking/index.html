@@ -114,7 +114,7 @@ Intermediate nodes, are things that are internal to the network: Things like mod
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.10657294f9f85f13c334d37af651ea05e282d921e2a9e976cd4537d309dcfe10.css" integrity="sha256-EGVylPn4XxPDNNN69lHqBeKC2SHiqel2zUU30wnc/hA=">
-<script defer src="/en.search.min.a8fdccbc1f3128933dd3ae7dc25a2c72f2956e59c660329b9e9b9519905ca316.js" integrity="sha256-qP3MvB8xKJM90659wloscvKVblnGYDKbnpuVGZBcoxY="></script>
+<script defer src="/en.search.min.952d03f9801c2f306189a1e75b6939c79c9836fda0fc1fca2afd0164afb3e4fb.js" integrity="sha256-lS0D&#43;YAcLzBhiaHnW2k5x5yYNv2g/B/KKv0BZK&#43;z5Ps="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -590,13 +590,14 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
             <li><a href="#subnets">Subnets</a></li>
             <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
-            <li><a href="#bgp">BGP</a></li>
+            <li><a href="#bgp---boarder-gateway-protocol">BGP - Boarder Gateway Protocol</a></li>
           </ul>
         </li>
         <li><a href="#4---transport-layer">4 - Transport Layer</a>
           <ul>
-            <li><a href="#tcp">TCP</a></li>
-            <li><a href="#udp">UDP</a></li>
+            <li><a href="#tcp---transmission-control-protocol">TCP - Transmission Control Protocol</a></li>
+            <li><a href="#udp---user-datagram-protocol">UDP - User Datagram Protocol</a></li>
+            <li><a href="#quic---quick-udp-internet-connections">QUIC - Quick UDP Internet Connections</a></li>
             <li><a href="#raw">Raw</a></li>
             <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
             <li><a href="#go-back-n">Go-Back-N</a></li>
@@ -839,13 +840,19 @@ https://github.com/alex-shpak/hugo-book
   Static and Dynamic Routes
   <a class="anchor" href="#static-and-dynamic-routes">#</a>
 </h3>
-<h3 id="bgp">
-  BGP
-  <a class="anchor" href="#bgp">#</a>
+<h3 id="bgp---boarder-gateway-protocol">
+  BGP - Boarder Gateway Protocol
+  <a class="anchor" href="#bgp---boarder-gateway-protocol">#</a>
 </h3>
-<p><a href="https://blog.benjojo.co.uk/post/bgp-stuck-routes-tcp-zero-window">https://blog.benjojo.co.uk/post/bgp-stuck-routes-tcp-zero-window</a></p>
-<p><a href="https://blog.benjojo.co.uk/post/eve-online-bgp-internet">EVE Online internet</a> from <a href="https://blog.benjojo.co.uk">https://blog.benjojo.co.uk</a>, which has a ton of other really, really neat posts, like <a href="https://blog.benjojo.co.uk/post/speed-of-bgp-network-propagation">The Speed of BGP network propagation</a>, or <a href="https://blog.benjojo.co.uk/post/ip-over-fibre-channel-hack">Hacking Ethernet out of Fibre Channel cards</a></p>
-<p>open, update, keepalive, notification</p>
+<p>BGP is one of those things that you should basically never have to worry about, and if you do, it&rsquo;s almost certainly because <em>somebody else</em> fucked up. That said, it does still matter. In 2021, a BGP mis-configuration <a href="https://www.theverge.com/2021/10/4/22709260/what-is-bgp-border-gateway-protocol-explainer-internet-facebook-outage">took FaceBook down globally</a> and in 2008 Pakistan used a BGP hijack to <a href="https://www.cnet.com/news/how-pakistan-knocked-youtube-offline-and-how-to-make-sure-it-never-happens-again/">take down YouTube</a>. But, uh, what is it.</p>
+<p>Well, if you&rsquo;ll allow me to follow the lead of the late Alaskan Senator Ted Stevens' less-than-ideal analogy: &ldquo;The Internet is a series of tubes!&rdquo; and BGP is the logic that dictates where things get routed to go from one tube to the next, and tries to adapt to find the fastest, most efficient route when there are multiple available paths, but, while I could try to explain it, <a href="https://www.cloudflare.com/learning/security/glossary/what-is-bgp/">This article from Cloudflare</a> will do a much better job than I ever could, so just, read that and come back here.</p>
+<p>Hai, welcome back - so, okay, BGP is only something for the ISPs and big players, right? Well, no.</p>
+<p>First of all, you <em>might</em>, <em>occasionally</em> want to check something isn&rsquo;t taking a very stupid route, which means digging into BPG yourself. Julia Evans wrote a great blog post <a href="https://jvns.ca/blog/2021/10/05/tools-to-look-at-bgp-routes/">&ldquo;Tools to explore BGP&rdquo;</a> that does a good job of showing how to poke around things. If you actually want to get hands on, you can use <a href="https://www.gns3.com">GNS3</a> to simulate a network, or join <a href="https://dn42.eu/">https://dn42.eu/</a> to try something more tangible.</p>
+<p>There&rsquo;s some fantastic other pages I recommend reading too. Most notably, <a href="https://blog.benjojo.co.uk/post/eve-online-bgp-internet">EVE Online internet</a> from <a href="https://blog.benjojo.co.uk">https://blog.benjojo.co.uk</a> is a really neat look at BGP and just a fun read!</p>
+<span class="smalltext ">
+    BTW, Ben Cox blog has a ton of other <em>really</em> neat posts, like <a href="https://blog.benjojo.co.uk/post/speed-of-bgp-network-propagation">The Speed of BGP network propagation</a>, <a href="https://blog.benjojo.co.uk/post/bgp-stuck-routes-tcp-zero-window">BGP Stuck Routes</a>, and <a href="https://blog.benjojo.co.uk/post/ip-over-fibre-channel-hack">Hacking Ethernet out of Fibre Channel cards</a>
+</span>
+<p>To finish things up, the <a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol">Wikipedia article</a> for BGP is quite nice as well, and does a really good job of explaining the more technical operation in plain english.</p>
 <h2 id="4---transport-layer">
   4 - Transport Layer
   <a class="anchor" href="#4---transport-layer">#</a>
@@ -854,19 +861,19 @@ https://github.com/alex-shpak/hugo-book
 <p>Multiplexing, Demultiplexing</p>
 <p>Reliable data tx/rx - checksums</p>
 <p>flow and congestion control</p>
-<h3 id="tcp">
-  TCP
-  <a class="anchor" href="#tcp">#</a>
+<h3 id="tcp---transmission-control-protocol">
+  TCP - Transmission Control Protocol
+  <a class="anchor" href="#tcp---transmission-control-protocol">#</a>
 </h3>
 <p><a href="https://research.swtch.com/tcpviz">https://research.swtch.com/tcpviz</a></p>
 <p>tcp header diagram</p>
-<h4 id="quic">
-  QUIC
-  <a class="anchor" href="#quic">#</a>
-</h4>
-<h3 id="udp">
-  UDP
-  <a class="anchor" href="#udp">#</a>
+<h3 id="udp---user-datagram-protocol">
+  UDP - User Datagram Protocol
+  <a class="anchor" href="#udp---user-datagram-protocol">#</a>
+</h3>
+<h3 id="quic---quick-udp-internet-connections">
+  QUIC - Quick UDP Internet Connections
+  <a class="anchor" href="#quic---quick-udp-internet-connections">#</a>
 </h3>
 <h3 id="raw">
   Raw
@@ -1183,13 +1190,14 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
             <li><a href="#subnets">Subnets</a></li>
             <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
-            <li><a href="#bgp">BGP</a></li>
+            <li><a href="#bgp---boarder-gateway-protocol">BGP - Boarder Gateway Protocol</a></li>
           </ul>
         </li>
         <li><a href="#4---transport-layer">4 - Transport Layer</a>
           <ul>
-            <li><a href="#tcp">TCP</a></li>
-            <li><a href="#udp">UDP</a></li>
+            <li><a href="#tcp---transmission-control-protocol">TCP - Transmission Control Protocol</a></li>
+            <li><a href="#udp---user-datagram-protocol">UDP - User Datagram Protocol</a></li>
+            <li><a href="#quic---quick-udp-internet-connections">QUIC - Quick UDP Internet Connections</a></li>
             <li><a href="#raw">Raw</a></li>
             <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
             <li><a href="#go-back-n">Go-Back-N</a></li>
