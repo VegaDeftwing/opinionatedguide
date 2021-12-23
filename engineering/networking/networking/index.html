@@ -84,10 +84,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 37 - Networking #  [TODO] Add follow along making a network stack
 [TODO] https://iximiuz.com/en/posts/computer-networking-101/
-Basics #  Nodes
-These are all the points in the network. There are terminal nodes and intermediate nodes.
-Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.
-Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc.">
+The Basics #  To get started, let&rsquo;s just get some basic terminology down and take a look at the bigger picture:
+Nodes #  These are all the points in the network. There are terminal nodes and intermediate nodes.
+Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -101,10 +100,9 @@ Intermediate nodes, are things that are internal to the network: Things like mod
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 37 - Networking #  [TODO] Add follow along making a network stack
 [TODO] https://iximiuz.com/en/posts/computer-networking-101/
-Basics #  Nodes
-These are all the points in the network. There are terminal nodes and intermediate nodes.
-Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.
-Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc." />
+The Basics #  To get started, let&rsquo;s just get some basic terminology down and take a look at the bigger picture:
+Nodes #  These are all the points in the network. There are terminal nodes and intermediate nodes.
+Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/networking/networking/" /><meta property="article:section" content="Engineering" />
 
@@ -114,7 +112,7 @@ Intermediate nodes, are things that are internal to the network: Things like mod
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.10657294f9f85f13c334d37af651ea05e282d921e2a9e976cd4537d309dcfe10.css" integrity="sha256-EGVylPn4XxPDNNN69lHqBeKC2SHiqel2zUU30wnc/hA=">
-<script defer src="/en.search.min.6e3856c7aff0530405b53e4f45537a5ecb151371b1436d8386d7baf82abd4c2a.js" integrity="sha256-bjhWx6/wUwQFtT5PRVN6XssVE3GxQ22Dhte6&#43;Cq9TCo="></script>
+<script defer src="/en.search.min.dcd081bbb6ea6ca5485e6e937063bf1dc439b9e2c89381e73fac45723715e253.js" integrity="sha256-3NCBu7bqbKVIXm6TcGO/HcQ5ueLIk4HnP6xFcjcV4lM="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -561,7 +559,25 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-37---networking">Chapter 37 - Networking</a>
       <ul>
-        <li><a href="#basics">Basics</a></li>
+        <li><a href="#the-basics">The Basics</a>
+          <ul>
+            <li><a href="#nodes">Nodes</a></li>
+            <li><a href="#links">Links</a></li>
+            <li><a href="#applications">Applications</a></li>
+            <li><a href="#end-systems---hostsserver--clients">End Systems - Hosts/Server &amp; Clients</a></li>
+            <li><a href="#peer-to-peer">Peer to Peer</a></li>
+            <li><a href="#packets">Packets</a></li>
+            <li><a href="#routers-and-switches">Routers and Switches</a></li>
+            <li><a href="#wifi-access-points">WiFi Access Points</a></li>
+            <li><a href="#end-to-end-delay">End to End Delay</a></li>
+            <li><a href="#queuing-delay">Queuing Delay</a></li>
+            <li><a href="#packet-loss">Packet Loss</a></li>
+            <li><a href="#forwarding-table">Forwarding Table</a></li>
+            <li><a href="#bandwidth-vs-throughput">Bandwidth Vs Throughput</a></li>
+            <li><a href="#lan-vs-wan">LAN Vs WAN</a></li>
+            <li><a href="#protocol">Protocol</a></li>
+          </ul>
+        </li>
         <li><a href="#a-typical-network">A typical network</a></li>
         <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
           <ul>
@@ -574,20 +590,21 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#2---data-link">2 - Data Link</a>
           <ul>
             <li><a href="#ethernet">Ethernet</a></li>
-            <li><a href="#ppp">PPP</a></li>
+            <li><a href="#ppp---point-to-point-protocol">PPP - Point-to-Point Protocol</a></li>
             <li><a href="#switch">Switch</a></li>
             <li><a href="#bridge">Bridge</a></li>
             <li><a href="#frames">Frames</a></li>
-            <li><a href="#vlan">VLAN</a></li>
+            <li><a href="#vlan---virtual-lan">VLAN - Virtual LAN</a></li>
           </ul>
         </li>
         <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
           <ul>
             <li><a href="#service-models">Service Models</a></li>
-            <li><a href="#packets">Packets</a></li>
+            <li><a href="#packets-1">Packets</a></li>
             <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
             <li><a href="#mac">MAC</a></li>
-            <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
+            <li><a href="#icmp---internet-control-message-protocol">ICMP - Internet Control Message Protocol</a></li>
+            <li><a href="#igmp---internet-group-management-protocol">IGMP - Internet Group Management Protocol</a></li>
             <li><a href="#subnets">Subnets</a></li>
             <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
             <li><a href="#bgp---boarder-gateway-protocol">BGP - Boarder Gateway Protocol</a></li>
@@ -609,34 +626,34 @@ https://github.com/alex-shpak/hugo-book
           <ul>
             <li><a href="#authentication">Authentication</a></li>
             <li><a href="#sockets">Sockets</a></li>
-            <li><a href="#apis">API&rsquo;s</a></li>
-            <li><a href="#netbios">NetBios</a></li>
-            <li><a href="#pap">PAP</a></li>
-            <li><a href="#rpc">RPC</a></li>
-            <li><a href="#smb">SMB</a></li>
-            <li><a href="#socks">SOCKS</a></li>
+            <li><a href="#api---application-programming-interface">API - Application Programming Interface</a></li>
+            <li><a href="#netbios---network-basic-inputoutput-system">NetBios - <strong>Network Basic Input/Output System</strong></a></li>
+            <li><a href="#pap--">PAP -</a></li>
+            <li><a href="#rpc---remote-procedure-call">RPC - Remote Procedure Call</a></li>
+            <li><a href="#smb---server-message-block">SMB - Server Message Block</a></li>
+            <li><a href="#socks---socket-secure">SOCKS - Socket Secure</a></li>
           </ul>
         </li>
         <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
           <ul>
-            <li><a href="#tls">TLS</a></li>
-            <li><a href="#ssl">SSL</a></li>
-            <li><a href="#imap">IMAP</a></li>
+            <li><a href="#tls---transport-layer-security">TLS - Transport Layer Security</a></li>
+            <li><a href="#ssl---secure-sockets-layer-deprecated">SSL - Secure Sockets Layer (Deprecated)</a></li>
+            <li><a href="#imap---internet-message-access-protocol">IMAP - Internet Message Access Protocol</a></li>
           </ul>
         </li>
         <li><a href="#7---application-layer">7 - Application Layer</a>
           <ul>
-            <li><a href="#https">HTTP(s)</a></li>
-            <li><a href="#ftp">FTP</a></li>
-            <li><a href="#dns">DNS</a></li>
-            <li><a href="#dhcp">DHCP</a></li>
-            <li><a href="#ssh">SSH</a></li>
-            <li><a href="#irc">IRC</a></li>
+            <li><a href="#https----hypertext-transfer-protocol">HTTP(s)  - Hypertext Transfer Protocol</a></li>
+            <li><a href="#ftp---file-transfer-protocol">FTP - File Transfer Protocol</a></li>
+            <li><a href="#dns---domain-name-service">DNS - Domain Name Service</a></li>
+            <li><a href="#dhcp---dynamic-host-configuration-protocol">DHCP - Dynamic Host Configuration Protocol</a></li>
+            <li><a href="#ssh---secure-shell">SSH - Secure Shell</a></li>
+            <li><a href="#irc---internet-relay-chat">IRC - Internet Relay Chat</a></li>
             <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
-            <li><a href="#upnp">UPNP</a></li>
-            <li><a href="#ntp">NTP</a></li>
+            <li><a href="#upnp---universal-plug-and-play">UPNP - Universal Plug and Play</a></li>
+            <li><a href="#ntp---network-time-protocol">NTP - Network Time Protocol</a></li>
             <li><a href="#telnet">Telnet</a></li>
-            <li><a href="#nfs">NFS</a></li>
+            <li><a href="#nfs---network-file-system">NFS - Network File System</a></li>
             <li><a href="#torrents">Torrents</a></li>
           </ul>
         </li>
@@ -678,46 +695,159 @@ https://github.com/alex-shpak/hugo-book
 </h1>
 <p>[TODO] Add follow along making a network stack</p>
 <p>[TODO] <a href="https://iximiuz.com/en/posts/computer-networking-101/">https://iximiuz.com/en/posts/computer-networking-101/</a></p>
-<h2 id="basics">
-  Basics
-  <a class="anchor" href="#basics">#</a>
+<h2 id="the-basics">
+  The Basics
+  <a class="anchor" href="#the-basics">#</a>
 </h2>
-<p><strong>Nodes</strong></p>
-<p>These are all the points in the network. There are terminal nodes and intermediate nodes.</p>
-<p>Terminal nodes are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.</p>
-<p>Intermediate nodes, are things that are internal to the network: Things like modems, hubs, switches, routers, etc.</p>
-<p><strong>Links</strong></p>
+<p>To get started, let&rsquo;s just get some basic terminology down and take a look at the bigger picture:</p>
+<h3 id="nodes">
+  Nodes
+  <a class="anchor" href="#nodes">#</a>
+</h3>
+<p>These are all the points in the network. There are <em>terminal nodes</em> and <em>intermediate nodes</em>.</p>
+<p><em>Terminal nodes</em> are things like your phone, laptop, desktop, and other user-facing devices, as well as servers, like would be used for hosting games or websites.</p>
+<p><em>Intermediate nodes</em>, are things that are internal to the network: Things like modems, hubs, switches, routers, etc.</p>
+<h3 id="links">
+  Links
+  <a class="anchor" href="#links">#</a>
+</h3>
 <p>Links are the interconnects between two nodes. Generally these fall into two categories: <strong>Guided and Unguided</strong></p>
 <p><em>Guided</em> Links are those that only connect a few nodes (usually only two) and are typically physical, hard-wire links, often copper or fiber optic.</p>
+<p><em>Unguided</em> Links are those that propagate to multiple devices, usually though the air, like WiFi.</p>
 <p>Not all Links can support the same bandwidth or throughput. In general, Coaxial is worse than Twisted Pair which is in turn worse than fiber.</p>
 <img src="/eng/nodes.svg" alt="nodes">
-<p><strong>Applications</strong></p>
+<h3 id="applications">
+  Applications
+  <a class="anchor" href="#applications">#</a>
+</h3>
 <p>These are the things that you want to do: Talk to someone via voice, text, or video; browse the web; download files; etc.</p>
 <p>It can also refer to the specific program used to do these things, so like Chrome as your web browser or Zoom for video calling.</p>
 <p>an <a href="https://en.wikipedia.org/wiki/API"><em>API</em> (Wikipedia)</a> or &lsquo;Application Programming Interface&rsquo; is what defines how two programs talk to each other. This doesn&rsquo;t have to be over the network, but often is.</p>
-<p><strong>End Systems - Hosts/Server &amp; Clients</strong></p>
-<p>Not everything fits the host/server and client terminology, but generally the host/server is the one that is sending data, and the client is the one receiving, or another way to look at it, the client is the one making requests and the host the one fulfilling them.</p>
-<p><strong>Peer to Peer</strong></p>
+<h3 id="end-systems---hostsserver--clients">
+  End Systems - Hosts/Server &amp; Clients
+  <a class="anchor" href="#end-systems---hostsserver--clients">#</a>
+</h3>
+<p>Not everything fits the host/server and client terminology, but generally the host/server is the one that is sending data, and the client is the one receiving. Or, another way to look at it, the client is the one making requests and the host/server the one fulfilling them.</p>
+<h3 id="peer-to-peer">
+  Peer to Peer
+  <a class="anchor" href="#peer-to-peer">#</a>
+</h3>
+<p>In a Peer-to-Peer (P2P) network, the idea of server and client break down a little, as typically all of the users (peers) are helping to share the content around. The most obvious example is torrenting.</p>
+<h3 id="packets">
+  Packets
+  <a class="anchor" href="#packets">#</a>
+</h3>
+<p>While we could just send a continual stream of data down a wire, that has a lot of issues. For one, it makes it hard to share the wire with multiple people. Of course you could split the wire so each person gets a split amount of time on the wire (Time Division Multiplexing (TDM)) or, if the wire can carry a range of frequencies give each user a small portion of those (Frequency Division Multiplexing (FDM), which limits the throughput similarly), but both of these sorta suck as they assume a user will always be using their provided channel. Instead, we do a sort of Time Division, but by packet-izing everything. Basically, each stream of data you want to send get&rsquo;s broken up into manageable chunks called packets, and then these packets can be sent though the network.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    It&rsquo;s worth noting, these packets typically have a <em>header</em> which carries some information about it, like what version of a protocol is being used, where it should go, and who it is from. Here, for example, is the full packet layout of an IPv4 packet, with the header being in the first 20 bytes.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><a href="https://commons.wikimedia.org/wiki/File:IPv4_Packet-en.svg#/media/File:IPv4_Packet-en.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/IPv4_Packet-en.svg" alt="IPv4 Packet-en.svg" width="100%" style="-webkit-filter: invert(.8);filter: invert(.8);"></a></p>
+<p class="attribution ">
+    Image by <a href="https://www.wikidata.org/wiki/Q81411358">Michel Bakni</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
+</p>
+
+  </div>
+  
+</div>
+
+<h3 id="routers-and-switches">
+  Routers and Switches
+  <a class="anchor" href="#routers-and-switches">#</a>
+</h3>
+<div class="speech big ">
+    <p>
+        Heads up! This is a bit confusing, as the consumer &ldquo;WiFi routers&rdquo; you can buy typically have both a router and switch in them internally, as well as act as a WiFi access point - all, technically, <u>three different roles</u>.
+    </p>
+</div>
+
+
+
+
+<p>Alright, so what are these routers and switches?</p>
+<h4 id="routers">
+  Routers
+  <a class="anchor" href="#routers">#</a>
+</h4>
+<p>A <em>router</em> is the device that can</p>
+<ol>
+<li>
+<p>Determine where data should go by use of a <em>routing table</em>.</p>
+<p>Note: This includes differentiating between other, local machines and going out to the Internet</p>
+</li>
+<li>
+<p>Do Network Address Translation (NAT) (see <a href="https://en.wikipedia.org/wiki/NAT_traversal">NAT traversal (Wikipedia)</a>)</p>
+<p>Note: This is how networks can have a bunch of internal IPv4 IPs (usually 192.168.1.xxx) all be served by one external ip. This isn&rsquo;t necessary for IPv6, where each device can have its own external IP.</p>
+<span class="smalltext ">
+    &hellip; and, technically, you could have enough IPv4 addresses to not need NAT too, but that would be very expensive
+</span>
+<p></br><span class="smalltext ">
+    &hellip; also, sometimes you&rsquo;ll be behind two NAT&rsquo;s because of <a href="https://en.wikipedia.org/wiki/Carrier-grade_NAT">CGNAT (Wikipedia)</a>
+</span></p>
+</li>
+<li>
+<p>Deal with congestion (if to much data is being sent to the router, how should it be handled?)</p>
+<span class="smalltext ">
+    &hellip; the answer is often just drop packets though.
+</span>
+</li>
+<li>
+<p>Provide Quality-Of-Service (QoS) to prioritize certain applications</p>
+</li>
+<li>
+<p>Act as a Dynamic Host Configuration Protocol (DHCP) server to assign ip addresses to devices</p>
+</li>
+</ol>
+<h4 id="switches">
+  Switches
+  <a class="anchor" href="#switches">#</a>
+</h4>
+<p>A <em>switch</em> lets you connect multiple devices together, but does so a bit intelligently as the switch itself figures out what destination port an incoming packet should go to. In a typical setup the switch will have one &ldquo;upper level&rdquo; connection going up the network (so, in a home network, to the router that goes to the internet) and many connected devices (potentially including other switches). Except for in some weird scenarios, a connection between two devices connected to the same switch will only need to pass through the switch, not go to the router and back.</p>
+<p>Often, switches will have one or two high bandwidth ports (10Gbe, for example) along side many slower ports under the assumption that a server or the internet will be handling most requests. Sometimes, these ports may look different than the others, as they may be for <a href="https://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver">SFP modules</a> instead of the typical RJ-45 jacks seen with most ethernet cables.</p>
+<p>[TODO] Managed vs Unmanaged</p>
+<p>[TODO] store and forward - buffering vs cutthrough <a href="https://www.networkacademy.io/ccna/ethernet/store-and-forward-vs-cut-through-switching">https://www.networkacademy.io/ccna/ethernet/store-and-forward-vs-cut-through-switching</a></p>
+<h3 id="wifi-access-points">
+  WiFi Access Points
+  <a class="anchor" href="#wifi-access-points">#</a>
+</h3>
 <p>[TODO]</p>
-<p><strong>Packets</strong></p>
-<p>While we could just send a continual stream of data down a wire, that has a lot of issues. For one, it makes it hard to share the wire with multiple people. Of course you could split the wire so each person get&rsquo;s a split amount of time on the wire (Time Division Multiplexing) or, if the wire can carry a range of frequencies give each user a small portion of those (Frequency Division Multiplexing, which limits the throughput similarly), but both of these sorta suck as they assume a user will always be using their provided channel. Instead, we do a sort of Time Division, but by packet-izing everything. Basically, each stream of data you want to send get&rsquo;s broken up into manageable chunks called packets, and then these packets can be sent though the network.</p>
-<p>[TODO] packet headers</p>
-<p><strong>Routers and Switches</strong></p>
-<p>Take data in and out, usually though bi-directional links, and can switch which link goes where. Usually with the help of a forwarding table</p>
-<p>[TODO] image here</p>
-<p>[TODO] store and forward - buffering,</p>
-<p><strong>End to End Delay</strong></p>
+<h3 id="end-to-end-delay">
+  End to End Delay
+  <a class="anchor" href="#end-to-end-delay">#</a>
+</h3>
 <p>d_ECE = 2 (L/R)</p>
 <p>where L = bits per packet, R = tx rate of link</p>
-<p><strong>Queuing Delay</strong></p>
-<p><strong>Packet Loss</strong></p>
+<h3 id="queuing-delay">
+  Queuing Delay
+  <a class="anchor" href="#queuing-delay">#</a>
+</h3>
+<h3 id="packet-loss">
+  Packet Loss
+  <a class="anchor" href="#packet-loss">#</a>
+</h3>
 <p>Sometimes packets in the network don&rsquo;t reach their destination. This can be for a variety of reasons. Maybe a switch along the line was overloaded and it&rsquo;s buffer was full, maybe it took a bad route, maybe you have crappy wifi. ╮(─▽─)╭. It happens. Usually the percent of dropped packets is called your packet loss.</p>
-<p><strong>Forwarding Table</strong></p>
-<p><strong>Bandwidth Vs Throughput</strong></p>
+<h3 id="forwarding-table">
+  Forwarding Table
+  <a class="anchor" href="#forwarding-table">#</a>
+</h3>
+<h3 id="bandwidth-vs-throughput">
+  Bandwidth Vs Throughput
+  <a class="anchor" href="#bandwidth-vs-throughput">#</a>
+</h3>
 <p>[TODO] physcics of link vs data of link - expand on FDM vs TDM</p>
-<p><strong>LAN Vs WAN</strong></p>
+<p>[TODO] and bps/baud</p>
+<h3 id="lan-vs-wan">
+  LAN Vs WAN
+  <a class="anchor" href="#lan-vs-wan">#</a>
+</h3>
 <p>Local Area Network and Wide Area Network- on most home connections your LAN is the network <em>in your house</em> while the WAN is the internet at large, so the WAN port on your router is where you connect the cable from your Internet Service Provider (ISP)</p>
-<p><strong>Protocol</strong></p>
+<h3 id="protocol">
+  Protocol
+  <a class="anchor" href="#protocol">#</a>
+</h3>
 <p>Usually a network is dependent on a stack of protocols. Each protocol is just a standard for the way too things communicate. As we keep going you&rsquo;ll see more about IP (Internet Protocol), TCP (Transmission Control Protocol), among many others.</p>
 <p>Most protocols are determined by standardization bodies such as the Internet Engineering Task Force (IETF) or IEEE Standards Association (IEEE-SA)</p>
 <h2 id="a-typical-network">
@@ -767,9 +897,9 @@ https://github.com/alex-shpak/hugo-book
   Ethernet
   <a class="anchor" href="#ethernet">#</a>
 </h3>
-<h3 id="ppp">
-  PPP
-  <a class="anchor" href="#ppp">#</a>
+<h3 id="ppp---point-to-point-protocol">
+  PPP - Point-to-Point Protocol
+  <a class="anchor" href="#ppp---point-to-point-protocol">#</a>
 </h3>
 <h3 id="switch">
   Switch
@@ -783,9 +913,9 @@ https://github.com/alex-shpak/hugo-book
   Frames
   <a class="anchor" href="#frames">#</a>
 </h3>
-<h3 id="vlan">
-  VLAN
-  <a class="anchor" href="#vlan">#</a>
+<h3 id="vlan---virtual-lan">
+  VLAN - Virtual LAN
+  <a class="anchor" href="#vlan---virtual-lan">#</a>
 </h3>
 <h2 id="3---network-layerip-layer">
   3 - Network Layer/IP Layer
@@ -797,9 +927,9 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#service-models">#</a>
 </h3>
 <p>Not guaranteed delivery, bounded delay, or throughput. Sorta sucks, but it&rsquo;s cheap</p>
-<h3 id="packets">
+<h3 id="packets-1">
   Packets
-  <a class="anchor" href="#packets">#</a>
+  <a class="anchor" href="#packets-1">#</a>
 </h3>
 <h3 id="ipv4-ipv6">
   IPV4, IPV6
@@ -825,9 +955,13 @@ https://github.com/alex-shpak/hugo-book
   MAC
   <a class="anchor" href="#mac">#</a>
 </h3>
-<h3 id="icmp-igmp">
-  ICMP, IGMP
-  <a class="anchor" href="#icmp-igmp">#</a>
+<h3 id="icmp---internet-control-message-protocol">
+  ICMP - Internet Control Message Protocol
+  <a class="anchor" href="#icmp---internet-control-message-protocol">#</a>
+</h3>
+<h3 id="igmp---internet-group-management-protocol">
+  IGMP - Internet Group Management Protocol
+  <a class="anchor" href="#igmp---internet-group-management-protocol">#</a>
 </h3>
 <p>traceroute</p>
 <script id="asciicast-458108" src="https://asciinema.org/a/458108.js" data-speed="4" data-rows="30" async></script>
@@ -908,53 +1042,53 @@ https://github.com/alex-shpak/hugo-book
   Sockets
   <a class="anchor" href="#sockets">#</a>
 </h3>
-<h3 id="apis">
-  API&rsquo;s
-  <a class="anchor" href="#apis">#</a>
+<h3 id="api---application-programming-interface">
+  API - Application Programming Interface
+  <a class="anchor" href="#api---application-programming-interface">#</a>
 </h3>
-<h3 id="netbios">
-  NetBios
-  <a class="anchor" href="#netbios">#</a>
+<h3 id="netbios---network-basic-inputoutput-system">
+  NetBios - <strong>Network Basic Input/Output System</strong>
+  <a class="anchor" href="#netbios---network-basic-inputoutput-system">#</a>
 </h3>
-<h3 id="pap">
-  PAP
-  <a class="anchor" href="#pap">#</a>
+<h3 id="pap--">
+  PAP -
+  <a class="anchor" href="#pap--">#</a>
 </h3>
-<h3 id="rpc">
-  RPC
-  <a class="anchor" href="#rpc">#</a>
+<h3 id="rpc---remote-procedure-call">
+  RPC - Remote Procedure Call
+  <a class="anchor" href="#rpc---remote-procedure-call">#</a>
 </h3>
-<h3 id="smb">
-  SMB
-  <a class="anchor" href="#smb">#</a>
+<h3 id="smb---server-message-block">
+  SMB - Server Message Block
+  <a class="anchor" href="#smb---server-message-block">#</a>
 </h3>
-<h3 id="socks">
-  SOCKS
-  <a class="anchor" href="#socks">#</a>
+<h3 id="socks---socket-secure">
+  SOCKS - Socket Secure
+  <a class="anchor" href="#socks---socket-secure">#</a>
 </h3>
 <h2 id="6---presentation-layer">
   6 - Presentation Layer
   <a class="anchor" href="#6---presentation-layer">#</a>
 </h2>
-<h3 id="tls">
-  TLS
-  <a class="anchor" href="#tls">#</a>
+<h3 id="tls---transport-layer-security">
+  TLS - Transport Layer Security
+  <a class="anchor" href="#tls---transport-layer-security">#</a>
 </h3>
-<h3 id="ssl">
-  SSL
-  <a class="anchor" href="#ssl">#</a>
+<h3 id="ssl---secure-sockets-layer-deprecated">
+  SSL - Secure Sockets Layer (Deprecated)
+  <a class="anchor" href="#ssl---secure-sockets-layer-deprecated">#</a>
 </h3>
-<h3 id="imap">
-  IMAP
-  <a class="anchor" href="#imap">#</a>
+<h3 id="imap---internet-message-access-protocol">
+  IMAP - Internet Message Access Protocol
+  <a class="anchor" href="#imap---internet-message-access-protocol">#</a>
 </h3>
 <h2 id="7---application-layer">
   7 - Application Layer
   <a class="anchor" href="#7---application-layer">#</a>
 </h2>
-<h3 id="https">
-  HTTP(s)
-  <a class="anchor" href="#https">#</a>
+<h3 id="https----hypertext-transfer-protocol">
+  HTTP(s)  - Hypertext Transfer Protocol
+  <a class="anchor" href="#https----hypertext-transfer-protocol">#</a>
 </h3>
 <p><a href="http://bright28677.tripod.com/proj2/httpformat.htm">http://bright28677.tripod.com/proj2/httpformat.htm</a> (both images)</p>
 <p>response codes - 200, 300&rsquo;s, 400&rsquo;s, etc.</p>
@@ -968,53 +1102,53 @@ https://github.com/alex-shpak/hugo-book
 <p>http1 vs 2 v 3</p>
 <p>cookies because stateless</p>
 <p>in-band</p>
-<h3 id="ftp">
-  FTP
-  <a class="anchor" href="#ftp">#</a>
+<h3 id="ftp---file-transfer-protocol">
+  FTP - File Transfer Protocol
+  <a class="anchor" href="#ftp---file-transfer-protocol">#</a>
 </h3>
 <p>still TCP, out-of-band, maintains state, passive v active mode</p>
-<h3 id="dns">
-  DNS
-  <a class="anchor" href="#dns">#</a>
+<h3 id="dns---domain-name-service">
+  DNS - Domain Name Service
+  <a class="anchor" href="#dns---domain-name-service">#</a>
 </h3>
 <p><strong>TTL?</strong></p>
 <p><a href="https://00f.net/2019/11/03/stop-using-low-dns-ttls/">Stop Using Rediculously Low DNS TTLs (Frank Denis)</a></p>
 <p><strong>record types</strong></p>
 <p><a href="https://labzilla.io/blog/force-dns-pihole">You Smart TV is probably ignoring your PiHole (LabZilla)</a></p>
 <p><a href="https://arxiv.org/abs/2001.08288">72% of Smart TVs, 46% of Consoles hardcode DNS Settings</a>, <a href="https://news.ycombinator.com/item?id=25313480">(Hacker News Comments on article)</a></p>
-<h3 id="dhcp">
-  DHCP
-  <a class="anchor" href="#dhcp">#</a>
+<h3 id="dhcp---dynamic-host-configuration-protocol">
+  DHCP - Dynamic Host Configuration Protocol
+  <a class="anchor" href="#dhcp---dynamic-host-configuration-protocol">#</a>
 </h3>
 <p>Some texts will put this in Data or Network layer or Link Layer, it&rsquo;s a bit ambiguous. It&rsquo;s not -technically- necessary, much like DNS, but it&rsquo;s used as a core part of the network in most networks. It does appear the <a href="https://tools.ietf.org/html/rfc2131">RFC 2131</a> says it&rsquo;s Link Layer, but it seems most people think it belongs in Application Layer.</p>
-<h3 id="ssh">
-  SSH
-  <a class="anchor" href="#ssh">#</a>
+<h3 id="ssh---secure-shell">
+  SSH - Secure Shell
+  <a class="anchor" href="#ssh---secure-shell">#</a>
 </h3>
-<h3 id="irc">
-  IRC
-  <a class="anchor" href="#irc">#</a>
+<h3 id="irc---internet-relay-chat">
+  IRC - Internet Relay Chat
+  <a class="anchor" href="#irc---internet-relay-chat">#</a>
 </h3>
 <h3 id="email-smtp-imap-pop">
   EMail (SMTP, IMAP, POP)
   <a class="anchor" href="#email-smtp-imap-pop">#</a>
 </h3>
 <p>mail servers and useragents</p>
-<h3 id="upnp">
-  UPNP
-  <a class="anchor" href="#upnp">#</a>
+<h3 id="upnp---universal-plug-and-play">
+  UPNP - Universal Plug and Play
+  <a class="anchor" href="#upnp---universal-plug-and-play">#</a>
 </h3>
-<h3 id="ntp">
-  NTP
-  <a class="anchor" href="#ntp">#</a>
+<h3 id="ntp---network-time-protocol">
+  NTP - Network Time Protocol
+  <a class="anchor" href="#ntp---network-time-protocol">#</a>
 </h3>
 <h3 id="telnet">
   Telnet
   <a class="anchor" href="#telnet">#</a>
 </h3>
-<h3 id="nfs">
-  NFS
-  <a class="anchor" href="#nfs">#</a>
+<h3 id="nfs---network-file-system">
+  NFS - Network File System
+  <a class="anchor" href="#nfs---network-file-system">#</a>
 </h3>
 <h3 id="torrents">
   Torrents
@@ -1162,7 +1296,25 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-37---networking">Chapter 37 - Networking</a>
       <ul>
-        <li><a href="#basics">Basics</a></li>
+        <li><a href="#the-basics">The Basics</a>
+          <ul>
+            <li><a href="#nodes">Nodes</a></li>
+            <li><a href="#links">Links</a></li>
+            <li><a href="#applications">Applications</a></li>
+            <li><a href="#end-systems---hostsserver--clients">End Systems - Hosts/Server &amp; Clients</a></li>
+            <li><a href="#peer-to-peer">Peer to Peer</a></li>
+            <li><a href="#packets">Packets</a></li>
+            <li><a href="#routers-and-switches">Routers and Switches</a></li>
+            <li><a href="#wifi-access-points">WiFi Access Points</a></li>
+            <li><a href="#end-to-end-delay">End to End Delay</a></li>
+            <li><a href="#queuing-delay">Queuing Delay</a></li>
+            <li><a href="#packet-loss">Packet Loss</a></li>
+            <li><a href="#forwarding-table">Forwarding Table</a></li>
+            <li><a href="#bandwidth-vs-throughput">Bandwidth Vs Throughput</a></li>
+            <li><a href="#lan-vs-wan">LAN Vs WAN</a></li>
+            <li><a href="#protocol">Protocol</a></li>
+          </ul>
+        </li>
         <li><a href="#a-typical-network">A typical network</a></li>
         <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
           <ul>
@@ -1175,20 +1327,21 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#2---data-link">2 - Data Link</a>
           <ul>
             <li><a href="#ethernet">Ethernet</a></li>
-            <li><a href="#ppp">PPP</a></li>
+            <li><a href="#ppp---point-to-point-protocol">PPP - Point-to-Point Protocol</a></li>
             <li><a href="#switch">Switch</a></li>
             <li><a href="#bridge">Bridge</a></li>
             <li><a href="#frames">Frames</a></li>
-            <li><a href="#vlan">VLAN</a></li>
+            <li><a href="#vlan---virtual-lan">VLAN - Virtual LAN</a></li>
           </ul>
         </li>
         <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
           <ul>
             <li><a href="#service-models">Service Models</a></li>
-            <li><a href="#packets">Packets</a></li>
+            <li><a href="#packets-1">Packets</a></li>
             <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
             <li><a href="#mac">MAC</a></li>
-            <li><a href="#icmp-igmp">ICMP, IGMP</a></li>
+            <li><a href="#icmp---internet-control-message-protocol">ICMP - Internet Control Message Protocol</a></li>
+            <li><a href="#igmp---internet-group-management-protocol">IGMP - Internet Group Management Protocol</a></li>
             <li><a href="#subnets">Subnets</a></li>
             <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
             <li><a href="#bgp---boarder-gateway-protocol">BGP - Boarder Gateway Protocol</a></li>
@@ -1210,34 +1363,34 @@ https://github.com/alex-shpak/hugo-book
           <ul>
             <li><a href="#authentication">Authentication</a></li>
             <li><a href="#sockets">Sockets</a></li>
-            <li><a href="#apis">API&rsquo;s</a></li>
-            <li><a href="#netbios">NetBios</a></li>
-            <li><a href="#pap">PAP</a></li>
-            <li><a href="#rpc">RPC</a></li>
-            <li><a href="#smb">SMB</a></li>
-            <li><a href="#socks">SOCKS</a></li>
+            <li><a href="#api---application-programming-interface">API - Application Programming Interface</a></li>
+            <li><a href="#netbios---network-basic-inputoutput-system">NetBios - <strong>Network Basic Input/Output System</strong></a></li>
+            <li><a href="#pap--">PAP -</a></li>
+            <li><a href="#rpc---remote-procedure-call">RPC - Remote Procedure Call</a></li>
+            <li><a href="#smb---server-message-block">SMB - Server Message Block</a></li>
+            <li><a href="#socks---socket-secure">SOCKS - Socket Secure</a></li>
           </ul>
         </li>
         <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
           <ul>
-            <li><a href="#tls">TLS</a></li>
-            <li><a href="#ssl">SSL</a></li>
-            <li><a href="#imap">IMAP</a></li>
+            <li><a href="#tls---transport-layer-security">TLS - Transport Layer Security</a></li>
+            <li><a href="#ssl---secure-sockets-layer-deprecated">SSL - Secure Sockets Layer (Deprecated)</a></li>
+            <li><a href="#imap---internet-message-access-protocol">IMAP - Internet Message Access Protocol</a></li>
           </ul>
         </li>
         <li><a href="#7---application-layer">7 - Application Layer</a>
           <ul>
-            <li><a href="#https">HTTP(s)</a></li>
-            <li><a href="#ftp">FTP</a></li>
-            <li><a href="#dns">DNS</a></li>
-            <li><a href="#dhcp">DHCP</a></li>
-            <li><a href="#ssh">SSH</a></li>
-            <li><a href="#irc">IRC</a></li>
+            <li><a href="#https----hypertext-transfer-protocol">HTTP(s)  - Hypertext Transfer Protocol</a></li>
+            <li><a href="#ftp---file-transfer-protocol">FTP - File Transfer Protocol</a></li>
+            <li><a href="#dns---domain-name-service">DNS - Domain Name Service</a></li>
+            <li><a href="#dhcp---dynamic-host-configuration-protocol">DHCP - Dynamic Host Configuration Protocol</a></li>
+            <li><a href="#ssh---secure-shell">SSH - Secure Shell</a></li>
+            <li><a href="#irc---internet-relay-chat">IRC - Internet Relay Chat</a></li>
             <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
-            <li><a href="#upnp">UPNP</a></li>
-            <li><a href="#ntp">NTP</a></li>
+            <li><a href="#upnp---universal-plug-and-play">UPNP - Universal Plug and Play</a></li>
+            <li><a href="#ntp---network-time-protocol">NTP - Network Time Protocol</a></li>
             <li><a href="#telnet">Telnet</a></li>
-            <li><a href="#nfs">NFS</a></li>
+            <li><a href="#nfs---network-file-system">NFS - Network File System</a></li>
             <li><a href="#torrents">Torrents</a></li>
           </ul>
         </li>
