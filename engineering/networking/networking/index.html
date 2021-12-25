@@ -112,7 +112,7 @@ Terminal nodes are things like your phone, laptop, desktop, and other user-facin
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.10657294f9f85f13c334d37af651ea05e282d921e2a9e976cd4537d309dcfe10.css" integrity="sha256-EGVylPn4XxPDNNN69lHqBeKC2SHiqel2zUU30wnc/hA=">
-<script defer src="/en.search.min.861678f77c71e911ce664ba86940099a99c358d0af1e4f1a6d2e6eb40bace04a.js" integrity="sha256-hhZ493xx6RHOZkuoaUAJmpnDWNCvHk8abS5utAus4Eo="></script>
+<script defer src="/en.search.min.87b39ef0da4c6ba60fa1d0366929fec557b95a57e0471d6c01b2fc81c232f46f.js" integrity="sha256-h7Oe8NpMa6YPodA2aSn&#43;xVe5WlfgRx1sAbL8gcIy9G8="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -568,28 +568,28 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#peer-to-peer">Peer to Peer</a></li>
             <li><a href="#packets">Packets</a></li>
             <li><a href="#routers-and-switches">Routers and Switches</a></li>
-            <li><a href="#wi-fi-wi-gig-">Wi-Fi, Wi-Gig, &hellip;</a></li>
-            <li><a href="#end-to-end-delay">End to End Delay</a></li>
-            <li><a href="#queuing-delay">Queuing Delay</a></li>
             <li><a href="#packet-loss">Packet Loss</a></li>
-            <li><a href="#forwarding-table">Forwarding Table</a></li>
             <li><a href="#bandwidth-vs-throughput">Bandwidth Vs Throughput</a></li>
             <li><a href="#lan-vs-wan">LAN Vs WAN</a></li>
             <li><a href="#protocol">Protocol</a></li>
+            <li><a href="#standards-and-governance-ieee-ietf-icann-w3c-">Standards and Governance: IEEE, IETF, ICANN, W3C, &hellip;?</a></li>
           </ul>
         </li>
         <li><a href="#a-typical-network">A typical network</a></li>
         <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
           <ul>
-            <li><a href="#coax-twister-pair-fiber--more">Coax, Twister Pair, Fiber &amp; More</a></li>
-            <li><a href="#wireless-terrestrial-and-satellite">Wireless (Terrestrial and Satellite)</a></li>
+            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#wi-fi-wi-gig-">Wi-Fi, Wi-Gig, &hellip;</a></li>
+            <li><a href="#other-wireless-systems">Other Wireless Systems</a></li>
+            <li><a href="#end-to-end-delay">End to End Delay</a></li>
+            <li><a href="#queuing-delay">Queuing Delay</a></li>
             <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
             <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
           </ul>
         </li>
         <li><a href="#2---data-link">2 - Data Link</a>
           <ul>
-            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#ethernet-1">Ethernet</a></li>
             <li><a href="#ppp---point-to-point-protocol">PPP - Point-to-Point Protocol</a></li>
             <li><a href="#switch">Switch</a></li>
             <li><a href="#bridge">Bridge</a></li>
@@ -809,11 +809,88 @@ https://github.com/alex-shpak/hugo-book
 <p>Often, switches will have one or two high bandwidth ports (10Gbe, for example) along side many slower ports under the assumption that a server or the internet will be handling most requests. Sometimes, these ports may look different than the others, as they may be for <a href="https://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver">SFP modules</a> instead of the typical RJ-45 jacks seen with most ethernet cables.</p>
 <p>[TODO] Managed vs Unmanaged</p>
 <p>[TODO] store and forward - buffering vs cutthrough <a href="https://www.networkacademy.io/ccna/ethernet/store-and-forward-vs-cut-through-switching">https://www.networkacademy.io/ccna/ethernet/store-and-forward-vs-cut-through-switching</a></p>
+<p>Note, there are also Ethernet Hubs, the key difference being the <em>lack</em> of a <a href="https://en.wikipedia.org/wiki/Forwarding_information_base">forwarding table</a>, and (mostly) just blindly merge data: &ldquo;It has multiple input/output (I/O) ports, in which a signal introduced at the input of any port appears at the output of every port except the original incoming.&quot;(<a href="https://en.wikipedia.org/wiki/Ethernet_hub">Wikipedia</a>) (see IEEE 802.3)</p>
+<h3 id="packet-loss">
+  Packet Loss
+  <a class="anchor" href="#packet-loss">#</a>
+</h3>
+<p>Sometimes packets in the network don&rsquo;t reach their destination. This can be for a variety of reasons. Maybe a switch along the line was overloaded and it&rsquo;s buffer was full, maybe it took a bad route, maybe you have crappy wifi. ╮(─▽─)╭. It happens. Usually the percent of dropped packets is called your packet loss.</p>
+<h3 id="bandwidth-vs-throughput">
+  Bandwidth Vs Throughput
+  <a class="anchor" href="#bandwidth-vs-throughput">#</a>
+</h3>
+<p>[TODO] physcics of link vs data of link - expand on FDM vs TDM</p>
+<p>[TODO] and bps/baud</p>
+<h3 id="lan-vs-wan">
+  LAN Vs WAN
+  <a class="anchor" href="#lan-vs-wan">#</a>
+</h3>
+<p>Local Area Network and Wide Area Network- on most home connections your LAN is the network <em>in your house</em> while the WAN is the internet at large, so the WAN port on your router is where you connect the cable from your Internet Service Provider (ISP)</p>
+<p>Note WAN doesn&rsquo;t <em>have to</em> be the internet. It can really just be any network that&rsquo;s broader than the LAN, that usually has multiple smaller, LANs attached.</p>
+<h3 id="protocol">
+  Protocol
+  <a class="anchor" href="#protocol">#</a>
+</h3>
+<p>Usually a network is dependent on a stack of protocols. Each protocol is just a standard for the way too things communicate. As we keep going you&rsquo;ll see more about IP (Internet Protocol), TCP (Transmission Control Protocol), among many others.</p>
+<p>Most protocols are determined by standardization bodies such as the Internet Engineering Task Force (IETF) or IEEE Standards Association (IEEE-SA)</p>
+<h3 id="standards-and-governance-ieee-ietf-icann-w3c-">
+  Standards and Governance: IEEE, IETF, ICANN, W3C, &hellip;?
+  <a class="anchor" href="#standards-and-governance-ieee-ietf-icann-w3c-">#</a>
+</h3>
+<p class="tip ">
+    I&rsquo;m going to be throwing a lot of acronyms in here. Don&rsquo;t try to look up each now- I&rsquo;ll cover them as we go.
+</p>
+<p>Okay, yeah, so, you&rsquo;ll see these acronyms - among others - a lot. These can be a bit overwhelming, but the gist is there&rsquo;s a fair amount of bureaucracy in how communications standards are defined.</p>
+<p>Generally the <strong>IEEE</strong> (Institute of Electrical and Electronics Engineers) standards are more on the hardware and signaling side of things, so you&rsquo;ll mostly see these in the physical layer, such as IEEE 802.11 for Wi-Fi</p>
+<p>Meanwhile, the <a href="https://en.wikipedia.org/wiki/Internet_Research_Task_Force"><strong>IETF</strong></a> (Internet Engineering Task Force) often publishes technical documents as <strong>RFC</strong>s (Request for Comments) such as the ASCII standard, DNS, UTF-8, SMTP, SSH, POP, NTP, NFS, Kerberos, IRC, IPv4, IPv6, among many, many others. These each have a designated RFC number, and often multiple, such as the many associated with  <a href="https://en.wikipedia.org/wiki/Domain_Name_System#RFC_documents">DNS</a>. There&rsquo;s also the <a href="https://en.wikipedia.org/wiki/Internet_Research_Task_Force"><strong>IRTF</strong></a> (Internet Research Task Force) which &ldquo;focuses on longer term research issues related to the Internet while the parallel organization, the IETF&rdquo;. The IRTF is made up of 14 research groups ranging from cryptography to quantum computing and even human rights.</p>
+<p>The <strong>IANA</strong> (Internet Assigned Numbers Authority), a sub group of <strong>ICANN</strong> (Internet Corporation for Assigned Names and Numbers) assigns blocks of IP addresses, runs the root DNS servers, and runs the main time zone database. There are regional organizations (RIR - Regional Internet registry) that the IANA delegates responsibilities to. These are the <a href="https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers">American Registry for Internet Numbers</a> (ARIN),  <a href="https://en.wikipedia.org/wiki/RIPE_NCC">Réseaux IP Européens Network Coordination Centre</a> (RIPE NCC), <a href="https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre">Asia-Pacific Network Information Centre</a> (APNIC), <a href="https://en.wikipedia.org/wiki/AFRINIC">African Network Information Center</a> (AFRINIC), and <a href="https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre">Latin America and Caribbean Network Information Centre</a> (LACNIC).</p>
+<p>Then there&rsquo;s the <strong><a href="https://en.wikipedia.org/wiki/World_Wide_Web_Consortium">W3C</a></strong> (World Wide Web Consortium) which is probably most notable for defining the HTML,  CSS, SVG, WebAssembly, and, more recently, ActivityPub. Of note, the W3C has faced backlash recently for adding DRM-specific <a href="https://en.wikipedia.org/wiki/Encrypted_Media_Extensions">Encrypted Media Extensions</a> (EME) to HTML5, a move that really really pissed of the EFF&hellip;</p>
+<p>Speaking of, the <a href="https://en.wikipedia.org/wiki/Electronic_Frontier_Foundation"><strong>EFF</strong></a> (Electronic Frontier Foundation) is a bit of an odd-one-out on this list, but is effectively to the internet what the ACLU is to the broader public. They regularly provide legal council to high profile cases regarding online rights and digital privacy. They&rsquo;ve regularly stood up for the right to encrypt your shit, are anti-DRM, and are basically all-around the good guys. Seriously, please <a href="https://supporters.eff.org/donate">donate to them</a> or <a href="https://supporters.eff.org/shop">buy some of their actually awesome merch</a></p>
+<p>Finally, getting pretty tangential, you&rsquo;ll also probably see a fair amount of stuff from the <a href="https://defcon.org">DEFCON</a> computer security conference influence the web at large - I&rsquo;ll talk more about that in the 
+
+
+
+
+  
+
+
+<a  href="/engineering/networking/security/"   class="book-btn ">
+  Security
+</a>
+ chapter though.</p>
+<h2 id="a-typical-network">
+  A typical network
+  <a class="anchor" href="#a-typical-network">#</a>
+</h2>
+<p>[TODO]</p>
+<p>IP addresses, Ports, Default Gateway, Routes &amp; kernel routing table, subnet mask - <a href="https://www.aelius.com/njh/subnet_sheet.html">https://www.aelius.com/njh/subnet_sheet.html</a>, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, <a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/</a></p>
+<p>IETF &amp; RFCs</p>
+<p>IEEE-SA</p>
+<p>Parallel, Pipelined, Persistance and Performance</p>
+<p>The <strong>OSI model of networking</strong> is the model of networking most classes will cover. It is slightly different from the one used by the internet, which is the <strong>TCP/IP</strong> model.</p>
+<p>In the <strong>TCP/IP</strong> model, the <strong>Physical</strong> and <strong>Data Link</strong> Layers are viewed as a <strong>unified &lsquo;Network Acces Layer&rsquo;</strong></p>
+<p>The <strong>Network Layer</strong> is called the <strong>Internet Layer</strong></p>
+<p>The Transport Layer <em>stays the same</em>,</p>
+<p>and The <strong>Session, Presentation, and Application</strong> layer are all part of a <strong>larger Application</strong> Layer.</p>
+<p>But, because I think it&rsquo;s easier to cover it with things more broken up, I&rsquo;ll go over the <strong>OSI</strong> model from here:</p>
+<h2 id="1---the-physical-layer">
+  1 - The physical Layer
+  <a class="anchor" href="#1---the-physical-layer">#</a>
+</h2>
+<p><strong>The <a href="https://www.youtube.com/watch?v=R8XSo0etBC4">series of tubes</a>, wireless media, etc. that you shove your information into</strong></p>
+<p>We&rsquo;ve already talked about Routers, Switches, Hubs, Nodes, and Links - all of these are part of the physical layer. Let&rsquo;s look at some of the details though:</p>
+<h3 id="ethernet">
+  Ethernet
+  <a class="anchor" href="#ethernet">#</a>
+</h3>
+<p>Over Coax, fiber , twisted pair(+ CAT_ ratings), wet string</p>
+<p>+ Sneakernet, Infiniband, Multigig</p>
 <h3 id="wi-fi-wi-gig-">
   Wi-Fi, Wi-Gig, &hellip;
   <a class="anchor" href="#wi-fi-wi-gig-">#</a>
 </h3>
-<p>Wi-Fi is a part of the IEEE 802.11 standard and <em>normally</em> uses 2.4Ghz and 5Ghz. However, there are varients that use 60Ghz (WiGig, CMMW) and sub 1Ghz (Wi-Fi HaLow, White-Fi)</p>
+<p>Wi-Fi is a part of the IEEE 802.11 standard and <em>normally</em> uses 2.4GHz and 5GHz. However, there are varients that use 60Ghz (WiGig, CMMW) and sub 1Ghz (Wi-Fi HaLow, White-Fi).</p>
+<p>Generally, the high frequency will have worse coverage but higher data throughput. Each frequency range is split up into multiple channels. It is generally good practice to not be on the same channel as your neighbor.</p>
 <div class="wifi">
 <table>
 <thead>
@@ -1001,6 +1078,30 @@ https://github.com/alex-shpak/hugo-book
 </span>
 <p>Also note, WiFi generally uses the same 2.4Ghz spectrum as <a href="https://en.wikipedia.org/wiki/Bluetooth">Bluetooth</a> (IEEE 802.15.1) and <a href="https://en.wikipedia.org/wiki/Bluetooth_Low_Energy">Bluetooth Low Energy</a> (BLE, <strong>not from an IEEE standard</strong>).</p>
 <p>This is not all of the 802.11 standards. There&rsquo;s a bunch of extensions/application specific cases like <a href="https://en.wikipedia.org/wiki/IEEE_802.11p">802.11p</a> for use in moving vechicals</p>
+<h4 id="ssids">
+  SSIDs
+  <a class="anchor" href="#ssids">#</a>
+</h4>
+<p>[TODO]</p>
+<h4 id="multiple-acccess-points-repeaters">
+  Multiple Acccess Points, Repeaters,
+  <a class="anchor" href="#multiple-acccess-points-repeaters">#</a>
+</h4>
+<h4 id="security">
+  Security
+  <a class="anchor" href="#security">#</a>
+</h4>
+<p>WEP, WPA(v2), EAP, TKIP, RADIUS, PEAP, LEAP &mdash;&gt; Maybe redirect to security chapter</p>
+<h4 id="not-using-wi-fi">
+  Not Using Wi-Fi
+  <a class="anchor" href="#not-using-wi-fi">#</a>
+</h4>
+<p><a href="https://en.wikipedia.org/wiki/G.hn">Ethernet over power</a>, wired tethering (USB)</p>
+<h3 id="other-wireless-systems">
+  Other Wireless Systems
+  <a class="anchor" href="#other-wireless-systems">#</a>
+</h3>
+<p>Satelite, geostationary &amp; LEO</p>
 <h3 id="end-to-end-delay">
   End to End Delay
   <a class="anchor" href="#end-to-end-delay">#</a>
@@ -1011,61 +1112,6 @@ https://github.com/alex-shpak/hugo-book
   Queuing Delay
   <a class="anchor" href="#queuing-delay">#</a>
 </h3>
-<h3 id="packet-loss">
-  Packet Loss
-  <a class="anchor" href="#packet-loss">#</a>
-</h3>
-<p>Sometimes packets in the network don&rsquo;t reach their destination. This can be for a variety of reasons. Maybe a switch along the line was overloaded and it&rsquo;s buffer was full, maybe it took a bad route, maybe you have crappy wifi. ╮(─▽─)╭. It happens. Usually the percent of dropped packets is called your packet loss.</p>
-<h3 id="forwarding-table">
-  Forwarding Table
-  <a class="anchor" href="#forwarding-table">#</a>
-</h3>
-<h3 id="bandwidth-vs-throughput">
-  Bandwidth Vs Throughput
-  <a class="anchor" href="#bandwidth-vs-throughput">#</a>
-</h3>
-<p>[TODO] physcics of link vs data of link - expand on FDM vs TDM</p>
-<p>[TODO] and bps/baud</p>
-<h3 id="lan-vs-wan">
-  LAN Vs WAN
-  <a class="anchor" href="#lan-vs-wan">#</a>
-</h3>
-<p>Local Area Network and Wide Area Network- on most home connections your LAN is the network <em>in your house</em> while the WAN is the internet at large, so the WAN port on your router is where you connect the cable from your Internet Service Provider (ISP)</p>
-<h3 id="protocol">
-  Protocol
-  <a class="anchor" href="#protocol">#</a>
-</h3>
-<p>Usually a network is dependent on a stack of protocols. Each protocol is just a standard for the way too things communicate. As we keep going you&rsquo;ll see more about IP (Internet Protocol), TCP (Transmission Control Protocol), among many others.</p>
-<p>Most protocols are determined by standardization bodies such as the Internet Engineering Task Force (IETF) or IEEE Standards Association (IEEE-SA)</p>
-<h2 id="a-typical-network">
-  A typical network
-  <a class="anchor" href="#a-typical-network">#</a>
-</h2>
-<p>[TODO]</p>
-<p>IP addresses, Ports, Default Gateway, Routes &amp; kernel routing table, subnet mask - <a href="https://www.aelius.com/njh/subnet_sheet.html">https://www.aelius.com/njh/subnet_sheet.html</a>, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, <a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/</a></p>
-<p>IETF &amp; RFCs</p>
-<p>IEEE-SA</p>
-<p>Parallel, Pipelined, Persistance and Performance</p>
-<p>The <strong>OSI model of networking</strong> is the model of networking most classes will cover. It is slightly different from the one used by the internet, which is the <strong>TCP/IP</strong> model.</p>
-<p>In the <strong>TCP/IP</strong> model, the <strong>Physical</strong> and <strong>Data Link</strong> Layers are viewed as a <strong>unified &lsquo;Network Acces Layer&rsquo;</strong></p>
-<p>The <strong>Network Layer</strong> is called the <strong>Internet Layer</strong></p>
-<p>The Transport Layer <em>stays the same</em>,</p>
-<p>and The <strong>Session, Presentation, and Application</strong> layer are all part of a <strong>larger Application</strong> Layer.</p>
-<p>But, because I think it&rsquo;s easier to cover it with things more broken up, I&rsquo;ll go over the <strong>OSI</strong> model from here:</p>
-<h2 id="1---the-physical-layer">
-  1 - The physical Layer
-  <a class="anchor" href="#1---the-physical-layer">#</a>
-</h2>
-<p><strong>The <a href="https://www.youtube.com/watch?v=R8XSo0etBC4">series of tubes</a>, wireless media, etc. that you shove your information into</strong></p>
-<h3 id="coax-twister-pair-fiber--more">
-  Coax, Twister Pair, Fiber &amp; More
-  <a class="anchor" href="#coax-twister-pair-fiber--more">#</a>
-</h3>
-<h3 id="wireless-terrestrial-and-satellite">
-  Wireless (Terrestrial and Satellite)
-  <a class="anchor" href="#wireless-terrestrial-and-satellite">#</a>
-</h3>
-<p>geostationary vs LEO</p>
 <h3 id="hubs-repeaters-taps">
   Hubs, Repeaters, Taps
   <a class="anchor" href="#hubs-repeaters-taps">#</a>
@@ -1080,9 +1126,9 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p><strong>Organize the information in the meduium into a packet, control who get&rsquo;s that packet</strong></p>
 <p>MAC and LLC</p>
-<h3 id="ethernet">
+<h3 id="ethernet-1">
   Ethernet
-  <a class="anchor" href="#ethernet">#</a>
+  <a class="anchor" href="#ethernet-1">#</a>
 </h3>
 <h3 id="ppp---point-to-point-protocol">
   PPP - Point-to-Point Protocol
@@ -1492,28 +1538,28 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#peer-to-peer">Peer to Peer</a></li>
             <li><a href="#packets">Packets</a></li>
             <li><a href="#routers-and-switches">Routers and Switches</a></li>
-            <li><a href="#wi-fi-wi-gig-">Wi-Fi, Wi-Gig, &hellip;</a></li>
-            <li><a href="#end-to-end-delay">End to End Delay</a></li>
-            <li><a href="#queuing-delay">Queuing Delay</a></li>
             <li><a href="#packet-loss">Packet Loss</a></li>
-            <li><a href="#forwarding-table">Forwarding Table</a></li>
             <li><a href="#bandwidth-vs-throughput">Bandwidth Vs Throughput</a></li>
             <li><a href="#lan-vs-wan">LAN Vs WAN</a></li>
             <li><a href="#protocol">Protocol</a></li>
+            <li><a href="#standards-and-governance-ieee-ietf-icann-w3c-">Standards and Governance: IEEE, IETF, ICANN, W3C, &hellip;?</a></li>
           </ul>
         </li>
         <li><a href="#a-typical-network">A typical network</a></li>
         <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
           <ul>
-            <li><a href="#coax-twister-pair-fiber--more">Coax, Twister Pair, Fiber &amp; More</a></li>
-            <li><a href="#wireless-terrestrial-and-satellite">Wireless (Terrestrial and Satellite)</a></li>
+            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#wi-fi-wi-gig-">Wi-Fi, Wi-Gig, &hellip;</a></li>
+            <li><a href="#other-wireless-systems">Other Wireless Systems</a></li>
+            <li><a href="#end-to-end-delay">End to End Delay</a></li>
+            <li><a href="#queuing-delay">Queuing Delay</a></li>
             <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
             <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
           </ul>
         </li>
         <li><a href="#2---data-link">2 - Data Link</a>
           <ul>
-            <li><a href="#ethernet">Ethernet</a></li>
+            <li><a href="#ethernet-1">Ethernet</a></li>
             <li><a href="#ppp---point-to-point-protocol">PPP - Point-to-Point Protocol</a></li>
             <li><a href="#switch">Switch</a></li>
             <li><a href="#bridge">Bridge</a></li>
