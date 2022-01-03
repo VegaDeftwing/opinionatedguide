@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 2 - Installing Arch Linux #   Some Background #  Unlike Windows or Mac which are primarily differentiated by versions (Windows XP, Vista, 7, 10&hellip;), Linux has two important things to look out for:
+ The distribution name (Arch, Ubuntu, Mint, Debian, etc.) Kernel version number (5.15 last time this page was updated)  So, what do each of these mean?
+Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;distributions&rsquo;.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 2 - Installing Arch Linux #   Some Background #  Unlike Windows or Mac which are primarily differentiated by versions (Windows XP, Vista, 7, 10&hellip;), Linux has two important things to look out for:
+ The distribution name (Arch, Ubuntu, Mint, Debian, etc.) Kernel version number (5.15 last time this page was updated)  So, what do each of these mean?
+Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;distributions&rsquo;." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/linux/archnew/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Archnew | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.d47b27b1d8f3bfad3e5e40567050637a8e370de81673d9bc54f374767543d691.css" integrity="sha256-1Hsnsdjzv60&#43;XkBWcFBjeo43DegWc9m8VPN0dnVD1pE=">
+<script defer src="/en.search.min.9a221c6464b42b0c0fc44708d767adadbe16a6ad67fd475dc8d40e9c75440755.js" integrity="sha256-miIcZGS0KwwPxEcI12etrb4Wpq1n/UddyNQOnHVEB1U="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1 </dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Making and Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog-design/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</details> </dd>
+   <dt></dt><dd> <details id="hciMenu"> <summary><a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+    <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	<dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+    <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+   <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+   <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+   <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+   </details> </dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Archnew</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-2---installing-arch-linux">Chapter 2 - Installing Arch Linux</a>
+      <ul>
+        <li><a href="#some-background">Some Background</a></li>
+        <li><a href="#the-boring-intro-part-of-the-manual-that-you-should-still-actually-read">The Boring Intro Part Of The Manual That You Should Still Actually Read</a></li>
+        <li><a href="#actually-starting-to-do-something---downloading">Actually Starting To Do Something - Downloading</a></li>
+        <li><a href="#making-the-installer">Making The Installer</a></li>
+        <li><a href="#booting-up-the-live-environment">Booting Up The Live Environment</a></li>
+        <li><a href="#connecting-to-the-internet">Connecting to the Internet</a></li>
+        <li><a href="#the-part-where-you-can-really-fuck-up">The Part Where You can Really Fuck Up</a>
+          <ul>
+            <li><a href="#a-tangent-about-file-systems--partition-table-schemes">A tangent about File Systems &amp; Partition Table Schemes</a></li>
+            <li><a href="#doing-the-actual-partitioning--mkfs">Doing the Actual Partitioning &amp; mkfs</a></li>
+            <li><a href="#mounting">Mounting</a></li>
+          </ul>
+        </li>
+        <li><a href="#congrats-now-you-can-actually-install-arch">Congrats, Now you can actually install Arch.</a></li>
+        <li><a href="#getting-the-basics-configured">Getting The Basics Configured</a></li>
+        <li><a href="#finally-removing-the-flash-drive">Finally Removing The Flash Drive</a></li>
+        <li><a href="#but-wait-this-is-worse-than-when-we-started">But Wait? This is worse than when we started?</a>
+          <ul>
+            <li><a href="#setting-up-system-y-stuff-logs-background-tasks-etc">Setting up System-y Stuff (Logs, Background tasks, etc.)</a></li>
+            <li><a href="#installing-and-removing-software">Installing and Removing Software</a></li>
+            <li><a href="#making-your-mouse-serve-a-purpose-again">Making your mouse serve a purpose again</a></li>
+            <li><a href="#mouse-and-keyboard-configuration">Mouse and Keyboard Configuration</a></li>
+            <li><a href="#making-your-computer-not-drink-power-and-run-like-ass">Making your computer not drink power and run like ass</a></li>
+            <li><a href="#audio-would-be-nice">Audio would be nice</a></li>
+            <li><a href="#networking-y-stuff">Networking-y Stuff</a></li>
+            <li><a href="#making-things-look-a-hair-better">Making things look a hair better</a></li>
+            <li><a href="#back-to-the-terminal">Back to the Terminal</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-2---installing-arch-linux">
+  Chapter 2 - Installing Arch Linux
+  <a class="anchor" href="#chapter-2---installing-arch-linux">#</a>
+</h1>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/ezUoiaoQCTs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="some-background">
+  Some Background
+  <a class="anchor" href="#some-background">#</a>
+</h2>
+<p>Unlike Windows or Mac which are primarily differentiated by versions (Windows XP, Vista, 7, 10&hellip;), Linux has two important things to look out for:</p>
+<ul>
+<li>The distribution name (Arch, Ubuntu, Mint, Debian, etc.)</li>
+<li>Kernel version number (5.15 last time this page was updated)</li>
+</ul>
+<p>So, what do each of these mean?</p>
+<p>Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;<strong>distributions</strong>&rsquo;. Some of the well known variants include Ubuntu, Fedora, OpenSuse, and Arch (No disrespect to the other distros out there!). Each of these has a different target audience, with some meant for servers, some meant for casual users as an alternative to Windows, others as work station for hard core computing. They also ship with different software pre-installed to be accessed after the first boot.</p>
+<p>The other differentiating factor is the version of the Linux <strong>Kernel</strong> that they use. Some chose to use an older, battle hardened kernel that is known to be very, very stable, others chose a nice middle ground, while yet others continuously release an update to the newest available kernel. There are pros and cons to each model and each has its place; however, the distro I&rsquo;m going to have you install, Arch, uses the (almost) the newest available, updating very regularly. Arch has a reputation as one of the hardest distros to work with, but also one of the most cutting edge, fun to tinker around in, and best documented.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Arch is what&rsquo;s known as a <em>rolling release</em> distribution, which means it gets the bleeding edge features and the newest kernel pretty much as fast as possible, though really the biggest thing that makes Arch special is how bare bones it is out of the box, shipping with basically <strong>no pre-installed software</strong>. In fact, when you first start it up the only thing you&rsquo;ll see is a screen to type and run commands, and that&rsquo;s where we&rsquo;re going to start.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/eng/archlogo.png" alt="Arch Logo" height="180em" style="display: block; margin-left: auto; margin-right: auto;">
+<p class="attribution ">
+    Arch Linux Logo from <a href="https://archlinux.org">archlinux.org</a>
+  </div>
+  
+</div>
+
+<p>For most distros like Ubuntu or OpenSuse (feel free to look these up, this page isn&rsquo;t going anywhere) there&rsquo;s a nice graphical, point and click installer which helps you install the system and somewhat mitigates potential risk of killing your original OS (Mac/Win) or losing data; however, the goal of this guide is to learn. Arch&rsquo;s install process, entirely by typing commands in this terminal is hard, but that difficulty leads to a deeper understanding and respect for the system as a whole</p>
+<p>When we&rsquo;re done you&rsquo;ll have a system that has exactly what you need and nothing you don&rsquo;t. You won&rsquo;t find weird forcibly installed software like Win 10&rsquo;s Candy Crush App here, and your system will only do exactly what you tell it. Of course, this implies you know how to speak it&rsquo;s language and tell it what you want. Thankfully with some practice you&rsquo;ll get used to running Arch and you&rsquo;ll wonder why you ever dealt with other systems to begin with.</p>
+<p style="font-size: 22px;display:inline;">However,</p> and I really can't stress this enough, <p style="font-size: 22px;display:inline;">Arch Linux expects you to fully understand your system</p>. This is "enforced" by making the installation process DIY with relatively little guidance. You're expected to research everything and understand the differences, pros & cons, of each choice.</br></br>
+<p style="font-size: 22px;display:inline;">TLDR; STFW:</p> Arch is a distro that really expects you to put in the effort. The community, while typically fine, can be a bit... <i>unsavory</i> if you ask questions that are easily answered by google (STFW = Search The Fucking Web) or reading a wiki page.</br></br> That said...
+<p style="font-size: 22px;display:inline;">You shouldn't have to R <u>all</u> TFMs.</p> (RTFM = Read The Fucking Manual) The problem with this is Linux (and everything with computers) is complicated and getting more complicated by the year. Not that it's the best way of looking at things, but for context, back when I was first getting started with Arch Linux in 2014, the kernel had about 13 million lines of code. Now it has almost 30 million lines. In that time there have been countless additions and changes to the number of options for low level configurations.</br></br>
+So, I want to help you understand your system and the choices you'll be making, but I want to help narrow the scope at least a little bit.
+<h2 id="the-boring-intro-part-of-the-manual-that-you-should-still-actually-read">
+  The Boring Intro Part Of The Manual That You Should Still Actually Read
+  <a class="anchor" href="#the-boring-intro-part-of-the-manual-that-you-should-still-actually-read">#</a>
+</h2>
+<p>We&rsquo;ll be following along with the <a href="https://wiki.archlinux.org/title/installation_guide">Official Arch Linux Installation Guide</a>, so you&rsquo;ll see this page has a lot of quote boxes:</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    This document is a guide for installing <a href="https://wiki.archlinux.org/title/Arch_Linux">Arch Linux</a> using the live system booted from an installation medium made from an official installation image. The installation medium provides accessibility features which are described on the page <a href="https://wiki.archlinux.org/title/Install_Arch_Linux_with_accessibility_options">Install Arch Linux with accessibility options</a>. For alternative means of installation, see <a href="https://wiki.archlinux.org/title/Category:Installation_process">Category:Installation process</a>.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>Okay, that&rsquo;s a lot, so let&rsquo;s break it down. By &ldquo;live system&rdquo; this means we&rsquo;re going to be booting into an operating system from our installation media - for almost all situatations, this is a flash drive. This OS is &ldquo;live&rdquo; in that it is a true, full, Linux operating system. It&rsquo;s just running directly off the flash drive. In this case, this live system is really just used so that we can install Linux to a more permanent drive. So, rather ironically, we&rsquo;ll be using Linux to install Linux.</p>
+<p>The &ldquo;with accessibility options&rdquo; page is if you need something like a screen reader or if you have a braille display. I have no experiance helping with these things. More relevant to most readers, the <a href="https://wiki.archlinux.org/title/Category:Installation_process">Category:Installation process</a> page has a bunch of <em>very</em> important steps that aren&rsquo;t on this page. Most importantly, there&rsquo;s a page about <a href="https://wiki.archlinux.org/title/Dual_boot_with_Windows">Setting up a Dual Boot system with Windows</a> - which I&rsquo;ll be going through here. I won&rsquo;t be covering the process if you have a Mac, but there is a page for that: <a href="https://wiki.archlinux.org/title/Mac#Installation">Mac Installation</a>. Note that Apple&rsquo;s newer computers with their own processors aren&rsquo;t supported.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    Before installing, it would be advised to view the <a href="https://wiki.archlinux.org/title/FAQ">FAQ</a>. For conventions used in this document, see <a href="https://wiki.archlinux.org/title/Help:Reading">Help:Reading</a>. In particular, code examples may contain placeholders (formatted in <code>*italics*</code>) that must be replaced manually.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>Alright, let&rsquo;s buzz over to the FAQ and see the relevant bits:</p>
+<div class="quote [FAQ](https://wiki.archlinux.org/title/Frequently_asked_questions) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="why-would-i-not-want-to-use-arch">Why would I not want to use Arch?</h3>
+<p>You may <strong>not</strong> want to use Arch, if:</p>
+<ul>
+<li>you do not have the ability/time/desire for a &lsquo;do-it-yourself&rsquo; GNU/Linux distribution.</li>
+<li>you require support for an architecture other than x86_64.</li>
+<li>you take a strong stance on using a distribution which only provides free software as defined by GNU.</li>
+<li>you believe an operating system should configure itself, run out of the box, and include a complete default set of software and desktop environment on the installation media.</li>
+<li>you do not want a rolling release GNU/Linux distribution.</li>
+<li>you are happy with your current OS.</li>
+</ul>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/Frequently_asked_questions">FAQ</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>All of these are very good points. The fact of the matter is Arch does take time and know how to maintain. You&rsquo;re standing on the edge of a cliff here. You have to be dedicated and willing to learn. You also have to have hardware that actually works with Arch (which should be the case with most anything but Chromebooks and newer Apple hardware). The one that I think is hard for users starting out with Arch is the last point &ldquo;you are happy with your current OS.&rdquo; - I&rsquo;m going to take a bet and say you don&rsquo;t really fully understand why you&rsquo;d be unhappy, let alone un happy with things enough to justify all this work. All I can say is trust me and you&rsquo;ll see.</p>
+<p>There&rsquo;s also that <a href="https://wiki.archlinux.org/title/Help:Reading">Help:Reading</a> (which, yes, sounds like it really wants to insult your intelligence) but it <em>is</em> helpful. The most notable thing here is</p>
+<div class="quote [Help:Reading](https://wiki.archlinux.org/title/Help:Reading) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <p>Some lines are written like so:</p>
+<pre tabindex="0"><code># mkinitcpio -p linux
+</code></pre><p>Others have a different prefix:</p>
+<pre tabindex="0"><code>$ makepkg -s
+</code></pre><p>The numeral or hash sign (<code>#</code>) indicates that the command needs to be run as <em>root</em>, whereas the dollar sign (<code>$</code>) shows that the command should be run as a <em>regular user</em>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/Help:Reading">Help:Reading</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>which will be exteremly relevant later.</p>
+<p>There are other things of relevance in the FAQ, but I think a lot of it won&rsquo;t mean much at this point, so let&rsquo;s move on.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    For more detailed instructions, see the respective <a href="https://wiki.archlinux.org/title/ArchWiki">ArchWiki</a> articles or the various programs' <a href="https://wiki.archlinux.org/title/Man_page">man pages</a>, both linked from this guide. For interactive help, the <a href="https://wiki.archlinux.org/title/IRC_channel">IRC channel</a> and the <a href="https://bbs.archlinux.org/">forums</a> are also available.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>A little self referential here, but good advice- the ArchWiki is really awesome and if you need help it&rsquo;s a good idea to just search the Wiki for the topic you&rsquo;re stuck on. This also mentions &ldquo;man pages&rdquo;. This is where I have to go down a bit of a tangent.</p>
+<p>To install Linux, you&rsquo;ll have to use a lot of commands. For example running <code>ls</code> from the terminal will list your files, while <code>cd</code> can be used to change what folder you&rsquo;re working with. But these commands have other, more complex uses which you can read about from the terminal itself by running <code>man ls</code> or <code>man cd</code>. Generally, if you want a manual for any command, you can just put the word man before it.</p>
+<p>The latter two reccomendations are ways to get live help from real people. IRC is a really, really old chat platform that is still heavily used by tech-heads, but can be a bit difficult to get setup. The forums are what you expect, but I&rsquo;ve noticed they&rsquo;re not all that welcoming of new users. There&rsquo;s not many good options though, so if you do need more help, there&rsquo;s really either the <a href="https://t.me/archlinuxgroup">Arch Linux Telegram Chat</a> or you&rsquo;ll have to figure out how to use IRC.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    Arch Linux should run on any <a href="https://en.wikipedia.org/wiki/X86-64">x86_64</a>-compatible machine with a minimum of 512 MiB RAM, though more memory is needed to boot the live system for installation.[<a href="https://lists.archlinux.org/pipermail/arch-releng/2020-May/003957.html">1]</a> A basic installation should take less than 2 GiB of disk space. As the installation process needs to retrieve packages from a remote repository, this guide assumes a working internet connection is available.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>In English:</p>
+<ul>
+<li>Your computer needs to not be a new mac or a chromebook</li>
+<li>Your system needs to have better hardware than something from 2001</li>
+<li>You&rsquo;ll need some room on your computer&rsquo;s storage to actually install Arch</li>
+<li>You&rsquo;ll need an internet connection</li>
+</ul>
+<h2 id="actually-starting-to-do-something---downloading">
+  Actually Starting To Do Something - Downloading
+  <a class="anchor" href="#actually-starting-to-do-something---downloading">#</a>
+</h2>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="pre-installation">Pre-installation</h4>
+<h5 id="acquire-an-installation-image">Acquire an installation image</h5>
+<p>Visit the <a href="https://archlinux.org/download/">Download</a> page and, depending on how you want to boot, acquire the ISO file or a netboot image, and the respective <a href="https://wiki.archlinux.org/title/GnuPG">GnuPG</a> signature.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>Alright, so you need to actually download the live OS installer &ldquo;image&rdquo; (it&rsquo;s called an image for historical reasons - same for .iso, it&rsquo;s for CDs, but you can put the file onto a flash drive). If you go to that download page you&rsquo;ll see an ton of options and some mention of using something called <code>dd</code> to get the image onto a flash drive. Ignore almost everything. The only thing we need to worry about is the section labeled <strong>BitTorrent Download (recommended)</strong></p>
+<p>This has the advantage of verifying the PGP signarute for us, which is what that extra line about the GunPG signature line is telling us about. <em>TL;DR</em> of PGP (and GPG, which is an implimention of PGP, as confusing as that is) is that it can be used to confirm that a file is actually what it says it is and is from who it says it&rsquo;s from. This makes sure your download isn&rsquo;t corrupted and that it actually came from the people that it claims to be from.</p>
+<p>So, to download this then you&rsquo;ll need a <em>Torrent client</em>.</p>
+<p>Torrenting is type of download that runs over distributed peer to peer connections, this means you&rsquo;re directly downloading the file from multiple people rather than from one large server. For projects like Arch this is important as they don&rsquo;t really have the cash to put up to host centralized servers. Popular programs for downloading torrents on Windows include uTorrent, qBittorrent, and Deluge. I personally use <a href="https://deluge-torrent.org">Deluge</a> on Windows, so it&rsquo;s what I&rsquo;ll reccomend if you don&rsquo;t already use something else. If you&rsquo;re on a Mac, here&rsquo;s a link to <a href="https://www.qbittorrent.org/download.php">qBittorrent</a>.</p>
+<p>Regardless, once you have the torrent client installed you <em>should</em> be able to back to that <a href="https://archlinux.org/download/">download</a> page and click the magnet link - which <em>should</em> open up whatever torrent client you installed and prompt you to start the Download.</p>
+<p><strong>Note,</strong> when the download completes, your torrent client will continue to serve the file to other people looking to download it to using your internet connection. Generally, this is a good thing to do, but you&rsquo;ll want to turn it off, at least temporarily, as we move forward. If you don&rsquo;t, some of the next steps may complain at you saying the file is open/in use. This also might end up eating all of your bandwidth or be undesirable if you&rsquo;re on a metered internet connection.</p>
+<hr>
+<p>☕ The download shouldn&rsquo;t take long, but this depends on your connection. Feel free to go get a drink or take a break while you wait.</p>
+<hr>
+<p>Once that&rsquo;s done downloading your torrent client should automatically confirm the image by by using PGP, but as this is a good learning opportunity let&rsquo;s do a manual double check as well.</p>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-hashing" id="tabs-hashing-0" checked="checked" />
+  <label for="tabs-hashing-0">Windows</label>
+  <div class="book-tabs-content markdown-inner"><h1 id="windows">Windows</h1>
+<p>open up a command prompt by pressing ctr+r and typing &lsquo;cmd&rsquo; then enter, and we&rsquo;ll need to navigate to the location of the downloaded file it should be named something along the lines of archlinux-20xx.xx.xx-x86_64.iso and be in your Downloads folder.</p>
+<p>When you open a command prompt on Windows it should start out in your user folder (C:\Users\%username%). To list the folders in this folder you can type &lsquo;dir&rsquo; and press enter. You should, at minimum, see folders like &lsquo;Downloads&rsquo; &lsquo;Desktop&rsquo; and &lsquo;Documents&rsquo; to enter the Downloads folder simply type &lsquo;cd Dow&rsquo; and press tab, the line should auto-complete to &lsquo;cd Downloads&rsquo;, then press enter. Now you can type &lsquo;certutil -hashfile arch&rsquo; , press tab to complete it to &lsquo;certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso&rsquo; then add &lsquo;sha1&rsquo; on the end so the finally command looks like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso sha1
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Note, if this spits out &ldquo;The process cannot access the file because it is being used by another process.&rdquo; you&rsquo;ll need to close your torrent client or stop seeding the file first!</p>
+</blockquote>
+<p>So let&rsquo;s look at this command:</p>
+<p>The first part, certutil, is a program on your computer, &lsquo;-hashfile&rsquo; says the next string of text is the name of the file we want to examine, and the last part sha1 is the checksum as mentioned before.</p>
+<p>Finally, if you go back to <a href="https://www.archlinux.org/download/">https://www.archlinux.org/download/</a> and look under &lsquo;Checksums&rsquo; you can compare the output of the command you just ran against the SHA1 sum provided to be sure you didn&rsquo;t have any errors in the file. This is mostly a security check as in theory someone could provide a &lsquo;bad&rsquo; version of the OS containing malware, but such a version would produce an incorrect checksum, in practice this is extraordinarily uncommon. Though this does also serve to ensure the download wasn&rsquo;t corrupted in any way either.</p>
+<p>We&rsquo;re not quite done though, as this only really checks the integrity of the file, not that you got it from someone trusted as, in theory, someone could hack the Arch website and put the checksum of virus-filled version there. So, now we want to check the GPG signature. To do this, install <a href="https://gpg4win.org/download.html">GPG4Win</a> [TODO]</p>
+</div><input type="radio" class="toggle" name="tabs-hashing" id="tabs-hashing-1"  />
+  <label for="tabs-hashing-1">Mac</label>
+  <div class="book-tabs-content markdown-inner"><h1 id="mac">Mac</h1>
+<p>open up a terminal by going to the Utilities fore in Applications and open &lsquo;Terminal&rsquo;. The mac terminal is very, very similar to what you&rsquo;ll use in Linux actually, and the commands here are actually identical. You should see something like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">MacBook:~ username$
+</code></pre></td></tr></table>
+</div>
+</div><p>waiting for input.</p>
+<p>That <code>~</code> represents that you&rsquo;re in your user or &lsquo;home&rsquo; folder, and assuming you downloaded Arch&rsquo;s install image to your downloads folder you should be able to type</p>
+<p><code>MacBook:~ username$ shasum -a 1 Downloads/arch</code></p>
+<p>followed by pressing tab to make that auto complete to something like</p>
+<p><code>MacBook:~ username$ shasum -a 1 Downloads/archlinux-20xx.xx.xx-x86_64.iso</code></p>
+<p>upon pressing enter the terminal should print out a long string of text.</p>
+<p>So let&rsquo;s look at this command. The first part, shasum, is a program on your computer, &lsquo;-a 1&rsquo; says to use the sha1 algorithm instead of something like sha256, and the last part is the filename we want to compute the checksum of.</p>
+<p>Now, if you go back to <a href="https://www.archlinux.org/download/">https://www.archlinux.org/download/</a> and look under &lsquo;Checksums&rsquo; you can compare the output of the command you just ran against the SHA1 sum provided to be sure you didn&rsquo;t have any errors in the file. This is mostly a security check as in theory someone could provide a &lsquo;bad&rsquo; version of the OS containing malware, but such a version would produce an incorrect checksum, in practice this is extraordinarily uncommon. Though this does also serve to ensure the download wasn&rsquo;t corrupted in any way either.</p>
+<p>We&rsquo;re not quite done though, as this only really checks the integrity of the file, not that you got it from someone trusted as, in theory, someone could hack the Arch website and put the checksum of virus-filled version there. So, now we want to check the GPG signature. To do this, install <a href="https://gpgtools.org">GPG Tools</a> and [TODO]</p>
+</div></div>
+
+<p>Now, we finally have file that we can 100% trust. Realistically, this level of scruntiny isn&rsquo;t really necessary, but I wanted you do go through it and understand it at least once for reasons you&rsquo;ll understand later.</p>
+<h2 id="making-the-installer">
+  Making The Installer
+  <a class="anchor" href="#making-the-installer">#</a>
+</h2>
+<p>Okay, so we have the OS, how do you install the damn thing? Well, get ready for a fun time. The first thing you&rsquo;ll need is a flash drive with nothing on it you care about, as it&rsquo;s going to be reformated, which will <strong>wipe any data on it</strong>. To install an OS you have to create &lsquo;bootable media&rsquo; this used to be done with a CD, though mostly it&rsquo;s done with flash drives now. You&rsquo;ll actually be putting the OS on the flash drive and then using that to put it on your hard drive / SSD.</p>
+<p>Let&rsquo;s not get ahead of ourselves though, we need room to put the new operating system in! Thankfully Linux is small- really small. Even 50Gb should be plenty for the OS, all your programs, and tons of room to spare for data, but I typically recommend at least 100GB, and since we&rsquo;ll be installing a lot of development tools, it makes sense to do this right to begin with.</p>
+<p class="tip ">
+    The following guide will be assuming you&rsquo;re installing Linux on the same drive as Windows or MacOS, making it applicable for most systems right away; however, I strongly recommend getting an extra SSD and giving Linux it&rsquo;s own disk outright instead. This is far easier to do in a desktop, but if you have a laptop with a CD drive you may be able to put a SSD in it&rsquo;s place, or the system may just have an unused slot.</br></br>SSD prices have been steadily declining over the past few years, but as of the time of writing a 250Gb SSD should be available for under 50 USD. I&rsquo;d recommend a larger disk though, with 500Gb being plenty for most people. You&rsquo;ll want to do research about what works best in your computer. There&rsquo;s multiple form factors (2.5&quot; and M.2) as well as connection standards (NVMe and SATA), but not all computers will support everything, so look first! If you need help with this, first see <a href="https://www.youtube.com/watch?v=opwON-7J_wI">M.2 As Fast As Possible (YouTube, Techquickie)</a><a class="ptr">(1)</a> but if you still need help you can <a href="https://twitter.com/Vega_DW">reach out to me directly</a>.
+</p>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Install" id="tabs-Install-0" checked="checked" />
+  <label for="tabs-Install-0">Windows</label>
+  <div class="book-tabs-content markdown-inner"><h1 id="windows">Windows</h1>
+<p>When you got your computer with windows is likely that all of the room on your main storage (Hard driver or SSD) was preallocated for windows (as it should be!) so we&rsquo;ll need to shrink this down and make room for Linux to live along side Windows. Open the start menu and type <code>disk managment</code> and hopefully &ldquo;create or format hard drive partitions&rdquo; will show up as an option. Open that. At the bottom you should see a few bars showing partitions on your disk(s). If you have multiple drives there will be multiple rows of bars, otherwise there will be only one row. If you have multiple drives it&rsquo;s likely that one is a larger hard drive (HDD) and the other a smaller solid state drive (SSD), if you have room on your SSD use that, if you don&rsquo;t using the HDD will be fine, but the OS may feel slower than you&rsquo;re accustomed to. If you only have one drive, ignore this. Right click in what is likely the largest box, labeled &lsquo;primary partition&rsquo; and chose &lsquo;Shrink Volume&rsquo;. After it finishes querying available disk space enter 102400 as the amount of room to shrink (This is 100GB as there are 1024MB in a GB) or a lower or higher value as you please, but realize this is data you will not be able to access from windows.</p>
+<blockquote>
+<p>If the window shows 0MB of available shrink space first try running &ldquo;disk cleanup&rdquo; and choose &ldquo;cleanup system files&rdquo;. Then, if that doesn&rsquo;t work, try turning off system restore. If it&rsquo;s still angry, disable the page file. In my experince it&rsquo;s usually the pagefile, which kinda sucks. You&rsquo;ll probably need to google how to do these things.</p>
+<p>If none of this works, you do have another option: wiping everything and installing linux. This is actually easier, however, it&rsquo;s a bit more extreme, as you won&rsquo;t be able to boot back to windows for anything. You may instead want to try linux out on an old, usused computer first. Either way, you do you, but I&rsquo;m not liable if things go wrong.
+See <a href="https://medium.com/@terajournal/increasing-size-of-available-shrink-space-for-hard-drive-partition-in-windows-8fffa50535d3">This Medium Article</a> for additional info on getting Windows to let you make room.</p>
+</blockquote>
+<p>Alright, we&rsquo;re getting there I promise. You should now have a gray block next to that blue block of space that shows unused space, that&rsquo;s perfect. Next up we&rsquo;ll need to turn Fast Boot <strong>off</strong>. In my experience turning this off doesn&rsquo;t effect windows boot time at all, and by having it off we&rsquo;ll be able to access window&rsquo;s file from inside linux later. To do this: go to &lsquo;edit power plan&rsquo;, then in the top bar navigate back to &lsquo;Power Options&rsquo;, select &lsquo;Chose what the buttons do&rsquo; on the left side, click &lsquo;Change settings that are currently unavailable&rsquo; and then un-check &lsquo;Turn on Fast Startup&rsquo;.</p>
+<p>Okay, now we&rsquo;re finally ready to copy the OS to a flash drive so we can install Arch, to do this, you&rsquo;ll need to download a program called Etcher from <a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a>. Download, run, etc. When it opens select the flash drive as your &lsquo;device&rsquo; , press the select button under that and select the archlinux-20xx.xx.xx-x86_64.iso file we downloaded earlier. Everything else should be fine, so click start. This may take a second, in the mean time, open this guide on <strong>another computer</strong> as the next few steps will require a lot of restarting and doing things outside of windows.</p>
+</div><input type="radio" class="toggle" name="tabs-Install" id="tabs-Install-1"  />
+  <label for="tabs-Install-1">Mac</label>
+  <div class="book-tabs-content markdown-inner"><h1 id="mac">Mac</h1>
+<p>Before we go any further I really want to warn you of two things, one, it&rsquo;s going to be harder to follow this guide on a MAC. More steps are involved, and some work arounds are necessary, and more importantly, I have no experience with it. so I&rsquo;m mostly regurgitating other things I&rsquo;ve read. Pages like <a href="https://wiki.archlinux.org/index.php/Mac#Installation">https://wiki.archlinux.org/index.php/Mac#Installation</a> may prove helpful later.</p>
+<p>First, you&rsquo;ll need to open up &lsquo;Disk Utility&rsquo; in Applications/Utilities, then pick your disk and click &lsquo;Partition&rsquo; and click the &lsquo;+&rsquo; button to make a new partition. Choose how much space you want to leave on the disk for MacOS and how much you want for Arch. The format of the new partition doesn&rsquo;t matter.</p>
+<blockquote>
+<p>Note, if your disk is encrypted, you&rsquo;ll need to decrypt first.</p>
+</blockquote>
+<p>Now, you&rsquo;ll need to open a terminal like you did back when checking the checksum. Plug in either an empty flash drive or one which you don&rsquo;t mind erasing, and run</p>
+<p><code>diskutil list</code> and you should see something like <code>/dev/diskX (external, physical)</code> which is your flash drive. Now run <code>diskutil unmountDisk /dev/diskX</code> where X is your flash drive disk number from above, then finally run <code>dd if=path/to/arch.iso of=/dev/rdiskX bs=1m</code>. Note that the <code>of</code> part has /<strong>r</strong>diskX . The path to your arch iso is probably something like <code>~/Downloads/archlinux-20xx.xx.xx-x86_64.iso</code></p>
+<p><strong>Be extremely careful not to use the wrong /dev/disk[letter] as you could wipe your data</strong></p>
+<p>This command won&rsquo;t print anything while it&rsquo;s running, but when it&rsquo;s done you&rsquo;ll see a new line asking for input. Two more notes ripped straight from <a href="https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_macOS">https://wiki.archlinux.org/index.php/USB_flash_installation_media#In_macOS</a>:</p>
+<blockquote>
+<p>To view progress, send SIGINFO by pressing <code>Ctrl+t</code>. Note <code>diskX</code> here should not include the <code>s1</code> suffix, or else the USB device will only be bootable in UEFI mode and not legacy. After completion, macOS may complain that &ldquo;The disk you inserted was not readable by this computer&rdquo;. Select &lsquo;Ignore&rsquo;. The USB device will be bootable.</p>
+</blockquote>
+<p>Next, you&rsquo;ll need to make room on your drive for Arch. I&rsquo;m absolutely no help here, so, see <a href="https://wiki.archlinux.org/title/Mac#Arch_Linux_with_OS_X_or_other_operating_systems">Arch Linux with OS X or other operating systems</a> from the Arch Wiki and try to follow along, assuming that went well, you should be good to carry on with this page.</p>
+</div></div>
+
+<p>Before we move on, I think it&rsquo;s good to sight see a bit:</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="prepare-an-installation-medium">Prepare an installation medium</h4>
+<p>The installation image can be supplied to the target machine via a <a href="https://wiki.archlinux.org/title/USB_flash_installation_medium">USB flash drive</a>, an <a href="https://wiki.archlinux.org/title/Optical_disc_drive#Burning">optical disc</a> or a network with <a href="https://wiki.archlinux.org/title/PXE">PXE</a>: follow the appropriate article to prepare yourself an installation medium from the chosen image.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>If you followed along, you should have already prepared the installation image on a flash drive, but you could have put it on a CD or use PXE. You&rsquo;re probably thinking &ldquo;WTF is PXE?&rdquo; Well, it&rsquo;s a way to send a new operating system image to a computer <em>over the network</em>. This is <em>mostly</em> used by really big sever farms/datacenters, but you should still know it exists.</p>
+<h2 id="booting-up-the-live-environment">
+  Booting Up The Live Environment
+  <a class="anchor" href="#booting-up-the-live-environment">#</a>
+</h2>
+<p class="tip">☠☠☠</br>
+    Seriously, <b>backup your shit.</b> I've done this countless times and have still managed to accidentally wipe a drive. There's a non-0 chance you're about to completely murder your windows install, It shouldn't happen, but it can. This is a necssary evil to learn, and I assure you'll be happy you've done all this, but this next bit is actual hell for people. I'm sorry it gets so bad so early. I promise it's worth it, okay?
+The next section requires a lot of reboots and has steps where you can't have this guide open on the computer you're working on, so you may want to have a spare system next to you to follow these insturctions on and Google if anything goes wrong.</br>☠☠☠ </p>
+<div class="speech right big">
+    <p>
+        To be fair, you should probably be doing backups anyway. We&rsquo;ll talk about this at some point, but, if you don&rsquo;t have a regular back up solution + an occasional full disk backup you sholud remedy that sooner rather than later
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<p>Okay, so we&rsquo;re finally ready to enter Arch Linux&rsquo;s installation environment, which as previously mentioned, is actually itself Arch Linux&hellip;..</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="boot-the-live-environment">Boot the live environment</h4>
+<p><strong>Note:</strong> Arch Linux installation images do not support Secure Boot. You will need to <a href="https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#Disabling_Secure_Boot">disable Secure Boot</a> to boot the installation medium. If desired, <a href="https://wiki.archlinux.org/title/Secure_Boot">Secure Boot</a> can be set up after completing the installation.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>&hellip;. or we would be, if Microsoft didn&rsquo;t try to shove Secure Boot mess down our throats. This is the most in-flux part of this guide, as it&rsquo;s a bit unclear what the implications of Windows 11 requiring Secure Boot will be. This mess is in part described in <a href="https://nerdschalk.com/can-you-disable-tpm-and-secure-boot-after-installing-windows-11-what-happens/">This article (nerdschalk.com)</a> but the TL;DR is Microsoft is really doing their best to turn a &ldquo;security feature&rdquo; into an Antitrust lawsuit.</p>
+<div class="speech  ">
+    <p>
+        Poping in to let you know that despite the name, disabling secure boot is pretty much not a problem when it comes to malmare.
+    </p>
+</div>
+
+
+
+
+<p><strong>Assuming your system is new enough to be using secure boot,</strong> you have two options</p>
+<ol>
+<li>Follow that <a href="https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#Disabling_Secure_Boot">disable Secure Boot</a> link and do what&rsquo;s necessary to get that done</li>
+<li>You can go down the rabbit hole of <a href="https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot#Remastering_the_installation_image">Making the installer work with secure boot</a>. To say this is a massive pain in the ass would be an understatment.
+<ul>
+<li>In <em>theory</em> the five step in <a href="https://unix.stackexchange.com/questions/320078/how-to-boot-arch-linux-installation-medium-with-secure-boot-enabled">this stack exchange answer</a> should be enough to get it working, at least enough to boot the installation image. You&rsquo;ll still need to work a bit harder later to work around things.</li>
+</ul>
+</li>
+</ol>
+<p>If your system is older then congrats(?) you don&rsquo;t need to worry about this.</p>
+<p>For now, I&rsquo;m going to assume option 1. as upon asking others, you can still disable Secure Boot in Windows 11 and everything seems to be working fine. If this changes, please let me know, and I&rsquo;ll update this guide.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <ol>
+<li>
+<p>Point the current boot device to the one which has the Arch Linux installation medium. Typically it is achieved by pressing a key during the <a href="https://en.wikipedia.org/wiki/Power-on_self_test">POST</a> phase, as indicated on the splash screen. Refer to your motherboard&rsquo;s manual for details.</p>
+</li>
+<li>
+<p>When the installation medium&rsquo;s boot loader menu appears, select</p>
+<p><em>Arch Linux install medium</em></p>
+<p>and press <code>Enter</code> to enter the installation environment.</p>
+<p><strong>Tip:</strong> The installation image uses <a href="https://wiki.archlinux.org/title/Systemd-boot">systemd-boot</a> for booting in UEFI mode and <a href="https://wiki.archlinux.org/title/Syslinux">syslinux</a> for booting in BIOS mode. See <a href="https://gitlab.archlinux.org/mkinitcpio/mkinitcpio-archiso/blob/master/docs/README.bootparams">README.bootparams</a> for a list of <a href="https://wiki.archlinux.org/title/Kernel_parameters#Configuration">boot parameters</a>.</p>
+</li>
+<li>
+<p>You will be logged in on the first <a href="https://en.wikipedia.org/wiki/Virtual_console">virtual console</a> as the root user, and presented with a <a href="https://wiki.archlinux.org/title/Zsh">Zsh</a> shell prompt.</p>
+</li>
+</ol>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>With secure boot disabled (or the modified installation image) you should, finally, be able to reboot your computer into the installation image. Mash the whatever key is required to get to the boot menu on your system (F11,Delete,F12,F7, and F2 are common). Do this and select the flash drive from the list.</p>
+<p>You <em>might</em> have a system that makes the time in the UEFI loading screen to short to be able to get to a boot menu. As recommended on the the disabling secure boot page, you can also do <code>Settings &gt; Update &amp; Security &gt; Recovery &gt; Advanced startup (Restart now) &gt; Troubleshoot &gt; Advanced options &gt; UEFI Firmware settings</code> and <em>hopefully</em> you can find a setting to change to give yourself some time on load to change boot device, but you&rsquo;ll almost certainly see a boot order or boot override option. Chance things as necessary so that the next boot will be off of the flash drive.</p>
+<p>Until this point I&rsquo;ve been avoiding going over the difference between UEFI and BIOS, but now we really need to cover it. For most newer systems (~2015ish) the computer will be using UEFI, while if it&rsquo;s older it&rsquo;s probably using BIOS. The Binary Input Output System or Unified Extensible Firmware Interface both more-or-less serve the same purpose: When you turn the system on, they initialize the firmware of all of the components inside your system and sort of serve as the initial system to get everything working before handing things off to the boot loader, which then boots up the operating system. So, the process goes:</p>
+<p>BIOS/UEFI → Boot loader→ OS (Windows/Linux/Mac)</p>
+<p>From our perspective, the biggest difference is really just that UEFI is newer and a bit easier to work with, but there are a lot of interesting changes I encourage you to read up on later. We do still need to know which we&rsquo;re using though. Assuming you had to deal with Secure Boot, you&rsquo;re using UEFI. If you didn&rsquo;t, you&rsquo;re probably using BIOS. Fortunately, we can now check by running a command. So, go ahead and get your keyboard layout set so you can comfortably type, and then run the command under &ldquo;Verify the boot mode&rdquo;.</p>
+<h2 id="connecting-to-the-internet">
+  Connecting to the Internet
+  <a class="anchor" href="#connecting-to-the-internet">#</a>
+</h2>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="set-the-console-keyboard-layout">Set the console keyboard layout</h4>
+<p>The default <a href="https://wiki.archlinux.org/title/Console_keymap">console keymap</a> is <a href="https://en.wikipedia.org/wiki/File:KB_United_States-NoAltGr.svg">US</a>. Available layouts can be listed with:</p>
+<pre tabindex="0"><code># ls /usr/share/kbd/keymaps/**/*.map.gz
+</code></pre><p>To modify the layout, append a corresponding file name to <a href="https://man.archlinux.org/man/loadkeys.1">loadkeys(1)</a>, omitting path and file extension. For example, to set a <a href="https://en.wikipedia.org/wiki/File:KB_Germany.svg">German</a> keyboard layout:</p>
+<pre tabindex="0"><code># loadkeys de-latin1
+</code></pre><p><a href="https://wiki.archlinux.org/title/Console_fonts">Console fonts</a> are located in <code>/usr/share/kbd/consolefonts/</code> and can likewise be set with <a href="https://man.archlinux.org/man/setfont.8">setfont(8)</a>.</p>
+<h4 id="verify-the-boot-mode">Verify the boot mode</h4>
+<p>To verify the boot mode, list the <a href="https://wiki.archlinux.org/title/Efivars">efivars</a> directory:</p>
+<pre tabindex="0"><code># ls /sys/firmware/efi/efivars
+</code></pre><p>If the command shows the directory without error, then the system is booted in UEFI mode. If the directory does not exist, the system may be booted in <a href="https://en.wikipedia.org/wiki/BIOS">BIOS</a> (or <a href="https://en.wikipedia.org/wiki/Compatibility_Support_Module">CSM</a>) mode. If the system did not boot in the mode you desired, refer to your motherboard&rsquo;s manual.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>Take note of if you&rsquo;re using BIOS or UEFI, because it will be relevant later. For now, we need to get you connected to the internet.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="connect-to-the-internet">Connect to the internet</h4>
+<p>To set up a network connection in the live environment, go through the following steps:</p>
+<ul>
+<li>
+<p>Ensure your network interface is listed and enabled, for example with <a href="https://man.archlinux.org/man/ip-link.8">ip-link(8)</a>: <code># ip link</code></p>
+</li>
+<li>
+<p>For wireless and WWAN, make sure the card is not blocked with <a href="https://wiki.archlinux.org/title/Rfkill">rfkill</a>.</p>
+</li>
+<li>
+<p>Connect to the network:</p>
+<ul>
+<li>Ethernet—plug in the cable.</li>
+<li>Wi-Fi—authenticate to the wireless network using <a href="https://wiki.archlinux.org/title/Iwctl">iwctl</a>.</li>
+<li>Mobile broadband modem—connect to the mobile network with the <a href="https://wiki.archlinux.org/title/Mmcli">mmcli</a> utility.</li>
+</ul>
+</li>
+<li>
+<p>Configure your network connection:</p>
+<ul>
+<li><a href="https://wiki.archlinux.org/title/DHCP">DHCP</a>: dynamic IP address and DNS server assignment (provided by <a href="https://wiki.archlinux.org/title/Systemd-networkd">systemd-networkd</a> and <a href="https://wiki.archlinux.org/title/Systemd-resolved">systemd-resolved</a>) should work out of the box for Ethernet, WLAN, and WWAN network interfaces.</li>
+<li>Static IP address: follow <a href="https://wiki.archlinux.org/title/Network_configuration#Static_IP_address">Network configuration#Static IP address</a>.</li>
+</ul>
+</li>
+<li>
+<p>The connection may be verified with</p>
+<p>ping: <code># ping archlinux.org</code></p>
+</li>
+</ul>
+<p><strong>Note:</strong> In the installation image, <a href="https://wiki.archlinux.org/title/Systemd-networkd">systemd-networkd</a>, <a href="https://wiki.archlinux.org/title/Systemd-resolved">systemd-resolved</a>, <a href="https://wiki.archlinux.org/title/Iwd">iwd</a> and <a href="https://wiki.archlinux.org/title/ModemManager">ModemManager</a> are preconfigured and enabled by default. That will not be the case for the installed system.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>Okay, so, there&rsquo;s a lot here, let&rsquo;s just step back and go over this. The first step here is just making sure the system detected your hardware and has a driver for connecting to the network. Linux has <em>most</em> network drivers you&rsquo;d ever want baked in, so that should <em>just work</em>. In this case, when running <code>ip link</code> you should see either something like <code>enp6s0</code> or <code>wlan0</code>. In this case, the former is a wired interface while the latter is for Wi-Fi.</p>
+<p>If this didn&rsquo;t work and there&rsquo;s only a device called <code>lo</code>, there are options, but they&rsquo;re a bit complicated.</p>
+<p>If you can, getting things working by using a wired connection is much, much easier. If you had a wired connection attached when you booted into the installation environment, it should just be working. in which case you can run <code>ping archlinux.ong</code> and if after a few seconds you see something like</p>
+<p><code>64 bytes from archlinux.org (░░.░░░.░░░.░░░): icmp_seq=░ ttl=░░ time=░░░ms</code></p>
+<blockquote>
+<p>Press Ctrl+c to stop ping</p>
+</blockquote>
+<p>Then, congrats, you&rsquo;re good to move on.</p>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-0" checked="checked" />
+  <label for="tabs-%!s(&lt;nil&gt;)-0">Wi-FI</label>
+  <div class="book-tabs-content markdown-inner"><p class="tip ">
+    Unless you really have to use Wi-Fi, please don&rsquo;t. While sometimes it works easily, sometimes connecting to Wi-Fi from the installation image is a massive headache. We can still make it work later, but just getting through the installer with a wired connection is usually easier. If your computer doesn&rsquo;t have an ether port and you don&rsquo;t mind dropping a few bucks, you can buy pretty much any cheap USB-Ethernet adapter, usually it&rsquo;s about $15 for a good, gigabit, adapter.
+</p>
+<p>Okay, so you&rsquo;re really gonna use Wi-Fi to install, fine.</p>
+<p>Again, this assumes that <code>ip link</code> showed up with something like <code>wlan0</code> in its output, as otherwise you&rsquo;re probably in for a bad time, as you need to switch over to the &ldquo;I don&rsquo;t see a network interface&rdquo; tab.</p>
+<p>Now, as the guide says, let&rsquo;s double check the interface isn&rsquo;t blocked with rfkill:</p>
+<div class="quote [Network Configuration](https://wiki.archlinux.org/title/Network_configuration/Wireless#Rfkill_caveat) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="rfkill-caveat">Rfkill caveat</h4>
+<p>Many laptops have a hardware button (or switch) to turn off wireless card, however, the card can also be blocked by kernel. This can be handled by <em>rfkill</em>. To show the current status:</p>
+<pre tabindex="0"><code># rfkill list
+0: phy0: Wireless LAN
+	Soft blocked: yes
+	Hard blocked: yes
+</code></pre><p>If the card is <em>hard-blocked</em>, use the hardware button (switch) to unblock it. If the card is not <em>hard-blocked</em> but <em>soft-blocked</em>, use the following command:</p>
+<pre tabindex="0"><code># rfkill unblock wifi
+</code></pre>
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/Network_configuration/Wireless#Rfkill_caveat">Network Configuration</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>Then, just run <code>iwctl</code> and follow the instructions on <a href="https://wiki.archlinux.org/title/Iwd#iwctl">https://wiki.archlinux.org/title/Iwd#iwctl</a> to get connected. This tends to be a massive pain in the ass on anything but consumer-security level Wi-Fi networks, so if you&rsquo;re on a University network, please, please, please just try to find a wired adapter.</p>
+<p>Still, this <em>should</em> just work. If it doesn&rsquo;t you might need to play around with things a bit. As the guide install guide says, this will be different if you&rsquo;re using a local, static-IP, but you&rsquo;re <em>probably</em> not. If you are, just follow the link back up above to set that up.</p>
+</div><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-1"  />
+  <label for="tabs-%!s(&lt;nil&gt;)-1">Wired</label>
+  <div class="book-tabs-content markdown-inner"><p>This <em>should</em> have just worked. If not, there&rsquo;s a few possibilities:</p>
+<ul>
+<li>You just need to turn the interface on</li>
+<li>Your wired connection requires a login
+<ul>
+<li>This is rather uncommon, but might be the case at a University or other large network</li>
+</ul>
+</li>
+<li>You plugged in the wire after you started the installer and so DHCP failed and while you could restart it, it&rsquo;s literally easier to just restart the computer. Do that.</li>
+</ul>
+</div><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-2"  />
+  <label for="tabs-%!s(&lt;nil&gt;)-2">I don&#39;t see a network interface</label>
+  <div class="book-tabs-content markdown-inner"><p>It is <em>possible</em> that you&rsquo;re running a weird network card that just outright is not supported at all, but this is unlikely. Instead, you&rsquo;re probably just running something that&rsquo;s pretty uncommon and isn&rsquo;t supported by default on the installation image.</p>
+<p>This means we&rsquo;ll need to first figure out what networking driver you need, then see if it can run on Linux at all, and (if it can) we need to get it installed and working.</p>
+<p>So, first things first, Assuming it&rsquo;s not a USB based network adapter, run <code>lspci -k | grep -i net</code>. This should tell you the manufacturer and specific part of you network interface. On my desktop where networking works outright, this returns,</p>
+<p><code>06:00.0 Ethernet controller: Intel Corporation I211 Gigabit Network Connection (rev 03)</code></p>
+<p>while on a little tablet of mine which doesn&rsquo;t work right away, I get:</p>
+<p><code>01:00.0 Network controller: Qualcomm Atheros QCA6174 802.11ac Wirelss Network Adapter (rev 32) </code></p>
+<p>So, I&rsquo;ll walk you through how I tackled that one:</p>
+<p>The ArchWiki is actually (at the time of writing) out of date for Atheros Wi-Fi adapters, with this chip currently using the <code>ath10k_pci</code> driver. This was determined by running  <code>lspci -v</code>. While the  <a href="https://wiki.archlinux.org/title/Network_configuration/Wireless#Troubleshooting_drivers_and_firmware">Network Configuration: Troubleshooting Drivers and Firmware</a>  page only mentions <code>ath5k</code> and <code>ath9k</code> drivers. Let this be a lesson: The Arch Wiki is great. It&rsquo;s also not perfect. So, now we need to get more information. Let&rsquo;s start by running <code>dmesg | grep -i ath</code>, this goes though the system diagnostic messages and searches for the the letters &ldquo;ath&rdquo;. The &lsquo;-i&rsquo; is to make it case-insensitive. This shows us, that yes, the <code>ath10k_pci</code> driver is trying to load, but failing to do so. The full output is this:</p>
+<pre tabindex="0"><code>ath10k_pci 0000:01:00.0: board_file api 2 bmi_id N/A crc 32 318825bf
+ath10k_pci 0000:01:00.0: htt-ver 3.60 wmi-op 4 htt-op 3 cal otp max-sta 32 raw 0 hwcrypto 1
+ath: EEPROM regdomain: 0x5f
+ath: EEPROM indicates we should expect a direct regpair map
+ath: invalid regulator domain/country code 0x5f
+ath: invalid EEPROM contents
+ath10k_pci 0000:01:00.0: failed to initialize regulatory: -22
+ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
+</code></pre><p>Okay, so, that&rsquo;s really dense and technical. Let&rsquo;s break it down. I have no clue what the first few lines mean, but lines 3, 5, and 7 all seem to be complaining about something to do with a regulatory domain, which is also called a country code on line 5. From past experience, I know Wi-Fi has different regulations and capabilities depending on where you are in the world, and so you&rsquo;re expected to tell the OS what regulatory domain you&rsquo;re in (the US for me). I can set that with <code># iw reg set US</code> and then reload the driver by running <code>rmmod ath10k_pci</code> and then loading it back up with <code>modprobe ath10k_pci</code>. And no dice. Okay, something&rsquo;s fishy still. What&rsquo;s about that regulatory code <code>0x5f</code>? What does that correspond to? Well, Googling, both <a href="http://web.mit.edu/freebsd/head/sys/dev/ath/ath_hal/ah_regdomain/ah_rd_regenum.h">This link</a> and this one <a href="https://patchwork.kernel.org/project/linux-wireless/patch/20210915185611.6195-1-ebmajor.dev@gmail.com/">This link</a> confirm that the regulatory domain is being set to <code>APL10_WORLD</code> which is a South Korean regulatory domain.</p>
+<div class="speech  ">
+    <p>
+        Given this is a Samsung laptop-ish-thing (Galaxy Tab Pro S 12&quot;) I&rsquo;m trying to get up and running 🖕Samsung for shipping out a device which a hardware locked regulatory domain to something non standard.
+    </p>
+</div>
+<p>The latter of those two links is from <a href="https://patchwork.kernel.org">https://patchwork.kernel.org</a> - a page for tracking Linux kernel changes/patches, and was last updated under a month ago at the time of writing. So, clearly I&rsquo;m working with something a bit more bleeding-edge here. (Though the laptop is actually rather old, the driver is still bleeding) This means I can assume that support will be directly baked into Linux at some point, it&rsquo;s just not <em>yet</em>.</p>
+<p>Alright, so, failing that, I just googled the laptop name + Linux. Eventually, I wound up at <a href="https://github.com/infernix/samsung_tabpro_s">this GitHub repo</a> with a folder of files for Wi-Fi, labeled as being for Linux 4.7 (Current arch installer is using 5.15) and a script for controlling the screen brightness. Okay, let&rsquo;s see what we can do with this.</p>
+<p>In that folder is a board.bin and firmware-4.bin file. These seem to be actual device specific drivers, probably yoinked out of the Windows driver. So, we can loading these. Without Wi-Fi to load the file, we can either plug in a second USB stick and copy from it, or, just shut down and place them onto the installer drive from another computer. I loaded them up, and checked if the files were even different from those currently in <code>/lib/firmware/ath10k/QCA6174</code> and&hellip; the firmware-4.bin file was exactly the same. Still, the board.bin file was different. Tried swapping them out, still no dice.</p>
+<p>Okay, what now? &hellip; Now we call it a day. This driver <em>will not</em> work on Linux without some serious work. Maybe it&rsquo;ll be working in a future version, but this should still be a lesson: Not everything is going to work on Linux. I tried as hard as I&rsquo;m willing to before the number of hours put in just isn&rsquo;t worth it to me. So, what options do I have?</p>
+<ul>
+<li>
+<p>I could just&hellip; not use this laptop. It&rsquo;s severely under powered with a CPU that only goes to like 1GHz and it&rsquo;s just not fun to use</p>
+<ul>
+<li>Yes, I know this is a privileged option, but seriously, while this laptop is sleek and good looking, it runs like a potato. A cheap, used laptop from some tech recycling place will massively outperform this.</li>
+<li>Yes, I know this doesn&rsquo;t apply as well if you&rsquo;re actually on something like an expensive gaming laptop</li>
+</ul>
+</li>
+<li>
+<p>I could decide to always use a USB adapter- either a Wi-Fi or Ethernet adapter</p>
+<ul>
+<li>This is a mild PITA, will probably provide worse performance, and eats a USB port</li>
+</ul>
+</li>
+<li>
+<p>If this Laptop were able to be opened up &amp; the Wi-Fi card was removable I could try swapping out the Wi-Fi card for something better supported</p>
+<ul>
+<li>Unfortunately, this one can&rsquo;t be opened</li>
+<li>Unfortunately-er, a lot of laptops use vendor-locked Wi-Fi cards with weird pinout. Still, it&rsquo;s worth a Google to try.</li>
+</ul>
+</li>
+</ul>
+<p><strong>You may have better luck than I did,</strong> it&rsquo;s entirely possible that by following the <a href="https://wiki.archlinux.org/title/Network_configuration/Wireless#Troubleshooting_drivers_and_firmware">Network Configuration: Troubleshooting Drivers and Firmware</a> page on the Wiki you&rsquo;ll find the answer you need and get up and running quickly. I just wanted to set realistic expectations and show that even pretty experienced users some times throw in the towel.</p>
+<p>Frankly, I also would have never purchased the laptop with this Wi-Fi card in it myself anyway - in part because of it&rsquo;s aforementioned lame CPU, but also because I search to see if hardware I want to buy supports Linux decently before I click the purchase button. If it doesn&rsquo;t, there&rsquo;s also a good chance it will also cease to get Windows updates in the future too - like this laptop did. Now it&rsquo;s basically a brick. Not getting Windows updates (including security updates) and unable to run Linux reasonably.</p>
+</div></div>
+
+<hr>
+<p>Again, run <code>ping archlinux.ong</code> and if after a few seconds you see something like</p>
+<p><code>64 bytes from archlinux.org (░░.░░░.░░░.░░░): icmp_seq=░ ttl=░░ time=░░░ms</code></p>
+<p>Then you&rsquo;re good to move on.</p>
+<blockquote>
+<p>Press Ctrl+C to stop ping</p>
+</blockquote>
+<p>While it may seem like an odd time to do so, now that you&rsquo;re connected to the internet, go ahead and get the time of your system fixed. This uses Network Time Protocol to get the time, which is why we had to do it <em>after</em> connecting to the internet.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="update-the-system-clock">Update the system clock</h4>
+<p>Use <a href="https://man.archlinux.org/man/timedatectl.1">timedatectl(1)</a> to ensure the system clock is accurate:</p>
+<pre tabindex="0"><code># timedatectl set-ntp true
+</code></pre><p>To check the service status, use <code>timedatectl status</code>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>With that done, we&rsquo;re onto the fun bit.</p>
+<h2 id="the-part-where-you-can-really-fuck-up">
+  The Part Where You can Really Fuck Up
+  <a class="anchor" href="#the-part-where-you-can-really-fuck-up">#</a>
+</h2>
+<p class="tip">☠☠☠</br>
+    Seriously, <b>backup your shit.</b> Last Warning.</br>☠☠☠ </p>
+<p>This is the part where we need to partition the disks. Remember before how I told you you needed to make free space on your hard drive in the Windows Disk Management utility? This is where that comes into play.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="partition-the-disks">Partition the disks</h3>
+<p>When recognized by the live system, disks are assigned to a <a href="https://wiki.archlinux.org/title/Block_device">block device</a> such as <code>/dev/sda</code>, <code>/dev/nvme0n1</code> or <code>/dev/mmcblk0</code>. To identify these devices, use <a href="https://wiki.archlinux.org/title/Lsblk">lsblk</a> or <em>fdisk</em>.</p>
+<pre tabindex="0"><code># fdisk -l
+</code></pre><p>Results ending in <code>rom</code>, <code>loop</code> or <code>airoot</code> may be ignored.</p>
+<p>The following <a href="https://wiki.archlinux.org/title/Partition">partitions</a> are <strong>required</strong> for a chosen device:</p>
+<ul>
+<li>One partition for the <a href="https://en.wikipedia.org/wiki/Root_directory">root directory</a> <code>/</code>.</li>
+<li>For booting in <a href="https://wiki.archlinux.org/title/UEFI">UEFI</a> mode: an <a href="https://wiki.archlinux.org/title/EFI_system_partition">EFI system partition</a>.</li>
+</ul>
+<p>If you want to create any stacked block devices for <a href="https://wiki.archlinux.org/title/LVM">LVM</a>, <a href="https://wiki.archlinux.org/title/Dm-crypt">system encryption</a> or <a href="https://wiki.archlinux.org/title/RAID">RAID</a>, do it now.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<blockquote class="book-hint info ">
+  I&rsquo;ve written this assuming you&rsquo;re installing alongside Windows. If it&rsquo;s a mac, it should be more-or-less the same, but mentally substitute NTFS for HFS+ - I&rsquo;ll explain what these are in a second.
+</blockquote>
+
+<p>Okay, first things first, <code>fdisk -l</code> is going to give you a ton of information that you probably don&rsquo;t know how to read, so let&rsquo;s just use <code>lsblk </code>, and while it&rsquo;s a lot to type, running</p>
+<p><code>lsblk --output NAME,MODEL,TRAN,SIZE,FSTYPE,MOUNTPOINT</code> will give us a lot of useful info in a digestable format. On a typical system with one or maybe two disks, you should be looking for the drive with multiple partitions where one of them is a small vfat partition, one is a large NTFS partition, and there&rsquo;s a big unformulated block that you free&rsquo;d up earlier. There might also be an extra, probably NTFS, recovery partition for Windows.</p>
+<p>Now, that you have the output of this command for yourself as reference, let&rsquo;s talk about what&rsquo;s going on here:</p>
+<h3 id="a-tangent-about-file-systems--partition-table-schemes">
+  A tangent about File Systems &amp; Partition Table Schemes
+  <a class="anchor" href="#a-tangent-about-file-systems--partition-table-schemes">#</a>
+</h3>
+<h3 id="doing-the-actual-partitioning--mkfs">
+  Doing the Actual Partitioning &amp; mkfs
+  <a class="anchor" href="#doing-the-actual-partitioning--mkfs">#</a>
+</h3>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <p>Use <a href="https://wiki.archlinux.org/title/Fdisk">fdisk</a> or <a href="https://wiki.archlinux.org/title/Parted">parted</a> to modify partition tables. For example:</p>
+<pre tabindex="0"><code># fdisk /dev/the_disk_to_be_partitioned
+</code></pre><blockquote class="book-hint info ">
+  <p><strong>Note:</strong></p>
+<ul>
+<li>If the disk does not show up, <a href="https://wiki.archlinux.org/title/Partitioning#Drives_are_not_visible_when_firmware_RAID_is_enabled">make sure the disk controller is not in RAID mode</a>.</li>
+<li>If the disk from which you want to boot <a href="https://wiki.archlinux.org/title/EFI_system_partition#Check_for_an_existing_partition">already has an EFI system partition</a>, do not create another one, but use the existing partition instead.</li>
+<li><a href="https://wiki.archlinux.org/title/Swap">Swap</a> space can be set on a <a href="https://wiki.archlinux.org/title/Swap_file">swap file</a> for file systems supporting it.</li>
+</ul>
+</blockquote>
+<hr>
+<h4 id="example-layouts">Example layouts</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Mount point</th>
+<th style="text-align:center">Partition</th>
+<th style="text-align:center"><a href="https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs">Partition type</a></th>
+<th style="text-align:center">Suggested size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>/mnt/boot</code>1</td>
+<td style="text-align:center"><code>/dev/*efi_system_partition*</code></td>
+<td style="text-align:center"><a href="https://wiki.archlinux.org/title/EFI_system_partition">EFI system partition</a></td>
+<td style="text-align:center">At least 300 MiB</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[SWAP]</code></td>
+<td style="text-align:center"><code>/dev/*swap_partition*</code></td>
+<td style="text-align:center">Linux swap</td>
+<td style="text-align:center">More than 512 MiB</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/mnt</code></td>
+<td style="text-align:center"><code>/dev/*root_partition*</code></td>
+<td style="text-align:center">Linux x86-64 root (/)</td>
+<td style="text-align:center">Remainder of the device</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><a href="https://wiki.archlinux.org/title/EFI_system_partition#Typical_mount_points">Other mount points</a>, such as <code>/mnt/efi</code>, are possible, provided that the used boot loader is capable of loading the kernel and initramfs images from the root volume. See the warning in <a href="https://wiki.archlinux.org/title/Arch_boot_process#Boot_loader">Arch boot process#Boot loader</a>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Mount point</th>
+<th style="text-align:center">Partition</th>
+<th style="text-align:center"><a href="https://en.wikipedia.org/wiki/Partition_type">Partition type</a></th>
+<th style="text-align:center">Suggested size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>[SWAP]</code></td>
+<td style="text-align:center"><code>/dev/*swap_partition*</code></td>
+<td style="text-align:center">Linux swap</td>
+<td style="text-align:center">More than 512 MiB</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/mnt</code></td>
+<td style="text-align:center"><code>/dev/*root_partition*</code></td>
+<td style="text-align:center">Linux</td>
+<td style="text-align:center">Remainder of the device</td>
+</tr>
+</tbody>
+</table>
+<p>See also <a href="https://wiki.archlinux.org/title/Partitioning#Example_layouts">Partitioning#Example layouts</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="format-the-partitions">Format the partitions</h3>
+<p>Once the partitions have been created, each newly created partition must be formatted with an appropriate <a href="https://wiki.archlinux.org/title/File_system">file system</a>. See <a href="https://wiki.archlinux.org/title/File_systems#Create_a_file_system">File systems#Create a file system</a> for details.</p>
+<p>For example, to create an Ext4 file system on <code>/dev/*root_partition*</code>, run:</p>
+<pre tabindex="0"><code># mkfs.ext4 /dev/root_partition
+</code></pre><p>If you created a partition for <a href="https://wiki.archlinux.org/title/Swap">swap</a>, initialize it with <a href="https://man.archlinux.org/man/mkswap.8">mkswap(8)</a>:</p>
+<pre tabindex="0"><code># mkswap /dev/swap_partition
+</code></pre><blockquote class="book-hint info ">
+  <strong>Note:</strong> For stacked block devices replace <code>/dev/**_partition*</code> with the appropriate block device path.
+</blockquote>
+<p>If you created an EFI system partition, <a href="https://wiki.archlinux.org/title/EFI_system_partition#Format_the_partition">format it</a> to FAT32 using <a href="https://man.archlinux.org/man/mkfs.fat.8">mkfs.fat(8)</a>.</p>
+<blockquote class="book-hint warning ">
+  <strong>Warning:</strong> Only format the EFI system partition if you created it during the partitioning step. If there already was an EFI system partition on disk beforehand, reformatting it can destroy the boot loaders of other installed operating systems.
+</blockquote>
+<pre tabindex="0"><code># mkfs.fat -F 32 /dev/efi_system_partition
+</code></pre>
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="mounting">
+  Mounting
+  <a class="anchor" href="#mounting">#</a>
+</h3>
+<h2 id="congrats-now-you-can-actually-install-arch">
+  Congrats, Now you can actually install Arch.
+  <a class="anchor" href="#congrats-now-you-can-actually-install-arch">#</a>
+</h2>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="select-the-mirrors">Select the mirrors</h3>
+<p>Packages to be installed must be downloaded from <a href="https://wiki.archlinux.org/title/Mirrors">mirror servers</a>, which are defined in <code>/etc/pacman.d/mirrorlist</code>. On the live system, after connecting to the internet, <a href="https://wiki.archlinux.org/title/Reflector">reflector</a> updates the mirror list by choosing 20 most recently synchronized HTTPS mirrors and sorting them by download rate.</p>
+<p>The higher a mirror is placed in the list, the more priority it is given when downloading a package. You may want to inspect the file to see if it is satisfactory. If it is not, <a href="https://wiki.archlinux.org/title/Textedit">edit</a> the file accordingly, and move the geographically closest mirrors to the top of the list, although other criteria should be taken into account.</p>
+<p>This file will later be copied to the new system by <em>pacstrap</em>, so it is worth getting right.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="install-essential-packages">Install essential packages</h4>
+<p>Use the <a href="https://man.archlinux.org/man/pacstrap.8">pacstrap(8)</a> script to install the <a href="https://archlinux.org/packages/?name=base">base</a> package, Linux <a href="https://wiki.archlinux.org/title/Kernel">kernel</a> and firmware for common hardware:</p>
+<pre tabindex="0"><code># pacstrap /mnt base linux linux-firmware
+</code></pre><blockquote class="book-hint info ">
+  <p><strong>Tip:</strong></p>
+<ul>
+<li>You can substitute <a href="https://archlinux.org/packages/?name=linux">linux</a> for a <a href="https://wiki.archlinux.org/title/Kernel">kernel</a> package of your choice, or you could omit it entirely when installing in a <a href="https://en.wikipedia.org/wiki/Container_(virtualization)">container</a>.</li>
+<li>You could omit the installation of the firmware package when installing in a virtual machine or container.</li>
+</ul>
+</blockquote>
+<p>The <a href="https://archlinux.org/packages/?name=base">base</a> package does not include all tools from the live installation, so installing other packages may be necessary for a fully functional base system. In particular, consider installing:</p>
+<ul>
+<li>userspace utilities for the management of <a href="https://wiki.archlinux.org/title/File_systems">file systems</a> that will be used on the system,</li>
+<li>utilities for accessing <a href="https://wiki.archlinux.org/title/RAID">RAID</a> or <a href="https://wiki.archlinux.org/title/LVM">LVM</a> partitions,</li>
+<li>specific firmware for other devices not included in <a href="https://archlinux.org/packages/?name=linux-firmware">linux-firmware</a> (e.g. <a href="https://archlinux.org/packages/?name=sof-firmware">sof-firmware</a> for <a href="https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#ALSA_firmware">sound cards</a>),</li>
+<li>software necessary for <a href="https://wiki.archlinux.org/title/Networking">networking</a>,</li>
+<li>a <a href="https://wiki.archlinux.org/title/Text_editor">text editor</a>,</li>
+<li>packages for accessing documentation in <a href="https://wiki.archlinux.org/title/Man">man</a> and <a href="https://wiki.archlinux.org/title/Info">info</a> pages: <a href="https://archlinux.org/packages/?name=man-db">man-db</a>, <a href="https://archlinux.org/packages/?name=man-pages">man-pages</a> and <a href="https://archlinux.org/packages/?name=texinfo">texinfo</a>.</li>
+</ul>
+<p>To <a href="https://wiki.archlinux.org/title/Install">install</a> other packages or package groups, append the names to the <em>pacstrap</em> command above (space separated) or use <a href="https://wiki.archlinux.org/title/Pacman">pacman</a> while <a href="https://wiki.archlinux.org/title/Installation_guide#Chroot">chrooted into the new system</a>. For comparison, packages available in the live system can be found in <a href="https://gitlab.archlinux.org/archlinux/archiso/-/blob/master/configs/releng/packages.x86_64">packages.x86_64</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h2 id="getting-the-basics-configured">
+  Getting The Basics Configured
+  <a class="anchor" href="#getting-the-basics-configured">#</a>
+</h2>
+<p>Technically you&rsquo;ve installed Arch. Unfortunately, you couldn&rsquo;t really boot into it right now if you wanted. Plus, even if you did, it wouldn&rsquo;t really be set up for even basic use yet. So, there&rsquo;s a lot more to go.</p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="fstab">Fstab</h4>
+<p>Generate an <a href="https://wiki.archlinux.org/title/Fstab">fstab</a> file (use <code>-U</code> or <code>-L</code> to define by <a href="https://wiki.archlinux.org/title/UUID">UUID</a> or labels, respectively):</p>
+<pre tabindex="0"><code># genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre><p>Check the resulting <code>/mnt/etc/fstab</code> file, and <a href="https://wiki.archlinux.org/title/Textedit">edit</a> it in case of errors.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="chroot">Chroot</h4>
+<p><a href="https://wiki.archlinux.org/title/Change_root">Change root</a> into the new system:</p>
+<pre tabindex="0"><code># arch-chroot /mnt
+</code></pre>
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="time-zone">Time zone</h3>
+<p>Set the <a href="https://wiki.archlinux.org/title/Time_zone">time zone</a>:</p>
+<pre tabindex="0"><code># ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+</code></pre><p>Run <a href="https://man.archlinux.org/man/hwclock.8">hwclock(8)</a> to generate <code>/etc/adjtime</code>:</p>
+<pre tabindex="0"><code># hwclock --systohc
+</code></pre><p>This command assumes the hardware clock is set to <a href="https://en.wikipedia.org/wiki/UTC">UTC</a>. See <a href="https://wiki.archlinux.org/title/System_time#Time_standard">System time#Time standard</a> for details.</p>
+<h3 id="localization">Localization</h3>
+<p><a href="https://wiki.archlinux.org/title/Textedit">Edit</a> <code>/etc/locale.gen</code> and uncomment <code>en_US.UTF-8 UTF-8</code> and other needed <a href="https://wiki.archlinux.org/title/Locale">locales</a>. Generate the locales by running:</p>
+<pre tabindex="0"><code># locale-gen
+</code></pre><p><a href="https://wiki.archlinux.org/title/Create">Create</a> the <a href="https://man.archlinux.org/man/locale.conf.5">locale.conf(5)</a> file, and <a href="https://wiki.archlinux.org/title/Locale#Setting_the_system_locale">set the LANG variable</a> accordingly:</p>
+<pre tabindex="0"><code>/etc/locale.conf
+LANG=en_US.UTF-8
+</code></pre><p>If you <a href="https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout">set the console keyboard layout</a>, make the changes persistent in <a href="https://man.archlinux.org/man/vconsole.conf.5">vconsole.conf(5)</a>:</p>
+<pre tabindex="0"><code>/etc/vconsole.conf
+KEYMAP=de-latin1
+</code></pre>
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="network-configuration">Network configuration</h4>
+<p><a href="https://wiki.archlinux.org/title/Create">Create</a> the <a href="https://wiki.archlinux.org/title/Hostname">hostname</a> file:</p>
+<pre tabindex="0"><code>/etc/hostname
+myhostname
+</code></pre><p>Complete the <a href="https://wiki.archlinux.org/title/Network_configuration">network configuration</a> for the newly installed environment. That may include installing suitable <a href="https://wiki.archlinux.org/title/Network_management">network management</a> software.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="root-password">Root password</h4>
+<p>Set the root <a href="https://wiki.archlinux.org/title/Password">password</a>:</p>
+<pre tabindex="0"><code># passwd
+</code></pre>
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="boot-loader">Boot loader</h4>
+<p>Choose and install a Linux-capable <a href="https://wiki.archlinux.org/title/Boot_loader">boot loader</a>. If you have an Intel or AMD CPU, enable <a href="https://wiki.archlinux.org/title/Microcode">microcode</a> updates in addition.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h2 id="finally-removing-the-flash-drive">
+  Finally Removing The Flash Drive
+  <a class="anchor" href="#finally-removing-the-flash-drive">#</a>
+</h2>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="reboot">Reboot</h4>
+<p>Exit the chroot environment by typing <code>exit</code> or pressing <code>Ctrl+d</code>.</p>
+<p>Optionally manually unmount all the partitions with <code>umount -R /mnt</code>: this allows noticing any &ldquo;busy&rdquo; partitions, and finding the cause with <a href="https://man.archlinux.org/man/fuser.1">fuser(1)</a>.</p>
+<p>Finally, restart the machine by typing <code>reboot</code>: any partitions still mounted will be automatically unmounted by <em>systemd</em>. Remember to remove the installation medium and then login into the new system with the root account.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h2 id="but-wait-this-is-worse-than-when-we-started">
+  But Wait? This is worse than when we started?
+  <a class="anchor" href="#but-wait-this-is-worse-than-when-we-started">#</a>
+</h2>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="post-installation">Post-installation</h4>
+<p>See <a href="https://wiki.archlinux.org/title/General_recommendations">General recommendations</a> for system management directions and post-installation tutorials (like creating unprivileged user accounts, setting up a graphical user interface, sound or a touchpad).</p>
+<p>For a list of applications that may be of interest, see <a href="https://wiki.archlinux.org/title/List_of_applications">List of applications</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="making-a-user-account">Making a User Account</h3>
+<h4 id="users-and-groups">Users and groups</h4>
+<p>A new installation leaves you with only the <a href="https://en.wikipedia.org/wiki/Superuser">superuser</a> account, better known as &ldquo;root&rdquo;. Logging in as root for prolonged periods of time, possibly even exposing it via <a href="https://wiki.archlinux.org/title/SSH">SSH</a> on a server, <a href="https://apple.stackexchange.com/questions/192365/is-it-ok-to-use-the-root-user-as-a-normal-user/192422#192422">is insecure</a>. Instead, you should create and use unprivileged user account(s) for most tasks, only using the root account for system administration. See <a href="https://wiki.archlinux.org/title/Users_and_groups#User_management">Users and groups#User management</a> for details.</p>
+<p>Users and groups are a mechanism for <em>access control</em>; administrators may fine-tune group membership and ownership to grant or deny users and services access to system resources. Read the <a href="https://wiki.archlinux.org/title/Users_and_groups">Users and groups</a> article for details and potential security risks.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="privilege-elevation">Privilege elevation</h4>
+<p>For a list of applications to allow running commands or starting an interactive shell as another user (e.g. root), see <a href="https://wiki.archlinux.org/title/List_of_applications/Security#Privilege_elevation">List of applications/Security#Privilege elevation</a>.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="setting-up-system-y-stuff-logs-background-tasks-etc">
+  Setting up System-y Stuff (Logs, Background tasks, etc.)
+  <a class="anchor" href="#setting-up-system-y-stuff-logs-background-tasks-etc">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="service-management">Service management</h4>
+<p>Arch Linux uses <a href="https://wiki.archlinux.org/title/Systemd">systemd</a> as the <a href="https://wiki.archlinux.org/title/Init">init</a> process, which is a system and service manager for Linux. For maintaining your Arch Linux installation, it is a good idea to learn the basics about it. Interaction with <em>systemd</em> is done through the <em>systemctl</em> command. Read <a href="https://wiki.archlinux.org/title/Systemd#Basic_systemctl_usage">systemd#Basic systemctl usage</a> for more information.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="system-maintenance">System maintenance</h4>
+<p>Arch is a rolling release system and has rapid package turnover, so users have to take some time to do <a href="https://wiki.archlinux.org/title/System_maintenance">system maintenance</a>. Read <a href="https://wiki.archlinux.org/title/Security">Security</a> for recommendations and best practices on hardening the system.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="booting">Booting</h3>
+<p>This section contains information pertaining to the boot process. An overview of the Arch boot process can be found at <a href="https://wiki.archlinux.org/title/Arch_boot_process">Arch boot process</a>. See <a href="https://wiki.archlinux.org/title/Category:Boot_process">Category:Boot process</a> for more.</p>
+<h4 id="hardware-auto-recognition">Hardware auto-recognition</h4>
+<p>Hardware should be auto-detected by <a href="https://wiki.archlinux.org/title/Udev">udev</a> during the boot process by default. A potential improvement in boot time can be achieved by disabling module auto-loading and specifying required modules manually, as described in <a href="https://wiki.archlinux.org/title/Kernel_modules">Kernel modules</a>. Additionally, <a href="https://wiki.archlinux.org/title/Xorg">Xorg</a> should be able to auto-detect required drivers using <code>udev</code>, but users have the option to configure the X server manually too.</p>
+<h4 id="microcode">Microcode</h4>
+<p>Processors may have <a href="https://www.anandtech.com/show/8376/intel-disables-tsx-instructions-erratum-found-in-haswell-haswelleep-broadwelly">faulty behaviour</a>, which the kernel can correct by updating the <em>microcode</em> on startup. See <a href="https://wiki.archlinux.org/title/Microcode">Microcode</a> for details.</p>
+<h4 id="retaining-boot-messages">Retaining boot messages</h4>
+<p>Once it concludes, the screen is cleared and the login prompt appears, leaving users unable to gather feedback from the boot process. <a href="https://wiki.archlinux.org/title/Disable_clearing_of_boot_messages">Disable clearing of boot messages</a> to overcome this limitation.</p>
+<h4 id="num-lock-activation">Num Lock activation</h4>
+<p><a href="https://en.wikipedia.org/wiki/Num_Lock">Num Lock</a> is a toggle key found in most keyboards. For activating Num Lock&rsquo;s number key-assignment during startup, see <a href="https://wiki.archlinux.org/title/Activating_numlock_on_bootup">Activating numlock on bootup</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="installing-and-removing-software">
+  Installing and Removing Software
+  <a class="anchor" href="#installing-and-removing-software">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h2 id="package-management">Package management</h2>
+<p>This section contains helpful information related to package management. See <a href="https://wiki.archlinux.org/title/FAQ#Package_management">FAQ#Package management</a> and <a href="https://wiki.archlinux.org/title/Category:Package_management">Category:Package management</a> for more.</p>
+<p><strong>Note:</strong> It is imperative to keep up to date with changes in Arch Linux that require manual intervention <strong>before</strong> upgrading your system. Subscribe to the <a href="https://mailman.archlinux.org/mailman/listinfo/arch-announce/">arch-announce mailing list</a> or the <a href="https://archlinux.org/feeds/news/">recent news RSS feed</a>. Alternatively, check the front page <a href="https://archlinux.org/">Arch news</a> every time before you update.</p>
+<h3 id="pacman">pacman</h3>
+<p><a href="https://wiki.archlinux.org/title/Pacman">pacman</a> is the Arch Linux <em>pac</em>kage <em>man</em>ager: it is highly encouraged to become familiar with it before reading any other articles.</p>
+<p>See <a href="https://wiki.archlinux.org/title/Pacman/Tips_and_tricks">pacman/Tips and tricks</a> for suggestions on how to improve your interaction with <em>pacman</em> and package management in general.</p>
+<h3 id="repositories">Repositories</h3>
+<p>See the <a href="https://wiki.archlinux.org/title/Official_repositories">Official repositories</a> article for details about the purpose of each officially maintained repository.</p>
+<p>If you plan on using 32-bit applications, you will want to enable the <a href="https://wiki.archlinux.org/title/Multilib">multilib</a> repository.</p>
+<p>The <a href="https://wiki.archlinux.org/title/Unofficial_user_repositories">Unofficial user repositories</a> article lists several other unsupported repositories.</p>
+<p>You may consider installing the <a href="https://wiki.archlinux.org/title/Pkgstats">pkgstats</a> service.</p>
+<h3 id="mirrors">Mirrors</h3>
+<p>Visit the <a href="https://wiki.archlinux.org/title/Mirrors">Mirrors</a> article for steps on taking full advantage of using the fastest and most up to date mirrors of the official repositories. As explained in the article, a particularly good advice is to routinely check the <a href="https://archlinux.org/mirrors/status/">Mirror Status</a> page for a list of mirrors that have been recently synced.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="arch-build-system">Arch Build System</h3>
+<p><em>Ports</em> is a system initially used by BSD distributions consisting of build scripts that reside in a directory tree on the local system. Simply put, each port contains a script within a directory intuitively named after the installable third-party application.</p>
+<p>The <a href="https://wiki.archlinux.org/title/Arch_Build_System">Arch Build System</a> offers the same functionality by providing build scripts called <a href="https://wiki.archlinux.org/title/PKGBUILD">PKGBUILDs</a>, which are populated with information for a given piece of software: integrity hashes, project URL, version, license and build instructions. These PKGBUILDs are parsed by <a href="https://wiki.archlinux.org/title/Makepkg">makepkg</a>, the actual program that generates packages that are cleanly manageable by <em>pacman</em>.</p>
+<p>Every package in the repositories along with those present in the AUR are subject to recompilation with <em>makepkg</em>.</p>
+<h3 id="arch-user-repository">Arch User Repository</h3>
+<p>While the Arch Build System allows the ability of building software available in the official repositories, the <a href="https://wiki.archlinux.org/title/Arch_User_Repository">Arch User Repository</a> (AUR) is the equivalent for user submitted packages. It is an unsupported repository of build scripts accessible through the <a href="https://aur.archlinux.org/">web interface</a> or through the <a href="https://wiki.archlinux.org/title/Aurweb_RPC_interface">Aurweb RPC interface</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="making-your-mouse-serve-a-purpose-again">
+  Making your mouse serve a purpose again
+  <a class="anchor" href="#making-your-mouse-serve-a-purpose-again">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="graphical-user-interface">Graphical user interface</h3>
+<p>This section provides orientation for users wishing to run graphical applications on their system. See <a href="https://wiki.archlinux.org/title/Category:Graphical_user_interfaces">Category:Graphical user interfaces</a> for additional resources.</p>
+<h4 id="display-server">Display server</h4>
+<p><a href="https://wiki.archlinux.org/title/Xorg">Xorg</a> is the public, open-source implementation of the <a href="https://en.wikipedia.org/wiki/X_Window_System">X Window System</a> (commonly X11, or X). It is required for running applications with graphical user interfaces (GUIs), and the majority of users will want to install it.</p>
+<p><a href="https://wiki.archlinux.org/title/Wayland">Wayland</a> is a newer, alternative display server protocol and the Weston reference implementation is available.</p>
+<h4 id="display-drivers">Display drivers</h4>
+<p>The default <em>modesetting</em> display driver will work with most video cards, but performance may be improved and additional features harnessed by installing the appropriate driver for <a href="https://wiki.archlinux.org/title/Xorg#AMD">AMD</a> or <a href="https://wiki.archlinux.org/title/NVIDIA">NVIDIA</a> products.</p>
+<h4 id="desktop-environments">Desktop environments</h4>
+<p>Although Xorg provides the basic framework for building a graphical environment, additional components may be considered necessary for a complete user experience. <a href="https://wiki.archlinux.org/title/Desktop_environment">Desktop environments</a> such as <a href="https://wiki.archlinux.org/title/GNOME">GNOME</a>, <a href="https://wiki.archlinux.org/title/KDE">KDE</a>, <a href="https://wiki.archlinux.org/title/LXDE">LXDE</a>, and <a href="https://wiki.archlinux.org/title/Xfce">Xfce</a> bundle together a wide range of <em>X clients</em>, such as a window manager, panel, file manager, terminal emulator, text editor, icons, and other utilities. Users with less experience may wish to install a desktop environment for a more familiar environment. See <a href="https://wiki.archlinux.org/title/Category:Desktop_environments">Category:Desktop environments</a> for additional resources.</p>
+<h4 id="window-managers">Window managers</h4>
+<p>A full-fledged desktop environment provides a complete and consistent graphical user interface, but tends to consume a considerable amount of system resources. Users seeking to maximize performance or otherwise simplify their environment may opt to install a <a href="https://wiki.archlinux.org/title/Window_manager">window manager</a> alone and hand-pick desired extras. Most desktop environments allow use of an alternative window manager as well. <a href="https://wiki.archlinux.org/title/Category:Dynamic_WMs">Dynamic</a>, <a href="https://wiki.archlinux.org/title/Category:Stacking_WMs">stacking</a>, and <a href="https://wiki.archlinux.org/title/Category:Tiling_WMs">tiling</a> window managers differ in their handling of window placement.</p>
+<h4 id="display-manager">Display manager</h4>
+<p>Most desktop environments include a <a href="https://wiki.archlinux.org/title/Display_manager">display manager</a> for automatically starting the graphical environment and managing user logins. Users without a desktop environment can install one separately. Alternatively you may <a href="https://wiki.archlinux.org/title/Start_X_at_login">start X at login</a> as a simple alternative to a display manager.</p>
+<h4 id="user-directories">User directories</h4>
+<p>Well-known user directories like Downloads or Music are created by the <code>xdg-user-dirs-update.service</code> user service, that is provided by <a href="https://archlinux.org/packages/?name=xdg-user-dirs">xdg-user-dirs</a> and enabled by default upon install. If your desktop environment or window manager does not pull in the package, you can <a href="https://wiki.archlinux.org/title/Install">install</a> it and run <code>xdg-user-dirs-update</code> manually as per <a href="https://wiki.archlinux.org/title/XDG_user_directories#Creating_default_directories">XDG user directories#Creating default directories</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="mouse-and-keyboard-configuration">
+  Mouse and Keyboard Configuration
+  <a class="anchor" href="#mouse-and-keyboard-configuration">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="input-devices">Input devices</h3>
+<p>This section contains popular input device configuration tips. See <a href="https://wiki.archlinux.org/title/Category:Input_devices">Category:Input devices</a> for more.</p>
+<h4 id="keyboard-layouts">Keyboard layouts</h4>
+<p>Non-English or otherwise non-standard keyboards may not function as expected by default. The necessary steps to configure the keymap are different for virtual console and <a href="https://wiki.archlinux.org/title/Xorg">Xorg</a>, they are described in <a href="https://wiki.archlinux.org/title/Keyboard_configuration_in_console">Keyboard configuration in console</a> and <a href="https://wiki.archlinux.org/title/Keyboard_configuration_in_Xorg">Keyboard configuration in Xorg</a> respectively.</p>
+<h4 id="mouse-buttons">Mouse buttons</h4>
+<p>Owners of advanced or unusual mice may find that not all mouse buttons are recognized by default, or may wish to assign different actions for extra buttons. Instructions can be found in <a href="https://wiki.archlinux.org/title/Mouse_buttons">Mouse buttons</a>.</p>
+<h4 id="laptop-touchpads">Laptop touchpads</h4>
+<p>Many laptops use <a href="https://www.synaptics.com/">Synaptics</a> or <a href="https://www.alps.com/">ALPS</a> &ldquo;touchpad&rdquo; pointing devices. For these, and several other touchpad models, you can use either the Synaptics input driver or libinput; see <a href="https://wiki.archlinux.org/title/Touchpad_Synaptics">Touchpad Synaptics</a> and <a href="https://wiki.archlinux.org/title/Libinput">libinput</a> for installation and configuration details.</p>
+<h4 id="trackpoints">TrackPoints</h4>
+<p>See the <a href="https://wiki.archlinux.org/title/TrackPoint">TrackPoint</a> article to configure your TrackPoint device.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="making-your-computer-not-drink-power-and-run-like-ass">
+  Making your computer not drink power and run like ass
+  <a class="anchor" href="#making-your-computer-not-drink-power-and-run-like-ass">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="power-management">Power management</h3>
+<p>This section may be of use to laptop owners or users otherwise seeking power management controls. See <a href="https://wiki.archlinux.org/title/Category:Power_management">Category:Power management</a> for more.</p>
+<p>See <a href="https://wiki.archlinux.org/title/Power_management">Power management</a> for more general overview.</p>
+<h4 id="acpi-events">ACPI events</h4>
+<p>Users can configure how the system reacts to ACPI events such as pressing the power button or closing a laptop&rsquo;s lid. For the new (recommended) method using <a href="https://wiki.archlinux.org/title/Systemd">systemd</a>, see <a href="https://wiki.archlinux.org/title/Power_management#Power_management_with_systemd">Power management with systemd</a>. For the old method, see <a href="https://wiki.archlinux.org/title/Acpid">acpid</a>.</p>
+<h4 id="cpu-frequency-scaling">CPU frequency scaling</h4>
+<p>Modern processors can decrease their frequency and voltage to reduce heat and power consumption. Less heat leads to more quiet system and prolongs the life of hardware. See <a href="https://wiki.archlinux.org/title/CPU_frequency_scaling">CPU frequency scaling</a> for details.</p>
+<h4 id="laptops">Laptops</h4>
+<p>For articles related to portable computing along with model-specific installation guides, please see <a href="https://wiki.archlinux.org/title/Category:Laptops">Category:Laptops</a>. For a general overview of laptop-related articles and recommendations, see <a href="https://wiki.archlinux.org/title/Laptop">Laptop</a>.</p>
+<h4 id="suspend-and-hibernate">Suspend and hibernate</h4>
+<p>See the main article: <a href="https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate">Power management/Suspend and hibernate</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [Improving Performance](https://wiki.archlinux.org/title/improving_performance) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/improving_performance">Improving Performance</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [SSDs](https://wiki.archlinux.org/title/Solid_state_drive) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/Solid_state_drive">SSDs</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="audio-would-be-nice">
+  Audio would be nice
+  <a class="anchor" href="#audio-would-be-nice">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="multimedia">Multimedia</h3>
+<p><a href="https://wiki.archlinux.org/title/Category:Multimedia">Category:Multimedia</a> includes additional resources.</p>
+<h4 id="sound-system">Sound system</h4>
+<p><a href="https://wiki.archlinux.org/title/ALSA">ALSA</a> is a kernel <a href="https://wiki.archlinux.org/title/Sound_system">sound system</a> that should work out the box (it just needs to be <a href="https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#Unmuting_the_channels">unmuted</a>). <a href="https://wiki.archlinux.org/title/Sound_server">Sound servers</a> such as <a href="https://wiki.archlinux.org/title/PulseAudio">PulseAudio</a> and <a href="https://wiki.archlinux.org/title/PipeWire">PipeWire</a> can offer additional features and support more complex audio configuration.</p>
+<p>See <a href="https://wiki.archlinux.org/title/Professional_audio">Professional audio</a> for advanced audio requirements.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="networking-y-stuff">
+  Networking-y Stuff
+  <a class="anchor" href="#networking-y-stuff">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="networking">Networking</h3>
+<p>This section is confined to small networking procedures. See <a href="https://wiki.archlinux.org/title/Network_configuration">Network configuration</a> for a full configuration guide and <a href="https://wiki.archlinux.org/title/Category:Networking">Category:Networking</a> for related articles.</p>
+<h4 id="clock-synchronization">Clock synchronization</h4>
+<p>The <a href="https://en.wikipedia.org/wiki/Network_Time_Protocol">Network Time Protocol</a> (NTP) is a protocol for synchronizing the clocks of computer systems over packet-switched, variable-latency data networks. See <a href="https://wiki.archlinux.org/title/Time_synchronization">Time synchronization</a> for implementations of such protocol.</p>
+<h4 id="dns-security">DNS security</h4>
+<p>For better security while browsing the web, paying online, connecting to <a href="https://wiki.archlinux.org/title/SSH">SSH</a> services and similar tasks consider using <a href="https://wiki.archlinux.org/title/DNSSEC">DNSSEC</a>-enabled <a href="https://wiki.archlinux.org/title/DNS_resolver">DNS resolver</a> that can validate signed <a href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS</a> records, and an encrypted protocol such as <a href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNS over TLS</a>, <a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">DNS over HTTPS</a> or <a href="https://en.wikipedia.org/wiki/DNSCrypt">DNSCrypt</a>. See <a href="https://wiki.archlinux.org/title/Domain_name_resolution">Domain name resolution</a> for details.</p>
+<h4 id="setting-up-a-firewall">Setting up a firewall</h4>
+<p>A firewall can provide an extra layer of protection on top of the Linux networking stack. While the stock Arch kernel is capable of using <a href="https://en.wikipedia.org/wiki/Netfilter">Netfilter</a>&rsquo;s <a href="https://wiki.archlinux.org/title/Iptables">iptables</a> and <a href="https://wiki.archlinux.org/title/Nftables">nftables</a>, neither are enabled by default. It is highly recommended to set up some form of firewall. See <a href="https://wiki.archlinux.org/title/Category:Firewalls">Category:Firewalls</a> for available guides.</p>
+<h4 id="network-shares">Network shares</h4>
+<p>To share files among the machines in a network, follow the <a href="https://wiki.archlinux.org/title/NFS">NFS</a> or the <a href="https://wiki.archlinux.org/title/SSHFS">SSHFS</a> article.</p>
+<p>Use <a href="https://wiki.archlinux.org/title/Samba">Samba</a> to join a Windows network. To configure the machine to use Active Directory for authentication, read <a href="https://wiki.archlinux.org/title/Active_Directory_integration">Active Directory integration</a>.</p>
+<p>See also <a href="https://wiki.archlinux.org/title/Category:Network_sharing">Category:Network sharing</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="printing">Printing</h4>
+<p><a href="https://wiki.archlinux.org/title/CUPS">CUPS</a> is a standards-based, open source printing system developed by OpenPrinting for Linux. See <a href="https://wiki.archlinux.org/title/Category:Printers">Category:Printers</a> for printer-specific articles.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="making-things-look-a-hair-better">
+  Making things look a hair better
+  <a class="anchor" href="#making-things-look-a-hair-better">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="appearance">Appearance</h3>
+<p>This section contains frequently-sought &ldquo;eye candy&rdquo; tweaks for an aesthetically pleasing Arch experience. See <a href="https://wiki.archlinux.org/title/Category:Eye_candy">Category:Eye candy</a> for more.</p>
+<h4 id="fonts">Fonts</h4>
+<p>You may wish to install a set of TrueType fonts, as only unscalable bitmap fonts are included in a basic Arch system. There are several general-purpose <a href="https://wiki.archlinux.org/title/Fonts#Families">font families</a> providing large <a href="https://en.wikipedia.org/wiki/Unicode">Unicode</a> coverage and even <a href="https://wiki.archlinux.org/title/Metric-compatible_fonts">metric compatibility</a> with fonts from other operating systems.</p>
+<p>A plethora of information on the subject can be found in the <a href="https://wiki.archlinux.org/title/Fonts">Fonts</a> and <a href="https://wiki.archlinux.org/title/Font_configuration">Font configuration</a> articles.</p>
+<p>If spending a significant amount of time working from the virtual console (i.e. outside an X server), users may wish to change the console font to improve readability; see <a href="https://wiki.archlinux.org/title/Linux_console#Fonts">Linux console#Fonts</a>.</p>
+<h4 id="gtk-and-qt-themes">GTK and Qt themes</h4>
+<p>A big part of the applications with a graphical interface for Linux systems are based on the <a href="https://wiki.archlinux.org/title/GTK">GTK</a> or the <a href="https://wiki.archlinux.org/title/Qt">Qt</a> toolkits. See those articles and <a href="https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications">Uniform look for Qt and GTK applications</a> for ideas to improve the appearance of your installed programs and adapt it to your liking.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<h3 id="back-to-the-terminal">
+  Back to the Terminal
+  <a class="anchor" href="#back-to-the-terminal">#</a>
+</h3>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="console-improvements">Console improvements</h3>
+<p>This section applies to small modifications that improve console programs' practicality. See <a href="https://wiki.archlinux.org/title/Category:Command-line_shells">Category:Command-line shells</a> for more.</p>
+<h4 id="tab-completion-enhancements">Tab-completion enhancements</h4>
+<p>It is recommended to properly set up extended <a href="https://en.wikipedia.org/wiki/Command-line_completion">tab completion</a> right away, as instructed in the article of your chosen shell.</p>
+<h4 id="aliases">Aliases</h4>
+<p>Aliasing a command, or a group thereof, is a way of saving time when using the console. This is especially helpful for repetitive tasks that do not need significant alteration to their parameters between executions. Common time-saving aliases can be found in <a href="https://wiki.archlinux.org/title/Bash#Aliases">Bash#Aliases</a>, which are easily portable to <a href="https://wiki.archlinux.org/title/Zsh">zsh</a> as well.</p>
+<h4 id="alternative-shells">Alternative shells</h4>
+<p><a href="https://wiki.archlinux.org/title/Bash">Bash</a> is the shell installed by default in an Arch system. The live installation media, however, uses <a href="https://wiki.archlinux.org/title/Zsh">zsh</a> with the <a href="https://archlinux.org/packages/?name=grml-zsh-config">grml-zsh-config</a> addon package. See <a href="https://wiki.archlinux.org/title/Command-line_shell#List_of_shells">Command-line shell#List of shells</a> for more alternatives.</p>
+<hr>
+<h4 id="console-prompt">Console prompt</h4>
+<p>The console prompt (<code>PS1</code>) can be customized to a great extent. See <a href="https://wiki.archlinux.org/title/Bash/Prompt_customization">Bash/Prompt customization</a> or <a href="https://wiki.archlinux.org/title/Zsh#Prompts">Zsh#Prompts</a> if using Bash or Zsh, respectively.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="bash-additions">Bash additions</h4>
+<p>A list of miscellaneous Bash settings, history search and <a href="https://wiki.archlinux.org/title/Readline">Readline</a> macros is available in <a href="https://wiki.archlinux.org/title/Bash#Tips_and_tricks">Bash#Tips and tricks</a>.</p>
+<h4 id="colored-output">Colored output</h4>
+<p>This section is covered in <a href="https://wiki.archlinux.org/title/Color_output_in_console">Color output in console</a>.</p>
+<h4 id="compressed-files">Compressed files</h4>
+<p>Compressed files, or archives, are frequently encountered on a GNU/Linux system. <a href="https://wiki.archlinux.org/title/Tar">Tar</a> is one of the most commonly used archiving tools, and users should be familiar with its syntax (Arch Linux packages, for example, are simply <a href="https://archlinux.org/packages/?name=zstd">zstd</a> compressed tarballs). See <a href="https://wiki.archlinux.org/title/Archiving_and_compression">Archiving and compression</a>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<div class="quote [General Recommendations](https://wiki.archlinux.org/title/General_recommendations) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h4 id="mouse-support">Mouse support</h4>
+<p>Using a mouse with the console for copy-paste operations can be preferred over <a href="https://wiki.archlinux.org/title/GNU_Screen">GNU Screen</a>&rsquo;s traditional copy mode. Refer to <a href="https://wiki.archlinux.org/title/General_purpose_mouse">General purpose mouse</a> for comprehensive directions. Note that you can already do this in <a href="https://wiki.archlinux.org/title/Terminal_emulator">terminal emulators</a> with the <a href="https://wiki.archlinux.org/title/Clipboard">clipboard</a>.</p>
+<h4 id="session-management">Session management</h4>
+<p>Using terminal multiplexers like <a href="https://wiki.archlinux.org/title/Tmux">tmux</a> or <a href="https://wiki.archlinux.org/title/GNU_Screen">GNU Screen</a>, programs may be run under sessions composed of tabs and panes that can be detached at will, so when the user either kills the terminal emulator, terminates <a href="https://wiki.archlinux.org/title/X">X</a>, or logs off, the programs associated with the session will continue to run in the background as long as the terminal multiplexer server is active. Interacting with the programs requires reattaching to the session.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/General_recommendations">General Recommendations</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<ol hidden id="footnotes">
+    <li>This video has aged a bit. Some Sata Express effectively doesn't exist now and some M.2 NVMe drives are now PCIe 4.0</li>
+</ol>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/archnew.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://www.patreon.com/deftwing">Patreon</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-2---installing-arch-linux">Chapter 2 - Installing Arch Linux</a>
+      <ul>
+        <li><a href="#some-background">Some Background</a></li>
+        <li><a href="#the-boring-intro-part-of-the-manual-that-you-should-still-actually-read">The Boring Intro Part Of The Manual That You Should Still Actually Read</a></li>
+        <li><a href="#actually-starting-to-do-something---downloading">Actually Starting To Do Something - Downloading</a></li>
+        <li><a href="#making-the-installer">Making The Installer</a></li>
+        <li><a href="#booting-up-the-live-environment">Booting Up The Live Environment</a></li>
+        <li><a href="#connecting-to-the-internet">Connecting to the Internet</a></li>
+        <li><a href="#the-part-where-you-can-really-fuck-up">The Part Where You can Really Fuck Up</a>
+          <ul>
+            <li><a href="#a-tangent-about-file-systems--partition-table-schemes">A tangent about File Systems &amp; Partition Table Schemes</a></li>
+            <li><a href="#doing-the-actual-partitioning--mkfs">Doing the Actual Partitioning &amp; mkfs</a></li>
+            <li><a href="#mounting">Mounting</a></li>
+          </ul>
+        </li>
+        <li><a href="#congrats-now-you-can-actually-install-arch">Congrats, Now you can actually install Arch.</a></li>
+        <li><a href="#getting-the-basics-configured">Getting The Basics Configured</a></li>
+        <li><a href="#finally-removing-the-flash-drive">Finally Removing The Flash Drive</a></li>
+        <li><a href="#but-wait-this-is-worse-than-when-we-started">But Wait? This is worse than when we started?</a>
+          <ul>
+            <li><a href="#setting-up-system-y-stuff-logs-background-tasks-etc">Setting up System-y Stuff (Logs, Background tasks, etc.)</a></li>
+            <li><a href="#installing-and-removing-software">Installing and Removing Software</a></li>
+            <li><a href="#making-your-mouse-serve-a-purpose-again">Making your mouse serve a purpose again</a></li>
+            <li><a href="#mouse-and-keyboard-configuration">Mouse and Keyboard Configuration</a></li>
+            <li><a href="#making-your-computer-not-drink-power-and-run-like-ass">Making your computer not drink power and run like ass</a></li>
+            <li><a href="#audio-would-be-nice">Audio would be nice</a></li>
+            <li><a href="#networking-y-stuff">Networking-y Stuff</a></li>
+            <li><a href="#making-things-look-a-hair-better">Making things look a hair better</a></li>
+            <li><a href="#back-to-the-terminal">Back to the Terminal</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
