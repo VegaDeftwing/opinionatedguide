@@ -105,7 +105,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8b8a241245d6904974ec57a29d3c8b80b94392029131aebfd758cf3eda880ba8.css" integrity="sha256-i4okEkXWkEl07FeinTyLgLlDkgKRMa6/11jPPtqIC6g=">
-<script defer src="/en.search.min.21719b0b7bb28ddd87814891d1751398da7252da1f07f63478f404f529179b12.js" integrity="sha256-IXGbC3uyjd2HgUiR0XUTmNpyUtofB/Y0ePQE9SkXmxI="></script>
+<script defer src="/en.search.min.f06fd6e452b10fc0199a7b66f325fad065b47e7a373282f06159f8f624865683.js" integrity="sha256-8G/W5FKxD8AZmntm8yX60GW0fno3MoLwYVn49iSGVoM="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -663,13 +663,7 @@ https://github.com/alex-shpak/hugo-book
 <pre tabindex="0"><code>convert COMountain.jpg -colorspace RGB -filter box -resize 25% -ordered-dither o8x8,3 -colorspace sRGB -quality 96 png24:COMountainIM3.png
 </code></pre><p>gives <a href="https://imgur.com/aJ0p7hw">this result</a> at 44,369 bytes after lossless recompression with optipng and then zopfli.</p>
 <p>Or we can go a step down in the palette size with this command (note the 2 instead of 3 on <code>o8x8,3</code>):</p>
-<pre tabindex="0"><code>&lt;ol hidden id=&quot;footnotes&quot;&gt;
-	&lt;li&gt;According to Wikipedia, &quot;An operating system (OS) is system software that manages computer hardware and software resources and provides common services for computer programs.&quot; put simply on your hardware this is probably Windows or Mac OS, and it's what everything else runs on top of&lt;/li&gt;
-    &lt;li&gt;To partition a drive means to take all the space on the hard drive and divide it into partitions onto which you can put a file system. Most operating systems like Windows, Mac OsX, or Linux, use multiple partitions for the operating system to function. Usually a filesystem is set up on each of these partitions, in windows this is typically NTFS for Hard Drives and FAT32 for flash drives, these file systems are effectively the index for all the files you'll put on the drive, and as you may have multiple partitions and multiple file systems on one disk each will have an index to match. As complicated as it may seem this means the partition table can be seen as an 'index of indices' of sorts. Don't worry if that's a lot to understand right now, we'll come back to this topic in depth.&lt;/br&gt;You may also need to know how your drive is formatted, this is if it is using MBR (Master Boot Record) or GPT (GUID Partition Table), again, we'll cover this. Don't stress over all the new terms.&lt;/li&gt;
-&lt;li&gt;The Binary Input Output System (BIOS) or Unified Extensible Firmware Interface (UEFI) is the thing you see before you computer loads the operating system, usually prompting to press delete or f2 to change settings. This is the system that is used to change the way all the components around the computer talk to one another and at what speed.&lt;/li&gt;
-&lt;li&gt;The bootloader sits at a special place on the hard drive selected for boot in the UEFI or BIOS, and is what the computer uses to load the full operating system, most will let you choose what operating system you want to boot if you have multiple installed on you computer at once&lt;/li&gt;
-&lt;/ol&gt;
-</code></pre><p>which gives <a href="https://imgur.com/kzPWeGD">this result</a> for 26,163 bytes after recompression.</p>
+<p>which gives <a href="https://imgur.com/kzPWeGD">this result</a> for 26,163 bytes after recompression.</p>
 <p><em>Other details:</em></p>
 <p>Resampling to downscale assumes linearized colors, and dithering really ought to be done in a linearized colorspace as well. Hence the change to linear RGB as the first step and then back to sRGB for display at the end. Otherwise, you end up with odd color shift after dithering (i.e., it blows out and tends to look too bright).</p>
 <p>Ideally you’d use something like sync filter for the resampling (or at least a cubic filter). But that has a slightly sharpening effect and can introduce ringing which negatively impacts compression. Using a box filter does not sharpen and leans towards smoothing so it gives a tiny boost to compression.</p>
