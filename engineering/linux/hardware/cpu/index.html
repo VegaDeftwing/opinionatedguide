@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8b8a241245d6904974ec57a29d3c8b80b94392029131aebfd758cf3eda880ba8.css" integrity="sha256-i4okEkXWkEl07FeinTyLgLlDkgKRMa6/11jPPtqIC6g=">
-<script defer src="/en.search.min.125d55795e1c4058a3d6b351ebd922488f6664de0482ed1203cf73c84c786554.js" integrity="sha256-El1VeV4cQFij1rNR69kiSI9mZN4Egu0SA89zyEx4ZVQ="></script>
+<script defer src="/en.search.min.725918b5674ca9311cf0afba2336de08575abf1a0ffe9421485c933f57ec1fee.js" integrity="sha256-clkYtWdMqTEc8K&#43;6IzbeCFdavxoP/pQhSFyTP1fsH&#43;4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -563,6 +563,15 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#soc-microcrontrollers">SOC? Microcrontrollers?</a></li>
         <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
         <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
+        <li><a href="#managment-engine">&ldquo;Managment Engine&rdquo;</a></li>
+        <li><a href="#the-future">The future</a>
+          <ul>
+            <li><a href="#from-the-past-analog-computers">From the past: Analog Computers</a></li>
+            <li><a href="#built-in-programmable-hardware">Built-in Programmable Hardware</a></li>
+            <li><a href="#offloading-security-the-tpm-apples-t2-microsofts-pluton">Offloading Security: The TPM, Apple&rsquo;s T2, Microsoft&rsquo;s Pluton</a></li>
+            <li><a href="#yet-more-acceleration">Yet More Acceleration</a></li>
+          </ul>
+        </li>
         <li><a href="#further-reading">Further Reading</a></li>
       </ul>
     </li>
@@ -683,7 +692,7 @@ cache size      : <span style="color:#ae81ff">512</span> KB
   <a class="anchor" href="#clock-speed">#</a>
 </h2>
 <img class="center" src="/eng/transistor.jpg" alt="Transistors" height="400em" style="border-radius:50px;">
-<p>However, to get to transistors we&rsquo;ve gotta go just a bit further down the rabbit hole to the relay. Relays are super simple to understand, they&rsquo;re just a metal switch that is pulled open or closed using another input signal (usually a magnet pulling/pushing the switch closed/open) basically imagine a light switch, where the switch itself is controlled by yet another electrical signal. Relays are slow though, they require a physical metal plate to move to change the connection. Because of this they have limited reliability and worth note they&rsquo;re actually loud. You can hear an audible click of the switch as they change state.</p>
+<p>However, to get to transistors we&rsquo;ve gotta go just a bit further down the rabbit hole to <em>the relay</em>. Relays are super simple to understand, they&rsquo;re just a metal switch that is pulled open or closed using another input signal (usually a magnet pulling/pushing the switch closed/open) basically imagine a light switch, where the switch itself is controlled by yet another electrical signal. Relays are slow though, they require a physical metal plate to move to change the connection. Because of this they have limited reliability and worth note they&rsquo;re actually loud. You can hear an audible click of the switch as they change state.</p>
 <div class="speech  ">
     <p>
         If this is already interesting to you, here&rsquo;s a <a href="https://www.youtube.com/watch?v=k1hJoalcK68">video</a> demonstrating a relay computer you can actually buy!
@@ -708,9 +717,25 @@ cache size      : <span style="color:#ae81ff">512</span> KB
 <p>Though the real break though here was the fact that this was <em>no longer a mechanical system</em>. With relays there was a very slow limit on the rate at which they could respond reliably, but with tubes this increased exponentially. Tubes were still expensive, large, and power hungry though. However, with their invention early computers saw a massive boost in speed with a decrease in cost.</p>
 <p>Finally, enter the <strong>transistor</strong>. The physics here isn&rsquo;t that far removed from the vacuum tube, only now instead of a vacuum the electrons are moving though a semiconductor - typically silicon. Again this brought a massive shrink in physical size and increase in that rate at which it could respond. Pictured above are two discrete transistors, however, this is where things get mind blowing:</p>
 <p>The Ryzen 1700 CPU in the computer I&rsquo;m typing this on has 4,800,000,000 transistors in a package that is only 213 mm², and finally, we can refrence the number output by <code>cat /proc/cpuinfo</code></p>
-<p>At the moment I got that output the transistors where being turned on and off at a rate of 2018Mhz. or 2Ghz. That&rsquo;s 2000000000 times per second. However, this system can run up to roughly 3.8Ghz. The faster this speed the faster your computer; however, your CPU will also use more power and run hotter. It&rsquo;s for this reason that most systems adjust the speed based on load. Doing simple things like writing this document and as seen with that output my system runs at nearly half speed which is actually the slowest it can run. Because the computer is hardly doing anything right now the majority of that switching is actually just doing nothing but using power running &lsquo;no operation instructions&rsquo; the functional equivalent of just running 0+0 while it it waits for something to do.</p>
+<p>At the moment I got that output the transistors where being turned on and off at a rate of 2018Mhz*. or 2Ghz. That&rsquo;s 2000000000 times per second.</p>
+<span class="smalltext ">
+    * Obviously, not all the transistors are changing state off→on and on→off on every clock edge. As for the power usage, most digital electronics have two sources of power usage: static and dynamic. Dynmaic power being that used every time a transistor changes state, and static power being power that is lost due to junction leakage (more on this much later) if there&rsquo;s any power applied at all. In short, this means a given CPU will use more power the faster it runs, but there&rsquo;s a floor to how little power it can use if power is applied at all.
+</span>
+<p>However, this system can run up to roughly 3.8Ghz. The faster this speed the faster your computer; however, your CPU will also use more power and run hotter. It&rsquo;s for this reason that most systems adjust the speed based on load. Doing simple things like writing this document and as seen with that output my system runs at nearly half speed which is actually the slowest it can run. Because the computer is hardly doing anything right now the majority of that switching is actually just doing nothing but using power running &lsquo;no operation instructions&rsquo; the functional equivalent of just running 0+0 while it it waits for something to do.</p>
 <p>While not listed in this output, by googing the Ryzen 1700 we can also see it was made on a 14nm process. Put a bit reductively, this means each transistor is 14nm wide. For context, a human hair is about 70,000nm wide. This is relevant, because generally the smaller the process the faster a chip can run (max speed) while using less power.</p>
-<p>The OS itself actually tells the processor what speed it should be running at. In Windows, when you change your power plan to &lsquo;high performance&rsquo; one of the major things it does is not allow the processor to run at a slower speed, and in Linux you can similarly control this using some cpu speed commands. We&rsquo;ll get to that later though.</p>
+<p>But, I want to put this into perspective a bit: At the top of this document, there&rsquo;s a white, rectangular chip which is a very old CPU: The Intel 8088 from 1979, it&rsquo;s only 8-bit, runs at 16Mhz, was made on a 3μm process, and has ~29,000 transistors inside. So, each individual transistor is over 200 times larger, they switch much slower, and there&rsquo;s a a human-understandable number of them. But why bring this up? Because I broke one open!</p>
+<img class="center" src="/eng/8088.jpg" alt="photo_2022-01-28_00-40-19" style="width: 300px; height: 220px; object-fit: cover;border-radius:10%;" />
+<p>What you&rsquo;re seeing here is the actual silicon, with the individual MOSFETs (transistors) causing the different reflections of the light and the gold wires going out to the pads which eventuall go out to the external pins, this isn&rsquo;t all that different from a modern CPU though. While pointing out what sections do what isn&rsquo;t hugely relevant, sufice to say different sections do different jobs. One block might be cache (talked about further down this page) while another might be the chain of transistors that do the logic to add two binary numbers together. At the end of the day, these tranistors are real, they&rsquo;re tiny, but they&rsquo;re real. This is the &ldquo;magic&rdquo; behing the fancy chip. These, therefore, have real, physical limitations. The electricity running through them can only be switched so fast before it becomes hard for the circuit to differentiate a 1 from 0, on from off.</p>
+<div class="speech  ">
+    <p>
+        If you&rsquo;re particularly interested in this on-from-off test, look into <a href="https://en.wikipedia.org/wiki/Eye_pattern">Eye Diagrams</a>
+    </p>
+</div>
+
+
+
+
+<p>Back to power and speed in a modern system: The OS itself actually tells the processor what speed it should be running at. In Windows, when you change your power plan to &lsquo;high performance&rsquo; one of the major things it does is not allow the processor to run at a slower speed, and in Linux you can similarly control this using some cpu speed commands. We&rsquo;ll get to that later though.</p>
 <p>Finally it&rsquo;s worth note that on some systems, primarily high end desktops, you can actually run your processor outside of factor specifications by increasing the maximum clock rate of the processor. Doing this can lead to system stability issues and obviously leads to a higher power usage and heat output though. This process is known as &lsquo;overclocking&rsquo;  as your taking the internal clock of the processor beyond it&rsquo;s rating. My CPU, a Ryzen 1700, has actually been over clocked in order to get 3.8Ghz on all of the cores.</p>
 <p>Finally, I want to note that clock speed is far from the single measure of performance. Two chips that both have the same clock speed and same number of cores may still perform radically differently depending on many, many things about how the processor works. Note that I didn&rsquo;t say each &lsquo;tick&rsquo; of this clock is a single instruction? That&rsquo;s because different processors have different <strong>I</strong>nstructions <strong>P</strong>er <strong>C</strong>lock (IPC) values. It&rsquo;s totally possible that a <strong>slower</strong> clocked CPU will outperform a faster one because it is able to execute more instructions per each tick of the clock. IPC can also varry depending on the workload, as some instructions will take more clock cylces than others and different tasks will require a different mix of instructions. If in doubt, look at benchmarks that directly compare the performance of CPUs in various workloads with their real, measured execution times.</p>
 <h2 id="microcode">
@@ -1043,7 +1068,32 @@ cache size      : <span style="color:#ae81ff">512</span> KB
   Other things done by the CPU:
   <a class="anchor" href="#other-things-done-by-the-cpu">#</a>
 </h2>
-<p>The CPU has a lot of dedicated hardware inside for specific functions, for example many CPUs have a dedicated hardware random number generator.</p>
+<p>The CPU has a lot of dedicated hardware inside for specific functions, for example many CPUs have a dedicated hardware random number generator, a &ldquo;media engine&rdquo; (encoders/decoders) (<a href="https://en.wikipedia.org/wiki/Intel_Quick_Sync_Video">Quick Sync</a>), Encryption, DSP</p>
+<h2 id="managment-engine">
+  &ldquo;Managment Engine&rdquo;
+  <a class="anchor" href="#managment-engine">#</a>
+</h2>
+<h2 id="the-future">
+  The future
+  <a class="anchor" href="#the-future">#</a>
+</h2>
+<h3 id="from-the-past-analog-computers">
+  From the past: Analog Computers
+  <a class="anchor" href="#from-the-past-analog-computers">#</a>
+</h3>
+<h3 id="built-in-programmable-hardware">
+  Built-in Programmable Hardware
+  <a class="anchor" href="#built-in-programmable-hardware">#</a>
+</h3>
+<h3 id="offloading-security-the-tpm-apples-t2-microsofts-pluton">
+  Offloading Security: The TPM, Apple&rsquo;s T2, Microsoft&rsquo;s Pluton
+  <a class="anchor" href="#offloading-security-the-tpm-apples-t2-microsofts-pluton">#</a>
+</h3>
+<h3 id="yet-more-acceleration">
+  Yet More Acceleration
+  <a class="anchor" href="#yet-more-acceleration">#</a>
+</h3>
+<p>TCP offloading, DSP++, Software Defined Radio?, In-Memory Processing, Tensor Cores, etc.</p>
 <h2 id="further-reading">
   Further Reading
   <a class="anchor" href="#further-reading">#</a>
@@ -1114,6 +1164,15 @@ cache size      : <span style="color:#ae81ff">512</span> KB
         <li><a href="#soc-microcrontrollers">SOC? Microcrontrollers?</a></li>
         <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
         <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
+        <li><a href="#managment-engine">&ldquo;Managment Engine&rdquo;</a></li>
+        <li><a href="#the-future">The future</a>
+          <ul>
+            <li><a href="#from-the-past-analog-computers">From the past: Analog Computers</a></li>
+            <li><a href="#built-in-programmable-hardware">Built-in Programmable Hardware</a></li>
+            <li><a href="#offloading-security-the-tpm-apples-t2-microsofts-pluton">Offloading Security: The TPM, Apple&rsquo;s T2, Microsoft&rsquo;s Pluton</a></li>
+            <li><a href="#yet-more-acceleration">Yet More Acceleration</a></li>
+          </ul>
+        </li>
         <li><a href="#further-reading">Further Reading</a></li>
       </ul>
     </li>
