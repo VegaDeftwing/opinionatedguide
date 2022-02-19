@@ -108,7 +108,7 @@ And I get it. But it&rsquo;s not that bad for two reasons:
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8b8a241245d6904974ec57a29d3c8b80b94392029131aebfd758cf3eda880ba8.css" integrity="sha256-i4okEkXWkEl07FeinTyLgLlDkgKRMa6/11jPPtqIC6g=">
-<script defer src="/en.search.min.725918b5674ca9311cf0afba2336de08575abf1a0ffe9421485c933f57ec1fee.js" integrity="sha256-clkYtWdMqTEc8K&#43;6IzbeCFdavxoP/pQhSFyTP1fsH&#43;4="></script>
+<script defer src="/en.search.min.aaa1d83917d974f09dfa5ec1a3c452a2b176c5b3bf5cde54705497412dea4302.js" integrity="sha256-qqHYORfZdPCd&#43;l7Bo8RSorF2xbO/XN5UcFSXQS3qQwI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -568,13 +568,20 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#conditions-using-if-elif-and-else">Conditions using <code>if</code>, <code>elif</code> and <code>else</code></a></li>
             <li><a href="#loops">Loops</a></li>
             <li><a href="#functions">Functions</a></li>
+            <li><a href="#types">Types</a></li>
+            <li><a href="#mutability">Mutability</a></li>
           </ul>
         </li>
-        <li><a href="#common-methods-used">Common methods used</a>
+        <li><a href="#when-writing-code">When writing code&hellip;</a></li>
+        <li><a href="#object-orientation">object orientation</a></li>
+        <li><a href="#trycatch-assert">try/catch, assert</a></li>
+        <li><a href="#pointers">Pointers</a></li>
+        <li><a href="#recursion-you-wont-actually-use-this-all-that-much">Recursion (You won&rsquo;t actually use this all that much)</a>
           <ul>
-            <li><a href="#recursion">Recursion</a></li>
+            <li><a href="#stack-trace">Stack trace</a></li>
           </ul>
         </li>
+        <li><a href="#libraries">Libraries</a></li>
         <li><a href="#some-simple-programs">Some simple programs</a>
           <ul>
             <li><a href="#hello-world">Hello World</a></li>
@@ -708,18 +715,24 @@ https://github.com/alex-shpak/hugo-book
     <p>This is <a href="https://tixy.land">tixy.land</a> &ndash; Click on the moving dots to advanced though a lil' tutorial and some examples</p>
 <p>Here in tixy land, you can try out some code. I don&rsquo;t want to lead you to anything. Just, type something. See what happens.</p>
 <p>Even if you don&rsquo;t understand all the math or what the symbols mean I&rsquo;m sure you can get a rough idea of what&rsquo;s going on.</p>
-<p>To give a quick run down of some operations you might want to use:</p>
-<p>[TODO]</p>
 <p>You can usually make something cool by just entering a bunch of trig and making complex functions you don&rsquo;t truely understand. You&rsquo;re learning, that&rsquo;s fine, no shame. Here, for example, is one I made by wandering around trig functions  <code>asin((t/9*(i/32*sin(t/4))*y)%5)</code></p>
-<blockquote class="book-hint info ">
-  <p><a href="https://hexy.now.sh">https://hexy.now.sh</a> is inspired by tixy but has some extra interesting features, if you&rsquo;re having fun with tixy.land it&rsquo;s worth checking out.</p>
-<p><a href="https://doersino.github.io/tixyz/">https://doersino.github.io/tixyz/</a> is the same as tixy, but add&rsquo;s a 3rd dimension</p>
-<p><a href="https://play.ertdfgcvb.xyz/">https://play.ertdfgcvb.xyz/</a> is similar, but lets you write dramatically more advanced code</p>
-</blockquote>
 
   </div>
   
 </div>
+
+<div class="speech big ">
+    <p>
+        <p>At risk of going off on a pretty big tangent, I reccomend checking out some tixyland-like sites</p>
+<p><a href="https://hexy.now.sh">https://hexy.now.sh</a> is inspired by tixy but has some extra interesting features, if you&rsquo;re having fun with tixy.land it&rsquo;s worth checking out.</p>
+<p><a href="https://doersino.github.io/tixyz/">https://doersino.github.io/tixyz/</a> is the same as tixy, but add&rsquo;s a 3rd dimension</p>
+<p><a href="https://play.ertdfgcvb.xyz/">https://play.ertdfgcvb.xyz/</a> is similar, but lets you write dramatically more advanced code</p>
+
+    </p>
+</div>
+
+
+
 
 <!-- [TODO] I want to start here instead of python, need to research which one to start with. I like pico-8, but it's paid and I'd like to keep OpGuides accessible. Tic-80 appears to be the most common otherwise? Pyxel looks good too though and would lead into python nicely? ... ╮(─▽─)╭
 
@@ -767,7 +780,7 @@ http://composingprograms.com
 <p>You may ask, why Python? Why not any of the other languages you may have heard of?</p>
 <p>There are a couple reasons:</p>
 <ul>
-<li><strong>It Looks Like Math</strong>. As I said above, code is mostly math, so why not choose a language that looks like it? Python does not require a lot of typing or understanding weird characters with special meaning. The most subtle thing about it is whitespace.</li>
+<li><strong>It Looks Like Math</strong>. As I said above, code is mostly math, so why not choose a language that looks like it? Python does not require a lot of typing or understanding weird characters with special meaning. The most subtle thing about it is whitespace. <a class="ptr">(1)</a></li>
 <li><strong>Accessibility</strong>. Python was designed from the beginning to be easy to learn and read, including for non-programmers.</li>
 <li><strong>Features</strong>. Python has most of the features common in other languages. That makes it good for teaching the features in other languages.</li>
 <li><strong>Popularity</strong>. There are dozens of tutorials about how to use it to solve any problem you could imagine. Once this guide gets you started, the internet is full of paths to follow.</li>
@@ -777,7 +790,7 @@ http://composingprograms.com
   The building blocks of programming
   <a class="anchor" href="#the-building-blocks-of-programming">#</a>
 </h2>
-<p>All programming is just chaining logic, for example using treatments like &ldquo;if a is b, then make c hold the value of a-3&rdquo; followed by &ldquo;if c is negative then say hello&rdquo;</p>
+<p>All programming is just chaining logic, for example using treatments like &ldquo;if a is equal to b, then make c hold the value of a - 3&rdquo; followed by &ldquo;if c is negative then say hello&rdquo;</p>
 <p>Well, that&rsquo;s actually an easy program</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -797,14 +810,15 @@ b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
 c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
 
 <span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> b:    <span style="color:#75715e"># Why are there two equal signs here?</span>
-    c <span style="color:#f92672">=</span> a<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>
+    c <span style="color:#f92672">=</span> a <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span>
 
 <span style="color:#66d9ef">if</span> c <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
     print(<span style="color:#e6db74">&#39;hello&#39;</span>)
 </code></pre></td></tr></table>
 </div>
-</div><p>you should notice a few weird things here though, namely, on line 5 we used two equal signs to check equality. This is the case in most programming languages because a single equal sign, like is used on the first two lines, is used for assignment that is assigning the value of <code>a</code> to 1 and <code>b</code> to 1 or as on line 6 assigning the value of <code>( a - 3 )</code> to <code>c</code>, because we&rsquo;ve already used a single equal sign for assignment, two equal signs is used for checking that two things are actual equal. That is, one equal sign <em>sets</em> things to be equal, two <em>checks</em> that they are equal.</p>
-<p>If you follow the logic here, <code>a</code> and <code>b</code> are both 1, so line 5 checks that to be true, so line 6 does happen. Now &lsquo;c&rsquo; which previously held the value &lsquo;1&rsquo; is now equal to &lsquo;a-3&rsquo;, where &lsquo;a&rsquo; is &lsquo;1&rsquo;, so &lsquo;c&rsquo; becomes &lsquo;-2&rsquo;. on line 8 we check if &lsquo;c&rsquo; is less than &lsquo;0&rsquo;, and because it is we print the word &lsquo;hello&rsquo;. Here, you&rsquo;ll notice &lsquo;hello&rsquo; is in quotes. This is because if it were not, that is if it were <code>print(hello)</code> it would try to print the value of the variable &lsquo;hello&rsquo; which since hello isn&rsquo;t defined, wouldn&rsquo;t work. Let&rsquo;s try this in the Python interpreter. You can find install instructions for your operating system here: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>. If you&rsquo;re on Linux simply type <code>python</code> into the terminal.</p>
+</div><p>you should notice a few weird things here though, namely, on line 5 we used two equal signs to check equality. This is the case in most programming languages because a single equal sign, like is used on the first two lines, is used for assignment that is assigning the value of <code>a</code> to 1 and <code>b</code> to 1 or as on line 6 assigning the value of <code>( a - 3 )</code> to <code>c</code>, because we&rsquo;ve already used a single equal sign for assignment, two equal signs is used for checking that two things are actual equal. That is, one equal sign <em>sets</em> things to be equal (<strong>assignment)</strong>, two <em>checks</em> that they are equal (<strong>equality</strong>).</p>
+<p>You&rsquo;ll also see there&rsquo;s normal english after the <code>#</code> character. In python <code>#</code> means the following text is a comment.</p>
+<p>If you follow the logic here, <code>a</code> and <code>b</code> are both 1, so line 5 checks that both are equal, and this is true, so line 6 does happen. Now &lsquo;c&rsquo; which previously held the value &lsquo;1&rsquo; is now equal to &lsquo;a-3&rsquo;, where &lsquo;a&rsquo; is &lsquo;1&rsquo;, so &lsquo;c&rsquo; becomes &lsquo;-2&rsquo;. on line 8 we check if <code>c</code> is less than &lsquo;0&rsquo;, and because it is we print the word &lsquo;hello&rsquo;. Here, you&rsquo;ll notice &lsquo;hello&rsquo; is in quotes. This is because if it were not, that is if it were <code>print(hello)</code> it would try to print the value of the variable &lsquo;hello&rsquo; which since hello isn&rsquo;t defined, <a class="ptr">(2)</a>wouldn&rsquo;t work. Let&rsquo;s try this in the Python interpreter. You can find install instructions for your operating system here: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>. If you&rsquo;re on Linux simply type <code>python</code> into the terminal.</p>
 <p>With the Python interpreter open try without quotes:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -880,7 +894,28 @@ b <span style="color:#f92672">=</span> <span style="color:#ae81ff">27</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>Using the <code>elif</code> statement, you can check for another condition if the one in the <code>if</code> statement was <code>false</code>.</p>
-<h3 id="loops">
+<p>Note, that not all <code>if</code>s need an else, it&rsquo;ll just move on after the if, weather it happened or not.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+<span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>:
+    print(<span style="color:#e6db74">&#34;a is 3&#34;</span>) <span style="color:#75715e">#this happens</span>
+a <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#75715e">#increase a by 2</span>
+<span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>: 
+	print(<span style="color:#e6db74">&#34;this won&#39;t print because a is 5&#34;</span>)
+print(<span style="color:#e6db74">&#34;but this line still will print, as the program moves on&#34;</span>)
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="loops">
   Loops
   <a class="anchor" href="#loops">#</a>
 </h3>
@@ -955,6 +990,19 @@ For example, if you want to repeat something until a certain condition is met, u
     print(<span style="color:#e6db74">&#34;i is bigger than 10!&#34;</span>)
 </code></pre></td></tr></table>
 </div>
+</div><p>You can abuse <code>while</code> to do something forever:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    print(<span style="color:#e6db74">&#34;This will print over and over again forever&#34;</span>)
+print(<span style="color:#e6db74">&#34;This will never print&#34;</span>)
+</code></pre></td></tr></table>
+</div>
 </div><p>[TODO]
 assignment, comparison, combined ops (+=), mod, exponent, floor,
 in/not in, is/is not, data types, functions
@@ -1000,19 +1048,246 @@ libraries</p>
 <li>The <code>return</code> statement on line 6 creates a value to be sent from the function back to the caller. This is then the value of <code>b</code> when line 10 completes. If you don&rsquo;t put one of these, it will return a special value called <code>None</code>.</li>
 </ul>
 <p>You can see from this that <code>print</code> is just a function call! It takes more effort and extra syntax to create a function that can take all the parameters print can, but you can definitely write one. That&rsquo;s for a different tutorial, though.</p>
-<h2 id="common-methods-used">
-  Common methods used
-  <a class="anchor" href="#common-methods-used">#</a>
-</h2>
-<p>commenting-out
-print debugging
-Recursion, object orientation
-while(true)
-try/catch</p>
-<h3 id="recursion">
-  Recursion
-  <a class="anchor" href="#recursion">#</a>
+<h3 id="types">
+  Types
+  <a class="anchor" href="#types">#</a>
 </h3>
+<p>Up until now, you&rsquo;ve seen every variable be assigned a basic number, like <code>a = 1</code>, but you could also set a variable - of which you could name anything - to hold other kinds of data too, like characters, strings, floating-point numbers, etc. This can be a bit confusing at first, and this is actually one palce where python makes things a bit complicated as it&rsquo;s usually hidden from us, so let&rsquo;s actually break a program on purpose to see what this is all about.</p>
+<pre tabindex="0"><code>a = 1
+b = &quot;hello&quot;
+c = a + b
+</code></pre><p>Here, were trying to add the number 1 and the string &ldquo;hello&rdquo; together, this clearly doesn&rsquo;t make sense, and so python yells at us: <code>TypeError: unsupported operand type(s) for +: 'int' and 'str'</code></p>
+<p>this is literally saying, &ldquo;hey, dude, you can&rsquo;t add an integer and a string&rdquo; which, yeah. Actually, python is weird in that it lets us even add stings at all - if you did</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span>
+b <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;world&#34;</span>
+print(a<span style="color:#f92672">+</span>b)
+</code></pre></td></tr></table>
+</div>
+</div><p>you&rsquo;d see &ldquo;helloworld&rdquo;, even though in most other languages they&rsquo;d go &ldquo;ahhhhh! these aren&rsquo;t numbers!&rdquo;</p>
+<p>But, going back, python specifically said <code>int</code> and <code>str</code>, these are both <em>types</em>: integer, and string.</p>
+<p>Integers, as the name implies, literally just hold non-decimal numbers, so -3, -2, -1, 0, 1, 2, 3, etc.</p>
+<p>strings, as the name implies, can hold a string of letters.</p>
+<p>But, of course, there&rsquo;s more than that. Python gives us a function to see what the types of things are though, so let&rsquo;s look at a bunch of the built in types - don&rsquo;t worry to much about what they mean yet.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">myInt <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+myFloat <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+myComplex <span style="color:#f92672">=</span> complex(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>) <span style="color:#75715e">#2+3i</span>
+myString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;test&#34;</span>
+myBool <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+myList <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]
+myTuple <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>)
+myDict <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;apple&#39;</span>:<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;orange&#39;</span>:<span style="color:#ae81ff">2</span>}
+mySet <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;one&#34;</span>,<span style="color:#e6db74">&#34;two&#34;</span>,<span style="color:#e6db74">&#34;there&#34;</span>}
+
+type(myInt) <span style="color:#75715e"># this will print &#34;&lt;class &#39;int&#39;&gt;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>and, of course, things can get complicated as you compose these together, for example, you could have a list of bools</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">myListOfBools <span style="color:#f92672">=</span> [<span style="color:#66d9ef">True</span>,<span style="color:#66d9ef">True</span>,<span style="color:#66d9ef">False</span>]
+type(myListOfBools) <span style="color:#75715e"># this will print &#34;&lt;class &#39;list&#39;&gt;&#34; as it&#39;s the type of the outter thing</span>
+type(myListOfBools[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e"># this will print &#34;&lt;class &#39;bool&#39;&gt;&#34; as it&#39;s the type of the inner thing - the [0] is asking for the first item in the list</span>
+<span style="color:#75715e"># note, python is &#34;0-indexed&#34; like most languages, so this list of three things has items 0, 1, and 2. This may seem weird, but it&#39;s nice for a variety of reasons.</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Python does try to help us with these types a bit, for example, if you do</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">myInt <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+myFloat <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+result <span style="color:#f92672">=</span> myInt <span style="color:#f92672">+</span> myFloat
+print(result)
+</code></pre></td></tr></table>
+</div>
+</div><p>the answer is still 1.5, beceause python saw that we were adding an int to a float and took care of this for us. This isn&rsquo;t always so cut and dry though, and sometimes you may actually want to keep things in one type or another. Because of this you can <em>typecast</em>. This means forcing one type to another. In python at least, this has limits. For example, it makes sense to go from the string &ldquo;3&rdquo; into an integer, but the string &ldquo;test&rdquo; into an integer is&hellip; less obvious, and so python says no. To do this conversion, just use the type as if it were a function. Here are some examples:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">myFloat <span style="color:#f92672">=</span> <span style="color:#ae81ff">123.456</span>
+myString <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;69&#34;</span>
+myInt <span style="color:#f92672">=</span> <span style="color:#ae81ff">420</span>
+
+int(MyFloat) <span style="color:#75715e">#returns the integer value 123, as the decimal is lost</span>
+int(MyString) <span style="color:#75715e">#returns 69, as these are all number characters</span>
+float(MyInt) <span style="color:#75715e">#returns 420.0, as we&#39;re basically forcing it to have a decimal</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Of note, in other languages (not Python) there may be a sane(ish) translation between arbitary strings and numbers, such as just returning the ASCII value of each letter.</p>
+<p>Furthermore, in python theres a variety of ways you may run into more types, or even end up needing to work with the types of another language, such as &lsquo;C&rsquo;, in python. In this case you&rsquo;ll start having to deal with the nitty gritty of types, such as 8-bit integers, both signed and un-signed. I want to at least introduce this here, but you&rsquo;ll definitely see more later: The gist is that in lower-level languages, (ones where you&rsquo;re writing in a way closer to how the computer actually works) you&rsquo;ll have to actually deal with the binary, so, you&rsquo;ll be working with things at the bit level. An 8 bit number can only hold 2^8 = 256 values, so an <em>unsigned</em> 8 bit integer will hold values from 0 to 255 while a <em>signed</em> 8 bit integer can hold -128 to +127 (note, this is because one of the bits is used to store the sign). There are, of course, other types like this, like 32 bit ints, with the same signed and unsigned varients, but ranging from -2147483648 to 2147483647 for the signed version</p>
+<h3 id="mutability">
+  Mutability
+  <a class="anchor" href="#mutability">#</a>
+</h3>
+<p>[TODO]</p>
+<h2 id="when-writing-code">
+  When writing code&hellip;
+  <a class="anchor" href="#when-writing-code">#</a>
+</h2>
+<p>One helpful thing when writing code is to &lsquo;<strong>comment out</strong>&rsquo; some code, this is a big deal when trying to figure out why something doesn&rsquo;t work. Here, for example, the <code>a = a + 1</code> line never happens because it&rsquo;s been put into a comment. It could be made to run again by removing the <code>#</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#75715e">#a = a + 1</span>
+print(a)
+</code></pre></td></tr></table>
+</div>
+</div><p>You&rsquo;ll also probably find it handy to print out information to the screen about what your program is doing - <strong>Print Debugging</strong>. This isn&rsquo;t great practice as there&rsquo;s usually better ways to find bugs than this, but it&rsquo;s still pretty useful, and good as a first way of finding something quickly. Here, for example, we&rsquo;re displaying the values of a and b, as well as outputting text so we can make sure something is actually progressing.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#75715e"># some really long, complex equation for which you&#39;re not sure of the result</span>
+print(a)
+b <span style="color:#f92672">=</span> <span style="color:#75715e"># another really long, complex equation for which you&#39;re not sure of the result</span>
+print(b)
+c <span style="color:#f92672">=</span> isPrime(a)
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">10</span>):
+    print(i)
+    c <span style="color:#f92672">=</span> doReallComplexThingThatTakesAWhile(a,b<span style="color:#f92672">*</span>i)
+    print(<span style="color:#e6db74">&#34;did complex thing, doing it again...&#34;</span>)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="object-orientation">
+  object orientation
+  <a class="anchor" href="#object-orientation">#</a>
+</h2>
+<h2 id="trycatch-assert">
+  try/catch, assert
+  <a class="anchor" href="#trycatch-assert">#</a>
+</h2>
+<h2 id="pointers">
+  Pointers
+  <a class="anchor" href="#pointers">#</a>
+</h2>
+<p>So, this is the part that when learing lower level programming languages makes everyone&rsquo;s head spin, and, unfortunately, it&rsquo;s still somewhat relevant in Python, just less so.</p>
+<p>So, let&rsquo;s go back to when we initialized all of those variables</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+<span style="color:#f92672">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>When we do this, the computer has to store them somewhere in it&rsquo;s memory. We can (kinda) see this location in memory by using the <code>id()</code> command. The first weird thing you&rsquo;ll notice is that while <code>id(a)</code> will stay the same if you run it repeatedly, if you close python, set <code>a=1</code> again, and rerun <code>id(a)</code> the number will change. That&rsquo;s because this &lsquo;id&rsquo; is really where in memory the data is being stored, and each time to run python the computer is going to put it somewhere else<a class="ptr">(3)</a>. The <code>is</code> command is python is actually checking if these id&rsquo;s are the same, not if the value is the same. This harkens back to object orientation- remember, we could make a bunch of objects, lets say cows, we could have two cows with the same name, same color, same age, etc. but if they&rsquo;re two different cows, they&rsquo;re still two different cows, and is will reflect this. They make be equal in every other regard, but one cow is not the other cow, they&rsquo;re still distinct <em>objects</em>.</p>
+<p>This can get really fucking weird. One of the weirdest things about python in regards to this is (usually) python will pre-allocate a place to store low integer numbers, so, if you make two variables with low integer numbers, they&rsquo;ll actually point to the same memory location at first&hellip;</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+a <span style="color:#f92672">is</span> b <span style="color:#75715e">#This is true</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>but, if we make these really big&hellip;</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> <span style="color:#ae81ff">12345</span>
+b <span style="color:#f92672">=</span> <span style="color:#ae81ff">12345</span>
+a <span style="color:#f92672">is</span> b <span style="color:#75715e">#This is false</span>
+a <span style="color:#f92672">==</span> b <span style="color:#75715e">#This is True</span>
+a <span style="color:#f92672">=</span> b
+a <span style="color:#f92672">is</span> b <span style="color:#75715e">#This is true now, because python has, for now, </span>
+	   <span style="color:#75715e"># updated both to point to the same location</span>
+
+a <span style="color:#f92672">=</span> <span style="color:#ae81ff">67890</span> <span style="color:#75715e">#assigning a new value will change it&#39;s location, note this wouldn&#39;t happen</span>
+		  <span style="color:#75715e"># in other languages - changing the value wouldn&#39;t change it&#39;s address, but</span>
+    	  <span style="color:#75715e"># then, assigning a second variable wouldn&#39;t make them share the same </span>
+          <span style="color:#75715e"># address in other languages either.</span>
+a <span style="color:#f92672">is</span> b <span style="color:#75715e">#now has a distinct address (and value) again, this will be false.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>and this makes sense, because in the first case if we ran <code>id(a)</code> and <code>id(b)</code>, we&rsquo;d see they both share an id, while in the latter case they don&rsquo;t. What you want to do to check equality is use the <code>==</code> operator, not <code>is</code>.</p>
+<p>Okay, so, this is nice and all, but why else does it matter? Well, sometimes you&rsquo;ll see something like</p>
+<p><code>&lt;__main__.myClass object at 0x0A2B4C6D&gt;</code> and that weird number is actually it&rsquo;s address, represented in hexadecimal - that is, it should be the same as <code>hex(id(object))</code></p>
+<p>but more importantly, you&rsquo;ll be using pointers a heck of a lot more when we go lower level, so it&rsquo;s worth understanding them now. It&rsquo;s okay if I lost you a bit here, they&rsquo;ll make more sense later when we&rsquo;re in a language that doesn&rsquo;t go out of its way to hide them from us.</p>
+<h2 id="recursion-you-wont-actually-use-this-all-that-much">
+  Recursion (You won&rsquo;t actually use this all that much)
+  <a class="anchor" href="#recursion-you-wont-actually-use-this-all-that-much">#</a>
+</h2>
 <p>There is an old joke that in order to understand recursion, you must first understand recursion. If that joke makes sense, you understand it.</p>
 <p>Well, you might at least. The concept can be understood with some study, but significant percentage of professional programmers still get it wrong when they try to use it!</p>
 <p>This is something to meditate on, and do some experiments. If you don&rsquo;t quite get it from one reading, don&rsquo;t feel bad.</p>
@@ -1089,10 +1364,49 @@ try/catch</p>
 z = 6        ↲
 </code></pre><p>The series of memory spaces for these calls grow at one end, and then shrink back down. This data structure is called a &ldquo;stack&rdquo; when written in code, and the programming language uses a <em>call stack</em> to keep track of these copies.</p>
 <p>The call stack is very important to understand most programming languages, and Python is no exception. Even when you are not doing recursion, you will get a <em>call stack trace</em> when debugging.</p>
+<h3 id="stack-trace">
+  Stack trace
+  <a class="anchor" href="#stack-trace">#</a>
+</h3>
+<p>[TODO]</p>
+<h2 id="libraries">
+  Libraries
+  <a class="anchor" href="#libraries">#</a>
+</h2>
+<p>One of the really nice things about python is that there&rsquo;s a <em>library</em> for just about anything you might want to do. It&rsquo;s easier to show than tell, so let&rsquo;s start by trying the <em>turtle</em> library, which you can find basic <a href="https://docs.python.org/3/library/turtle.html">documenation for here</a>. I&rsquo;ll steal the example code from that page:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> turtle <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+color(<span style="color:#e6db74">&#39;red&#39;</span>, <span style="color:#e6db74">&#39;yellow&#39;</span>)
+begin_fill()
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    forward(<span style="color:#ae81ff">200</span>)
+    left(<span style="color:#ae81ff">170</span>)
+    <span style="color:#66d9ef">if</span> abs(pos()) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>:
+        <span style="color:#66d9ef">break</span>
+end_fill()
+done()
+</code></pre></td></tr></table>
+</div>
+</div><p>if you either save that code in a .py file and run it or type it in to a prompt line by line, you should be able to get the same many-point star output as shown on the page. This is the power of a library. You didn&rsquo;t have to try to figure out how to make something that would understand what <code>left()</code> or <code>begin_fill()</code> means, the turtle library provided all of that for you.</p>
+<p>Similarly, you could use the <a href="https://www.tensorflow.org">Tensorflow</a> library for working with machine learning, matplotlib to generate graphs, beautiful soup to scrape the web, mido to sequence music, tweepy to make a twitter bot, nltk to process natural language</p>
 <h2 id="some-simple-programs">
   Some simple programs
   <a class="anchor" href="#some-simple-programs">#</a>
 </h2>
+<!-- I'd like to do some more impressive, but short, examples. I think by using libraries a lot is possible. Maybe a MIDI sequencer, generative/artistic image manipulation, *very* simple chat app, autoclicker (for cookie clicker?), and Minecraft -> Twitter bot? -->
 <h3 id="hello-world">
   Hello World
   <a class="anchor" href="#hello-world">#</a>
@@ -1167,6 +1481,11 @@ articles: NAME, PUBLISHED, TPUB, TEDIT</p>
 <p><a href="https://www.youtube.com/watch?v=Cp5WWtMoeKg">Coding Adventure: Ray Marching (YouTube)</a></p>
 <p><a href="https://www.youtube.com/watch?v=M3iI2l0ltbE">Coding Adventure: Marching Cubes(Youtube)</a></p>
 <p><a href="https://www.youtube.com/watch?v=cWpFZbjtSQg&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Coding Adventure: Portals (YouTube)</a></p>
+<ol hidden id="footnotes">
+    <li>whitespace literally means the 'blank' characters - like spaces and tabs, which do actually matter in python.</li>    
+    <li>meaning we didn't make a varible called 'hello' and give it a value</li>
+    <li>There's a lot of "uhm, actually" to be said here, but go with it.<li>
+</ol>
 </article>
  
       
@@ -1229,13 +1548,20 @@ articles: NAME, PUBLISHED, TPUB, TEDIT</p>
             <li><a href="#conditions-using-if-elif-and-else">Conditions using <code>if</code>, <code>elif</code> and <code>else</code></a></li>
             <li><a href="#loops">Loops</a></li>
             <li><a href="#functions">Functions</a></li>
+            <li><a href="#types">Types</a></li>
+            <li><a href="#mutability">Mutability</a></li>
           </ul>
         </li>
-        <li><a href="#common-methods-used">Common methods used</a>
+        <li><a href="#when-writing-code">When writing code&hellip;</a></li>
+        <li><a href="#object-orientation">object orientation</a></li>
+        <li><a href="#trycatch-assert">try/catch, assert</a></li>
+        <li><a href="#pointers">Pointers</a></li>
+        <li><a href="#recursion-you-wont-actually-use-this-all-that-much">Recursion (You won&rsquo;t actually use this all that much)</a>
           <ul>
-            <li><a href="#recursion">Recursion</a></li>
+            <li><a href="#stack-trace">Stack trace</a></li>
           </ul>
         </li>
+        <li><a href="#libraries">Libraries</a></li>
         <li><a href="#some-simple-programs">Some simple programs</a>
           <ul>
             <li><a href="#hello-world">Hello World</a></li>

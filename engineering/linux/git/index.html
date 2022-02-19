@@ -82,8 +82,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 5½ - Git. #  ./missing-semester - Version Control  The above link does a better job of covering the vast majority of what I&rsquo;d say than I could hope to put here. Just check it out. But do come back here! Oh, hai! Welcome back.
-So, a lot of people conflate Git and Github, the largest git cloud service on the internet. This isn&rsquo;t totally without out reason: Github is actually super nice to use, and is often the only way a lot of people use git.">
+<meta name="description" content="Chapter 5½ - Git. #   &hellip; Despite the chapter name, git isn&rsquo;t just a Linux thing - it&rsquo;s actually more of a programming thing, but you&rsquo;ll still probably want to use it for storing your configuration files for Linux, which is why it&rsquo;s here.
+ ./missing-semester - Version Control  The above link does a better job of covering the vast majority of what I&rsquo;d say than I could hope to put here.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -95,8 +95,8 @@ So, a lot of people conflate Git and Github, the largest git cloud service on th
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 5½ - Git. #  ./missing-semester - Version Control  The above link does a better job of covering the vast majority of what I&rsquo;d say than I could hope to put here. Just check it out. But do come back here! Oh, hai! Welcome back.
-So, a lot of people conflate Git and Github, the largest git cloud service on the internet. This isn&rsquo;t totally without out reason: Github is actually super nice to use, and is often the only way a lot of people use git." />
+<meta property="og:description" content="Chapter 5½ - Git. #   &hellip; Despite the chapter name, git isn&rsquo;t just a Linux thing - it&rsquo;s actually more of a programming thing, but you&rsquo;ll still probably want to use it for storing your configuration files for Linux, which is why it&rsquo;s here.
+ ./missing-semester - Version Control  The above link does a better job of covering the vast majority of what I&rsquo;d say than I could hope to put here." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/linux/git/" /><meta property="article:section" content="Engineering" />
 
@@ -106,7 +106,7 @@ So, a lot of people conflate Git and Github, the largest git cloud service on th
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8b8a241245d6904974ec57a29d3c8b80b94392029131aebfd758cf3eda880ba8.css" integrity="sha256-i4okEkXWkEl07FeinTyLgLlDkgKRMa6/11jPPtqIC6g=">
-<script defer src="/en.search.min.725918b5674ca9311cf0afba2336de08575abf1a0ffe9421485c933f57ec1fee.js" integrity="sha256-clkYtWdMqTEc8K&#43;6IzbeCFdavxoP/pQhSFyTP1fsH&#43;4="></script>
+<script defer src="/en.search.min.aaa1d83917d974f09dfa5ec1a3c452a2b176c5b3bf5cde54705497412dea4302.js" integrity="sha256-qqHYORfZdPCd&#43;l7Bo8RSorF2xbO/XN5UcFSXQS3qQwI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -576,6 +576,9 @@ https://github.com/alex-shpak/hugo-book
   Chapter 5½ - Git.
   <a class="anchor" href="#chapter-5---git">#</a>
 </h1>
+<blockquote>
+<p>&hellip; Despite the chapter name, git isn&rsquo;t just a Linux thing - it&rsquo;s actually more of a programming thing, but you&rsquo;ll still probably want to use it for storing your configuration files for Linux, which is why it&rsquo;s here.</p>
+</blockquote>
 <p><img src="/common/arrow.svg" alt="" /></p>
 <span class="best ">
     <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
@@ -589,18 +592,94 @@ https://github.com/alex-shpak/hugo-book
 <p>So, a lot of people conflate Git and Github, the largest git cloud service on the internet. This isn&rsquo;t totally without out reason: Github is actually super nice to use, and is often the only way a lot of people use git. For better or worse, you&rsquo;ll probably want to know how to use it and use it well.</p>
 <p>One of the first things you <del>should</del> have to do when using Github is setup authentication, that is a method for logging in from the command line so that you can push your changes in your code to Github&rsquo;s servers. For security reasons, you can&rsquo;t just use a password (This is a good thing) and instead need to setup key based authentication.</p>
 <p>I&rsquo;m going to save the nitty gritty about how public-private key based authentication works for the <a href="/engineering/networking/security/">Security &amp; Exploitation</a> chapter, but for now what you need to know is having a key pair will let you securely access git and ssh services on various servers, so we need to get keys setup.</p>
-<p>[TODO]</p>
-<hr>
-<p><a href="https://github.com/chriswalz/bit">Bit, an alternative git cli (Github)</a></p>
-<p><a href="https://learngitbranching.js.org">learngitbranching.js.org</a> (more than just branching)</p>
-<p><a href="https://www.leshenko.net/p/ugit/">μGit- DIY Git in python</a></p>
-<p>[TODO] Show how to setup SSH keys for Git</p>
-<p><a href="https://wiki.archlinux.org/index.php/SSH_keys">SSH keys article on the (Arch Wiki)</a></p>
-<p><code>ssh-keygen</code></p>
-<p>+ adding GPG key to accout for Github verrified thing</p>
-<p>After you have a key generated, you&rsquo;ll need to add the public key to github,</p>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-0" checked="checked" />
+  <label for="tabs-%!s(&lt;nil&gt;)-0">Windows</label>
+  <div class="book-tabs-content markdown-inner"><p>Assuming you&rsquo;re running a somewhat recent release of Windows 10 or Windows 11, <code>ssh</code> should be installed by default. SSH is something we&rsquo;ll use later for it&rsquo;s intended purpose, but right now we need to use something included along with it, called <code>ssh-keygen</code>. If you open up a command prompt window, you should be able to run, well, exactly that- just type <code>ssh-keygen</code> and press enter. It should prompt you for where to save it - leave it the default by pressing enter. Then, it&rsquo;ll ask if you want to put a password on it, that&rsquo;s up to you, it&rsquo;s not strictly necessary. When done, that will make some new files for you in a folder at <code>C:/Users/{YourUserName}/.ssh</code> (note, this isn&rsquo;t in your documents, it&rsquo;s literally in your user folder, one below documents) the two files you just made are <code>id_rsa</code> and <code>id_rsa.pub</code>, these are your private and public keys respectively.</p>
+<div class="book-columns flex flex-wrap">
+  <div class="flex-even markdown-inner">
+    <p>It&rsquo;ll also probably generate a pretty picture, something sorta like this:</p>
+<p>As the names imply, you should keep your private key private, while you need to share your public key - in this case that means sharing it with Github. To do so, you can open <code>id_rsa.pub</code> in a text editor (if you have office installed, it might try to open it with &ldquo;Publisher&rdquo; - dont. Notepad or VSCode will work though)</p>
+<p>You should see text that looks something like this:</p>
+  </div>
+  <div class="flex-even markdown-inner">
+    <pre>
++---[RSA 3072]----+
+|             ..oo|
+|            o  ++|
+|        .  + o .=|
+|       + . E= ..*|
+|      = S...   +.|
+|     o =o=o=  .  |
+|      o ooX.=.   |
+|       + =.B +.o |
+|        . +...=  |
++----[SHA256]-----+
+<p></pre></p>
+  </div>
+</div>
+<pre tabindex="0"><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXdDCxYNL58FFxfeDRuokZGfvmo1S7cTr7tXOjQ1oAFAF4cWNjcNsFWUVO5oHkY59yVcLM0OSe029rCIP8ecGsXQdDP9wi3sRgpWBfaEf0vTKQ8oAJN1ipw+J2e57gV+UOMIapoTPHSSp3pCyUVS9GnZHct5vorLOCdr6V6JCTMj0KzvrlF67FV8pX9/6kiRjAQuFdFkYzeXwebW2l2GSe7nF/WfkZWMK6KAYPltnWjN9sXXbv5SXyeU6UmrnmKFJAygUj24AK8eXT8wqxIJBsIMUtO1pplLM/XJUCYC8XGcAmjo+E4heWmj3PAHO3A7GltmZoBNzsYdAvYbqVWNpn [YourUserName]@[YourComputersName]
+</code></pre><p>We need to copy that and upload it to GitHub. Just head on over to <a href="https://github.com/settings/keys">https://github.com/settings/keys</a> and click New SSH Key and paste that text in, name it whatever you like.</p>
+<p>When done, you should see something like this:</p>
 <img src="/eng/gitkeys.webp" alt="keysongithub" style="zoom:50%;" />
-<p>you may need to change existing repo to use a git based origin rather than an https one:</p>
+<p>Now, you need to actually go install git to Windows. There&rsquo;s plenty of ways to do this, but since you&rsquo;re in the command prompt anyway. you can use <code>winget</code>, microsoft&rsquo;s package manager to grab it - just run <code>winget install -e --id Git.Git</code>. If you&rsquo;re on an older system without winget or just don&rsquo;t want to use it, you can <a href="https://gitforwindows.org">grab git for windows here</a>.</p>
+<div class="speech  ">
+    <p>
+        By the way, <code>winget</code> is pretty awesome and has a lot of packages. Everything frome Chrome to VLC is available, and it&rsquo;s a nice way to quickly set up a new computer.
+    </p>
+</div>
+<p>Now we can set up your user in a <code>.gitconfig</code> file, fortunately, you can do this directly from the same command prompt your at. Just run <code>git config --global user.email &quot;YourEmail@InQuotesHere&quot;</code> followed by <code>git config --global user.name &quot;Your Username In Quotes Here&quot;</code>. For simplicity, you might want to make sure the email and username both match the ones you use on github, though (I think?) the username can be different without issue.</p>
+</div><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-1"  />
+  <label for="tabs-%!s(&lt;nil&gt;)-1">Linux &amp; Mac</label>
+  <div class="book-tabs-content markdown-inner"><p>Mac OS X <code>ssh</code> should be installed by default, as should most any Linux distro, if it&rsquo;s not, it&rsquo;ll usually be in the <code>openssh</code> package, so just install that with your package manager. SSH is something we&rsquo;ll use later for it&rsquo;s intended purpose, but right now we need to use something included along with it, called <code>ssh-keygen</code>. If you open up a terminal, you should be able to run, well, exactly that- just type <code>ssh-keygen</code> and press enter. It should prompt you for where to save it - leave it the default by pressing enter. Then, it&rsquo;ll ask if you want to put a password on it, that&rsquo;s up to you, it&rsquo;s not strictly necessary. When done, that will make some new files for you in a folder at <code>~/.ssh</code> the two files you just made are <code>id_rsa</code> and <code>id_rsa.pub</code>, these are your private and public keys respectively.</p>
+<div class="book-columns flex flex-wrap">
+  <div class="flex-even markdown-inner">
+    <p>It&rsquo;ll also probably generate a pretty picture, something sorta like this:</p>
+<p>As the names imply, you should keep your private key private, while you need to share your public key - in this case that means sharing it with Github. To do so, you can open <code>id_rsa.pub</code> in a text editor, such as TextEdit on Mac or VSCode/Nano/Sublime/Whatever on Linux.</p>
+<p>You should see text that looks something like this:</p>
+  </div>
+  <div class="flex-even markdown-inner">
+    <pre>
++---[RSA 3072]----+
+|             ..oo|
+|            o  ++|
+|        .  + o .=|
+|       + . E= ..*|
+|      = S...   +.|
+|     o =o=o=  .  |
+|      o ooX.=.   |
+|       + =.B +.o |
+|        . +...=  |
++----[SHA256]-----+
+<p></pre></p>
+  </div>
+</div>
+<pre tabindex="0"><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXdDCxYNL58FFxfeDRuokZGfvmo1S7cTr7tXOjQ1oAFAF4cWNjcNsFWUVO5oHkY59yVcLM0OSe029rCIP8ecGsXQdDP9wi3sRgpWBfaEf0vTKQ8oAJN1ipw+J2e57gV+UOMIapoTPHSSp3pCyUVS9GnZHct5vorLOCdr6V6JCTMj0KzvrlF67FV8pX9/6kiRjAQuFdFkYzeXwebW2l2GSe7nF/WfkZWMK6KAYPltnWjN9sXXbv5SXyeU6UmrnmKFJAygUj24AK8eXT8wqxIJBsIMUtO1pplLM/XJUCYC8XGcAmjo+E4heWmj3PAHO3A7GltmZoBNzsYdAvYbqVWNpn [YourUserName]@[YourComputersName]
+</code></pre><p>We need to copy that and upload it to GitHub. Just head on over to <a href="https://github.com/settings/keys">https://github.com/settings/keys</a> and click New SSH Key and paste that text in, name it whatever you like.</p>
+<p>When done, you should see something like this:</p>
+<img src="/eng/gitkeys.webp" alt="keysongithub" style="zoom:50%;" />
+<p>Now we need Git. On Mac, <code>git</code> is <em>kinda</em> installed by default. If you go to run it, you&rsquo;ll get prompted to install &ldquo;Command Line Developer Tools&rdquo;. Do that.</p>
+<p>On Linux, you proabably already have git, but if not, it&rsquo;s probably in your distro&rsquo;s repositories as <code>git</code>, so just install it as you normally would.</p>
+<p>Now we can set up your user in a <code>.gitconfig</code> file, fortunately, you can do this directly from the same command prompt your at. Just run <code>git config --global user.email &quot;YourEmail@InQuotesHere&quot;</code> followed by <code>git config --global user.name &quot;Your Username In Quotes Here&quot;</code>. For simplicity, you might want to make sure the email and username both match the ones you use on github, though (I think?) the username can be different without issue.</p>
+</div></div>
+
+<p>That&rsquo;s half the battle, you have sucessfully set up keys for your account, but GitHub has a second layer of authentication that&rsquo;s worth setting up too, which adds a sort of virtual signature to each change you push to GitHub as a confirmation to people that what they see was really written by you.</p>
+<details >
+  <summary>But I already had repos on GitHub, how do I make them use these keys?</summary>
+  <div class="markdown-inner">
+    <p>There&rsquo;s a good chance that when you made the repo and pulled it down to your computer you used the URL of the repo on github, such as running <code>git clone https://github.com/VegaDeftwing/OpGuidesHugoSrc</code>, while this does work, it set&rsquo;s github to use the http protocol for authentication, which isn&rsquo;t what we want, instead we need to use the git protocol.</p>
+<img src="/eng/gitclone.webp" alt="GitHub Code Button" style="zoom:35%;" />
+<p>Like this, where the link is instead <code>git@github.com:VegaDeftwing/OpGuidesHugoSrc.git</code> (so the command you need to run might be <code>git clone git@github.com:VegaDeftwing/OpGuidesHugoSrc.git</code>) but the problem is you already cloned your repo, so what now? You don&rsquo;t need to delete everything and restart, you just need to change the remote.</p>
+<ol>
+<li>Start by running <code>git remote -v</code> to see what the current URL is</li>
+<li>Copy the <code>git</code> based URL from GitHub (or wherever you host your repo)</li>
+<li>Run <code>git remote set-url origin git@github.com:UserName/repo.git</code>, using the URL you copied</li>
+<li>run <code>git remote -v</code> again to confirm it changed over.</li>
+</ol>
+<p>For example:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -627,7 +706,18 @@ origin	git@github.com:VegaDeftwing/opinionatedguide.git <span style="color:#f926
 origin	git@github.com:VegaDeftwing/opinionatedguide.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>[TODO] show graphical git tools</p>
+</div>
+  </div>
+</details>
+
+<p>[TODO] adding GPG key to accout for Github verrified thing</p>
+<p><a href="https://github.com/chriswalz/bit">Bit, an alternative git cli (Github)</a></p>
+<p><a href="https://learngitbranching.js.org">learngitbranching.js.org</a> (more than just branching)</p>
+<p><a href="https://www.leshenko.net/p/ugit/">μGit- DIY Git in python</a></p>
+<p><a href="https://wiki.archlinux.org/index.php/SSH_keys">SSH keys article on the (Arch Wiki)</a></p>
+<p><code>ssh-keygen</code></p>
+<p>you may need to change existing repo to use a git based origin rather than an https one:</p>
+<p>[TODO] show graphical git tools</p>
 <p><a href="https://desktop.github.com">https://desktop.github.com</a></p>
 <p><a href="https://extrawurst.itch.io/gitui">https://extrawurst.itch.io/gitui</a></p>
 <p><a href="https://aurees.com">https://aurees.com</a></p>

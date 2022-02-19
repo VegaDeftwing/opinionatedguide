@@ -82,14 +82,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 19 - Shaders #  [TODO]
-What started a year and a half ago as just some Vulkan #voxel ray tracing experiment has evolved into something far beyond my wildest of dreams. The sky&#39;s the limit from here, and I intend to take it beyond, so stay tuned. #gamedev pic.twitter.com/nNwqrY7tdZ
-&mdash; John &quot;Lin&quot; (@ProgrammerLin) May 13, 2021  https://wwwtyro.net/2019/11/18/instanced-lines.html
-http://glsl.erogenous-tones.com/e#1341.0
-https://smoothstep.io/anim/534226b1d5ed
-https://acko.net/blog/frickin-shaders-with-frickin-laser-beams/
-https://github.com/stackgl/shader-school
-https://thebookofshaders.com">
+<meta name="description" content="Chapter 19 - Shaders #  The Book Of Shaders   I&rsquo;m going to assume you read through The Book Of Shaders because, frankly, it&rsquo;s fantastic and there&rsquo;s no way I&rsquo;m going to to be able to do better for now- that said, I do have some commentary, that maybe you&rsquo;ll find useful. Each of these tabs corolates to the respective page in The Book, and is really just what I stumbled into as I tried to fill in the gaps for myself.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -101,14 +94,7 @@ https://thebookofshaders.com">
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 19 - Shaders #  [TODO]
-What started a year and a half ago as just some Vulkan #voxel ray tracing experiment has evolved into something far beyond my wildest of dreams. The sky&#39;s the limit from here, and I intend to take it beyond, so stay tuned. #gamedev pic.twitter.com/nNwqrY7tdZ
-&mdash; John &quot;Lin&quot; (@ProgrammerLin) May 13, 2021  https://wwwtyro.net/2019/11/18/instanced-lines.html
-http://glsl.erogenous-tones.com/e#1341.0
-https://smoothstep.io/anim/534226b1d5ed
-https://acko.net/blog/frickin-shaders-with-frickin-laser-beams/
-https://github.com/stackgl/shader-school
-https://thebookofshaders.com" />
+<meta property="og:description" content="Chapter 19 - Shaders #  The Book Of Shaders   I&rsquo;m going to assume you read through The Book Of Shaders because, frankly, it&rsquo;s fantastic and there&rsquo;s no way I&rsquo;m going to to be able to do better for now- that said, I do have some commentary, that maybe you&rsquo;ll find useful. Each of these tabs corolates to the respective page in The Book, and is really just what I stumbled into as I tried to fill in the gaps for myself." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/shaders/" /><meta property="article:section" content="Engineering" />
 
@@ -118,7 +104,7 @@ https://thebookofshaders.com" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8b8a241245d6904974ec57a29d3c8b80b94392029131aebfd758cf3eda880ba8.css" integrity="sha256-i4okEkXWkEl07FeinTyLgLlDkgKRMa6/11jPPtqIC6g=">
-<script defer src="/en.search.min.725918b5674ca9311cf0afba2336de08575abf1a0ffe9421485c933f57ec1fee.js" integrity="sha256-clkYtWdMqTEc8K&#43;6IzbeCFdavxoP/pQhSFyTP1fsH&#43;4="></script>
+<script defer src="/en.search.min.aaa1d83917d974f09dfa5ec1a3c452a2b176c5b3bf5cde54705497412dea4302.js" integrity="sha256-qqHYORfZdPCd&#43;l7Bo8RSorF2xbO/XN5UcFSXQS3qQwI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -580,14 +566,133 @@ https://github.com/alex-shpak/hugo-book
   Chapter 19 - Shaders
   <a class="anchor" href="#chapter-19---shaders">#</a>
 </h1>
-<p>[TODO]</p>
-<blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">What started a year and a half ago as just some Vulkan <a href="https://twitter.com/hashtag/voxel?src=hash&amp;ref_src=twsrc%5Etfw">#voxel</a> ray tracing experiment has evolved into something far beyond my wildest of dreams. The sky&#39;s the limit from here, and I intend to take it beyond, so stay tuned. <a href="https://twitter.com/hashtag/gamedev?src=hash&amp;ref_src=twsrc%5Etfw">#gamedev</a> <a href="https://t.co/nNwqrY7tdZ">pic.twitter.com/nNwqrY7tdZ</a></p>&mdash; John &quot;Lin&quot; (@ProgrammerLin) <a href="https://twitter.com/ProgrammerLin/status/1392808532538396678?ref_src=twsrc%5Etfw">May 13, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><img src="/common/arrow.svg" alt="" /></p>
+<span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="https://thebookofshaders.com">The Book Of Shaders</a>
+</span>
+<p><img src="/common/arrowthis.svg" alt="" /></p>
+<hr>
+<p>I&rsquo;m going to assume you read through The Book Of Shaders because, frankly, it&rsquo;s fantastic and there&rsquo;s no way I&rsquo;m going to to be able to do better for now- that said, I do have some commentary, that maybe you&rsquo;ll find useful. Each of these tabs corolates to the respective page in The Book, and is really just what I stumbled into as I tried to fill in the gaps for myself. Of note, the book is open source, but is <em>not</em> under a permissive licence (it&rsquo;s outright, bog-standard copyright) so I can&rsquo;t display any of it here, which is why I&rsquo;m asking you to alternate tabs to here and back.</p>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-test" id="tabs-test-0" checked="checked" />
+  <label for="tabs-test-0">Getting Started </label>
+  <div class="book-tabs-content markdown-inner"><div class="book-tabs"><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-0" checked="checked" />
+  <label for="tabs-Getting Started-0">1 - What Is?</label>
+  <div class="book-tabs-content markdown-inner"><p>I got into shaders for a bit of a backwards goal - I&rsquo;m into the art, sure, but it&rsquo;s more that I found the <em>idea</em> of running code on the graphics card cool, and wanted to know how to use the multi-hundred watts of computational horse power in my desktop to my advantage. However, I knew better than to dive head-first into a difficult language like Vulkan (more on that in a sec) and that it would be much easier to get to the point of running complex, not-necessarily-for-graphics code on the GPU if I went through the normal for-art path first.</p>
+<p>On top of this, I was also just getting into VR Chat, which lets users submit their own worlds and avtars made in Unity.</p>
+<p>This is where some of the confusion begins:</p>
+<p>[TODO - unity&rsquo;s 3 pipelines, multiple languages (HLSL vs &hellip;), multiple node editors (Amplify), and wanting to have debug, etc.]</p>
+<ul>
+<li>Show an actual shader doing actual shader things</li>
+<li>What else is there other than GLSL
+<ul>
+<li>how do other things play into this, HLSL &amp; Shader Model Version; DX9,10,11,12 vs Direct3D Metal; Cg; SPIR-V, .shader in unity</li>
+</ul>
+</li>
+</ul>
+</div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-1"  />
+  <label for="tabs-Getting Started-1">2 - Hello World!</label>
+  <div class="book-tabs-content markdown-inner"><ul>
+<li>Syntax Highlighting?</li>
+<li>These names aren&rsquo;t totally standard</li>
+</ul>
+</div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-2"  />
+  <label for="tabs-Getting Started-2">3 - Uniforms</label>
+  <div class="book-tabs-content markdown-inner"><ul>
+<li>Other uniforms, in Unity, Shadertoy, etc.</li>
+<li>Full list of functions</li>
+</ul>
+</div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-3"  />
+  <label for="tabs-Getting Started-3">4 - Running</label>
+  <div class="book-tabs-content markdown-inner"><ul>
+<li>Debuggers</li>
+<li>Development environment</li>
+<li>Visual Editors</li>
+</ul>
+</div></div>
+</div><input type="radio" class="toggle" name="tabs-test" id="tabs-test-1"  />
+  <label for="tabs-test-1">Algorithmic Drawing</label>
+  <div class="book-tabs-content markdown-inner"><div class="book-tabs"><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-0" checked="checked" />
+  <label for="tabs-Algorithmic Drawing-0">5 - Shaping</label>
+  <div class="book-tabs-content markdown-inner"><ul>
+<li>Graph toy is nice, Shadershop sorta sucks
+<ul>
+<li>I&rsquo;d like to find a better tool, one that&rsquo;s visual for 2d or 3d functions</li>
+</ul>
+</li>
+<li>Init a git repo to hold snippits early</li>
+</ul>
+</div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-1"  />
+  <label for="tabs-Algorithmic Drawing-1">6 - Colors</label>
+  <div class="book-tabs-content markdown-inner"><ul>
+<li>What about Oklab, or something else with better uniformity
+<ul>
+<li><a href="https://www.shadertoy.com/view/WlGyDG">https://www.shadertoy.com/view/WlGyDG</a>
+<ul>
+<li>has rgb_to_oklab, and vis-versa</li>
+</ul>
+</li>
+<li><a href="https://www.shadertoy.com/view/WtccD7">https://www.shadertoy.com/view/WtccD7</a></li>
+</ul>
+</li>
+</ul>
+</div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-2"  />
+  <label for="tabs-Algorithmic Drawing-2">7 - Shapes</label>
+  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-3"  />
+  <label for="tabs-Algorithmic Drawing-3">8 - Matricies</label>
+  <div class="book-tabs-content markdown-inner"><ul>
+<li>Intuition for the rotation math</li>
+<li>Intuition for scale (though it&rsquo;s rather obvious)</li>
+</ul>
+<p>&hellip; This does go into YUV colorspace, see tab 6</div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-4"  />
+  <label for="tabs-Algorithmic Drawing-4">9 - Patterns</label>
+  <div class="book-tabs-content markdown-inner"></div></div>
+</div><input type="radio" class="toggle" name="tabs-test" id="tabs-test-2"  />
+  <label for="tabs-test-2">Generative Designs </label>
+  <div class="book-tabs-content markdown-inner"><div class="book-tabs"><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -0" checked="checked" />
+  <label for="tabs-Generative Designs -0">10 - Random</label>
+  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -1"  />
+  <label for="tabs-Generative Designs -1">11 - Noise</label>
+  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -2"  />
+  <label for="tabs-Generative Designs -2">12 - Cellular</label>
+  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -3"  />
+  <label for="tabs-Generative Designs -3">13 - Brownian</label>
+  <div class="book-tabs-content markdown-inner"></div></div>
+</div><input type="radio" class="toggle" name="tabs-test" id="tabs-test-3"  />
+  <label for="tabs-test-3">...Not Yet Covered</label>
+  <div class="book-tabs-content markdown-inner"><ul>
+<li>Multiple Buffers
+<ul>
+<li>Render Textures</li>
+</ul>
+</li>
+<li>Feedback</li>
+</ul>
+</div></div>
+
+<hr>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    [TODO] text on lighting &amp; physics as shaders in egines, vulkan, etc.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">What started a year and a half ago as just some Vulkan <a href="https://twitter.com/hashtag/voxel?src=hash&amp;ref_src=twsrc%5Etfw">#voxel</a> ray tracing experiment has evolved into something far beyond my wildest of dreams. The sky&#39;s the limit from here, and I intend to take it beyond, so stay tuned. <a href="https://twitter.com/hashtag/gamedev?src=hash&amp;ref_src=twsrc%5Etfw">#gamedev</a> <a href="https://t.co/nNwqrY7tdZ">pic.twitter.com/nNwqrY7tdZ</a></p>&mdash; John &quot;Lin&quot; (@ProgrammerLin) <a href="https://twitter.com/ProgrammerLin/status/1392808532538396678?ref_src=twsrc%5Etfw">May 13, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  </div>
+  
+</div>
+
 <p><a href="https://wwwtyro.net/2019/11/18/instanced-lines.html">https://wwwtyro.net/2019/11/18/instanced-lines.html</a></p>
 <p><a href="http://glsl.erogenous-tones.com/e#1341.0">http://glsl.erogenous-tones.com/e#1341.0</a></p>
 <p><a href="https://smoothstep.io/anim/534226b1d5ed">https://smoothstep.io/anim/534226b1d5ed</a></p>
 <p><a href="https://acko.net/blog/frickin-shaders-with-frickin-laser-beams/">https://acko.net/blog/frickin-shaders-with-frickin-laser-beams/</a></p>
 <p><a href="https://github.com/stackgl/shader-school">https://github.com/stackgl/shader-school</a></p>
-<p><a href="https://thebookofshaders.com">https://thebookofshaders.com</a></p>
 </article>
  
       
