@@ -112,7 +112,7 @@ Optional Security #  TempleOS is a really weird operating system. From Wikipedia
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.617f428f57ac6cfe356d1f00d33301e0705dd5783dd90fef88cc39c0a764b18e.css" integrity="sha256-YX9Cj1esbP41bR8A0zMB4HBd1Xg92Q/viMw5wKdksY4=">
-<script defer src="/en.search.min.c96682056bc75f8b05b29f82fdf871fa7034106f0b85ed0810c91f738e6c5b3a.js" integrity="sha256-yWaCBWvHX4sFsp&#43;C/fhx&#43;nA0EG8Lhe0IEMkfc45sWzo="></script>
+<script defer src="/en.search.min.1829abfe361deb980f861c321038214d5fa0221f4f14fc0286d8c82a14c61570.js" integrity="sha256-GCmr/jYd65gPhhwyEDghTV&#43;gIh9PFPwChtjIKhTGFXA="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -529,7 +529,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
 
 
  
@@ -605,9 +605,9 @@ https://github.com/alex-shpak/hugo-book
 <p><strong>TempleOS</strong> is a biblical-themed lightweight operating system designed to be the Third Temple prophesied in the Bible. It was created by the late American programmer Terry A. Davis, who developed it alone over the course of a decade after a series of manic episodes that he later described as a revelation from God.</p>
 <p>[&hellip;] using an interface similar to a mixture of DOS and Turbo C. Davis proclaimed that the system&rsquo;s features, such as its 640x480 resolution, 16-color display and single audio voice, were designed according to explicit instructions from God.</p>
 </blockquote>
-<p>But the part that&rsquo;s cool to me? TempleOS gives no fucks about security, now, that&rsquo;s at least in part because it doesn&rsquo;t have networking (though there is a <a href="https://github.com/minexew/Shrine">fork with networking</a>) but even then, there&rsquo;s no concept of an admin or &lsquo;normal&rsquo; user. There&rsquo;s no system-protected processes. You want to flip arbitrary bits, directly send data over IO lines, whatever. The OS will not stop you. The entire thing runs in ring 0, which means you always have total control over the hardware, but it also means there&rsquo;s nothing stopping you from massively fucking everything up and crashing the system, corrupting everything, etc.</p>
+<p>But the part that&rsquo;s cool to me? TempleOS gives no fucks about security, now, that&rsquo;s at least in part because it doesn&rsquo;t have networking (though there is a <a href="https://github.com/minexew/Shrine">fork with networking</a>) but even then, there&rsquo;s no concept of an admin or &rsquo;normal&rsquo; user. There&rsquo;s no system-protected processes. You want to flip arbitrary bits, directly send data over IO lines, whatever. The OS will not stop you. The entire thing runs in ring 0, which means you always have total control over the hardware, but it also means there&rsquo;s nothing stopping you from massively fucking everything up and crashing the system, corrupting everything, etc.</p>
 <p><a href="https://youtu.be/LtlyeDAJR7A">TempleOS (Linus Tech Tips)</a></p>
-<p>And, okay, yeah, that&rsquo;s obviously not ideal for <em>normal</em> use, but I think there&rsquo;s something to be said for having the <em>option</em> to say fuck it, slam your fist down on the manual override button, and take full control of the system. This is what I mean by optional security - no HAL 9000 in the way. No <code>sudo</code>, no &lsquo;no&rsquo;. In this mode it should also be easy to turn off all networking and malware protection, so a super-fuckit No firewallls, no threat scanning, etc. switch.</p>
+<p>And, okay, yeah, that&rsquo;s obviously not ideal for <em>normal</em> use, but I think there&rsquo;s something to be said for having the <em>option</em> to say fuck it, slam your fist down on the manual override button, and take full control of the system. This is what I mean by optional security - no HAL 9000 in the way. No <code>sudo</code>, no &rsquo;no&rsquo;. In this mode it should also be easy to turn off all networking and malware protection, so a super-fuckit No firewallls, no threat scanning, etc. switch.</p>
 <p>Running as root in Linux is <em>almost</em> this. It could even be argued that it&rsquo;s better since toying with memory though <code>/dev/kmem</code> is probably easier than trying to deduce the physical memory map. That said, there&rsquo;s still <em><a href="https://stackoverflow.com/questions/21761185/is-there-a-difference-between-sudo-mode-and-kernel-mode">some</a></em> restrictions on the root account compared to running directly in &lsquo;kernel mode&rsquo;.</p>
 <h2 id="backwards-compatibility-via-compatibility-layers">
   Backwards Compatibility via Compatibility Layers
@@ -644,7 +644,7 @@ https://github.com/alex-shpak/hugo-book
   The Ability to go Back In Time
   <a class="anchor" href="#the-ability-to-go-back-in-time">#</a>
 </h2>
-<p>A lot of software already runs on an idea of &lsquo;events&rsquo; or &lsquo;transactions&rsquo;, whatever you want to call it. What I want is for these to always be undo-able, at least for window of time or number of past events. This might mean updates, changes to a file, or just scrolling down on a screen.</p>
+<p>A lot of software already runs on an idea of &rsquo;events&rsquo; or &rsquo;transactions&rsquo;, whatever you want to call it. What I want is for these to always be undo-able, at least for window of time or number of past events. This might mean updates, changes to a file, or just scrolling down on a screen.</p>
 <p>A refresh should try to bring you to the previous state, dismissed notifications should be able to be un-dissmissed.</p>
 <p>As previously mentioned, you should be able to go back to a saved copy of any web page you&rsquo;ve visited. You should be able to revert your system to a restore point (Good idea from Windows, poorly implemented).</p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">EVERY <br>F**IN&#39;<br>TIME<br>💢<br>🦊 <a href="https://t.co/5JGKXqxIwF">pic.twitter.com/5JGKXqxIwF</a></p>&mdash; FPV 🟡 眼鏡の狐 (@F0XnR0LL) <a href="https://twitter.com/F0XnR0LL/status/1347328703987142656?ref_src=twsrc%5Etfw">January 7, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

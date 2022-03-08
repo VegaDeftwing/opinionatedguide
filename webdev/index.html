@@ -109,7 +109,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.617f428f57ac6cfe356d1f00d33301e0705dd5783dd90fef88cc39c0a764b18e.css" integrity="sha256-YX9Cj1esbP41bR8A0zMB4HBd1Xg92Q/viMw5wKdksY4=">
-<script defer src="/en.search.min.c96682056bc75f8b05b29f82fdf871fa7034106f0b85ed0810c91f738e6c5b3a.js" integrity="sha256-yWaCBWvHX4sFsp&#43;C/fhx&#43;nA0EG8Lhe0IEMkfc45sWzo="></script>
+<script defer src="/en.search.min.1829abfe361deb980f861c321038214d5fa0221f4f14fc0286d8c82a14c61570.js" integrity="sha256-GCmr/jYd65gPhhwyEDghTV&#43;gIh9PFPwChtjIKhTGFXA="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -526,7 +526,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
 
 
  
@@ -1256,15 +1256,18 @@ sequenceDiagram
 
 <div class="book-tabs"><input type="radio" class="toggle" name="tabs-hashing" id="tabs-hashing-0" checked="checked" />
   <label for="tabs-hashing-0">Windows</label>
-  <div class="book-tabs-content markdown-inner"><h1 id="windows">Windows</h1>
+  <div class="book-tabs-content markdown-inner"><h1 id="windows">
+  Windows
+  <a class="anchor" href="#windows">#</a>
+</h1>
 <p>open up a command prompt by pressing ctr+r and typing &lsquo;cmd&rsquo; then enter, and we&rsquo;ll need to navigate to the location of the downloaded file it should be named something along the lines of archlinux-20xx.xx.xx-x86_64.iso and be in your Downloads folder. When you open a command prompt on Windows it should start out in your user folder (C:\Users%username%). To list the folders in this folder you can type &lsquo;dir&rsquo; and press enter. You should, at minimum, see folders like &lsquo;Downloads&rsquo; &lsquo;Desktop&rsquo; and &lsquo;Documents&rsquo; to enter the Downloads folder simply type &lsquo;cd Dow&rsquo; and press tab, the line should auto-complete to &lsquo;cd Downloads&rsquo;, then press enter. Now you can type &lsquo;certutil -hashfile arch&rsquo; , press tab to complete it to &lsquo;certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso&rsquo; then add &lsquo;sha1&rsquo; on the end so the finally command looks like</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso sha1
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso sha1
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Note, if this spits out &ldquo;The process cannot access the file because it is being used by another process.&rdquo; you&rsquo;ll need to close your torrent client or stop seeding the file first!</p>
@@ -1272,15 +1275,18 @@ sequenceDiagram
 <p>So let&rsquo;s look at this command. The first part, certutil, is a program on your computer, &lsquo;-hashfile&rsquo; says the next string of text is the name of the file we want to examine, and the last part sha1 is the checksum as mentioned before. Finally, if you go back to <a href="https://www.archlinux.org/download/">https://www.archlinux.org/download/</a> and look under &lsquo;Checksums&rsquo; you can compare the output of the command you just ran against the SHA1 sum provided to be sure you didn&rsquo;t have any errors in the file. This is mostly a security check as in theory someone could provide a &lsquo;bad&rsquo; version of the OS containing malware, but such a version would produce an incorrect checksum, in practice this is extraordinarily uncommon. Though this does also serve to ensure the download wasn&rsquo;t corrupted in any way either.</p>
 </div><input type="radio" class="toggle" name="tabs-hashing" id="tabs-hashing-1"  />
   <label for="tabs-hashing-1">Mac</label>
-  <div class="book-tabs-content markdown-inner"><h1 id="mac">Mac</h1>
+  <div class="book-tabs-content markdown-inner"><h1 id="mac">
+  Mac
+  <a class="anchor" href="#mac">#</a>
+</h1>
 <p>open up a terminal by going to the Utilities fore in Applications and open &lsquo;Terminal&rsquo;. The mac terminal is very, very similar to what you&rsquo;ll use in Linux actually, and the commands here are actually identical. You should see something like</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">MacBook:~ username$
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>MacBook:~ username$
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>waiting for input.</p>
 <p>That <code>~</code> represents that you&rsquo;re in your user or &lsquo;home&rsquo; folder, and assuming you downloaded Arch&rsquo;s install image to your downloads folder you should be able to type</p>
@@ -1304,7 +1310,7 @@ sequenceDiagram
 	<li>FOOT NOTE 1</li>
     <li>FOOT NOTE 2</li>
 </ol>
-<pre tabindex="0"><code>&lt;ol hidden id=&quot;footnotes&quot;&gt;
+<pre tabindex="0"><code>&lt;ol hidden id=&#34;footnotes&#34;&gt;
 	&lt;li&gt;FOOT NOTE 1&lt;/li&gt;
     &lt;li&gt;FOOT NOTE 2&lt;/li&gt;
 &lt;/ol&gt;

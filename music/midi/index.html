@@ -108,7 +108,7 @@ For the most part, yeah. Everything works together and you can make all your har
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.617f428f57ac6cfe356d1f00d33301e0705dd5783dd90fef88cc39c0a764b18e.css" integrity="sha256-YX9Cj1esbP41bR8A0zMB4HBd1Xg92Q/viMw5wKdksY4=">
-<script defer src="/en.search.min.c96682056bc75f8b05b29f82fdf871fa7034106f0b85ed0810c91f738e6c5b3a.js" integrity="sha256-yWaCBWvHX4sFsp&#43;C/fhx&#43;nA0EG8Lhe0IEMkfc45sWzo="></script>
+<script defer src="/en.search.min.1829abfe361deb980f861c321038214d5fa0221f4f14fc0286d8c82a14c61570.js" integrity="sha256-GCmr/jYd65gPhhwyEDghTV&#43;gIh9PFPwChtjIKhTGFXA="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -525,7 +525,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
 
 
  
@@ -583,6 +583,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#mackie-control--hui">Mackie Control / HUI</a></li>
         <li><a href="#ableton-link">Ableton Link</a></li>
         <li><a href="#midi-routing-hardware">MIDI Routing Hardware</a></li>
+        <li><a href="#hacky-bullshit">Hacky Bullshit</a></li>
       </ul>
     </li>
   </ul>
@@ -1254,7 +1255,7 @@ graph LR
   <a class="anchor" href="#bandwidth">#</a>
 </h3>
 <p>One thing you need to be aware of that a combonation of which of these physical connections you&rsquo;re using and what the devices you&rsquo;re using have for processing power will determine the maximum rate that you can push MIDI messages to a given device.</p>
-<p>If you&rsquo;re just playing the keyboard, you have nothing to worry about. If you&rsquo;re playing the keyboard, twisting a few knobs, using the pitch-wheel, and sending clock data you might start pushing it. If you&rsquo;d like to use MIDI data to send an LFO or an envelope, you might find that things just don&rsquo;t work. If you imagine that you want a nice 10Hz sine wave MIDI CC LFO that uses the full 0-127 range, that means you&rsquo;d need to send 128*2*10 = 2560 midi messages a second, each message needs 3 bytes, one to say the message is a CC, one to specify which CC it is, and one to send the actual data, a byte is 8 bits, so this means 24bits per message so we have 2560*24 bits per second = 61,440 bits per second. By default, the &lsquo;lowest spec&rsquo; default <strong>5-pin DIN MIDI only supports 31,250 bits per second</strong>, we&rsquo;ve already asked for about double that just by sending one LFO. Fortunately, USB Midi generally allows for <em>significantly</em> more data to pushed down the pipe, with some usb MIDI devices even requiring MIDI 3.0 which means these devices have a reason to need <em>more</em> than the ~480,000,000 bits per second USB 2.0 can do. This isn&rsquo;t your Grandma&rsquo;s MIDI.</p>
+<p>If you&rsquo;re just playing the keyboard, you have nothing to worry about. If you&rsquo;re playing the keyboard, twisting a few knobs, using the pitch-wheel, and sending clock data you might start pushing it. If you&rsquo;d like to use MIDI data to send an LFO or an envelope, you might find that things just don&rsquo;t work. If you imagine that you want a nice 10Hz sine wave MIDI CC LFO that uses the full 0-127 range, that means you&rsquo;d need to send 128*2*10 = 2560 midi messages a second, each message needs 3 bytes, one to say the message is a CC, one to specify which CC it is, and one to send the actual data, a byte is 8 bits, so this means 24bits per message so we have 2560*24 bits per second = 61,440 bits per second. By default, the &rsquo;lowest spec&rsquo; default <strong>5-pin DIN MIDI only supports 31,250 bits per second</strong>, we&rsquo;ve already asked for about double that just by sending one LFO. Fortunately, USB Midi generally allows for <em>significantly</em> more data to pushed down the pipe, with some usb MIDI devices even requiring MIDI 3.0 which means these devices have a reason to need <em>more</em> than the ~480,000,000 bits per second USB 2.0 can do. This isn&rsquo;t your Grandma&rsquo;s MIDI.</p>
 <h3 id="eurorack-midicv">
   Eurorack MIDI⇄CV
   <a class="anchor" href="#eurorack-midicv">#</a>
@@ -1282,7 +1283,7 @@ graph LR
   Over Network
   <a class="anchor" href="#over-network">#</a>
 </h4>
-<p>Look, I&rsquo;m not going to say you can&rsquo;t do wireless or networked midi. You definitely can. It&rsquo;s just that there&rsquo;s alway something that goes wrong. The &lsquo;normal&rsquo; way to do it is using RTP MIDI. This should work cross platform:</p>
+<p>Look, I&rsquo;m not going to say you can&rsquo;t do wireless or networked midi. You definitely can. It&rsquo;s just that there&rsquo;s alway something that goes wrong. The &rsquo;normal&rsquo; way to do it is using RTP MIDI. This should work cross platform:</p>
 <ul>
 <li>Windows, use <a href="https://www.tobias-erichsen.de/software/rtpmidi.html">rtpMIDI</a> by Tobias Erichsen</li>
 <li>Mac, use the built in network-MIDI tools</li>
@@ -1330,6 +1331,11 @@ graph LR
   <a class="anchor" href="#midi-routing-hardware">#</a>
 </h2>
 <p>[TODO] <a href="https://blokas.io/midihub/">Blookas MIDIhub</a>, <a href="https://conductivelabs.com/mrcc/">MRCC - MIDI Router Control Center</a>, <a href="https://www.e-rm.de/multiclock/">Multiclock</a>, <a href="https://www.ebay.com/itm/264758845793?hash=item3da4db6161:g:I38AAOSw~7le4BKS">Teensy 4.1 based 8in/8out interface</a></p>
+<h2 id="hacky-bullshit">
+  Hacky Bullshit
+  <a class="anchor" href="#hacky-bullshit">#</a>
+</h2>
+<p><a href="https://hackaday.com/2022/02/15/you-can-send-midi-over-i2c-if-you-really-need-to/">You Can Send MIDI over I2C if you Really Need To (Hackaday, DIYElectronicMusic)</a></p>
 </article>
  
       
@@ -1407,6 +1413,7 @@ graph LR
         <li><a href="#mackie-control--hui">Mackie Control / HUI</a></li>
         <li><a href="#ableton-link">Ableton Link</a></li>
         <li><a href="#midi-routing-hardware">MIDI Routing Hardware</a></li>
+        <li><a href="#hacky-bullshit">Hacky Bullshit</a></li>
       </ul>
     </li>
   </ul>

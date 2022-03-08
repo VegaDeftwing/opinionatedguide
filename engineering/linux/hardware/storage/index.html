@@ -82,7 +82,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="5 - Storage #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &lsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd on a carrier card. Under the CD is a micro sd card and a flash drive.">
+<meta name="description" content="5 - Storage #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &rsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd on a carrier card. Under the CD is a micro sd card and a flash drive.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -94,7 +94,7 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="5 - Storage #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &lsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd on a carrier card. Under the CD is a micro sd card and a flash drive." />
+<meta property="og:description" content="5 - Storage #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &rsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd on a carrier card. Under the CD is a micro sd card and a flash drive." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/linux/hardware/storage/" /><meta property="article:section" content="Engineering" />
 
@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.617f428f57ac6cfe356d1f00d33301e0705dd5783dd90fef88cc39c0a764b18e.css" integrity="sha256-YX9Cj1esbP41bR8A0zMB4HBd1Xg92Q/viMw5wKdksY4=">
-<script defer src="/en.search.min.c96682056bc75f8b05b29f82fdf871fa7034106f0b85ed0810c91f738e6c5b3a.js" integrity="sha256-yWaCBWvHX4sFsp&#43;C/fhx&#43;nA0EG8Lhe0IEMkfc45sWzo="></script>
+<script defer src="/en.search.min.1829abfe361deb980f861c321038214d5fa0221f4f14fc0286d8c82a14c61570.js" integrity="sha256-GCmr/jYd65gPhhwyEDghTV&#43;gIh9PFPwChtjIKhTGFXA="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -521,7 +521,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
 
 
  
@@ -580,7 +580,7 @@ https://github.com/alex-shpak/hugo-book
 </script>
 <p><img src="/eng/hdds.webp" alt="disks" /></p>
 <span class="smalltext ">
-    Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &lsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd on a carrier card. Under the CD is a micro sd card and a flash drive. The micro SD, NVMe ssd, and flash drive all use &ldquo;flash storage&rdquo;.
+    Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the the other a &rsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe ssd on a carrier card. Under the CD is a micro sd card and a flash drive. The micro SD, NVMe ssd, and flash drive all use &ldquo;flash storage&rdquo;.
 </span>
 <p>Permanent storage is rapidly evolving, but the old guard: hard drives and tape storage aren&rsquo;t going anywhere either. But why use one over the other? How do you interact with them in Linux?</p>
 <p>[TODO] mention hdd, ssd, sata, nvme, usb-storage, sd, scsi, u.2, m.2, tape, floppy, zip</p>
@@ -602,32 +602,32 @@ https://github.com/alex-shpak/hugo-book
 <p>For working with hard drives in Linux you&rsquo;re best friend is <code>hdparm</code> lets use it to look at some disks. First we need to pick a disk to look at, running <code>lsblk</code> you should be able to see all the disks on your system, and I&rsquo;ll be looking at my main data drive which is a 3.7Tb drive on /dev/sdg</p>
 <p>The first thing we should do is get an idea about the disk usage, to do that I&rsquo;ll go to the mount point of the disk on my system ( it&rsquo;s mounted at /run/media/vega/raid despite the fact it&rsquo;s no longer in a raid array, we&rsquo;ll come back to this)</p>
 <p>so first I&rsquo;ll run <code>df -h</code> , that <code>-h</code> on most Linux commands means to make the output human readable, printing things in terms of Gigabytes or Terabytes etc instead of just a raw byte count.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Filesystem      Size  Used Avail Use% Mounted on
-/dev/sdg2       3.7T  2.3T 1.5T  62%  /run/media/vega/raid
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span style="display:flex;"><span>/dev/sdg2       3.7T  2.3T 1.5T  62%  /run/media/vega/raid
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Alright, so I already have the disk 62% used, let&rsquo;s give that a closer look by firing up <code>ncdu</code> at the mount point. This will take a little while to scan, the more files the longer it will take. After spending a few minutes to analyze the disk I&rsquo;m greeted with this:</p>
 <p><img src="/eng/ncdu.webp" alt="ncdu" /></p>
 <p>From this you should be able to plainly see that the majority of the hard drive is taken up by Archived files, Music, Games, Videos, and Pictures. Pretty Mundane, but I could easily dive into the Archives and see why they&rsquo;re so big and save myself some space</p>
 <p>None of this is really all that interesting though, so what about speed? How fast or slow is the hard drive? Now is where hdparm comes in. Reading the man page you&rsquo;ll find the the <code>-T</code> and <code>-t</code> flags both perform disk read bench marks, one cached reads, the other raw, so let&rsquo;s run <code>sudo hdparm -Tt /dev/sdg</code></p>
 <p>This gives:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/dev/sdg:
- Timing cached reads:   <span style="color:#ae81ff">22946</span> MB in  2.00 seconds <span style="color:#f92672">=</span> 11492.36 MB/sec
- Timing buffered disk reads: <span style="color:#ae81ff">556</span> MB in  3.01 seconds <span style="color:#f92672">=</span> 184.91 MB/sec
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/dev/sdg:
+</span></span><span style="display:flex;"><span> Timing cached reads:   <span style="color:#ae81ff">22946</span> MB in  2.00 seconds <span style="color:#f92672">=</span> 11492.36 MB/sec
+</span></span><span style="display:flex;"><span> Timing buffered disk reads: <span style="color:#ae81ff">556</span> MB in  3.01 seconds <span style="color:#f92672">=</span> 184.91 MB/sec
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>You should immediately notice that cached reads are absolutely insanely high compared to buffered, in reality it&rsquo;s because it was using RAM for cache, and RAM really is that fast. The reads of bulk data on the other hand? A little under 200MB/sec is actually quite fast for a hard drive. Anything between 1-200 is normal. You&rsquo;ll soon see that compared to SSDs though, this is kind of disappointing.</p>
 <p>But, moving on, another few interesting flags available in hdparm are <code>-g</code> which displays the &ldquo;geometry&rdquo; of the drive: cylinders, heads, sectors, etc., <code>-H</code> for tempature.
@@ -635,15 +635,15 @@ This begs the obvious question: what are cylinders, heads, and sectors
 [TODO]</p>
 <p>Another thing of note is S.M.A.R.T tests, while not exclusive to hard drives, they&rsquo;re particularly useful for them as most hard drives give a lot of warning signs before failing out right. In
 order to get in-depth S.M.A.R.T info on your drive, you&rsquo;ll likely need to run a test first, after which you can view the results. To do this on Linux you can run</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yay -S smartmontools
-sudo smartctl -i path/to/disk
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yay -S smartmontools
+</span></span><span style="display:flex;"><span>sudo smartctl -i path/to/disk
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Hard drives, being the last remaining mechancial part in a computer (aside from fans or liquid cooling pumps) are also pretty prone to failure. If you want to avoid this keep vibrations to a minimum (see <a href="https://www.youtube.com/watch?v=tDacjrSCeq4&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Shouting in the Datacenter (YouTube)</a>), look for disks that are rated for your use case (being on 24/7, being next to many other hard drives, etc) and check the drives MTBF or Mean Time Between Failure. You want this number to be as high as possible, often something like 1,000,000 hours.</p>
 <p>Finally, a quick note about Western Digital Green drives: Linux eats them. Thankfully you can use hdparm to fix this. From the man page:</p>
@@ -688,7 +688,7 @@ zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p>
 <p>Most fixed disk enclosures (Think your normal, off the shelf portable driver) suck, albeit they can be less expensive. I&rsquo;d recommend getting a portable multi-drive enclosure that runs over whatever the fastest connection you have is (Thunderbolt, USB 3.1, etc.). You can even get usb-&gt;nvme adapters, albeit they have a nasty amount of bandwidth limiting.</p>
 <p>Most off-the-shelf flash drives have ass cooling and will over-heat them selves to death when you use them for things like installing operating systems regularly, so I recommend just getting a bulk pack of cheap, low capacity ones to toss when they finally kick the bucket and a few nice USB-&gt;SATA or USB-&gt;NVME adapter for  your main portable storage needs. Failing that, you can always use your phone if you&rsquo;ve got a nice high capacity SD card in it or plenty of spare internal storage. The problem with that is MTP or &lsquo;Media Transfer Protocol&rsquo; is a buggy, slow mess, and there&rsquo;s no other clean way to transfer things from a phone. So ¯\<em>(ツ)</em>/¯</p>
 <blockquote class="twitter-tweet"><p lang="ro" dir="ltr">Recuperación de datos de µSD nivel: F*cking Master of the Universe. <a href="https://t.co/B9egCrW4WJ">pic.twitter.com/B9egCrW4WJ</a></p>&mdash; ChuxMan Skywalker (@MrChuxMan) <a href="https://twitter.com/MrChuxMan/status/1288054419985248257?ref_src=twsrc%5Etfw">July 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p>You might also want to look into <a href="https://www.ifixit.com/News/46724/how-to-find-useful-discounted-disks-inside-an-external-hard-drive">Hard Drive Schucking</a> if you&rsquo;re in need of as much storage as you can get your grubby lil' <a href="https://www.reddit.com/r/DataHoarder/">r/DataHoarder</a> hands onto.</p>
+<p>You might also want to look into <a href="https://www.ifixit.com/News/46724/how-to-find-useful-discounted-disks-inside-an-external-hard-drive">Hard Drive Schucking</a> if you&rsquo;re in need of as much storage as you can get your grubby lil&rsquo; <a href="https://www.reddit.com/r/DataHoarder/">r/DataHoarder</a> hands onto.</p>
 <h2 id="the-past">
   The Past
   <a class="anchor" href="#the-past">#</a>

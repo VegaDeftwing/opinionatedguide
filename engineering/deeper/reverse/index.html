@@ -110,7 +110,7 @@ when starting out, do it on binaries you can actually run in a debugger and see 
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.617f428f57ac6cfe356d1f00d33301e0705dd5783dd90fef88cc39c0a764b18e.css" integrity="sha256-YX9Cj1esbP41bR8A0zMB4HBd1Xg92Q/viMw5wKdksY4=">
-<script defer src="/en.search.min.c96682056bc75f8b05b29f82fdf871fa7034106f0b85ed0810c91f738e6c5b3a.js" integrity="sha256-yWaCBWvHX4sFsp&#43;C/fhx&#43;nA0EG8Lhe0IEMkfc45sWzo="></script>
+<script defer src="/en.search.min.1829abfe361deb980f861c321038214d5fa0221f4f14fc0286d8c82a14c61570.js" integrity="sha256-GCmr/jYd65gPhhwyEDghTV&#43;gIh9PFPwChtjIKhTGFXA="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -527,7 +527,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
 
 
  
@@ -560,6 +560,12 @@ https://github.com/alex-shpak/hugo-book
       <ul>
         <li><a href="#software">Software</a></li>
         <li><a href="#circuits">Circuits</a></li>
+        <li><a href="#tools">Tools?</a>
+          <ul>
+            <li><a href="#hardware">Hardware:</a></li>
+            <li><a href="#software-1">Software:</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#341---is-this-even-legal">34.1 - Is This Even Legal?</a></li>
@@ -632,11 +638,73 @@ Not particular tools necessarily, but like theory and how to think
   <a class="anchor" href="#circuits">#</a>
 </h2>
 <p>[TODO]</p>
+<h2 id="tools">
+  Tools?
+  <a class="anchor" href="#tools">#</a>
+</h2>
+<h3 id="hardware">
+  Hardware:
+  <a class="anchor" href="#hardware">#</a>
+</h3>
+<p>Most tools for reverse engineering are really tools you&rsquo;d use for otheng things anyway <em>plus</em> some special sauce. For circuits, your logic analyzer, OScope, etc. are all still valid; however, you may want to add some tools like a software defined radio, <a href="http://www.grandideastudio.com/jtagulator/">Jtagulator</a>, <a href="https://proxmark.com/proxmark-3-hardware/proxmark-3-easy">Proxmark-3</a>, a Bus Pirate/Shikra, and the <a href="https://www.youtube.com/watch?v=FktI4qSjzaE">ChipWhisperer</a>. Don&rsquo;t like race out to buy these things though - you&rsquo;ll know if you need them. On top of this, you&rsquo;ll need some actual tools - screwdrivers with those weird torx security bit, pry tools to take off a screen, etc. Hardware hacking tends to get rather crazy rather fast, so dont be suprised if you find you need some acids to get at the die in an IC, to throw a board in a freezer to get it nice and cold, or to shine a bright light on an IC to get it to crash.</p>
+<p>Don&rsquo;t forget your search enginer either though- looking up the FCC certification, patents, and documention on anything and everything you can is likely to tell you a lot more a lot faster than you can figure it out by actually poking the thing.</p>
+<h3 id="software-1">
+  Software:
+  <a class="anchor" href="#software-1">#</a>
+</h3>
+<h4 id="binaries">
+  Binaries:
+  <a class="anchor" href="#binaries">#</a>
+</h4>
+<p>As for software, the big one is an executable reverse engineering tool like Radare2, Cutter, Ida, BinaryNinja, etc.</p>
+<p>These let you take a compiled program and work your way back to source code&hellip; slowly. Of course, this sometimes isn&rsquo;t necessary. Hell, sometimes you just need to throw <code>strings</code> at the problem. Other times, the reverse engineering tool won&rsquo;t be enough, and you may need to throw <a href="https://github.com/horsicq/Detect-It-Easy">DIE</a>, <a href="https://github.com/endrazine/wcc">WCC</a>, etc. at the problem. Of course, you shouldn&rsquo;t forget about watching the actually active state about the problam either, so GDB is still your friend - and <a href="https://rr-project.org">rr</a> and <a href="https://gef.readthedocs.io/en/master/">gef</a> make great companions to GDB. Other times, <a href="https://www.cheatengine.org">cheatengine</a> may be useful for finding an important piece of memory, Valgrind for finding when memory goes wrong, and you&rsquo;ve always got <code>strace</code> &amp; <code>ltrace</code> handy. Keep in mind that there may be special binary reversing tools for your platform too, like apktool or</p>
+<p>Resource hacker may be handy too.</p>
+<p>If all else fails, there&rsquo;s always the ever-unfriendly hex-editor at your disposal.</p>
+<h4 id="networking">
+  Networking:
+  <a class="anchor" href="#networking">#</a>
+</h4>
+<p>Assuming things start to get network-y, you&rsquo;ll need to be familiar with network-y tools. See the 
+
+
+
+
+  
+
+
+<a  href="/engineering/networking/networking/"   class="book-btn ">
+  Networking
+</a>
+ page, but the short version is you&rsquo;ll want to know:</p>
+<ul>
+<li>Traceroute (or mtr)</li>
+<li>Dig</li>
+<li>Wireshark</li>
+<li>netcat (or socat)</li>
+<li>Scapy</li>
+<li>Airmon-ng</li>
+<li>&hellip; and your firewall system, be it <a href="https://wiki.archlinux.org/title/iptables">iptables</a> or something else</li>
+<li>&hellip; and your network config tool. On Linux, <code>ip</code>; on Windows, pain &amp; suffering.</li>
+</ul>
+<p>With those, you really should be able to about 99% of the reversing &amp; security reseach for networking you&rsquo;d want to do, at least assuming you don&rsquo;t need to setup some crazy, emulated networking environment or that you&rsquo;re not trying to just crack a wifi-password or router password or bypass a captive portal (which is boring <em>and</em> illegal, so not usually worth doing)</p>
+<h4 id="breaking-things-and-watching-them-scream">
+  Breaking Things and Watching Them Scream:
+  <a class="anchor" href="#breaking-things-and-watching-them-scream">#</a>
+</h4>
+<p>Of course, sometimes you just need to break things to see how they work. For that, having a whole pile of fuzzers tends to come in handy</p>
+<p>Trust me, you&rsquo;ll want a VM of basically every system you can think of ready to go. Windows XP through 11, Arch, Ubuntu, MacOS, android, <em>out of date</em> Ubuntu and Android&hellip; everything. <em>On each of these</em>, you&rsquo;ll want a full suite of system analsis tools. Task Manager and Top isn&rsquo;t going to cut it here - you&rsquo;re gonna want Process Explorer (or Process Hacker), Process Monitor for Windows and htop for Linux at minimum, though <a href="https://github.com/Sysinternals/ProcMon-for-Linux">procmon</a>, <a href="https://github.com/draios/sysdig">sysdig</a>, VmStat, lsof, netstat, iotop, nethogs, pmap, and nmon are all awesome in Linux too. Also, in Windows being able to trigger a BSOD is sometimes nice. For that there&rsquo;s <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/notmyfault">NotMyFault</a> and the good ol&rsquo; <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools">WinDbg</a>. Occasionally, <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/vmmap">vmmap</a> might come in handy as well. Keep in mind that on Linux systems you can dive into /proc, /sys, and /dev to get information too.</p>
+<h4 id="but-what-about-x">
+  But what about X?
+  <a class="anchor" href="#but-what-about-x">#</a>
+</h4>
+<p>Of course, this list is <strong>far</strong> from exhaustive. There&rsquo;s a lot of other tools that you&rsquo;ll want depending on the situation - so naturally a search engine is your №1 friend. Hell, you can probably assume it was the №1 friend of whoever wrote what you&rsquo;re poking too, so don&rsquo;t be afraid to google &ldquo;how do I X?&rdquo;, look at stack overflow, and assume that is the same code you&rsquo;re trying to reverse.</p>
 <h1 id="341---is-this-even-legal">
   34.1 - Is This Even Legal?
   <a class="anchor" href="#341---is-this-even-legal">#</a>
 </h1>
-<p>[TODO]</p>
+<p>I am not a lawyer, but a lawyer would tell you &ldquo;It depends&rdquo;.</p>
+<p>It&rsquo;d be nice if you could do whatever you want to anything you own, but IP is a bitch and if you put Linux on your PlayStation, Sony can probably sue you and win- same for emulating a Switch on your PC, getting root on your TV, etc.</p>
+<p>Will they? Probably not. If you&rsquo;re actually woried about it, talk to a lawyer. If you think this is bullshit, then join me in giving everyone the middle finger and getting root on everything you own.</p>
 </article>
  
       
@@ -689,6 +757,12 @@ Not particular tools necessarily, but like theory and how to think
       <ul>
         <li><a href="#software">Software</a></li>
         <li><a href="#circuits">Circuits</a></li>
+        <li><a href="#tools">Tools?</a>
+          <ul>
+            <li><a href="#hardware">Hardware:</a></li>
+            <li><a href="#software-1">Software:</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#341---is-this-even-legal">34.1 - Is This Even Legal?</a></li>
