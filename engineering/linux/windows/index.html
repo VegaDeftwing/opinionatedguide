@@ -82,10 +82,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Super brief post about one of the more fun projects I setup recently: a lil&rsquo; time lapse script
-#!/bin/bash CAM=$(v4l2-ctl --list-devices | grep C920 -A 1 | grep /dev | awk &#39;{$1=$1};1&#39;) #Uncomment the next line to verify it&#39;s using the correct device #echo $CAM ffmpeg -f video4linux2 -s 1920x1080 -i $CAM -ss 0:0:2 -frames 1 &#34;/mnt/data/lapse/tl$(date &#43;&#34;%Y-%m-%d_%H-%M-%S&#34;).jpg&#34; I have multiple cameras on my system, but only wanted output from the better one, the C920.">
+<meta name="description" content="Ugh. Windows. #  Okay, so, I hate Windows for many, many reasons. Beyond the Candy Crush being bundled and privacy concerns, it&rsquo;s generally just a pain in the ass. That said, you&rsquo;ll probably need to do some stuff with it from time to time regardless, so, in this page I want to do three things:
+ Make it suck less. Help you understand how to fix issues Let you know how to make programming not suck  1.">
 <meta name="theme-color" content="#FFFFFF">
-
 
 
 
@@ -95,15 +94,15 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
-<meta property="og:title" content="Time lapse" />
-<meta property="og:description" content="Super brief post about one of the more fun projects I setup recently: a lil&rsquo; time lapse script
-#!/bin/bash CAM=$(v4l2-ctl --list-devices | grep C920 -A 1 | grep /dev | awk &#39;{$1=$1};1&#39;) #Uncomment the next line to verify it&#39;s using the correct device #echo $CAM ffmpeg -f video4linux2 -s 1920x1080 -i $CAM -ss 0:0:2 -frames 1 &#34;/mnt/data/lapse/tl$(date &#43;&#34;%Y-%m-%d_%H-%M-%S&#34;).jpg&#34; I have multiple cameras on my system, but only wanted output from the better one, the C920." />
+<meta property="og:title" content="" />
+<meta property="og:description" content="Ugh. Windows. #  Okay, so, I hate Windows for many, many reasons. Beyond the Candy Crush being bundled and privacy concerns, it&rsquo;s generally just a pain in the ass. That said, you&rsquo;ll probably need to do some stuff with it from time to time regardless, so, in this page I want to do three things:
+ Make it suck less. Help you understand how to fix issues Let you know how to make programming not suck  1." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/posts/time-lapse/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-02-04T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-02-04T00:00:00+00:00" />
+<meta property="og:url" content="https://opguides.info/engineering/linux/windows/" /><meta property="article:section" content="Engineering" />
 
-<title>Time lapse | Opinionated Guides</title>
+
+
+<title>Windows | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.617f428f57ac6cfe356d1f00d33301e0705dd5783dd90fef88cc39c0a764b18e.css" integrity="sha256-YX9Cj1esbP41bR8A0zMB4HBd1Xg92Q/viMw5wKdksY4=">
@@ -538,7 +537,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Time lapse</strong>
+  <strong>Windows</strong>
 
   <label for="toc-control">
     
@@ -551,7 +550,36 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ugh-windows">Ugh. Windows.</a></li>
+    <li><a href="#1-making-windows-suck-less">1. Making Windows Suck Less</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#xx-update-your-bios">X.x Update your BIOS</a></li>
+            <li><a href="#11-removing-the-shit">1.1 Removing the shit</a></li>
+            <li><a href="#12-installing-system-stuff">1.2 Installing System Stuff</a></li>
+            <li><a href="#13-fucking-with-settings">1.3 Fucking with settings</a></li>
+            <li><a href="#14-installing-user-stuff">1.4 Installing User Stuff</a></li>
+            <li><a href="#15-security--backups">1.5 Security &amp; Backups</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-understanding-windows--fixing-issues">2. Understanding Windows &amp; Fixing issues</a>
+      <ul>
+        <li><a href="#25-for-the-dual-booters">2.5 For The Dual Booters</a></li>
+        <li><a href="#3-for-the-programmers">3. For The programmers</a>
+          <ul>
+            <li><a href="#using-visual-studio">Using Visual Studio</a></li>
+            <li><a href="#setting-up-windows-compilers-debuggers-git-shells-etc">Setting up Windows compilers, debuggers, git, shells, etc.</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
   </aside>
@@ -561,57 +589,236 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-<article class="markdown">
-  <h1>
-    <a href="/posts/time-lapse/">Time lapse</a>
-  </h1>
-  
-  <h5>February 4, 2021</h5>
+  <article class="markdown"><h1 id="ugh-windows">
+  Ugh. Windows.
+  <a class="anchor" href="#ugh-windows">#</a>
+</h1>
+<p>Okay, so, I hate Windows for many, many reasons. Beyond the Candy Crush being bundled and privacy concerns, it&rsquo;s generally just a pain in the ass. That said, you&rsquo;ll probably need to do some stuff with it from time to time regardless, so, in this page I want to do three things:</p>
+<ol>
+<li>Make it suck less.</li>
+<li>Help you understand how to fix issues</li>
+<li>Let you know how to make programming not suck</li>
+</ol>
+<h1 id="1-making-windows-suck-less">
+  1. Making Windows Suck Less
+  <a class="anchor" href="#1-making-windows-suck-less">#</a>
+</h1>
+<h3 id="xx-update-your-bios">
+  X.x Update your BIOS
+  <a class="anchor" href="#xx-update-your-bios">#</a>
+</h3>
+<p>While not Windows specific, I reccomend updating your UEFI/BIOS anyway, as occassionally it will fix random issues down the line. The process for this varies, but generally you just need to go to either the page for your specific model of computer or, if a custom system, the page for the motherboard. Download the BIOS from there and follow the update instructions provided. It&rsquo;ll be a little sketchy, but it should be fine. Sometimes, you can do this from within Windows Update via an &lsquo;optional update&rsquo;. Don&rsquo;t.</p>
+<h3 id="11-removing-the-shit">
+  1.1 Removing the shit
+  <a class="anchor" href="#11-removing-the-shit">#</a>
+</h3>
+<p>I&rsquo;ll be honest with you, even if you run a VPN -&gt; Tor -&gt; Freenet -&gt; IPFS chain that hits every country twice or you manage to set up firewalls so high china wants your phone number, you won&rsquo;t be able to stop windows from knowing more about you than you know about you.</p>
+<div class="speech big ">
+    <p>
+        Historically, I&rsquo;d recomend setting up Windows with a local account for a whole mess of reasons as well. Unfortuantely, Microsoft is making this more of a pain in the ass with each update, and basically removing the ability outright in Windows 11. If you haven&rsquo;t yet set up your computer and your coming back to this guide as a &ldquo;Did I miss anything&rdquo;, this is something you may want to consider trying still. Just realize you&rsquo;ll be fighting Windows every step of the way.
+    </p>
+</div>
 
 
 
-  
-  <div>
-    
-      <a href="/tags/technical/">technical</a>
-  </div>
-  
 
-
-  <p><p>Super brief post about one of the more fun projects I setup recently: a lil&rsquo; time lapse script</p>
-<pre tabindex="0"><code>#!/bin/bash
-CAM=$(v4l2-ctl --list-devices | grep C920 -A 1 | grep /dev | awk &#39;{$1=$1};1&#39;)
-#Uncomment the next line to verify it&#39;s using the correct device
-#echo $CAM
-ffmpeg -f video4linux2 -s 1920x1080 -i $CAM -ss 0:0:2 -frames 1 &#34;/mnt/data/lapse/tl$(date +&#34;%Y-%m-%d_%H-%M-%S&#34;).jpg&#34;
-</code></pre><p>I have multiple cameras on my system, but only wanted output from the better one, the C920. That&rsquo;s what line 2 is doing, finding the <code>/dev/videoX</code> device, where <code>X</code> is the correct number for the webcam</p>
-<p>Line 5 takes the picture and saves it with the current date and time in the <code>/mnt/data/lapse</code> folder</p>
-<p>Then, to trigger the script I have a systemd timer and service setup.</p>
-<p>I have the timer and service files named fifteen.timer and fifteen.service respectively, and the script above is named fifteen.sh and is stored in <code>~/.config/fifteen.sh</code> This is so that I can add extra things do do on fifteen minute intervals if needed super easily. I also have an hourly.sh with a similar setup.</p>
-<p><strong>fifteen.service</strong></p>
-<pre tabindex="0"><code>[Unit]
-Description=run ~/.config/fifteen.sh
-
-[Service]
-Type=simple
-ExecStart=/bin/bash /home/vega/.config/fifteen.sh
-</code></pre><p><strong>fifteen.timer</strong></p>
-<pre tabindex="0"><code>[Unit]
-Description=Take Hourly Webcam Picture
-
-[Timer]
-OnCalendar=*:0/15
-Unit=fifteen.service
-
-[Install]
-WantedBy=timers.target
-</code></pre><p>So with all of that setup, I can finally get poorly timed, slightly blurry pictures of myself drinking directly from a 2L bottle of Mello Yello automatically.</p>
-<p><img src="/nonfree/blog/tl2021-02-03_19-15-17.jpg" alt="Me taking a drink of mellow yellow" /></p>
-<blockquote class="book-hint info ">
-  Note, this picture has been resized by 50% for web, actual quality is a better
-</blockquote>
-
+<p>That&rsquo;s just the way it is. But, It&rsquo;s still good to give it a shot, so, here we go:</p>
+<p>First, the easy one. Just run <a href="https://www.oo-software.com/en/shutup10">Shut up 10</a>. This can change a bunch of settings to be much more reasonable too, like fixing the start menu search to not search the web.</p>
+<p class="tip ">
+    If some not-up-to-the-times guide says to use CCleaner, don&rsquo;t. It&rsquo;s basically a virus now!
 </p>
+<p>Then, you&rsquo;ll want to go through everything and just rip it out. Don&rsquo;t forget, Candy Crush is installed with 10 by default. And there&rsquo;s more… so, so much more. Go digging though add/remove programs and start mashing remove until you&rsquo;re satisfied. If you haven&rsquo;t run updates yet, it&rsquo;s possible Windows will install yet more crap, so you might need to double check.</p>
+<h3 id="12-installing-system-stuff">
+  1.2 Installing System Stuff
+  <a class="anchor" href="#12-installing-system-stuff">#</a>
+</h3>
+<p class="tip ">
+    Update the OS before drivers - Windows likes to replace new drivers with old sometimes!
+</p>
+<ul>
+<li>Drivers</li>
+<li>Better task man, etc.</li>
+<li>Better volume control</li>
+<li>WSL Arch</li>
+</ul>
+<h3 id="13-fucking-with-settings">
+  1.3 Fucking with settings
+  <a class="anchor" href="#13-fucking-with-settings">#</a>
+</h3>
+<p>Now, I recommend you go through literally all of your settings. Both in the old school control panel and the newer setting nightmare.</p>
+<p>[TODO] assigining programs to use GPU</p>
+<p>[TODO] Power profiles + fast startup</p>
+<p>[TODO] MAC randomization</p>
+<p>[TODO] TrueType, Refresh rate</p>
+<p>[TODO] Unix time</p>
+<p>[TODO] Hidden files, extensions</p>
+<p>[TODO] kill lock screen</p>
+<p>[TODO] dumps</p>
+<p>[TODO] Page file size</p>
+<p>[TODO] open CMD here</p>
+<p>[TODO] Verbose mode</p>
+<h3 id="14-installing-user-stuff">
+  1.4 Installing User Stuff
+  <a class="anchor" href="#14-installing-user-stuff">#</a>
+</h3>
+<p>You probably have your own prefneces in Software. Statistically, you&rsquo;re <em>probably</em> a Chrome user. That&rsquo;s cool, you do you. Regadless, I reccomend installing all of the software that you can via <code>winget</code>, as it makes it much less likely that you&rsquo;ll download shit, and it&rsquo;s just generally easier and faster.</p>
+<p>[TODO]</p>
+<ul>
+<li>Autohot key</li>
+<li>WSL</li>
+<li>VLC</li>
+<li>7-zip</li>
+<li>Windows Terminal</li>
+<li>VS Code</li>
+<li>Audacity</li>
+<li>Typora</li>
+<li>Speed crunch</li>
+</ul>
+<h3 id="15-security--backups">
+  1.5 Security &amp; Backups
+  <a class="anchor" href="#15-security--backups">#</a>
+</h3>
+<p>Just use Windows Defender (built in). If you have Norton or McAffee please just unistall them, they do more harm than good. If you need more, I really just recommend you have a linux live disk with <code>clamtk</code> on it as It&rsquo;s amazing how well some viruses protect themselves, but if you boot into a different OS, they&rsquo;re not even able to run.</p>
+<p>On top of that, just have backups. If somehow you do manage to get a cryptolocker, it wont matter if you have regular backups.</p>
+<p>Really though, the best protection is not being a dumbass. Don&rsquo;t go to weird pron websites, use an adblocker,</p>
+<p>If you want to protect your files there&rsquo;s VeraCrypt, just know that encryption comes with a disk overhead, so, if your on an HDD, windows 10 will be slower than bearable in my experience.</p>
+<p>If you want to be one of the cool kids, use <a href="https://keepassxc.org">KeePassXC</a> for password managment. It can generate good passwords for you.</p>
+<p>[TODO] Security</p>
+<h1 id="2-understanding-windows--fixing-issues">
+  2. Understanding Windows &amp; Fixing issues
+  <a class="anchor" href="#2-understanding-windows--fixing-issues">#</a>
+</h1>
+<p>One of the most annoying things about Windows is that it&rsquo;s an absolute pain in the ass to figure out what is going wrong when something goes wrong. Still, there&rsquo;s a few things that even knowing about will make fixing issues less awful. Some of identifying issues on Windows is, frankly, blind intuition. It comes from years of experiance and repeatedly cursing Microsoft&rsquo;s shitty forums and help sections.</p>
+<p>So, let&rsquo;s dig into some core window&rsquo;s stuff for just a moment. The very TL;DR version:</p>
+<ul>
+<li>Window&rsquo;s disks are formatted as NTFS. NTFS is awful.</li>
+<li>Drivers for windows tend to be a mess. Keeping them up to date is awful. Windows update will usually only install very old (or even incorrect) driver by default.</li>
+<li>Windows programs install themselves all over the fucking place. Yes, there&rsquo;s <code>program files</code> and <code>program files x86</code>, but sometimes things wind up in <code>%appdata%</code> or <code>ProgramData</code> or put themselves somewhere else entirely.
+<ul>
+<li>You may not be able to see these if you don&rsquo;t turn on <code>show hidden files</code></li>
+</ul>
+</li>
+</ul>
+<p>That said, there are some nuggets of wisdom I can provide, in no particular order:</p>
+<ul>
+<li>
+<p>Try <em>rebooting</em></p>
+<ul>
+<li>By default in Windows if you shutdown and then hit the power button to turn your system back on it doesn&rsquo;t actually power off! It only hibernates (stores system state to RAM). If you press <strong>reboot</strong> it will do an actual restart, which tends to fix things. Check uptime in task manager.</li>
+<li>Window&rsquo;s has weird power settings by default. Shutdown does not mean shutdown. Shutdown and restart actually means update-reboot-update-shutdown.</li>
+</ul>
+</li>
+<li>
+<p>Window&rsquo;s power plans can cause weird behavior, sometimes slowing the system down to a crawl- making &ldquo;high performance&rdquo; actually run horribly. Try changing this if you notice your CPU is at 100% but doesn&rsquo;t appear to be doing anything.</p>
+</li>
+<li>
+<p>If a setting isn&rsquo;t showing up, or you&rsquo;re getting permission denied, check the related setting in the Group Policy Editor (<code>gpedit</code>)- rarely, turning the setting off-on-off will fix things too.</p>
+</li>
+<li>
+<p>As a quick sanity check, you can always run <code>sfc /scannow</code> and <code>DISM /Online /Cleanup-Image /RestoreHealth</code> and sigh is exasperation as that finds and corrects errors</p>
+<ul>
+<li>If this did find errors, double check the system disk isn&rsquo;t fucked/running like ass/throwing SMART errors</li>
+</ul>
+</li>
+<li>
+<p>Windows can and will randomly revert setting on updates. Including registry tweaks.</p>
+</li>
+<li>
+<p>If you keep blue-screening, use <code>windbg</code> and run <code>!analyze -v</code> on a system dump, with luck you might just find it&rsquo;s one driver being weird.</p>
+<ul>
+<li>Event Viewer will almost never say anything useful.</li>
+</ul>
+</li>
+<li>
+<p>If you keep freezing and nothing shows up in event viwer after rebooting and you aren&rsquo;t getting dump files, you might try leaving audio playing. If you still have audio playback on the next freeze, it&rsquo;s a graphics problem - either your graphics driver or hardware.</p>
+</li>
+<li>
+<p>If networking is hecked up:</p>
+<ul>
+<li><strong>Turn off random hardware addresses</strong>. It doesn&rsquo;t do shit for security and it makes a lot of networks freak the fuck out.</li>
+<li>Try checing local connection first (go to your router&rsquo;s page, probably at 192.168.1.1) and if that works, it&rsquo;s not Windows &hellip; probably&hellip;.</li>
+<li>It <em>might</em> be DNS. Even with correct DNS settings, windows sometimes just&hellip; fucks off? Usually, the built in &ldquo;diagnose and fix problems with my network&rdquo; will actually fix this, just by resetting things.</li>
+<li>Try a different network adapter- if you&rsquo;re on WiFi, try an ethernet connection or vis-versa. This is a good reason to have a spare USB networking adapter laying around.</li>
+<li>Run <code>ipconfig /all</code>, see if all the settings make sense. Do you have an IP assigned to you? Is the gateway correct?</li>
+</ul>
+</li>
+<li>
+<p>If your printer isn&rsquo;t working:</p>
+<ul>
+<li>If you&rsquo;re trying to print to a printer connected via WiFi, assume it&rsquo;s the printer first.</li>
+<li>Try connecting the printer via USB</li>
+<li>Place a floppy disk, PS2 keyboard, ball mouse, Intel 8086, and a copy of <em>System BIOS for IBM® PC/XT™/AT® computers and compatibles</em> into a pentagram with lines drawn from DB-25 cables. Gather two friends, ideally wearing pagers, but not required. Next, all together, softly begin chanting &ldquo;C colon backslash, C colon backslash&rdquo;. If done correctly, you should begin to hear the SYN-ACK portion of the dialup handshake. This is your cue to saccrifice which ever of your two friends takes longer to ender a valid <code>tar</code> command. With the blood of this friend being absobred by the copy of <em>System BIOS for IBM® PC/XT™/AT® computers and compatibles</em> you should now have a five minute window in which you can sucessfully print. Take care to ensure you have first filled the printer with full ink cartridges, as anythig less than completely full will result in a &ldquo;low on ink&rdquo; error which may only be resolved by repeating the incantation with fresh supplies.</li>
+<li>Give up and buy a dot matrix printer.</li>
+</ul>
+</li>
+<li>
+<p>Can&rsquo;t rename a file with a really weird name? → Boot into Linux and rename it</p>
+</li>
+<li>
+<p>Windows Update not working? Try the <a href="https://support.microsoft.com/en-us/topic/windows-10-update-assistant-3550dfb2-a015-7765-12ea-fba2ac36fb3f">update assistant</a></p>
+</li>
+<li>
+<p>Both <code>ctrl+alt+delete</code> and <code>win+shift+escape</code> to bring up task manager <em>should</em> always work, even if <code>explorer.exe</code> isn&rsquo;t responding. This means you can use task manager to restart explorer.exe if necessary.</p>
+</li>
+<li>
+<p>If everything is super-duper fucked- random crashing, corrupted files, etc. run a mem test.</p>
+</li>
+<li>
+<p>Running out of space? → run &ldquo;Disk Cleanup → Clean up System Files&rdquo;, and then use <a href="https://windirstat.net">windirstat</a> to find the offending files</p>
+</li>
+</ul>
+<h2 id="25-for-the-dual-booters">
+  2.5 For The Dual Booters
+  <a class="anchor" href="#25-for-the-dual-booters">#</a>
+</h2>
+<ul>
+<li>Windows and Linux do not play together nicely. Windows will ocassionally erase shit</li>
+</ul>
+<h2 id="3-for-the-programmers">
+  3. For The programmers
+  <a class="anchor" href="#3-for-the-programmers">#</a>
+</h2>
+<p>Windows tends to want programmers to do things in a certain way. Visual Studio has a certain workflow, and it&rsquo;s more-or-less expected that you&rsquo;re using it and have fully drank Microsoft&rsquo;s koolaid. If you try to do things your way, it absolutely will be a massive pain in the ass. I don&rsquo;t think this should be a massive revelation, it&rsquo;s sort of the standard across windows. Linux lets you pick your desktop environment, Windows gives you explorer.exe. It&rsquo;s just how it is.</p>
+<p>That said, if you have drank the koolaid, it&rsquo;s actually pretty awesome. Visual Studio is probably the best all rounder&rsquo; IDE. It&rsquo;s got great integrated tools, the debugger wraps into it well, it has good support for developing for in a lot of languages and for quite a few platforms (Android, Windows win32, windows apps, etc.)</p>
+<p>Still, <em>in my opinion</em> It&rsquo;s corprate, sterile, and just sucks. MSVC sucks. CMD sucks. PowerShell sucks. All the tools are shit, give awful error messages, and distract from getting work done. You&rsquo;ll be in in a software with infinite drop downs, constantly-reaching-for-your-mouse hell. Worse, most good development tools are Linux only, so, you&rsquo;ll either be running WSL or a VM to do some things anyway.</p>
+<p>At the end of the day, to me, it comes down to this: If you want to make yet another generic web app with dotnet and get a code slinging job making software the world really doesn&rsquo;t need, sure, Windows might be the best bet. If you want to actually enjoy writing code, don&rsquo;t fucking use Windows</p>
+<div class="speech  ">
+    <p>
+        Okay, I do have to put one more exception in here: Game development. While you can do Unity or Unreal dev in Linux, you&rsquo;ll be shooting yourself in the foot doing so. That said, if you&rsquo;re going for something open like Godot anyway, Linux will be fine.
+    </p>
+</div>
+
+
+
+
+<p>Okay, so what do you need to know?</p>
+<ul>
+<li>Windows is <em>NOT</em> <a href="https://en.wikipedia.org/wiki/POSIX">POSIX</a>:
+<ul>
+<li>Windows has weird line endings</li>
+<li>Being a different OS, it also has diffeernt system calls</li>
+<li>NTFS <em>the filesystem</em> <strong>is</strong> case sensative; however, Windows artifically makes it <strong>not</strong> case sensative- don&rsquo;t put <code>myasm.S</code> and <code>myasm.s</code> in the same folder! Also, there&rsquo;s a bunch of annoying reserved words, file names can only be 255 characters, and some characters are not allowed. Fun, right?</li>
+</ul>
+</li>
+<li>You&rsquo;ll probably have to fight compilers a bit
+<ul>
+<li>Welcome to editing environment variable hell</li>
+</ul>
+</li>
+<li>&hellip; see the <a href="https://docs.microsoft.com/en-us/windows/win32/apiindex/windows-api-list">win32 api</a></li>
+<li>&hellip; and a different executable format</li>
+<li>[TODO] exe vs MSI</li>
+</ul>
+<p><em>All of that said,</em> WSL on Windows is acutally pretty great and solves the vast majority of this. There&rsquo;s a few exceptions if you need pedal-to-the-metal performance or access to <code>/dev</code> for not stupid device access (like developing embedded systems) then clearly WSL isn&rsquo;t going to cut it. Furthermore, you&rsquo;ll still need to install a ton of tools to make the windows-y operations less awful, like <a href="https://mridgers.github.io/clink/">clink</a> to make <code>cmd</code> slightly more tollerable, tools like <a href="https://www.stardock.com/products/groupy/">groupy</a> and <a href="https://docs.microsoft.com/en-us/windows/powertoys/fancyzones">fancyzones</a> can make the actual window managment in Windows less bad&hellip; you get the idea.</p>
+<h3 id="using-visual-studio">
+  Using Visual Studio
+  <a class="anchor" href="#using-visual-studio">#</a>
+</h3>
+<h3 id="setting-up-windows-compilers-debuggers-git-shells-etc">
+  Setting up Windows compilers, debuggers, git, shells, etc.
+  <a class="anchor" href="#setting-up-windows-compilers-debuggers-git-shells-etc">#</a>
+</h3>
+<p>​</p>
 </article>
  
       
@@ -625,7 +832,7 @@ WantedBy=timers.target
 
 
   <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//posts/Timelapse.md" target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/windows.md" target="_blank" rel="noopener">
       <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
       <span>Edit this page</span>
     </a>
@@ -658,7 +865,36 @@ WantedBy=timers.target
     
     <aside class="book-toc">
       
-  <nav id="TableOfContents"></nav>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ugh-windows">Ugh. Windows.</a></li>
+    <li><a href="#1-making-windows-suck-less">1. Making Windows Suck Less</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#xx-update-your-bios">X.x Update your BIOS</a></li>
+            <li><a href="#11-removing-the-shit">1.1 Removing the shit</a></li>
+            <li><a href="#12-installing-system-stuff">1.2 Installing System Stuff</a></li>
+            <li><a href="#13-fucking-with-settings">1.3 Fucking with settings</a></li>
+            <li><a href="#14-installing-user-stuff">1.4 Installing User Stuff</a></li>
+            <li><a href="#15-security--backups">1.5 Security &amp; Backups</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-understanding-windows--fixing-issues">2. Understanding Windows &amp; Fixing issues</a>
+      <ul>
+        <li><a href="#25-for-the-dual-booters">2.5 For The Dual Booters</a></li>
+        <li><a href="#3-for-the-programmers">3. For The programmers</a>
+          <ul>
+            <li><a href="#using-visual-studio">Using Visual Studio</a></li>
+            <li><a href="#setting-up-windows-compilers-debuggers-git-shells-etc">Setting up Windows compilers, debuggers, git, shells, etc.</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
  
     </aside>
