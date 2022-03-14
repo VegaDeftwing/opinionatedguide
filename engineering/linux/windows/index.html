@@ -105,8 +105,8 @@
 <title>Windows | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.617f428f57ac6cfe356d1f00d33301e0705dd5783dd90fef88cc39c0a764b18e.css" integrity="sha256-YX9Cj1esbP41bR8A0zMB4HBd1Xg92Q/viMw5wKdksY4=">
-<script defer src="/en.search.min.c2c5545eaf3977ea50f36c86b710f28dc6c5b5df2250cae231a89011d9fc9be3.js" integrity="sha256-wsVUXq85d&#43;pQ82yGtxDyjcbFtd8iUMriMaiQEdn8m&#43;M="></script>
+<link rel="stylesheet" href="/book.min.368d44727daa25acb503aa5763d651f8f834dc3e0422fa5d04987cbb7d9ff2d7.css" integrity="sha256-No1Ecn2qJay1A6pXY9ZR&#43;Pg03D4EIvpdBJh8u32f8tc=">
+<script defer src="/en.search.min.45212824e8c0b97b9a8beb145cb5d019fb65ba24f282b4c684ef59a95e8aa59f.js" integrity="sha256-RSEoJOjAuXuai&#43;sUXLXQGftluiTygrTGhO9ZqV6KpZ8="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -635,11 +635,54 @@ https://github.com/alex-shpak/hugo-book
 <p class="tip ">
     Update the OS before drivers - Windows likes to replace new drivers with old sometimes!
 </p>
+<h4 id="drivers">
+  Drivers
+  <a class="anchor" href="#drivers">#</a>
+</h4>
+<p>Okay, first up, drivers. Ideally, Windows wouldn&rsquo;t go grab ancient driver to begin with, but here we are. To start with, you&rsquo;ll want to grab the drivers for your graphics card, CPU, and chipset. Should you not know what CPU you have, just open task manager and go to the performance tab. It should say in the top right corner. There&rsquo;s (with some weird exceptions) four possibilities</p>
 <ul>
-<li>Drivers</li>
-<li>Better task man, etc.</li>
-<li>Better volume control</li>
-<li>WSL Arch</li>
+<li>AMD CPU with integrated graphics</li>
+<li>AMD CPU without integrated graphics</li>
+<li>Intel CPU with integrated graphics</li>
+<li>Intel CPU without integrated graphics</li>
+</ul>
+<p>Now, with <em>any</em> of the four options, you <em>might</em> also have a dedicated graphics card, which will need its own drivers. This (currently) will either be an AMD or Nvidia card, and you should be able to see it listed under GPU as the last entry in the performance tab in task manager. If you see two graphics cards (GPU0 and GPU1) one of them is probably the integrated graphics. You can confirm if   it&rsquo;s a dedicated or integrated card by looking if there&rsquo;s a &ldquo;Dedicated GPU memory&rdquo; field under the graphs. If there is, it&rsquo;s a dedicated card. If there&rsquo;s not (so only &ldquo;Shared GPU memory&rdquo;) then it&rsquo;s an integrated card. This now means there&rsquo;s really 12 basic system driver options, the above four, plus a variant of each with either a dedicated AMD card or dedicated Nvidia card.</p>
+<p>Fortunately, we can group these up pretty easily:</p>
+<p>If you&rsquo;re on an <strong>all AMD</strong> system (no Intel or Nvidia), just go to <a href="https://www.amd.com/en/support">the AMD support page</a>, hit the big download button, run it, and set everything up. You should be good to go.</p>
+<p>If you&rsquo;re on an <strong>all Intel</strong> system, head to <a href="https://www.intel.com/content/www/us/en/support/detect.html">the Intel Driver Support page</a> and download, install, and run the driver assistant. It will open a web browser page with links to the drivers for you to download and install.</p>
+<p>If you&rsquo;re on an <strong>AMD CPU + Nvidia GPU</strong> system, congrats on having a cool computer that you probably built yourself. This <em>might</em> be a bit tricky if you have an AMD CPU with integrated graphics, as sometimes the big Nvidia card and Integrated AMD graphics drivers don&rsquo;t get along. Ideally, you&rsquo;d just turn off the integrated graphics in the BIOS. Regardless, your best bet is to do things a bit more manually, on the <a href="https://www.amd.com/en/support">the AMD support page</a> go down a bit and select your particular CPU, grab its driver. Then, you&rsquo;ll need to know what chipset you have. On AMD systems this can be quite a few different options, so go ahead and download and install <a href="https://www.cpuid.com/softwares/cpu-z.html#version-history">CPU-Z</a>. Open it up, and you&rsquo;ll need two pieces of information. First, your CPU socket. On the man tab this should be under &ldquo;Package&rdquo;, on any modern system this should be &ldquo;AM4&rdquo;, then click the mainboard tab, and look for the the &ldquo;Southbridge&rdquo; line. This will probably be AMD x370 or x470, etc. Now, you can head back to the driver page, and find the matching entry, for example, Chipsets→AMD Socket AM4→x370. Then just pick the latest one. You probably don&rsquo;t need the ones with &ldquo;RAID&rdquo; in the name. Now you&rsquo;ve got the AMD part done, go grab <a href="https://www.nvidia.com/en-us/geforce/geforce-experience/">Nvidia&rsquo;s GeForce Experiance</a> software, set it up and make an account (signing over your first born), and you can then update the Nvidia driver. Done.</p>
+<p>If you&rsquo;re one an <strong>Intel CPU + AMD GPU</strong> system, you should be good to head to <a href="https://www.intel.com/content/www/us/en/support/detect.html">the Intel Driver Support page</a> and download, install, and run the driver assistant, then head over to <a href="https://www.amd.com/en/support">the AMD support page</a>, hit the big download button, run it, and set everything up. This is a relatively uncommon setup though, so you might want to double check this is actually what you have.</p>
+<p>Finally, if you&rsquo;re on an <strong>Intel + Nvidia</strong> system, you should be good to head to <a href="https://www.intel.com/content/www/us/en/support/detect.html">the Intel Driver Support page</a> and download, install, and run the driver assistant and then grab <a href="https://www.nvidia.com/en-us/geforce/geforce-experience/">Nvidia&rsquo;s GeForce Experiance</a> software, set it up and make an account (signing over your first born), and you can then update the Nvidia driver. Done.</p>
+<p>Okay, that&rsquo;s the big uns&rsquo;. You may still want to go grab up to date drivers for some other things like networking, but, frankly, most of it is in &ldquo;If it works, don&rsquo;t fuck with it&rdquo; territory. Now, of course, that&rsquo;s assuming it works. This would be a good time to make sure the system actually does what you think it should. If something is weird (slow disks, networking dropping out, flakey USB, etc.) adjust accordingly. You&rsquo;ll also need to grab drivers for any peripheral drivers you want to take advantage of. Razer, Roccat, Logitech, Corsair, etc. all have their own drivers for their mice, keyboards, webcams, and what not.</p>
+<h4 id="system-utilities">
+  System Utilities
+  <a class="anchor" href="#system-utilities">#</a>
+</h4>
+<p>Task manager and Windows Settings are great and all, but they&rsquo;re a bit limited. Before we go getting more utilities though, you should know what you have available.</p>
+<p>If you have a dedicated graphics card, if you right click your desktop (with nothing open) you&rsquo;ll probably see that you have either an option for &ldquo;AMD Radeon Software&rdquo; or &ldquo;Nvidia Control Panel&rdquo;.</p>
+<blockquote>
+<p>Note, on Windows 11, these may be behind &ldquo;Show more options&rdquo;!</p>
+</blockquote>
+<p>Both of these let you change settings for your graphics card. The AMD version has the driver update check built in as well, while for Nvidia that&rsquo;s over in GeForce Experience. You might want to poke around options here and see what&rsquo;s available. There&rsquo;s some advanced settings lurking in here, but even touching familiarity will be useful.</p>
+<p>You may want to just type &ldquo;AMD&rdquo; or &ldquo;Intel&rdquo; into the start menu search as well and see what utilities pop up.</p>
+<p>For your sanity later, I&rsquo;m going to recommend a whole host of deeper utilities:</p>
+<ul>
+<li>
+<p>Process Explorer (or Process Hacker) can actually let you see what&rsquo;s going on when a particular program is misbehaving</p>
+</li>
+<li></li>
+<li>
+<p>Drivers</p>
+</li>
+<li>
+<p>Better task man, etc.</p>
+</li>
+<li>
+<p>EarTrumpet</p>
+</li>
+<li>
+<p>WSL Arch</p>
+</li>
 </ul>
 <h3 id="13-fucking-with-settings">
   1.3 Fucking with settings
