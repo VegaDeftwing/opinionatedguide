@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Quantization is the process of constraining an input from a continuous or otherwise large set of values (such as the real numbers) to a discrete set (such as the integers). - wikipedia   I&rsquo;m less than two months from graduating with degrees in both Electrical Engineering and Computer Engineering. One subject that comes up a lot in both fields is Quantization. Reading audio in to a micocontroller from a DAC?">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="Quantization, Polarization, &amp; Indoctrination" />
+<meta property="og:description" content="Quantization is the process of constraining an input from a continuous or otherwise large set of values (such as the real numbers) to a discrete set (such as the integers). - wikipedia   I&rsquo;m less than two months from graduating with degrees in both Electrical Engineering and Computer Engineering. One subject that comes up a lot in both fields is Quantization. Reading audio in to a micocontroller from a DAC?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/posts/quantized/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-03-18T00:00:00+00:00" />
+
+<title>Quantization, Polarization, &amp; Indoctrination | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.448cec96c3c3de95c32f83c21915b1fb6367303e2f16cd2c5870a87fb4aaf784.css" integrity="sha256-RIzslsPD3pXDL4PCGRWx&#43;2NnMD4vFs0sWHCof7Sq94Q=">
+<script defer src="/en.search.min.6994628ee449edb21830ca0d81346f61b790759a4ce000b6cc5b63fd768b6b5c.js" integrity="sha256-aZRijuRJ7bIYMMoNgTRvYbeQdZpM4AC2zFtj/XaLa1w="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1</dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+<dt>A2</dt><dd> <a href="/engineering/linux/windows/">Ugh. Windows.</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Making & Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/generative-art/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p class="navhead, webhead" style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+<dt> </dt><dd> <a href="/interviews/spg/">Sex Positive Gaming</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</details> </dd>
+   <dt></dt><dd> <details id="hciMenu"> <summary><a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+    <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	<dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+    <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+   <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+   <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+   <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+   </details> </dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd class="blogdd" style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">9</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">7</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Quantization, Polarization, &amp; Indoctrination</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#case-study-1-linux">Case study 1: Linux</a></li>
+            <li><a href="#case-study-2-ham-radio">Case study 2: Ham Radio</a></li>
+            <li><a href="#case-study-3-gear-keebs-gpus-and-synthesizers">Case study 3: Gear: Keebs, GPUs, and Synthesizers</a></li>
+            <li><a href="#case-study-4-3d-printing">Case study 4: 3D Printing</a></li>
+            <li><a href="#case-study-5-furries">Case study 5: Furries</a></li>
+            <li><a href="#he-who-shall-not-be-named">He Who Shall Not Be Named.</a></li>
+          </ul>
+        </li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown">
+  <h1>
+    <a href="/posts/quantized/">Quantization, Polarization, &amp; Indoctrination</a>
+  </h1>
+  
+  <h5>March 18, 2022</h5>
+
+
+
+  
+  <div>
+    
+      <a href="/tags/personal/">personal</a>
+  </div>
+  
+
+
+  <p><div class="quote [wikipedia](https://en.wikipedia.org/wiki/Quantization)">
+<p>
+    <strong>Quantization</strong> is the process of constraining an input from a continuous or otherwise large set of values (such as the real numbers) to a discrete set (such as the integers).
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/Quantization">wikipedia</a>
+    </div>
+</div>
+<p>I&rsquo;m less than two months from graduating with degrees in both Electrical Engineering and Computer Engineering. One subject that comes up a lot in both fields is <em>Quantization</em>. Reading audio in to a micocontroller from a DAC? That continuous signal, represented physically by infinite values, now may only have 12 bits of resolution. Turning a knob on MIDI controller? There you get 7 bits. 128 possible values.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Mapping a smooth knob into a stair-stepped value range like this is limiting. Toggling a physical switch? 1 bit. 2 values. But, still, the signal being read may not change immediately (taking some time to go from ground to the higher voltage) or the metal contacts may bounce off each other rapidly, causing a flip to register as multiple.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/quantization.webp" alt=" ">
+  </div>
+  
+</div>
+
+<p>While this problem is usually called debouncing, it&rsquo;s not wrong to think about it as quantization of a signal both in time and value. This is to say, It&rsquo;s very common for an engineer to spend a fair amount of timing fighting the negative side effects of quantization.</p>
+<p>Meanwhile, quantization isn&rsquo;t always bad. I also make music using modular synthesizers. There, a module literally called a quantizer, that takes in continuous voltage signals and snaps the value to 1/12th of a volt, a voltage step for each key in an octave. This allows for turning knobs to set up a sequence of notes without needing to get the knobs set exactly right. Similarly, there are many, many computer algorithms which rely on the fact that truncation of integer division is fast on computers, that is 5/2 = 2, when you throw away the decimal. This is still effectively quantization.</p>
+<p>In pursuit of my degrees, I&rsquo;ve also had to take a plethora of math classes. Occasionally, I&rsquo;ll learn something and, as human minds are often over optimized for pattern matching, start to see it everywhere. Just like all the memes of seeing the Fibonacci spiral on everything or fractals in every leaf.</p>
+<p>So, naturally, my mind fell down this hole with quantization, and sure there are example in nature, but here I noticed more social and political analogies, as people quantized politics into a 7-level signal of</p>
+<p>Crazy-Left, Mid-Left, Lean-Left, Centrist, Lean-Right, Mid-Right, Crazy-Right.</p>
+<p><a href="https://en.wikipedia.org/wiki/Overton_window">Overton Window</a> be damned, even if the center point of the spectrum is moving, the idea of a spectrum out right is wrong. It&rsquo;s getting quantized! While maybe I&rsquo;m reflecting my own experience onto others, it seems people often only have 3-bits of space in their head per person to store political leaning. I suppose that&rsquo;s better than the polarization into well, polar (2) groups that is often discussed though.</p>
+<p>But this isn&rsquo;t a politics post. I&rsquo;m an engineer, not a politician or sociologist. Instead, it&rsquo;s a religion post, because any fuckwit on the internet can spew shit about religion!</p>
+<img src="/memes/gods.webp" alt="American Gods Quote" style="float: right;width:40%;padding:10px">
+<p>In both Neil Gaiman&rsquo;s <em>American Gods</em> and Kevin Hearne&rsquo;s <em>Iron Druid Chronicles</em> there&rsquo;s this neat idea that the Gods (and in both, this means <em>all</em> the gods) are created by and get their power from human belief. In other words, God is created in the image of man.</p>
+<p>Now, you might be thinking &ldquo;So, you&rsquo;re going to argue that we shouldn&rsquo;t be picking one religion - don&rsquo;t quantize our choice.&rdquo;</p>
+<p>No. I couldn&rsquo;t give less of a shit what Gods you believe in. What I do care about is technology and the culture and ethics of those that work in my field. This is where my argument finally begins:</p>
+<p>We&rsquo;ve quantized ourselves into cults where devices, tools, and developers are our Gods. Worse, we keep giving them more power as the cults around them grow more entrenched in their personalities or mission. We&rsquo;re turning tech into a holy war battle ground. Some worship Elon Musk, others see him as a devil. Either way he&rsquo;s being deified. Same for Satoshi Nakamoto, Linus Torvalds. Same for particular platforms: Linux users  (<span class="smalltext ">
+    I use Arch BTW.
+</span>) don&rsquo;t help you learn Linux, they 𝕔𝕠𝕟𝕧𝕖𝕣𝕥 you. You become one of them. You&rsquo;re expected to hate Windows.</p>
+<p>Nuance is getting lost as people identify with their choices in technology and they decide who they want to look up to. I must admit guilt here as well, as I&rsquo;ve firmly put myself into the &ldquo;Hate Musk, Hate Crypto; Use Linux, Hate Windows&rdquo; bin. On one hand, I feel like my opinions are well researched and well founded. On the other, I have to wonder to what extent my own biases prevent me from listening to a good argument (is there an <em>actual, good</em> use case case for Cryptocurrency?). This is a mental dialog that I&rsquo;m sure a lot of people reading have had themselves, and this point isn&rsquo;t new- others have pointed it out too. What I think is harder to admit is being aware of these biases does not mean you&rsquo;re able to look past them. Knowing your biased is a good start, but it doesn&rsquo;t immediately mean you&rsquo;re able to do anything about it.</p>
+<p>Now, I could go into how the 🄰🄻🄼🄸🄶🄷🅃🅈 🄰🄻🄶🄾🅁🄸🅃🄷🄼 on YouTube, Twitter, and Facebook make finding good, dissenting opinions harder to find. But you know this as well as I do. Again, being aware of the machine doesn&rsquo;t help you escape it.</p>
+<p>For example, the editor wars: Emacs vs vim vs VSCode vs notepad++ vs __ . Even if you personally think one is superior, even if it is <em>technically</em> superior (more features, faster, etc.) you&rsquo;ve still quantized things into, at the very least, a ranked system. In reality, some of the choices are going to be almost identical, and for some of the others the difference is huge. Mentally ranking them from first to last has the <em>implication</em> of same-sized discrete steps. If we loop back around to the idea of politics, it&rsquo;s easy to see that graph as being even tick marks, each group in an equally sized bin.</p>
+<img src="/nonfree/blog/quantized/equidistantpol.svg" alt="equidistantpol" style="zoom:50%;" />
+<p>even though if we <em>realllllly</em> insist on making it a 1 dimensional spectrum (already dumb) the reality is that while mentally we see it as equidistant steps, the actually placement of those steps on the spectrum is probably a lot more like this - though you should be imagining a bell curve sitting atop this graph, so the vast majority of people are still in the bounds of normalcy.</p>
+<img src="/nonfree/blog/quantized/realitypol.svg" alt="realitypol" style="zoom:50%;" />
+<p>The problem being two fold:</p>
+<ol>
+<li>
+<p>The distance between the crazies and the normies looks closer when everything is equi-distant. This makes it easy to play the mental game of &ldquo;All [Other party] is just a step away from nuts&rdquo;</p>
+</li>
+<li>
+<p>If someone is just barely over that line, you now mentally see them as fucking nuts (the criss cross zone here) even if there&rsquo;s still a lot further to go into the deep end.</p>
+</li>
+</ol>
+<p>Keep in mind, we&rsquo;ve now jumped from mentality to reality, our lil&rsquo; monkey brains are probably still thinking we&rsquo;re impartial and putting things into equi-distant steps. But, frankly, it&rsquo;s probably worse than this. Given you&rsquo;re here, on my quite liberal site, it&rsquo;s also likely that to <em>you</em> the situtation is more like this:</p>
+<img src="/nonfree/blog/quantized/liberalpol.svg" alt="liberalpol" style="zoom:50%;" />
+<p>But that, mentally, you&rsquo;d like to think you&rsquo;re still thinking this:</p>
+<img src="/nonfree/blog/quantized/equidistantpol.svg" alt="equidistantpol" style="zoom:50%;" />
+<p>This is <span class="smalltext ">
+    (one of the many reasons)
+</span>why the 💩 is currently well past the fan and now covering the walls - not just for politics, but for everything. From Cryptocurrency to the Music Industry. It&rsquo;s not just a matter of polarization. If it was, people could see that. It&rsquo;s a problem of recognizing that not everyone <em>is</em> polarized. Hell, <u>the majority oppinion on any subject is <strong>apathy</strong></u>. Readers of this site are quite likely to have <em>very</em> strong opinions on crypto currency. Do you how most people feel about it? <a href="https://theharrispoll.com/new-survey-shows-nearly-half-of-americans-are-unfamiliar-with-cryptocurrency/">They don&rsquo;t even know what it is.</a> But when we see the bins as all being so close together, it&rsquo;s easy to think everyone must have an opinion, after all, it&rsquo;s so easy to fall into one side or the other! But we forget, the plateau of not giving a shit followed by the ocean of mild opinions far outweighs the crazy. If we quantize the bins to all be the same size, we loose this perspective.</p>
+<p>So, that sure sounds like I&rsquo;m just screaming into the void &ldquo;Stop putting people into mental bins&rdquo; or &ldquo;Don&rsquo;t be prejudice!&rdquo;. Yeah, no. I&rsquo;ll be realistic. You&rsquo;re going to anyway. Humans are tribal creatures. We thrive on the idea of an in-group and an out-group. What I&rsquo;m arguing for is taking a step back, looking at your biases, and asking two questions:</p>
+<ol>
+<li>Are the states being quantized to reasonable (ex: being split by a normal distribution, if applicable)</li>
+<li>Do you have enough states you&rsquo;re quantizing into? (not just &ldquo;Liberal&rdquo; and &ldquo;Conservative&rdquo;)</li>
+</ol>
+<hr>
+<p>Okay, so now I want to look at a few &ldquo;cults&rdquo; in particular. For the sake of being at least a bit less of an asshole, all of these are groups I&rsquo;m a part of to some extent - so, yunno, I&rsquo;m calling myself out here too.</p>
+<img src="/memes/speech100.webp" alt="Skyrim Speech 100" style="float: right;">
+<p>I&rsquo;m also not going to comment on any of the fan/hate clubs around a particular personality. To be clear, I absolutely do think these fan clubs around tech leaders as a massive problem I just don&rsquo;t think I have a high enough speech level to talk about any of them in particular without getting myself harassed by an angry mob, which would just distract from my points. So, instead I&rsquo;m going to focus on particular groups and technologies.</p>
+<h3 id="case-study-1-linux">
+  Case study 1: Linux
+  <a class="anchor" href="#case-study-1-linux">#</a>
+</h3>
+<p>I could rehash most of the <a href="https://www.youtube.com/watch?v=5pOxlazS3zs">Linux Sucks</a> series, but that&rsquo;s not what I&rsquo;m here for. Yes, Linux sucks for all the reasons all of those reading this already knows it sucks. But the <em>CULT</em> of Linux is also the fucking worst. Do you know how most distro offer support? Well, assuming they even do and don&rsquo;t just say &ldquo;nup, that&rsquo;s not supported!&rdquo; the actual, offical support channel itself is often IRC. If we want the year of the Linux desktop to come, maybe we ought to realize it&rsquo;s not 1998 and that asking people to use a chat software where incredible hoops must be jumped through in order to get messages while your computer is off is, uh, not great. Now, I&rsquo;m not saying Discord, or Telegram, or Matrix, or yet another Discourse forum is the right call either, but IRC? Really?</p>
+<p>I bring this up to make a point. Enough of the Linux community has a massive boner for the good ol&rsquo; days of Slackware and enough hate for Systemd to power a small city that it&rsquo;s no wonder <a href="https://thenewstack.io/growing-new-linux-kernel-developers/">that Linux is having trouble finding young talent</a>. It&rsquo;s like they looked at the ham radio community and said &ldquo;Oh! Nice Gameplan!&rdquo;. I&rsquo;m 23 and I can see this from a mile away.</p>
+<p>And yeah, there&rsquo;s some awesome new stuff going on, from Valve&rsquo;s work on SteamOS &amp; Proton to novel projects like <a href="https://github.com/letoram/arcan">Arcan</a>.</p>
+<p>But let me wrap this back around to the point about people mentally binning people into groups. As a Linux user, I tend to bin people into Mac Users, Windows Users, and then into Noob-y Linux users and Linux Wizards. This, clearly, is a massive mental simplification. Even ignoring the lack of buckets in which I group other Linux users, this assumes that all Windows users are of the same technical proficiency, when in reality there&rsquo;s probably <em>more</em> people that are extreme Windows power users (able to dive into the registry with ease) than there are Linux users that can use <code>tar</code> correctly on the first try. Of course, the <em>average</em> Windows user will still be nooby-er than the <em>average</em> Linux user - but then that&rsquo;s just because they never even had to learn how to install the OS where using Linux implies someone already has gone out of their way to lean something- again, the most common stance is apathy. The bigger problem here is just that my mental catalog of users dosen&rsquo;t even include a list of &ldquo;expert Windows users&rdquo; because that&rsquo;s just not a bucket I want to see as existing. &ldquo;If you&rsquo;re an expert, you wouldn&rsquo;t be using Windows&rdquo; being the common, albeit subconcious, belief among Linux users.</p>
+<p>For me at least, this is roughly the metal map:</p>
+<img class="center" src="/nonfree/blog/quantized/linuxgrid.svg" alt="linuxgrid" style="zoom:30%;" />
+<p>And while I know there&rsquo;s at least a few dozen other WSL users out there, the fact that I have yet to encounter one in the wild makes it so that my metal picture of things just doesn&rsquo;t even include that upper quadrant. If someone says the use Windows to, I immediately lump them into the same group as the Grandmas on XP. I know it&rsquo;s wrong - hell, I&rsquo;d actually bet that a healthy majority of PC gamers have tweaked at least a few registry values and a still healthy percentage able to do things like diagnose faulty RAM and comfortably navigate around command prompt. But still, this is the mental picture I get, and I assume many Linux users have too.</p>
+<p>We&rsquo;ve managed to make it a cult, and because there&rsquo;s this sort of persumption that all Linux users are pros, as if booting into the OS one time awakens some sort of inert ability, it makes choices like using IRC as a support channel seem sane.</p>
+<p><strong>Lesson:</strong> Letting a technical choice turn into an ideological one can lead to one hell of a superiority complex</p>
+<h3 id="case-study-2-ham-radio">
+  Case study 2: Ham Radio
+  <a class="anchor" href="#case-study-2-ham-radio">#</a>
+</h3>
+<style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+.major{
+    font-family: 'Major Mono Display', monospace;
+}
+</style>
+<p style="font-family: 'Major Mono Display', monospace; padding: 20px;">CQ,CQ,CQ, This KE0WGV, Killo Echo Zero Whiskey Golf Victor calling CQ and standing by.<p>
+Ham radio is, despite what it may seem, not dead. However, the average of license holders is, according to very official sources, really fucking old. Unfortunately, it's quite hard to know if the hobby is growing or not, as any counts of license holders is likely to include a fair number of the deceased, as, it turns out to be quite difficult to contact the FCC office from beyond the grave (and the jurisdiction of the FCC in such circumstance is questionable)
+<p>So, this creates an interesting problem. Getting kids interested in radio in the age of cell phones is already tough (let me restate, I&rsquo;m 23 - but I still have tried, and failed, to get quite a few younger kids into this) but add onto this the clusterfuck that comes with the ageing radio population:</p>
+<ol>
+<li>They are largely stuck in their ways
+<ul>
+<li>Seeing Software Defined Radios (SDR) as &ldquo;cheating&rdquo; is quite common</li>
+</ul>
+</li>
+<li>They often take up the air waves with politics or medical descriptions
+<ul>
+<li>Trump and the decay of the human body, just what every gen Z kid wants to talk about!</li>
+</ul>
+</li>
+<li>There&rsquo;s a <em>lot</em> of hams with a supuriority complex
+<ul>
+<li>You don&rsquo;t <em>work with</em> an older ham, you get taught by one.</li>
+</ul>
+</li>
+</ol>
+<p>This then acts as a feedback loop, since the lack of young blood deters other kids from particpating too. The entire point of radio is to be social, both on the air and at in person meetups making radios, doing fox hunts, etc. - but if everyone else there is multiple generations from you, you&rsquo;re just not going to have much in common, so it takes all the fun out of it. No fun ⇒ No kids ⇒ No kids talking about it to other kids.</p>
+<p>So, let&rsquo;s view this through this quantization lens. Here, the steps are really obvious: generations. From Boomers to Zoomers. The big problem is that the distribution of ages in the hobby is so horribly uneven that instead of being <em>roughly</em> a bell curve that corresponds to age<a class="ptr">(1)</a>, the distribution <em>feels</em> (again, I can&rsquo;t find good data) more like this:</p>
+<img class="center" src="/nonfree/blog/quantized/hamgrid.svg" alt="hamgrid" style="zoom:30%;" />
+<p>The effect being that, mentally, ham&rsquo;s are <em>either</em> young or old. It&rsquo;s no longer a continuous spectrum of age. As soon as that polarization has happened, the above points I made become a lot more sinister - sure, not <em>all</em> old hams act in the way describe above, but there&rsquo;s enough that they get the association.</p>
+<p><strong>Lesson:</strong> Having a demographic split, even if it forms slowly, can damage a community - so <strong>inclusivity</strong> needs to be a priority to avoid one demographic standing out.</p>
+<div class="speech big ">
+    <p>
+        Popping in quick to point out, this point can lead others to the opposite conclusion, that <strong>exclusivity</strong> is the answer. That&rsquo;s how shitty groups like Proud Boys form, and while it is <em>sustainable</em> (making such groups dangerous) it&rsquo;s still the exact effect we&rsquo;re trying to avoid!
+    </p>
+</div>
+
+
+
+
+<h3 id="case-study-3-gear-keebs-gpus-and-synthesizers">
+  Case study 3: Gear: Keebs, GPUs, and Synthesizers
+  <a class="anchor" href="#case-study-3-gear-keebs-gpus-and-synthesizers">#</a>
+</h3>
+<p>Up above I said that there&rsquo;s cults around some devices, one that really stands out for this is mechanical keyboards. In fairness, the mechanical keyboard enthusiast community itself is actually pretty friendly, welcoming, and diverse. so I&rsquo;m not calling anyone out there. Instead, the actual subject matter is&hellip; odd. I mean, yeah, building your own keyboard is already something your average person would ask &ldquo;but&hellip; why?&rdquo; to. The thing is, that list of reasons is pretty extensive:</p>
+<ol>
+<li>Ergonomic key layouts</li>
+<li>Added buttons/knobs/screens</li>
+<li>Ability to type μ𝕟ιcⓞdε keys directly.</li>
+<li>Choice in switches, to get the exact right tactile feel</li>
+<li>Choice in keycaps for looks.</li>
+</ol>
+<p>However, if you go over to <a href="https://www.reddit.com/r/MechanicalKeyboards/">r/MechanicalKeyboards</a> a good portion of what&rsquo;s there has exactly one advantage: They look cool. A fair number of enthusiast have enough keyboards they display them on shelves, and a lot of these would be pretty awful to use daily. There&rsquo;s a tiny bit of my soul that dies when I see that. It&rsquo;s just this weird cult where these tiny, awful to type on keyboard that absolutely don&rsquo;t have enough keys that are popular and give people a rush on fake internet points. This, in turn, creates a mad fever for competition to make the most artisan keyboard with hand made keys and rare woods - individual keycaps going for $50 is common.</p>
+<img src="/nonfree/blog/keysticker.webp" alt="Key switch sticker" style="float: right; width:16%">
+<p>Now, it&rsquo;s a hobby, and as with any hobby purchasing decisions don&rsquo;t have to be justified with their utility, if the end goal is to provide happiness, I&rsquo;m not really going to judge. I just really question that it does for most people, at least long term. Like, after the rush of internet points&hellip; what? You&rsquo;re going to show your fancy key to your friends when they come over? Like, if it were stickers on a laptop lid I&rsquo;d even understand a bit more - other people are more likely to see that. You might make a friend from a conversation struck up by one. Hell, I actually have a mechanically keyboard sticker on my own laptop.</p>
+<p>Let me wrap back around to this though, and talk about two other communities, though I&rsquo;ll keep it brief:</p>
+<p>There&rsquo;s this sort of joke among PC gamers that by the time anyone can afford a good GPU, they don&rsquo;t have time to game and that when they finally do have time, they spend all their time overclocking and tuning<a class="ptr">(2)</a> - they never sit down and play a game.</p>
+<p>Then, there&rsquo;s the synthesizer community. Here, among the many, many problems in the community itself, there&rsquo;s this issue of people collecting and hoarding a huge amount of gear&hellip; and not actually making music with it. Now, I&rsquo;m absolutely guilty of this as well, and to some extent it&rsquo;s not as big of a deal as it may seem: for many, the fun is in sound design, so making music isn&rsquo;t even the end goal. Still, there&rsquo;s a lot of people who spend more time hunting for gear on reverb.com or planning out a eurorack system on modulargrid.net than actually using the gear they have.</p>
+<p>So, my real point is that if passion for gear is taken to far it tends to result in forgetting why you cared in the first place. This leads to this weird situation where the people who are most hevily invested (literally) in a hobby tend to be the least actually involved with it, yet everyone else develops this unhealthy lust for that position.</p>
+<p>This essentially divides every community into two: The gear snobs, and the people actually using the thing.</p>
+<p><strong>Lesson:</strong> Recognize if you&rsquo;re about to fall into the pit of gear snobbery or lust</p>
+<h3 id="case-study-4-3d-printing">
+  Case study 4: 3D Printing
+  <a class="anchor" href="#case-study-4-3d-printing">#</a>
+</h3>
+<p>3D Printers are really cool, I mean, really, you can bring your ideas from 3D model into reality! So why wouldn&rsquo;t you want one?</p>
+<p>Well, first, consider some things:</p>
+<ol>
+<li>Whatever you&rsquo;re printing needs to be, well, printable. This means minimal overhangs, a decent sized flat base, etc.</li>
+<li>You&rsquo;re limited by size</li>
+<li>You can <em>probably</em> only print in one color (or a single, multi-color filament, like rainbow)</li>
+<li>Nothing you print will be food or body safe</li>
+<li>Good quality or solid = very long print time</li>
+<li>Your melting plastic
+<ul>
+<li>This means you&rsquo;re making something that will basically never biodegrade</li>
+<li>There&rsquo;s some nasty fumes put off</li>
+</ul>
+</li>
+<li>The end result will probably be fragile</li>
+<li>Printers are a pain to calibrate, you will have a lot of failed prints - especially at first.
+<ul>
+<li>Even more non biodegradable plastic waste.</li>
+<li>Even more time per print.</li>
+</ul>
+</li>
+</ol>
+<p>So, with all of those things in mind, they&rsquo;re a lot less cool. I&rsquo;m not saying you shouldn&rsquo;t try it out, what I&rsquo;m saying is if you don&rsquo;t really have any ideas for what you&rsquo;d want to print or you&rsquo;ve only had the once-or-twice yearly time where you&rsquo;ve wanted to use one, you&rsquo;re probably better off ordering the part pre-made from a print farm.</p>
+<p>Now, maybe you do have tons of things you want to print! Maybe you&rsquo;re into modeling and painting figurines from your favorite games and anime. Maybe you need a ton of props for a big model train setup. That&rsquo;s cool! But I don&rsquo;t think that&rsquo;s the majority of 3D printing enthusiasts.</p>
+<p>It could also be the case that you&rsquo;re just fascinated by the idea of working on the mechanics and optimization of 3D printing, you&rsquo;re really into tuning systems and trying out new materials. If that&rsquo;s the case, go for it. Please do consider what you&rsquo;ll do with all the failed print plastic noodles though.</p>
+<p><strong>Lesson:</strong> Don&rsquo;t jump on hype trains without having a reason to ride</p>
+<span class="smalltext ">
+    &hellip; Also consider if what you&rsquo;re making is worth the environmental cost
+</span>
+<p><span class="smalltext ">
+    &hellip; Also don&rsquo;t forget the worth of your own time
+</span></br></p>
+<span class="smalltext ">
+    &hellip; Also please don&rsquo;t buy anything cheaper than the Ender3. eWaste isn&rsquo;t just low end graphics cards.
+</span>
+<h3 id="case-study-5-furries">
+  Case study 5: Furries
+  <a class="anchor" href="#case-study-5-furries">#</a>
+</h3>
+<img src="/nonfree/character/vega.gif" alt="Vega Dancing" style="float: right; width:20%">
+<p>This post has been really negative, as I&rsquo;ve gone out of my way to portray multiple groups and hobbies as being bad in one way or another, with the reason often boiling down to falling to deep down a rabbit hole. While that absolutely can be dangerous and that&rsquo;s a point I wanted to make, it can be incredibly positive as well. Largely, it&rsquo;s a matter of avoiding the bad and cultivating the good.</p>
+<p>For example, I&rsquo;m a furry. To have a website as big as this one on the internet and own a fursuit, it&rsquo;s pretty clear I&rsquo;ve gone pretty deep down the rabbit hole<a class="ptr">(3)</a>. In this case, it was 100% worth it, as some furs are really heckin&rsquo; awesome. I mean, just look at (almost) all of the 
+
+
+
+
+  
+
+
+<a  href="/interviews/interviews/"   class="book-btn interview">
+  Interviews
+</a>
+ on this site. But at the same time, there&rsquo;s a lot of issues in the fandom. Honestly, while the media like to play up the sexual nature of it, that&rsquo;s honestly pretty tame and I haven&rsquo;t seen many issues with it personally. Instead, to me, the issue is the sheer amount of alcoholism. It&rsquo;s honestly a bit morbidly impressive. For me, being a furry has been an immensely positive experience. I have made some of my best friends, been given amazing professional advice and opportunities, become more confident, and just generally had a good time.</p>
+<img src="/nonfree/character/box.png" alt="Vega in a box" style="float: left; width:18%">
+<p>Mentally, I think I categorize furies into having tags - like metadata on a file. This is unlike the above where the categories had all been exclusive and on a spectrum that&rsquo;s just been chopped up. Here, they&rsquo;re just labels I put on for my own mental catalog. These include Nerd, Artist, Lood, Closeted-fur, LGBTQ+, Friendly, Creepy, among many others.  You&rsquo;ll notice that, largely, this isn&rsquo;t furry exclusive. This is just a matter of assigning labels to people from your own perspective. It&rsquo;s not really great to do, and it may even be harmful, but you&rsquo;re going to regardless so you may as well be conscious of it and the failings there in.</p>
+<p>For example, mentally only having one tag for artist means I&rsquo;ll forget if someone can do 2D or 3D art or if they can animate. Similarly, only having one mental tag for &ldquo;nerd&rdquo; may cause me to forget if they&rsquo;re deep into programming FPGAs or if they&rsquo;re more into JS and web dev; only remembering LGBT+ means I occasionally forget pronouns. Clearly, that&rsquo;s not a fine grained enough system. Unfortunately, these mental systems aren&rsquo;t something we consciously make, so it&rsquo;s hard to fix.</p>
+<p>Still, for me the relevant part is that from that list of tags I give someone, I can decide to prune them from my mental list of people I bother to stay friends with or I can try to maintain that relationship<a class="ptr">(4)</a> This is a healthy thing to do, both at a personal level and a community level.</p>
+<p><strong>Lesson:</strong> Not all nerdy cults are bad, but you should pay attention to avoid the bad connections and cultivate the good.</p>
+<hr>
+<h3 id="he-who-shall-not-be-named">
+  He Who Shall Not Be Named.
+  <a class="anchor" href="#he-who-shall-not-be-named">#</a>
+</h3>
+<p>Look, clearly the absolute worst offender on all of this is the NFT &amp; Crypto mess. The God like status of Musk, the toxic &ldquo;to the moon&rdquo; and &ldquo;everyones going to make it&rdquo; atmosphere where any honest criticism is just ignored and assumed to be haters spreading Fear Uncertainty and Doubt (FUD) is the most toxic cesspool I have ever seen.</p>
+<img src="/memes/greed.gif" alt="MrKrabs being greedy" style="float: right;width:40%;padding:10px;">
+<p>Still, <strong>I know you might disagree with this,</strong> so I wanted to save this full on assault until now because, while <em>I am anti-cryptocurrency &amp; NFT</em> I acknowledge that you, the reader, may not be and I think that if you are in that bubble having tho opportunity to think for yourself is valuable and I want to respect your decisions while showing you what questions I asked myself that lead to the conclusions I have. If you are pro cryptocurrency &amp; NFTs, I do ask that you look up and watch some opposing views. I would say the same for those that are anti; however, I have yet to read anything actually convincing outside of arguments that it can make you a lot of money. If you legitimately have good points to be made, feel free to <a href="https://twitter.com/Vega_DW">tweet articles at me</a>. (within limits, please don&rsquo;t drown me in it)</p>
+<h2 id="conclusion">
+  Conclusion
+  <a class="anchor" href="#conclusion">#</a>
+</h2>
+<p>Clearly this post had next to nothing to do with quantization, not really. The thing I really want you to take away from all of this is that you should occasionally take some to reflect on your hobbies, interests, politics, etc. and ask a few questions of each, first the big two from the start:</p>
+<ol>
+<li>Are the states being quantized to reasonable (ex: being split by a normal distribution, if applicable. Are the biased?)</li>
+<li>Do you have enough states you&rsquo;re quantizing into? (not just &ldquo;Liberal&rdquo; and &ldquo;Conservative&rdquo;)</li>
+</ol>
+<p>Then,</p>
+<ol start="3">
+<li>
+<p>Do you need to untangle your relationship with the thing from your identity as a person?</p>
+<span class="smalltext ">
+    <strong>Remember:</strong> It&rsquo;s not always a bad thing to identify with something, but you should at least be aware of it!
+</span>
+</li>
+<li>
+<p>Are you getting what you want to out of the thing in question, or do you want to return to a previous state?</p>
+</li>
+<li>
+<p>Would investing into the thing in question more actually make you happier? What about less?</p>
+</li>
+</ol>
+<p>Also, as I tried to point out with the 3D printing section, it&rsquo;s worth considering if you really want to invest yourself in the thing at all. Each of us only has so many hours and so many dollars to spend.</p>
+<p>Take it easy,</p>
+<p>- Vega</p>
+<span class="smalltext ">
+    &hellip; and maybe next time I&rsquo;ll sneak in a conversion about respect with a title about aliasing or gun control under the guise of the Fourier Transform. You can&rsquo;t stop me!
+</span>
+<ol hidden id="footnotes">
+    <li>Yes, I know this is wrong too. Like, in most non-athletic hobbies you <i>should</i> expect more old than young as people get into something and stay in it life long. </li>
+    <li>... or trying to win the NewEgg raffle to even be able to buy a graphics card</li>
+    <li>I am very aware of the pun here. It's not indended.</li>
+    <li>even if I do so poorly 😬, If I haven't messaged you in a while, it's more likely you just floated down to the bottom of my recent messages list...</li>
+</ol>
+</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//posts/quantized.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#case-study-1-linux">Case study 1: Linux</a></li>
+            <li><a href="#case-study-2-ham-radio">Case study 2: Ham Radio</a></li>
+            <li><a href="#case-study-3-gear-keebs-gpus-and-synthesizers">Case study 3: Gear: Keebs, GPUs, and Synthesizers</a></li>
+            <li><a href="#case-study-4-3d-printing">Case study 4: 3D Printing</a></li>
+            <li><a href="#case-study-5-furries">Case study 5: Furries</a></li>
+            <li><a href="#he-who-shall-not-be-named">He Who Shall Not Be Named.</a></li>
+          </ul>
+        </li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
