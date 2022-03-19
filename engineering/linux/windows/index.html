@@ -106,7 +106,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.448cec96c3c3de95c32f83c21915b1fb6367303e2f16cd2c5870a87fb4aaf784.css" integrity="sha256-RIzslsPD3pXDL4PCGRWx&#43;2NnMD4vFs0sWHCof7Sq94Q=">
-<script defer src="/en.search.min.9bc76a6feb66c71f24cb5d336e874818c29e136443ca1dad0c7583ca6b96a5b1.js" integrity="sha256-m8dqb&#43;tmxx8ky10zbodIGMKeE2RDyh2tDHWDymuWpbE="></script>
+<script defer src="/en.search.min.ad796a024fda26396feda92293d42c859e801d49391266d406a2a11ff49d2e84.js" integrity="sha256-rXlqAk/aJjlv7akik9QshZ6AHUk5EmbUBqKhH/SdLoQ="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -686,6 +686,22 @@ https://github.com/alex-shpak/hugo-book
 <p>Windows also has a few application specific tools you should be aware exist, like the disk managment tool, device manager, and task scheduler, and services manager. While we&rsquo;re on the subject, now tould be a good time to go check each and make sure everything is sane.</p>
 <p>Let&rsquo;s start by opening up &ldquo;device manager&rdquo;, you should see a bunch of different caterogories ranging from &ldquo;Audio Inputs and Outputs&rdquo; to &ldquo;Universal Serial Bus Controllers&rdquo;. What you shoud be looking for is a any thing showing up as &ldquo;⚠ Unknown Device&rdquo; as this is a sign that you have something that&rsquo;s unhappy about drivers. The exact method for figuring out which device this is varies, but a good portion of the time this will be a USB device. If that&rsquo;s the case, a good place to start is to right click the device, select <em>properties</em> then the Details tab, then select the &ldquo;Hardware IDs&rdquo; property. You should see something like &ldquo;USB\VID_258A&amp;PID_0013&amp;REV_0100&amp;MI_00&rdquo; what we actually need from that is the Vendor ID (VID) and Product ID (PID), in this case that&rsquo;s 258A and 0013. If you search the web for these together as VendorID:DeviceID (so, 258A:0013), you&rsquo;ll often be able to figure out what the offending device is. For example, Googling this example &ldquo;258A:0013&rdquo; the first result is for a gaming keyboard, which is correct.</p>
 <p>Now, let&rsquo;s head over to Disk managment. Here the big thing we should be looking for is any large blocks of unallocated space or partitions you don&rsquo;t recognize (if you&rsquo;ve installed Linux, Windows will see these partitions, but have no idea what they are!) - on a normal, single disk, Windows system there will probably be a ~300Mb EFI System Partition, a very large (the majority of the disk in size) &ldquo;Windows C:/&rdquo; partition, and one or two recovery partitions, totalling less than 30Gb.</p>
+<blockquote class="book-hint info ">
+  Heads up, the graphical disk managment utility may not let you do some things! In this case you may need to run <code>diskpart</code> in cmd.
+</blockquote>
+
+<blockquote class="book-hint warning ">
+  Things can get weird if you&rsquo;re using Bitlocker for encryption or if your BIOS is set to to RAID mode (even if there&rsquo;s only one disk) in either case, it will be really tough to access data from Linux. This may not seem like a big deal to you if you don&rsquo;t intend to dual boot, but it can make data recovery or virus removal a massive pain in the ass later.
+</blockquote>
+
+<blockquote>
+<p>If you&rsquo;re here, you might also be in need of a quick way to make a clone of a disk from within Windows, in that case, I&rsquo;ve had luck with <a href="https://github.com/TalAloni/RawDiskCopier">RawDiskCopier (Github)</a></p>
+</blockquote>
+<blockquote>
+<span class="smalltext ">
+    If you&rsquo;re feeling really adventureous, you can actually <a href="https://github.com/maharmstone/btrfs">get Windows to run on BTRFS</a>. Just know that here be dragons.
+</span>
+</blockquote>
 <p>Next up, lets make sure HP/Dell/Acer/etc. didn&rsquo;t put any dumb things into the task scheduler or services. Open the start menu, search for &ldquo;Task Scheduler&rdquo; and open it. Click &ldquo;Task Scheduler Library&rdquo; and look through the entries, don&rsquo;t be afraid to web search if you don&rsquo;t know what some are. If there&rsquo;s some you know you don&rsquo;t need, just right click and disable them.</p>
 <p>Then, into services. While you can into services by opening the start menu and searching for it, I want to show you the Run dialog, because occasionally the start menu will break on windows and using the run dialog can be a good way to force your way into thing anyway. So, go ahead and hold the windows key and press &lsquo;r&rsquo;, a run dialog box should show up where you&rsquo;d expect the start menu. Type &ldquo;services.msc&rdquo;. This will bring up the service managment window.  Most of these are nammed fairly well and have good descriptions. If there&rsquo;s something that absolutely doesn&rsquo;t need to run (like the Xbox services on an office computer) it&rsquo;s not a bad idea to just disable it.</p>
 <p>For your sanity later, I&rsquo;m going to recommend a whole host of deeper utilities &amp; basic system improvments</p>
