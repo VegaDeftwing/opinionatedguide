@@ -106,7 +106,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.448cec96c3c3de95c32f83c21915b1fb6367303e2f16cd2c5870a87fb4aaf784.css" integrity="sha256-RIzslsPD3pXDL4PCGRWx&#43;2NnMD4vFs0sWHCof7Sq94Q=">
-<script defer src="/en.search.min.a0113d88cd7fe0073548cd9f5ed14c08f15ee5eeaaecfb871862050c16316f3b.js" integrity="sha256-oBE9iM1/4Ac1SM2fXtFMCPFe5e6q7PuHGGIFDBYxbzs="></script>
+<script defer src="/en.search.min.6f057aea0cabc1bab94951f9d77441937c738583b8a6fc6a971defb35453c5b1.js" integrity="sha256-bwV66gyrwbq5SVH513RBk3xzhYO4pvxqlx3vs1RTxbE="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -225,7 +225,7 @@ https://github.com/alex-shpak/hugo-book
 <dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
 <dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
 <dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
-<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders?</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
 <dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
 <dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
 </dd>
@@ -624,7 +624,7 @@ https://github.com/alex-shpak/hugo-book
   X.x Update your BIOS
   <a class="anchor" href="#xx-update-your-bios">#</a>
 </h3>
-<p>While not Windows specific, I reccomend updating your UEFI/BIOS anyway, as occassionally it will fix random issues down the line. The process for this varies, but generally you just need to go to either the page for your specific model of computer or, if a custom system, the page for the motherboard. Download the BIOS from there and follow the update instructions provided. It&rsquo;ll be a little sketchy, but it should be fine. Sometimes, you can do this from within Windows Update via an &lsquo;optional update&rsquo;. <strong>Don&rsquo;t.</strong> This has a tendacy to break shit.</p>
+<p>While not Windows specific, I recommend updating your UEFI/BIOS anyway, as occasionally it will fix random issues down the line. The process for this varies, but generally you just need to go to either the page for your specific model of computer or, if a custom system, the page for the motherboard. Download the BIOS from there and follow the update instructions provided. It&rsquo;ll be a little sketchy, but it should be fine. Sometimes, you can do this from within Windows Update via an &lsquo;optional update&rsquo;. <strong>Don&rsquo;t.</strong> This has a tendency to break shit.</p>
 <p>While for some computer updating the UEFI/BIOS just requires running a file from within Windows, on others you&rsquo;ll need to actually reboot into the UEFI/BIOS interface. If the system is anything newer than ancient, you should be able to do this by going into settings and finding &ldquo;Advanced Startup&rdquo;. In 10, this is under Update→Recovery, on 11, just search for it (it will probably show up as &ldquo;change advanced start up options&rdquo;) and then &ldquo;Restart now&rdquo;. After the reboot, you should see a bright blue screen with the options of &ldquo;Continue&rdquo;, &ldquo;Troubleshoot&rdquo;, or &ldquo;Turn off your PC&rdquo;. Select Troubleshoot → Advanced Options → UEFI Firmware Settings. This will bring you into a different settings menu that, unfortunately, looks different on every system. Just arrow-key, tab, and enter around to see what options are there. With luck, you&rsquo;ll stumble into something named &ldquo;UEFI BIOS Update&rdquo; or similar, and the process should be fairly straight forward from there. Some systems will even download the update over the internet from within this menu directly. If you plan to run Linux, you might want to come back to this menu and turn off Secure Boot as well.</p>
 <h3 id="11-removing-the-shit">
   1.1 Removing the shit
@@ -633,7 +633,7 @@ https://github.com/alex-shpak/hugo-book
 <p>I&rsquo;ll be honest with you, even if you run a VPN -&gt; Tor -&gt; Freenet -&gt; IPFS chain that hits every country twice or you manage to set up firewalls so high china wants your phone number, you won&rsquo;t be able to stop windows from knowing more about you than you know about you.</p>
 <div class="speech big ">
     <p>
-        Historically, I&rsquo;d recomend setting up Windows with a local account for a whole mess of reasons as well. Unfortuantely, Microsoft is making this more of a pain in the ass with each update, and basically removing the ability outright in Windows 11. If you haven&rsquo;t yet set up your computer and your coming back to this guide as a &ldquo;Did I miss anything&rdquo;, this is something you may want to consider trying still. Just realize you&rsquo;ll be fighting Windows every step of the way.
+        Historically, I&rsquo;d recommend setting up Windows with a local account for a whole mess of reasons as well. Unfortuantely, Microsoft is making this more of a pain in the ass with each update, and basically removing the ability outright in Windows 11. If you haven&rsquo;t yet set up your computer and your coming back to this guide as a &ldquo;Did I miss anything&rdquo;, this is something you may want to consider trying still. Just realize you&rsquo;ll be fighting Windows every step of the way.
     </p>
 </div>
 
@@ -645,7 +645,7 @@ https://github.com/alex-shpak/hugo-book
 <p class="tip ">
     If some not-up-to-the-times guide says to use CCleaner, don&rsquo;t. It&rsquo;s basically a virus now!
 </p>
-<p>Then, you&rsquo;ll want to go through everything and just rip the crap out. Don&rsquo;t forget, Candy Crush is installed with 10 by default. And there&rsquo;s more… so, so much more. If it&rsquo;s an HP, just search the start menu for &ldquo;hp&rdquo;, Dell, &ldquo;Dell&rdquo;, and so on. That will help you find a lot of the garbage. I also reccomend opening up task manager (Ctrl+Shift+Esc), selecting more details, clicking the Startup tab, and seeing if there&rsquo;s anything you don&rsquo;t use that you can uninstall or at least disable. From there, just go digging though add/remove programs and start mashing remove until you&rsquo;re satisfied. If you haven&rsquo;t run updates yet, it&rsquo;s possible Windows will install yet more crap, so you might need to double check.</p>
+<p>Then, you&rsquo;ll want to go through everything and just rip the crap out. Don&rsquo;t forget, Candy Crush is installed with 10 by default. And there&rsquo;s more… so, so much more. If it&rsquo;s an HP, just search the start menu for &ldquo;hp&rdquo;, Dell, &ldquo;Dell&rdquo;, and so on. That will help you find a lot of the garbage. I also recommend opening up task manager (Ctrl+Shift+Esc), selecting more details, clicking the Startup tab, and seeing if there&rsquo;s anything you don&rsquo;t use that you can uninstall or at least disable. From there, just go digging though add/remove programs and start mashing remove until you&rsquo;re satisfied. If you haven&rsquo;t run updates yet, it&rsquo;s possible Windows will install yet more crap, so you might need to double check.</p>
 <h3 id="12-installing-system-stuff">
   1.2 Installing System Stuff
   <a class="anchor" href="#12-installing-system-stuff">#</a>

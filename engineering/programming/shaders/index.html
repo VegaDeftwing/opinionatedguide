@@ -82,7 +82,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 19 - Shaders #  The Book Of Shaders   I&rsquo;m going to assume you read through The Book Of Shaders because, frankly, it&rsquo;s fantastic and there&rsquo;s no way I&rsquo;m going to to be able to do better for now- that said, I do have some commentary, that maybe you&rsquo;ll find useful. Each of these tabs corolates to the respective page in The Book, and is really just what I stumbled into as I tried to fill in the gaps for myself.">
+<meta name="description" content="Chapter 19.0 - Shaders #  The Book Of Shaders 
+GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortuantely, there&rsquo;s some added complexity that comes with handeling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -94,7 +95,8 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 19 - Shaders #  The Book Of Shaders   I&rsquo;m going to assume you read through The Book Of Shaders because, frankly, it&rsquo;s fantastic and there&rsquo;s no way I&rsquo;m going to to be able to do better for now- that said, I do have some commentary, that maybe you&rsquo;ll find useful. Each of these tabs corolates to the respective page in The Book, and is really just what I stumbled into as I tried to fill in the gaps for myself." />
+<meta property="og:description" content="Chapter 19.0 - Shaders #  The Book Of Shaders 
+GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortuantely, there&rsquo;s some added complexity that comes with handeling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/shaders/" /><meta property="article:section" content="Engineering" />
 
@@ -104,7 +106,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.448cec96c3c3de95c32f83c21915b1fb6367303e2f16cd2c5870a87fb4aaf784.css" integrity="sha256-RIzslsPD3pXDL4PCGRWx&#43;2NnMD4vFs0sWHCof7Sq94Q=">
-<script defer src="/en.search.min.a0113d88cd7fe0073548cd9f5ed14c08f15ee5eeaaecfb871862050c16316f3b.js" integrity="sha256-oBE9iM1/4Ac1SM2fXtFMCPFe5e6q7PuHGGIFDBYxbzs="></script>
+<script defer src="/en.search.min.6f057aea0cabc1bab94951f9d77441937c738583b8a6fc6a971defb35453c5b1.js" integrity="sha256-bwV66gyrwbq5SVH513RBk3xzhYO4pvxqlx3vs1RTxbE="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -223,7 +225,7 @@ https://github.com/alex-shpak/hugo-book
 <dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
 <dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
 <dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
-<dt>19 </dt><dd> <a href="/engineering/programming/shaders/"class=active>Shaders?</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/"class=active>Shaders + GpGPU</a></dd>
 <dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
 <dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
 </dd>
@@ -551,7 +553,35 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-19---shaders">Chapter 19 - Shaders</a></li>
+    <li><a href="#chapter-190---shaders">Chapter 19.0 - Shaders</a>
+      <ul>
+        <li><a href="#beyond-the-book">Beyond The Book</a></li>
+        <li><a href="#generative">Generative</a>
+          <ul>
+            <li><a href="#fractals">Fractals</a></li>
+            <li><a href="#simulation">Simulation</a></li>
+          </ul>
+        </li>
+        <li><a href="#textures--filters">Textures &amp; Filters</a></li>
+        <li><a href="#3d-graphics">3D Graphics</a>
+          <ul>
+            <li><a href="#uv-maps">UV Maps</a></li>
+            <li><a href="#lighting--shading">Lighting &amp; Shading</a></li>
+            <li><a href="#bump-and-normal-maps">Bump and Normal Maps</a></li>
+            <li><a href="#kernel-convolution">Kernel Convolution</a></li>
+            <li><a href="#filtering">Filtering</a></li>
+            <li><a href="#clipspace-worldspace-">Clipspace, Worldspace, &hellip;?</a></li>
+            <li><a href="#culling-z-test">Culling, Z-test</a></li>
+          </ul>
+        </li>
+        <li><a href="#performance">Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#191---gpgpu">19.1 - GpGPU</a>
+      <ul>
+        <li><a href="#the-future-of-gpgpu">The Future of GpGPU</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -563,18 +593,32 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="chapter-19---shaders">
-  Chapter 19 - Shaders
-  <a class="anchor" href="#chapter-19---shaders">#</a>
+  <article class="markdown"><h1 id="chapter-190---shaders">
+  Chapter 19.0 - Shaders
+  <a class="anchor" href="#chapter-190---shaders">#</a>
 </h1>
 <p><img src="/common/arrow.svg" alt="" /></p>
-<span class="best ">
+<p><span class="best ">
     <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
     <a href="https://thebookofshaders.com">The Book Of Shaders</a>
+</span></br></p>
+<span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="https://www.shadertoy.com/view/Md23DV">GLSL 2D Tutorials by Vug</a>
 </span>
 <p><img src="/common/arrowthis.svg" alt="" /></p>
-<hr>
-<p>I&rsquo;m going to assume you read through The Book Of Shaders because, frankly, it&rsquo;s fantastic and there&rsquo;s no way I&rsquo;m going to to be able to do better for now- that said, I do have some commentary, that maybe you&rsquo;ll find useful. Each of these tabs corolates to the respective page in The Book, and is really just what I stumbled into as I tried to fill in the gaps for myself. Of note, the book is open source, but is <em>not</em> under a permissive licence (it&rsquo;s outright, bog-standard copyright) so I can&rsquo;t display any of it here, which is why I&rsquo;m asking you to alternate tabs to here and back.</p>
+<details >
+  <summary>Here for VRChat Stuff?</summary>
+  <div class="markdown-inner">
+    <p>Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortuantely, there&rsquo;s some added complexity that comes with handeling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to. That said, there are some particularly good resources for getting started in VR Chat and Unity development that aren&rsquo;t available for anything else. So, after you&rsquo;ve gone though the above links, in no particular order, I reccomend looking at:</p>
+<ul>
+<li><del>This 5 hour long <a href="https://youtu.be/9WW5-0N1DsI">Intro to Shader Coding in Unity</a> is pretty great</del> → Replaced by the newer <a href="https://www.youtube.com/watch?v=kfM-yu0iQBk">Shader Basics, Blending &amp; Textures • Shaders for Game Devs</a> which is a bit under 4 hours&hellip; I watched both.</li>
+<li><a href="https://github.com/cnlohr/shadertrixx">cnlohr&rsquo;s <em>Shadertrixx</em> repo</a></li>
+</ul>
+
+  </div>
+</details>
+
 
 
 
@@ -609,27 +653,48 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-3"  />
   <label for="tabs-Getting Started-3">4 - Running</label>
-  <div class="book-tabs-content markdown-inner"><ul>
-<li>Debuggers</li>
-<li>Development environment</li>
-<li>Visual Editors</li>
-</ul>
+  <div class="book-tabs-content markdown-inner"><p>While the book goes into ways to run the code written there elsewhere, I think it misses the mark for most people who are interested in using shaders for game development. If that&rsquo;s you, you&rsquo;re <em>probably</em> wanting to write shaders for Unity, Unreal, or Godot. In both cases, you may actually want to start by trying out visual shader programming, espically if you&rsquo;re not used to code. <strong>However,</strong> I do reccomend coming back to code at some point as the visual editors are usually both limited and generate kinda slow code.</p>
+<p>If you&rsquo;re using Unity, you&rsquo;ll want to use the built in <a href="https://unity.com/features/shader-graph">Shader Graph</a> if you&rsquo;re using either the Scriptable Render Pipelines (SRP)  ( so the High Defintion Render Pipeline (HDRP) or .Universal Render Pipeline (URP)) Unfortunately, it doesn&rsquo;t work with the Built-In render pipeline (yes, it&rsquo;s confusing) - though you can use the $80 <a href="https://assetstore.unity.com/packages/tools/visual-scripting/amplify-shader-editor-68570">Amplify Shader Editor</a> for Built-In. If you&rsquo;re doing development for VR chat, this is probably your best bet unless you want to jump right into code - which is fine! You can do it!</p>
+<p>If you&rsquo;re using Unreal [TODO]</p>
+<p>If you&rsquo;re using Godot, good news, you can use <a href="https://docs.godotengine.org/en/stable/tutorials/shaders/visual_shaders.html">its visual shader editor</a>.</p>
+<p>If you&rsquo;re going right for code, having something with a debugger may come in handy. Debuggers for shaders are still rather novel, but <a href="https://shadered.org">Shadered</a> is pretty neat, albeit a bit confusing to use at first.</p>
+<p>If you&rsquo;re developing for Unity and want decent syntax highlighiting, code completion, etc. your options are forking over  the better part of a grand for <a href="https://www.jetbrains.com/lp/dotnet-unity/">dotUltimate</a> or grabbing <a href="https://assetstore.unity.com/packages/tools/utilities/shaderlabvs-pro-186176?aid=1011lGoJ&amp;utm_campaign=unity_affiliate&amp;utm_medium=affiliate&amp;utm_source=partnerize-linkmaker">ShaderlabVS Pro</a> for $35</p>
 </div></div>
 </div><input type="radio" class="toggle" name="tabs-test" id="tabs-test-1"  />
   <label for="tabs-test-1">Algorithmic Drawing</label>
   <div class="book-tabs-content markdown-inner"><div class="book-tabs"><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-0" checked="checked" />
   <label for="tabs-Algorithmic Drawing-0">5 - Shaping</label>
-  <div class="book-tabs-content markdown-inner"><ul>
-<li>Graph toy is nice, Shadershop sorta sucks
-<ul>
-<li>I&rsquo;d like to find a better tool, one that&rsquo;s visual for 2d or 3d functions</li>
-</ul>
-</li>
-<li>Init a git repo to hold snippits early</li>
-</ul>
+  <div class="book-tabs-content markdown-inner"><p>While the book tries to instill into you the importance of this chapter, I think it&rsquo;s still a bit understated. Seriously, read this page three times. Mess around with the functions, and actually get a good feel for all of them.</p>
+<p>It also failed to go into some of the trig options. Yes, you have <code>sin()</code>, <code>cos()</code>, <code>tan()</code>, but you also have  <code>asin()</code>, <code>acos()</code>, <code>atan()</code>, and <em>depending on the version</em> <code>sinh()</code> , <code>cosh()</code>, and <code>tanh()</code> as well as  <code>asinh()</code> , <code>acosh()</code>, and <code>atanh()</code>.</p>
+<p>Because most people don&rsquo;t know what those look like off the top of their heads, here&rsquo;s a quick refrence - You can click the colored circles to turn functions on and off.</p>
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\text{Note,  }sin^{-1}()\)
+</span>
+ is the same as <span>
+  \(asin()\)
+</span>
+, <span>
+  \(sinh^{-1}()\)
+</span>
+ is the same as <span>
+  \(asinh()\)
+</span>
+<p class="tip ">
+    Make sure you re-center the graph about (0,0), otherwise some will appear to be missing!
+</p>
+<iframe src="https://www.geogebra.org/calculator/r8guft9v?embed" width="110%" height="600" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
+<p>Of particular use is <code>tanh()</code> as it can be used as a smooth clamping function</p>
+<p>There&rsquo;s also <code>dFdx()</code> and <code>dFdy()</code> for derivatives (<a href="https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dFdx.xhtml">see documentation</a>). These do what you think if you know calculus, but you can check <a href="https://www.shadertoy.com/view/lsXSzn">This Shadertoy Example from HLorenzi</a> if you want to see it in action. These can be quite useful for things like <a href="https://www.shadertoy.com/view/Xtd3W7">Edge Detection</a> (try the reccomendation from jump89 in the comments); <strong>However,</strong> support for them is hit-or-miss (try <a href="https://www.shadertoy.com/view/WtKcRW">this</a> and <a href="https://www.shadertoy.com/view/WdccRS">this</a> to check your system)</p>
+<p>If you&rsquo;re using <a href="https://graphtoy.com">https://graphtoy.com</a> to make your shaping functions, keep in mind it does lack the derivative functions.</p>
+<p>Also, keep in mind everything in the book and that I&rsquo;ve said so far applied to <strong>OpenGL/GLSL</strong>. <a href="https://alain.xyz/blog/a-review-of-shader-languages">There are other languages</a>, probably most notably for game developers is <strong>HLSL</strong>. HLSL is quite similar to OpenGL (See <a href="https://docs.microsoft.com/en-us/windows/uwp/gaming/glsl-to-hlsl-reference">GLSL-to-HLSL reference</a>) but along with the sytax differences, also has a <em>slightly</em> <a href="https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-intrinsic-functions">different set of functions available</a>. One to point out that may leave you scratching your head: HLSL&rsquo;s mod is a bit broken. Just use <code>#define glsl_mod(x,y) (((x)-(y)*floor((x)/(y))))</code> (<span class="smalltext ">
+from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-algorithm-to-hlsl-cg.485750/">bgolus in this forum thread</a>
+</span>)</p>
 </div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-1"  />
   <label for="tabs-Algorithmic Drawing-1">6 - Colors</label>
-  <div class="book-tabs-content markdown-inner"><ul>
+  <div class="book-tabs-content markdown-inner"><p>While the RGB and HSB colorspaces mentioned on the color page of The Book of Shaders are nice, It&rsquo;s worth mentioning that both can be a bit annoying to work with in computer graphics because of non-uniformities in actual, percieved brightness as the hue and saturation are changed. For this reason, we might want to use the relatively recently released <a href="https://bottosson.github.io/posts/oklab/">Oklab</a> colorspace. Fortunately, the work for converting to and from this color space has been done for us,</p>
+<ul>
 <li>What about Oklab, or something else with better uniformity
 <ul>
 <li><a href="https://www.shadertoy.com/view/WlGyDG">https://www.shadertoy.com/view/WlGyDG</a>
@@ -645,11 +710,80 @@ https://github.com/alex-shpak/hugo-book
   <label for="tabs-Algorithmic Drawing-2">7 - Shapes</label>
   <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-3"  />
   <label for="tabs-Algorithmic Drawing-3">8 - Matricies</label>
-  <div class="book-tabs-content markdown-inner"><ul>
-<li>Intuition for the rotation math</li>
-<li>Intuition for scale (though it&rsquo;s rather obvious)</li>
-</ul>
-<p>&hellip; This does go into YUV colorspace, see tab 6</div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-4"  />
+  <div class="book-tabs-content markdown-inner"><p>This chapter is probably the first that will have math that makes you go &ldquo;WTF?&rdquo;, espically if math with matricies and/or programming are new to you in the first place. While ideally you&rsquo;d understand the math, it&rsquo;s not honestly a big deal if you don&rsquo;t. That said I think this chapter also just sort of fails to explain the rationaile behing rotation. If we look at the rotation matrix:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-glsl" data-lang="glsl"><span style="display:flex;"><span><span style="color:#66d9ef">mat2</span>(cos(_angle),<span style="color:#f92672">-</span>sin(_angle),
+</span></span><span style="display:flex;"><span>     sin(_angle),cos(_angle));
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>we have x = x.cosθ-y.sinθ and  y = x.sinθ+y.cosθ. Let&rsquo;s just test some values:</p>
+<table>
+<thead>
+<tr>
+<th>θ</th>
+<th>x</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2π (360°, full rotation)</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3π/2 (270°)</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>π (180°)</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>π/2 (90°)</td>
+<td>-1</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>0</strong> (0°, no rotation)</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>-π/2 (90°)</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>-π (180°)</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>-3π/2 (270°)</td>
+<td>-1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>-2π (360°, Full rotation)</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>If you think about this, at 0 (no angle of rotation) both are being multpied by 1, so, no change. At either ±π/2 only one of the x or y are being multiplied by -1, a 90° rotation (albeit in oposite directions). At ±π, the shape is being rotated 180° (so, the same either way), then at ±3π/2 were at more than 180°, so we could have gotten there faster by only going π/2 in the other direction that is, 270° = -90° and 90° = -270° (since things repeat at 360°)</p>
+<hr>
+<p>I do think the book does a good job of covering scaling; however, keep in mind you can scale x and y independently, so on line 38 of the example code, <code>st = scale( vec2(sin(u_time)+1.0) ) * st;</code> that <code>vec2</code> could have different scaling factors for each. Try <code>st = scale( vec2(sin(u_time)+1.0,cos(u_time*.3)+1.0) ) * st;</code> for example. You&rsquo;ll see the shape gets scaled differently in x and y over time- it&rsquo;s not just a simple closer/further from the camera effect.</p>
+<hr>
+<p>This chapter does go into YUV colorspace, see tab 6 for more about color.</p>
+</div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-4"  />
   <label for="tabs-Algorithmic Drawing-4">9 - Patterns</label>
   <div class="book-tabs-content markdown-inner"></div></div>
 </div><input type="radio" class="toggle" name="tabs-test" id="tabs-test-2"  />
@@ -663,9 +797,128 @@ https://github.com/alex-shpak/hugo-book
   <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -3"  />
   <label for="tabs-Generative Designs -3">13 - Brownian</label>
   <div class="book-tabs-content markdown-inner"></div></div>
-</div><input type="radio" class="toggle" name="tabs-test" id="tabs-test-3"  />
-  <label for="tabs-test-3">...Not Yet Covered</label>
-  <div class="book-tabs-content markdown-inner"><ul>
+</div></div>
+
+<hr>
+<h2 id="beyond-the-book">
+  Beyond The Book
+  <a class="anchor" href="#beyond-the-book">#</a>
+</h2>
+<p>At the time of writing, <em>The Book of Shaders</em> ends at <em>Chapter 13 - Fractional Brownian Motion</em>. Continuting where the book leaves off, I&rsquo;d like to round out generative design by talking about fractals and simulation:</p>
+<h2 id="generative">
+  Generative
+  <a class="anchor" href="#generative">#</a>
+</h2>
+<h3 id="fractals">
+  Fractals
+  <a class="anchor" href="#fractals">#</a>
+</h3>
+<h3 id="simulation">
+  Simulation
+  <a class="anchor" href="#simulation">#</a>
+</h3>
+<h4 id="cellular-automata--bit-manipulation">
+  Cellular Automata &amp; Bit manipulation
+  <a class="anchor" href="#cellular-automata--bit-manipulation">#</a>
+</h4>
+<p><a href="https://www.shadertoy.com/view/XlcyD8">https://www.shadertoy.com/view/XlcyD8</a></p>
+<h4 id="slime-mold">
+  Slime mold
+  <a class="anchor" href="#slime-mold">#</a>
+</h4>
+<p><a href="https://www.shadertoy.com/view/WtBcDG">https://www.shadertoy.com/view/WtBcDG</a></p>
+<h4 id="fluids">
+  Fluids
+  <a class="anchor" href="#fluids">#</a>
+</h4>
+<p>Diffusion</p>
+<h2 id="textures--filters">
+  Textures &amp; Filters
+  <a class="anchor" href="#textures--filters">#</a>
+</h2>
+<h2 id="3d-graphics">
+  3D Graphics
+  <a class="anchor" href="#3d-graphics">#</a>
+</h2>
+<p>
+
+
+
+
+  
+
+
+<a  href="/design/3d/"   class="book-btn design">
+  3D Design
+</a>
+ has information on 3D modeling, file types, etc. This section is only for the nerdy bits as they relate to shaders</p>
+<h3 id="uv-maps">
+  UV Maps
+  <a class="anchor" href="#uv-maps">#</a>
+</h3>
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/UV_mapping)">
+<p>
+    UV mapping is the 3D modeling process of projecting a 2D image to a 3D model&rsquo;s surface for texture mapping. The letters &ldquo;U&rdquo; and &ldquo;V&rdquo; denote the axes of the 2D texture because &ldquo;X&rdquo;, &ldquo;Y&rdquo;, and &ldquo;Z&rdquo; are already used to denote the axes of the 3D object in model space
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/UV_mapping">Wikipedia</a>
+    </div>
+</div>
+<p>Want to paint on a 3D object? Well, you need a way to store the color of each pixel in a 2D image and a way to map that 2D image onto the 3D object. So, you&rsquo;ll need to <em>unwrap</em> the object to have a place to paint on, and then you can color as you please. As for this unwrapping, well, it tends to look what you&rsquo;d expect:</p>
+<p>[TODO] image here</p>
+<p>Though some special consideration needs to be made to where the <em>cuts</em> are - these are the places where the 2D texture is cut, but the actual 3D object is continuous - and how dense the pixels are in a given region. If you think about a map projection of the globe, some places always get made to be visually larger or smaller than reality, the larger areas have more pixels to hold texture, while the visually-smaller areas have less.</p>
+<p>As far as software is concerned, Substance Painter and Desginer by Adobe are pretty much the standard. Adobe is Adobe though, so you may want to see if either <a href="https://quixel.com/mixer">Quixel</a>, <a href="https://armorpaint.org">Armorpaint</a>, and/or <a href="https://boundingboxsoftware.com/materialize/index.php">Materialize</a> are good enough for you.</p>
+<p>If you&rsquo;re working in Unity, you might want to grab <a href="https://assetstore.unity.com/packages/tools/modeling/uvee-6933">UVee</a>.</p>
+<h3 id="lighting--shading">
+  Lighting &amp; Shading
+  <a class="anchor" href="#lighting--shading">#</a>
+</h3>
+<h3 id="bump-and-normal-maps">
+  Bump and Normal Maps
+  <a class="anchor" href="#bump-and-normal-maps">#</a>
+</h3>
+<p>Hard vs Soft normals on vertex edges are a thing.</p>
+<ul>
+<li>For hard normals 2 verticies actually get placed at the same place. Extra weird.</li>
+</ul>
+<h4 id="getting-maps">
+  Getting Maps
+  <a class="anchor" href="#getting-maps">#</a>
+</h4>
+<p>Usually, you&rsquo;ll have a normal map from whatever material / texture painting software you used. If you don&rsquo;t have one and need one, there are options. <a href="https://github.com/kmkolasinski/AwesomeBump">Awesome Bump</a>, <a href="https://cpetry.github.io/NormalMap-Online/">NormalMap-Online</a>, or, if you need some extra-oompf, there&rsquo;s <a href="https://shadermap.com/home/">Shadermap for $30 personal / $50 commercial</a>. As a last resort, you can use a combonation of angled high pass filters / edge dection in Krita and careful, manual shapening, blurring, and erasing to get what you need. It&rsquo;s tedious, but possible.</p>
+<h3 id="kernel-convolution">
+  Kernel Convolution
+  <a class="anchor" href="#kernel-convolution">#</a>
+</h3>
+<h3 id="filtering">
+  Filtering
+  <a class="anchor" href="#filtering">#</a>
+</h3>
+<h3 id="clipspace-worldspace-">
+  Clipspace, Worldspace, &hellip;?
+  <a class="anchor" href="#clipspace-worldspace-">#</a>
+</h3>
+<h3 id="culling-z-test">
+  Culling, Z-test
+  <a class="anchor" href="#culling-z-test">#</a>
+</h3>
+<h2 id="performance">
+  Performance
+  <a class="anchor" href="#performance">#</a>
+</h2>
+<blockquote>
+<p>In HLSL and Cg a ternary operator will never lead to branching. Instead both possible results are always evaluated and the not used one is being discarded. To quote the HLSL documentation:</p>
+<p><span class="smalltext"><a href="https://stackoverflow.com/users/759323/soulsource">Soulsource on StackOverflow</a></span></p>
+<blockquote>
+<p>Unlike short-circuit evaluation of &amp;&amp;, ||, and ?: in C, HLSL expressions never short-circuit an evaluation because they are vector operations. All sides of the expression are always evaluated.</p>
+<p><span class="smalltext"><a href="https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-operators?redirectedfrom=MSDN#Boolean_Math_Operators">Microsoft HLSL Documentation</a></span></p>
+</blockquote>
+</blockquote>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <ul>
 <li>Multiple Buffers
 <ul>
 <li>Render Textures</li>
@@ -673,13 +926,7 @@ https://github.com/alex-shpak/hugo-book
 </li>
 <li>Feedback</li>
 </ul>
-</div></div>
-
-<hr>
-<div class="book-columns flex flex-wrap">
-  
-  <div class="flex-even markdown-inner">
-    [TODO] text on lighting &amp; physics as shaders in egines, vulkan, etc.
+<p>[TODO] text on lighting &amp; physics as shaders in egines, vulkan, etc.
   </div>
   
   <div class="flex-even markdown-inner">
@@ -694,6 +941,113 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://smoothstep.io/anim/534226b1d5ed">https://smoothstep.io/anim/534226b1d5ed</a></p>
 <p><a href="https://acko.net/blog/frickin-shaders-with-frickin-laser-beams/">https://acko.net/blog/frickin-shaders-with-frickin-laser-beams/</a></p>
 <p><a href="https://github.com/stackgl/shader-school">https://github.com/stackgl/shader-school</a></p>
+<h1 id="191---gpgpu">
+  19.1 - GpGPU
+  <a class="anchor" href="#191---gpgpu">#</a>
+</h1>
+<p class="tip ">
+    If you want to learn how to do GpGPU programming, I highly reccomend you learn how to do basic shader programming first. They both generally have the same limitations imposed by the hardware and, depending on the environment you&rsquo;re working in, it may be that using the normal graphics languages (GLSL, HLSL, etc.) to write <strong>compute shaders</strong> is what you want anyway. In that case, you may as well learn the language from the more used and well documented side first. Even if you know you don&rsquo;t need the image output, still try it, as it&rsquo;s a much nicer introduction than jumping right into GpGPU and you&rsquo;ll have a much better idea of what&rsquo;s going on.
+</p>
+<p>So, we&rsquo;ve got this extra massively parrallel co-processor just hanging out in our computer, and unless we&rsquo;re running games or complex 3D programs, it&rsquo;s probably sitting nearly completely idle. So, how do we put it to use?</p>
+<p>Well first of all, we need to know a few things about the GPU:</p>
+<ol>
+<li>There&rsquo;s a <em>lot</em> of overhead for just using the GPU. You need to detect it, reserve some memory, copy your data to it, process it, and copy it back.</li>
+<li>There&rsquo;s a lot of different GPUs. Different vendors, models, etc. These will have wildly different capabilities, support different APIs, etc.</li>
+</ol>
+<p>Basically, this means you need to both be sure you&rsquo;re workload will actually benefit. It needs to be parrallizable in the first place, you need to be processing <em>a lot</em> of data to justify the overhead, and you need to know you have a GPU in the system(s) that can actually use it. As a general rule of thumb, if you&rsquo;re not processing an array/matrix with at least 100,000 items, it&rsquo;s probably not worth it. For context, assuming each item is a byte, that&rsquo;s about 100 killobytes.</p>
+<p>So, if it&rsquo;s not enough data or if it&rsquo;s not a parallizable task, the anser to &ldquo;how do we put it to use?&rdquo; is &ldquo;Don&rsquo;t.&rdquo;</p>
+<blockquote class="book-hint info ">
+  If you hadn&rsquo;t guessed from the mentioning of there being overhead, various platforms, and thresholds for the amount of data before it makes sense: Profiling matters. You will absolutly need to profile your code for this. Generating <a href="https://www.brendangregg.com/flamegraphs.html">Flamegraphs</a> (if you can) is particularly helpful.
+</blockquote>
+
+<p>But, if you&rsquo;ve got an applicable problem, the sitation is still messy. There&rsquo;s a whole variety of GPU vendors and APIs in a venn diagram from hell making actually utilizing this stuff a massive pain. So while you could go write openCL or CUDA (or Vulkan, or Halide) code directly, you&rsquo;ll probably find a bunch of weird edge cases across systems and it&rsquo;s just generally more of a pain than it&rsquo;s worth. So, frankly, I&rsquo;m not even going to look into those languages anymore than to let you know that it&rsquo;s quite likely the ones we will look into will actually still use their APIs, so, you&rsquo;ll probably still need their respective compilers/headers/toolchain on your system. Of special note, if you&rsquo;re using Cuda this probably means the full 11GB-or-so or so install with the <code>nvcc</code> compiler, which you can grab <a href="https://developer.nvidia.com/cuda-downloads">Here</a> for Windows or Linux (though, if Linux you should try your package manager first).</p>
+<p>So, reading that probably just made you go &ldquo;Oh this is going to be compiler hell, isn&rsquo;t it?&rdquo;. Yes. It will be. Espically on Windows. So, is it worth it? Well, just running one of the <a href="https://github.com/arrayfire/arrayfire-python/blob/master/examples/benchmarks/monte_carlo_pi.py">example programs</a> for the <a href="https://arrayfire.com">Arrayfire</a> library I got an <strong>88x speedup</strong> (though I&rsquo;m pretty sure this doesn&rsquo;t count the overhead of initalizing the GPU) when the code was ran on the GPU. So, yes, even if we did have to use OpenCL or Cuda directly, it probably would be.</p>
+<p>Fortunately, we dont.</p>
+<p>From my digging I&rsquo;ve found two good options that play nice with a lot of languages and different system configurations:  <a href="https://futhark-lang.org">Futhark</a> and <a href="https://arrayfire.com">Arrayfire</a>. I&rsquo;ll focus on these two, but you should know there are other options. If you&rsquo;re into Rust, there&rsquo;s <a href="https://github.com/calebwin/emu">emu</a>. Nim? check out <a href="https://github.com/treeform/shady">shady</a>. JS? <a href="https://github.com/DanRuta/GPGPU">this library called &ldquo;GPGPU &ldquo;</a> should do the trick. If you use Matlab, it should already be GPU accelerated, at least assuming you have an Nvidia graphics card. For these more specific ones  I don&rsquo;t have experance with these to know if they&rsquo;re good or bad. All of that said, you can <em>probably</em> make Futhark work damn near anywhere on account of the fact that it spits out C code for using either OpenCL, Cuda, Ptheads, or - failing all else - normal ol&rsquo; sequantial processing (just C, no special sauce). So, anywhere you can load C code, Futhark should work too. This is pretty much everywhere, as almost all languages have at least some way to load in a library written in C for speed sake. It also can generate python libraries easily, which is nice too.</p>
+<p>So, why do I have two reccomendations? <strong>Futhark</strong> is a programming language, just not a general purpose one. You really only use it to make small, individual functions that utilize the GPU that you then call from another language. <strong>Arrayfire</strong>, on the other hand, is more of a bucket of functions, your more typical library. If arrayfire happens to have the <a href="https://arrayfire.org/docs/group__func__categories.htm">functions you need</a> - or those you need to compose your program, ranging from basic operations up to a ready to use functions ranging from signal processing to computer vision - then it&rsquo;s easy to import and pretty much good to go. So, if you know you only really ever grind your wheels on one big operation that accounts for a majority of your programs run time and it&rsquo;s a commo problem, Arrayfire is worth trying. If you know you&rsquo;re going to need to do a weird opeartion that isn&rsquo;t in Arrayfire&rsquo;s bag of tricks ore you need to have finer control, Futhark probably makes sense.</p>
+<p class="tip ">
+    Arrayfire, at the time of writing, has bindings for C++, Python, Rust, Julia, and Nim, with a plethora of other langauge bindings in progress. <strong>However,</strong> not all of these bindings are created equal. I had to use Futhark for a project because while the C++ version of Arrayfire has bitwise operations, the python version does not. So, YMMV.
+</p>
+<p>So, what about Futhark?</p>
+<p>Futhark is a weird language, at least to most people. This is because it&rsquo;s <em>functional</em>. We&rsquo;ll talk about this more in a few chapters - that&rsquo;s what the weird looking 
+
+
+
+
+  
+
+
+<a  href="/engineering/programming/funcprog/"   class="book-btn ">
+  (((())(()((()(()))))))
+</a>
+ chapter is. Honestly, you might just want to skip ahead and read it now. Though, as a TL;DR: In functinoal programming, functions are <em>functions</em> in the math-y sense. They don&rsquo;t store any state, they simply transform input and produce an output. So, while you might want to write</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">myweirdfunc</span>(input)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>		c <span style="color:#f92672">+=</span> input<span style="color:#f92672">**</span>i
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> c
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>in a normal lanuage, here, you can&rsquo;t because you&rsquo;re storing the state of <code>i</code> internally as it gets incremented. As you can imagine, this means that you have to get rather creative with your code.</p>
+<p>So, why is futhark like this? Basically, because the limitations of the language make it so that it can generate very, very well optimized code for you. This should also make sense if you think back to learning about traditional fragment shaders above, as back there we learned that each GPU thread is memoryless anyway. So, this is really a pretty good abstraction with that in mind.</p>
+<p>Anyway, the end result is that the code looks weird. For example, here&rsquo;s some code I wrote which takes in an array of data and strips out set of 2 bits of every byte to put them in a new array of 4 times the length (basically, if we have <code>[0b11001001,0b00110011]</code>, we want <code>[0b11,0b00,0b10,0b01,0b00,0b11,0b00,0b11]</code>)</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#75715e">-- Shift the bits over accordingly, so that we actually get the </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- bits into the LSBs of each byte</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span> shiftbits [n] (<span style="color:#66d9ef">data</span><span style="color:#66d9ef">:</span> [n]i64) (shift<span style="color:#66d9ef">:</span> i64) <span style="color:#66d9ef">:</span> [n]i64 <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> bits <span style="color:#f92672">=</span> map (<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> shift <span style="color:#f92672">*</span> x <span style="color:#f92672">%</span> <span style="color:#ae81ff">8</span>) (<span style="color:#ae81ff">0</span><span style="color:#f92672">..&lt;</span>n) <span style="color:#66d9ef">in</span> map2 (<span style="color:#f92672">&gt;&gt;</span>) <span style="color:#66d9ef">data</span> bits
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Get the top two bits of each byte in x</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span> gettop (<span style="color:#66d9ef">data</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">[]</span>i64) (num<span style="color:#66d9ef">:</span> i64) <span style="color:#66d9ef">:</span> <span style="color:#66d9ef">[]</span>i64 <span style="color:#f92672">=</span> map (<span style="color:#f92672">&amp;</span>((<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>num)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)) <span style="color:#66d9ef">data</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- replicate each element in the arary four times,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- [1,2,3] -&gt; [1,1,1,1,2,2,2,2,3,3,3,3]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- stolen from https://futhark-book.readthedocs.io/en/latest/language.html#size-types</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span> rep4 [n] (<span style="color:#66d9ef">data</span><span style="color:#66d9ef">:</span> [n]i64)<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">[]</span>i64 <span style="color:#f92672">=</span> map (<span style="color:#a6e22e">\</span>i <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">data</span>[i<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>]) (<span style="color:#ae81ff">0</span><span style="color:#f92672">..&lt;</span>n<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Do the thing</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">def</span> bitpack [n] (<span style="color:#66d9ef">data</span><span style="color:#66d9ef">:</span> [n]i64)<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">[]</span>i64 <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> data2 <span style="color:#f92672">=</span> rep4 <span style="color:#66d9ef">data</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> data3 <span style="color:#f92672">=</span> shiftbits data2 <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">in</span> gettop data3 <span style="color:#ae81ff">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And while bitshifting is sometimes black magic looking in any language, I fully expect some wide eyes. This does make marginally more sense if you read through the <a href="https://futhark-book.readthedocs.io/en/latest/index.html">Parallel Programming in Futhark</a> book (at least through Chapter 2) but if you, like me, have no prior experiance with programming like this it <em>will</em> be painful. While I dove straight in I <em>suspect</em> it will be significantly less painful if you first look at a <a href="http://learnyouahaskell.com/introduction">tutorial for Haskell programming</a>, as Futharks syntax and programming style is very similar to it but gentler introductions to Haskell are readily available compared to the assume-you&rsquo;ve-already-done-functional-programming style of the Futhark book.</p>
+<h2 id="the-future-of-gpgpu">
+  The Future of GpGPU
+  <a class="anchor" href="#the-future-of-gpgpu">#</a>
+</h2>
+<p><a href="https://www.youtube.com/watch?v=12l326jQML8">GPU Accelerated RAID (Linus Tech Tips, YouTube)</a></p>
+<!-- TODO: Look into [halide](https://halide-lang.org), [emu](https://github.com/calebwin/emu) --> 
+<!-- TODO: WebGL + https://observablehq.com/@rreusser/the-double-pendulum-fractal?collection=@rreusser/writeups -->
 </article>
  
       
@@ -742,7 +1096,35 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-19---shaders">Chapter 19 - Shaders</a></li>
+    <li><a href="#chapter-190---shaders">Chapter 19.0 - Shaders</a>
+      <ul>
+        <li><a href="#beyond-the-book">Beyond The Book</a></li>
+        <li><a href="#generative">Generative</a>
+          <ul>
+            <li><a href="#fractals">Fractals</a></li>
+            <li><a href="#simulation">Simulation</a></li>
+          </ul>
+        </li>
+        <li><a href="#textures--filters">Textures &amp; Filters</a></li>
+        <li><a href="#3d-graphics">3D Graphics</a>
+          <ul>
+            <li><a href="#uv-maps">UV Maps</a></li>
+            <li><a href="#lighting--shading">Lighting &amp; Shading</a></li>
+            <li><a href="#bump-and-normal-maps">Bump and Normal Maps</a></li>
+            <li><a href="#kernel-convolution">Kernel Convolution</a></li>
+            <li><a href="#filtering">Filtering</a></li>
+            <li><a href="#clipspace-worldspace-">Clipspace, Worldspace, &hellip;?</a></li>
+            <li><a href="#culling-z-test">Culling, Z-test</a></li>
+          </ul>
+        </li>
+        <li><a href="#performance">Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#191---gpgpu">19.1 - GpGPU</a>
+      <ul>
+        <li><a href="#the-future-of-gpgpu">The Future of GpGPU</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
