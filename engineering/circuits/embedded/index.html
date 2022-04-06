@@ -106,7 +106,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.448cec96c3c3de95c32f83c21915b1fb6367303e2f16cd2c5870a87fb4aaf784.css" integrity="sha256-RIzslsPD3pXDL4PCGRWx&#43;2NnMD4vFs0sWHCof7Sq94Q=">
-<script defer src="/en.search.min.6f057aea0cabc1bab94951f9d77441937c738583b8a6fc6a971defb35453c5b1.js" integrity="sha256-bwV66gyrwbq5SVH513RBk3xzhYO4pvxqlx3vs1RTxbE="></script>
+<script defer src="/en.search.min.ed3c2ba41add9f44e80d454e186d60c579473063d7a6f531a57c44e6e368d3db.js" integrity="sha256-7TwrpBrdn0ToDUVOGG1gxXlHMGPXpvUxpXxE5uNo09s="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -565,6 +565,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#project-5---euclidian-rhythms">Project 5 - Euclidian Rhythms</a></li>
         <li><a href="#project-6---the-epochalypse">Project 6 - The Epochalypse</a></li>
         <li><a href="#real-time-operating-systems">Real Time Operating Systems</a></li>
+        <li><a href="#intrisinc-operations--asm">Intrisinc Operations &amp; ASM</a></li>
+        <li><a href="#project-7-asm-blink">Project 7: ASM Blink</a></li>
         <li><a href="#other-weird-and-cool-projects">Other weird and cool projects:</a></li>
       </ul>
     </li>
@@ -845,24 +847,44 @@ https://github.com/alex-shpak/hugo-book
   \(\text{I}^2 \text{C}\)
 </span>
  is a great protocol and is easy to use, it&rsquo;s also only <em>half duplex</em> this means that, like a radio, only one side can talk at a time. <em>Full duplex</em> communication methods let both sides talk at once. While in a phone call this might be chaotic, there&rsquo;s often times where it&rsquo;s helpful to be able to send data to a device while we get data from it- for example, when working with that ethernet adapter I said we&rsquo;d be using above. For ethernet, this is often necessary, as with TCP, a networking protocol I&rsquo;ll dive into in the programming chapter, you need to repeated send replies saying &ldquo;Yep, I got what you last sent, keep em&rsquo; coming&rdquo; while still listening for more data.</p>
-<p>[TODO] SPI Ethernet</p>
+<p>[TODO] SPI Ethernet or SPI flash?</p>
+<ul>
+<li>SPI has four modes, depending on CPOL and CPHA</li>
+</ul>
 <p>[TODO] mention UART &amp; CAN bus</p>
 <p><a href="https://hackaday.com/2020/08/26/driving-a-pal-tv-over-rf-thanks-to-pwm-harmonics/">Driving a PAL TV over RF thanks to PWM harmonics (Hackaday)</a></p>
 <h2 id="project-1---calculator">
   Project 1 - Calculator
   <a class="anchor" href="#project-1---calculator">#</a>
 </h2>
-<p>[TODO] diode matrix inputs, LED matrix outputs (7-seg), beeper,</p>
+<p>[TODO] diode matrix inputs, LED matrix outputs (7-seg), beeper, what&rsquo;s a memory mapped register, bit-fields, structs, basic polling, no return from main, ever.</p>
 <h2 id="project-2---midi-controller">
   Project 2 - MIDI Controller
   <a class="anchor" href="#project-2---midi-controller">#</a>
 </h2>
-<p>[TODO] Gyro + photo-resistor + a few knobs &amp; buttons</p>
+<p>[TODO] Gyro + photo-resistor + a few knobs &amp; buttons, interupts</p>
 <h2 id="project-3---adc-to-the-dac">
   Project 3 - ADC to the DAC
   <a class="anchor" href="#project-3---adc-to-the-dac">#</a>
 </h2>
-<p>[TODO] ADC → μC →DAC , floating point</p>
+<p>[TODO] ADC → μC →DAC , floating point, DMA?</p>
+<p>Depending on the board you&rsquo;re using (not the Arduino Uno) you may have a/multiple <strong>D</strong>igital to <strong>A</strong>nalog <strong>C</strong>onverter(s) (DAC), as well as <strong>A</strong>nalog to <strong>D</strong>igital <strong>C</strong>onverters (ADCs) which&hellip; do what you think. ADCs let you take an analog signal in - like the output of a guitar or the voltage as you turn a knob. DACs let you output a signal (like audio). Assuming you have enough computational horse power and the DACs and ADCs on board are good enough, the combonation of these could let you do everything from a guitar pedal to making your own radio (On top of just being able to read knob positions)</p>
+<p>Unfortunately, DACs and ADCs are complicated and you really should know a lot about them as they&rsquo;re used a lot, so, without further-a-deux:</p>
+<blockquote>
+<p>More about DACs than you probably need to know:</p>
+<ul>
+<li>Nyquist Rate vs Oversampling DACs</li>
+<li>Decoder-based, Binary weigthed, Thermometer code, &amp; hybrid</li>
+<li>Monotonictity &amp; Linearity ; Integral &amp; Derivatiove Nonlinearity (INL/DNL)</li>
+</ul>
+</blockquote>
+<p>Some DACs &amp; ADCs also allow for <strong>D</strong>irect <strong>M</strong>emory <strong>A</strong>ccess (DMA). A DAC with DMA, for example, will let you write samples to a buffer and at a defined rate spit them back out without CPU intervention. This allows for dramatically more complicated processing as you no longer need to consistently get a new sample to the DAC before the next deadline (often this would need done 48,000 times a second!) Basically DMA let&rsquo;s you offload some processing from the CPU. Problem? Now you need to write memory that something else is trying to access. So, how do we fix this? Well, there&rsquo;s a pretty easy solution:</p>
+<p>A ping pong buffer.</p>
+<p>Essentially, we can just alternate back and forth between the DMA device &ldquo;owning&rdquo; half of the memory and the CPU owning half, alterating who get&rsquo;s what half every time the DMA indicates that it ran out of samples.</p>
+<blockquote class="book-hint info ">
+  Note, here I&rsquo;m talking about DMA as if they only apply to DACs and ADCs; however, they can be used for <em>many</em> other things. Commonly, this includes networking and writing to displays, though there are <em>many</em> other times they&rsquo;re useful. So, keep this in mind.
+</blockquote>
+
 <h2 id="project-4---leds-again">
   Project 4 - LEDs&hellip; again?
   <a class="anchor" href="#project-4---leds-again">#</a>
@@ -889,6 +911,19 @@ https://github.com/alex-shpak/hugo-book
 <p>RIOT-OS, MBED, etc</p>
 <p>[TODO note, MBED was used on the euclidean drum project for its event queue]</p>
 <p>talk about scheduling (CFS, etc)</p>
+<h2 id="intrisinc-operations--asm">
+  Intrisinc Operations &amp; ASM
+  <a class="anchor" href="#intrisinc-operations--asm">#</a>
+</h2>
+<p>Your <strong>I</strong>nstruction <strong>S</strong>et <strong>A</strong>rchitecture (ISA)</p>
+<ul>
+<li>different opearations may take a different number of instructions</li>
+<li>Pipelining may make this hard to predict, espically with interupts</li>
+</ul>
+<h2 id="project-7-asm-blink">
+  Project 7: ASM Blink
+  <a class="anchor" href="#project-7-asm-blink">#</a>
+</h2>
 <h2 id="other-weird-and-cool-projects">
   Other weird and cool projects:
   <a class="anchor" href="#other-weird-and-cool-projects">#</a>
@@ -897,6 +932,7 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://groups.google.com/forum/message/raw?msg=comp.lang.ada/E9bNCvDQ12k/1tezW24ZxdAJ">Of Course It Leaks!</a></p>
 <p><a href="https://hackaday.com/2019/04/23/the-simplest-of-pseudo-random-number-generators/">&ldquo;The Simplest of Pseudo Random Number Generators&rdquo; - Hackaday</a></p>
 <p><a href="https://dmitry.gr/?r=05.Projects&amp;proj=30.%20Reverse%20Engineering%20an%20Unknown%20Microcontroller">Reverse Engineering an Unknown Microcontroller (Dmitry.GR)</a></p>
+<hr>
 <h1 id="chapter-141---embedded-hardware-comparison">
   Chapter 14.1 - Embedded Hardware comparison
   <a class="anchor" href="#chapter-141---embedded-hardware-comparison">#</a>
@@ -977,6 +1013,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#project-5---euclidian-rhythms">Project 5 - Euclidian Rhythms</a></li>
         <li><a href="#project-6---the-epochalypse">Project 6 - The Epochalypse</a></li>
         <li><a href="#real-time-operating-systems">Real Time Operating Systems</a></li>
+        <li><a href="#intrisinc-operations--asm">Intrisinc Operations &amp; ASM</a></li>
+        <li><a href="#project-7-asm-blink">Project 7: ASM Blink</a></li>
         <li><a href="#other-weird-and-cool-projects">Other weird and cool projects:</a></li>
       </ul>
     </li>

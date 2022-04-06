@@ -83,7 +83,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 19.0 - Shaders #  The Book Of Shaders 
-GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortuantely, there&rsquo;s some added complexity that comes with handeling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to.">
+GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortunately, there&rsquo;s some added complexity that comes with handling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -96,7 +96,7 @@ GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat 
 </style>
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 19.0 - Shaders #  The Book Of Shaders 
-GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortuantely, there&rsquo;s some added complexity that comes with handeling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to." />
+GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortunately, there&rsquo;s some added complexity that comes with handling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/shaders/" /><meta property="article:section" content="Engineering" />
 
@@ -106,7 +106,7 @@ GLSL 2D Tutorials by Vug  Here for VRChat Stuff? Cool! VR chat is a really neat 
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.448cec96c3c3de95c32f83c21915b1fb6367303e2f16cd2c5870a87fb4aaf784.css" integrity="sha256-RIzslsPD3pXDL4PCGRWx&#43;2NnMD4vFs0sWHCof7Sq94Q=">
-<script defer src="/en.search.min.6f057aea0cabc1bab94951f9d77441937c738583b8a6fc6a971defb35453c5b1.js" integrity="sha256-bwV66gyrwbq5SVH513RBk3xzhYO4pvxqlx3vs1RTxbE="></script>
+<script defer src="/en.search.min.ed3c2ba41add9f44e80d454e186d60c579473063d7a6f531a57c44e6e368d3db.js" integrity="sha256-7TwrpBrdn0ToDUVOGG1gxXlHMGPXpvUxpXxE5uNo09s="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -562,7 +562,12 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#simulation">Simulation</a></li>
           </ul>
         </li>
-        <li><a href="#textures--filters">Textures &amp; Filters</a></li>
+        <li><a href="#textures--filters">Textures &amp; Filters</a>
+          <ul>
+            <li><a href="#aliasing--dithering">Aliasing &amp; Dithering</a></li>
+            <li><a href="#feedback">Feedback</a></li>
+          </ul>
+        </li>
         <li><a href="#3d-graphics">3D Graphics</a>
           <ul>
             <li><a href="#uv-maps">UV Maps</a></li>
@@ -572,6 +577,7 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#filtering">Filtering</a></li>
             <li><a href="#clipspace-worldspace-">Clipspace, Worldspace, &hellip;?</a></li>
             <li><a href="#culling-z-test">Culling, Z-test</a></li>
+            <li><a href="#vertex-shaders">Vertex Shaders?</a></li>
           </ul>
         </li>
         <li><a href="#performance">Performance</a></li>
@@ -610,7 +616,7 @@ https://github.com/alex-shpak/hugo-book
 <details >
   <summary>Here for VRChat Stuff?</summary>
   <div class="markdown-inner">
-    <p>Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortuantely, there&rsquo;s some added complexity that comes with handeling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to. That said, there are some particularly good resources for getting started in VR Chat and Unity development that aren&rsquo;t available for anything else. So, after you&rsquo;ve gone though the above links, in no particular order, I reccomend looking at:</p>
+    <p>Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortunately, there&rsquo;s some added complexity that comes with handling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to. That said, there are some particularly good resources for getting started in VR Chat and Unity development that aren&rsquo;t available for anything else. So, after you&rsquo;ve gone though the above links, in no particular order, I recommend looking at:</p>
 <ul>
 <li><del>This 5 hour long <a href="https://youtu.be/9WW5-0N1DsI">Intro to Shader Coding in Unity</a> is pretty great</del> → Replaced by the newer <a href="https://www.youtube.com/watch?v=kfM-yu0iQBk">Shader Basics, Blending &amp; Textures • Shaders for Game Devs</a> which is a bit under 4 hours&hellip; I watched both.</li>
 <li><a href="https://github.com/cnlohr/shadertrixx">cnlohr&rsquo;s <em>Shadertrixx</em> repo</a></li>
@@ -627,34 +633,36 @@ https://github.com/alex-shpak/hugo-book
   <label for="tabs-test-0">Getting Started </label>
   <div class="book-tabs-content markdown-inner"><div class="book-tabs"><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-0" checked="checked" />
   <label for="tabs-Getting Started-0">1 - What Is?</label>
-  <div class="book-tabs-content markdown-inner"><p>I got into shaders for a bit of a backwards goal - I&rsquo;m into the art, sure, but it&rsquo;s more that I found the <em>idea</em> of running code on the graphics card cool, and wanted to know how to use the multi-hundred watts of computational horse power in my desktop to my advantage. However, I knew better than to dive head-first into a difficult language like Vulkan (more on that in a sec) and that it would be much easier to get to the point of running complex, not-necessarily-for-graphics code on the GPU if I went through the normal for-art path first.</p>
+  <div class="book-tabs-content markdown-inner"><p>I got into shaders for a bit of a backwards goal - I&rsquo;m into the art, sure, but it&rsquo;s more that I found the <em>idea</em> of running code on the graphics card cool, and wanted to know how to use the multi-hundred watts of computational horse power in my desktop to my advantage. However, I knew better than to dive head-first into a difficult language like Vulkan (more on that in a bit) and that it would be much easier to get to the point of running complex, not-necessarily-for-graphics code on the GPU if I went through the normal for-art path first.</p>
 <p>On top of this, I was also just getting into VR Chat, which lets users submit their own worlds and avtars made in Unity.</p>
-<p>This is where some of the confusion begins:</p>
-<p>[TODO - unity&rsquo;s 3 pipelines, multiple languages (HLSL vs &hellip;), multiple node editors (Amplify), and wanting to have debug, etc.]</p>
-<ul>
-<li>Show an actual shader doing actual shader things</li>
-<li>What else is there other than GLSL
-<ul>
-<li>how do other things play into this, HLSL &amp; Shader Model Version; DX9,10,11,12 vs Direct3D Metal; Cg; SPIR-V, .shader in unity</li>
-</ul>
-</li>
-</ul>
+<p>This is where some of the confusion begins, as this chapter of <em>The Book of Shaders</em> introduces what shaders are, but sort of glosses over the fact that there are both multiple languages and multiple types of Shaders. <em>The Book</em> uses GLSL, but - epically for games - HLSL is significantly more common. Fortunately, the two are <u>extremely</u> similar. So, porting something written in one to the other is usually not a problem. Of course, there are other option than even these two, but these are probably the two you&rsquo;ll see the most.</p>
+<p><strong>Languages?</strong></p>
+<p>In Unity, you&rsquo;ll <em>probably</em> be writing your shaders in HLSL, though there&rsquo;s also another option - not writing code at all! If you&rsquo;re only really into the artistic side of shaders, you can do <em>most</em> things pretty easily using Unity&rsquo;s <a href="https://unity.com/features/shader-graph">Shader Graph</a> tool (or <a href="http://amplify.pt/unity/amplify-shader-editor/">Amplify Shader Editor</a> should you have to use the &ldquo;Bulit-in&rdquo; pipeline, like VRChat uses)</p>
+<p>It&rsquo;s also notable that Graphics <strong>A</strong>pplication <strong>P</strong>rogramming <strong>I</strong>nterfaces (APIs) play a big role in all of this too. If you&rsquo;ve ever seen a game require a graphics card with <strong>D</strong>irect <strong>X</strong> <strong>12</strong> (DX12) support, this is because each new version of Direct X exposes different ways for programmers to interact with the the graphics card, and this also influences what your shaders can do. You&rsquo;ll also see some other terms thrown around like Metal for Apple hardware, SPIR-V, and something called a Shader Model version. This quickly goes into reading documentation hell, and starts to defeat the purpose of having the abstractions that higher level shader languages, like HLSL and GLSL, provide us. Unfortunately, shaders are a pain and you will occasionally have to dive into this as you find out your shader doesn&rsquo;t work correctly on somebody&rsquo;s system because AMD or Nvidia (The two big GPU vendors) drivers act weird or that somebody want&rsquo;s to use an older card that doesn&rsquo;t <em>quite</em> support everything you used, causing things to look weird.</p>
+<p>For those that are working in Unity, you should be aware Unity&rsquo;s shader system has a bunch of confusion. Some of it is brought on by legacy support - For example, a lot of the Unity shader libraries use the term &ldquo;CG&rdquo; but that&rsquo;s not actually used anymore, as now everything in Unity is HLSL. Other bits come from having three different rendering backends, all of which work differently with shaders. Finally Unity also has a special format for <code>.shader</code> files for something called &ldquo;ShaderLab&rdquo; which actually is used along side your HLSL source to make writing complex shaders easier. Yes, it&rsquo;s confusing.</p>
+<p>If you look at tab &ldquo;4 - Running&rdquo; here, there&rsquo;s more information on this.</p>
+<p><strong>Types?</strong></p>
+<p><em>The Book</em> focuses entirely on Fragment Shaders - the ones that pick what color a given pixel should be. However, there are other kinds. Vertex Shaders allow you to move the vertices of a 3D object to change it&rsquo;s shape. Geometry and Tessellation shaders allow for interesting performance optimizations (Though are very rarely used by artists), and Compute Shaders allow for using the graphics card to do massively parallel math that would otherwise be impractical to do on the CPU - though with the limitations imposed from using the GPU. Compute Shaders can be written in HLSL, but the concept is applicable more broadly and so there are other, more purpose built languages for the task such as OpenCL and CUDA as well. See the GpGPU section near the bottom of this page for more information.</p>
 </div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-1"  />
   <label for="tabs-Getting Started-1">2 - Hello World!</label>
-  <div class="book-tabs-content markdown-inner"><ul>
-<li>Syntax Highlighting?</li>
-<li>These names aren&rsquo;t totally standard</li>
-</ul>
+  <div class="book-tabs-content markdown-inner"><p class="tip ">
+    Again, I&rsquo;m writing this assuming you&rsquo;re following along with <span class="best ">
+<img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+<a href="https://thebookofshaders.com">The Book Of Shaders</a>
+</span>
+</p>
+<p>As you use the web editor, you&rsquo;ll notice that you have syntax highlighting. That is, the important words appear in different colors. If you want to be able to edit code with this yourself, you may want to use <a href="https://code.visualstudio.com">VS Code</a> and grab <a href="https://marketplace.visualstudio.com/items?itemName=slevesque.shader">Shader Languages Support for VS Code</a>.</p>
+<p>I also want to note that some of the names used in <em>The Book</em> aren&rsquo;t totally standard. Most notably, it seems every platform calls their uniforms something else, so if you go to write shaders for Unity or Unreal or something the names won&rsquo;t be the same - for example, while <em>The Book</em> uses <code>u_time</code>, Unity&rsquo;s equivalent would be <code>_Time</code> and <a href="https://docs.unity3d.com/Manual/SL-UnityShaderVariables.html">is actually a Float4</a> as the components of it contain different divisions and multiples of the global time.</p>
 </div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-2"  />
   <label for="tabs-Getting Started-2">3 - Uniforms</label>
-  <div class="book-tabs-content markdown-inner"><ul>
-<li>Other uniforms, in Unity, Shadertoy, etc.</li>
-<li>Full list of functions</li>
-</ul>
+  <div class="book-tabs-content markdown-inner"><p>This chapter is fine, but I do want to stress a point made in the very first paragraph</p>
+<p>&ldquo;&hellip;we need to be able to send some inputs from the CPU to all the threads&hellip;&rdquo;</p>
+<p>So while the book goes on to regularly use some of these like <code>u_time</code>, it&rsquo;s worth noting that in a different environment you may well want to send in your own uniforms that do something not built in. For example, while Unity <a href="https://docs.unity3d.com/Manual/SL-UnityShaderVariables.html">has many built in</a>, you may want to add one that simply holds the player&rsquo;s health amount. This is something you can do! Obviously, the specifics of <em>how</em> to do this vary from engine to engine though, and there is some overhead associated&hellip;</p>
+<p>&hellip; Also, as the name implies, it&rsquo;s uniform, so every thread does see the same value.</p>
 </div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-3"  />
   <label for="tabs-Getting Started-3">4 - Running</label>
   <div class="book-tabs-content markdown-inner"><p>While the book goes into ways to run the code written there elsewhere, I think it misses the mark for most people who are interested in using shaders for game development. If that&rsquo;s you, you&rsquo;re <em>probably</em> wanting to write shaders for Unity, Unreal, or Godot. In both cases, you may actually want to start by trying out visual shader programming, espically if you&rsquo;re not used to code. <strong>However,</strong> I do reccomend coming back to code at some point as the visual editors are usually both limited and generate kinda slow code.</p>
-<p>If you&rsquo;re using Unity, you&rsquo;ll want to use the built in <a href="https://unity.com/features/shader-graph">Shader Graph</a> if you&rsquo;re using either the Scriptable Render Pipelines (SRP)  ( so the High Defintion Render Pipeline (HDRP) or .Universal Render Pipeline (URP)) Unfortunately, it doesn&rsquo;t work with the Built-In render pipeline (yes, it&rsquo;s confusing) - though you can use the $80 <a href="https://assetstore.unity.com/packages/tools/visual-scripting/amplify-shader-editor-68570">Amplify Shader Editor</a> for Built-In. If you&rsquo;re doing development for VR chat, this is probably your best bet unless you want to jump right into code - which is fine! You can do it!</p>
+<p>If you&rsquo;re using Unity, you&rsquo;ll want to use the built in <a href="https://unity.com/features/shader-graph">Shader Graph</a> if you&rsquo;re using either the Scriptable Render Pipelines (SRP)  ( so the High Definition Render Pipeline (HDRP) or .Universal Render Pipeline (URP)) Unfortunately, it doesn&rsquo;t work with the Built-In render pipeline (yes, it&rsquo;s confusing) - though you can use the $80 <a href="https://assetstore.unity.com/packages/tools/visual-scripting/amplify-shader-editor-68570">Amplify Shader Editor</a> for Built-In. If you&rsquo;re doing development for VR chat, this is probably your best bet unless you want to jump right into code - which is fine! You can do it!</p>
 <p>If you&rsquo;re using Unreal [TODO]</p>
 <p>If you&rsquo;re using Godot, good news, you can use <a href="https://docs.godotengine.org/en/stable/tutorials/shaders/visual_shaders.html">its visual shader editor</a>.</p>
 <p>If you&rsquo;re going right for code, having something with a debugger may come in handy. Debuggers for shaders are still rather novel, but <a href="https://shadered.org">Shadered</a> is pretty neat, albeit a bit confusing to use at first.</p>
@@ -708,8 +716,8 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 </ul>
 </div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-2"  />
   <label for="tabs-Algorithmic Drawing-2">7 - Shapes</label>
-  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-3"  />
-  <label for="tabs-Algorithmic Drawing-3">8 - Matricies</label>
+  <div class="book-tabs-content markdown-inner">While being able to draw shapes directly in your shader is extremely useful, it&rsquo;s also not always the best way to do things. I fear this page in <em>The Book</em> puts some people off from writing shaders as it looks overly complicated to draw anything cool - it&rsquo;s not. If you want to draw anything complex, it&rsquo;s normal to just use a texture. For example, if you want to draw a star, you could just make a picture with a black background, a white star, and *maybe some gray pixels on the edge to <a href="https://en.wikipedia.org/wiki/Spatial_anti-aliasing">anti-alias</a> a bit then you can load this texture in and simply multiply it with your existing shader. Effectively, using the picture as a mask. We&rsquo;ll get to actually doing this later, but I did want to point out that, no, complex shaders aren&rsquo;t all just using crazy functions to draw things like high schoolers with <a href="http://www.talljerome.com/NOLA/images/ti/grapherpics2.pdf">time to waste and a graphing calculator</a>.</div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-3"  />
+  <label for="tabs-Algorithmic Drawing-3">8 - Matrices</label>
   <div class="book-tabs-content markdown-inner"><p>This chapter is probably the first that will have math that makes you go &ldquo;WTF?&rdquo;, espically if math with matricies and/or programming are new to you in the first place. While ideally you&rsquo;d understand the math, it&rsquo;s not honestly a big deal if you don&rsquo;t. That said I think this chapter also just sort of fails to explain the rationaile behing rotation. If we look at the rotation matrix:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -785,18 +793,33 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 <p>This chapter does go into YUV colorspace, see tab 6 for more about color.</p>
 </div><input type="radio" class="toggle" name="tabs-Algorithmic Drawing" id="tabs-Algorithmic Drawing-4"  />
   <label for="tabs-Algorithmic Drawing-4">9 - Patterns</label>
-  <div class="book-tabs-content markdown-inner"></div></div>
+  <div class="book-tabs-content markdown-inner"><p>This chapter is pretty to the point, just a few things to add:</p>
+<ul>
+<li>If you scale rather small and have two things very similar in frequency, it&rsquo;s quite easy to accidentally wind up with a <a href="https://en.wikipedia.org/wiki/Moir%C3%A9_pattern">Moiré pattern (Wikipedia)</a>. You may be able to use this to your advantage.</li>
+<li>Patterns don&rsquo;t have to do the same thing on every tile, you can get <a href="https://www.shadertoy.com/view/7tscWs">really</a> <a href="https://www.shadertoy.com/view/7sSfWK">interesting</a> <a href="https://www.shadertoy.com/view/ltSczW">results</a> by doing different things in each division.</li>
+</ul>
+</div></div>
 </div><input type="radio" class="toggle" name="tabs-test" id="tabs-test-2"  />
   <label for="tabs-test-2">Generative Designs </label>
   <div class="book-tabs-content markdown-inner"><div class="book-tabs"><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -0" checked="checked" />
-  <label for="tabs-Generative Designs -0">10 - Random</label>
-  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -1"  />
-  <label for="tabs-Generative Designs -1">11 - Noise</label>
-  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -2"  />
-  <label for="tabs-Generative Designs -2">12 - Cellular</label>
-  <div class="book-tabs-content markdown-inner"></div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -3"  />
-  <label for="tabs-Generative Designs -3">13 - Brownian</label>
-  <div class="book-tabs-content markdown-inner"></div></div>
+  <label for="tabs-Generative Designs -0">10 &amp; 11 - Random &amp; Noise</label>
+  <div class="book-tabs-content markdown-inner"><p>Clearly, from reading this chapter, <code>random()</code> in shaders is going to be deterministic. This, honestly, is pretty helpful more often than not, as it helps avoid the problems of not knowing the value of the pixel next to us- we can just look at the <code>-1</code> or <code>+1</code> index as is shown on <em>The Book</em>&rsquo;s noise page for doing a bit of a blur. Still, you should know the limitations here, as it can lead to very obvious repeating patterns, as you should have noticed if you did the exercises on the page.</p>
+<p>There are odd ways around the determinism using uniforms, but regardless, it&rsquo;s not really a big deal. The bigger problem is that it&rsquo;s actually just&hellip; kinda a bad random? Like, it&rsquo;s not <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution">uniform</a> or <a href="https://en.wikipedia.org/wiki/Normal_distribution">normal</a>. This is a big part of why you can easily see the banding in the random function as you scale it. This is especially annoying for compute shaders, as there&rsquo;s quite a few algorithms that rely on having good, pseudo random numbers. There&rsquo;s ways around this, but if you need them I believe in your ability to search the web.</p>
+</div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -1"  />
+  <label for="tabs-Generative Designs -1">12 - Cellular Noise</label>
+  <div class="book-tabs-content markdown-inner"><p>Not much to add here, but you might want to look at some of these pages:</p>
+<p><a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi Diagram (Wikipedia)</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Worley_noise">Worsely Noise (Wikipedia)</a></p>
+<p><a href="https://graphics.pixar.com/library/WaveletNoise/paper.pdf">Wavelet Noise (Pixar - PDF)</a></p>
+<p>and, mildly related:</p>
+<p><a href="https://en.wikipedia.org/wiki/Quadtree">Quadtree (Wikipedia)</a></p>
+<p>Also, you should know the patent on Simplex noise recent expired, so go nuts if you want to use that.</p>
+</div><input type="radio" class="toggle" name="tabs-Generative Designs " id="tabs-Generative Designs -2"  />
+  <label for="tabs-Generative Designs -2">13 - Brownian</label>
+  <div class="book-tabs-content markdown-inner"><p>You may want to look at:</p>
+<p><a href="https://en.wikipedia.org/wiki/Brownian_surface">Brownian Surface (Wikipedia)</a></p>
+<p>While brownian motion is cool, for similar effects you&rsquo;ll also probably want to dive into fractals.</p>
+</div></div>
 </div></div>
 
 <hr>
@@ -804,7 +827,7 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
   Beyond The Book
   <a class="anchor" href="#beyond-the-book">#</a>
 </h2>
-<p>At the time of writing, <em>The Book of Shaders</em> ends at <em>Chapter 13 - Fractional Brownian Motion</em>. Continuting where the book leaves off, I&rsquo;d like to round out generative design by talking about fractals and simulation:</p>
+<p>At the time of writing, <em>The Book of Shaders</em> ends at <em>Chapter 13 - Fractional Brownian Motion</em>. Continuing where the book leaves off, I&rsquo;d like to round out generative design by talking about fractals and simulation:</p>
 <h2 id="generative">
   Generative
   <a class="anchor" href="#generative">#</a>
@@ -813,6 +836,11 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
   Fractals
   <a class="anchor" href="#fractals">#</a>
 </h3>
+<p>[TODO] <a href="https://www.youtube.com/watch?v=WWI07UQbJ9E">https://www.youtube.com/watch?v=WWI07UQbJ9E</a>, <a href="https://www.youtube.com/watch?v=SVj0LWmQD-E">https://www.youtube.com/watch?v=SVj0LWmQD-E</a>,</p>
+<p><a href="https://www.youtube.com/watch?v=kY7liQVPQSc">https://www.youtube.com/watch?v=kY7liQVPQSc</a>, <a href="https://www.youtube.com/watch?v=zmWkhlocBRY">https://www.youtube.com/watch?v=zmWkhlocBRY</a></p>
+<p><a href="https://shawnhargreaves.com/blog/technicolor-julias.html">https://shawnhargreaves.com/blog/technicolor-julias.html</a></p>
+<p>++ Logistic Map</p>
+<p><a href="https://www.shadertoy.com/view/ltyXD1">https://www.shadertoy.com/view/ltyXD1</a></p>
 <h3 id="simulation">
   Simulation
   <a class="anchor" href="#simulation">#</a>
@@ -836,6 +864,17 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
   Textures &amp; Filters
   <a class="anchor" href="#textures--filters">#</a>
 </h2>
+<p>[TODO]</p>
+<h3 id="aliasing--dithering">
+  Aliasing &amp; Dithering
+  <a class="anchor" href="#aliasing--dithering">#</a>
+</h3>
+<p>[TODO]</p>
+<h3 id="feedback">
+  Feedback
+  <a class="anchor" href="#feedback">#</a>
+</h3>
+<p>[TODO] using textures to read old data</p>
 <h2 id="3d-graphics">
   3D Graphics
   <a class="anchor" href="#3d-graphics">#</a>
@@ -874,10 +913,15 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
   Lighting &amp; Shading
   <a class="anchor" href="#lighting--shading">#</a>
 </h3>
+<p>Making realistic, performant lighting systems is complicated. It&rsquo;s even arguable that providing this out of the box is one of the biggest selling points of modern, good looking engines like Unreal. However, while difficult, it&rsquo;s not black magic - <a href="https://www.pbr-book.org/3ed-2018/contents">There&rsquo;s even a free online book to learn how to do it.</a></p>
+<p>However, wanting to remaking a Physically Based Rendering (PBR) lighting setup like that from scratch implies that you&rsquo;re already probably doing some pretty crazy things. So, outside of that there&rsquo;s really two &ldquo;sane&rdquo; ways to do lighting.</p>
+<p>The actually-reasonable-to-use method is to use a pretty basic system with a direct, diffused light, ambient light, and specular highlight. Programming this up is relatively straight forward- This 5hr  video, <a href="https://www.youtube.com/watch?v=9WW5-0N1DsI">Intro to Shader Coding in Unity (Freya Holmer, YouTube)</a> , actually does a really good job of going over this and explaining each step. Coding it live as she goes along.</p>
+<p>The other cool-but-to-slow-to-use method is to do ray tracing. This is actually easier than it sounds, though, the performance is typically garbage. <a href="http://three-eyed-games.com/2018/05/03/gpu-ray-tracing-in-unity-part-1/">This post from Three Eyed Games</a> has a nice walk through of building one in Unity.</p>
 <h3 id="bump-and-normal-maps">
   Bump and Normal Maps
   <a class="anchor" href="#bump-and-normal-maps">#</a>
 </h3>
+<p>[TODO]</p>
 <p>Hard vs Soft normals on vertex edges are a thing.</p>
 <ul>
 <li>For hard normals 2 verticies actually get placed at the same place. Extra weird.</li>
@@ -891,18 +935,48 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
   Kernel Convolution
   <a class="anchor" href="#kernel-convolution">#</a>
 </h3>
+<p>[TODO]</p>
 <h3 id="filtering">
   Filtering
   <a class="anchor" href="#filtering">#</a>
 </h3>
+<p>[TODO]</p>
 <h3 id="clipspace-worldspace-">
   Clipspace, Worldspace, &hellip;?
   <a class="anchor" href="#clipspace-worldspace-">#</a>
 </h3>
+<p>So you&rsquo;ll often see terms like Clip Space, World Space, Object Space, Screen Space, and View Space thrown around and often as if you magically already know what they mean. This was driving me nuts until I read <a href="https://learnopengl.com/Getting-started/Coordinate-Systems">Coordinate Systems</a> page on learnopengl.com, and <a href="https://www.codinblack.com/coordinate-spaces-and-transformations-between-them/">Coordinate Spaces and Transformations Between Them</a> from codinBlack</p>
+<p>As a TL;DR:</p>
+<ul>
+<li>
+<p>Object Space → <strong>3D</strong> Coordinates are relative to your model</p>
+</li>
+<li>
+<p>World Space → <strong>3D</strong> Coordinates are global, from the entire world</p>
+</li>
+<li>
+<p>View Space → <strong>3D</strong> Coordinates depend on camera position and rotation (probably the player)</p>
+</li>
+<li>
+<p>Clip Space → <strong>4D</strong>; Messy because of dealing with a &ldquo;Projection Matrix&rdquo;, but generally this determines what verticies will be discarded because they&rsquo;re off screen. This also winds up being a PITA as there&rsquo;s a difference between the OpenGL and Direct3D standard</p>
+</li>
+<li>
+<p>Screen Space → <strong>2D</strong> coordinate space that actually represents the screen&rsquo;s pixels. <em>Usually</em>, you won&rsquo;t have direct control over this.</p>
+</li>
+<li>
+<p>UV Space → <strong>2D</strong> coordinates mapping points in a texture to the object. Weird to think of in terms of &ldquo;space&rdquo;, so usually talked about separaetly.</p>
+</li>
+</ul>
 <h3 id="culling-z-test">
   Culling, Z-test
   <a class="anchor" href="#culling-z-test">#</a>
 </h3>
+<p>The <a href="https://docs.unity3d.com/2020.1/Documentation/Manual/SL-CullAndDepth.html">Unity Manual Page</a> for culling and depth testing explains things very well. The only thing I want to add here is that you should be aware of a problem called <a href="https://en.wikipedia.org/wiki/Z-fighting">Z-fighting</a> which can happen when two faces of an object are in the same plane. Basically, imagine you have two cubes, both the same size and the same shape but different colors. Which one should your computer try to render? The answer is both, and it will look awful. The easiest fix is to just never have two objects have faces that occupy the same plane.</p>
+<h3 id="vertex-shaders">
+  Vertex Shaders?
+  <a class="anchor" href="#vertex-shaders">#</a>
+</h3>
+<p>[TODO]</p>
 <h2 id="performance">
   Performance
   <a class="anchor" href="#performance">#</a>
@@ -1105,7 +1179,12 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
             <li><a href="#simulation">Simulation</a></li>
           </ul>
         </li>
-        <li><a href="#textures--filters">Textures &amp; Filters</a></li>
+        <li><a href="#textures--filters">Textures &amp; Filters</a>
+          <ul>
+            <li><a href="#aliasing--dithering">Aliasing &amp; Dithering</a></li>
+            <li><a href="#feedback">Feedback</a></li>
+          </ul>
+        </li>
         <li><a href="#3d-graphics">3D Graphics</a>
           <ul>
             <li><a href="#uv-maps">UV Maps</a></li>
@@ -1115,6 +1194,7 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
             <li><a href="#filtering">Filtering</a></li>
             <li><a href="#clipspace-worldspace-">Clipspace, Worldspace, &hellip;?</a></li>
             <li><a href="#culling-z-test">Culling, Z-test</a></li>
+            <li><a href="#vertex-shaders">Vertex Shaders?</a></li>
           </ul>
         </li>
         <li><a href="#performance">Performance</a></li>

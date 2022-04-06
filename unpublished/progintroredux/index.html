@@ -109,7 +109,7 @@ And I get it. But it&rsquo;s not that bad for two reasons:
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.448cec96c3c3de95c32f83c21915b1fb6367303e2f16cd2c5870a87fb4aaf784.css" integrity="sha256-RIzslsPD3pXDL4PCGRWx&#43;2NnMD4vFs0sWHCof7Sq94Q=">
-<script defer src="/en.search.min.6f057aea0cabc1bab94951f9d77441937c738583b8a6fc6a971defb35453c5b1.js" integrity="sha256-bwV66gyrwbq5SVH513RBk3xzhYO4pvxqlx3vs1RTxbE="></script>
+<script defer src="/en.search.min.ed3c2ba41add9f44e80d454e186d60c579473063d7a6f531a57c44e6e368d3db.js" integrity="sha256-7TwrpBrdn0ToDUVOGG1gxXlHMGPXpvUxpXxE5uNo09s="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -597,7 +597,11 @@ https://github.com/alex-shpak/hugo-book
         </li>
         <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a></li>
         <li><a href="#going-with-the-flow">Going with the flow</a></li>
-        <li><a href="#getting-functional">Getting Functional</a></li>
+        <li><a href="#getting-functional">Getting Functional</a>
+          <ul>
+            <li><a href="#the-stack">The Stack</a></li>
+          </ul>
+        </li>
         <li><a href="#a-new-objective">A New Objective</a></li>
         <li><a href="#io">I/O</a></li>
         <li><a href="#being-assertive">Being Assertive</a></li>
@@ -1383,7 +1387,45 @@ jr ra
   Getting Functional
   <a class="anchor" href="#getting-functional">#</a>
 </h2>
+<p>In most programming languages, we have the concept of <strong>Functions</strong>. Functions let us break up code into digestable sections and reuse things. When we call <code>print()</code> we&rsquo;re actually using a function that&rsquo;s built in&hellip; [TODO]</p>
 <p>fns, the stack</p>
+<h3 id="the-stack">
+  The Stack
+  <a class="anchor" href="#the-stack">#</a>
+</h3>
+<p>[TODO stack plates visual]</p>
+<p>When we call a function, we store the current state of the calling function, move to the address of the called function, do the thing, then return to the original (calling) function and restore this state. This gets complicated when we start wanting to call a function from in a function from in a function &hellip;. you get the idea. Basically, we need a place to store the return address (among other state) to know where we want to go back to when the called function returns, but we can&rsquo;t just put these all in CPU registers since we only have so many CPU registers.</p>
+<p>One option would be to give every function a place in RAM. This won&rsquo;t work for a varitey of reasons, one is because it uses a ton of space by not letting us reuse space between functions, and we want local variables to only be valid for that call of the function anyway (This is one reason why we have <code>static</code>, if you do need state to be preserved). Another is that we want to be able to call our functions from multiple places (it would be awful if we had to store a ton of coppies of every function in RAM!) So, we let functions return and then reuse their space.</p>
+<p>So, we instead want to make a place to store the return address of each function (and their variables) as they&rsquo;re called. We do this with a <strong>Stack</strong>, in this case, <em>The</em> Stack. If someone says <em>The Stack</em> this is the stack they mean. So, uhh, what&rsquo;s a stack?</p>
+<ul>
+<li>Each function call adds its own section to the stack</li>
+<li>Each stack section contains two types of data:
+<ul>
+<li>the RA from the caller</li>
+<li>The local variables used by the the currently executing function</li>
+<li>Arguemnts to the function</li>
+</ul>
+</li>
+<li>When the function returns it&rsquo;s section is reoved from the stack</li>
+<li>This keeps the amount of memory on the stack at a minimum
+<ul>
+<li>Total memory usage across all functions can be greater than RAM size</li>
+<li>Limit is now the memory usage of functions at deepest call hierarchies
+<ul>
+<li><strong>Stack Overflows!</strong></li>
+<li>Really hard to anticipate calculate
+<ul>
+<li>Super annoying with recursion, hence why it&rsquo;s often avoided.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>So, we maintain a stack pointer, this is an <em>offset</em>, so each function&rsquo;s variables are looked up by a base + offset. The base is th estack pointer, the offset is the particular variable we want to access.</li>
+</ul>
+<p>So, we use a stack! - LIFO (not FIFO) - we only operate on the top of the stack</p>
+<p>[TODO] what&rsquo;s a stack</p>
 <h2 id="a-new-objective">
   A New Objective
   <a class="anchor" href="#a-new-objective">#</a>
@@ -1488,7 +1530,11 @@ jr ra
         </li>
         <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a></li>
         <li><a href="#going-with-the-flow">Going with the flow</a></li>
-        <li><a href="#getting-functional">Getting Functional</a></li>
+        <li><a href="#getting-functional">Getting Functional</a>
+          <ul>
+            <li><a href="#the-stack">The Stack</a></li>
+          </ul>
+        </li>
         <li><a href="#a-new-objective">A New Objective</a></li>
         <li><a href="#io">I/O</a></li>
         <li><a href="#being-assertive">Being Assertive</a></li>
