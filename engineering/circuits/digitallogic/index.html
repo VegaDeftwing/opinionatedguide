@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.103209f858f330c5181f939707c7ef1312030671c82d410d8be54e68978893f3.js" integrity="sha256-EDIJ&#43;FjzMMUYH5OXB8fvExIDBnHILUENi&#43;VOaJeIk/M="></script>
+<script defer src="/en.search.min.24182e9fca8d404a29ca8bedcde2c532f0bb58ccd1464948421475cb0e566e61.js" integrity="sha256-JBgun8qNQEopyovtzeLFMvC7WMzRRklIQhR1yw5WbmE="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -561,14 +561,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#basic-logic-gates">Basic Logic Gates</a>
           <ul>
             <li><a href="#not">Not</a></li>
-            <li><a href="#and">AND</a></li>
-            <li><a href="#nand">NAND</a></li>
-            <li><a href="#or">Or</a></li>
-            <li><a href="#nor">Nor</a></li>
-            <li><a href="#exnor">Exnor</a></li>
-            <li><a href="#xor">Xor</a></li>
-            <li><a href="#exor">Exor</a></li>
-            <li><a href="#transmission">Transmission,</a></li>
+            <li><a href="#transmission">Transmission</a></li>
             <li><a href="#mux">Mux</a></li>
             <li><a href="#demux">Demux</a></li>
             <li><a href="#encoders">Encoders</a></li>
@@ -737,11 +730,14 @@ https://github.com/alex-shpak/hugo-book
   Basic Logic Gates
   <a class="anchor" href="#basic-logic-gates">#</a>
 </h2>
-<p>[TODO] truth tables, circuit symbol, discrete logic symbol for all.</p>
 <h3 id="not">
   Not
   <a class="anchor" href="#not">#</a>
 </h3>
+<img src="/eng/logic/Not-gate-en.svg" alt=" " height="80em" style="-webkit-filter: invert(1);filter: invert(1);">
+<p class="attribution ">
+    Image <a href="https://commons.wikimedia.org/w/index.php?curid=829201">CC BY-SA 3.0</a>, by <a href="https://en.wikipedia.org/wiki/User:Heron">Heron</a>
+</p>
 <table>
 <thead>
 <tr>
@@ -760,12 +756,16 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
-<p>Truth table, transistor implementation pmos/nmos, cost, power consumption at switch</p>
-<h3 id="and">
+<p>[TODO] transistor implementation w/ cmost, cost, power consumption at switch</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <h3 id="and">
   AND
   <a class="anchor" href="#and">#</a>
 </h3>
-<p>A∧B, AB,</p>
+<p>True <strong>if</strong> A <strong>and</strong> B are true, else false. Often written as A∧B or just AB</p>
+<img src="/eng/logic/AND_ANSI.svg" alt=" " height="80em" style="-webkit-filter: invert(1);filter: invert(1);">
 <table>
 <thead>
 <tr>
@@ -797,10 +797,16 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
-<h3 id="nand">
-  NAND
-  <a class="anchor" href="#nand">#</a>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <h3 id="nand-not-and">
+  NAND (Not AND)
+  <a class="anchor" href="#nand-not-and">#</a>
 </h3>
+<p>False <strong>if</strong> A <strong>and</strong> B are true, else True. Often written as ¬(A∧B), ((¬A)∧(¬B)), or A⊼B</p>
+<img src="/eng/logic/NAND_ANSI_Labelled.svg" alt=" " height="80em" style="-webkit-filter: invert(1);filter: invert(1);">
 <table>
 <thead>
 <tr>
@@ -832,22 +838,112 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
-<h3 id="or">
-  Or
+
+  </div>
+  
+</div>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <h3 id="or">
+  OR
   <a class="anchor" href="#or">#</a>
 </h3>
-<h3 id="nor">
-  Nor
-  <a class="anchor" href="#nor">#</a>
+<p>True <strong>if</strong> A <strong>or</strong> B are true, else False. Note, this includes if both are true. Often written as A∨B or A+B</p>
+<img src="/eng/logic/OR_ANSI_Labelled.svg" alt=" " height="80em" style="-webkit-filter: invert(1);filter: invert(1);">
+<table>
+<thead>
+<tr>
+<th>Input A</th>
+<th>Input B</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <h3 id="nor-not-or">
+  NOR (Not OR)
+  <a class="anchor" href="#nor-not-or">#</a>
 </h3>
-<h3 id="exnor">
-  Exnor
-  <a class="anchor" href="#exnor">#</a>
+<p>True if neither A or B are True, else False.</p>
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \( \text{Often written } \overline{x &#43; y}\)
+</span>
+</br>
+<img src="/eng/logic/NOR_ANSI_Labelled.svg" alt=" " height="80em" style="-webkit-filter: invert(1);filter: invert(1);">
+<table>
+<thead>
+<tr>
+<th>Input A</th>
+<th>Input B</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+  
+</div>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <h3 id="xor-exclusive-or">
+  XOR (Exclusive OR)
+  <a class="anchor" href="#xor-exclusive-or">#</a>
 </h3>
-<h3 id="xor">
-  Xor
-  <a class="anchor" href="#xor">#</a>
-</h3>
+<p>True <strong>if</strong> A <strong>or</strong> B are <strong>exclusively</strong> True, else False. Note, this <strong>does not</strong> includes if both are true. Often written as A⊕B</p>
+<img src="/eng/logic/XOR_ANSI.svg" alt=" " height="80em" style="-webkit-filter: invert(1);filter: invert(1);">
 <table>
 <thead>
 <tr>
@@ -879,12 +975,57 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
-<h3 id="exor">
-  Exor
-  <a class="anchor" href="#exor">#</a>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <h3 id="xnor-exclusive-not-or--also-known-as-xand">
+  XNOR (Exclusive Not OR ) (also known as XAND)
+  <a class="anchor" href="#xnor-exclusive-not-or--also-known-as-xand">#</a>
 </h3>
+<p>For two bits, most easily thought of as True if both bits are equal. More broadly, it is the negation of the exclusive or logic.</p>
+<img src="/eng/logic/Xnor-gate-en.svg" alt=" " height="80em" style="-webkit-filter: invert(1);filter: invert(1);">
+<p class="attribution ">
+    Image <a href="https://commons.wikimedia.org/w/index.php?curid=829201">CC BY-SA 3.0</a>, by <a href="https://en.wikipedia.org/wiki/User:Heron">Heron</a>
+</p>
+<table>
+<thead>
+<tr>
+<th>Input A</th>
+<th>Input B</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+  
+</div>
+
 <h3 id="transmission">
-  Transmission,
+  Transmission
   <a class="anchor" href="#transmission">#</a>
 </h3>
 <h3 id="mux">
@@ -1019,14 +1160,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#basic-logic-gates">Basic Logic Gates</a>
           <ul>
             <li><a href="#not">Not</a></li>
-            <li><a href="#and">AND</a></li>
-            <li><a href="#nand">NAND</a></li>
-            <li><a href="#or">Or</a></li>
-            <li><a href="#nor">Nor</a></li>
-            <li><a href="#exnor">Exnor</a></li>
-            <li><a href="#xor">Xor</a></li>
-            <li><a href="#exor">Exor</a></li>
-            <li><a href="#transmission">Transmission,</a></li>
+            <li><a href="#transmission">Transmission</a></li>
             <li><a href="#mux">Mux</a></li>
             <li><a href="#demux">Demux</a></li>
             <li><a href="#encoders">Encoders</a></li>
