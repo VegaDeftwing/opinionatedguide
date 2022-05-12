@@ -82,7 +82,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 24 - Digital Logic #     Binary (0b) Hex (0x) Decimal     0000 0 0   0001 1 1   0010 2 2   0011 3 3   0100 4 4   0101 5 5   0110 6 6   0111 6 7   1000 8 8   1001 9 9   1010 A 10   1011 B 11   1100 C 12   1101 D 13   1110 E 14   1111 F 15     lineart by https://merveilles.">
+<meta name="description" content="Chapter 24 - Digital Logic #  Digital logic is what it sounds like- it&rsquo;s doing logical operations on digital data - 1&rsquo;s and 0&rsquo;s; True and False. Chain some of (er, a lot of) these logical operations togother and you can do anything you want! Want to make your own CPU? Done. Want to make dedicated circuitry to do what your code does but hundreds of times faster? This is the way to do it.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -94,7 +94,7 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 24 - Digital Logic #     Binary (0b) Hex (0x) Decimal     0000 0 0   0001 1 1   0010 2 2   0011 3 3   0100 4 4   0101 5 5   0110 6 6   0111 6 7   1000 8 8   1001 9 9   1010 A 10   1011 B 11   1100 C 12   1101 D 13   1110 E 14   1111 F 15     lineart by https://merveilles." />
+<meta property="og:description" content="Chapter 24 - Digital Logic #  Digital logic is what it sounds like- it&rsquo;s doing logical operations on digital data - 1&rsquo;s and 0&rsquo;s; True and False. Chain some of (er, a lot of) these logical operations togother and you can do anything you want! Want to make your own CPU? Done. Want to make dedicated circuitry to do what your code does but hundreds of times faster? This is the way to do it." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/circuits/digitallogic/" /><meta property="article:section" content="Engineering" />
 
@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.24182e9fca8d404a29ca8bedcde2c532f0bb58ccd1464948421475cb0e566e61.js" integrity="sha256-JBgun8qNQEopyovtzeLFMvC7WMzRRklIQhR1yw5WbmE="></script>
+<script defer src="/en.search.min.4a307a80aafd500d05025137f3aa28ea12da68f43ab552f261b153bc2eb8bda7.js" integrity="sha256-SjB6gKr9UA0FAlE386oo6hLaaPQ6tVLyYbFTvC64vac="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -561,9 +561,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#basic-logic-gates">Basic Logic Gates</a>
           <ul>
             <li><a href="#not">Not</a></li>
-            <li><a href="#transmission">Transmission</a></li>
-            <li><a href="#mux">Mux</a></li>
-            <li><a href="#demux">Demux</a></li>
+            <li><a href="#mux--demux">Mux &amp; Demux</a></li>
             <li><a href="#encoders">Encoders</a></li>
           </ul>
         </li>
@@ -580,7 +578,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#latches-and-flip-flops">Latches and Flip Flops</a>
           <ul>
             <li><a href="#registers">Registers</a></li>
-            <li><a href="#counters">Counters</a></li>
+            <li><a href="#clocking--counters">Clocking &amp; Counters</a></li>
           </ul>
         </li>
         <li><a href="#memory-circuits">Memory Circuits</a>
@@ -590,6 +588,15 @@ https://github.com/alex-shpak/hugo-book
           </ul>
         </li>
         <li><a href="#making-some-circuits">Making Some Circuits</a></li>
+        <li><a href="#half-adder">Half Adder</a></li>
+        <li><a href="#full-adder">Full Adder</a></li>
+        <li><a href="#analog-to-digital--digital-to-analog">Analog To Digital &amp; Digital To Analog</a>
+          <ul>
+            <li><a href="#schmitt-triggers">Schmitt Triggers</a></li>
+            <li><a href="#adcs">ADCs</a></li>
+            <li><a href="#dacs">DACs</a></li>
+          </ul>
+        </li>
         <li><a href="#more-digital-logic-resources">More Digital Logic resources</a></li>
       </ul>
     </li>
@@ -608,6 +615,8 @@ https://github.com/alex-shpak/hugo-book
   Chapter 24 - Digital Logic
   <a class="anchor" href="#chapter-24---digital-logic">#</a>
 </h1>
+<p>Digital logic is what it sounds like- it&rsquo;s doing logical operations on digital data - 1&rsquo;s and 0&rsquo;s; True and False. Chain some of (er, a lot of) these logical operations togother and you can do anything you want! Want to make your own CPU? Done. Want to make dedicated circuitry to do what your code does but hundreds of times faster? This is the way to do it.</p>
+<p>As an example, here&rsquo;s a rather artistic representation of a digital logic circuit that takes in a four bit binary number and outputs seven different signals coropsonding to the lights on a 7-segment LED to show the right number (in hexadecimal)</p>
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -713,7 +722,16 @@ https://github.com/alex-shpak/hugo-book
   
 </div>
 
-<p>[Todo, insert intro about Minecraft redstone]</p>
+<p>Now, it&rsquo;s worth considering here that this circuit is probably not the most efficient way to do this. This could also be done by just using a look up table (LUT), in that case, all of those individual logic elements are skipped and the input bits are basically just used as an adress to look up a different value. The end result is the same. We&rsquo;ll wrap back around to this idea later.</p>
+<div class="speech big ">
+    <p>
+        Some of this look familiar? If you&rsquo;ve played Minecraft before you may have gotten Redstone vibes from the GIF above. Those intutitions are correct. Many Redstone circuits are actually just clever ways of using the same binary logic ideas we&rsquo;re about to go over!
+    </p>
+</div>
+
+
+
+
 <h2 id="what-is-digital-logic">
   What is digital logic?
   <a class="anchor" href="#what-is-digital-logic">#</a>
@@ -1024,22 +1042,16 @@ https://github.com/alex-shpak/hugo-book
   
 </div>
 
-<h3 id="transmission">
-  Transmission
-  <a class="anchor" href="#transmission">#</a>
+<h3 id="mux--demux">
+  Mux &amp; Demux
+  <a class="anchor" href="#mux--demux">#</a>
 </h3>
-<h3 id="mux">
-  Mux
-  <a class="anchor" href="#mux">#</a>
-</h3>
-<h3 id="demux">
-  Demux
-  <a class="anchor" href="#demux">#</a>
-</h3>
+<p>Go read the <a href="https://en.wikipedia.org/wiki/Multiplexer">Multiplexer</a> Wikipedia article. It&rsquo;s actually really good.</p>
 <h3 id="encoders">
   Encoders
   <a class="anchor" href="#encoders">#</a>
 </h3>
+<p>[TODO] like Binary to BCD</p>
 <h1 id="sop--pos">
   SOP &amp; POS
   <a class="anchor" href="#sop--pos">#</a>
@@ -1069,10 +1081,11 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#registers">#</a>
 </h3>
 <p>+ Shift registers</p>
-<h3 id="counters">
-  Counters
-  <a class="anchor" href="#counters">#</a>
+<h3 id="clocking--counters">
+  Clocking &amp; Counters
+  <a class="anchor" href="#clocking--counters">#</a>
 </h3>
+<p>[TODO] dividers, multipliers, delay</p>
 <h2 id="memory-circuits">
   Memory Circuits
   <a class="anchor" href="#memory-circuits">#</a>
@@ -1095,6 +1108,31 @@ https://github.com/alex-shpak/hugo-book
 <p>If you don&rsquo;t own MineCraft and can&rsquo;t afford it, <a href="https://www.minetest.net">MineTest</a> with <a href="https://content.minetest.net/packages/Jeija/mesecons/">mesecons</a> is an option. It&rsquo;s&hellip; not great. (sorry MineTest team, I still love what you&rsquo;re doing &lt;3 ) But it is Open Source. If you&rsquo;re using Arch Linux (and updates haven&rsquo;t broken things since writing) you should be able to install <code>MineTest</code> from the community repo and <code>mesecons-git</code> from the AUR.</p>
 </blockquote>
 <p><a href="https://www.youtube.com/watch?v=nI8Q1bqT8QU&amp;ab_channel=LiveOverflow">Minetest Circuit Challange</a></p>
+<h2 id="half-adder">
+  Half Adder
+  <a class="anchor" href="#half-adder">#</a>
+</h2>
+<h2 id="full-adder">
+  Full Adder
+  <a class="anchor" href="#full-adder">#</a>
+</h2>
+<h2 id="analog-to-digital--digital-to-analog">
+  Analog To Digital &amp; Digital To Analog
+  <a class="anchor" href="#analog-to-digital--digital-to-analog">#</a>
+</h2>
+<h3 id="schmitt-triggers">
+  Schmitt Triggers
+  <a class="anchor" href="#schmitt-triggers">#</a>
+</h3>
+<h3 id="adcs">
+  ADCs
+  <a class="anchor" href="#adcs">#</a>
+</h3>
+<p>[TODO] + Parallel Output vs via data bus</p>
+<h3 id="dacs">
+  DACs
+  <a class="anchor" href="#dacs">#</a>
+</h3>
 <h2 id="more-digital-logic-resources">
   More Digital Logic resources
   <a class="anchor" href="#more-digital-logic-resources">#</a>
@@ -1160,9 +1198,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#basic-logic-gates">Basic Logic Gates</a>
           <ul>
             <li><a href="#not">Not</a></li>
-            <li><a href="#transmission">Transmission</a></li>
-            <li><a href="#mux">Mux</a></li>
-            <li><a href="#demux">Demux</a></li>
+            <li><a href="#mux--demux">Mux &amp; Demux</a></li>
             <li><a href="#encoders">Encoders</a></li>
           </ul>
         </li>
@@ -1179,7 +1215,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#latches-and-flip-flops">Latches and Flip Flops</a>
           <ul>
             <li><a href="#registers">Registers</a></li>
-            <li><a href="#counters">Counters</a></li>
+            <li><a href="#clocking--counters">Clocking &amp; Counters</a></li>
           </ul>
         </li>
         <li><a href="#memory-circuits">Memory Circuits</a>
@@ -1189,6 +1225,15 @@ https://github.com/alex-shpak/hugo-book
           </ul>
         </li>
         <li><a href="#making-some-circuits">Making Some Circuits</a></li>
+        <li><a href="#half-adder">Half Adder</a></li>
+        <li><a href="#full-adder">Full Adder</a></li>
+        <li><a href="#analog-to-digital--digital-to-analog">Analog To Digital &amp; Digital To Analog</a>
+          <ul>
+            <li><a href="#schmitt-triggers">Schmitt Triggers</a></li>
+            <li><a href="#adcs">ADCs</a></li>
+            <li><a href="#dacs">DACs</a></li>
+          </ul>
+        </li>
         <li><a href="#more-digital-logic-resources">More Digital Logic resources</a></li>
       </ul>
     </li>

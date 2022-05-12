@@ -82,8 +82,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 26 - Let&rsquo;s make our own PCB #  [TODO]
- Make it work Make it not emit a ton of RF or go to shit when around it (everything is an antenna) Make it pretty  ref that weird russian autorouter as limits on this   Make it repairable Pretty &#43; Repairable means we need good, well labled silkscreen, componet spacing, etc. Know when to do a PCB or a Perma-Proto Assuming parts will only be available for so long Do not assume same package = same pinout Do not assume a sane pinout, even in a device family.">
+<meta name="description" content="Chapter 26 - Let&rsquo;s make our own PCB #  Printed Circuit Borads look like something reserved for only big business, but that is very much so not the case. It&rsquo;s suprisingly cheap to get smaller boards made, espically if you&rsquo;re okay with waiting a week or two on international shipping. But, let me back up- what even is a PCB?
+Well, when anyone first starts with circuits, they go for the ever popular breadboard:">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -95,8 +95,8 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 26 - Let&rsquo;s make our own PCB #  [TODO]
- Make it work Make it not emit a ton of RF or go to shit when around it (everything is an antenna) Make it pretty  ref that weird russian autorouter as limits on this   Make it repairable Pretty &#43; Repairable means we need good, well labled silkscreen, componet spacing, etc. Know when to do a PCB or a Perma-Proto Assuming parts will only be available for so long Do not assume same package = same pinout Do not assume a sane pinout, even in a device family." />
+<meta property="og:description" content="Chapter 26 - Let&rsquo;s make our own PCB #  Printed Circuit Borads look like something reserved for only big business, but that is very much so not the case. It&rsquo;s suprisingly cheap to get smaller boards made, espically if you&rsquo;re okay with waiting a week or two on international shipping. But, let me back up- what even is a PCB?
+Well, when anyone first starts with circuits, they go for the ever popular breadboard:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/circuits/pcb/" /><meta property="article:section" content="Engineering" />
 
@@ -106,7 +106,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.24182e9fca8d404a29ca8bedcde2c532f0bb58ccd1464948421475cb0e566e61.js" integrity="sha256-JBgun8qNQEopyovtzeLFMvC7WMzRRklIQhR1yw5WbmE="></script>
+<script defer src="/en.search.min.4a307a80aafd500d05025137f3aa28ea12da68f43ab552f261b153bc2eb8bda7.js" integrity="sha256-SjB6gKr9UA0FAlE386oo6hLaaPQ6tVLyYbFTvC64vac="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -553,11 +553,8 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-26---lets-make-our-own-pcb">Chapter 26 - Let&rsquo;s make our own PCB</a>
-      <ul>
-        <li><a href="#chapter-261---pcb-components">Chapter 26.1 - PCB Components</a></li>
-      </ul>
-    </li>
+    <li><a href="#chapter-26---lets-make-our-own-pcb">Chapter 26 - Let&rsquo;s make our own PCB</a></li>
+    <li><a href="#chapter-261---pcb-components">Chapter 26.1 - PCB Components</a></li>
     <li><a href="#chapter-262---pretty-boards--badges">Chapter 26.2 - Pretty Boards &amp; Badges</a></li>
   </ul>
 </nav>
@@ -574,24 +571,35 @@ https://github.com/alex-shpak/hugo-book
   Chapter 26 - Let&rsquo;s make our own PCB
   <a class="anchor" href="#chapter-26---lets-make-our-own-pcb">#</a>
 </h1>
-<p>[TODO]</p>
+<p><strong>P</strong>rinted <strong>C</strong>ircuit <strong>B</strong>orads look like something reserved for only big business, but that is very much so not the case. It&rsquo;s suprisingly cheap to get smaller boards made, espically if you&rsquo;re okay with waiting a week or two on international shipping. But, let me back up- what even is a PCB?</p>
+<p>Well, when anyone first starts with circuits, they go for the ever popular breadboard:</p>
+<img src="/unsplash/vishnu-mohanan-r98pDCvbcfM-unsplash.webp" alt=" " height="400em" style="border-radius:50px;">
+<p class="attribution ">
+    Image by <a href="https://unsplash.com/photos/r98pDCvbcfM">Vishnu Mohanan</a>
+</p>
+<p>Then, you may decide to make a more reliable version, soldered together on a perma-proto board:</p>
+<img src="/eng/filterproto.jpg" alt=" " height="400em" style="border-radius:50px;">
+<p>But ultimately, the best, most reliable way to build your circuit is with a PCB:</p>
+<img src="/eng/BassDrumPCB.jpg" alt=" " height="400em" style="border-radius:50px;">
+<blockquote class="book-hint warning ">
+  In case it&rsquo;s not obvious, these three images are <strong>not</strong> of the same circuit. So, you can&rsquo;t directly compare complexity between these images.
+</blockquote>
+
+<p>Now, there&rsquo;s a few things you should notice about the version on the PCB:</p>
+<ol>
+<li>It&rsquo;s a hell of a lot more compact</li>
+<li>The wiring is all part of the board - it&rsquo;s very difficult to correct a mistake at this point
 <ul>
-<li>Make it work</li>
-<li>Make it not emit a ton of RF or go to shit when around it (everything is an antenna)</li>
-<li>Make it pretty
-<ul>
-<li>ref that weird russian autorouter as limits on this</li>
+<li>But it&rsquo;s more reliable, no risk of a lose wire or bad contact like in the breadboard</li>
 </ul>
 </li>
-<li>Make it repairable</li>
-<li>Pretty + Repairable means we need good, well labled silkscreen, componet spacing, etc.</li>
-<li>Know when to do a PCB or a Perma-Proto</li>
-<li>Assuming parts will only be available for so long</li>
-<li>Do not assume same package = same pinout</li>
-<li>Do not assume a sane pinout, even in a device family. The tab can be anything!</li>
-<li>Expect to need to order a 2nd time</li>
+<li>The parts are much smaller
+<ul>
+<li>This isn&rsquo;t required - you could use the same, through-hole parts, but generally these Surface Mount Device (SMD) components that you see are actually easier to work with and, due to their small size, keep cost down</li>
 </ul>
-<p>First things first, we&rsquo;re going to be using Kicad, so you&rsquo;ll want to go grab that from the repos. While that&rsquo;s downloading and installing give this a watch to get the basics down:</p>
+</li>
+</ol>
+<p>So, how do you make one? Well, software is needed obivously. For that, there&rsquo;s many options but for most people the free and open source tool KiCad will do everything you need. So, go grab the latest version of it from <a href="https://www.kicad.org">https://www.kicad.org</a> or your repos if you&rsquo;re using Linux. Get that installed. Then, go ahead and watch this video which does a better job of explaining things quickly than I possibly could in text:</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/zK3rDhJqMu0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <div style="background: #ffffff;">
 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="210mm" height="297mm" viewBox="0 0 210 297" version="1.1" id="svg8" inkscape:version="0.92.1 r" sodipodi:docname="kicad-cheatsheet.svg">
@@ -1297,6 +1305,24 @@ https://github.com/alex-shpak/hugo-book
 <p class="attribution ">
     Sorce: Foalyy @ <a href="https://forum.kicad.info/t/cheatsheet-for-kicad/5247">https://forum.kicad.info/t/cheatsheet-for-kicad/5247</a>
 </p>
+<p>[TODO] - pick a PCB design to walk though making on this page - maybe an APC?</p>
+<ul>
+<li>PCB specic things - Layers, Vias, fills, silk, mask, etc.</li>
+<li>Make it work</li>
+<li>Make it not emit a ton of RF or go to shit when around it (everything is an antenna)</li>
+<li>Make it pretty
+<ul>
+<li>ref that weird russian autorouter as limits on this</li>
+</ul>
+</li>
+<li>Make it repairable</li>
+<li>Pretty + Repairable means we need good, well labled silkscreen, componet spacing, etc.</li>
+<li>Know when to do a PCB or a Perma-Proto</li>
+<li>Assuming parts will only be available for so long</li>
+<li>Do not assume same package = same pinout</li>
+<li>Do not assume a sane pinout, even in a device family. The tab can be anything!</li>
+<li>Expect to need to order a 2nd time</li>
+</ul>
 <p><a href="https://llllllll.co/t/pcb-art-artfully-shaped-copper-traces/22027/2t">https://llllllll.co/t/pcb-art-artfully-shaped-copper-traces/22027/2t</a></p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">These 0.3mm PCBs are crazy flexible. Makes it difficult to evenly polish down to extract all the metal layers, but we&#39;ll fix it in post 😉 <a href="https://t.co/ylP0lc34g2">pic.twitter.com/ylP0lc34g2</a></p>&mdash; David Hulton (@0x31337) <a href="https://twitter.com/0x31337/status/1395064352785399808?ref_src=twsrc%5Etfw">May 19, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">Always double check your footprints. 😬 <a href="https://t.co/BdTq9e9Byq">pic.twitter.com/BdTq9e9Byq</a></p>&mdash; Greg (@GregDavill) <a href="https://twitter.com/GregDavill/status/1252912461457420288?ref_src=twsrc%5Etfw">April 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -1305,10 +1331,10 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://www.youtube.com/watch?v=14_jh3nLSsU">KiCad STM32 + RF + USB Hardware Design (YouTube, Phil&rsquo;s Lab)</a></p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I quite like this combination I soldered today: <a href="https://twitter.com/oshpark?ref_src=twsrc%5Etfw">@oshpark</a> &#39;s After Dark PCB with purple LEDs. This is my COPXIE project, which is inspired by PIXIE from <a href="https://twitter.com/lixielabs?ref_src=twsrc%5Etfw">@lixielabs</a> . More information can/will be also found here: <a href="https://t.co/BLMhnu95Vu">https://t.co/BLMhnu95Vu</a> <a href="https://t.co/Ssg1d1uNFN">pic.twitter.com/Ssg1d1uNFN</a></p>&mdash; Alex (@tinyledmatrix) <a href="https://twitter.com/tinyledmatrix/status/1319410599894417409?ref_src=twsrc%5Etfw">October 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The whole family - top ones are the oldest and the two test prototypes I made. There was issues with the micro I was using and I couldn&#39;t get it low enough power to run. Also assembly was really difficult. <a href="https://t.co/3mKgYs83Nr">pic.twitter.com/3mKgYs83Nr</a></p>&mdash; Loial Otter (@LoialOtter) <a href="https://twitter.com/LoialOtter/status/1250295830973534208?ref_src=twsrc%5Etfw">April 15, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<h2 id="chapter-261---pcb-components">
+<h1 id="chapter-261---pcb-components">
   Chapter 26.1 - PCB Components
   <a class="anchor" href="#chapter-261---pcb-components">#</a>
-</h2>
+</h1>
 <p>[TODO] Antennas (2.4ghz mostly), <a href="https://www.youtube.com/watch?v=vfP_65gSSBU&amp;list=PL3C5D963B695411B6&amp;index=25">Spark gaps</a>, <a href="https://www.youtube.com/watch?v=3DeOPN1Cl1Y">coils</a>, PCB capacitor, <a href="https://en.wikipedia.org/wiki/Distributed-element_filter">distributed element filters</a>, flexible PCB as connectors</p>
 <p>and technically resistors and <a href="https://www.youtube.com/watch?v=CMlpCX0bug8">fuses</a>, albeit &hellip; eh.</p>
 <p>0-ohm resistors to keep 1-sidded</p>
@@ -1325,6 +1351,11 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://www.tindie.com/products/awkwardai/furbymin-theremin-soa-dc27-full-assembled/">Furby Theremin Badge (Tindie, Harbinger LTD)</a></p>
 <p><a href="https://github.com/badgeek/svg2shenzhen">https://github.com/badgeek/svg2shenzhen</a></p>
 <p><a href="https://mitxela.com/projects/melting_kicad">https://mitxela.com/projects/melting_kicad</a></p>
+<h1 id="chapter-263---alternatives-to-pcbs">
+  Chapter 26.3 - Alternatives to PCBs
+  <a class="anchor" href="#chapter-263---alternatives-to-pcbs">#</a>
+</h1>
+<p>[TODO] Wirewrap, permaproto, etc.</p>
 </p>
 </p>
 </article>
@@ -1375,11 +1406,8 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-26---lets-make-our-own-pcb">Chapter 26 - Let&rsquo;s make our own PCB</a>
-      <ul>
-        <li><a href="#chapter-261---pcb-components">Chapter 26.1 - PCB Components</a></li>
-      </ul>
-    </li>
+    <li><a href="#chapter-26---lets-make-our-own-pcb">Chapter 26 - Let&rsquo;s make our own PCB</a></li>
+    <li><a href="#chapter-261---pcb-components">Chapter 26.1 - PCB Components</a></li>
     <li><a href="#chapter-262---pretty-boards--badges">Chapter 26.2 - Pretty Boards &amp; Badges</a></li>
   </ul>
 </nav>
