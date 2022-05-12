@@ -114,7 +114,7 @@ Divide and Conquer #  Master Theorm #  Decrease and Conquer #  Branch and Bound 
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.367cb13aec71d10984147a629053b0c031e3e8c6fa80c0f6610d8408ba8933a8.js" integrity="sha256-NnyxOuxx0QmEFHpikFOwwDHj6Mb6gMD2YQ2ECLqJM6g="></script>
+<script defer src="/en.search.min.103209f858f330c5181f939707c7ef1312030671c82d410d8be54e68978893f3.js" integrity="sha256-EDIJ&#43;FjzMMUYH5OXB8fvExIDBnHILUENi&#43;VOaJeIk/M="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -577,6 +577,11 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#branch-and-bound">Branch and Bound</a></li>
         <li><a href="#kernelization">Kernelization</a></li>
         <li><a href="#cacheing">Cacheing</a></li>
+        <li><a href="#benchmarking">Benchmarking</a>
+          <ul>
+            <li><a href="#benchmarkingprofiling-tools">Benchmarking/Profiling Tools</a></li>
+          </ul>
+        </li>
         <li><a href="#complexity-analysis">Complexity analysis</a>
           <ul>
             <li><a href="#brute-force">Brute Force</a></li>
@@ -654,11 +659,159 @@ https://github.com/alex-shpak/hugo-book
 <p>[TODO] I also have discreete math in the chapter 11, math&hellip; not sure what do do about this&hellip;</p>
 <p>Truth tables, binary, logical equlivencies, propositional logic,</p>
 <p>Sets, functions, relations, recurrence, induction, combonation, graphs, isomorphsm,</p>
+<h2 id="benchmarking">
+  Benchmarking
+  <a class="anchor" href="#benchmarking">#</a>
+</h2>
+<p>Many computer science courses will have a basically a full class on Algorithm Analysis, usually more specifically looking into BigO analysis. In a nut shell, this involves determing how much computation has to occur for a given input size. For example, if you have 10 inputs and just want to add them together, you can do that in O(n) time, because for n inputs you only need to do <code>n</code> computations (well, actually n-1 here, but we ignore the constant), but if you wanted to sort them with <a href="https://en.wikipedia.org/wiki/Quicksort">Quicksort (Wikipedia)</a> that could take up to 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(O(n^2)\)
+</span>
+ basically, the time to run the code (in the worst case) may be squared with the number of inputs. This is not great. If we assume each operation take 1 secon (a bit unreasonably long, but go with it) that means for 10 input we&rsquo;re looking at a bit over a minute and a half, but for 1000 inputs that&rsquo;s up to 11.57 <strong>days</strong>.</p>
+<p>So, you should learn how to do this kind of analysis right? Well, it&rsquo;s not a bad idea to - and I do have a brief overview of it in the following section - it&rsquo;s really not as important as those classes make it seem. This is for a few reasons. The first is that the code you write and the code that actually runs are usually quite different. As a basic example, let&rsquo;s look at this C code:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">dumb</span>(<span style="color:#66d9ef">int</span> max){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> max; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        sum <span style="color:#f92672">+=</span> i;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Super basic, just sums the numbers 0 to ``max`. So, let&rsquo;s compile that and look at the assembly code:</p>
+<pre tabindex="0"><code class="language-assembly" data-lang="assembly">dumb(int):
+  addi sp,sp,-48
+  sd s0,40(sp)
+  addi s0,sp,48
+  mv a5,a0
+  sw a5,-36(s0)
+  sw zero,-20(s0)
+  sw zero,-24(s0)
+.L3:
+  lw a4,-24(s0)
+  lw a5,-36(s0)
+  sext.w a4,a4
+  sext.w a5,a5
+  bge a4,a5,.L2
+  lw a4,-20(s0)
+  lw a5,-24(s0)
+  addw a5,a4,a5
+  sw a5,-20(s0)
+  lw a5,-24(s0)
+  addiw a5,a5,1
+  sw a5,-24(s0)
+  j .L3
+.L2:
+  lw a5,-20(s0)
+  mv a0,a5
+  ld s0,40(sp)
+  addi sp,sp,48
+  jr ra
+</code></pre><p>Okay, so, yeah, that&rsquo;s about what we expect. There&rsquo;s a few jumps so the loop can execute, whatever. Thing is, if you&rsquo;re ever actually releasing code, you&rsquo;ll have complier optimization on. With optimization, the compiler will happily generate more efficient code for you. Because we didn&rsquo;t do anything conditionally here sum will always, no matter what, return that same number. The compiler can figure this out, and with optimization on, it spits out this assembly:</p>
+<pre tabindex="0"><code class="language-assembly" data-lang="assembly">dumb(int):
+  mv a4,a0
+  ble a0,zero,.L4
+  li a5,0
+  li a0,0
+.L3:
+  addw a0,a0,a5
+  addiw a5,a5,1
+  bne a4,a5,.L3
+  ret
+.L4:
+  li a0,0
+  ret
+</code></pre><p>And, allright, yeah, that&rsquo;s less lines, dramitically more effient, but it&rsquo;s still seems to be doing the same loop. So, let&rsquo;s do one more thing, let&rsquo;s add a main function that calls this code and add the <code>inline</code> keyword to our dumb function so that the compiler knows it doesn&rsquo;t actually need to generate the function call, it can wrap it into the main function&rsquo;s code itself:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">dumb</span>(<span style="color:#66d9ef">int</span> max){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> max; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        sum <span style="color:#f92672">+=</span> i;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> dumb(<span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%d&#34;</span>,<span style="color:#f92672">&amp;</span>result);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>That gives us this assembly:</p>
+<pre tabindex="0"><code class="language-assembly" data-lang="assembly">.LC0:
+  .string &#34;%d&#34;
+main:
+  addi sp,sp,-32
+  lui a0,%hi(.LC0)
+  li a5,4096
+  addi a1,sp,12
+  addi a5,a5,854
+  addi a0,a0,%lo(.LC0)
+  sd ra,24(sp)
+  sw a5,12(sp)
+  call printf
+  ld ra,24(sp)
+  li a0,0
+  addi sp,sp,32
+  jr ra
+</code></pre><p>Which, you sholud notice never runs our loop. Instead, the result of the math (summing 0 to 99, which is 4950) is stored directly into the code (well, sorta, it&rsquo;s 4096 + 854, because of limits on immediate values in asembly, but don&rsquo;t worry about that) - my point is that our originally O(n) code isn&rsquo;t even O(n) anymore because, well, it never even runs. The compiler went &ldquo;Oh, I can just pre-compute that result and save it in the program&rdquo; and that&rsquo;s what it did.</p>
+<p>Now, the take away here should <em>not</em> be that the compiler is magic and means you don&rsquo;t need to write fast algorithms.<span class="smalltext ">
+    That said, the complier totally is magic. Compiler optimizaiton will regularly outperform anything you could write by hand.
+</span> Instead my point is that doing that analysis may not mean that much if the complier is doing magic underneath it anyway. So, while you should be able to at a glance see that some code is just horrifically inefficent (deeply nested loops, brute force approaches, etc.) the name of the game is <strong>benchmarking</strong>. If performance matters or you just noticed things suddenly taking a lot longer, run a benchmark! If you&rsquo;re about to try to performance optimze code, seriously run a benchmark first - you may find your clever tricks actually made things slower! Log the amount of time things take. We have the tools!</p>
+<h3 id="benchmarkingprofiling-tools">
+  Benchmarking/Profiling Tools
+  <a class="anchor" href="#benchmarkingprofiling-tools">#</a>
+</h3>
+<p>Some benchmarking tools are language dependent, some aren&rsquo;t. Generally, those that are will get you deeper insights but be more annoying to run. Also, keep in mind some tools actually add some time to run <em>because</em> of measuring the performance (Heisenberg style). Regardless, a pile of links to look though:</p>
+<ul>
+<li>Python <a href="https://www.brendangregg.com/flamegraphs.html">Flame Graphs</a></li>
+<li>C and C++ <a href="https://www.brendangregg.com/FlameGraphs/cpuflamegraphs.html">Flame Graphs</a></li>
+<li>Chrome and Firefox both have Flame graph tools built in</li>
+<li>Using <a href="https://github.com/sharkdp/hyperfine">Hyperfine (Github)</a> to measure run times is amazing</li>
+</ul>
+<p>Of course, you can always just <code>print()</code> the time before and after the event that you think might be eating cycles too.</p>
+<p>It&rsquo;s also a good idea to test on multiple platforms, both in terms of hardware and operating system (assuming you&rsquo;re targeting more than one OS) as some functions tend to have wildly varrying performance - particularly system level functions (<code>print()</code>, I/O) and math functions like <code>sin()</code> - there&rsquo;s a lot of ways to compute trig functions, not all of them are fast.</p>
 <h2 id="complexity-analysis">
   Complexity analysis
   <a class="anchor" href="#complexity-analysis">#</a>
 </h2>
-<p><a href="/home/vega/Downloads/newDrums">Big O Notation - explained as easily as possible (that computer scientist)</a></p>
+<p><a href="https://web.archive.org/web/20210217021526/https://thatcomputerscientist.com/big-o-notation-explained-as-easily-as-possible?guid=none&amp;deviceId=db7ce548-7805-48fb-a57e-1d82424f0a05">Big O Notation - explained as easily as possible (that computer scientist) (Archive.org link)</a></p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/LOZTuMds3LM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <blockquote>
 <p>More cool videos like this can be found at <a href="https://www.youtube.com/c/Musicombo/videos">https://www.youtube.com/c/Musicombo/videos</a></p>
@@ -773,6 +926,11 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#branch-and-bound">Branch and Bound</a></li>
         <li><a href="#kernelization">Kernelization</a></li>
         <li><a href="#cacheing">Cacheing</a></li>
+        <li><a href="#benchmarking">Benchmarking</a>
+          <ul>
+            <li><a href="#benchmarkingprofiling-tools">Benchmarking/Profiling Tools</a></li>
+          </ul>
+        </li>
         <li><a href="#complexity-analysis">Complexity analysis</a>
           <ul>
             <li><a href="#brute-force">Brute Force</a></li>
