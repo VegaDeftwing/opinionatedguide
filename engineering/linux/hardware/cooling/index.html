@@ -82,7 +82,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="8 - Cooling #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Blower, air flow vs static pressure, fan size liquid, heat pipes, pwm vs DC control">
+<meta name="description" content="8 - Cooling #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Computers, who&rsquo;d&rsquo;ve guessed, use power. Shocker, right? Well, using power means making heat, and we need to get that away from the compoents as fast as we can - if they stay hot they&rsquo;ll throttle down to a lower speed and it degrades their quality over time. Not good.
+So, what are our options?
+Air Cooling #  3-pin and 4-pin fans #  Air flow VS Static Pressure #  Fan size #  Noise #  Smaller → Louder.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -94,7 +96,9 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="8 - Cooling #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Blower, air flow vs static pressure, fan size liquid, heat pipes, pwm vs DC control" />
+<meta property="og:description" content="8 - Cooling #   document.getElementById(&#34;hardwareMenu&#34;).open = true;  Computers, who&rsquo;d&rsquo;ve guessed, use power. Shocker, right? Well, using power means making heat, and we need to get that away from the compoents as fast as we can - if they stay hot they&rsquo;ll throttle down to a lower speed and it degrades their quality over time. Not good.
+So, what are our options?
+Air Cooling #  3-pin and 4-pin fans #  Air flow VS Static Pressure #  Fan size #  Noise #  Smaller → Louder." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/linux/hardware/cooling/" /><meta property="article:section" content="Engineering" />
 
@@ -104,7 +108,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.4a307a80aafd500d05025137f3aa28ea12da68f43ab552f261b153bc2eb8bda7.js" integrity="sha256-SjB6gKr9UA0FAlE386oo6hLaaPQ6tVLyYbFTvC64vac="></script>
+<script defer src="/en.search.min.51cc43b1615635c600435a7114022b6599157c2e6284358c45c71a9b71083183.js" integrity="sha256-UcxDsWFWNcYAQ1pxFAIrZZkVfC5ihDWMRccam3EIMYM="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -473,6 +477,16 @@ https://github.com/alex-shpak/hugo-book
                   <hr>
             
               <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
                 <dd><a href="/tags/politics/">politics</a><dt>
                 <dd class="blogdd" style="color: #fff;">2</dt>
               </li>
@@ -483,18 +497,8 @@ https://github.com/alex-shpak/hugo-book
               </li>
             
               <li class="flex justify-between">
-                <dd><a href="/tags/personal/">personal</a><dt>
-                <dd class="blogdd" style="color: #fff;">8</dt>
-              </li>
-            
-              <li class="flex justify-between">
                 <dd><a href="/tags/art/">art</a><dt>
                 <dd class="blogdd" style="color: #fff;">1</dt>
-              </li>
-            
-              <li class="flex justify-between">
-                <dd><a href="/tags/school/">school</a><dt>
-                <dd class="blogdd" style="color: #fff;">2</dt>
               </li>
             
               <li class="flex justify-between">
@@ -551,7 +555,22 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#8---cooling">8 - Cooling</a></li>
+    <li><a href="#8---cooling">8 - Cooling</a>
+      <ul>
+        <li><a href="#air-cooling">Air Cooling</a>
+          <ul>
+            <li><a href="#3-pin-and-4-pin-fans">3-pin and 4-pin fans</a></li>
+            <li><a href="#air-flow-vs-static-pressure">Air flow VS Static Pressure</a></li>
+            <li><a href="#fan-size">Fan size</a></li>
+            <li><a href="#noise">Noise</a></li>
+            <li><a href="#bearing-type">Bearing type</a></li>
+            <li><a href="#heat-pipes--vapor-chambers">Heat pipes &amp; Vapor Chambers</a></li>
+            <li><a href="#filtering">Filtering</a></li>
+          </ul>
+        </li>
+        <li><a href="#liquid-cooling">Liquid Cooling</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -570,7 +589,49 @@ https://github.com/alex-shpak/hugo-book
 <script>
     document.getElementById("hardwareMenu").open = true;
 </script>
-<p>Blower, air flow vs static pressure, fan size liquid, heat pipes, pwm vs DC control</p>
+<p>Computers, who&rsquo;d&rsquo;ve guessed, use power. Shocker, right? Well, using power means making heat, and we need to get that away from the compoents as fast as we can - if they stay hot they&rsquo;ll throttle down to a lower speed and it degrades their quality over time. Not good.</p>
+<p>So, what are our options?</p>
+<h2 id="air-cooling">
+  Air Cooling
+  <a class="anchor" href="#air-cooling">#</a>
+</h2>
+<h3 id="3-pin-and-4-pin-fans">
+  3-pin and 4-pin fans
+  <a class="anchor" href="#3-pin-and-4-pin-fans">#</a>
+</h3>
+<h3 id="air-flow-vs-static-pressure">
+  Air flow VS Static Pressure
+  <a class="anchor" href="#air-flow-vs-static-pressure">#</a>
+</h3>
+<h3 id="fan-size">
+  Fan size
+  <a class="anchor" href="#fan-size">#</a>
+</h3>
+<h3 id="noise">
+  Noise
+  <a class="anchor" href="#noise">#</a>
+</h3>
+<p>Smaller → Louder.</p>
+<h3 id="bearing-type">
+  Bearing type
+  <a class="anchor" href="#bearing-type">#</a>
+</h3>
+<p>See <a href="https://www.gamersnexus.net/guides/779-computer-case-fan-bearing-differences">The Basics of Case Fan Bearings - Which Bearing is Best? (Gamers Nexus)</a> - though that is a hair out of date as, now, if you want to go all out you can go for Magnetic Levitation bearings. They&rsquo;re expensive as hell, but they&rsquo;re quiter, live longer, and are all around better.</p>
+<h3 id="heat-pipes--vapor-chambers">
+  Heat pipes &amp; Vapor Chambers
+  <a class="anchor" href="#heat-pipes--vapor-chambers">#</a>
+</h3>
+<h3 id="filtering">
+  Filtering
+  <a class="anchor" href="#filtering">#</a>
+</h3>
+<h2 id="liquid-cooling">
+  Liquid Cooling
+  <a class="anchor" href="#liquid-cooling">#</a>
+</h2>
+<p>Just to get it out of the way now - liquid cooling is not as good as most gamers think it is. The pump itself can make noise and fail, the raditator will require high static pressure fans, and it&rsquo;s just generally more difficult to work with. That said, if you&rsquo;re chasing performance or putting in some of the beefiest hardware, you still might have to use it. So, where&rsquo;s that threshold? Well, to put it simply, if you&rsquo;re not putting on at least a 2-fan radiator you&rsquo;re doing it wrong. Any of the single 120mm or 140mm radiator options are just a worse value than a big ol&rsquo; heatsink. So, when do you need something this big? Well, the cut off is probably right as you enter the 100w TDP range, though even at that border line it&rsquo;s often a toss up if you get a big heatsink. It&rsquo;s really when you start to get into the Intel i9&rsquo;s, Threadrippers, etc. that it starts to make sense.</p>
+<p>Now, as with all things, there are exceptions here. Maybe you&rsquo;re building in a case where you can&rsquo;t fit a big tower cooler, but you can fit a large radiator. Maybe your workload is very burst-y and by using a raditor the thermal mass of the liquid will absorb the spikes in a way that prevents the fans from ever ramping up.</p>
+<p>But, generally, just&hellip; don&rsquo;t? Unless you&rsquo;re already building a seriously top of the line system (one where you actually need a 1000 watt power supply) you&rsquo;re probably better off just putting more money into your actual compoents and getting a damn good air cooler.</p>
 </article>
  
       
@@ -619,7 +680,22 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#8---cooling">8 - Cooling</a></li>
+    <li><a href="#8---cooling">8 - Cooling</a>
+      <ul>
+        <li><a href="#air-cooling">Air Cooling</a>
+          <ul>
+            <li><a href="#3-pin-and-4-pin-fans">3-pin and 4-pin fans</a></li>
+            <li><a href="#air-flow-vs-static-pressure">Air flow VS Static Pressure</a></li>
+            <li><a href="#fan-size">Fan size</a></li>
+            <li><a href="#noise">Noise</a></li>
+            <li><a href="#bearing-type">Bearing type</a></li>
+            <li><a href="#heat-pipes--vapor-chambers">Heat pipes &amp; Vapor Chambers</a></li>
+            <li><a href="#filtering">Filtering</a></li>
+          </ul>
+        </li>
+        <li><a href="#liquid-cooling">Liquid Cooling</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
