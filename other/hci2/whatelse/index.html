@@ -83,7 +83,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 3: What&rsquo;s Else Is Needed? #   document.getElementById(&#34;hciMenu&#34;).open = true; Script all the things! But Not Like That™ #  [TODO]
-Visual Programming but still supporting text based programming, natural language scripting
+Visual Programming but still supporting text based programming, natural language scripting, node-red, etc.
 everything is a file/folder (inc. full programs)
 Optional Security #  TempleOS is a really weird operating system. From Wikipedia
  TempleOS is a biblical-themed lightweight operating system designed to be the Third Temple prophesied in the Bible.">
@@ -99,7 +99,7 @@ Optional Security #  TempleOS is a really weird operating system. From Wikipedia
 </style>
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 3: What&rsquo;s Else Is Needed? #   document.getElementById(&#34;hciMenu&#34;).open = true; Script all the things! But Not Like That™ #  [TODO]
-Visual Programming but still supporting text based programming, natural language scripting
+Visual Programming but still supporting text based programming, natural language scripting, node-red, etc.
 everything is a file/folder (inc. full programs)
 Optional Security #  TempleOS is a really weird operating system. From Wikipedia
  TempleOS is a biblical-themed lightweight operating system designed to be the Third Temple prophesied in the Bible." />
@@ -112,7 +112,7 @@ Optional Security #  TempleOS is a really weird operating system. From Wikipedia
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.8c6fb17aaeec8af5ea68043f6a357d4f9446332738280cb63d6d331f45470c21.js" integrity="sha256-jG&#43;xeq7sivXqaAQ/ajV9T5RGMyc4KAy2PW0zH0VHDCE="></script>
+<script defer src="/en.search.min.57c6559a7b85ddc324ef0aab54bd9b6b8564f49fdef101be0965f06945e0bbea.js" integrity="sha256-V8ZVmnuF3cMk7wqrVL2ba4Vk9J/e8QG&#43;CWXwaUXgu&#43;o="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -570,7 +570,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#open-sensors-and-generators">Open Sensors and Generators</a></li>
         <li><a href="#software-that-breaks-the-mold">Software that breaks the mold</a></li>
         <li><a href="#hardware-for-open-experimentation">Hardware for Open Experimentation</a></li>
-        <li><a href="#wasting-time-on-stupid-shit-that-nobody-cares-about">Wasting time on stupid shit that nobody cares about</a></li>
+        <li><a href="#stop-wasting-time-on-stupid-shit-that-nobody-cares-about">Stop wasting time on stupid shit that nobody cares about</a></li>
         <li><a href="#give-me-a-fucking-physical-knob">Give me a fucking physical knob</a></li>
       </ul>
     </li>
@@ -595,51 +595,64 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#script-all-the-things-but-not-like-that">#</a>
 </h2>
 <p>[TODO]</p>
-<p>Visual Programming but still supporting text based programming, natural language scripting</p>
+<p>Visual Programming but still supporting text based programming, natural language scripting, node-red, etc.</p>
 <p>everything is a file/folder (inc. full programs)</p>
 <h2 id="optional-security">
   Optional Security
   <a class="anchor" href="#optional-security">#</a>
 </h2>
 <p><a href="https://en.wikipedia.org/wiki/TempleOS">TempleOS</a> is a really weird operating system. From Wikipedia</p>
-<blockquote>
-<p><strong>TempleOS</strong> is a biblical-themed lightweight operating system designed to be the Third Temple prophesied in the Bible. It was created by the late American programmer Terry A. Davis, who developed it alone over the course of a decade after a series of manic episodes that he later described as a revelation from God.</p>
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/TempleOS)">
+<p>
+    <p><strong>TempleOS</strong> is a biblical-themed lightweight operating system designed to be the Third Temple prophesied in the Bible. It was created by the late American programmer Terry A. Davis, who developed it alone over the course of a decade after a series of manic episodes that he later described as a revelation from God.</p>
 <p>[&hellip;] using an interface similar to a mixture of DOS and Turbo C. Davis proclaimed that the system&rsquo;s features, such as its 640x480 resolution, 16-color display and single audio voice, were designed according to explicit instructions from God.</p>
-</blockquote>
-<p>But the part that&rsquo;s cool to me? TempleOS gives no fucks about security, now, that&rsquo;s at least in part because it doesn&rsquo;t have networking (though there is a <a href="https://github.com/minexew/Shrine">fork with networking</a>) but even then, there&rsquo;s no concept of an admin or &rsquo;normal&rsquo; user. There&rsquo;s no system-protected processes. You want to flip arbitrary bits, directly send data over IO lines, whatever. The OS will not stop you. The entire thing runs in ring 0, which means you always have total control over the hardware, but it also means there&rsquo;s nothing stopping you from massively fucking everything up and crashing the system, corrupting everything, etc.</p>
-<p><a href="https://youtu.be/LtlyeDAJR7A">TempleOS (Linus Tech Tips)</a></p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/TempleOS">Wikipedia</a>
+    </div>
+</div>
+<p>But the part that&rsquo;s cool to me? TempleOS gives no, and I mean absolutely zero, fucks about security, now, that&rsquo;s at least in part because it doesn&rsquo;t have networking (though there is a <a href="https://github.com/minexew/Shrine">fork with networking</a>) but even then, there&rsquo;s no concept of an admin or &rsquo;normal&rsquo; user. There&rsquo;s no system-protected processes. You want to flip arbitrary bits, directly send data over IO lines, whatever. The OS will not stop you. The entire thing runs in ring 0, which means you always have total control over the hardware, but it also means there&rsquo;s nothing stopping you from massively fucking everything up and crashing the system, corrupting everything, etc.</p>
+<p>( You may want to watch <a href="https://youtu.be/LtlyeDAJR7A">TempleOS (Linus Tech Tips, YouTube)</a> if this is interesting to you)</p>
 <p>And, okay, yeah, that&rsquo;s obviously not ideal for <em>normal</em> use, but I think there&rsquo;s something to be said for having the <em>option</em> to say fuck it, slam your fist down on the manual override button, and take full control of the system. This is what I mean by optional security - no HAL 9000 in the way. No <code>sudo</code>, no &rsquo;no&rsquo;. In this mode it should also be easy to turn off all networking and malware protection, so a super-fuckit No firewallls, no threat scanning, etc. switch.</p>
 <p>Running as root in Linux is <em>almost</em> this. It could even be argued that it&rsquo;s better since toying with memory though <code>/dev/kmem</code> is probably easier than trying to deduce the physical memory map. That said, there&rsquo;s still <em><a href="https://stackoverflow.com/questions/21761185/is-there-a-difference-between-sudo-mode-and-kernel-mode">some</a></em> restrictions on the root account compared to running directly in &lsquo;kernel mode&rsquo;.</p>
 <h2 id="backwards-compatibility-via-compatibility-layers">
   Backwards Compatibility via Compatibility Layers
   <a class="anchor" href="#backwards-compatibility-via-compatibility-layers">#</a>
 </h2>
-<p>AnIdiotOnTheNet&rsquo;s Comment on <a href="https://news.ycombinator.com/item?id=24783387">This Hacker New&rsquo;s Submission - &lsquo;Re-Thinking the Desktop OS&rsquo;</a></p>
-<blockquote>
-<p>[&hellip;]</p>
+<div class="quote [AnIdiotONTheNet](https://news.ycombinator.com/user?id=AnIdiotOnTheNet) comment on the [Re-Thinking the Desktop OS](https://twitter.com/patrickc/status/1316475471203360769) Hacker News Submission">
+<p>
+    <p>[&hellip;]</p>
 <ol start="7">
 <li>Backwards compatibility should be a high priority, but accomplished via shim layers and/or emulation and/or vms when clean breaks are necessary. A wide array of such should be included with the OS from the beginning. In 2020, there is no excuse for not being able to run old software.&quot;</li>
 </ol>
-</blockquote>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://news.ycombinator.com/user?id=AnIdiotOnTheNet">AnIdiotONTheNet</a> comment on the <a href="https://twitter.com/patrickc/status/1316475471203360769">Re-Thinking the Desktop OS</a> Hacker News Submission
+    </div>
+</div>
 <p>And yeah, that pretty much sums it up. Currently backwards compatibility is often a choice of actually going to better technology and fixing bugs - like the Excel <a href="https://docs.microsoft.com/en-us/office/troubleshoot/excel/wrongly-assumes-1900-is-leap-year">leap year problem</a> or supporting older files without them massively breaking. There&rsquo;s really no reason we couldn&rsquo;t do both using comparability layers. The cost, I think, would mostly be in accepting that the transition to those comparability layers will be rough and that some thing will just have to be upgraded until that compatibility infrastructure is in place.</p>
 <p>There&rsquo;s no reason we shouldn&rsquo;t be able to run very old software, but also no reason to use that as an excuse against moving forward.</p>
-<p>A fairly interesting solution to some of this might be to implement hardware compatibility via FPGAs, that is loading either full soft-core CPUs or instruction set translation logic onto a tightly integrated FPGA. Higher end retro console emulators are already using FPGA emulations of the original CPUs anyway, so this isn&rsquo;t some crazy fantasy. To add even further hope, AMD owns Xilinx and Intel own Altera, so the two biggest CPU manufactures both already own the two biggest FPGA manufactures. There&rsquo;s nothing stopping them from making integration standard. (well, other than cost and market segmentation)</p>
+<p>A fairly interesting solution to some of this might be to implement hardware compatibility via FPGAs, that is loading either full soft-core CPUs or instruction set translation logic onto a tightly integrated FPGA. Higher end retro console emulators are already using FPGA emulations of the original CPUs anyway, so this isn&rsquo;t some crazy fantasy. To add even further hope, AMD owns Xilinx and Intel own Altera, so the two biggest CPU manufactures both already own the two biggest FPGA manufactures (which, is a problem in some ways). There&rsquo;s nothing stopping them from making integration standard. (well, other than cost and market segmentation)</p>
 <h2 id="hardware-modularity-repairability-and-customization">
   Hardware Modularity, Repairability, and Customization
   <a class="anchor" href="#hardware-modularity-repairability-and-customization">#</a>
 </h2>
-<p>According to Wikipedia <a href="https://en.wikipedia.org/wiki/Electronics_right_to_repair">Right to Repair</a> is</p>
+<p>According to Wikipedia, <a href="https://en.wikipedia.org/wiki/Electronics_right_to_repair">Right to Repair</a> is</p>
 <blockquote>
 <p>legislation that is intended to allow consumers the ability to repair and modify their own consumer electronic devices, where otherwise the manufacturer of such devices require the consumer to use only their offered services</p>
 </blockquote>
 <p>This is a big deal, with big player like Apple and John Deer lobbying incredibly hard against it. I can&rsquo;t possibly explain even a fraction of all the nuance in the arguments, so instead I recommend reading <a href="https://www.eff.org/issues/right-to-repair">this post</a> from the Electronic Frontier Foundation (EFF) for a quick overview.</p>
-<p>As for modularity and customization, I mean that hardware should be made such that components can be swapped out. For example, most desktop computers do a decent job o f this, where each component - the CPU, graphics card, power supply, RAM, etc. - can be upgraded individually <a class="ptr">(1)</a>. This concept desperately needs to be more widespread. It simultaneously cuts down on eWaste by increasing longevity, allows consumers to only pay for what they need, and lets consumers buy-now-upgrade-later if they can&rsquo;t afford what they really want to start with.</p>
+<p>As for modularity and customization, I mean that hardware should be made such that components can be swapped out. For example, most desktop computers do a decent job of this, where each component - the CPU, graphics card, power supply, RAM, etc. - can be upgraded individually <a class="ptr">(1)</a>. This concept desperately needs to be more widespread. It simultaneously cuts down on eWaste by increasing longevity, allows consumers to only pay for what they need, and lets consumers buy-now-upgrade-later if they can&rsquo;t afford what they really want to start with.</p>
 <p>The only real downside for the consumer is that the products might be hair bit thicker? Yeah, I think that&rsquo;s a fair trade.</p>
 <h2 id="network-transparency">
   Network Transparency
   <a class="anchor" href="#network-transparency">#</a>
 </h2>
-<p>Network Transparency is a neat concept, basically, it means you can use a program over the network as if it were local. I think the coolest example of this is the X Window System on Linux, which lets you run graphical programs on a remote computer, even one with no screen attached, and have the window be visible on your own computer. For example, while you could always setup a file server to access file remotely, you could also just use X&rsquo;s network transparency to forward the entire file manager window to your computer and browse files like normal.</p>
+<p>Network Transparency is a neat concept, basically, it means you can use a program over the network as if it were local. I think the coolest example of this is the X Window System on Linux, which lets you run graphical programs on a remote computer, even one with no screen attached, and have the window be visible on your own computer. For example, while you could always setup a file server to access file remotely, you could also just use X&rsquo;s network transparency to forward the entire file manager window to your computer and browse files like normal (not that you should)</p>
 <p>I&rsquo;d love to see more applications and backend software (like X) support this.</p>
 <h2 id="the-ability-to-go-back-in-time">
   The Ability to go Back In Time
@@ -705,15 +718,19 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>[TODO]</p>
 <p>Microfluid computers, diode logic, GPIO</p>
-<h2 id="wasting-time-on-stupid-shit-that-nobody-cares-about">
-  Wasting time on stupid shit that nobody cares about
-  <a class="anchor" href="#wasting-time-on-stupid-shit-that-nobody-cares-about">#</a>
+<h2 id="stop-wasting-time-on-stupid-shit-that-nobody-cares-about">
+  Stop wasting time on stupid shit that nobody cares about
+  <a class="anchor" href="#stop-wasting-time-on-stupid-shit-that-nobody-cares-about">#</a>
 </h2>
-<p>Microsoft has been spending a lot of time changing to the new UI, and their calculator has been updated like a dozen times for UI now but still <a href="http://speedcrunch.org">SpeedCrunch</a> remains 1000x more usable and tools like <a href="https://www.wolframalpha.com">WolframAlpha</a> remain superior yet. Stop spending time on shit literally nobody gives a shit about.</p>
+<p>Microsoft has been spending a lot of time changing to the new UI, and their calculator has been updated like a dozen times for UI now but still <a href="http://speedcrunch.org">SpeedCrunch</a> remains 1000x more usable and tools like <a href="https://www.wolframalpha.com">WolframAlpha</a> remain superior yet. Stop spending time on shit literally nobody gives a shit about and that nobody should be using. If something is dumb for the sake of being dumb, like <a href="https://www.youtube.com/watch?v=JcJSW7Rprio">Harder Drive: Hard drives we didn&rsquo;t want or need (Tom7, YouTube)</a> sure, but otherwise, let&rsquo;s make things <em>actually</em> better.</p>
 <h2 id="give-me-a-fucking-physical-knob">
   Give me a fucking physical knob
   <a class="anchor" href="#give-me-a-fucking-physical-knob">#</a>
 </h2>
+<img src="/eng/modular.webp">
+<p class="attribution ">
+    ↑ My eurorack setup, for making something vaugly resembling music
+</p>
 <p><a href="https://www.popularmechanics.com/technology/gadgets/a1531/4213770/">Bring Back Our Knobs: Analog vs. Digital (Popular Mechanics, 2009)</a></p>
 <span class="smalltext ">
     Note, that Popular Mechancics article didn&rsquo;t age all that well, with &ldquo;I wonder if Apple iPhone will meet with the same success, as <a href="https://www.popularmechanics.com/technology/gadgets/a1385/4212910/">its touchscreen offers no tactile feedback</a>. Will people get tired of having to look down every time they dial a number?&rdquo; sounding funny today, still, I think the point stands
@@ -780,7 +797,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#open-sensors-and-generators">Open Sensors and Generators</a></li>
         <li><a href="#software-that-breaks-the-mold">Software that breaks the mold</a></li>
         <li><a href="#hardware-for-open-experimentation">Hardware for Open Experimentation</a></li>
-        <li><a href="#wasting-time-on-stupid-shit-that-nobody-cares-about">Wasting time on stupid shit that nobody cares about</a></li>
+        <li><a href="#stop-wasting-time-on-stupid-shit-that-nobody-cares-about">Stop wasting time on stupid shit that nobody cares about</a></li>
         <li><a href="#give-me-a-fucking-physical-knob">Give me a fucking physical knob</a></li>
       </ul>
     </li>
