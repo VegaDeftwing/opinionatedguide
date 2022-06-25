@@ -82,10 +82,9 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Would you like to speak to an Operator? # &#43;,-,/,*,%,&raquo;,&laquo;,^,|,&amp;,&amp;&amp;,||,==,&gt;,&lt;,&lt;=,&gt;=
-Going with the flow # if/elif/else, for, while, brief note on recussion, goto
-example of to small of an int on a loop
-Getting Functional # In most programming languages, we have the concept of Functions. Functions let us break up code into digestable sections and reuse things. When we call print() we&rsquo;re actually using a function that&rsquo;s built in&hellip; [TODO]">
+<meta name="description" content="Chapter 10.6 - ＬＯＧＩＣ # Would you like to speak to an Operator? # The very first thing to understand before we can get to more intersting things is the list of operations available to us.
+This includes the operations your used to - addition, subtraction, etc. - as well as bit-wise operations and comparisons.
+Basic Operations # I&rsquo;m going to mostly skip talking about addition, subtraction, multiplication, and divsion, because, duh.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -97,10 +96,9 @@ Getting Functional # In most programming languages, we have the concept of Funct
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Would you like to speak to an Operator? # &#43;,-,/,*,%,&raquo;,&laquo;,^,|,&amp;,&amp;&amp;,||,==,&gt;,&lt;,&lt;=,&gt;=
-Going with the flow # if/elif/else, for, while, brief note on recussion, goto
-example of to small of an int on a loop
-Getting Functional # In most programming languages, we have the concept of Functions. Functions let us break up code into digestable sections and reuse things. When we call print() we&rsquo;re actually using a function that&rsquo;s built in&hellip; [TODO]" />
+<meta property="og:description" content="Chapter 10.6 - ＬＯＧＩＣ # Would you like to speak to an Operator? # The very first thing to understand before we can get to more intersting things is the list of operations available to us.
+This includes the operations your used to - addition, subtraction, etc. - as well as bit-wise operations and comparisons.
+Basic Operations # I&rsquo;m going to mostly skip talking about addition, subtraction, multiplication, and divsion, because, duh." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/intro/progintro6/" /><meta property="article:section" content="Engineering" />
 
@@ -110,7 +108,7 @@ Getting Functional # In most programming languages, we have the concept of Funct
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.b1500f304dfe004b7b6847bcb101a274ea446e6cb494ce6e52326614e548c065.js" integrity="sha256-sVAPME3&#43;AEt7aEe8sQGidOpEbmy0lM5uUjJmFOVIwGU="></script>
+<script defer src="/en.search.min.3dd404f726a23085ca375584d9e782fe798317d55b7f66e6e313871e3c806978.js" integrity="sha256-PdQE9yaiMIXKN1WE2eeC/nmDF9Vbf2bm4xOHHjyAaXg="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -558,10 +556,23 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#chapter-106---ｌｏｇｉｃ">Chapter 10.6 - ＬＯＧＩＣ</a>
       <ul>
-        <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a></li>
-        <li><a href="#going-with-the-flow">Going with the flow</a></li>
+        <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a>
+          <ul>
+            <li><a href="#basic-operations">Basic Operations</a></li>
+            <li><a href="#bitwise-operations">Bitwise Operations</a></li>
+            <li><a href="#comparisons">Comparisons</a></li>
+          </ul>
+        </li>
+        <li><a href="#going-with-the-flow">Going with the flow</a>
+          <ul>
+            <li><a href="#if-else-else-if">If, else, else if</a></li>
+            <li><a href="#for">for</a></li>
+            <li><a href="#while-and-do-while">while (and do-while)</a></li>
+            <li><a href="#goto">goto</a></li>
+          </ul>
+        </li>
         <li><a href="#getting-functional">Getting Functional</a>
           <ul>
             <li><a href="#the-stack">The Stack</a></li>
@@ -580,17 +591,113 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h2 id="would-you-like-to-speak-to-an-operator">
+  <article class="markdown"><h1 id="chapter-106---ｌｏｇｉｃ">
+  Chapter 10.6 - ＬＯＧＩＣ
+  <a class="anchor" href="#chapter-106---%ef%bd%8c%ef%bd%8f%ef%bd%87%ef%bd%89%ef%bd%83">#</a>
+</h1>
+<h2 id="would-you-like-to-speak-to-an-operator">
   Would you like to speak to an Operator?
   <a class="anchor" href="#would-you-like-to-speak-to-an-operator">#</a>
 </h2>
-<p>+,-,/,*,%,&raquo;,&laquo;,^,|,&amp;,&amp;&amp;,||,==,&gt;,&lt;,&lt;=,&gt;=</p>
+<p>The very first thing to understand before we can get to more intersting things is the list of operations available to us.</p>
+<p>This includes the operations your used to - addition, subtraction, etc. - as well as bit-wise operations and comparisons.</p>
+<h3 id="basic-operations">
+  Basic Operations
+  <a class="anchor" href="#basic-operations">#</a>
+</h3>
+<p>I&rsquo;m going to mostly skip talking about addition, subtraction, multiplication, and divsion, because, duh. Still, a few notes.</p>
+<ul>
+<li>
+<p>With multiplication, it&rsquo;s pretty easy to excede the maximum allowed by your type. For exmaple,</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b; <span style="color:#75715e">//0, because 16*16 = 256, and unsigned 8 bits goes from 0 to 255
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Division of integrers will <strong>truncate</strong>. (floor)</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">11</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">4</span>; <span style="color:#75715e">//2, because 11/4 = 2.75, but the .75 &#34;falls off&#34;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>For subtraction, remumber an <em>unsigned</em> type can&rsquo;t go negative, but it can under-flow to a large, positive value.</p>
+</li>
+</ul>
+<p>There&rsquo;s one seemingly weird operation you may not be used to that belongs to this basic set: <strong>modulo</strong>.</p>
+<p>Modulo just means to do division but store the remainder, not how many times the number goes into it. So, while 7/3 is two, 7 mod 3 is 1, because 3 goes into 7 twice with <strong>1 left over</strong>. In most programming languages modulo is written with a percent sign, so <code>7%3</code> would give you 1.</p>
+<h3 id="bitwise-operations">
+  Bitwise Operations
+  <a class="anchor" href="#bitwise-operations">#</a>
+</h3>
+<h4 id="gettin-shifty--and-">
+  Gettin&rsquo; Shifty: &raquo; and &laquo;
+  <a class="anchor" href="#gettin-shifty--and-">#</a>
+</h4>
+<h4 id="and-and-or-or-or-and-and">
+  AND and OR or OR and AND?
+  <a class="anchor" href="#and-and-or-or-or-and-and">#</a>
+</h4>
+<h4 id="xor">
+  XOR?
+  <a class="anchor" href="#xor">#</a>
+</h4>
+<h3 id="comparisons">
+  Comparisons
+  <a class="anchor" href="#comparisons">#</a>
+</h3>
+<h4 id="-and-">
+  &amp;&amp; and ||
+  <a class="anchor" href="#-and-">#</a>
+</h4>
+<h4 id="-and--1">
+  &gt; and &lt;
+  <a class="anchor" href="#-and--1">#</a>
+</h4>
+<h4 id="-and--2">
+  &lt;= and &gt;=
+  <a class="anchor" href="#-and--2">#</a>
+</h4>
+<h4 id="--">
+  == ≠ =
+  <a class="anchor" href="#--">#</a>
+</h4>
 <h2 id="going-with-the-flow">
   Going with the flow
   <a class="anchor" href="#going-with-the-flow">#</a>
 </h2>
+<h3 id="if-else-else-if">
+  If, else, else if
+  <a class="anchor" href="#if-else-else-if">#</a>
+</h3>
+<h3 id="for">
+  for
+  <a class="anchor" href="#for">#</a>
+</h3>
+<h3 id="while-and-do-while">
+  while (and do-while)
+  <a class="anchor" href="#while-and-do-while">#</a>
+</h3>
+<h3 id="goto">
+  <del>goto</del>
+  <a class="anchor" href="#goto">#</a>
+</h3>
 <p>if/elif/else, for, while, brief note on recussion, goto</p>
 <p>example of to small of an int on a loop</p>
+<p>Talk about asm and branching, bne, ble, etc.</p>
 <h2 id="getting-functional">
   Getting Functional
   <a class="anchor" href="#getting-functional">#</a>
@@ -682,10 +789,23 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#chapter-106---ｌｏｇｉｃ">Chapter 10.6 - ＬＯＧＩＣ</a>
       <ul>
-        <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a></li>
-        <li><a href="#going-with-the-flow">Going with the flow</a></li>
+        <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a>
+          <ul>
+            <li><a href="#basic-operations">Basic Operations</a></li>
+            <li><a href="#bitwise-operations">Bitwise Operations</a></li>
+            <li><a href="#comparisons">Comparisons</a></li>
+          </ul>
+        </li>
+        <li><a href="#going-with-the-flow">Going with the flow</a>
+          <ul>
+            <li><a href="#if-else-else-if">If, else, else if</a></li>
+            <li><a href="#for">for</a></li>
+            <li><a href="#while-and-do-while">while (and do-while)</a></li>
+            <li><a href="#goto">goto</a></li>
+          </ul>
+        </li>
         <li><a href="#getting-functional">Getting Functional</a>
           <ul>
             <li><a href="#the-stack">The Stack</a></li>
