@@ -108,7 +108,7 @@ Basic Operations # I&rsquo;m going to mostly skip talking about addition, subtra
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.3c5c487c169bc9b73253d68ef8887205978bdccf2d346cc4f2ffa6ab034877c6.js" integrity="sha256-PFxIfBabybcyU9aO&#43;IhyBZeL3M8tNGzE8v&#43;mqwNId8Y="></script>
+<script defer src="/en.search.min.1679defb0009c0ca06b94b176d4d8bff567dc6bfab754ebcf622b722bf0fa0b2.js" integrity="sha256-Fnne&#43;wAJwMoGuUsXbU2L/1Z9xr&#43;rdU689iK3Ir8PoLI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -562,15 +562,18 @@ https://github.com/alex-shpak/hugo-book
           <ul>
             <li><a href="#basic-operations">Basic Operations</a></li>
             <li><a href="#bitwise-operations">Bitwise Operations</a></li>
-            <li><a href="#comparisons">Comparisons</a></li>
+            <li><a href="#beyond-bitwise-comparisons">Beyond Bitwise: Comparisons</a></li>
           </ul>
         </li>
         <li><a href="#going-with-the-flow">Going with the flow</a>
           <ul>
             <li><a href="#if-else-else-if">If, else, else if</a></li>
             <li><a href="#for">for</a></li>
+            <li><a href="#break">Break!</a></li>
+            <li><a href="#for-each">for each</a></li>
             <li><a href="#while-and-do-while">while (and do-while)</a></li>
             <li><a href="#goto">goto</a></li>
+            <li><a href="#swichcase">swich/case</a></li>
           </ul>
         </li>
         <li><a href="#getting-functional">Getting Functional</a>
@@ -643,38 +646,335 @@ https://github.com/alex-shpak/hugo-book
   Bitwise Operations
   <a class="anchor" href="#bitwise-operations">#</a>
 </h3>
-<h4 id="gettin-shifty--and-">
-  Gettin&rsquo; Shifty: &raquo; and &laquo;
-  <a class="anchor" href="#gettin-shifty--and-">#</a>
+<h4 id="bits">
+  Bits?
+  <a class="anchor" href="#bits">#</a>
 </h4>
+<p>Yep. Computers can only see numbers as binary, 1&rsquo;s and 0&rsquo;s. Sometimes, you do need to play with binary directly.</p>
+<p>Before we can look at operations on binary, you need to know how to read it, fortunately, it&rsquo;s pretty easy for positive numbers. First, you should know we usually pad binary numbers with zeros.</p>
+<p>Imagine you have some normal decimal numbers, say 0, 1, 23, and 1000. If you needed to use the same number of digits to repsent them all, you could pad them with zeros. That is, you&rsquo;d have 0000, 0001, 0023, and 1000. The values haven&rsquo;t changed, you&rsquo;ve just put zero in front of them so they&rsquo;re the same length.</p>
+<p>So, with binary, if we have 1, 01, 001, or 0001 or 00000001 the same still applies, it&rsquo;s still just 1.</p>
+<p>Second weird thing, we&rsquo;ll often (but not always!) prefix binary numbers with 0b, so, you might see 0b00000001, that&rsquo;s still just 1. This is done because otherwise it may be hard to tell if a number is binary or just happens to only have 1&rsquo;s and 0&rsquo;s.</p>
+<p>Alright, then, how do we actually read numbers, well, some people can see it right away just seeing a pattern so</p>
+<p>0 = 0000, 1 = 0001, 0010 = 2, 0011 = 3, 0100 = 4, 0101 = 5, 0110 = 6, 0111 = 7, 1000 = 8, 1001 = 9, &hellip;</p>
+<p>If that is enough for you to understand, great. If it&rsquo;s not think about it like this, the first digit, all the way on the right, is the 1&rsquo;s place - just like in decimal, the second digit, is the 2&rsquo;s place, the 3&rsquo;rd the 4&rsquo;s, the 4th the 8&rsquo;s place, etc.</p>
+<p>so, if we have 1100 read it backwards. 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \((0 \times 1) &#43; (0 \times 2) &#43; (1 \times 4) &#43; (1 \times 8) = 12\)
+</span>
+</p>
+<p>In case it&rsquo;s not obvious, that&rsquo;s actually  <span>
+  \((0 \times 2^0) &#43; (0 \times 2^1) &#43; (1 \times 2^2) &#43; (1 \times 2^3) = 12\)
+</span>
+. Remember, any number to the 0 power, that is <span>
+  \(x^0\)
+</span>
+, is <strong>always</strong> 1.</p>
+<p>While a binary number with 4 digits can only go up to 15, binary numbers can still get quite large. Most computers today are 64 bit, which means directly working on two 64 bit numbers should still be fast. These numbers, assuming they&rsquo;re unsigned (meaning they can&rsquo;t go negative), can be as high as 184,46,744,073,709,551,615</p>
+<p>Alright, so what about negative numbers? Well, for reasons, it works out that we do negatives by letting the <strong>most significant bit</strong> (the right most bit) represent the sign, and then flipping all the other bits. So, if we have 8 bits, -3 is 0b11111101, -42 is 0b11010110. Something to consider here is that if we have a really big positive number, say 0b01111111 (which is 127) and then add 1 to it we wind up with 0b10000000 which, for an 8 bit <strong>signed</strong> number is -128. This is called <strong>overflow</strong>.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Okay, this is almost everything you need to know for now. I do want to briefly mention <strong>hexadecimial</strong>. Basically, reading binary really sucks so we often don&rsquo;t. Instead, we let our numbers go from 0 to F, giving us 16 digits. This lets each symbol represent 4 bits, and two symbols represent a byte (8-bits).</p>
+<p>While binary is written with a 0b prefix, hexadecimal (often just called hex) is written with a 0x prefix.</p>
+<p>So, 0xFF is 0b11111111 is 255.</p>
+<p>This also gives rise to what is know as a hex editor. Very rarely, you may need to look at the binary output of something that doesn&rsquo;t have a better representation or meaning to you other than the actuall binary itself. In that case, you need a way to look at the hex (as a condensed view of the binary) directly. We&rsquo;re rapidly going off an a tagent though, so back to the point&hellip;</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <table>
+<thead>
+<tr>
+<th>Binary (0b)</th>
+<th>Hex (0x)</th>
+<th>Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0100</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0101</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0110</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>0111</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>9</td>
+<td>9</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr>
+<td>1011</td>
+<td>B</td>
+<td>11</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>C</td>
+<td>12</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>D</td>
+<td>13</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>E</td>
+<td>14</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>F</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+  
+</div>
+
 <h4 id="and-and-or-or-or-and-and">
   AND and OR or OR and AND?
   <a class="anchor" href="#and-and-or-or-or-and-and">#</a>
 </h4>
-<h4 id="xor">
+<p>Say you have two numbers 0b11001100 and 0b01010101. You might want to make it so that only the bits that are 1 in both number one <strong>and</strong> number two are 1 in a new number, so getting 0b10001000. Well, this is a <em>logical AND</em> and it is done with a single &lsquo;&amp;&rsquo; character.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>b11001100;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>b10101010;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">&amp;</span> b; <span style="color:#75715e">// = 0b10001000
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Simisarly, you might want check if either of the bits in a <strong>or</strong> b is 1, and if it is, set the bit in a new number. This is written with a <code>|</code> charater.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>b11001100;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>b10101010;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">|</span> b; <span style="color:#75715e">// = 0b11101110
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="xor">
   XOR?
   <a class="anchor" href="#xor">#</a>
 </h4>
-<h3 id="comparisons">
-  Comparisons
-  <a class="anchor" href="#comparisons">#</a>
+<p>In English, if somebody asks you if you&rsquo;d like cake or ice cream, it&rsquo;s up to context for you to know if you have two choices Cake OR Icecream or three, Cake, Ice Cream, or BOTH. The OR from above is the &ldquo;Both&rdquo; variety. The bit still gets set to 1 if both are 1. XOR, or e<strong>X</strong>clusive <strong>OR</strong>, is the one-or-the-other version, the bit is only set if exclusively one of the bits is 1. It&rsquo;s written with a <code>^</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>b11001100;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>b10101010;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">^</span> b; <span style="color:#75715e">// = 0b01100110
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="gettin-shifty--and-">
+  Gettin&rsquo; Shifty: &raquo; and &laquo;
+  <a class="anchor" href="#gettin-shifty--and-">#</a>
+</h4>
+<p>Sometimes, you need to shift bits over. Say you have a big number, 0b10101111, but you only want the top 4 bits, you could shift them to the left:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint16_t</span> big_number              <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xBEEF</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Shift the 0xBE over, -&gt; 0x00BE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">uint8_t</span>  most_significant_bits   <span style="color:#f92672">=</span> big_number <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Mask out the lower 4 bits -&gt; 0x00EF
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">uint8_t</span>  least_significant_bits  <span style="color:#f92672">=</span> big_number <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Similarly, say yo u have two halves of a big number, but need to compine them, you could use a right shift to get the bits into position before OR&rsquo;ing them together.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> most_significant_bits  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xCA</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> least_significant_bits <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFE</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint16_t</span> big_number <span style="color:#f92672">=</span>  (most_significant_bits <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">|</span> least_significant_bits
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="beyond-bitwise-comparisons">
+  Beyond Bitwise: Comparisons
+  <a class="anchor" href="#beyond-bitwise-comparisons">#</a>
 </h3>
 <h4 id="-and-">
   &amp;&amp; and ||
   <a class="anchor" href="#-and-">#</a>
 </h4>
-<h4 id="-and--1">
-  &gt; and &lt;
-  <a class="anchor" href="#-and--1">#</a>
+<p>Above we were working on bits. This often isn&rsquo;t how we work, instead, we just want to know is this big expression <em>True</em> or <em>False</em>, or, in C, any-value-other-than-zero or zero. That&rsquo;s what the normal AND and OR comparisons are for. Unlike their less common (but simplier to write!) siblings, these are written with two of the symbol, so AND is <code>&amp;&amp;</code> and OR is <code>||</code>. But, what are these for?</p>
+<p>Well, say you have some user input for their age and you only want to tell them they can enter if they&rsquo;re at least 13 but under 100:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>((age <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">13</span>) <span style="color:#f92672">&amp;&amp;</span> (age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>)){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;You may enter!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Or, you might want to do this the other way around, telling people that are outside the range to leave</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>((age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">13</span>) <span style="color:#f92672">||</span> (age <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">100</span>)){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Go Away!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="-and---and-">
+  &gt; and &lt;, &gt;= and &lt;=
+  <a class="anchor" href="#-and---and-">#</a>
 </h4>
-<h4 id="-and--2">
-  &lt;= and &gt;=
-  <a class="anchor" href="#-and--2">#</a>
-</h4>
-<h4 id="--">
+<p>Well, these are pretty obvious and shown above. They&rsquo;re just greater than, less than, greater than or equal to, and less than or equal to.</p>
+<p>The only thing to be careful of here is that the logic actually matches what you want. If you want a loop that says 0 though 3, you want a loop that goes to less-than-4:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>, i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	print(<span style="color:#e6db74">&#34;%d&#34;</span>,i);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="--">
   == ≠ =
   <a class="anchor" href="#--">#</a>
 </h4>
+<p>Finally, you can check for equality or inequality</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Correct Password!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (name <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;Vega&#34;</span>){ <span style="color:#75715e">//not equal
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;User Not Authorized!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Note, you can actually use the <code>!</code> symbol to negate anything, for example, we could have written the above as</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>(age <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">13</span>) <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>(age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>)){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Go Away!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>((age <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">13</span>) <span style="color:#f92672">||</span> (age <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">100</span>))){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;You May Enter&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There are times where this sort of backwards logic is actually easier to read.</p>
 <h2 id="going-with-the-flow">
   Going with the flow
   <a class="anchor" href="#going-with-the-flow">#</a>
@@ -683,10 +983,169 @@ https://github.com/alex-shpak/hugo-book
   If, else, else if
   <a class="anchor" href="#if-else-else-if">#</a>
 </h3>
-<h3 id="for">
+<p>You&rsquo;ve seen <code>if</code> statments used so many times now that covering them now seems like a bit of a joke. Still, there are sme extra things you should be aware of. First, you can write <code>else if</code> statments.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Vega&#34;</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Hi Vega!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Soatok&#34;</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Hi Soatok!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>and these can still, optinoally, have an <code>else</code> as a catch all</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Vega&#34;</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Hi Vega!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Soatok&#34;</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Hi Soatok!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Hi, have we met?</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Do keep in mind, that if an input could be true for multiple things, only the first matching case will happen. For example, say we have this code</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(number <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Greater than 10</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (number <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Greater than 5</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;Less than 5</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And <code>number</code> is 11, then only &ldquo;Greater than 10&rdquo; will print because the first condition was met, so it never checked the next one.</p>
+<p>You can also nest <code>if</code> statments</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (b <span style="color:#f92672">==</span> c){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;a, b, and c are equal.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">&gt;</span> d){
+</span></span><span style="display:flex;"><span>		printf(<span style="color:#e6db74">&#34;a and b are greater than d.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;a is equal to b, not equal to c, and less than d.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="for">
   for
   <a class="anchor" href="#for">#</a>
 </h3>
+<p>You&rsquo;ve seen a lot of for&rsquo;s in python from the start of this:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>	print(i)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>but if you haven&rsquo;t actually ran it as code, you may not realize that <code>range(10)</code> is not 1-10, but rather 0-9. This is largely because in most programming languages (Python and C included) arrays/lists are 0-indexed. So, if we want to access each item in an array of 10 items we need to start with <code>item[0]</code> and end with <code>item[9]</code>.</p>
+<p>The same code in C is</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,i);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I actually think the C style here is a bit more convient, as if you want to increment by something else it&rsquo;s really obvious, for example, to increment by 10:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,i);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You should also know you can nest for loops, use different conditions, decrement them, etc:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i <span style="color:#f92672">=</span> i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;i is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,i);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">20</span>; j <span style="color:#f92672">=</span> j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;j is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,j);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&gt;=</span> j; k <span style="color:#f92672">=</span> k<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        	printf(<span style="color:#e6db74">&#34;k is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,k);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="break">
+  Break!
+  <a class="anchor" href="#break">#</a>
+</h3>
+<h3 id="for-each">
+  for each
+  <a class="anchor" href="#for-each">#</a>
+</h3>
+<p class="tip ">
+    C does not have a &lsquo;for each&rsquo; system
+</p>
 <h3 id="while-and-do-while">
   while (and do-while)
   <a class="anchor" href="#while-and-do-while">#</a>
@@ -695,9 +1154,14 @@ https://github.com/alex-shpak/hugo-book
   <del>goto</del>
   <a class="anchor" href="#goto">#</a>
 </h3>
+<p>I reallllly don&rsquo;t want to even bring these up. GOTO is something that you should never ever ever ever ever ever use. Never. Never ever. Okay? Never. I&rsquo;m only bringing them up because someday your may be unfortunate enough to run into code that does and you should know how to read it:</p>
 <p>if/elif/else, for, while, brief note on recussion, goto</p>
 <p>example of to small of an int on a loop</p>
 <p>Talk about asm and branching, bne, ble, etc.</p>
+<h3 id="swichcase">
+  swich/case
+  <a class="anchor" href="#swichcase">#</a>
+</h3>
 <h2 id="getting-functional">
   Getting Functional
   <a class="anchor" href="#getting-functional">#</a>
@@ -795,15 +1259,18 @@ https://github.com/alex-shpak/hugo-book
           <ul>
             <li><a href="#basic-operations">Basic Operations</a></li>
             <li><a href="#bitwise-operations">Bitwise Operations</a></li>
-            <li><a href="#comparisons">Comparisons</a></li>
+            <li><a href="#beyond-bitwise-comparisons">Beyond Bitwise: Comparisons</a></li>
           </ul>
         </li>
         <li><a href="#going-with-the-flow">Going with the flow</a>
           <ul>
             <li><a href="#if-else-else-if">If, else, else if</a></li>
             <li><a href="#for">for</a></li>
+            <li><a href="#break">Break!</a></li>
+            <li><a href="#for-each">for each</a></li>
             <li><a href="#while-and-do-while">while (and do-while)</a></li>
             <li><a href="#goto">goto</a></li>
+            <li><a href="#swichcase">swich/case</a></li>
           </ul>
         </li>
         <li><a href="#getting-functional">Getting Functional</a>

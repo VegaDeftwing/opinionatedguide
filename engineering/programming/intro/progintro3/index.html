@@ -83,7 +83,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 10.3 - Getting Tools # As mentioned above, you&rsquo;ll be learning both Python and C. This means we need to get the tools necessary for working with each. If you&rsquo;re following along with OpGuides as a whole and have Linux setup, this will be easy. If you&rsquo;re on Windows it&rsquo;s not hard but there are some annoying steps we&rsquo;ll need to jump through.
-Arch Linux Run pacman -Syu gcc python, then you&rsquo;ll want to grab visual-studio-code-bin from the AUR.">
+Getting Code To Run # Arch Linux Run pacman -Syu gcc python, then you&rsquo;ll want to grab visual-studio-code-bin from the AUR.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -96,7 +96,7 @@ Arch Linux Run pacman -Syu gcc python, then you&rsquo;ll want to grab visual-stu
 </style>
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 10.3 - Getting Tools # As mentioned above, you&rsquo;ll be learning both Python and C. This means we need to get the tools necessary for working with each. If you&rsquo;re following along with OpGuides as a whole and have Linux setup, this will be easy. If you&rsquo;re on Windows it&rsquo;s not hard but there are some annoying steps we&rsquo;ll need to jump through.
-Arch Linux Run pacman -Syu gcc python, then you&rsquo;ll want to grab visual-studio-code-bin from the AUR." />
+Getting Code To Run # Arch Linux Run pacman -Syu gcc python, then you&rsquo;ll want to grab visual-studio-code-bin from the AUR." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/intro/progintro3/" /><meta property="article:section" content="Engineering" />
 
@@ -106,7 +106,7 @@ Arch Linux Run pacman -Syu gcc python, then you&rsquo;ll want to grab visual-stu
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.3c5c487c169bc9b73253d68ef8887205978bdccf2d346cc4f2ffa6ab034877c6.js" integrity="sha256-PFxIfBabybcyU9aO&#43;IhyBZeL3M8tNGzE8v&#43;mqwNId8Y="></script>
+<script defer src="/en.search.min.1679defb0009c0ca06b94b176d4d8bff567dc6bfab754ebcf622b722bf0fa0b2.js" integrity="sha256-Fnne&#43;wAJwMoGuUsXbU2L/1Z9xr&#43;rdU689iK3Ir8PoLI="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -554,8 +554,22 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-103---getting-tools">Chapter 10.3 - Getting Tools</a></li>
+    <li><a href="#chapter-103---getting-tools">Chapter 10.3 - Getting Tools</a>
+      <ul>
+        <li><a href="#getting-code-to-run">Getting Code To Run</a></li>
+        <li><a href="#debugging">Debugging!</a></li>
+        <li><a href="#extra-things-to-make-life-easier">Extra Things To Make Life Easier</a></li>
+      </ul>
+    </li>
     <li><a href="#chapter-10π---intermission">Chapter 10.π - Intermission</a></li>
+    <li><a href="#chapter-10ψ---rant-about-c">Chapter 10.ψ - Rant about C</a>
+      <ul>
+        <li><a href="#example-1-out-of-bound-doesnt-always-fail">Example 1: Out-Of-Bound Doesn&rsquo;t Always Fail</a></li>
+        <li><a href="#example-2-strings-should-be-null-terminated-usually">Example 2: Strings should be Null-Terminated (Usually)</a></li>
+        <li><a href="#example-3-stupid-code-is-still-valid-code">Example 3: Stupid Code is Still Valid Code</a></li>
+        <li><a href="#but-wait-theres-more">But Wait, There&rsquo;s More!</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -572,6 +586,10 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#chapter-103---getting-tools">#</a>
 </h1>
 <p>As mentioned above, you&rsquo;ll be learning both Python and C. This means we need to get the tools necessary for working with each. If you&rsquo;re following along with OpGuides as a whole and have Linux setup, this will be easy. If you&rsquo;re on Windows it&rsquo;s not <em>hard</em> but there are some annoying steps we&rsquo;ll need to jump through.</p>
+<h2 id="getting-code-to-run">
+  Getting Code To Run
+  <a class="anchor" href="#getting-code-to-run">#</a>
+</h2>
 
 
 
@@ -617,6 +635,10 @@ https://github.com/alex-shpak/hugo-book
   <label for="tabs-Tools-3">Other Linux</label>
   <div class="book-tabs-content markdown-inner">[TODO] Other Lin</div></div>
 
+<h2 id="debugging">
+  Debugging!
+  <a class="anchor" href="#debugging">#</a>
+</h2>
 <p>Alright, now that we know we can write and run code in both languages, we also need to make sure we can <em>debug</em> code. This is sort of jumping the gun a bit, but it will help to learn if you can actually see things run step-by-step.</p>
 <p>Normally, when you run code it runs everything as fast as it can, this is great when it works, but bad when it doesn&rsquo;t and you need to know why. So, let&rsquo;s start with python. Go ahead and make a new file (ctrl+n,ctrl+s) and name it <code>testdebug.py</code>. Go ahead and put the following in that file:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -725,6 +747,19 @@ https://github.com/alex-shpak/hugo-book
 </p>
 <p>You know the drill now. Press (Ctrl+F5) and see if it runs. This time, it may ask you what compiler you want to use - for now, we&rsquo;ll just use GCC.</p>
 <p>Then, set a break point - this time probablyon line 13, <code>for (int i = 0; ...</code>, and run it <em>with</em> debugging and step through.</p>
+<h2 id="extra-things-to-make-life-easier">
+  Extra Things To Make Life Easier
+  <a class="anchor" href="#extra-things-to-make-life-easier">#</a>
+</h2>
+<ul>
+<li>Ligatures</li>
+<li>Code Completion</li>
+<li>Linting</li>
+<li>Colored brackets</li>
+<li>Auto-formatting</li>
+<li>TODOS</li>
+<li>Transformer package</li>
+</ul>
 <h1 id="chapter-10π---intermission">
   Chapter 10.π - Intermission
   <a class="anchor" href="#chapter-10%cf%80---intermission">#</a>
@@ -733,6 +768,200 @@ https://github.com/alex-shpak/hugo-book
 <p><u>Programming isn&rsquo;t about writing code.</u></p>
 <p>The vast majority of a good programmer&rsquo;s time is spent reading documention, reseaching how others have solved the same or similar problems, and finding problems in the code they&rsquo;ve written (so, testing and debugging).</p>
 <p>So, if as you&rsquo;re reading you&rsquo;re thing &ldquo;But, man, this sure is a lot of reading, when do we get to the <strong>good stuff</strong>&rdquo;, then, hate to tell &lsquo;ya, this <em>is</em> the good stuff.</p>
+<h1 id="chapter-10ψ---rant-about-c">
+  Chapter 10.ψ - Rant about C
+  <a class="anchor" href="#chapter-10%cf%88---rant-about-c">#</a>
+</h1>
+<p>Like I said, we need to dive into C so you can understand how some of the lower-level things work - pointers, bit manipulations, etc.</p>
+<p>Unfortuantely, C is a massive cluster fuck and seemingly exists exclusively to make you fuck up. It is brutally difficult to write safe code in, with even it&rsquo;s standard library functions known to have security problems unless used very carefully. So even though I don&rsquo;t expect you to understand these <del>fully</del> really at all, I want to show you some of why C is hard and let you know that even people with years of experiance writting in C still ocassionaly make really stupid mistakes.</p>
+<h2 id="example-1-out-of-bound-doesnt-always-fail">
+  Example 1: Out-Of-Bound Doesn&rsquo;t Always Fail
+  <a class="anchor" href="#example-1-out-of-bound-doesnt-always-fail">#</a>
+</h2>
+<p>The language will happily let you write and compile code like this:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> my_array[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> my_other_array[<span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    my_array[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>which is <strong>very</strong> wrong because arrays start at 0 (so these arrays have 3 items, for example at <code>my_array[0]</code>,<code>my_array[1]</code>, and <code>my_array[2]</code>  - more on this later). This might make your code crash outright, but it might still <em>sort of</em> work, just when you write 42 to <code>my_array[3]</code> it might be clobbering the value of some other variable, maybe setting <code>my_other_array[0]</code> to 42, maybe something else entirely.</p>
+<p>This is really, really bad. Now, modern tools try to prevent this and actually include some of their own code to try to stop you from doing this <em>particular</em> fuck up, but it&rsquo;s not bullet proof. In pretty much any other language you could either be 100% sure it will crash outright (again, this is better in this case) or it will just refuse to run at all.</p>
+<h2 id="example-2-strings-should-be-null-terminated-usually">
+  Example 2: Strings should be Null-Terminated (Usually)
+  <a class="anchor" href="#example-2-strings-should-be-null-terminated-usually">#</a>
+</h2>
+<p>Say you want to make every noob&rsquo;s first program, one that just says &ldquo;Hello, World!&rdquo;, let&rsquo;s do that <strong>wrong</strong> in C:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> greeting[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    printf(greeting);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This looks fine, right? Well, mostly, yes. But it will probably not act as you want because after saying &ldquo;Hello World!&rdquo; there won&rsquo;t be a new line for the terminal to print to.</p>
+<p>It <em>should</em> be <code>char greeting[] = &quot;Hello World!\n&quot;;</code> or <code>printf(&quot;%s\n&quot;,greeting);</code>. This is weird, and kind of annoying.</p>
+<h2 id="example-3-stupid-code-is-still-valid-code">
+  Example 3: Stupid Code is Still Valid Code
+  <a class="anchor" href="#example-3-stupid-code-is-still-valid-code">#</a>
+</h2>
+<p>Pop Quiz (for something you haven&rsquo;t been taught yet), which is right:</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(a <span style="color:#f92672">=</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+  </div>
+  
+</div>
+
+<p>Well, unless your intent was to check if b was anything other than 0, it&rsquo;s not the one on the left. As with most programming languages, C uses one equal sign to <strong>assign</strong> a value, and two equal signs to <strong>compare</strong> values. Unlike most languages, C will let you write and compile code with the assignment where the comparison sholud be, without any real, intentional comparison taking place.</p>
+<h2 id="but-wait-theres-more">
+  But Wait, There&rsquo;s More!
+  <a class="anchor" href="#but-wait-theres-more">#</a>
+</h2>
+<p>There&rsquo;s many other annoyances.</p>
+<ul>
+<li>
+<p>C only <em>sort of</em> supports variable length arrays - that is something like <code>int size = 12; int my_array[n];</code> will <em>probably</em> work (it depends on your compiler), but shouldn&rsquo;t be used.</p>
+</li>
+<li>
+<p>It&rsquo;s really hard to prevent something from accessing memory you don&rsquo;t want it to in the same program</p>
+</li>
+<li>
+<p>There is no boolen (True / False) type built in, you actually have to <code>#include &lt;stdbool.h&gt;</code></p>
+</li>
+<li>
+<p>The compliation process requires functions be declared before they&rsquo;re called, basically:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> add(a,b); <span style="color:#75715e">// don&#39;t ever actually turn add into a function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>will fail because <code>add()</code> is defined <strong>after</strong> main. To fix this, you&rsquo;re supposed to add <code>int add(int a, int b);</code> to a different file, called a header file, and then use <code>#include whatever.h</code> at the top of the <code>whatever.c</code> file. This is really annoying, and requires the programmer to change things in two places if the definition of a function ever changes.</p>
+</li>
+<li>
+<p>The default types are bad. You&rsquo;ve seen me use <code>int</code>, <code>int8_t</code>, <code>uint8_t</code>, <code>char</code>, etc. so far. These are types. C&rsquo;s pretty much suck. The basic <code>int</code> may varry in how big of numbers it can handle depending on the platform. <code>int8_t</code> is always 8-bits, but it requires you <code>#include &lt;stdint.h&gt;</code>. On top of this, there&rsquo;s no string type, you only get arrays of characters. This is really annoying to work with.</p>
+</li>
+<li>
+<p><code>a = b = c = d = e;</code> is valid code, for some fucking reason.</p>
+</li>
+</ul>
+<p>&hellip; I could keep going, and list some much more technical problems there&rsquo;s absolutely no chance you&rsquo;d understand yet. But my point is this: <strong>C is hard</strong>, and you will get frustrated because of small errors that are hard to figure out what <em>exactly</em> you did wrong. Missing a single semicolon on the end of a line will cost you a few hours of your life at some point. This struggle will make you a better programmer, but you will definitely hate it.</p>
+<p>C has also been the dominant programming lanuguage for low level programming for 50 years. That&rsquo;s one hell of a legacy, and only now in the last few years is something <em>finally</em> starting to compete: Rust. Rust, as a language, is still really hard to write in - espically for begineers with no prior knowledge - but it at least doesn&rsquo;t let you make the crazy fuckups C does. I&rsquo;ll go into why you&rsquo;d ever want to use either later, but for now, just trust me, no matter how bad is sucks, you have to learn C.</p>
+<details >
+  <summary>Chapter 10.ψ? </summary>
+  <div class="markdown-inner">
+    <p>ψ is a fun number a bit bigger than π. 🤷</p>
+<div class="quote [Reciprocal Fibonacci Constant, Wikipedia](https://en.wikipedia.org/w/index.php?title=Reciprocal_Fibonacci_constant)">
+<p>
+    <p>The &lsquo;&lsquo;&lsquo;reciprocal Fibonacci constant&rsquo;&rsquo;&rsquo;, or ψ, is defined as the sum of the Reciprocals of the Fibonacci numbers:</p>
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\psi = \sum_{k=1}^{\infty} \frac{1}{F_k} = \frac{1}{1} &#43;  \frac{1}{1} &#43; \frac{1}{2} &#43; \frac{1}{3} &#43; \frac{1}{5} &#43; \frac{1}{8} &#43; \frac{1}{13} &#43; \frac{1}{21} &#43; \cdots.\)
+</span>
+<p>The value of ψ is known to be approximately</p>
+<span>
+  \(\psi = 3.359885666243177553172011302918927179688905133732\dots .\)
+</span>
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/w/index.php?title=Reciprocal_Fibonacci_constant">Reciprocal Fibonacci Constant, Wikipedia</a>
+    </div>
+</div>
+
+  </div>
+</details>
+
 </article>
  
       
@@ -781,8 +1010,22 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-103---getting-tools">Chapter 10.3 - Getting Tools</a></li>
+    <li><a href="#chapter-103---getting-tools">Chapter 10.3 - Getting Tools</a>
+      <ul>
+        <li><a href="#getting-code-to-run">Getting Code To Run</a></li>
+        <li><a href="#debugging">Debugging!</a></li>
+        <li><a href="#extra-things-to-make-life-easier">Extra Things To Make Life Easier</a></li>
+      </ul>
+    </li>
     <li><a href="#chapter-10π---intermission">Chapter 10.π - Intermission</a></li>
+    <li><a href="#chapter-10ψ---rant-about-c">Chapter 10.ψ - Rant about C</a>
+      <ul>
+        <li><a href="#example-1-out-of-bound-doesnt-always-fail">Example 1: Out-Of-Bound Doesn&rsquo;t Always Fail</a></li>
+        <li><a href="#example-2-strings-should-be-null-terminated-usually">Example 2: Strings should be Null-Terminated (Usually)</a></li>
+        <li><a href="#example-3-stupid-code-is-still-valid-code">Example 3: Stupid Code is Still Valid Code</a></li>
+        <li><a href="#but-wait-theres-more">But Wait, There&rsquo;s More!</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
