@@ -82,9 +82,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="10.7 - Data Structures # Why not just structs? # A New Objective # objects, classes, basic OO, inheritance
-I/O # Files, stdout/stderr, python pickle, databases, network connection, etc.
-Being Assertive # Assert, try/catch, exceptions">
+<meta name="description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properites, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -96,9 +94,7 @@ Being Assertive # Assert, try/catch, exceptions">
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="10.7 - Data Structures # Why not just structs? # A New Objective # objects, classes, basic OO, inheritance
-I/O # Files, stdout/stderr, python pickle, databases, network connection, etc.
-Being Assertive # Assert, try/catch, exceptions" />
+<meta property="og:description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properites, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/intro/progintro7/" /><meta property="article:section" content="Engineering" />
 
@@ -108,7 +104,7 @@ Being Assertive # Assert, try/catch, exceptions" />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.1679defb0009c0ca06b94b176d4d8bff567dc6bfab754ebcf622b722bf0fa0b2.js" integrity="sha256-Fnne&#43;wAJwMoGuUsXbU2L/1Z9xr&#43;rdU689iK3Ir8PoLI="></script>
+<script defer src="/en.search.min.4a43b9cf5bf18b8725f3c0528db3bec24b63d98470a589fb227a2cb5bfbc195d.js" integrity="sha256-SkO5z1vxi4cl88BSjbO&#43;wktj2YRwpYn7Inostb&#43;8GV0="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -556,12 +552,13 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#107---data-structures">10.7 - Data Structures</a>
+    <li><a href="#107---data-structures--object-orientation">10.7 - Data Structures &amp; Object Orientation</a>
       <ul>
         <li><a href="#why-not-just-structs">Why not just structs?</a></li>
         <li><a href="#a-new-objective">A New Objective</a></li>
         <li><a href="#io">I/O</a></li>
         <li><a href="#being-assertive">Being Assertive</a></li>
+        <li><a href="#pythons-iterators">Python&rsquo;s Iterators</a></li>
       </ul>
     </li>
   </ul>
@@ -575,19 +572,316 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="107---data-structures">
-  10.7 - Data Structures
-  <a class="anchor" href="#107---data-structures">#</a>
+  <article class="markdown"><h1 id="107---data-structures--object-orientation">
+  10.7 - Data Structures &amp; Object Orientation
+  <a class="anchor" href="#107---data-structures--object-orientation">#</a>
 </h1>
 <h2 id="why-not-just-structs">
   Why not just structs?
   <a class="anchor" href="#why-not-just-structs">#</a>
 </h2>
+<p>C is a very low level language and only lets you make <code>struct</code>s. Structs are fine, but they have some annoying properites, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.</p>
+<p>For example, say we have a basic C structure we&rsquo;ll call a &ldquo;person&rdquo; with first name, last name, age, and an ID, etc. We can make that structure easy enough:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> Person {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> first_name[<span style="color:#ae81ff">20</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> last_name[<span style="color:#ae81ff">20</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> age;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> id;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Problem is, somebody could do somethnig like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> person bob;
+</span></span><span style="display:flex;"><span>bob.first_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;this string is a lot more than twenty characters&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>which would crash the program, because we&rsquo;ve exceded the length limit we defined above, so, maybe we make a function to set the first name:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">set_first_name</span>(<span style="color:#66d9ef">struct</span> Person person, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(strlen(person.first_name) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">20</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>       person.first_name <span style="color:#f92672">=</span> name;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>and so long as we only ever use this function, this is fine. Problem is, we really can&rsquo;t hide the data from other things and prevent them from modifying the name directly.</p>
+<p>The problem get&rsquo;s worse too. For example, say we wanted to add somethnig to the structure that stores the last time the ID was changed. This should never be able to be changed directly, it sholud only change if the ID changes, and it should ALWAYS change if the ID changes. This is impossible to enforce in C.</p>
+<p>Getting a bit more abstract, what if we want data to be able to inherit ideas. For example, say we want to be able to make a person, but also have a data type for employee and customer? It would make sense to make both employees and customers people. That is, we&rsquo;d want these data types to <em>inherit</em> their properties and data fields from the parent data structure. What I&rsquo;m begining to describe is called &ldquo;Object orientation&rdquo; and it&rsquo;s a feature common to many languages, but notably not available in C. It generally makes it easy to model more complex data structures and limit the way you interact in them, preventing bugs.</p>
+<p>Really, the big difference here isn&rsquo;t that you can do something new (like inheritance, etc.) - you can do similar things in C with structures and pointers if you&rsquo;re clever - it&rsquo;s what we <em>can&rsquo;t</em> do. You can place limits on your code to prevent yourself from doing very stupid things, which once you&rsquo;ve written enough code, you&rsquo;ll know the majority of your time goes to fixing stupid mistakes.</p>
 <h2 id="a-new-objective">
   A New Objective
   <a class="anchor" href="#a-new-objective">#</a>
 </h2>
-<p>objects, classes, basic OO, inheritance</p>
+<p>Alright, so, we know we want something more than basic data structures (<a href="https://www.youtube.com/watch?v=QM1iUe6IofM&amp;t=1988s">sometimes</a>) and this thing is called &ldquo;Object Orientation&rdquo;, so, uh, what is that?</p>
+<p>Okay, so, put very basically it means you make your code with <strong>classes</strong> and make instances of <strong>objects</strong>. Each class (and so each object) has a set of <strong>methods</strong> (basically functions) that define how you can interact with it. These methods can either be <strong>public</strong> or <strong>private</strong>. private methods can only be called by other things within the class, public can be called from outside the class. Now, in truth, this is one place where python is a hair weird to teach this as it really doesn&rsquo;t do the public/private distinction well, but ╮(─▽─)╭.</p>
+<p>Anyway, let&rsquo;s look at an example. Because OO really only makes a lot of sense in the context of larger code, let&rsquo;s assume we&rsquo;re making a game like MineCraft and need a tool system. The following is a rough idea of how that might look in an object oriented sytle for making a Tool class, making a Pickaxe subclass of the Tool class</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Tool</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self,durability,name,cool_down_time):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># We want to set the name internally,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># but don&#39;t want it to be modifed directly after being set initally</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_name <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>        sef<span style="color:#f92672">.</span>durability <span style="color:#f92672">=</span> durability
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cool_down_time <span style="color:#f92672">=</span> cool_down_time
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># This will get initalized automatically,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># no need to pass it in when making the item</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>time_last_used <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_name</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>name
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_name</span>(self,name)
+</span></span><span style="display:flex;"><span>    	<span style="color:#75715e"># Python doesn&#39;t give us a good way to ensure data types,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># and since this would be from user input, we want to be extra safe.</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#66d9ef">if</span> type(name) <span style="color:#f92672">!=</span> str:
+</span></span><span style="display:flex;"><span>        	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check if the entered string is a reasonable length</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(name) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">30</span> <span style="color:#f92672">or</span> len(name) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_name <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_durability</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>durability
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_is_broken</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> durability <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">use_item</span>():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>__is_broken():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ((time<span style="color:#f92672">.</span>time() <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>time_last_used) <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>cool_down_time):
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># If enough time hasn&#39;t elapsed, we can&#39;t use the item again</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>durability <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>time_last_used <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Return true to indicate we could use the item</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># If the item is broken, we can&#39;t use it</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PickTool</span>(Tool):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self,durability,name,cool_down_time,mining_level,attack_damage):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__(durability,name,cool_down_time)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>mining_level <span style="color:#f92672">=</span> mining_level
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>attack_damage <span style="color:#f92672">=</span> attack_damage
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tool_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pick&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">use_item_on_block</span>(self,target_block):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Try to use the item</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> Tool<span style="color:#f92672">.</span>use_item():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> (target_block<span style="color:#f92672">.</span>hardness <span style="color:#f92672">&lt;</span> mining_level) <span style="color:#f92672">and</span> (target_block<span style="color:#f92672">.</span>tool <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>tool_type):
+</span></span><span style="display:flex;"><span>            target_block<span style="color:#f92672">.</span>damage()
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">use_item_on_mob</span>(self,target_mob):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> Tool<span style="color:#f92672">.</span>use_item():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            target_mob<span style="color:#f92672">.</span>hurt(self<span style="color:#f92672">.</span>damage)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Of course, this is lacking the code to craft the pick - that functionality should probably belong to a crafting table object, but without going into it too much, that might look like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Block</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">#...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InteractableBlock</span>(self,Block):
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">#...</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CraftingTableInteractableBlock</span>(self,InteractableBlock)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">#...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">craft_item</span>(self,player,items)
+</span></span><span style="display:flex;"><span>    	<span style="color:#75715e"># assume items is a list of 3 lists of 3 items, (a 3x3 grid)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># with something to represent no item.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> items <span style="color:#f92672">=</span> [[plank,plank,plank],[none,stick,none],[none,stick,none]]:
+</span></span><span style="display:flex;"><span>            player<span style="color:#f92672">.</span>add_to_inventory(PickTool(<span style="color:#ae81ff">20</span>,<span style="color:#e6db74">&#34;Wooden Pick&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And of course, there&rsquo;d be yet more code to actually let a player use the item once it&rsquo;s in their inventory. What you should note though, is that when calling <code>PickTool(1,&quot;Wooden Pick&quot;,1,1)</code> a new object of that type is made. If another one is crafted, it will still be a new item, with it&rsquo;s own durability, name, etc. Even if they&rsquo;re the same, if one is used it won&rsquo;t use the other.</p>
+<p>Maybe this would be easier to see with a toy example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span>:
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> __init__(self, name):
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>first_dog <span style="color:#f92672">=</span> Dog(<span style="color:#e6db74">&#34;Scruffy&#34;</span>)
+</span></span><span style="display:flex;"><span>second_dog <span style="color:#f92672">=</span> Dog(<span style="color:#e6db74">&#34;Spot&#34;</span>)		
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There&rsquo;s two dogs being &ldquo;made&rdquo;. If both were named &ldquo;Spot&rdquo; that would be fine, but it&rsquo;s still two different dogs. Just like how meeting someone with your same name doesn&rsquo;t make the two of you the same person.</p>
+<p>Another nice thing about this is it gives us a good way to organize our code, as usually it&rsquo;s a good call to have a file per class, though not always.</p>
+<p>[TODO]</p>
+<p>objects, classes, basic OO, inheritance, SOLID</p>
+<ul>
+<li><strong>S</strong> - Single Responsibility Principal
+<ul>
+<li>Each class should do one thing, and only one thing.</li>
+<li>This is easy in theory, but also sometimes mentally difficult, and requires breaking things down more than natural.</li>
+</ul>
+</li>
+<li><strong>O</strong> - Open-Closed Principal
+<ul>
+<li>Open for extension; Closed for modification</li>
+<li>In other words, you should be able to change how something works, as much as reasonable, by extending a class without changing it&rsquo;s source code.</li>
+</ul>
+</li>
+<li><strong>L</strong> - Lisov Substitution Principal
+<ul>
+<li>Shitty name</li>
+<li>Basically just means an instance of a thing should always be able to be replaced by a more-specific version.</li>
+<li>So, this really means that a specific version should still need all the attributes of the less-specific version.</li>
+<li>In the above example we had employees and customers as people. So, any code that does an operation on a person should be able to work on a generic person, employee, or customer; however, it&rsquo;s not necessary that any code that can work on an employee can work on a person</li>
+</ul>
+</li>
+<li><strong>I</strong> - Interface Segregation Principal
+<ul>
+<li>This one needs used within limits. Don&rsquo;t make code overly complex.</li>
+<li><a href="https://reflectoring.io/interface-segregation-principle/#:~:text=The%20Interface%20Segregation%20Principle%20%28ISP,%E2%80%9D%20or%20%E2%80%9Cfat%E2%80%9D%20interface">https://reflectoring.io/interface-segregation-principle/#:~:text=The%20Interface%20Segregation%20Principle%20(ISP,%E2%80%9D%20or%20%E2%80%9Cfat%E2%80%9D%20interface</a>.</li>
+</ul>
+</li>
+<li><strong>D</strong> - Dependency Inversion Principal
+<ul>
+<li>I also don&rsquo;t like this one. It&rsquo;s often preemptively writing code in case of a future rewrite. Great, until the rewrite requires you change things anyway. Arguably, it&rsquo;s harder to maintain code where the high level depends on the low level. Arguably, this is totally obnoxious over engineering in most circumstances.</li>
+<li>This does make sense if you&rsquo;re making something in a VERY big project, working with mulitple teams, etc.</li>
+<li><a href="https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f">https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>Polymorphism</strong> -</p>
 <h2 id="io">
   I/O
   <a class="anchor" href="#io">#</a>
@@ -597,7 +891,12 @@ https://github.com/alex-shpak/hugo-book
   Being Assertive
   <a class="anchor" href="#being-assertive">#</a>
 </h2>
-<p>Assert, try/catch, exceptions</p>
+<p>Assert and testing, try/catch, exceptions</p>
+<p><a href="https://stackoverflow.com/questions/1081409/why-should-i-use-asserts">https://stackoverflow.com/questions/1081409/why-should-i-use-asserts</a></p>
+<h2 id="pythons-iterators">
+  Python&rsquo;s Iterators
+  <a class="anchor" href="#pythons-iterators">#</a>
+</h2>
 </article>
  
       
@@ -646,12 +945,13 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#107---data-structures">10.7 - Data Structures</a>
+    <li><a href="#107---data-structures--object-orientation">10.7 - Data Structures &amp; Object Orientation</a>
       <ul>
         <li><a href="#why-not-just-structs">Why not just structs?</a></li>
         <li><a href="#a-new-objective">A New Objective</a></li>
         <li><a href="#io">I/O</a></li>
         <li><a href="#being-assertive">Being Assertive</a></li>
+        <li><a href="#pythons-iterators">Python&rsquo;s Iterators</a></li>
       </ul>
     </li>
   </ul>

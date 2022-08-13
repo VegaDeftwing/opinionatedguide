@@ -82,9 +82,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="The Bigger Picture # The Storage Hierarchy: # Registers→Cache→Memory→Disk &amp; The role of interrupts # Moving Data Vs Operating on Data # mov is the majority of instructions
-Generic = Slow # Accelerators make modern systems useful
-Abstractions are only usually good # Useful for getting work done, a massive pain in the ass when the issue is down the stack">
+<meta name="description" content="The Bigger Picture # Something that&rsquo;s most people get wrong about computers is thinking that the majority of what makes a computer go faster at something is being able to do math faster. After all, if you can add, divide, multiply, subtract, etc. numbers faster, that&rsquo;s everything a computer does, right? So making math twice as fast means everything is twice as fast? No. Very much so no.
+It turns out, the vast majority of what your computer does is not math and logic, but just moving data around.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -96,9 +95,8 @@ Abstractions are only usually good # Useful for getting work done, a massive pai
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="The Bigger Picture # The Storage Hierarchy: # Registers→Cache→Memory→Disk &amp; The role of interrupts # Moving Data Vs Operating on Data # mov is the majority of instructions
-Generic = Slow # Accelerators make modern systems useful
-Abstractions are only usually good # Useful for getting work done, a massive pain in the ass when the issue is down the stack" />
+<meta property="og:description" content="The Bigger Picture # Something that&rsquo;s most people get wrong about computers is thinking that the majority of what makes a computer go faster at something is being able to do math faster. After all, if you can add, divide, multiply, subtract, etc. numbers faster, that&rsquo;s everything a computer does, right? So making math twice as fast means everything is twice as fast? No. Very much so no.
+It turns out, the vast majority of what your computer does is not math and logic, but just moving data around." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/linux/hardware/biggerpicture/" /><meta property="article:section" content="Engineering" />
 
@@ -108,7 +106,7 @@ Abstractions are only usually good # Useful for getting work done, a massive pai
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.1679defb0009c0ca06b94b176d4d8bff567dc6bfab754ebcf622b722bf0fa0b2.js" integrity="sha256-Fnne&#43;wAJwMoGuUsXbU2L/1Z9xr&#43;rdU689iK3Ir8PoLI="></script>
+<script defer src="/en.search.min.4a43b9cf5bf18b8725f3c0528db3bec24b63d98470a589fb227a2cb5bfbc195d.js" integrity="sha256-SkO5z1vxi4cl88BSjbO&#43;wktj2YRwpYn7Inostb&#43;8GV0="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -560,12 +558,12 @@ https://github.com/alex-shpak/hugo-book
       <ul>
         <li><a href="#the-storage-hierarchy">The Storage Hierarchy:</a>
           <ul>
-            <li><a href="#registerscachememorydisk--the-role-of-interrupts">Registers→Cache→Memory→Disk &amp; The role of interrupts</a></li>
+            <li><a href="#registerscachememorydisk--the-role-of-interrupts">Registers→Cache→Memory→Disk (&amp; The role of interrupts)</a></li>
+            <li><a href="#stalling">Stalling</a></li>
           </ul>
         </li>
-        <li><a href="#moving-data-vs-operating-on-data">Moving Data Vs Operating on Data</a></li>
-        <li><a href="#generic--slow">Generic = Slow</a></li>
-        <li><a href="#abstractions-are-only-usually-good">Abstractions are only usually good</a></li>
+        <li><a href="#--generic--slow--"><!--Generic = Slow--></a></li>
+        <li><a href="#--abstractions-are-only-usually-good--"><!--Abstractions are only *usually* good--></a></li>
       </ul>
     </li>
   </ul>
@@ -586,29 +584,100 @@ https://github.com/alex-shpak/hugo-book
 <script>
     document.getElementById("hardwareMenu").open = true;
 </script>
+<p>Something that&rsquo;s most people get wrong about computers is thinking that the majority of what makes a computer go faster at something is being able to do math faster. After all, if you can add, divide, multiply, subtract, etc. numbers faster, that&rsquo;s everything a computer does, right? So making math twice as fast means everything is twice as fast? No. Very much so no.</p>
+<p>It turns out, the vast majority of what your computer does is not math and logic, but just <strong>moving data around</strong>.</p>
+<p>This is so much so the case that roughly 30% of the instructions your computer runs are the <code>mov</code> instruction, which does what it sounds like. This makes it by far the most used.</p>
+<p>What this means is that when we get to writing code, fast code isn&rsquo;t really code that does math fast, it&rsquo;s code that gets the data to the processor to work on fast. It&rsquo;s code that moves data as fast as possible. There&rsquo;s a catch though: The faster the memory and the closer to the CPU it is, the more it cost (like, in dollars).</p>
 <h2 id="the-storage-hierarchy">
   The Storage Hierarchy:
   <a class="anchor" href="#the-storage-hierarchy">#</a>
 </h2>
 <h3 id="registerscachememorydisk--the-role-of-interrupts">
-  Registers→Cache→Memory→Disk &amp; The role of interrupts
+  Registers→Cache→Memory→Disk (&amp; The role of interrupts)
   <a class="anchor" href="#registerscachememorydisk--the-role-of-interrupts">#</a>
 </h3>
-<h2 id="moving-data-vs-operating-on-data">
-  Moving Data Vs Operating on Data
-  <a class="anchor" href="#moving-data-vs-operating-on-data">#</a>
+<p>When people talk about computer storage and data access, they often describe RAM as short term memory and storage on a hard drive or solid state drive as long term memory. That metaphor is decent, but I like to break it down into further levels.</p>
+<p>At the very fastest access is <strong>CPU registers</strong>. If RAM is a big pool of short term memory, registers are the thing you&rsquo;re actively thinking about. Like if you&rsquo;re playing a board game, it&rsquo;s the number of steps you&rsquo;ve just read off the dice. It&rsquo;s actively being processed and worked on.</p>
+<p>Between the registers and RAM for size and speed is <strong>Cache</strong> (of which there are multiple levels, but don&rsquo;t worry about that for now). Imagine you&rsquo;re playing a really complex game, you may have all the rules in your short term memory, but each turn has phases - you&rsquo;d have the steps for that particular phase in mind during that phase, but in each phase you need to sort of mentally refresh yourself how it works. This is hugely bigger than the storage in the registers, but still usually not big enough to hold all the rules of the game. Breaking the metaphor a bit, you will usually have multiple programs running (games, in this metaphor), and all of them are probably keeping at least some information in cache.</p>
+<p>Then you have <strong>RAM</strong>. This is the mental space where you keep all the rules of the game while you&rsquo;re playing it. This is hugely bigger than the amount of cache. Breaking the metaphor a bit, it&rsquo;s big enough to actually hold the rules of multiple games (programs) in full.</p>
+<p>Then you have Solid State storage and Hard drives. You might only have one or the other, or you might have both. For the sake of analogy, I&rsquo;ll assume you have both.</p>
+<p>On the solid state drive you&rsquo;d keep your often done tasks, it&rsquo;s a sort of mental catalog of memories you can bring back pretty quickly, but aren&rsquo;t sitting at the front of your mind until you need them. There is some overhead in getting those thoughts up the hierarchy. You still have a lot more room here than in the above levels, but it&rsquo;s not endless.</p>
+<p>Then you have your hard drive. Your hard drive is like a little notebook of things you can never seem to remember you keep with you. You have to open it up, find what you&rsquo;re looking for, read it, then you can think about it. This can be something as small as a shopping list or as large as all the words to a play or the complete plot of a series of books.</p>
+<p>&hellip; Okay, I do have to modify the metaphor here a bit. Hard drives and solid states drives both actually act like this book metaphor, but imagine you had a little minion you could summon to go find what you were looking for. This would free you up to do something until the minion came back, poked you, and said &ldquo;Here&rsquo;s your request boss!&rdquo;. That&rsquo;s how they actually work, that poke is a <strong>CPU interrupt</strong>. Hard drives and Solid sate drives more-or-less look the same to your computer. They&rsquo;re both bulk storage you toss files onto. It&rsquo;s just that you get a lot more storage per dollar with a hard drive than an SSD, but SSDs are much, much, much faster. Hard drives, as mentioned back in the storage chapter, do literally have to move a read head to correct position on a spinning platter after all. A big thing SSDs are faster at isn&rsquo;t just bulk transfer - how quickly that minion can keep fetching things that are stored sequentially - but also in how quickly they can locate things. Think of it like giving the minion super speed bionic legs and a kick ass index. He still has to go read the books and fetch things for you, but he can find where the book is and get that data much faster&hellip; albeit it&rsquo;d still be faster if you didn&rsquo;t have to ask the minion in the first place.</p>
+<p>Then you have networking. Sending your virtual minion though the internet (or int<strong>ra</strong>net), the information storage and what you can access is effectively endless but getting there may not be as reliable and even just factoring in the over head of the speed of light down wires to go around the world it may take a while.</p>
+<p>Okay, so, again</p>
+<p>CPU Registers → Cache → RAM → SSD → HDD → Network.</p>
+<p>Got it? Cool.</p>
+<p>Now to stop with the metaphor.</p>
+<h3 id="stalling">
+  Stalling
+  <a class="anchor" href="#stalling">#</a>
+</h3>
+<p>There&rsquo;s a computational effect that&rsquo;s really important here. When the CPU wants to access data that&rsquo;s not in it&rsquo;s registers, it will try to read from cache.</p>
+<p>If when it goes to read from cache, the memory still isn&rsquo;t there, that&rsquo;s called a <strong>cache miss</strong>.</p>
+<p>When this happen the CPU has to go read from RAM (well, actually it gets another page from RAM and puts it into the cache). Now, remember before how with the normal analogy you hear people say RAM is like our short term memory? This is why I don&rsquo;t love that analogy - reading from RAM compared to Cache or registers is insanely slow. It&rsquo;s so slow that the CPU will almost certainly run out of work to do. The term for when this happens is actually a <strong>CPU Stall</strong>.</p>
+<p>Numbers vary, but while reading from registers is instant (by definition of how they work), reading from the cache may take anywhere from 3 to ~80 cycles (depending on the cache layer/level, again, skipping this for the moment). Assuming one cycle per instruction (which is it&rsquo;s own weird conversation), that&rsquo;s up to 80 instructions like adds and multiplies and what not. But what if we have to go all the way to RAM? That&rsquo;s usually around 300 cycles. Yikes! See why I said memory access is so important now?</p>
+<p>Obviously, this is a huge problem. There are ways to make it less-bad, such as getting the CPU to go do something else while it finishes<a class="ptr">(1)</a>, trying to re order instructions to have data be ready when it&rsquo;s needed (<a href="https://en.wikipedia.org/wiki/Out-of-order_execution">out of order execution (Wikipedia)</a>), guessing what result from a branch (<code>if a do b, else do c</code>) will actually run and computing it early (<a href="https://en.wikipedia.org/wiki/Speculative_execution">Speculative Execution (Wikipedia)</a>), and generally just loading data in intelligently, such as assuming a program executes with a reasonable level of spatial locality (that is, if we&rsquo;re reading memory at locations 1, 2, and 3, we probably want 4 next) and temporal locality (if we keep reading 1,2,1,2,1,2, we probably want 1 next), or, yunno&rsquo;, just making the CPU cache bigger and adding more registers, which is something that generally happens witch each new processor release.</p>
+<p>Learning more about this, such as about how different <a href="https://en.wikipedia.org/wiki/Cache_placement_policies">Cache placement policies (Wikipedia)</a> and <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies">Cache <strong>re</strong>placement policies (Wikipedia)</a> as well as how the interact with <a href="https://en.wikipedia.org/wiki/Page_replacement_algorithm">Virtual Memory page replacement algorithms (Wikipedia)</a>, <a href="https://en.wikipedia.org/wiki/Scheduling_%28computing%29">CPU Scheduling (Wikipedia)</a>, and <a href="https://en.wikipedia.org/wiki/Pipeline_%28computing%29">CPU Pipeling (Wikipedia)</a> and then actually decide how to get data from bulk storage (be it from something like a NVMe SSD - hence the advent of <a href="https://en.wikipedia.org/wiki/Xbox_Series_X_and_Series_S#Storage_architecture">Direct Storage (Wikipedia)</a> - or as slow as hard drive) is why studying modern computer architecture is super difficult and confusing. It&rsquo;s this gross interplay of hardware, operating systems, memory technologies, and about a million other variables where the reason things are slow is literally because we&rsquo;re fighting the speed of light (as that dictates how quickly electrical signals can get from one point to another), switching speed of transistors that are nanometers wide, and the effects of data corruption when we&rsquo;re sending this data at the crazy rates we are. Fortunately, for 99.9% of things you really don&rsquo;t need to know how all of that works. All you really need to know is that while, yes, a CPU with a faster clock will process things faster, if that just means stalling, waiting for data more often it&rsquo;s not really a big win.</p>
+<p>At then end of the day, I&rsquo;m telling you all of this to make it clear that a lot of really smart people have thought really hard to make the CPU in your computer try it&rsquo;s very best to move data around as little as it can and have the data it needs ready when it needs it, yet still over ⅓ of your computer&rsquo;s time is spent moving things around. So, when we actually get to writing code (I swear we&rsquo;ll get there eventually&hellip;) we&rsquo;ll cover doing some what-should-currently-sound-like-black-magic like:</p>
+<p>TODO: I want to link to a page doing each of these, that is each bullet should have a button.</p>
+<ul>
+<li>In 
+
+
+
+
+  
+
+
+<a  href="/engineering/programming/shaders/"   class="book-btn ">
+  GPU Computation
+</a>
+ you&rsquo;ll see it can make sense to take a massive, temporary speed hit to copy data to a GPU (Graphics Processing Unit) because for big enough data with the right operations, it will pay off significantly
+<ul>
+<li>For example, if you have two lists of a million numbers and you need to make a third list which is the elment-wise sum. The GPU can do that really, really, fast because it can do much of the work in parrelel instead of working on each operation sequentially.</li>
+</ul>
+</li>
+<li>Spending a few cycles to move data around and pack it into a special structure so that we can do <a href="https://www.cs.uu.nl/docs/vakken/magr/2017-2018/files/SIMD%20Tutorial.pdf">Single Instruction Mulitple Data Operations (Practical SIMD Programming by Jacco Bikker)</a>
+<ul>
+<li><a href="https://ispc.github.io">https://ispc.github.io</a></li>
+</ul>
+</li>
+<li><a href="https://endler.dev/2017/yes/">Use buffers, memory alignment, and avoiding OS locks to speed up computation (A Little Story About the <code>yes</code> Unix Command, endler.dev)</a></li>
+<li>Using <a href="https://en.wikipedia.org/wiki/Page_%28computer_memory%29#Multiple_page_sizes">Huge Pages</a> to make VM&rsquo;s faster</li>
+<li>Manually placing memory on embedded systems</li>
+<li>Setting up Direct Memory Access (DMA) peripherals on embedded systems</li>
+<li>Setting up interupts on embedded systems</li>
+<li>Writing assembly code that modifies itself (this is very stupid, but neat)</li>
+<li>Using Ram Disks</li>
+<li>Using Ram Compression (zram/zswap)</li>
+<li>Setting Ram &ldquo;Swappiness&rdquo;</li>
+<li>Setting processor affinity</li>
+<li>Using <code>mmap</code> to make file access stupid fast (*sometimes)</li>
+<li>Using fancy system calls based on <a href="https://despairlabs.com/posts/2021-06-16-io-uring-is-not-an-event-system/">io_uring</a> to prevent blocking.</li>
+</ul>
+<!--- https://unixism.net/loti/tutorial/cat_liburing.html --->
+<!-- https://sasha-f.medium.com/why-mmap-is-faster-than-system-calls-24718e75ab37 -->
+<!-- https://gist.github.com/jFransham/369a86eff00e5f280ed25121454acec1 for loop unrolling--->
+<p>Where every one of these things relates back to this page - keeping the time spend moving and accessing data down.</p>
+<p>Now, a good chunk of that is really advanced stuff, and 95% of the time when you&rsquo;re writing code you won&rsquo;t have to worry about any of this. Hell, depending on the language you&rsquo;re working in, you literally <em>can&rsquo;t</em> because you wont have control over how things like that are done. But understanding how it works and knowing that you <em>can</em> is important, as some problems would otherwise be impractical. Let me explain:</p>
+<p>Say you&rsquo;re working on real time audio. To keep things &ldquo;real time&rdquo; you can buffer around 128 samples of audio, and you&rsquo;ll probably be playing back 48,000 samples a second. So, that means any computation you do has to happen reliably within 2.6 milliseconds deadlines.</p>
+<p>Or, say you&rsquo;re working on a game rendering engine and you want to target 60fps. That&rsquo;s a bit better at 16.6 milliseconds per frame, but think about how much work the computer has to do to draw one frame - lighting, camera projection, physics, etc on potentially tens of thousands of triangles that make up the 3d scene. I love looking at benchmarks ran <a href="https://www.youtube.com/watch?v=Gr-Kundl52s">with the wireframe on</a> to just bask in the awe of modern rendering. But that doesn&rsquo;t come without massive effort to make such things fast.</p>
+<p>The following video shows some of how caches work in a security context, but does make everything a bit more concrete:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/x_R1DeZxGc0" title="Discover Vulnerabilities in Intel CPUs!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 id="--generic--slow--">
+  <!--Generic = Slow-->
+  <a class="anchor" href="#--generic--slow--">#</a>
 </h2>
-<p><code>mov</code> is the majority of instructions</p>
-<h2 id="generic--slow">
-  Generic = Slow
-  <a class="anchor" href="#generic--slow">#</a>
+<!--Accelerators make modern systems useful-->
+<h2 id="--abstractions-are-only-usually-good--">
+  <!--Abstractions are only *usually* good-->
+  <a class="anchor" href="#--abstractions-are-only-usually-good--">#</a>
 </h2>
-<p>Accelerators make modern systems useful</p>
-<h2 id="abstractions-are-only-usually-good">
-  Abstractions are only usually good
-  <a class="anchor" href="#abstractions-are-only-usually-good">#</a>
-</h2>
-<p>Useful for getting work done, a massive pain in the ass when the issue is down the stack</p>
+<!--Useful for getting work done, a massive pain in the ass when the issue is down the stack-->
+<ol hidden id="footnotes">
+    <li>Ever wondered what Hyper Threading is, or why you have more cores than threads? This is a big part of it. Basically, it lets something else run when the CPU is waiting on the cache to populate.</li>
+</ol>
 </article>
  
       
@@ -661,12 +730,12 @@ https://github.com/alex-shpak/hugo-book
       <ul>
         <li><a href="#the-storage-hierarchy">The Storage Hierarchy:</a>
           <ul>
-            <li><a href="#registerscachememorydisk--the-role-of-interrupts">Registers→Cache→Memory→Disk &amp; The role of interrupts</a></li>
+            <li><a href="#registerscachememorydisk--the-role-of-interrupts">Registers→Cache→Memory→Disk (&amp; The role of interrupts)</a></li>
+            <li><a href="#stalling">Stalling</a></li>
           </ul>
         </li>
-        <li><a href="#moving-data-vs-operating-on-data">Moving Data Vs Operating on Data</a></li>
-        <li><a href="#generic--slow">Generic = Slow</a></li>
-        <li><a href="#abstractions-are-only-usually-good">Abstractions are only usually good</a></li>
+        <li><a href="#--generic--slow--"><!--Generic = Slow--></a></li>
+        <li><a href="#--abstractions-are-only-usually-good--"><!--Abstractions are only *usually* good--></a></li>
       </ul>
     </li>
   </ul>

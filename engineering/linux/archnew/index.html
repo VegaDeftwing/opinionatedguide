@@ -84,7 +84,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 2 - Installing Arch Linux # Some Background # ⬤◯◯◯◯◯◯◯◯◯
 Unlike Windows or Mac which are primarily differentiated by versions (Windows XP, Vista, 7, 10&hellip;), Linux has two important things to look out for:
-The distribution name (Arch, Ubuntu, Mint, Debian, etc.) Kernel version number (5.15 last time this page was updated) So, what do each of these mean?
+The distribution name (Arch, Ubuntu, Mint, Debian, etc.) Kernel version number (5.18 last time this page was updated) So, what do each of these mean?
 Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;distributions&rsquo;.">
 <meta name="theme-color" content="#FFFFFF">
 
@@ -99,7 +99,7 @@ Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of th
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 2 - Installing Arch Linux # Some Background # ⬤◯◯◯◯◯◯◯◯◯
 Unlike Windows or Mac which are primarily differentiated by versions (Windows XP, Vista, 7, 10&hellip;), Linux has two important things to look out for:
-The distribution name (Arch, Ubuntu, Mint, Debian, etc.) Kernel version number (5.15 last time this page was updated) So, what do each of these mean?
+The distribution name (Arch, Ubuntu, Mint, Debian, etc.) Kernel version number (5.18 last time this page was updated) So, what do each of these mean?
 Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;distributions&rsquo;." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/linux/archnew/" /><meta property="article:section" content="Engineering" />
@@ -110,7 +110,7 @@ Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of th
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.1679defb0009c0ca06b94b176d4d8bff567dc6bfab754ebcf622b722bf0fa0b2.js" integrity="sha256-Fnne&#43;wAJwMoGuUsXbU2L/1Z9xr&#43;rdU689iK3Ir8PoLI="></script>
+<script defer src="/en.search.min.4a43b9cf5bf18b8725f3c0528db3bec24b63d98470a589fb227a2cb5bfbc195d.js" integrity="sha256-SkO5z1vxi4cl88BSjbO&#43;wktj2YRwpYn7Inostb&#43;8GV0="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -606,6 +606,7 @@ https://github.com/alex-shpak/hugo-book
   Chapter 2 - Installing Arch Linux
   <a class="anchor" href="#chapter-2---installing-arch-linux">#</a>
 </h1>
+<!-- TODO: I'd like to have the user setup ZSH and https://zellij.dev pretty early as it makes doing stuff from a direct TTY signficantly less of a pain in the ass. Similarly, might grab sysz pretty early too. Of course, I don't want to do either until after having done it the old school way at least once. --->
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/ezUoiaoQCTs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="some-background">
   Some Background
@@ -615,7 +616,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Unlike Windows or Mac which are primarily differentiated by versions (Windows XP, Vista, 7, 10&hellip;), Linux has two important things to look out for:</p>
 <ul>
 <li>The distribution name (Arch, Ubuntu, Mint, Debian, etc.)</li>
-<li>Kernel version number (5.15 last time this page was updated)</li>
+<li>Kernel version number (5.18 last time this page was updated)</li>
 </ul>
 <p>So, what do each of these mean?</p>
 <p>Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;<strong>distributions</strong>&rsquo;. Some of the well known variants include Ubuntu, Fedora, OpenSuse, and Arch (No disrespect to the other distros out there!). Each of these has a different target audience, with some meant for servers, some meant for casual users as an alternative to Windows, others as work station for hard core computing. They also ship with different software pre-installed to be accessed after the first boot.</p>
@@ -656,7 +657,7 @@ So, I want to help you understand your system and the choices you'll be making, 
     </div>
 </div>
 <p>Okay, that&rsquo;s a lot, so let&rsquo;s break it down. By &ldquo;live system&rdquo; this means we&rsquo;re going to be booting into an operating system from our installation media - for almost all situatations, this is a flash drive. This OS is &ldquo;live&rdquo; in that it is a true, full, Linux operating system. It&rsquo;s just running directly off the flash drive. In this case, this live system is really just used so that we can install Linux to a more permanent drive. So, rather ironically, we&rsquo;ll be using Linux to install Linux.</p>
-<p>The &ldquo;with accessibility options&rdquo; page is if you need something like a screen reader or if you have a braille display. I have no experiance helping with these things. More relevant to most readers, the <a href="https://wiki.archlinux.org/title/Category:Installation_process">Category:Installation process</a> page has a bunch of <em>very</em> important steps that aren&rsquo;t on this page. Most importantly, there&rsquo;s a page about <a href="https://wiki.archlinux.org/title/Dual_boot_with_Windows">Setting up a Dual Boot system with Windows</a> - which I&rsquo;ll be going through here. I won&rsquo;t be covering the process if you have a Mac, but there is a page for that: <a href="https://wiki.archlinux.org/title/Mac#Installation">Mac Installation</a>. Note that Apple&rsquo;s newer computers with their own processors aren&rsquo;t supported.</p>
+<p>The &ldquo;with accessibility options&rdquo; page is if you need something like a screen reader or if you have a braille display. I have no experiance helping with these things. More relevant to most readers, the <a href="https://wiki.archlinux.org/title/Category:Installation_process">Category:Installation process</a> page has a bunch of <em>very</em> important steps that aren&rsquo;t on this page. Most importantly, there&rsquo;s a page about <a href="https://wiki.archlinux.org/title/Dual_boot_with_Windows">Setting up a Dual Boot system with Windows</a> - which I&rsquo;ll be going through here. I won&rsquo;t be covering the process if you have a Mac, but there is a page for that: <a href="https://wiki.archlinux.org/title/Mac#Installation">Mac Installation</a>. Note that Apple&rsquo;s newer computers with their own processors <del>aren&rsquo;t supported.</del> are still a massive pain in the ass to get working.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     Before installing, it would be advised to view the <a href="https://wiki.archlinux.org/title/FAQ">FAQ</a>. For conventions used in this document, see <a href="https://wiki.archlinux.org/title/Help:Reading">Help:Reading</a>. In particular, code examples may contain placeholders (formatted in <code>*italics*</code>) that must be replaced manually.
@@ -2089,7 +2090,7 @@ myhostname
     </div>
 </div>
 <ol hidden id="footnotes">
-    <li>This video has aged a bit. Some Sata Express effectively doesn't exist now and some M.2 NVMe drives are now PCIe 4.0</li>
+    <li>This video has aged a bit. Sata Express effectively doesn't exist now and some M.2 NVMe drives are now PCIe 4.0, though the 3.0 ones are still stupid fast.</li>
 </ol>
 </article>
  

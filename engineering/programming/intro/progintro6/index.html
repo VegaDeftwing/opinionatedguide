@@ -82,9 +82,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 10.6 - ＬＯＧＩＣ # Would you like to speak to an Operator? # The very first thing to understand before we can get to more intersting things is the list of operations available to us.
-This includes the operations your used to - addition, subtraction, etc. - as well as bit-wise operations and comparisons.
-Basic Operations # I&rsquo;m going to mostly skip talking about addition, subtraction, multiplication, and divsion, because, duh.">
+<meta name="description" content="Chapter 10.6 - ＬＯＧＩＣ &amp; Functions # For this page, If you see that lines are ending with a semicolon, ;, then that code is C. If they don&rsquo;t, it&rsquo;s Python. Would you like to speak to an Operator? # The very first thing to understand before we can get to more intersting things is the list of operations available to us.
+This includes the operations your used to - addition, subtraction, etc.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -96,9 +95,8 @@ Basic Operations # I&rsquo;m going to mostly skip talking about addition, subtra
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 10.6 - ＬＯＧＩＣ # Would you like to speak to an Operator? # The very first thing to understand before we can get to more intersting things is the list of operations available to us.
-This includes the operations your used to - addition, subtraction, etc. - as well as bit-wise operations and comparisons.
-Basic Operations # I&rsquo;m going to mostly skip talking about addition, subtraction, multiplication, and divsion, because, duh." />
+<meta property="og:description" content="Chapter 10.6 - ＬＯＧＩＣ &amp; Functions # For this page, If you see that lines are ending with a semicolon, ;, then that code is C. If they don&rsquo;t, it&rsquo;s Python. Would you like to speak to an Operator? # The very first thing to understand before we can get to more intersting things is the list of operations available to us.
+This includes the operations your used to - addition, subtraction, etc." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/intro/progintro6/" /><meta property="article:section" content="Engineering" />
 
@@ -108,7 +106,7 @@ Basic Operations # I&rsquo;m going to mostly skip talking about addition, subtra
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5965d23ed48b85306f9061e7050910040df771463654b156b0256ef51ee0bdd6.css" integrity="sha256-WWXSPtSLhTBvkGHnBQkQBA33cUY2VLFWsCVu9R7gvdY=">
-<script defer src="/en.search.min.1679defb0009c0ca06b94b176d4d8bff567dc6bfab754ebcf622b722bf0fa0b2.js" integrity="sha256-Fnne&#43;wAJwMoGuUsXbU2L/1Z9xr&#43;rdU689iK3Ir8PoLI="></script>
+<script defer src="/en.search.min.4a43b9cf5bf18b8725f3c0528db3bec24b63d98470a589fb227a2cb5bfbc195d.js" integrity="sha256-SkO5z1vxi4cl88BSjbO&#43;wktj2YRwpYn7Inostb&#43;8GV0="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -556,7 +554,7 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-106---ｌｏｇｉｃ">Chapter 10.6 - ＬＯＧＩＣ</a>
+    <li><a href="#chapter-106---ｌｏｇｉｃ--functions">Chapter 10.6 - ＬＯＧＩＣ &amp; Functions</a>
       <ul>
         <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a>
           <ul>
@@ -568,16 +566,19 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#going-with-the-flow">Going with the flow</a>
           <ul>
             <li><a href="#if-else-else-if">If, else, else if</a></li>
+            <li><a href="#swichcase">swich/case</a></li>
             <li><a href="#for">for</a></li>
             <li><a href="#break">Break!</a></li>
+            <li><a href="#continue">continue</a></li>
             <li><a href="#for-each">for each</a></li>
             <li><a href="#while-and-do-while">while (and do-while)</a></li>
+            <li><a href="#aside-the-sky-is-not-the-limit">Aside: the sky is not the limit.</a></li>
             <li><a href="#goto">goto</a></li>
-            <li><a href="#swichcase">swich/case</a></li>
           </ul>
         </li>
         <li><a href="#getting-functional">Getting Functional</a>
           <ul>
+            <li><a href="#scope">SCOPE</a></li>
             <li><a href="#the-stack">The Stack</a></li>
           </ul>
         </li>
@@ -594,10 +595,13 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="chapter-106---ｌｏｇｉｃ">
-  Chapter 10.6 - ＬＯＧＩＣ
-  <a class="anchor" href="#chapter-106---%ef%bd%8c%ef%bd%8f%ef%bd%87%ef%bd%89%ef%bd%83">#</a>
+  <article class="markdown"><h1 id="chapter-106---ｌｏｇｉｃ--functions">
+  Chapter 10.6 - ＬＯＧＩＣ &amp; Functions
+  <a class="anchor" href="#chapter-106---%ef%bd%8c%ef%bd%8f%ef%bd%87%ef%bd%89%ef%bd%83--functions">#</a>
 </h1>
+<p class="tip ">
+    For this page, If you see that lines are ending with a semicolon, <code>;</code>, then that code is C. If they don&rsquo;t, it&rsquo;s Python.
+</p>
 <h2 id="would-you-like-to-speak-to-an-operator">
   Would you like to speak to an Operator?
   <a class="anchor" href="#would-you-like-to-speak-to-an-operator">#</a>
@@ -638,6 +642,15 @@ https://github.com/alex-shpak/hugo-book
 </div></li>
 <li>
 <p>For subtraction, remumber an <em>unsigned</em> type can&rsquo;t go negative, but it can under-flow to a large, positive value.</p>
+</li>
+<li>
+<p>Need to increment a variable? in C you can use <code>name++;</code>  (or <code>name--;</code> to decrement).</p>
+</li>
+<li>
+<p>Need to add/substract/divide/multiply/and/xor/etc. a value with itself - like <code>a = a + 2;</code>? Just move the symbol to before the equal sign: <code>a += 2;</code> is the same thing. This works for all the others too: <code>a -= 2;</code>, <code>a /= 2;</code>, etc.</p>
+<ul>
+<li>Since Python doesn&rsquo;t have the <code>a++;</code> style syntax, you&rsquo;ll at least want to use <code>a += 1</code> there.</li>
+</ul>
 </li>
 </ul>
 <p>There&rsquo;s one seemingly weird operation you may not be used to that belongs to this basic set: <strong>modulo</strong>.</p>
@@ -1043,7 +1056,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>And <code>number</code> is 11, then only &ldquo;Greater than 10&rdquo; will print because the first condition was met, so it never checked the next one.</p>
-<p>You can also nest <code>if</code> statments</p>
+<p>You can also nest <code>if</code> statments,</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1068,7 +1081,65 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="for">
+</div><p>and stack else ifs:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// do something
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> c){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// do something
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> d){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// do something
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="swichcase">
+  swich/case
+  <a class="anchor" href="#swichcase">#</a>
+</h3>
+<p>While seemingly redundant, there&rsquo;s also switch case statments. Becuse reasons, switch case statments are a tad bit faster, but they&rsquo;re also more limited. You can only have &ldquo;constant expressions&rdquo; basically, this means no comparisons other than direct equality, but you can do it against many cases. This is easier if you see it:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">switch</span>(check_me){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;check me is 1&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;check me is 2&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;check me is 2 or 3&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;check me is not 1, 2, or 3&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Note, the <code>break;</code> statments here. Without them a case &ldquo;falls though&rdquo; and will execute the same code as the case below it. So, in this code, if <code>check_me</code> was 2, it would print both &ldquo;check me is 2&rdquo; and &ldquo;check me is 2 or 3&rdquo;. Accidently missing these <code>break;</code>s is a pretty easy mistake.</p>
+<p>Of note, Python (as of pretty recently) has swictch case like statements too, but they&rsquo;re way, way, way more powerful as they do pattern matching. This is a whole topic in itself, but if you want to read up, <a href="https://docs.python.org/3.10/whatsnew/3.10.html#pep-634-structural-pattern-matching">go for it (Python.org)</a>.</p>
+<h3 id="for">
   for
   <a class="anchor" href="#for">#</a>
 </h3>
@@ -1105,7 +1176,7 @@ https://github.com/alex-shpak/hugo-book
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>){
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>){
 </span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,i);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
@@ -1139,48 +1210,585 @@ https://github.com/alex-shpak/hugo-book
   Break!
   <a class="anchor" href="#break">#</a>
 </h3>
-<h3 id="for-each">
+<p>Sometimes, you really want to preemptively stop a loop, well, you can. Just use <code>break</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// This will find the index of first element with a value of 1.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Assume my array has 100 elements.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(my_array[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="continue">
+  continue
+  <a class="anchor" href="#continue">#</a>
+</h3>
+<p>While less common, sometimes you want to do something in a loop, but you have an edge case where you don&rsquo;t want to run that iteration in full, and instead want to start from the top again. You can do this with <code>continue</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// This will set any value in the array less than 10 to 0.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Note, there are more obvious, better ways to do this. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// This is *usually* true, which is why you don&#39;t see continue much.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Assume my array has 100 elements.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(my_array[i] <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	my_array[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Obvious way to do this
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(my_array[i] <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>){
+</span></span><span style="display:flex;"><span>		my_array[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="for-each">
   for each
   <a class="anchor" href="#for-each">#</a>
 </h3>
 <p class="tip ">
     C does not have a &lsquo;for each&rsquo; system
 </p>
+<p>Many languages have a convient system for iterating over each item in a data structure without needing to explicitly know the size of the structure before hand. This is generally really nice to read too. C doesn&rsquo;t have this. Oddly, python <strong>ONLY</strong> has for-each loops. The <code>range()</code> function previously just generates this list were iterating over internally. So, when you see <code>for i in range(10):</code> you can read it as &ldquo;for each element, i, in the the range 0 though 9&rdquo;. The power of this comes in python&rsquo;s (and languages that support for each) ability to iterate over non-numeric types and ranges. For example,</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> letter <span style="color:#f92672">in</span> <span style="color:#e6db74">&#34;Oppinioned Guides&#34;</span>:
+</span></span><span style="display:flex;"><span>	print(letter)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>does exactly what you think it does - though it does put each letter on its own line. Reall, the big thing to notice here is the word <strong>in</strong>, which is what&rsquo;s making this easy. It&rsquo;s implying that we want to iterate over something. This get&rsquo;s stupidly powerful once you learn more about how to combine things in python using more functional-programming methods like <code>zip</code> or <code>map</code>, for example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">40</span>]
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> [<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">34</span>,<span style="color:#ae81ff">45</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> x, y <span style="color:#f92672">in</span> zip(x,y):
+</span></span><span style="display:flex;"><span>	print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>x<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{</span>y<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>does what you think and iterates though both.</p>
+<p>Things get way cooler when you learn about Python&rsquo;s iterators and generators which let you do really crazy things. As a taste:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">halvingn</span>(n):
+</span></span><span style="display:flex;"><span>	num <span style="color:#f92672">=</span> n
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span> num <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">yield</span> num
+</span></span><span style="display:flex;"><span>		num <span style="color:#f92672">=</span> num <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> halvingn(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    print(i)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Will give you numbers that keep halving until the result would be under 1. That is, this prints 100, 50, 25, 12.5, 6.25, 3.125, 1.5625. The keyword here is <strong>yield</strong> in the function (made with <strong>def</strong>) above. We&rsquo;ll talk about functions later.</p>
+<p>Do note, that again, this could probably be done simpiler and this was for example. Unless you really needed to generate having numbers all over the place, it would probably be easier to do</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>i <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>    print(i)
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> i <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>But, wait, <code>while</code>?! Yep, I used it above to. Look at me sneaking things in! It&rsquo;s pretty obvious what it does, but let&rsquo;s go back to C which has while&rsquo;s too, and look at it there:</p>
 <h3 id="while-and-do-while">
   while (and do-while)
   <a class="anchor" href="#while-and-do-while">#</a>
 </h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// Normally, loops iterate over integers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// and we use i, j, and k as our loop indecies
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// however, since this is a float, this would
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// be a bit confusing.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">float</span> f <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(f <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%f&#34;</span>,i);
+</span></span><span style="display:flex;"><span>    f <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// same as i = i / 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>while</code> loops can have any condition you want. Want to run something forever?</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){ <span style="color:#75715e">// whatever }
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Want to run something as long as some condition is true?</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(x <span style="color:#f92672">==</span> y){ <span style="color:#75715e">// whatever }
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Want to run something while some condition is true and a value is less than something?</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">while</span>((x <span style="color:#f92672">==</span> y) <span style="color:#f92672">&amp;&amp;</span> (x <span style="color:#f92672">&lt;</span> z)){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// whatever
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="do-while">
+  do while
+  <a class="anchor" href="#do-while">#</a>
+</h4>
+<p>Say you have something you need to happen <em>at least once</em>. That is, you might have a while loop that will make the condition true initially if it&rsquo;s not already so that it can then work it&rsquo;s way out. Well, that&rsquo;s a do-while</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// whatever
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">while</span>( a <span style="color:#f92672">==</span> b );
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Do note, that in C at least, there is a <code>;</code> at the end of that while.</p>
+<p>Also, as with everything else, you can stack this logic however you like. Put while loops inside other while loops. Put fors in whiles in ifs in fors in whiles in nested fors with breaks and continues. The sky is the limit.</p>
+<h3 id="aside-the-sky-is-not-the-limit">
+  Aside: the sky is not the limit.
+  <a class="anchor" href="#aside-the-sky-is-not-the-limit">#</a>
+</h3>
+<p><em>Can</em> you nest logic as deeply as you want and do <code>while(a){while(b){for(int i = 0; i &lt; 10; i++){for(int c = 0; c &lt; b; c++){if(a&gt;b){for(int d = 10; d &gt; 0; d += b){a=b;}}else{a = c;}}}}}</code></p>
+<p>sure, but even if that was formatted well nobody is going to have any fucking idea what is going on. As a general rule of thumb, you should keep your level of indention, and so the number of nested calls like this small.</p>
+<p>But, &ldquo;How do I do that if I want complex programs?&rdquo; I hear you ask. Easy. ＦＵＮＣＴＩＯＮＳ. Functions are vital to understand. Before we get to them though, I want to go on one more tangent into a dark shadowy place you should never go: <code>goto</code>.</p>
 <h3 id="goto">
   <del>goto</del>
   <a class="anchor" href="#goto">#</a>
 </h3>
-<p>I reallllly don&rsquo;t want to even bring these up. GOTO is something that you should never ever ever ever ever ever use. Never. Never ever. Okay? Never. I&rsquo;m only bringing them up because someday your may be unfortunate enough to run into code that does and you should know how to read it:</p>
-<p>if/elif/else, for, while, brief note on recussion, goto</p>
-<p>example of to small of an int on a loop</p>
-<p>Talk about asm and branching, bne, ble, etc.</p>
-<h3 id="swichcase">
-  swich/case
-  <a class="anchor" href="#swichcase">#</a>
-</h3>
+<p>I reallllly don&rsquo;t want to even bring these up. GOTO is something that you should never ever ever ever ever ever use. Never. Never ever. Okay? Never. I&rsquo;m only bringing them up because someday your may be unfortunate enough to run into code that does and you should know how to read it <strong>and</strong> because from a low level perspective they <em>sorta</em> like how functions work.</p>
+<p>Say you have two conditions that both need to run the same chunk of code</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// do long, complicated thing here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> d){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// do the same long, complicated thing here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>you don&rsquo;t want to have to have two copies of the same code, so, if you didn&rsquo;t know about functions, you could do something like this</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">goto</span> LONG_COMPLICATED_THING;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> d){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">goto</span> LONG_COMPLICATED_THING;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">goto</span> AFTER_LONG_THING;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LONG_COMPLICATED_THING:
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// the code to do the thing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>AFTER_LONG_THING:
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// whatver else you want to do
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>I think what <code>goto</code> does and the weird labels purpose is pretty obvious. What&rsquo;s less obvious is why you&rsquo;d even need the <code>AFTER_LONG_THING</code> and <code>goto AFTER_LONG_THING</code> above it. This is because, unlike functions (again, getting there) <code>goto</code> only goes to labels and your code will excute straight though a label - meaning if neither of the <code>if</code> statments happened, and we <strong>didn&rsquo;t</strong> have the <code>goto AFTER_LONG_THING;</code> there, the code after the if&rsquo;s would still run, which in this case means the code after <code>LONG_COMPLICATED_THING:</code> would still run, basically, those <code>if</code>s wouldn&rsquo;t be doing anything - the code after <code>LONG_COMPLICATED_THING</code> would <em>ALWAYS</em> run.</p>
+<p>Sorry if that&rsquo;s over explained. I&rsquo;m sure the name and function is pretty obvious.</p>
+<p>Alright, so, why are these so bad? Well, it means you can have code just sort of arbitarily hop around and it becomes really hard to trace what code leads to what. It makes debugging an absolute shit show. This is extra true when you consider that if you wanted to be extra dumb, you can use goto for loops</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>LOOP:
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// thing to do in the loop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(a <span style="color:#f92672">==</span> b){ <span style="color:#75715e">// way to actually leave the loop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">goto</span> LOOP;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>again, DON&rsquo;T. If you ever think &ldquo;Huh, a <code>goto</code> would be a nice solution&rdquo; you&rsquo;re wrong.</p>
+<p><em>Technically</em> there is some overhead with calling a function - which we&rsquo;re about to see - which using a <code>goto</code> avoids. Still don&rsquo;t.</p>
+<p>The main reason these exist is because in assembly - that is the lowest level language your computer can understand - , a <code>goto</code> is all that exists. These constructs like <code>for</code>, <code>if</code>, etc. don&rsquo;t exist.</p>
+<p>Instead, you get individual instructions like <code>beq</code>,<code>blt</code>, or <code>jmp</code> which mean branch-if-equal-to, branch-if-less-than, and jump, respectively. These will go to a memory address and execute code from that point if the conditon (or lack of, for <code>jmp</code>) is met.</p>
+<p>All your if&rsquo;s, for&rsquo;s, while&rsquo;s, etc. are built out of these. The complier (gcc, in your case) takes your C  code and turns it into these instructions and does so much more effeciently than you could by hand.</p>
+<p>By writing in the higher-level-than-assembly-but-still-pretty-low-level language of C, you get to not deal with these things. The same applies to writing <strong>functions</strong>. Functions are what we use as much more poweful, easier to read alternatives to direct jumping around by memory locations that is done by <code>goto</code>.</p>
 <h2 id="getting-functional">
   Getting Functional
   <a class="anchor" href="#getting-functional">#</a>
 </h2>
-<p>In most programming languages, we have the concept of <strong>Functions</strong>. Functions let us break up code into digestable sections and reuse things. When we call <code>print()</code> we&rsquo;re actually using a function that&rsquo;s built in&hellip; [TODO]</p>
+<p>In most programming languages, we have the concept of <strong>Functions</strong>. Functions let us break up code into digestable sections and reuse things. When we call <code>print()</code> in python or <code>printf()</code> in C we&rsquo;re actually using a function that&rsquo;s built in (well, sorta, printf is part of a library &hellip; we&rsquo;ll get there).</p>
+<p>You can make your own functions pretty easily. Let&rsquo;s look at a Python function first since they&rsquo;re easier to understand.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add</span>(a,b):
+</span></span><span style="display:flex;"><span>	c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> c
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In python, we can make a new function with the <code>def</code> keyword. Then, we give it a name - here, that&rsquo;s &ldquo;add&rdquo; - and tell it what to expect for input. Here, that&rsquo;s two &ldquo;arguments&rdquo;, <code>a</code> and <code>b</code>. This function returns something. This isn&rsquo;t always necessary, but most things will.</p>
+<p>We can now use this add function (obviously you should not turn adding into a function)</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>z <span style="color:#f92672">=</span> add(x,y)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>will now work. Note, the names when you make the function and the names you pass the function don&rsquo;t have to match, also note, because add has a <code>return</code> we want to capture that result. We do this by just assigning the result to a variable.</p>
+<p>C, on the other hand, is much more explicit. In C, you need to specify the type of each argument and what it will return. So, if we had a function for adding (again, don&rsquo;t), that might look like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span>(a <span style="color:#f92672">+</span> b);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>but this function can <strong>only</strong> handle integers. If we try to run it with <code>add(1.2,3.4)</code> - that is with floating point arguments - it&rsquo;s going to fail. It probably won&rsquo;t even let you compile. Similarly, if we try to store the result into the wrong type it won&rsquo;t work. Note, the return type is that <code>int</code> before the word <code>add</code>.</p>
+<p>If we want a function in C to return nothing, it should be declared as <code>void</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">say_hi</span>(<span style="color:#66d9ef">char</span> name[]){
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;hello %s&#34;</span>,name);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Same applies to arguments. If you have a function which takes no arguments, it can also be void. You can also have both a void return and void arguments. This is handy for when you just want to put a big block of repeated code behind a convient name to make it more obvious what something does. But there&rsquo;s a catch:</p>
+<h3 id="scope">
+  SCOPE
+  <a class="anchor" href="#scope">#</a>
+</h3>
+<p>Variables are <em>normally</em> local to functions, so, if you have code like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	set_a();
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;%d&#34;</span>,a);
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set_a</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This <strong>WILL NOT COMPILE</strong> . Why? Because the <code>a</code> inside the <code>set_a</code> function is <strong>NOT</strong> the same <code>a</code> as in the main function. If we went up and changed this so that the add a function at least declared a with a type,</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set_a</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>the code would compile, but that function doesn&rsquo;t do anything. the print on line 6 will still print out &ldquo;0&rdquo;.</p>
+<p>Now, if we made this code</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	a <span style="color:#f92672">=</span> set_a();
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;%d&#34;</span>,a);
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">set_a</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The code would work as expected&hellip;ish. That &ldquo;a&rdquo; inside the <code>set_a</code> function? Yeah, that a is still it&rsquo;s own a. It&rsquo;s actually making it&rsquo;s own <code>a</code> and setting the value.</p>
+<p>Now, there&rsquo;s a cheat here. We can use <strong>global variables</strong>. If we take the above code and move the <code>int a = 0;</code> out of <code>main</code>, we can make it global to all functions in the file:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>	set_a();
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;%d&#34;</span>,a);
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set_a</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, this code works. Problem is, this tends to cause issues and get really messy. Being able to reuse names is actually really good and helpful. So, what if we want to pass a into our <code>set_a</code> function - not just the value that a has, but actually the variable itself so we can change it without returning a new value? Well, finally, pointers from last chaper serve a purpose. If we just pass in <code>a</code> what were doing is saying &ldquo;take the value a holds and give it to the function&rdquo; but if we pass in <code>&amp;a</code> we&rsquo;re saying &ldquo;take the address where a is at and give it to the function&rdquo;.</p>
+<p>This gives rise to the two main ways to move data around &ldquo;Pass by value&rdquo; and &ldquo;Pass by reference&rdquo;. Passing by value is easy. Passing by reference is useful, but a bit harder to wrap your head around.</p>
+<p>[TODO]</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	set_a(<span style="color:#f92672">&amp;</span>a); <span style="color:#75715e">// &amp;a means the address where a is at
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#e6db74">&#34;%d&#34;</span>,a);
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set_a</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>a){ <span style="color:#75715e">//this function takes an integer pointer (address)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>; <span style="color:#75715e">//the same syntax, but this *a says we want to modify the value at that adress
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[TODO]</p>
+<p>[TODO] - explain the two meanings of (<code>*a</code> - either derencing or making a pointer.)</p>
+<p>Think of it like this. Passing by value is like me standing next to you and showing you a piece of a paper that has the number 0 on it. You then show me a  piece of paper that says 42 on it. I can choose to erase the 0 on my paper and write 42. That&rsquo;s pass by value.</p>
+<p>If instead, I set my paper down, tell you where I set it, let you do what you want to it, then I take it back, that&rsquo;s pass by reference.</p>
+<p>So which is better?</p>
+<p>Neither. You need to use both. You may even need to use both in one function.</p>
 <p>fns, the stack</p>
 <h3 id="the-stack">
   The Stack
   <a class="anchor" href="#the-stack">#</a>
 </h3>
 <p>[TODO stack plates visual]</p>
-<p>When we call a function, we store the current state of the calling function, move to the address of the called function, do the thing, then return to the original (calling) function and restore this state. This gets complicated when we start wanting to call a function from in a function from in a function &hellip;. you get the idea. Basically, we need a place to store the return address (among other state) to know where we want to go back to when the called function returns, but we can&rsquo;t just put these all in CPU registers since we only have so many CPU registers.</p>
-<p>One option would be to give every function a place in RAM. This won&rsquo;t work for a varitey of reasons, one is because it uses a ton of space by not letting us reuse space between functions, and we want local variables to only be valid for that call of the function anyway (This is one reason why we have <code>static</code>, if you do need state to be preserved). Another is that we want to be able to call our functions from multiple places (it would be awful if we had to store a ton of coppies of every function in RAM!) So, we let functions return and then reuse their space.</p>
-<p>So, we instead want to make a place to store the return address of each function (and their variables) as they&rsquo;re called. We do this with a <strong>Stack</strong>, in this case, <em>The</em> Stack. If someone says <em>The Stack</em> this is the stack they mean. So, uhh, what&rsquo;s a stack?</p>
+<p>When we call a function we:</p>
+<ol>
+<li>
+<p>Store the current state of the calling function</p>
+</li>
+<li>
+<p>Move execution to the address of the called function</p>
+</li>
+<li>
+<p>Do the thing</p>
+</li>
+<li>
+<p>Return to the original (calling) function</p>
+</li>
+<li>
+<p>Restore the original state.</p>
+</li>
+</ol>
+<p>This gets complicated when we start wanting to call a function from in a function from in a function &hellip;. you get the idea. Basically, we need a place to store the return address and state to know where we want to go back to when the called function returns. Problem is, we can&rsquo;t just put these all in CPU registers since we only have so many CPU registers. Fortunately, by calling functions C <strong>mostly</strong> abstracts away this state storing and loading. Unfortunately, it can still bite us in the ass.</p>
+<p>One option would be to give every function a place in RAM. (so each time a function is called it persists and keeps room for itself) This won&rsquo;t work for a varitey of reasons:</p>
+<ol>
+<li>This would use ton of space by not letting us reuse space between functions. Plus we&rsquo;d need to allocate extra room incase the room a given function need grows, or we&rsquo;d have to move everything over each time things grew, which would take a long time.</li>
+<li>We want local variables to only be valid for that call of the function anyway (This is one reason why we have <code>static</code>, if you do need state to be preserved).</li>
+<li>We want to be able to call our functions from multiple places (it would be awful if we had to store a ton of coppies of every function in RAM!) So, we let functions return and then reuse their space.</li>
+</ol>
+<p>So, we instead want to make a place to store the return address of each function (and their variables) as they&rsquo;re called.</p>
+<p>We do this with a <strong>Stack</strong>, in this case, <em>The</em> Stack. If someone says <em>The Stack</em> this is the stack they mean. So, uhh, what&rsquo;s a stack?</p>
 <ul>
 <li>Each function call adds its own section to the stack</li>
 <li>Each stack section contains two types of data:
 <ul>
-<li>the RA from the caller</li>
+<li>The Return Address from the caller</li>
 <li>The local variables used by the the currently executing function</li>
 <li>Arguemnts to the function</li>
 </ul>
@@ -1205,6 +1813,7 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 <p>So, we use a stack! - LIFO (not FIFO) - we only operate on the top of the stack</p>
 <p>[TODO] what&rsquo;s a stack</p>
+<p>[TODO] inlines</p>
 </article>
  
       
@@ -1253,7 +1862,7 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chapter-106---ｌｏｇｉｃ">Chapter 10.6 - ＬＯＧＩＣ</a>
+    <li><a href="#chapter-106---ｌｏｇｉｃ--functions">Chapter 10.6 - ＬＯＧＩＣ &amp; Functions</a>
       <ul>
         <li><a href="#would-you-like-to-speak-to-an-operator">Would you like to speak to an Operator?</a>
           <ul>
@@ -1265,16 +1874,19 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#going-with-the-flow">Going with the flow</a>
           <ul>
             <li><a href="#if-else-else-if">If, else, else if</a></li>
+            <li><a href="#swichcase">swich/case</a></li>
             <li><a href="#for">for</a></li>
             <li><a href="#break">Break!</a></li>
+            <li><a href="#continue">continue</a></li>
             <li><a href="#for-each">for each</a></li>
             <li><a href="#while-and-do-while">while (and do-while)</a></li>
+            <li><a href="#aside-the-sky-is-not-the-limit">Aside: the sky is not the limit.</a></li>
             <li><a href="#goto">goto</a></li>
-            <li><a href="#swichcase">swich/case</a></li>
           </ul>
         </li>
         <li><a href="#getting-functional">Getting Functional</a>
           <ul>
+            <li><a href="#scope">SCOPE</a></li>
             <li><a href="#the-stack">The Stack</a></li>
           </ul>
         </li>
