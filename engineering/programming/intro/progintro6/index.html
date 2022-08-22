@@ -106,7 +106,7 @@ This includes the operations your used to - addition, subtraction, etc." />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2f16eb294858552240d616bde5439ab00226ce26c9da447a02e7cdac164387d7.css" integrity="sha256-LxbrKUhYVSJA1ha95UOasAImzibJ2kR6AufNrBZDh9c=">
-<script defer src="/en.search.min.491902e8b6879a79fcfdf4affdcd5e1071c540d18aed0e6d6a53c8bfada358c1.js" integrity="sha256-SRkC6LaHmnn8/fSv/c1eEHHFQNGK7Q5talPIv62jWME="></script>
+<script defer src="/en.search.min.6743f7ffa39b51fcaaccbf9d07b5bdb39af662e04dbce9169f289829ba7d9b7f.js" integrity="sha256-Z0P3/6ObUfyqzL&#43;dB7W9s5r2YuBNvOkWnyiYKbp9m38="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -213,7 +213,19 @@ https://github.com/alex-shpak/hugo-book
 <p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
 <div class="progress-ww">
 <dl>
-<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a></dd>
+<!--<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a>-->
+</dd>
+    <dt>10 </dt><dd> <details id="codeMenu"> <summary><a href="/engineering/programming/intro/progintro0">Let's Write Some Code</a></summary>
+    <dt class="sub">10.1</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro1"> It's Math?</a></dd>
+	  <dt class="sub">10.2</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro2"> Turtles!</a></dd>
+    <dt class="sub">10.3</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro3"> Getting Tools</a></dd>
+    <dt class="sub">10.4</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro4"> 2 for 1</a></dd>
+    <dt class="sub">10.5</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro5"> Types</a></dd>
+    <dt class="sub">10.6</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro6"> logic & Functions</a></dd>
+    <dt class="sub">10.7</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro7"> Data Structures</a></dd>
+    <dt class="sub">10.8</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro8"> Libraries</a></dd>
+    <dt class="sub">10.9</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro9"> Getting Real</a></dd>
+   </details> </dd>
 <dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
 <dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
 <dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
@@ -600,6 +612,9 @@ https://github.com/alex-shpak/hugo-book
   Chapter 10.6 - ＬＯＧＩＣ &amp; Functions
   <a class="anchor" href="#chapter-106---%ef%bd%8c%ef%bd%8f%ef%bd%87%ef%bd%89%ef%bd%83--functions">#</a>
 </h1>
+<script>
+    document.getElementById("codeMenu").open = true;
+</script>
 <p class="tip ">
     For this page, If you see that lines are ending with a semicolon, <code>;</code>, then that code is C. If they don&rsquo;t, it&rsquo;s Python.
 </p>
@@ -1522,10 +1537,11 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div><p>again, DON&rsquo;T. If you ever think &ldquo;Huh, a <code>goto</code> would be a nice solution&rdquo; you&rsquo;re wrong.</p>
 <p><em>Technically</em> there is some overhead with calling a function - which we&rsquo;re about to see - which using a <code>goto</code> avoids. Still don&rsquo;t.</p>
-<p>The main reason these exist is because in assembly - that is the lowest level language your computer can understand - , a <code>goto</code> is all that exists. These constructs like <code>for</code>, <code>if</code>, etc. don&rsquo;t exist.</p>
+<p>The main reason these exist is because in assembly - that is the lowest level language your computer can understand -  a <code>goto</code> is all that exists. These constructs like <code>for</code>, <code>if</code>, etc. don&rsquo;t exist.</p>
 <p>Instead, you get individual instructions like <code>beq</code>,<code>blt</code>, or <code>jmp</code> which mean branch-if-equal-to, branch-if-less-than, and jump, respectively. These will go to a memory address and execute code from that point if the conditon (or lack of, for <code>jmp</code>) is met.</p>
 <p>All your if&rsquo;s, for&rsquo;s, while&rsquo;s, etc. are built out of these. The complier (gcc, in your case) takes your C  code and turns it into these instructions and does so much more effeciently than you could by hand.</p>
 <p>By writing in the higher-level-than-assembly-but-still-pretty-low-level language of C, you get to not deal with these things. The same applies to writing <strong>functions</strong>. Functions are what we use as much more poweful, easier to read alternatives to direct jumping around by memory locations that is done by <code>goto</code>.</p>
+<p>Again, I can&rsquo;t stress this enough, don&rsquo;t use <code>goto</code>. Not even once. Don&rsquo;t try it. Don&rsquo;t think, &ldquo;This is neat and good to know!&rdquo;. Unknow it. Don&rsquo;t go &ldquo;this is a good use case!&rdquo;. It&rsquo;s not. Don&rsquo;t use <code>goto</code>.</p>
 <h2 id="getting-functional">
   Getting Functional
   <a class="anchor" href="#getting-functional">#</a>
