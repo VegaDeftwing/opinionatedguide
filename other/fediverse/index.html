@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+  <script>
+    (function () {
+        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
+        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
+        
+        var oldOnLoad = window.onload;
+        window.onload = function (event) {
+            if (document.getElementsByClassName) {
+                var elems = document.getElementsByClassName("ptr");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    var ptrText = elem.innerHTML;
+                    if (FOOTNOTE_REGEX.test(ptrText)) {
+                        elem.className = "ptr footptr";
+                        elem.onclick = toggle;
+                    } else if (REFERENCE_REGEX.test(ptrText)) {
+                        elem.className = "ptr refptr";
+                    }
+                    elem.setAttribute("href", "#"+ptrText);
+                }
+                addListItemIds("references", "[", "]");
+                addListItemIds("footnotes", "(", ")");
+            }
+    
+            if (typeof oldOnLoad === "function") {
+                oldOnLoad(event);
+            }
+        };
+        
+        function addListItemIds(parentId, before, after) {
+            var refs = document.getElementById(parentId);
+            if (refs && refs.getElementsByTagName) {
+                var elems = refs.getElementsByTagName("li");
+                for (var i = 0; i<elems.length; i++) {
+                    var elem = elems[i];
+                    elem.setAttribute("id", before+(i+1)+after);
+                }
+            }
+        }
+        
+        var currentDiv = null;
+        var currentId = null;
+        function toggle(event) {
+            var parent = this.parentNode;
+            if (currentDiv) {
+                parent.removeChild(currentDiv);
+                currentDiv = null;
+            }
+            var footnoteId = this.innerHTML;
+            if (currentId === footnoteId) {
+                currentId = null;
+            } else {
+                currentId = footnoteId;
+                currentDiv = document.createElement("div");
+                var footHtml = document.getElementById(footnoteId).innerHTML;
+                currentDiv.innerHTML = footHtml;                        
+                currentDiv.className = "foot-tooltip";
+                parent.insertBefore(currentDiv, this.nextSibling);
+                setTimeout(function () {
+                    currentDiv.style.opacity = "1";
+                }, 0);
+            }
+            event.preventDefault();
+        }
+    }());
+    </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Fediverse, ActivityPub, &amp; The IndieWeb # If you&rsquo;re as active in the same nerdy online circles I am, you&rsquo;ve probably heard all three of these terms. There&rsquo;s also a good chance you&rsquo;re confused how they&rsquo;re all related. Well, let&rsquo;s fix that:
+The Fediverse # The fediverse (a portmanteau of &ldquo;federation&rdquo; and &ldquo;universe&rdquo;) is an ensemble of federated (i.e. interconnected) servers that are used for web publishing (i.e. social networking, microblogging, blogging, or websites) and file hosting, but which, while independently hosted, can communicate with each other.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #5EBD3E;}
+  a:active{color: #5EBD3E;}
+  ::-webkit-scrollbar-thumb {background: #5EBD3E !important;}
+  ::-webkit-scrollbar-thumb {background: #5EBD3E !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="The Fediverse, ActivityPub, &amp; The IndieWeb # If you&rsquo;re as active in the same nerdy online circles I am, you&rsquo;ve probably heard all three of these terms. There&rsquo;s also a good chance you&rsquo;re confused how they&rsquo;re all related. Well, let&rsquo;s fix that:
+The Fediverse # The fediverse (a portmanteau of &ldquo;federation&rdquo; and &ldquo;universe&rdquo;) is an ensemble of federated (i.e. interconnected) servers that are used for web publishing (i.e. social networking, microblogging, blogging, or websites) and file hosting, but which, while independently hosted, can communicate with each other." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/other/fediverse/" /><meta property="article:section" content="Other" />
+
+
+
+<title>Fediverse | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.84c64d5136ec8733087582e54aa50edcf196e2ce85c8a161fc605420e7a15a09.css" integrity="sha256-hMZNUTbshzMIdYLlSqUO3PGW4s6FyKFh/GBUIOehWgk=">
+<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">3.6</dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">3.7</dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">3.8</dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">3.9</dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">3.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">3.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">3.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1</dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+<dt>A2</dt><dd> <a href="/engineering/linux/windows/">Ugh. Windows.</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">6.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">6.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">6.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">6.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">6.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">6.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<!--<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a>-->
+</dd>
+    <dt>10 </dt><dd> <details id="codeMenu"> <summary><a href="/engineering/programming/intro/progintro0">Let's Write Some Code</a></summary>
+    <dt class="sub">10.1</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro1"> It's Math?</a></dd>
+	  <dt class="sub">10.2</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro2"> Turtles!</a></dd>
+    <dt class="sub">10.3</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro3"> Getting Tools</a></dd>
+    <dt class="sub">10.4</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro4"> 2 for 1</a></dd>
+    <dt class="sub">10.5</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro5"> Types</a></dd>
+    <dt class="sub">10.6</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro6"> logic & Functions</a></dd>
+    <dt class="sub">10.7</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro7"> Data Structures</a></dd>
+    <dt class="sub">10.8</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro8"> Libraries</a></dd>
+    <dt class="sub">10.9</dt><dd class="sub"> <a href="/engineering/programming/intro/progintro9"> Getting Real</a></dd>
+   </details> </dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Making & Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">3.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">3.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">4.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">4.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">4.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">4.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">4.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">6.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">6.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">6.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>1½</dt><dd> <a href="/design/vbasics/">Basics++</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/gen/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p class="navhead, webhead" style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">3.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">3.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">3.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+<dt> </dt><dd> <a href="/interviews/spg/">Sex Positive Gaming</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</details> </dd>
+   <dt></dt><dd> <details id="hciMenu"> <summary><a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+    <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	<dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+    <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+   <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+   <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+   <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+   </details> </dd>
+<dt> </dt><dd> <a href="/other/tokipona/">toki pona! <span class="conlang">󱥬󱦖󱥔<span></a></dd>
+    <dt> </dt><dd> <a href="/other/fediverse/"class=active>The Fediverse, ActivityPub, & The IndieWeb </a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd class="blogdd" style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">7</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Fediverse</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-fediverse-activitypub--the-indieweb">The Fediverse, ActivityPub, &amp; The IndieWeb</a>
+      <ul>
+        <li><a href="#the-fediverse">The Fediverse</a></li>
+        <li><a href="#activitypub">ActivityPub</a></li>
+        <li><a href="#the-indieweb">The IndieWeb</a></li>
+        <li><a href="#putting-it-all-together">Putting it all together</a></li>
+      </ul>
+    </li>
+    <li><a href="#but-wait-theres-more">But wait, there&rsquo;s more!</a>
+      <ul>
+        <li><a href="#webrings">Webrings</a></li>
+        <li><a href="#decentralized-networking">Decentralized networking</a></li>
+        <li><a href="#the-not-http-web">The not http-web</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="the-fediverse-activitypub--the-indieweb">
+  The Fediverse, ActivityPub, &amp; The IndieWeb
+  <a class="anchor" href="#the-fediverse-activitypub--the-indieweb">#</a>
+</h1>
+<p>If you&rsquo;re as active in the same nerdy online circles I am, you&rsquo;ve probably heard all three of these terms. There&rsquo;s also a good chance you&rsquo;re confused how they&rsquo;re all related. Well, let&rsquo;s fix that:</p>
+<h2 id="the-fediverse">
+  The Fediverse
+  <a class="anchor" href="#the-fediverse">#</a>
+</h2>
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/Fediverse)">
+<p>
+    The fediverse (a portmanteau of &ldquo;federation&rdquo; and &ldquo;universe&rdquo;) is an ensemble of federated (i.e. interconnected) servers that are used for web publishing (i.e. social networking, microblogging, blogging, or websites) and file hosting, but which, while independently hosted, can communicate with each other. On different servers (instances), users can create so-called identities. These identities are able to communicate over the boundaries of the instances because the software running on the servers supports one or more communication protocols which follow an open standard. As an identity on the fediverse, users are able to post text and other media, or to follow posts by other identities.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/Fediverse">Wikipedia</a>
+    </div>
+</div>
+<p>Alright, that&rsquo;s a lot to disect, so let&rsquo;s break it down.</p>
+<blockquote>
+<p>interconnected servers [&hellip;] independently hosted [&hellip;] can communicate with each other</p>
+</blockquote>
+<p>So, basically, a bunch of people are running their own servers but they can talk to one another because they&rsquo;ve agreed on a standard.</p>
+<blockquote>
+<p>[&hellip;] create so-called identities</p>
+</blockquote>
+<p>so, make an account</p>
+<blockquote>
+<p>These identities are able to communicate [&hellip;]</p>
+</blockquote>
+<p>but this account is recognized by other servers.</p>
+<p>So, what this is getting is that you might have something that&rsquo;s less like Twitter where everything is on one centralized network and more like email. You can have an <code>@gmail.com</code>, an <code>@hotmail.com</code> or make your own - I could (but don&rsquo;t) have an <code>@opguides.info</code>.</p>
+<p>Already based on that simplified exlpanation this has a few benefits:</p>
+<ol>
+<li>You can be host your own server if you really want, so <strong>you</strong> can control your data</li>
+<li>You can be a part of a server that has as tight or loose of rules as you want. Don&rsquo;t want rascists hanging around, then don&rsquo;t let them.</li>
+</ol>
+<p>There are many fediverse services. The most well know one being <a href="https://joinmastodon.org">mastodon</a> which is basically a Twitter clone BUT the weird thing is there&rsquo;s multiple instances. So, like email, you might have an account at <a href="https://merveilles.town">https://merveilles.town</a> or <a href="https://chaos.social/about">https://chaos.social/about</a> or something else entirely, but regardless of what you use they can communicate.</p>
+<p>Mastodon has many many great instances - more on that in a bit. The bigger picture is that federation can be used for something like a YouTube clone (which is what <a href="https://joinpeertube.org">PeerTube</a> is), streaming audio (which is what <a href="https://funkwhale.audio">Funkwhale</a> is), being-a-better-insta-than-insta (which is what <a href="https://pixelfed.org/">PixelFed</a> is), event planning (see <a href="https://gath.io/">Gath.io</a>), and quite a few other things if you go looking. The point being, for each of these, an (optionally) unified identity can be used and the server you use (or host yourself) can choose who to federate with (talk to). This means it:</p>
+<ul>
+<li>
+<p>Is censorship resistant</p>
+</li>
+<li>
+<p>Allows you to join a community that doesn&rsquo;t allow the things you like</p>
+</li>
+<li>
+<p>Lets you control your data as much as you want to.</p>
+</li>
+</ul>
+<p>It&rsquo;s a win-win-win. In most systems these sound contradictory. How can something be censorship resistant, but still have communities with whatever rules they like? Well, the key word their is <strong>communities</strong>, and that it is plural. These communities are still separete, it&rsquo;s just that they can federate <em>if and only if</em> they want to.</p>
+<p>If a server is full of racist jerks, nobody will federate with them. They can post all they want on their server, but their reach is limited. Yes, this makes echo chambers worse (in both directions) but, it&rsquo;s a hell of a lot better than the alternative.</p>
+<p>Alright, so, this is cool but whenever somebody talks about all of this fediverse stuff, this is only part of the picture. So, next let&rsquo;s talk about&hellip;</p>
+<h2 id="activitypub">
+  ActivityPub
+  <a class="anchor" href="#activitypub">#</a>
+</h2>
+<p>The website for ActivityPub, <a href="https://activitypub.rocks">activitypub.rocks</a> says:</p>
+<div class="quote [activitypub.rocks](https://activitypub.rocks)">
+<p>
+    <p>ActivityPub is a decentralized social networking protocol based on the <a href="https://www.w3.org/TR/activitystreams-core/">ActivityStreams 2.0</a> data format. ActivityPub is an official W3C recommended standard published by the <a href="https://www.w3.org/wiki/Socialwg">W3C Social Web Working Group</a>. It provides a client to server API for creating, updating and deleting content, as well as a federated server to server API for delivering notifications and subscribing to content.</p>
+<p>Sounds exciting? Dive in!</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://activitypub.rocks">activitypub.rocks</a>
+    </div>
+</div>
+<p>Which, uh, I don&rsquo;t know if sounds exiciting so much as it sounds like a description of a rockwell automation retroencabulator.</p>
+<p>So, in English, it&rsquo;s a way for services/websites to talk to each other &hellip; which is a form of the above mentioned federation. So, basically, it&rsquo;s one way that things can federate. It&rsquo;s the protocol.</p>
+<p>While not the best analogy, it&rsquo;s not totally wrong to say that ActivityPub is the language things talk to each other in (usually) while the act of talking to one another is federation. So, with the <strong>fedi</strong>verse being the uni<strong>verse</strong> of these things that are all talking together, ActivityPub is the way they (usually) talk.</p>
+<p>Speaking of both Federation and ActivityPub, usually the IndieWeb will also get mentioned, so&hellip;</p>
+<h2 id="the-indieweb">
+  The IndieWeb
+  <a class="anchor" href="#the-indieweb">#</a>
+</h2>
+<div class="quote [indieweb.org](https://indieweb.org)">
+<p>
+    The IndieWeb is a <a href="https://indieweb.org/people">people</a>-focused alternative to the &ldquo;corporate web&rdquo;.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://indieweb.org">indieweb.org</a>
+    </div>
+</div>
+<p>Uhh, wow, that doesn&rsquo;t tell us much. The website goes on to say basically everything I said about what the fediverse is in the first place. The main thing I want to point out from that website is actually this:</p>
+<div class="quote [indieweb.org](https://indieweb.org)">
+<p>
+    <h3 id="you-are-better-connected">
+  You are better connected
+  <a class="anchor" href="#you-are-better-connected">#</a>
+</h3>
+<p>Your articles and status messages can <a href="https://indieweb.org/POSSE">go to all services</a>, not just one, allowing you to engage with everyone. Even replies and likes on other services can <a href="https://indieweb.org/backfeed">come back to your site</a> so they’re all in one place.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://indieweb.org">indieweb.org</a>
+    </div>
+</div>
+<p>Which is basically a fancy way of saying when you do something on your own website, it should automatically post links to all the things, and your website should automatically fetch the replies from all the things.</p>
+<div class="speech big math">
+    <p>
+        If you&rsquo;re being pedantic, this means that this website isn&rsquo;t technically part of the indieweb in full, as it doesn&rsquo;t post links out automatically, it only fetches replies via <a href="https://indieweb.org/Webmention">webmentions</a> using <a href="https://brid.gy">brid.gy</a>. <a class="ptr">(1)</a>
+    </p>
+</div>
+
+
+
+
+<p>Along with that, clearly a big part of the <strong>indie</strong>web is being <strong>inde</strong>pendent, so, big corprate websites, even if they fit everything else don&rsquo;t count.</p>
+<h2 id="putting-it-all-together">
+  Putting it all together
+  <a class="anchor" href="#putting-it-all-together">#</a>
+</h2>
+<p>Let&rsquo;s go backwards then, by letting me pretend this is an FAQ between two of my characters:</p>
+<div class="speech triode ">
+    <p>
+        Why would I want my site/service to be on the IndieWeb?
+    </p>
+</div>
+
+
+
+
+<div class="speech right ">
+    <p>
+        You want your site/service to be able to interact with other sites services
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech triode ">
+    <p>
+        Why would I want my site to be able to do that?
+    </p>
+</div>
+
+
+
+
+<div class="speech right big">
+    <p>
+        See how at the bottom of this page reactions to it on Twitter, Lobste.rs, various mastodon services, etc. all show up? That&rsquo;s using something called <a href="https://indieweb.org/Webmention">Webmentions</a> which is something that&rsquo;s part of the indieweb movement. It lets things be connected without me needing to post it in any one of those places directly. This means I&rsquo;m still in full control of this website, you&rsquo;re still in full control of your accounts, but you can talk about this website and people can see that conversation regardless of the platform you&rsquo;re using <a class="ptr">(2)</a>.
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech triode ">
+    <p>
+        Why would I care if I don&rsquo;t have a website/server?
+    </p>
+</div>
+
+
+
+
+<div class="speech right big">
+    <p>
+        Even if you&rsquo;re not making your own content on your own platform, it still means you can interact with other people&rsquo;s content without needing to use their platform, that you can join a community that better suits you, and that you don&rsquo;t have to miss out on anything or be discussing things in a bubble.
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech triode ">
+    <p>
+        Huh?
+    </p>
+</div>
+
+
+
+
+<div class="speech right big">
+    <p>
+        <p>You like Twitter but not <em>that side</em> of Twitter? Then you can use Mastodon. Mastodon is part of the fediverse, which is made up of indieweb servers, which all federate with eachother. You could join a server like <a href="eldritch.cafe">eldritch.cafe</a> which is</p>
+<blockquote>
+<p>For queer people, feminists, anarchists and their sympathizers. Mainly French, but other languages welcome</p>
+</blockquote>
+<p>or <a href="sunny.garden">sunny.garden</a> which is</p>
+<blockquote>
+<p>[&hellip;] a community for indie creators who draw, paint, sculpt, write, design, program, play, sing or build, their friends and family, and anyone else who thinks that sounds like a nice place to be.</p>
+</blockquote>
+<p>But whatever server/community/instance you join, you can interact with users on another, <strong>unless</strong> they block one-another, like if there were a <a href="example.com">wowireallylovebeingracist.club</a>, the servers can choose not to work with them.</p>
+<p>Same concept, different target for the other things listed in the first part of this page, or even me with this <strong>IndieWeb</strong> site choosing to ignore certain websites for displaying reactions.</p>
+
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech triode ">
+    <p>
+        Wait, you just talked about the indieweb and the fediverse, but not activity pub.
+    </p>
+</div>
+
+
+
+
+<div class="speech right ">
+    <p>
+        Yep. That&rsquo;s because it (usually) doesn&rsquo;t matter to a user. Yes, a good-portion of the time the fediverse works using ActivityPub, but this is transparent to the user.
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech triode ">
+    <p>
+        Then why bring it up?
+    </p>
+</div>
+
+
+
+
+<div class="speech right ">
+    <p>
+        Because ActivityPub and Federation are becoming synonymous. So, if you see a site/platform say it supports ActivityPub that&rsquo;s probably the same thing as supporting federation. Basically, it&rsquo;s because people will talk about it and if you don&rsquo;t know you&rsquo;ll just be confused.
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech triode ">
+    <p>
+        Why is this terminology so confusing?
+    </p>
+</div>
+
+
+
+
+<div class="speech right big">
+    <p>
+        <p>Feckin&rsquo; hell, right? In short, if you&rsquo;re using Mastodon you are:</p>
+<ul>
+<li>On one of many websites that is interconnected in a way that is refereed to as being <strong>federated</strong>, where all of these federated sites together are called <strong>the fediverse</strong>.</li>
+<li>Using <strong>Activity Pub</strong> behind the scenes when your mastodon instance talks to another. This happens all the time as your toot (the equivalent of a tweet) propagates though all the federated instances.</li>
+</ul>
+<p>If, while using Mastodon, you talk about a site like mine, which is (arguably) part of the <strong>Indieweb</strong> this site will pick up on it and show your comment automatically.</p>
+<p>If you then go to use a PeerTube instance like &hellip;</p>
+<p class="tip ">
+    The following link is to a specific PeerTube instance. From what I can tell, most PeerTube instances have an abundance of NSFW and unsavory content. My experiance with Mastodon has been great, peertube&hellip; ehhhhhhh.
+</p>
+<p>&hellip; <a href="https://video.qoto.org/videos/overview">video.qoto.org</a> you can use that <strong>mastodon</strong> identity to follow a channel on PeerTube. Of course, you could also just make a second account on video.qoto.org or any other peertube instance, but you can just use the one you have from mastodon because <span style="color:#D4AFAF">f</span><span style="color:#D4C5AF">e</span><span style="color:#CDD4AF">d</span><span style="color:#B7D4AF">e</span><span style="color:#AFD4BE">r</span><span style="color:#AFD4D4">a</span><span style="color:#AFBED4">t</span><span style="color:#B7AFD4">i</span><span style="color:#CDAFD4">o</span><span style="color:#D4AFC5">n</span>.</p>
+
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech triode ">
+    <p>
+        I&rsquo;m still confused.
+    </p>
+</div>
+
+
+
+
+<div class="speech right big">
+    <p>
+        Reading <a href="https://boffosocko.com/2017/07/28/an-introduction-to-the-indieweb/">An Introduction to the IndieWeb (Chris Aldrich)</a> and <a href="https://blog.joinmastodon.org/2018/06/why-activitypub-is-the-future/">Why ActivityPub is the future (blog.joinmastodon.org)</a> may help you gronk some of it, but, yeah, it&rsquo;s a bit confusing, especially since it&rsquo;s a pretty radical change in the entire way we thing about the internet working.
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<h1 id="but-wait-theres-more">
+  But wait, there&rsquo;s more!
+  <a class="anchor" href="#but-wait-theres-more">#</a>
+</h1>
+<p>While this article is supposed to be about the fediverse, activity pub, and the indieweb, it would be incomplete without mentioning the overall point of all of this: trying to return to a time when the internet wasn&rsquo;t dominated by monolithic, global-scale systems. These are good for some things, sure, but they&rsquo;re really suck for others. A few other things are helping with this:</p>
+<h2 id="webrings">
+  Webrings
+  <a class="anchor" href="#webrings">#</a>
+</h2>
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/Webring)">
+<p>
+    <p>A webring (or web ring) is a collection of websites linked together in a circular structure, and usually organized around a specific theme, often educational or social. They were popular in the 1990s and early 2000s, particularly among amateur websites.</p>
+<p>To be a part of the webring, each site has a common navigation bar; it contains links to the previous and next site. By selecting next (or previous) repeatedly, the user will eventually reach the site they started at; this is the origin of the term webring.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/Webring">Wikipedia</a>
+    </div>
+</div>
+<p>Which, is exactly what this website is a part of. Rather than put the button to go to the next website though, I&rsquo;ll just link the list: <a href="https://webring.xxiivv.com">https://webring.xxiivv.com</a>. Being a part of a webring is basically a part of having an indieweb website now.</p>
+<h2 id="decentralized-networking">
+  Decentralized networking
+  <a class="anchor" href="#decentralized-networking">#</a>
+</h2>
+<p>While it&rsquo;s sure as hell taking it&rsquo;s sweet time to get there, there&rsquo;s some really neat projects that are trying to make the backbone of the internet decentralized. The idea here is that it&rsquo;s a bit weird that if you were to instant message your neighbor that it has to go over your cell carrier&rsquo;s or ISPs network instead of your presumably-close-enough wi-fi routers just &hellip; talking. It&rsquo;s almost a little to obvious to the point that it sounds dumb it doesn&rsquo;t work this way already.</p>
+<p>To various degrees and in different ways, project like <a href="https://yggdrasil-network.github.io">yggdrasil</a>, <a href="https://ipfs.io">ipfs</a>, <a href="https://github.com/cjdelisle/cjdns">cjdns</a> + <a href="https://hyperboria.net/">hyperboria</a>, and <a href="https://beakerbrowser.com">beaker</a> among many, many others are trying to make this future a reality.</p>
+<h2 id="the-not-http-web">
+  The not http-web
+  <a class="anchor" href="#the-not-http-web">#</a>
+</h2>
+<p>When you go to a website and do (almost) anything, all of the content is severed over the <strong>H</strong>yper<strong>t</strong>ext <strong>T</strong>ransfer <strong>P</strong>rotocol (or HTTP<strong>S</strong>, the secure variant). HTTP is great, it&rsquo;s allowed us to make the bad as internet we have today. <em>But</em>, it can sometimes be a bit to freeing. That freedom is why we have a lot of websites which sucks for screen readers, are full of obnoxious ads, etc. So, there are alternatives.</p>
+<p>The big two are <strong>Gopher</strong> and <strong>Gemini</strong>, and at risk of pissing people off by treating them like they&rsquo;re the same thing, they&rsquo;re both very limited. You can display text, images, etc. but the way those websites actually arrange the content and show it to you is up to your browser. The websites themselves only provide the content, they leave it up to the browser to decide how to display it. If you want to try out a browser, see <a href="https://sr.ht/~julienxx/Castor/">Castor</a> and noodle around. (or maybe <a href="https://bombadillo.colorfield.space">bombadillo</a> if you&rsquo;re a TUI person)</p>
+<p>If you want to know more in a not incorrect and at least less-simplified way, give <a href="https://thedorkweb.substack.com/p/gopher-gemini-and-the-smol-internet">Gopher, Gemini and The Smol Internet (Tales From The Dork Web #22, Steve Lord) </a>a read.</p>
+<ol hidden id="footnotes">
+    <li>Webmentions don't always use ActivityPub but often do. This is enough into the weeds that I don't know all the details. If you do and want to submit something explaining it on this page it would be welcome.</li>
+    <li>...ish. The way Webmentions work is weird. Generally anything using ActivityPub will work, but some things that don't can also be made to work and that's still called a WebMention. This post isn't meant to get to technical about how they work, and frankly I don't know.</li>
+</ol>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Other/fediverse.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-fediverse-activitypub--the-indieweb">The Fediverse, ActivityPub, &amp; The IndieWeb</a>
+      <ul>
+        <li><a href="#the-fediverse">The Fediverse</a></li>
+        <li><a href="#activitypub">ActivityPub</a></li>
+        <li><a href="#the-indieweb">The IndieWeb</a></li>
+        <li><a href="#putting-it-all-together">Putting it all together</a></li>
+      </ul>
+    </li>
+    <li><a href="#but-wait-theres-more">But wait, there&rsquo;s more!</a>
+      <ul>
+        <li><a href="#webrings">Webrings</a></li>
+        <li><a href="#decentralized-networking">Decentralized networking</a></li>
+        <li><a href="#the-not-http-web">The not http-web</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
