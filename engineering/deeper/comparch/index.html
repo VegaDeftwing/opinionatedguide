@@ -83,7 +83,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 36 - Let&rsquo;s make our own CPU # How To Make A CPU - A Simple Picture Based Explanation (RobertElder)
-This Chapter will be split into three parts:Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.Part 2, making that CPU on an FPGA.Part 3, making that CPU do something. [TODO] http://www.lighterra.com/papers/modernmicroprocessors/
+This chapter will be split into three parts:Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.Part 2, making that CPU on an FPGA.Part 3, making that CPU do something. [TODO] http://www.lighterra.com/papers/modernmicroprocessors/
 [TODO] A Density Metric for Semiconductor Technology - past nm for sizing">
 <meta name="theme-color" content="#FFFFFF">
 
@@ -97,7 +97,7 @@ This Chapter will be split into three parts:Part 1, understanding the interval w
 </style>
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 36 - Let&rsquo;s make our own CPU # How To Make A CPU - A Simple Picture Based Explanation (RobertElder)
-This Chapter will be split into three parts:Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.Part 2, making that CPU on an FPGA.Part 3, making that CPU do something. [TODO] http://www.lighterra.com/papers/modernmicroprocessors/
+This chapter will be split into three parts:Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.Part 2, making that CPU on an FPGA.Part 3, making that CPU do something. [TODO] http://www.lighterra.com/papers/modernmicroprocessors/
 [TODO] A Density Metric for Semiconductor Technology - past nm for sizing" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/deeper/comparch/" /><meta property="article:section" content="Engineering" />
@@ -108,7 +108,7 @@ This Chapter will be split into three parts:Part 1, understanding the interval w
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -601,7 +601,7 @@ https://github.com/alex-shpak/hugo-book
 </h1>
 <p><a href="https://blog.robertelder.org/how-to-make-a-cpu/">How To Make A CPU - A Simple Picture Based Explanation (RobertElder)</a></p>
 <p class="tip ">
-    This Chapter will be split into three parts:</br></br>Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.</br></br>Part 2, making that CPU on an FPGA.</br></br>Part 3, making that CPU do something.
+    This chapter will be split into three parts:</br></br>Part 1, understanding the interval workings of a CPU. This is effectively just a computer architecture class, and will be by far the largest section.</br></br>Part 2, making that CPU on an FPGA.</br></br>Part 3, making that CPU do something.
 </p>
 <p>[TODO] <a href="http://www.lighterra.com/papers/modernmicroprocessors/">http://www.lighterra.com/papers/modernmicroprocessors/</a></p>
 <p>[TODO] <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9063714">A Density Metric for Semiconductor Technology</a> - past nm for sizing</p>
@@ -619,21 +619,21 @@ https://github.com/alex-shpak/hugo-book
 <p class="attribution ">
     <a href="https://en.wikipedia.org/wiki/Clarke%27s_three_laws">Arthur C. Clarke&rsquo;s 3rd law</a>
 </p>
-<p>Computers, to a normal user look like magic. In previous chapters I&rsquo;ve shown you how to harness this magic though programming, and revealed at least some of it&rsquo;s internal worknings in <a href="/engineering/linux/hardware/">Chapter 3, Into The Hardware</a>. But this is all low level magic, the sort the lowest level mages can handle. To truely master the craft one must dive deep into the dark arts and study the origin of magic itself and understand how we breathe life into otherwise inanimate rock. Back in <a href="/engineering/circuits/circuits2/">Chapter 14, Semiconductors</a> I covered how the basics of the very, very low level work to form semiconductors, then in <a href="/engineering/circuits/digitallogic/">Chapter 15, Digital Logic</a> we saw how transistors could be chained to give rise to the fundamental logic gates. Finally, last chapter we looked at the basics of FPGAs to see how they let us make large scale logic circuits quickly. That all builds to this, making complex logic circuits that actually do useful work. These can be everything from application specific tasks, like bitcoin miners or hardware encoders and decoders for video codecs to the generic CPU. For this guide, I&rsquo;ll focus on the CPU. However, I think this can be realatively boring without further motivation, so, before we actually get to the CPU, let me show you how and why CPUs have evolved</p>
+<p>Computers, to a normal user, look like magic. In previous chapters I&rsquo;ve shown you how to harness this magic though programming, and revealed at least some of its internal workings in <a href="/engineering/linux/hardware/">Chapter 3, Into The Hardware</a>. But this is all low level magic, the sort the lowest level mages can handle. To truly master the craft, one must dive deep into the dark arts and study the origin of magic itself and understand how we breathe life into otherwise inanimate rock. Back in <a href="/engineering/circuits/circuits2/">Chapter 14, Semiconductors</a> I covered how the basics of the very, very low level work to form semiconductors, then in <a href="/engineering/circuits/digitallogic/">Chapter 15, Digital Logic</a> we saw how transistors could be chained to give rise to the fundamental logic gates. Finally, last chapter we looked at the basics of FPGAs to see how they let us make large scale logic circuits quickly. That all builds to this, making complex logic circuits that actually do useful work. These can be everything from application specific tasks, like bitcoin miners or hardware encoders and decoders for video codecs, to the generic CPU. For this guide, I&rsquo;ll focus on the CPU. However, I think this can be relatively boring without further motivation, so, before we actually get to the CPU, let me show you how and why CPUs have evolved</p>
 <p>[TODO] loop memory operations w/ godbolt, cisc/risc, chiplets, core counts, branch prediction, N/S bridge to chipset (memory controller), etc. Moore&rsquo;s Law ending, voltage minimums, minimum transistor sizes before quantum effects, etc.</p>
 <iframe width="100%" height="400px" src="https://godbolt.org/e?readOnly=true&hideEditorToolbars=true#g:!((g:!((g:!((h:codeEditor,i:(fontScale:18,j:1,lang:c%2B%2B,selection:(endColumn:1,endLineNumber:11,positionColumn:1,positionLineNumber:11,selectionStartColumn:1,selectionStartLineNumber:11,startColumn:1,startLineNumber:11),source:'%23include+%3Ccstdlib%3E%0A%0Aint*+addFloats(int*+a,+int*+b,+int*+c,+int+n)+%7B%0A%0A++++for+(int+i+%3D+0%3B+i+%3C+n%3B+i%2B%2B)%7B%0A++++++++c%5Bi%5D+%3D+a%5Bi%5D+%2B+b%5Bi%5D%3B%0A++++%7D%0A%0A++++return+c%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50.79365079365079,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g102,filters:(b:'0',binary:'1',commentOnly:'0',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'0'),fontScale:17,j:1,lang:c%2B%2B,libs:!(),options:'-O',selection:(endColumn:1,endLineNumber:1,positionColumn:1,positionLineNumber:1,selectionStartColumn:1,selectionStartLineNumber:1,startColumn:1,startLineNumber:1),source:1),l:'5',n:'0',o:'x86-64+gcc+10.2+(Editor+%231,+Compiler+%231)+C%2B%2B',t:'0')),k:49.20634920634921,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
 <p>Here you can see there are three memory operations(2x MOV and one ADD that have DWORD PTR in them). With 4-byte ints on a 4Ghz CPU, this works out to $ 3 \times4(Bytes) \times (4 \times10^9(hz)) = 48GB/s $. This is pretty close to the 55GB/s that <a href="https://zsmith.co/bandwidth.php">this linux tool</a> reports that I get, per core, on my system. Fortunately, most modern CPUs have ways of parrelizing these operations internally, having multiple integer units per core as well.</p>
 <p>[TODO] newer systems, <a href="https://www.cerebras.net/cerebras-wafer-scale-engine-why-we-need-big-chips-for-deep-learning/">https://www.cerebras.net/cerebras-wafer-scale-engine-why-we-need-big-chips-for-deep-learning/</a>, <a href="https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem">https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem</a>, intel optane</p>
 <p>[TODO]</p>
 <p>Data-Level, Task-Level, and Instruction-Level Paralleism (Application Parrallelism)</p>
-<p>Intstruction Level Parrelism (Pipelining), Thread-Level and Request-Level Parellism (Architectural Parallelism)</p>
-<p>Single Insturtion Stream, Single Data Stream (SISD)</p>
+<p>Instruction Level Parrelism (Pipelining), Thread-Level and Request-Level Parellism (Architectural Parallelism)</p>
+<p>Single Instruction Stream, Single Data Stream (SISD)</p>
 <p>Single Instruction Stream, Multiple Data Streams (SIMD)</p>
 <p>MISD is not used commercially</p>
-<p>Multiple Instruction Streams, Multiple Data STreams (MIMD) (tightly and loosely coupled)</p>
+<p>Multiple Instruction Streams, Multiple Data Streams (MIMD) (tightly and loosely coupled)</p>
 <p><a href="https://en.wikipedia.org/wiki/In-memory_processing">In Memory Processing</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Neuromorphic_engineering">Neuromorphic Computing</a></p>
-<p>Power wall, max Silicon freq, max density before tunnling</p>
+<p>Power wall, max Silicon freq, max density before tunneling</p>
 <p><a href="https://blog.cloudflare.com/branch-predictor/">Branch predictor: How many &ldquo;if&quot;s are too many? Including x86 and M1 benchmarks! (Cloudflare Blog)</a></p>
 <h2 id="part-2-what-make-a-cpu-tick">
   Part 2: What Make a CPU tick?
@@ -641,7 +641,7 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>[TODO]</p>
 <p><a href="https://computersciencewiki.org/index.php/Architecture_of_the_central_processing_unit_%28CPU%29#Major_parts_of_a_CPU">https://computersciencewiki.org/index.php/Architecture_of_the_central_processing_unit_(CPU)#Major_parts_of_a_CPU</a></p>
-<p>maybe Ben Eaters bread board CPU series?</p>
+<p>Maybe Ben Eaters bread board CPU series?</p>
 <h2 id="part-3-making-the-cpu">
   Part 3: Making the CPU
   <a class="anchor" href="#part-3-making-the-cpu">#</a>
@@ -655,7 +655,7 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://www.kernel.org/doc/html/latest/driver-api/fpga/index.html">FPGA Linux Kernel drivers</a></p>
 <p><a href="https://twitter.com/sylefeb/status/1258808333265514497">An FPGA that only plays Doom</a></p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The DooM-chip! It will run E1M1 till the end of times (or till power runs out, whichever comes first).<br>Algorithm is burned into wires, LUTs and flip-flops on an <a href="https://twitter.com/hashtag/FPGA?src=hash&amp;ref_src=twsrc%5Etfw">#FPGA</a>: no CPU, no opcodes, no instruction counter. <br>Running on Altera CycloneV + SDRAM. (1/n) <a href="https://t.co/wd7j4JnfWn">pic.twitter.com/wd7j4JnfWn</a></p>&mdash; Sylvain Lefebvre (@sylefeb) <a href="https://twitter.com/sylefeb/status/1258808333265514497?ref_src=twsrc%5Etfw">May 8, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p><a href="http://www.mynor.org">My Nor</a> - &ldquo;a single board computer that does not have a CPU. Instead, the CPU consists of discrete logic gates from the 74HC series. This computer also has no ALU. Only a single NOR gate is used to perfom all computations such as addition, subtraction, AND, OR and XOR.&rdquo;</p>
+<p><a href="http://www.mynor.org">My Nor</a> - &ldquo;a single board computer that does not have a CPU. Instead, the CPU consists of discrete logic gates from the 74HC series. This computer also has no ALU. Only a single NOR gate is used to perform all computations such as addition, subtraction, AND, OR and XOR.&rdquo;</p>
 <h1 id="chapter-291---fpaas">
   Chapter 29.1 - FPAAs
   <a class="anchor" href="#chapter-291---fpaas">#</a>

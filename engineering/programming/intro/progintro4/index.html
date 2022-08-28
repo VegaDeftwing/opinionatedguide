@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -608,7 +608,7 @@ https://github.com/alex-shpak/hugo-book
 <a  href="/engineering/linux/hardware/"   class="book-btn ">
   Into The Hardware
 </a>
- section we looked at some of the inner workings of the CPU, and briefly looked into how the CPU only understands <em>machine code</em>, 1&rsquo;s and 0&rsquo;s that make up individual instructions. Now, there&rsquo;s absolutely no reason to ever think at that low of a level, the lowest you should ever care to look at, as mentioned there, is assembly. However, assemly is still awful to write and read. While if you stare at the following for long enough you may be able to figure out what  what it does</p>
+ section we looked at some of the inner workings of the CPU, and briefly looked into how the CPU only understands <em>machine code</em>, 1&rsquo;s and 0&rsquo;s that make up individual instructions. Now, there&rsquo;s absolutely no reason to ever think at that low of a level, the lowest you should ever care to look at, as mentioned there, is assembly. However, Assembly is still awful to write and read. While if you stare at the following for long enough you may be able to figure out what  what it does</p>
 <pre tabindex="0"><code class="language-assembly" data-lang="assembly">addi sp,sp,-32
 sd s0,24(sp)
 addi s0,sp,32
@@ -625,7 +625,7 @@ mv a0,a5
 ld s0,24(sp)
 addi sp,sp,32
 jr ra
-</code></pre><p>even if you&rsquo;ve never seen code before it&rsquo;s pretty obvious that in this,</p>
+</code></pre><p>even if you&rsquo;ve never seen code before, it&rsquo;s pretty obvious that in this,</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -664,17 +664,17 @@ jr ra
 </span></span><span style="display:flex;"><span>print(c)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>A large portion of programmers will never, ever see that first example (assembly code) because of all of it&rsquo;s downsides (hard to read and write, only works on a given instruction set, etc.). Furthermore, some people will never use C because it&rsquo;s rather difficult to write complex programs with it. So then, why care? Well, if you want to write fast, correct, code you have to know. While for speed you could go look up some comparisons of C and Python and see that, as a very lose rule of thumb, the python will be about 10 times slower, I think writing <em>correct</em> code is more important to most people, espcially since for <em>most</em> programs, the speed difference doesn&rsquo;t really matter on a modern computer. Later, you&rsquo;ll see this too is a bit of an odd argument, as it&rsquo;s comically easy to write security vulnerablities into your C code on accident - clearly that&rsquo;s not correct. Instead what I mean is that you can write code that&rsquo;s not incorrectly using types (Coming up in a bit) or just doing things in way that&rsquo;s just really inefficent for the computer to do. More over, as Aria Beingessner argues, <a href="https://gankra.github.io/blah/c-isnt-a-language/">C Isn&rsquo;t A Programming Language Anymore</a>, it&rsquo;s really a sort of standard on which every other language is built, and it&rsquo;s expected that every other language works with it&hellip; and its long history of quirks.</p>
+</div><p>A large portion of programmers will never, ever see that first example (assembly code) because of all of its downsides (hard to read and write, only works on a given instruction set, etc.). Furthermore, some people will never use C because it&rsquo;s rather difficult to write complex programs with it. So then, why care? Well, if you want to write fast, correct, code you have to know. While for speed you could go look up some comparisons of C and Python and see that, as a very loose rule of thumb, the python will be about 10 times slower, I think writing <em>correct</em> code is more important to most people, especially since for <em>most</em> programs, the speed difference doesn&rsquo;t really matter on a modern computer. Later, you&rsquo;ll see this too is a bit of an odd argument, as it&rsquo;s comically easy to write security vulnerabilities into your C code on accident - clearly that&rsquo;s not correct. Instead, what I mean is that you can write code that&rsquo;s not incorrectly using types (Coming up in a bit) or just doing things in a way that&rsquo;s just really inefficient for the computer to do. More over, as Aria Beingessner argues, <a href="https://gankra.github.io/blah/c-isnt-a-language/">C Isn&rsquo;t A Programming Language Anymore</a>, it&rsquo;s really a sort of standard on which every other language is built, and it&rsquo;s expected that every other language works with it&hellip; and its long history of quirks.</p>
 <p>This brings up a good question may new programmers have:</p>
 <h2 id="why-are-there-multiple-languages-anyway">
   Why are there multiple languages anyway?
   <a class="anchor" href="#why-are-there-multiple-languages-anyway">#</a>
 </h2>
-<p>A little while ago I got asked</p>
+<p>A little while ago, I got asked</p>
 <div class="quote A friend that is really, really bad at programming despite having a CS degree">
 <p>
     What would you say is the most widespread language to know for programming?</br></br>
-Also whats your favorite to code in and if someone is trying to learn that language or a language in general from scratch what are the best resources / academys / learning material to use for someone who has no experience? Or do you recommend any of these at all?
+Also what&rsquo;s your favorite to code in and if someone is trying to learn that language or a language in general from scratch, what are the best resources / academies / learning material to use for someone who has no experience? Or do you recommend any of these at all?
 </p>
     <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
         <p style="font-size:.85em;color:#aaa;"> 
@@ -686,12 +686,12 @@ Also whats your favorite to code in and if someone is trying to learn that langu
 </span>
 <div class="speech big ">
     <p>
-        <p>That&rsquo;s a tough question. It&rsquo;s largely application dependent. Like, if you&rsquo;re doing web you have to use JavaScript. AI/ML? Python. Low level? C.</p>
+        <p>That&rsquo;s a tough question. It&rsquo;s largely application dependent. Like, if you&rsquo;re doing web, you have to use JavaScript. AI/ML? Python. Low level? C.</p>
 <p>The best way to learn a language is to make something. Do projects.</p>
 <p>Also, widespread ≠ good or even high paying. Less common languages tend to pay more.</p>
-<p>My &ldquo;favorite&rdquo;, again, depends on what Im doing. If it&rsquo;s a quick script: Python. If it needs to be performant and low level, C. If I need absolutely reliability, performance, and low level but can get away with a size increase: Rust.</p>
-<p>What you&rsquo;re missing though is it&rsquo;s really usually not a choice. If you&rsquo;re working with microcontrollers, it&rsquo;s almost always going to be C (maybe C++). Unity? C#. Web? Js. You get the idea.</p>
-<p>If you&rsquo;re looking for languages to learn to get broadly better at programming I&rsquo;d recommend Python, GLSL, Haskell (and futhark, which is similar), and Rust. Each has their own quirks and by getting good at those you&rsquo;ll be good at most.</p>
+<p>My &ldquo;favorite&rdquo;, again, depends on what I&rsquo;m doing. If it&rsquo;s a quick script: Python. If it needs to be performant and low level, C. If I need absolutely reliability, performance, and low level but can get away with a size increase: Rust.</p>
+<p>What you&rsquo;re missing, though is it&rsquo;s really usually not a choice. If you&rsquo;re working with microcontrollers, it&rsquo;s almost always going to be C (maybe C++). Unity? C#. Web? Js. You get the idea.</p>
+<p>If you&rsquo;re looking for languages to learn to get broadly better at programming, I&rsquo;d recommend Python, GLSL, Haskell (and futhark, which is similar), and Rust. Each has their own quirks and by getting good at those you&rsquo;ll be good at most.</p>
 <p>But along with that, remember that programming is not about knowing a language. It&rsquo;s about knowing how to solve problems. If you can write code but can&rsquo;t use a debugger, benchmark and profile your code, test for memory issues, and integrate it with existing tools/software you&rsquo;re missing the point.</p>
 <p>I think a good starting point for learning about that is to make modules for <a href="https://vcvrack.com">https://vcvrack.com</a> . It uses C++ but to do it well you&rsquo;ll need to get used to doing debugging, optimizing code for performance, and using a 3rd party API.</p>
 
@@ -749,8 +749,8 @@ Also whats your favorite to code in and if someone is trying to learn that langu
 <hr>
 <ul>
 <li>Can use Object Orientation</li>
-<li>Huge standrad library - don&rsquo;t need to import anything to use <code>print()</code>, built in functions like <code>reverse()</code></li>
-<li>Lot&rsquo;s of amazing 3rd party libraries</li>
+<li>Huge standard library - don&rsquo;t need to import anything to use <code>print()</code>, built in functions like <code>reverse()</code></li>
+<li>Lots of amazing 3rd party libraries</li>
 <li>Constantly improved, gaining great new features</li>
 </ul>
   </div>
@@ -804,26 +804,26 @@ Also whats your favorite to code in and if someone is trying to learn that langu
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> output
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice the word <code>def</code> and lack of braces (<code>{ ... }</code>) in the Python code? Also, while in the C code we do have the body of the function indented it&rsquo;s not necessary, while in the Python it&rsquo;s mandatory (and stands in for the lack of braces). These things are part of each languages synax. While both use English words as their base and may even use a few in the same way, (like <code>return</code>) what words, how their ordered, if you need a <code>;</code> at the end of each line, and so on make up the syntax of the language. It&rsquo;s why you can&rsquo;t just copy code from one language into another and expect it to work, and why going from a higher level language like Python to C is hard, speaking of:</p>
+</div><p>Notice the word <code>def</code> and lack of braces (<code>{ ... }</code>) in the Python code? Also, while in the C code we do have the body of the function indented it&rsquo;s not necessary, while in the Python it&rsquo;s mandatory (and stands in for the lack of braces). These things are part of each language syntax. While both use English words as their base and may even use a few in the same way, (like <code>return</code>) what words, how they&rsquo;re ordered, if you need a <code>;</code> at the end of each line, and so on make up the syntax of the language. It&rsquo;s why you can&rsquo;t just copy code from one language into another and expect it to work, and why going from a higher level language like Python to C is hard, speaking of:</p>
 <h3 id="higher-level">
   Higher Level?
   <a class="anchor" href="#higher-level">#</a>
 </h3>
-<p>Generally, you&rsquo;ll see that languages are either called High level (like Python) or low level (like C) - though context does matter, as C is much higher level than Assembly. This &ldquo;level&rdquo; isn&rsquo;t in regards to difficulty but rather in terms of <em>abstraction</em>, which, to simplify greatly, what we mean is that the higher the level of abstraction the less the programmer has to worry about how the underlying program actually works, just that it <em>does</em> work. For example, in C, there&rsquo;s no special type for a string (like &ldquo;Hello&rdquo;) instead, you need to make an array of characters and set a max size for it ahead of time, because this is how the hardware is going to see it anyway. Meanwhile in python, strings are just naturally a thing, and you can add more characters onto one as much as you like. These abstractions help the programmer write code faster; however, they come at a cost of speed and control.</p>
+<p>Generally, you&rsquo;ll see that languages are either called High level (like Python) or low level (like C) - though context does matter, as C is much higher level than Assembly. This &ldquo;level&rdquo; isn&rsquo;t in regards to difficulty but rather in terms of <em>abstraction</em>, which, to simplify greatly, what we mean is that the higher the level of abstraction the less the programmer has to worry about how the underlying program actually works, just that it <em>does</em> work. For example, in C, there&rsquo;s no special type for a string (like &ldquo;Hello&rdquo;) instead, you need to make an array of characters and set a max size for it ahead of time, because this is how the hardware is going to see it anyway. Meanwhile, in python, strings are just naturally a thing, and you can add more characters onto one as much as you like. These abstractions help the programmer write code faster; however, they come at a cost of speed and control.</p>
 <h3 id="what-about-other-languages">
   What about other languages?
   <a class="anchor" href="#what-about-other-languages">#</a>
 </h3>
-<p>Oh boy. There&rsquo;s a nearly endless amount, each with pro and cons and times where they&rsquo;re the best option. Want to make something interactive on a website? You probably want Javascript. Working in engineering and need to do some math on signals? Matlab (<span class="smalltext ">
+<p>Oh boy. There&rsquo;s a nearly endless amount, each with pro and cons and times when they&rsquo;re the best option. Want to make something interactive on a website? You probably want JavaScript. Working in engineering and need to do some math on signals? Matlab (<span class="smalltext ">
     While I really dislike it
 </span>) is a good bet. The reason I&rsquo;m starting you with Python and C is because Python is really easy to learn and actually used a lot, while C is and always will be used for low level programming (even if it sucks, which it does.).</p>
 <h3 id="how-do-i-choose-which-to-use">
   How do I choose which to use?
   <a class="anchor" href="#how-do-i-choose-which-to-use">#</a>
 </h3>
-<p>For anything but trival programs the choice is usually made for you before you start. If you&rsquo;re doing AI/ML stuff and want to use Tensorflow, you&rsquo;re stuck in Python (or C++, though that&rsquo;s uncommon). If you&rsquo;re writing code a small embedded system, you&rsquo;re probably stuck with C or maybe C++. If you&rsquo;re making a game in Unity, you&rsquo;re pretty much stuck with C#. If you&rsquo;re doing web development, you&rsquo;re proably going to be using Javascript. Doing work on an ancient program for government/banking, it was probably written in Fortran or Cobal, so you&rsquo;re now stuck with Fortran or Cobal.</p>
-<p>Now, there are some exceptions to this. If you&rsquo;re starting on a project that&rsquo;s pretty weird in the first place and wanting to do things from scratch (like making your own game engine) then of course you can chose whatever you like. Some will definitely make more sense than others though, and you&rsquo;ll come to recognize these choices as you gain experiance.</p>
-<p>There are also times you can mix languages or use one language to generate another. For example, if you really wanted to you could write a python library in C and do basically everything in there, only really using python as the &ldquo;glue logic&rdquo; to hold everything togther. Or, maybe you need to process a ton of data in a way that you can make really fast by writing massively parellel code (something we&rsquo;ll explore much later, in both the 
+<p>For anything but trivial programs, the choice is usually made for you before you start. If you&rsquo;re doing AI/ML stuff and want to use Tensorflow, you&rsquo;re stuck in Python (or C++, though that&rsquo;s uncommon). If you&rsquo;re writing code a small embedded system, you&rsquo;re probably stuck with C or maybe C++. If you&rsquo;re making a game in Unity, you&rsquo;re pretty much stuck with C#. If you&rsquo;re doing web development, you&rsquo;re probably going to be using JavaScript. Doing work on an ancient program for government/banking, it was probably written in Fortran or Cobal, so you&rsquo;re now stuck with Fortran or Cobal.</p>
+<p>Now, there are some exceptions to this. If you&rsquo;re starting on a project that&rsquo;s pretty weird in the first place and wanting to do things from scratch (like making your own game engine) then of course you can choose whatever you like. Some will definitely make more sense than others, though, and you&rsquo;ll come to recognize these choices as you gain experience.</p>
+<p>There are also times you can mix languages or use one language to generate another. For example, if you really wanted to you could write a python library in C and do basically everything in there, only really using python as the &ldquo;glue logic&rdquo; to hold everything together. Or, maybe you need to process a ton of data in a way that you can make really fast by writing massively parallel code (something we&rsquo;ll explore much later, in both the 
 
 
 
@@ -846,7 +846,7 @@ Also whats your favorite to code in and if someone is trying to learn that langu
   GPU Computation
 </a>
  chapters), then maybe you&rsquo;ll want to use <a href="https://futhark-lang.org">Futhark</a> to write code that will generate C or python code for you.</p>
-<p>There&rsquo;s also some situations where you will literally mix one language into another, like putting blocks of assembly code into C programms or sending multiple SQL querries to a database.</p>
+<p>There&rsquo;s also some situations where you will literally mix one language into another, like putting blocks of assembly code into C programs or sending multiple SQL queries to a database.</p>
 <h2 id="why-will-knowing-c-help-me-write-good-code">
   Why will knowing C help me write good code?
   <a class="anchor" href="#why-will-knowing-c-help-me-write-good-code">#</a>

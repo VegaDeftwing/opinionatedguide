@@ -84,7 +84,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 11 - Low Level Programming # Ashlyn Black&rsquo;s C Cheat Sheet
 &lsquo;C Programming&rsquo; on badd10de.dev
-Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. It&rsquo;s spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn.">
+Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -98,7 +98,7 @@ Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;
 <meta property="og:title" content="" />
 <meta property="og:description" content="Chapter 11 - Low Level Programming # Ashlyn Black&rsquo;s C Cheat Sheet
 &lsquo;C Programming&rsquo; on badd10de.dev
-Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. It&rsquo;s spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn." />
+Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/lowlvl/" /><meta property="article:section" content="Engineering" />
 
@@ -108,7 +108,7 @@ Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -592,7 +592,7 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#part-2-going-deeper">Part 2, Going Deeper</a></li>
             <li><a href="#what-are-we-going-to-do">What are we going to do?</a></li>
             <li><a href="#tools-to-use">Tools to use</a></li>
-            <li><a href="#pseudo-code">Pseudo code</a></li>
+            <li><a href="#pseudocode">Pseudocode</a></li>
             <li><a href="#writing-it">Writing it</a></li>
             <li><a href="#debugging-it">Debugging it</a></li>
             <li><a href="#analyzing-the-assembly">Analyzing the Assembly</a></li>
@@ -624,11 +624,11 @@ https://github.com/alex-shpak/hugo-book
   Why C?
   <a class="anchor" href="#why-c">#</a>
 </h2>
-<p>This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C++, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. It&rsquo;s spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn. It forces you to know the low level, which in this case is great. C++ has grown into behemoth where any thing can be done in about a dozen different ways and each development team is effectively writing in their own dialect of C++.</p>
+<p>This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C++, Rust are the &lsquo;big three&rsquo; that come to mind for me. C is awesome. Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn. It forces you to know the low level, which in this case is great. C++ has grown into a behemoth where anything can be done in about a dozen different ways and each development team is effectively writing in their own dialect of C++.</p>
 <p>On the other hand, C has a lot of annoyances due to its minimalism. For example, there are no strings - only arrays of characters - and all memory management is manual.</p>
-<p>Rust is cool, but I think it&rsquo;s more of a language you need to grow into understand why someone would want to use it. It&rsquo;s very rigid and does a very good job of preventing memory mistakes and making sure the programmer has handled any errors that could come their way (What do you do if you go to open a file and it&rsquo;s not there, for example).</p>
+<p>Rust is cool, but I think it&rsquo;s more of a language you need to grow into to understand why someone would want to use it. It&rsquo;s very rigid and does a very good job of preventing memory mistakes and making sure the programmer has handled any errors that could come their way (What do you do if you go to open a file and it&rsquo;s not there, for example).</p>
 <p>Thankfully, C++ and C are pretty similar, as C++ is a superset of C - that is it&rsquo;s C with a whole wack ton of added features (for better or worse)</p>
-<p>What this really means is that should you need the added features of C++ the syntax should be at least familiar. Keep in mind though they are different languages. C++ has features that you absolutely should use if you&rsquo;re writing in it. Strings, abstracting out much of the memory management, &lsquo;vectors&rsquo;, etc.</p>
+<p>What this really means is that should you need the added features of C++ the syntax should be at least familiar. Keep in mind though, they are different languages. C++ has features that you absolutely should use if you&rsquo;re writing in it. Strings, abstracting out much of the memory management, &lsquo;vectors&rsquo;, etc.</p>
 <p>It&rsquo;s also worth considering that you can use C code in C++ projects if you need.</p>
 <h2 id="dont-throw-out-everything-you-already-know">
   Don&rsquo;t throw out everything you already know!
@@ -670,9 +670,9 @@ https://github.com/alex-shpak/hugo-book
 <pre tabindex="0"><code>[vega@lyrae ~]$ gcc hello.c -o hello
 [vega@lyrae ~]$ ./hello
 Hello World!
-</code></pre><p>Alright, so let&rsquo;s go though line by line.</p>
+</code></pre><p>Alright, so let&rsquo;s go through line by line.</p>
 <p>On line <strong>1</strong> there&rsquo;s a <code>#include</code> statement, this tells the compiler we want to include some library or other code. In this case we want the <code>stdio</code> library, as well need it in a few lines, but what about this library, where is it?</p>
-<p>Well, that library is just some other code. We can look at it by navigating to <code>/usr/include/stdio.h</code>or, in VSCode you can hold control and click on the word <em>stdio</em> to go it&rsquo;s file, so let&rsquo;s look at that file:</p>
+<p>Well, that library is just some other code. We can look at it by navigating to <code>/usr/include/stdio.h</code>or, in VSCode you can hold control and click on the word <em>stdio</em> to go its file, so let&rsquo;s look at that file:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -751,19 +751,19 @@ Hello World!
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">int</span> printf (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>__restrict __format, ...);
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>okay, so it starts with a big copyright block in comments - in C <code>//</code> makes a single ling comment and <code>/* comment */</code> are for multi-line comments - then on lines 39 and 40 we can see it is in turn including three more files such as <code>stddef.h</code> on line 33.</p>
-<p>But lets look deeper, down on line 332 of <code>stdio.h</code> we can see <code>printf()</code> is loaded as an external function. The <code>extern</code> keyword marks this as a sort of indicator to the compiler, <code>gcc</code> in this case, that this function definition is actually implemented elsewhere, but that this is the signature to expect from it&rsquo;s usage. That is, when anything that imports <code>stdio.h</code> uses <code>printf()</code> it should expect to return an integer (the <code>int</code> before the word printf) and take in a pointer to a character array (the <code>char *</code> inside the parentheses)</p>
+</div><p>okay, so it starts with a big copyright block in comments - in C <code>//</code> makes a single long comment and <code>/* comment */</code> are for multi-line comments - then on lines 39 and 40 we can see it is in turn including three more files such as <code>stddef.h</code> on line 33.</p>
+<p>But let&rsquo;s look deeper, down on line 332 of <code>stdio.h</code> we can see <code>printf()</code> is loaded as an external function. The <code>extern</code> keyword marks this as a sort of indicator to the compiler, <code>gcc</code> in this case, that this function definition is actually implemented elsewhere, but that this is the signature to expect from its usage. That is, when anything that imports <code>stdio.h</code> uses <code>printf()</code> it should expect to return an integer (the <code>int</code> before the word printf) and take in a pointer to a character array (the <code>char *</code> inside the parentheses)</p>
 <p>So, where&rsquo;s the code for <code>printf()</code> that does the actual printing?</p>
-<p>Well, in it&rsquo;s part of <strong>libc</strong>. libc is the C standard library on linux, typically it&rsquo;s glibc in particular. This is a pre-compiled shared library so that when any program needs to use <code>printf()</code> it can just call the printf implementation from libc, which is stored in /usr/lib/libc.so.6</p>
+<p>Well, in its part of <strong>libc</strong>. libc is the C standard library on Linux, typically it&rsquo;s glibc in particular. This is a pre-compiled shared library so that when any program needs to use <code>printf()</code> it can just call the printf implementation from libc, which is stored in /usr/lib/libc.so.6</p>
 <p>We could go looking into the source code for this, but I think it&rsquo;s sufficient to say that it&rsquo;s simply loaded from a shared system library.</p>
 <p>Another thing you should notice is the #ifndef at the start of this file, which starts with a #, just like define.</p>
 <p>These are pre-processor directives, just like <code>#include</code> is, basically, it&rsquo;s special code that the compiler (in our case <code>gcc</code>) looks at before it complies the code. Of note there are <code>#if</code> and <code>#else</code> blocks, you might see these used for checking if a certain library is available for example, as a way to check what compiler is being used to adjust things slightly, or to check what OS the code is even being compiled for.</p>
-<p>you also might see <code>#define</code> used to either set constants such as <code>#define PI 3.14159</code> or <code>#define GET_SIZE(*p*)  (GET(p) &amp; ~0x7)</code></p>
+<p>You also might see <code>#define</code> used to either set constants such as <code>#define PI 3.14159</code> or <code>#define GET_SIZE(*p*)  (GET(p) &amp; ~0x7)</code></p>
 <p>This little adventure was mostly just to show you that these <code>#include</code> statements that use system libraries are not magic, and to point out that most code will end up loading shared system libraries (<code>.so</code> files on Linux, <code>.dll</code> files on Windows)</p>
-<p>Okay, so, that&rsquo;s done. Line <strong>2</strong> of our 6 line hello.c is just &lsquo;white space&rsquo; or a blank line, so we can skip it. Line <strong>3</strong> is where things get interesting again, with <code>int main() {</code>. The <code>main()</code> function is special, as without doing something <a href="https://www.techiedelight.com/c-program-without-main-function/">weird</a>, it&rsquo;s where your code starts from. you may often see this line as <code>int main(int *argc*, char const **argv*[])</code> too, which I&rsquo;ll get to in a bit.</p>
-<p>So, lets break this down, starting with <code>int</code>.</p>
+<p>Okay, so, that&rsquo;s done. Line <strong>2</strong> of our 6 line hello.c is just &lsquo;white space&rsquo; or a blank line, so we can skip it. Line <strong>3</strong> is where things get interesting again, with <code>int main() {</code>. The <code>main()</code> function is special, as without doing something <a href="https://www.techiedelight.com/c-program-without-main-function/">weird</a>, it&rsquo;s where your code starts from. You may often see this line as <code>int main(int *argc*, char const **argv*[])</code> too, which I&rsquo;ll get to in a bit.</p>
+<p>So, let&rsquo;s break this down, starting with <code>int</code>.</p>
 <p>C is a statically typed language, this means that each variable has a defined type, but also that each function has a defined type it returns and expects to be given.</p>
-<p>so, with <code>int main() {</code> we&rsquo;re saying the <code>main()</code> function will return an integer. skipping ahead a bit, we can see this is the case, as on line 5, <code>return(0)</code> it does exactly that, but, why?</p>
+<p>so, with <code>int main() {</code> we&rsquo;re saying the <code>main()</code> function will return an integer. Skipping ahead a bit, we can see this is the case, as on line 5, <code>return(0)</code> it does exactly that, but, why?</p>
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -806,10 +806,10 @@ Hello World!
 <p>But what&rsquo;s with that <code>\n</code> on the end? Well, to understand this line we&rsquo;ll need our helpful friend, the ASCII table.</p>
 <img src="/eng/ASCII-Table-wide.svg" alt="Arch Logo" height="600em" style="-webkit-filter: invert(100%);">
 <blockquote class="book-hint info ">
-  On most unix based systems you can access this at any time by running <code>man ascii</code>
+  On most unix based systems, you can access this at any time by running <code>man ascii</code>
 </blockquote>
 
-<p>ASCII is a really old way for computers to represent text. In most modern systems it&rsquo;s been replaced by unicode (which is what let&rsquo;s you use emjois 🤔) but the start of the the much larger character space of Unicode is the <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">same as the ASCII table</a> anyway. Alright, so, you&rsquo;ll notice some really weird characters in the ASCII table, not just the normal symbols you&rsquo;d expect. The one I&rsquo;d like to mention now though is at 0xA - <code>[LINE FEED]</code></p>
+<p>ASCII is a really old way for computers to represent text. In most modern systems it&rsquo;s been replaced by unicode (which is what lets you use emojis 🤔) but the start of the much larger character space of Unicode is the <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">same as the ASCII table</a> anyway. Alright, so, you&rsquo;ll notice some really weird characters in the ASCII table, not just the normal symbols you&rsquo;d expect. The one I&rsquo;d like to mention now though is at 0xA - <code>[LINE FEED]</code></p>
 <p>Line Feed, as well as some others like Bell and Carriage Return all date back to when computers were hooked up to <a href="https://en.wikipedia.org/wiki/Teletype_Model_33">Teletype machines</a> - which were basically a mix of printer with a typewriter, so, naturally, there had to be some control characters to do things like tell the machine to move to the next line.</p>
 <p>Because we like backwards comparability so very much, we still use these same codes for modern terminals, so typing <code>\n</code> at the end of a line is really saying &ldquo;put a line feed control code here&rdquo; which, to a modern system, means go to the next line.</p>
 <p>The reason we do this is because without it, the output of our program looks like this (ran first as is, then with the <code>\n</code> removed)</p>
@@ -818,7 +818,7 @@ Hello World!
 [vega@lyrae ~]$ gcc hello.c -o hello
 [vega@lyrae ~]$ ./hello
 Hello World![vega@lyrae ~]$
-</code></pre><p>see how it doesn&rsquo;t leave room for the prompt to be printed on a new line of it&rsquo;s own!</p>
+</code></pre><p>see how it doesn&rsquo;t leave room for the prompt to be printed on a new line of its own!</p>
 <p>The ASCII table has some other interesting side effects too. See how a capital &lsquo;A&rsquo; has an &lsquo;index&rsquo; 32 higher than a lower case &lsquo;a&rsquo;, and the same for &lsquo;B&rsquo; to &lsquo;b&rsquo;. Let&rsquo;s use this to our advantage to make the &rsquo;d&rsquo; in &lsquo;Hello World!&quot; uppercase.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -914,7 +914,7 @@ Hello Worlz!?Hello Worlz!?
   Calculating sine and pi
   <a class="anchor" href="#calculating-sine-and-pi">#</a>
 </h3>
-<p>pseudo code, types</p>
+<p>pseudocode, types</p>
 <h3 id="sorting-a-list">
   Sorting a list
   <a class="anchor" href="#sorting-a-list">#</a>
@@ -964,7 +964,7 @@ Hello Worlz!?Hello Worlz!?
 </h3>
 <p>[TODO] Interacting with the above, this program should run in the background and update the data, based on window focus events
 using libxdo</p>
-<p>This program should actually provide the VAST majority of the source code, with purposeful errors for demonstating the below</p>
+<p>This program should actually provide the VAST majority of the source code, with purposeful errors for demonstrating the below</p>
 <p>furthermore, the C code should check to see if there is a new article, and if so it should call a function that
 first checks a &lsquo;meta&rsquo; entry to see if the python code to change a published time to be newer or the number of entries has changed to optimize:</p>
 <ul>
@@ -975,19 +975,19 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
 <p>generates a template markdown file for the article if PUBLISHED is TRUE and no file for it exists,</p>
 </li>
 <li>
-<p>generates a html file from the markdown if PUBLISHED is TRUE and no html exists then updates TEDIT, TPUB</p>
+<p>generates a HTML file from the markdown if PUBLISHED is TRUE and no HTML exists then updates TEDIT, TPUB</p>
 </li>
 <li>
-<p>remove the html file if PUBLISHED is FALSE and an html file for it exists,</p>
+<p>remove the HTML file if PUBLISHED is FALSE and an HTML file for it exists,</p>
 </li>
 </ul>
 <p>however, every time this will still need checked to monitor the md for changes, using ionotify</p>
 <ul>
 <li>
-<p>generates a new html from the markdwon if PUBLISHED is TRUE and md has changed then updates TEDIT</p>
+<p>generates a new HTML from the markdown if PUBLISHED is TRUE and md has changed, then updates TEDIT</p>
 </li>
 <li>
-<p>if markdown is removed, the html file should be as well</p>
+<p>if markdown is removed, the HTML file should be as well</p>
 </li>
 </ul>
 <h3 id="what-are-we-going-to-do">
@@ -1004,9 +1004,9 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
     <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
     <a href="https://cdecl.org/">C Gibberish &lt;&ndash;&gt; English Translator</a>
 </span>
-<h3 id="pseudo-code">
-  Pseudo code
-  <a class="anchor" href="#pseudo-code">#</a>
+<h3 id="pseudocode">
+  Pseudocode
+  <a class="anchor" href="#pseudocode">#</a>
 </h3>
 <p>[TODO]</p>
 <h3 id="writing-it">
@@ -1019,12 +1019,12 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
   Debugging it
   <a class="anchor" href="#debugging-it">#</a>
 </h3>
-<p>So, by now you&rsquo;ve written a fair amount of code, and I&rsquo;m sure you&rsquo;ve figured out that a bunch of tiny issues can get really annoying. Maybe you keep forgetting semicolons, maybe you wrote &lsquo;=&rsquo; instead of &lsquo;==&rsquo; when doing an equality check, whatever. Turns out, there&rsquo;s an easier way to catch these kind of errors and it&rsquo;s available for most languages. Allow me to introduce you to&hellip;</p>
+<p>So, by now you&rsquo;ve written a fair amount of code, and I&rsquo;m sure you&rsquo;ve figured out that a bunch of tiny issues can get really annoying. Maybe you keep forgetting semicolons, maybe you wrote &lsquo;=&rsquo; instead of &lsquo;==&rsquo; when doing an equality check, whatever. Turns out, there&rsquo;s an easier way to catch these kinds of errors and it&rsquo;s available for most languages. Allow me to introduce you to&hellip;</p>
 <h4 id="linting">
   Linting:
   <a class="anchor" href="#linting">#</a>
 </h4>
-<p>Yeah, it&rsquo;s literally named after the fluff you&rsquo;d find in your hoodie pockets, but, it&rsquo;s still a super necessary tool. A &lsquo;Linter&rsquo; is a <a href="https://en.wikipedia.org/wiki/Static_program_analysis">static analysis</a> tool, basically it makes sure you&rsquo;re code is good before you run it. There&rsquo;s a whole bunch of linters out there. As a pretty stupid example, lets look at this python:</p>
+<p>Yeah, it&rsquo;s literally named after the fluff you&rsquo;d find in your hoodie pockets, but, it&rsquo;s still a super necessary tool. A &lsquo;Linter&rsquo; is a <a href="https://en.wikipedia.org/wiki/Static_program_analysis">static analysis</a> tool, basically it makes sure your code is good before you run it. There&rsquo;s a whole bunch of linters out there. As a pretty stupid example, let&rsquo;s look at this python:</p>
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -1117,8 +1117,8 @@ the value of sine( 9 ) is  0.4121184852417566
 <li>Warn you about undeclared variables and functions</li>
 <li>Warn you about some math fuckups (divide by 0, integer overflows, etc.)</li>
 <li>Warn you about some out of bound accesses (accessing the k+1 element of an array with k elements</li>
-<li>Warn you if you try to derefrence a null pointer</li>
-<li>Tell you about <em>some</em> dead (un-reachable) code.</li>
+<li>Warn you if you try to dereference a null pointer</li>
+<li>Tell you about <em>some</em> dead (unreachable) code.</li>
 <li>find <em>some</em> security issues</li>
 <li>find <em>some</em> memory leaks</li>
 </ul>
@@ -1128,13 +1128,13 @@ the value of sine( 9 ) is  0.4121184852417566
   <div class="flex-even markdown-inner">
     <p><strong>STATIC ANALYSIS CAN NOT:</strong></p>
 <ul>
-<li>Read your mind - if you write a an <code>add(a,b)</code> function as <code>int add(int a, int b) { return(a * b) }</code> it won&rsquo;t know you fucked up</li>
+<li>Read your mind - if you write an <code>add(a,b)</code> function as <code>int add(int a, int b) { return(a * b) }</code> it won&rsquo;t know you fucked up</li>
 <li>Know what is relevant - it&rsquo;s not uncommon to get a huge pile of warnings you don&rsquo;t care about while doing initial development. This can make for a sea of problems that is just&hellip; exhausting</li>
 <li><em>Always be right</em> - There are occasional false positives</li>
 <li>Find all issues - It&rsquo;s in the name, it&rsquo;s <em>static</em> analysis. Not Dynamic. Your code is dynamic. It runs, it lives. Static Analysis is just doing a once-over to let you know if there&rsquo;s something super obviously wrong, not doing in depth diagnostics.</li>
 <li>Stop you from writing stupid, inefficient, insecure, and otherwise shit code.
 <ul>
-<li>You want to implement the the obnoxiously slow recursive version of the fibonacci function? It won&rsquo;t stop you.</li>
+<li>You want to implement the obnoxiously slow recursive version of the Fibonacci function? It won&rsquo;t stop you.</li>
 </ul>
 </li>
 </ul>
@@ -1148,7 +1148,7 @@ the value of sine( 9 ) is  0.4121184852417566
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/bWH-nL7v5F4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/bb1bTJtgXrI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>[TODO]</p>
-<p>gdb + <a href="https://github.com/sindresorhus/css-in-readme-like-wat">gef</a>, <a href="https://github.com/rohanrhu/gdb-frontend">gdbfrontend</a>, Valgrind, <a href="https://cdecl.org/">https://cdecl.org/</a>, etc. Mention Virtual v Physical adressing/translation</p>
+<p>gdb + <a href="https://github.com/sindresorhus/css-in-readme-like-wat">gef</a>, <a href="https://github.com/rohanrhu/gdb-frontend">gdbfrontend</a>, Valgrind, <a href="https://cdecl.org/">https://cdecl.org/</a>, etc. Mention Virtual v Physical addressing/translation</p>
 <p><a href="https://github.com/hediet/vscode-debug-visualizer/tree/master/extension">https://github.com/hediet/vscode-debug-visualizer/tree/master/extension</a></p>
 <p>overflows</p>
 <h3 id="analyzing-the-assembly">
@@ -1264,7 +1264,7 @@ the value of sine( 9 ) is  0.4121184852417566
             <li><a href="#part-2-going-deeper">Part 2, Going Deeper</a></li>
             <li><a href="#what-are-we-going-to-do">What are we going to do?</a></li>
             <li><a href="#tools-to-use">Tools to use</a></li>
-            <li><a href="#pseudo-code">Pseudo code</a></li>
+            <li><a href="#pseudocode">Pseudocode</a></li>
             <li><a href="#writing-it">Writing it</a></li>
             <li><a href="#debugging-it">Debugging it</a></li>
             <li><a href="#analyzing-the-assembly">Analyzing the Assembly</a></li>

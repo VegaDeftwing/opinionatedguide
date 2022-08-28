@@ -106,7 +106,7 @@ Functional programming languages are another type of language. Like math, they s
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -624,8 +624,8 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fibonacci(x <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibonacci(x <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This is a very simple function that computes the Nth fibonacci number.</p>
-<p>However, calculating <code>fibonacci(1000)</code> requires a lot CPU power &ndash; and more importantly, memory for all the stack frames. In fact, it is such an expensive function, Python 3.9.6 can&rsquo;t do it for large values!</p>
+</div><p>This is a very simple function that computes the Nth Fibonacci number.</p>
+<p>However, calculating <code>fibonacci(1000)</code> requires a lot of CPU power &ndash; and more importantly, memory for all the stack frames. In fact, it is such an expensive function, Python 3.9.6 can&rsquo;t do it for large values!</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -711,9 +711,9 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>This is possible, because <code>fibonacci</code> is a <strong>pure function</strong>: the same inputs will result in the same outputs, no matter the state of the system as a whole. If you know part (or all) of the answer in advance, you can skip executing some (or all) of the code. In programming language design, this is often called <strong>laziness</strong> (even though it refers to other things in some other languages).</p>
-<p>While this is cool concept, sometimes it <em>does</em> matter whether you repeat work: reading from files or databases that can change between runs, input and output to the user, updating memory read by other code outside of the current scope, and so on. These secondary concerns are called <strong>side effects</strong>.</p>
+<p>While this is a cool concept, sometimes it <em>does</em> matter whether you repeat work: reading from files or databases that can change between runs, input and output to the user, updating memory read by other code outside of the current scope, and so on. These secondary concerns are called <strong>side effects</strong>.</p>
 <p>We were able to write this in Python, but we had to &ldquo;do work&rdquo; in order to &ldquo;be lazy&rdquo;. Explicit extra code was written to create and maintain the cache, and Python always evaluated every instruction &ndash; we simply added code paths that were <em>less work in total</em>.</p>
-<p>While <a href="https://www.youtube.com/watch?v=w0sz5WbS5AM#t=2958">advanced compilers can sometimes do this by themselves</a>, it is rather hit and miss because it has to be inferred. Functional languages treat laziness as a first-class feature. Their approach is this principle taken to extremes: don&rsquo;t do <em>any work at all</em> until it&rsquo;s specifically necessary.</p>
+<p>While <a href="https://www.youtube.com/watch?v=w0sz5WbS5AM#t=2958">advanced compilers can sometimes do this by themselves</a>, it is rather hit-and-miss because it has to be inferred. Functional languages treat laziness as a first-class feature. Their approach is this principle taken to extremes: don&rsquo;t do <em>any work at all</em> until it&rsquo;s specifically necessary.</p>
 <p>If we defined <code>fibonacci</code> in most functional languages, and then use it somewhere in a different calculation, it would not run! It would simply return a <strong>thunk</strong>: an object representing a <em>future</em> calculation.</p>
 <p>In the case of our example, where we want the value from <code>fibonacci(1000)</code>, it wouldn&rsquo;t be until <em>the answer was printed</em> that any code would be executed at all. If the calculation is never used, it is never done.</p>
 <p>Similarly, there is no caching code to write. Every level of the function would break down into other calls: <code>fibonacci(999)</code> and <code>fibonacci(998)</code>, then <code>fibonacci(998)</code> and <code>fibonacci(997)</code>, and so forth. The simple python version takes so long, because these calls are repeated over and over for each &ldquo;branch&rdquo;.</p>

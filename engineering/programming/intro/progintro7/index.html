@@ -82,7 +82,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properites, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.">
+<meta name="description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properties, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -94,7 +94,7 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properites, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way." />
+<meta property="og:description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properties, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/intro/progintro7/" /><meta property="article:section" content="Engineering" />
 
@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -597,7 +597,7 @@ https://github.com/alex-shpak/hugo-book
   Why not just structs?
   <a class="anchor" href="#why-not-just-structs">#</a>
 </h2>
-<p>C is a very low level language and only lets you make <code>struct</code>s. Structs are fine, but they have some annoying properites, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.</p>
+<p>C is a very low level language and only lets you make <code>struct</code>s. Structs are fine, but they have some annoying properties, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.</p>
 <p>For example, say we have a basic C structure we&rsquo;ll call a &ldquo;person&rdquo; with first name, last name, age, and an ID, etc. We can make that structure easy enough:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -617,7 +617,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Problem is, somebody could do somethnig like</p>
+</div><p>Problem is, somebody could do something like</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -628,7 +628,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>bob.first_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;this string is a lot more than twenty characters&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>which would crash the program, because we&rsquo;ve exceded the length limit we defined above, so, maybe we make a function to set the first name:</p>
+</div><p>which would crash the program, because we&rsquo;ve exceeded the length limit we defined above, so, maybe we make a function to set the first name:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -650,16 +650,16 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>and so long as we only ever use this function, this is fine. Problem is, we really can&rsquo;t hide the data from other things and prevent them from modifying the name directly.</p>
-<p>The problem get&rsquo;s worse too. For example, say we wanted to add somethnig to the structure that stores the last time the ID was changed. This should never be able to be changed directly, it sholud only change if the ID changes, and it should ALWAYS change if the ID changes. This is impossible to enforce in C.</p>
-<p>Getting a bit more abstract, what if we want data to be able to inherit ideas. For example, say we want to be able to make a person, but also have a data type for employee and customer? It would make sense to make both employees and customers people. That is, we&rsquo;d want these data types to <em>inherit</em> their properties and data fields from the parent data structure. What I&rsquo;m begining to describe is called &ldquo;Object orientation&rdquo; and it&rsquo;s a feature common to many languages, but notably not available in C. It generally makes it easy to model more complex data structures and limit the way you interact in them, preventing bugs.</p>
+<p>The problem gets worse, too. For example, say we wanted to add something to the structure that stores the last time the ID was changed. This should never be able to be changed directly, it should only change if the ID changes, and it should ALWAYS change if the ID changes. This is impossible to enforce in C.</p>
+<p>Getting a bit more abstract, what if we want data to be able to inherit ideas. For example, say we want to be able to make a person, but also have a data type for employee and customer? It would make sense to make both employees and customers people. That is, we&rsquo;d want these data types to <em>inherit</em> their properties and data fields from the parent data structure. What I&rsquo;m beginning to describe is called &ldquo;Object orientation&rdquo; and it&rsquo;s a feature common to many languages, but notably not available in C. It generally makes it easy to model more complex data structures and limit the way you interact in them, preventing bugs.</p>
 <p>Really, the big difference here isn&rsquo;t that you can do something new (like inheritance, etc.) - you can do similar things in C with structures and pointers if you&rsquo;re clever - it&rsquo;s what we <em>can&rsquo;t</em> do. You can place limits on your code to prevent yourself from doing very stupid things, which once you&rsquo;ve written enough code, you&rsquo;ll know the majority of your time goes to fixing stupid mistakes.</p>
 <h2 id="a-new-objective">
   A New Objective
   <a class="anchor" href="#a-new-objective">#</a>
 </h2>
 <p>Alright, so, we know we want something more than basic data structures (<a href="https://www.youtube.com/watch?v=QM1iUe6IofM&amp;t=1988s">sometimes</a>) and this thing is called &ldquo;Object Orientation&rdquo;, so, uh, what is that?</p>
-<p>Okay, so, put very basically it means you make your code with <strong>classes</strong> and make instances of <strong>objects</strong>. Each class (and so each object) has a set of <strong>methods</strong> (basically functions) that define how you can interact with it. These methods can either be <strong>public</strong> or <strong>private</strong>. private methods can only be called by other things within the class, public can be called from outside the class. Now, in truth, this is one place where python is a hair weird to teach this as it really doesn&rsquo;t do the public/private distinction well, but ╮(─▽─)╭.</p>
-<p>Anyway, let&rsquo;s look at an example. Because OO really only makes a lot of sense in the context of larger code, let&rsquo;s assume we&rsquo;re making a game like MineCraft and need a tool system. The following is a rough idea of how that might look in an object oriented sytle for making a Tool class, making a Pickaxe subclass of the Tool class</p>
+<p>Okay, so, put very basically, it means you make your code with <strong>classes</strong> and make instances of <strong>objects</strong>. Each class (and so each object) has a set of <strong>methods</strong> (basically functions) that define how you can interact with it. These methods can either be <strong>public</strong> or <strong>private</strong>. private methods can only be called by other things within the class, public can be called from outside the class. Now, in truth, this is one place where python is a hair weird to teach this as it really doesn&rsquo;t do the public/private distinction well, but ╮(─▽─)╭.</p>
+<p>Anyway, let&rsquo;s look at an example. Because OO really only makes a lot of sense in the context of larger code, let&rsquo;s assume we&rsquo;re making a game like Minecraft and need a tool system. The following is a rough idea of how that might look in an object-oriented style for making a Tool class, making a Pickaxe subclass of the Tool class</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -839,7 +839,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>            player<span style="color:#f92672">.</span>add_to_inventory(PickTool(<span style="color:#ae81ff">20</span>,<span style="color:#e6db74">&#34;Wooden Pick&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>And of course, there&rsquo;d be yet more code to actually let a player use the item once it&rsquo;s in their inventory. What you should note though, is that when calling <code>PickTool(1,&quot;Wooden Pick&quot;,1,1)</code> a new object of that type is made. If another one is crafted, it will still be a new item, with it&rsquo;s own durability, name, etc. Even if they&rsquo;re the same, if one is used it won&rsquo;t use the other.</p>
+</div><p>And of course, there&rsquo;d be yet more code to actually let a player use the item once it&rsquo;s in their inventory. What you should note, though, is that when calling <code>PickTool(1,&quot;Wooden Pick&quot;,1,1)</code> a new object of that type is made. If another one is crafted, it will still be a new item, with its own durability, name, etc. Even if they&rsquo;re the same, if one is used, it won&rsquo;t use the other.</p>
 <p>Maybe this would be easier to see with a toy example:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -859,7 +859,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>second_dog <span style="color:#f92672">=</span> Dog(<span style="color:#e6db74">&#34;Spot&#34;</span>)		
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>There&rsquo;s two dogs being &ldquo;made&rdquo;. If both were named &ldquo;Spot&rdquo; that would be fine, but it&rsquo;s still two different dogs. Just like how meeting someone with your same name doesn&rsquo;t make the two of you the same person.</p>
+</div><p>There are two dogs being &ldquo;made&rdquo;. If both were named &ldquo;Spot&rdquo; that would be fine, but it&rsquo;s still two different dogs. Just like how meeting someone with your same name doesn&rsquo;t make the two of you the same person.</p>
 <p>Another nice thing about this is it gives us a good way to organize our code, as usually it&rsquo;s a good call to have a file per class, though not always.</p>
 <p>[TODO]</p>
 <p>objects, classes, basic OO, inheritance, SOLID</p>
@@ -873,7 +873,7 @@ https://github.com/alex-shpak/hugo-book
 <li><strong>O</strong> - Open-Closed Principal
 <ul>
 <li>Open for extension; Closed for modification</li>
-<li>In other words, you should be able to change how something works, as much as reasonable, by extending a class without changing it&rsquo;s source code.</li>
+<li>In other words, you should be able to change how something works, as much as reasonable, by extending a class without changing its source code.</li>
 </ul>
 </li>
 <li><strong>L</strong> - Lisov Substitution Principal
@@ -881,7 +881,7 @@ https://github.com/alex-shpak/hugo-book
 <li>Shitty name</li>
 <li>Basically just means an instance of a thing should always be able to be replaced by a more-specific version.</li>
 <li>So, this really means that a specific version should still need all the attributes of the less-specific version.</li>
-<li>In the above example we had employees and customers as people. So, any code that does an operation on a person should be able to work on a generic person, employee, or customer; however, it&rsquo;s not necessary that any code that can work on an employee can work on a person</li>
+<li>In the above example, we had employees and customers as people. So, any code that does an operation on a person should be able to work on a generic person, employee, or customer; however, it&rsquo;s not necessary that any code that can work on an employee can work on a person</li>
 </ul>
 </li>
 <li><strong>I</strong> - Interface Segregation Principal
@@ -893,7 +893,7 @@ https://github.com/alex-shpak/hugo-book
 <li><strong>D</strong> - Dependency Inversion Principal
 <ul>
 <li>I also don&rsquo;t like this one. It&rsquo;s often preemptively writing code in case of a future rewrite. Great, until the rewrite requires you change things anyway. Arguably, it&rsquo;s harder to maintain code where the high level depends on the low level. Arguably, this is totally obnoxious over engineering in most circumstances.</li>
-<li>This does make sense if you&rsquo;re making something in a VERY big project, working with mulitple teams, etc.</li>
+<li>This does make sense if you&rsquo;re making something in a VERY big project, working with multiple teams, etc.</li>
 <li><a href="https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f">https://dev.to/tamerlang/understanding-solid-principles-dependency-inversion-1b0f</a></li>
 </ul>
 </li>

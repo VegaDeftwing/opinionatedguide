@@ -82,7 +82,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 10.5 - What&rsquo;s a Type? &amp; Going Down Rabbit Holes # Alright, I&rsquo;ll cut to the chase. When programming, you often need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make apperances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at ints">
+<meta name="description" content="Chapter 10.5 - What&rsquo;s a Type? &amp; Going Down Rabbit Holes # Alright, I&rsquo;ll cut to the chase. When programming, you often need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make appearances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at ints">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -94,7 +94,7 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 10.5 - What&rsquo;s a Type? &amp; Going Down Rabbit Holes # Alright, I&rsquo;ll cut to the chase. When programming, you often need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make apperances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at ints" />
+<meta property="og:description" content="Chapter 10.5 - What&rsquo;s a Type? &amp; Going Down Rabbit Holes # Alright, I&rsquo;ll cut to the chase. When programming, you often need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make appearances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at ints" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/intro/progintro5/" /><meta property="article:section" content="Engineering" />
 
@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -577,7 +577,7 @@ https://github.com/alex-shpak/hugo-book
         </li>
         <li><a href="#pointers-memory--arrays">Pointers, Memory, &amp; Arrays</a>
           <ul>
-            <li><a href="#const-volitile-static">Const, Volitile, Static</a></li>
+            <li><a href="#const-volatile-static">Const, Volatile, Static</a></li>
           </ul>
         </li>
         <li><a href="#more-on-types">More on Types</a>
@@ -613,12 +613,12 @@ https://github.com/alex-shpak/hugo-book
 <script>
     document.getElementById("codeMenu").open = true;
 </script>
-<p>Alright, I&rsquo;ll cut to the chase. When programming, you often need to deal with types. On the last page, there was a mix of types, <code>int</code>, <code>uint8_t</code>, <code>float</code>, and <code>char</code> all make apperances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at <code>int</code>s</p>
+<p>Alright, I&rsquo;ll cut to the chase. When programming, you often need to deal with types. On the last page, there was a mix of types, <code>int</code>, <code>uint8_t</code>, <code>float</code>, and <code>char</code> all make appearances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at <code>int</code>s</p>
 <h3 id="int">
   Int
   <a class="anchor" href="#int">#</a>
 </h3>
-<p><code>int</code>, as you can probably guess, means integer. What&rsquo;s a bit less obvious is that this will have an inherit range. On your laptop or desktop, just using <code>int</code> without anything special (like the next example, <code>uint8_t</code>) <em>probably</em> means a 4-byte integer, so that means you get 32 bits (4*8) to represent your number. Now, there&rsquo;s a catch: The most significant bit is actually used to store if the number is positive (0) or negative (1) using <a href="https://en.wikipedia.org/wiki/Two%27s_complement">2&rsquo;s complement</a>, so, in total that gives you a range from -2,147,483,648 to 2,147,483,647. If you try to go above or over this range, the result will wrap around. Now, there&rsquo;s also a varient for <em>unsigned</em> integers or <code>uint</code>, these, as you might expect, can only be positive, but this means you get the full range from 0 up to 4294967295 to play with before you wrap around. Finally, you might find times where you&rsquo;ll want to specify the number of bits in a number, and in the language I&rsquo;ve been showing so far, <strong>C</strong>, you can do that by including a library (more on this later) and using <code>uint8_t</code>, for example, to get an unsigned, 8 bit integer. This can only range from 0 to 255. So, if we look back above when we did 200+100, while we&rsquo;d <em>expect</em> 300, the place we&rsquo;re trying to store that number simply isn&rsquo;t big enough, so, we wind up wrapping around, 300-256 is indeed 44.</p>
+<p><code>int</code>, as you can probably guess, means integer. What&rsquo;s a bit less obvious is that this will have an inherit range. On your laptop or desktop, just using <code>int</code> without anything special (like the next example, <code>uint8_t</code>) <em>probably</em> means a 4-byte integer, so that means you get 32 bits (4*8) to represent your number. Now, there&rsquo;s a catch: The most significant bit is actually used to store if the number is positive (0) or negative (1) using <a href="https://en.wikipedia.org/wiki/Two%27s_complement">2&rsquo;s complement</a>, so, in total that gives you a range from -2,147,483,648 to 2,147,483,647. If you try to go above or over this range, the result will wrap around. Now, there&rsquo;s also a variant for <em>unsigned</em> integers or <code>uint</code>, these, as you might expect, can only be positive, but this means you get the full range from 0 up to 4294967295 to play with before you wrap around. Finally, you might find times when you&rsquo;ll want to specify the number of bits in a number, and in the language I&rsquo;ve been showing so far, <strong>C</strong>, you can do that by including a library (more on this later) and using <code>uint8_t</code>, for example, to get an unsigned, 8 bit integer. This can only range from 0 to 255. So, if we look back above when we did 200+100, while we&rsquo;d <em>expect</em> 300, the place we&rsquo;re trying to store that number simply isn&rsquo;t big enough, so, we wind up wrapping around, 300-256 is indeed 44.</p>
 <h3 id="floats">
   Floats
   <a class="anchor" href="#floats">#</a>
@@ -636,9 +636,9 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p><b>or &ldquo;Why will knowing C help me write good code?&rdquo; Part 2</b></p>
 <p>0 indexing</p>
-<h3 id="const-volitile-static">
-  Const, Volitile, Static
-  <a class="anchor" href="#const-volitile-static">#</a>
+<h3 id="const-volatile-static">
+  Const, Volatile, Static
+  <a class="anchor" href="#const-volatile-static">#</a>
 </h3>
 <h2 id="more-on-types">
   More on Types
@@ -728,7 +728,7 @@ https://github.com/alex-shpak/hugo-book
         </li>
         <li><a href="#pointers-memory--arrays">Pointers, Memory, &amp; Arrays</a>
           <ul>
-            <li><a href="#const-volitile-static">Const, Volitile, Static</a></li>
+            <li><a href="#const-volatile-static">Const, Volatile, Static</a></li>
           </ul>
         </li>
         <li><a href="#more-on-types">More on Types</a>

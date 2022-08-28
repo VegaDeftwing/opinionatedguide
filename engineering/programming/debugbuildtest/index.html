@@ -104,7 +104,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.a20dfc1794bc630d3185eb09f093bebb182f109b58016c5a5a83f77df8f322a7.js" integrity="sha256-og38F5S8Yw0xhesJ8JO&#43;uxgvEJtYAWxaWoP3ffjzIqc="></script>
+<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -641,15 +641,15 @@ https://github.com/alex-shpak/hugo-book
 <a  href="/engineering/linux/hardware/cpu/"   class="book-btn ">
   Hardware→CPU
 </a>
-, your computer doesn&rsquo;t understand instructions like <code>printf()</code>, so ultimately the code you write has to get turned into something your computer understands. There&rsquo;s multiple ways this can happen:</p>
+, your computer doesn&rsquo;t understand instructions like <code>printf()</code>, so ultimately the code you write has to get turned into something your computer understands. There are multiple ways this can happen:</p>
 <ul>
 <li>You can run a sort-of virtual machine, like python or java (google &ldquo;JVM&rdquo;) does, compiling the code into special instructions that work everywhere (usually called &ldquo;Bytecode&rdquo; for whatever they&rsquo;re running on - like &ldquo;JVM Bytecode&rdquo;), then relying on the VM to translate the instructions into instructions (machine code) your computer actually understands on the fly
 <ul>
 <li>This is kinda slow</li>
 <li>This usually involves some extra weirdness in terms of pointers. For example, running <code>addressOf()</code> in java, gives the <em>address in JVM</em> not the physical address in memory
 <ul>
-<li>That said, in these languages, you should really never be trying to find the physical memory adress anyway?</li>
-<li>To get extra nerdy, this means each memory adress goes though 3 memory translation steps, from the JVM&rsquo;s adress, to the virtual memory adress, to the physical memory address - albeit the translation between the latter two is hardware accelerated and present with most any program - it does speak to the complexity here. See 
+<li>That said, in these languages, you should really never be trying to find the physical memory address anyway?</li>
+<li>To get extra nerdy, this means each memory address goes through 3 memory translation steps, from the JVM&rsquo;s address, to the virtual memory address, to the physical memory address - albeit the translation between the latter two is hardware accelerated and present with almost any program - it does speak to the complexity here. See 
 
 
 
@@ -668,10 +668,10 @@ https://github.com/alex-shpak/hugo-book
 <li>You can do <strong>J</strong>ust <strong>I</strong>n <strong>T</strong>ime (JIT) compilation, which skips the weird VM step and does produce actual machine code for your system, but it&rsquo;s still being done right as it&rsquo;s needed instead of ahead of time, so, as you can imagine&hellip;
 <ul>
 <li>This is also kinda slow</li>
-<li>Examples include the PyPy python implimention, LuaJIT</li>
+<li>Examples include the PyPy python implementation, LuaJIT</li>
 </ul>
 </li>
-<li>You can compile for you target system ahead of time - normal compilation
+<li>You can compile for your target system ahead of time - normal compilation
 <ul>
 <li>This means you need to know the features and instructions available on the target system (OS, processor, etc.)
 <ul>
@@ -686,12 +686,12 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </li>
 </ul>
-<p>Now, those first two options have their place and can be legitimately interesting in their own right, but for the vast majority of programmers the entire point of those system is that you don&rsquo;t really need to worry about the low level details of how your program is built (or, not, I guess?) and that it <em>just works</em>™. Now, the down side is it sometimes (very rarely) doesn&rsquo;t just work™ and you have to scream bloody murder as you realize you&rsquo;ve found a bug in the JVM and spent upwards of 20 hours working around it- That said, You <strong>do</strong> still need to understand the tools used to build your projects (like Gradle or Maven for Java), but you shouldn&rsquo;t have to worry yourself with the lower-level details - you shouldn&rsquo;t ever really need to dive into the bytecode that&rsquo;s generated.</p>
+<p>Now, those first two options have their place and can be legitimately interested in their own right, but for the vast majority of programmers the entire point of those systems is that you don&rsquo;t really need to worry about the low level details of how your program is built (or, not, I guess?) and that it <em>just works</em>™. Now, the downside is it sometimes (very rarely) doesn&rsquo;t just work™ and you have to scream bloody murder as you realize you&rsquo;ve found a bug in the JVM and spent upwards of 20 hours working around it- That said, You <strong>do</strong> still need to understand the tools used to build your projects (like Gradle or Maven for Java), but you shouldn&rsquo;t have to worry yourself with the lower-level details - you shouldn&rsquo;t ever really need to dive into the bytecode that&rsquo;s generated.</p>
 <p>To put this more simply, even in these higher-level languages, you need to know how to tell the computer to take all code and files you&rsquo;ve made + libraries you&rsquo;re using and mash em&rsquo; together, but you don&rsquo;t really need to worry about how the computer goes about doing the mashing together bit, while in something low level, like C, you do.</p>
 <p>Okay, so, other than the performance benefit - why care about the more-difficult to write and build languages at all?</p>
 <ol>
 <li>You&rsquo;ll be doing this no matter what. For example, a good portion of Python libraries are written in C/C++, so, if you ever need to recompile those, it&rsquo;ll be nice to know what&rsquo;s going on.</li>
-<li>C - and low level languages - aren&rsquo;t going anywhere. If you writing code for an embedded system you&rsquo;ll probably have to use it.
+<li>C - and low level languages - aren&rsquo;t going anywhere. If you&rsquo;re writing code for an embedded system, you&rsquo;ll probably have to use it.
 <ul>
 <li>Yes, I know Micropython exists, but point 1. applies there even more.</li>
 </ul>
@@ -726,9 +726,9 @@ graph LR
     G(Linker Scripts) -->|*.cmd, *.lib, etc.| E
 </p>
 
-<p>And, yes I hear the mixtures of groaning and internal screaming from the audiance at this gross of a flow chart, as well as the &ldquo;Uhm, acktually..&rdquo; from a few of you - let me adress the latter group first:</p>
-<p>There&rsquo;s a bit of fuzziness in a few places. For one, the output from the preprocessor (*.i files) is something you will most likely never look at, and usually isn&rsquo;t even generated at all, as typically the preprocessor and complier are the provided by the same tool (like GCC) and the file is never generated, just represented internally. Similarly, the same tool probably handles the job of the assembler, so you may also never see the *.s files either, as they too are just held internally and never written to disk, bring us to the *.o files. These tipically are written to disk, and then further processed (again, usually by the same tool, like GCC) to produce the output program, in the form of a .elf, .exe, etc. as well as a .lst (if output) which is really useful for debugging embedded systems and making sure efficent assembly is generated.</p>
-<p>linker scripts are something you&rsquo;ll typically only see in embedded programming and are used to map the executable&rsquo;s memory to physical memory. This is particularly relevent as a lot of embedded systems will have multiple memory segments with varrying speed, power usage, and capacity.</p>
+<p>And, yes I hear the mixtures of groaning and internal screaming from the audience at this gross of a flow chart, as well as the &ldquo;Uhm, acktually..&rdquo; from a few of you - let me address the latter group first:</p>
+<p>There&rsquo;s a bit of fuzziness in a few places. For one, the output from the preprocessor (*.i files) is something you will most likely never look at, and usually isn&rsquo;t even generated at all, as typically the preprocessor and compiler are the provided by the same tool (like GCC) and the file is never generated, just represented internally. Similarly, the same tool probably handles the job of the assembler, so you may also never see the *.s files either, as they too are just held internally and never written to disk, bring us to the *.o files. These typically are written to disk, and then further processed (again, usually by the same tool, like GCC) to produce the output program, in the form of a .elf, .exe, etc. as well as a .lst (if output) which is really useful for debugging embedded systems and making sure efficient assembly is generated.</p>
+<p>Linker scripts are something you&rsquo;ll typically only see in embedded programming, and are used to map the executable&rsquo;s memory to physical memory. This is particularly relevant as a lot of embedded systems will have multiple memory segments with varying speed, power usage, and capacity.</p>
 <p>Okay, so that&rsquo;s a lot, let&rsquo;s break down each step:</p>
 <h3 id="source-code">
   Source Code
@@ -755,7 +755,7 @@ graph LR
   <a class="anchor" href="#output">#</a>
 </h3>
 <hr>
-<p>Okay, so that&rsquo;s a lot to juggle right? In a larger program there might be a few dozen libraries, how do we go about working with this? Let me intoduce you to <code>make</code>.</p>
+<p>Okay, so that&rsquo;s a lot to juggle, right? In a larger program there might be a few dozen libraries, how do we go about working with this? Let me introduce you to <code>make</code>.</p>
 <h2 id="make-and-makefiles">
   <code>make</code> and makefiles
   <a class="anchor" href="#make-and-makefiles">#</a>
