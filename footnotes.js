@@ -42,7 +42,7 @@
     function toggle(event) {
         var parent = this.parentNode;
         if (currentDiv) {
-            parent.removeChild(currentDiv);
+            currentDiv.remove();
             currentDiv = null;
         }
         var footnoteId = this.innerHTML;

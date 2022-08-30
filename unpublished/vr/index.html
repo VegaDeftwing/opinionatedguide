@@ -12,72 +12,7 @@
 
 <script src="/webmention.min.js" async></script>
 
-  <script>
-    (function () {
-        var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
-        var REFERENCE_REGEX = /^\[[0-9]+\]$/;
-        
-        var oldOnLoad = window.onload;
-        window.onload = function (event) {
-            if (document.getElementsByClassName) {
-                var elems = document.getElementsByClassName("ptr");
-                for (var i = 0; i<elems.length; i++) {
-                    var elem = elems[i];
-                    var ptrText = elem.innerHTML;
-                    if (FOOTNOTE_REGEX.test(ptrText)) {
-                        elem.className = "ptr footptr";
-                        elem.onclick = toggle;
-                    } else if (REFERENCE_REGEX.test(ptrText)) {
-                        elem.className = "ptr refptr";
-                    }
-                    elem.setAttribute("href", "#"+ptrText);
-                }
-                addListItemIds("references", "[", "]");
-                addListItemIds("footnotes", "(", ")");
-            }
-    
-            if (typeof oldOnLoad === "function") {
-                oldOnLoad(event);
-            }
-        };
-        
-        function addListItemIds(parentId, before, after) {
-            var refs = document.getElementById(parentId);
-            if (refs && refs.getElementsByTagName) {
-                var elems = refs.getElementsByTagName("li");
-                for (var i = 0; i<elems.length; i++) {
-                    var elem = elems[i];
-                    elem.setAttribute("id", before+(i+1)+after);
-                }
-            }
-        }
-        
-        var currentDiv = null;
-        var currentId = null;
-        function toggle(event) {
-            var parent = this.parentNode;
-            if (currentDiv) {
-                parent.removeChild(currentDiv);
-                currentDiv = null;
-            }
-            var footnoteId = this.innerHTML;
-            if (currentId === footnoteId) {
-                currentId = null;
-            } else {
-                currentId = footnoteId;
-                currentDiv = document.createElement("div");
-                var footHtml = document.getElementById(footnoteId).innerHTML;
-                currentDiv.innerHTML = footHtml;                        
-                currentDiv.className = "foot-tooltip";
-                parent.insertBefore(currentDiv, this.nextSibling);
-                setTimeout(function () {
-                    currentDiv.style.opacity = "1";
-                }, 0);
-            }
-            event.preventDefault();
-        }
-    }());
-    </script>
+<script src="/footnotes.js"> </script>
 
 <head>
   <meta charset="UTF-8">
@@ -116,8 +51,8 @@ The orange trail shows my movement in play space, and the blue trail shows my mo
 <title>Vr | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.8644b51d986371f5bd8348ccb511644e7ad621901e1a6371f36f9d04cc7ed599.css" integrity="sha256-hkS1HZhjcfW9g0jMtRFkTnrWIZAeGmNx82&#43;dBMx&#43;1Zk=">
-<script defer src="/en.search.min.33710b23747e5ab50dabc1bd328c5d3144058fb15b979a7078a11ba465649340.js" integrity="sha256-M3ELI3R&#43;WrUNq8G9MoxdMUQFj7Fbl5pweKEbpGVkk0A="></script>
+<link rel="stylesheet" href="/book.min.db6b19f8add774dbcd01e59c961e2e0fcf426aa7e5b04db9ff79e37721b28d81.css" integrity="sha256-22sZ&#43;K3XdNvNAeWclh4uD89CaqflsE25/3njdyGyjYE=">
+<script defer src="/en.search.min.bfe34a94154b1253bede3b38a5adc1c365a52730365ae139f7636f83b2350c4e.js" integrity="sha256-v&#43;NKlBVLElO&#43;3js4pa3Bw2WlJzA2WuE592Nvg7I1DE4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -589,6 +524,7 @@ https://github.com/alex-shpak/hugo-book
           </ul>
         </li>
         <li><a href="#face-tracking">Face tracking</a></li>
+        <li><a href="#possabilites">Possabilites</a></li>
       </ul>
     </li>
   </ul>
@@ -629,6 +565,13 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>VSeeFace</p>
 <p><a href="https://www.youtube.com/watch?v=Pqp-zMX0O_4">VR Chat Avatar to VSeeFace</a></p>
+<h2 id="possabilites">
+  Possabilites
+  <a class="anchor" href="#possabilites">#</a>
+</h2>
+<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><p lang="en" dir="ltr">Made a set of headphones with Spotify integration via OSC, displays the currently playing song for everyone to see! <a href="https://twitter.com/hashtag/VRChat?src=hash&amp;ref_src=twsrc%5Etfw">#VRChat</a> <a href="https://t.co/toQwNJzChP">pic.twitter.com/toQwNJzChP</a></p>&mdash; FrostyFridge (@FrostierFridge) <a href="https://twitter.com/FrostierFridge/status/1561863705792356352?ref_src=twsrc%5Etfw">August 22, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><p lang="en" dir="ltr">Heavy breathing VRChat users UNITE! <a href="https://t.co/Vu62GnCn5A">https://t.co/Vu62GnCn5A</a></p>&mdash; VRPill (@vrpill) <a href="https://twitter.com/vrpill/status/1562943117841428481?ref_src=twsrc%5Etfw">August 25, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><a href="https://github.com/d4rkc0d3r/d4rkAvatarOptimizer">https://github.com/d4rkc0d3r/d4rkAvatarOptimizer</a></p>
 </article>
  
       
@@ -687,6 +630,7 @@ https://github.com/alex-shpak/hugo-book
           </ul>
         </li>
         <li><a href="#face-tracking">Face tracking</a></li>
+        <li><a href="#possabilites">Possabilites</a></li>
       </ul>
     </li>
   </ul>
