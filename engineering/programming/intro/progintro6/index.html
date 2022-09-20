@@ -41,7 +41,7 @@ This includes the operations your used to - addition, subtraction, etc." />
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.db6b19f8add774dbcd01e59c961e2e0fcf426aa7e5b04db9ff79e37721b28d81.css" integrity="sha256-22sZ&#43;K3XdNvNAeWclh4uD89CaqflsE25/3njdyGyjYE=">
-<script defer src="/en.search.min.07d357d4d1a48144f649dda084fd00a9fe69ace45a9d90648a0312e5c2ae92c1.js" integrity="sha256-B9NX1NGkgUT2Sd2ghP0Aqf5prORanZBkigMS5cKuksE="></script>
+<script defer src="/en.search.min.a20266d88ede4f07cf82904e07946e250b83a08814a1e72215fef667807220fb.js" integrity="sha256-ogJm2I7eTwfPgpBOB5RuJQuDoIgUoeciFf72Z4ByIPs="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -515,7 +515,9 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#going-with-the-flow">Going with the flow</a>
           <ul>
             <li><a href="#if-else-else-if">If, else, else if</a></li>
-            <li><a href="#swichcase">swich/case</a></li>
+            <li><a href="#short-circuiting">Short-Circuiting</a></li>
+            <li><a href="#compound-conditionals">Compound conditionals</a></li>
+            <li><a href="#switchcase">switch/case</a></li>
             <li><a href="#for">for</a></li>
             <li><a href="#break">Break!</a></li>
             <li><a href="#continue">continue</a></li>
@@ -567,7 +569,7 @@ https://github.com/alex-shpak/hugo-book
 <p>I&rsquo;m going to mostly skip talking about addition, subtraction, multiplication, and divsion, because, duh. Still, a few notes.</p>
 <ul>
 <li>
-<p>With multiplication, it&rsquo;s pretty easy to excede the maximum allowed by your type. For exmaple,</p>
+<p>With multiplication, it&rsquo;s pretty easy to exceed the maximum allowed by your type. For example,</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -596,17 +598,18 @@ https://github.com/alex-shpak/hugo-book
 <p>For subtraction, remumber an <em>unsigned</em> type can&rsquo;t go negative, but it can under-flow to a large, positive value.</p>
 </li>
 <li>
-<p>Need to increment a variable? in C you can use <code>name++;</code>  (or <code>name--;</code> to decrement).</p>
+<p>Need to increment a variable by 1? in C you can use <code>name++;</code>  (or <code>name--;</code> to decrement).</p>
 </li>
 <li>
 <p>Need to add/substract/divide/multiply/and/xor/etc. a value with itself - like <code>a = a + 2;</code>? Just move the symbol to before the equal sign: <code>a += 2;</code> is the same thing. This works for all the others too: <code>a -= 2;</code>, <code>a /= 2;</code>, etc.</p>
 <ul>
-<li>Since Python doesn&rsquo;t have the <code>a++;</code> style syntax, you&rsquo;ll at least want to use <code>a += 1</code> there.</li>
+<li>Since Python doesn&rsquo;t have the <code>a++;</code> style syntax, you&rsquo;ll at least want to use <code>a += 1</code> there, as writing <code>a = a + 1</code> gets old quickly.</li>
 </ul>
 </li>
 </ul>
 <p>There&rsquo;s one seemingly weird operation you may not be used to that belongs to this basic set: <strong>modulo</strong>.</p>
-<p>Modulo just means to do division but store the remainder, not how many times the number goes into it. So, while 7/3 is two, 7 mod 3 is 1, because 3 goes into 7 twice with <strong>1 left over</strong>. In most programming languages modulo is written with a percent sign, so <code>7%3</code> would give you 1.</p>
+<p>Modulo just means to do division but store the remainder, not how many times the number goes into it. So, while 7/3 is two, 7 mod 3 is 1, because 3 goes into 7 twice with <strong>1 left over</strong>. In most programming languages modulo is written with a percent sign, so <code>7%3</code> would give you 1. This is surprisingly handy.</p>
+<p>For example, say you want to know if a number is even or odd? Well, if you just take the number &ldquo;mod&rdquo; 2 you&rsquo;ll get 0 if it&rsquo;s even and 1 if it&rsquo;s odd. <span style="color:#AC8686">i</span><span style="color:#AC9986">s</span><span style="color:#ACAC86">n</span><span style="color:#99AC86">&rsquo;</span><span style="color:#86AC86">t</span> <span style="color:#86AC99">m</span><span style="color:#86ACAC">a</span><span style="color:#8699AC">t</span><span style="color:#8686AC">h</span> <span style="color:#9986AC">f</span><span style="color:#AC86AC">u</span><span style="color:#AC8699">n</span>.</p>
 <h3 id="bitwise-operations">
   Bitwise Operations
   <a class="anchor" href="#bitwise-operations">#</a>
@@ -615,15 +618,15 @@ https://github.com/alex-shpak/hugo-book
   Bits?
   <a class="anchor" href="#bits">#</a>
 </h4>
-<p>Yep. Computers can only see numbers as binary, 1&rsquo;s and 0&rsquo;s. Sometimes, you do need to play with binary directly.</p>
+<p>Yep. Computers can only see numbers as binary, 1&rsquo;s and 0&rsquo;s. Sometimes, you do need to play with binary directly. How often this is the case really depends on what you&rsquo;re doing. If you&rsquo;re working with something that interfaces directly with hardware (like making motors move, etc.) the boards that make that possible will typically require you configure things and bring voltages high or low by setting individual bits. This may sound difficult, but it&rsquo;s not.</p>
 <p>Before we can look at operations on binary, you need to know how to read it, fortunately, it&rsquo;s pretty easy for positive numbers. First, you should know we usually pad binary numbers with zeros.</p>
 <p>Imagine you have some normal decimal numbers, say 0, 1, 23, and 1000. If you needed to use the same number of digits to repsent them all, you could pad them with zeros. That is, you&rsquo;d have 0000, 0001, 0023, and 1000. The values haven&rsquo;t changed, you&rsquo;ve just put zero in front of them so they&rsquo;re the same length.</p>
 <p>So, with binary, if we have 1, 01, 001, or 0001 or 00000001 the same still applies, it&rsquo;s still just 1.</p>
 <p>Second weird thing, we&rsquo;ll often (but not always!) prefix binary numbers with 0b, so, you might see 0b00000001, that&rsquo;s still just 1. This is done because otherwise it may be hard to tell if a number is binary or just happens to only have 1&rsquo;s and 0&rsquo;s.</p>
 <p>Alright, then, how do we actually read numbers, well, some people can see it right away just seeing a pattern so</p>
-<p>0 = 0000, 1 = 0001, 0010 = 2, 0011 = 3, 0100 = 4, 0101 = 5, 0110 = 6, 0111 = 7, 1000 = 8, 1001 = 9, &hellip;</p>
+<p>0 = 0000, 1 = 0001, 2 = 0010 , 3 = 0011, 4= 0100, 5 = 0101, 6 = 0110, 7 = 0111, 8 = 1000, 9 = 1001, &hellip;</p>
 <p>If that is enough for you to understand, great. If it&rsquo;s not think about it like this, the first digit, all the way on the right, is the 1&rsquo;s place - just like in decimal, the second digit, is the 2&rsquo;s place, the 3&rsquo;rd the 4&rsquo;s, the 4th the 8&rsquo;s place, etc.</p>
-<p>so, if we have 1100 read it backwards. 
+<p>so, if we have 1100 read it from the least significant (right) to most (left). For example, 1100 is 
 <link rel="stylesheet" href="/katex/katex.min.css" />
 <script defer src="/katex/katex.min.js"></script>
 <script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
@@ -645,7 +648,7 @@ https://github.com/alex-shpak/hugo-book
     <p>Okay, this is almost everything you need to know for now. I do want to briefly mention <strong>hexadecimial</strong>. Basically, reading binary really sucks so we often don&rsquo;t. Instead, we let our numbers go from 0 to F, giving us 16 digits. This lets each symbol represent 4 bits, and two symbols represent a byte (8-bits).</p>
 <p>While binary is written with a 0b prefix, hexadecimal (often just called hex) is written with a 0x prefix.</p>
 <p>So, 0xFF is 0b11111111 is 255.</p>
-<p>This also gives rise to what is know as a hex editor. Very rarely, you may need to look at the binary output of something that doesn&rsquo;t have a better representation or meaning to you other than the actuall binary itself. In that case, you need a way to look at the hex (as a condensed view of the binary) directly. We&rsquo;re rapidly going off an a tagent though, so back to the point&hellip;</p>
+<p>This also gives rise to what is know as a hex editor. Very rarely, you may need to look at the binary output of something that doesn&rsquo;t have a better representation or meaning to you other than the actuall binary itself. In that case, you need a way to look at the hex (as a condensed view of the binary) directly. We&rsquo;re rapidly going off an a tangent though, so let&rsquo;s put a pin in that idea.</p>
 
   </div>
   
@@ -814,7 +817,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// Shift the 0xBE over, -&gt; 0x00BE
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">uint8_t</span>  most_significant_bits   <span style="color:#f92672">=</span> big_number <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">4</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Mask out the lower 4 bits -&gt; 0x00EF
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// &#34;Mask out&#34; the lower 4 bits -&gt; 0x00EF
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">uint8_t</span>  least_significant_bits  <span style="color:#f92672">=</span> big_number <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>;
 </span></span></code></pre></td></tr></table>
 </div>
@@ -824,12 +827,14 @@ https://github.com/alex-shpak/hugo-book
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> most_significant_bits  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xCA</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint8_t</span> least_significant_bits <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFE</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint16_t</span> big_number <span style="color:#f92672">=</span>  (most_significant_bits <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">4</span>) <span style="color:#f92672">|</span> least_significant_bits
-</span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// = 0xCAFE
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="beyond-bitwise-comparisons">
   Beyond Bitwise: Comparisons
@@ -866,6 +871,55 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
+</div><p>If, in the first example, it were just a single <code>&amp;</code>, that would be taking the result of <code>age &gt;= 13</code> and the result of <code>age &lt; 100</code> and give you a new number that is the bitwise and of these results. Let&rsquo;s think about this for a moment. If somebody was 12, they&rsquo;d fail the first check but pass the second - so <code>age &gt;= 13</code> would turn to 0 while <code>age &lt; 100</code> would become 1. If we do <code>0 &amp; 1</code> The answer is still <code>0</code>. So, it still works. So, why do we even have the <code>&amp;&amp;</code> version?</p>
+<p>Well, not all conditions you&rsquo;re checking will be cleanly 0 or 1. For example, you might make a function which returns an 8-bit integer where each bit is used as a flag indicating some error has happened. Let&rsquo;s say something in that function has gone wrong and it returns 0b00010000 (which is 16) but we only care about that function having had an error if another function returns an error at the time, but for this other function the only error it can return is 1 (true) - all successes are just 0 (false). Let&rsquo;s assume it also has an error, that is, our first function returns 16 and our second returns 1:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(my_function_that_retuns_an_error() <span style="color:#f92672">&amp;&amp;</span> my_other_boolean_function()){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This would run, as both are non-0, 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// so, non-0 &amp;&amp; non-0 is true &amp;&amp; true, which is true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(my_function_that_retuns_an_error() <span style="color:#f92672">&amp;</span> my_other_boolean_function()){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This would not run, as 0b00010000 &amp; 0b00000001 is 0, which is false.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As a general rule of thumb, if you&rsquo;re in an <code>if</code> you <em>probably</em> want the <code>&amp;&amp;</code> or <code>||</code> version unless you REALLY want to be working with bits. Even if <code>&amp;</code> would behave the same, you want your code to convey your intent to be checking a basic true/false state. To be clear, seeing the bitwise <code>&amp;</code> and <code>|</code> operations in an <code>if</code> is very rare. Not wrong, sometimes necessary, but rare.</p>
+<p>The notable exception to this would actually come from a scenario similar to the one above, where errors being reflected in each bit. If we wanted to check for specific errors, that could be done by using a bitwise and with the bit&rsquo;s in the comparison value set for the errors we want to handle. This isn&rsquo;t super common, but it&rsquo;s something you may run into.</p>
+<p>Note, if you&rsquo;re ever just checking that something is true (non-0), you can <strong>omit the comparison outright</strong>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(a){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// is the same as
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(a <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
 </div><h4 id="-and---and-">
   &gt; and &lt;, &gt;= and &lt;=
   <a class="anchor" href="#-and---and-">#</a>
@@ -874,14 +928,32 @@ https://github.com/alex-shpak/hugo-book
 <p>The only thing to be careful of here is that the logic actually matches what you want. If you want a loop that says 0 though 3, you want a loop that goes to less-than-4:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>, i<span style="color:#f92672">++</span>){
 </span></span><span style="display:flex;"><span>	print(<span style="color:#e6db74">&#34;%d&#34;</span>,i);
 </span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Will print 0,1,2,3 but NOT 4. Because we often want to
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// index into an array in a loop this is convient as an
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// array with 4 elements should go 0,1,2,3 as the indicies
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> my_array[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20</span>,<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">40</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>, i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>	my_array[i] <span style="color:#f92672">=</span> i<span style="color:#f92672">*</span><span style="color:#ae81ff">20</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This would replace the values with {0,10,20,30}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="--">
@@ -913,7 +985,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Note, you can actually use the <code>!</code> symbol to negate anything, for example, we could have written the above as</p>
+</div><p>Note, you can actually use the <code>!</code> symbol to negate anything, for example, we could have written the above age checking code as</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -939,8 +1011,20 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>There are times where this sort of backwards logic is actually easier to read.</p>
-<h2 id="going-with-the-flow">
+</div><p>There are times where this sort of backwards logic is actually easier to read, this probably isn&rsquo;t one of them. More often than not, it&rsquo;s best when you have a chain of conditions where only one is different, that is if you needed <code>a</code> to be true, <code>b</code> to be true, but <code>c</code> to be false you could do</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(a <span style="color:#f92672">&amp;&amp;</span> b <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>c){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="going-with-the-flow">
   Going with the flow
   <a class="anchor" href="#going-with-the-flow">#</a>
 </h2>
@@ -1054,11 +1138,76 @@ https://github.com/alex-shpak/hugo-book
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="swichcase">
-  swich/case
-  <a class="anchor" href="#swichcase">#</a>
+</div><h3 id="short-circuiting">
+  Short-Circuiting
+  <a class="anchor" href="#short-circuiting">#</a>
 </h3>
-<p>While seemingly redundant, there&rsquo;s also switch case statments. Becuse reasons, switch case statments are a tad bit faster, but they&rsquo;re also more limited. You can only have &ldquo;constant expressions&rdquo; basically, this means no comparisons other than direct equality, but you can do it against many cases. This is easier if you see it:</p>
+<p>In C (and most languages) a logic operator will not evaluate all of it&rsquo;s arguments if it doesn&rsquo;t have to - and the order of evaluation matters. Basically, if C can go &ldquo;Well, if this is true/false clearly the entire condition is true/false&rdquo; it won&rsquo;t even run the code that would still result in the obvious result.</p>
+<p>For example in the code,</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(true <span style="color:#f92672">||</span> my_function()){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>my_function()</code> will never run because if you read &ldquo;is this true or &hellip;&rdquo; the answer is true regardless of what follows.</p>
+<p>The same applies to this code:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(false <span style="color:#f92672">&amp;&amp;</span> my_function()){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This can never be true, so C sees that and doesn&rsquo;t bother checking the other conditions.</p>
+<p>Now, both of these examples are pretty stupid. You shouldn&rsquo;t be starting a <code>||</code> or <code>&amp;&amp;</code> comparison with true or false anyway, but if those were other functions that had returned true/false, the same would apply, they&rsquo;re evaluated left-to-right until something makes the state of the entire function clear. Normally, this is totally fine and doesn&rsquo;t require extra thought. It&rsquo;s really only a problem if you&rsquo;re assuming a function will run in an <code>if</code> and depending on it altering that state of things elsewhere. That is, if you&rsquo;re expecting the code to have &ldquo;side effects&rdquo;. Typically, these side effects are signs that your code isn&rsquo;t made well as one function executing or not in an <code>if</code> shouldn&rsquo;t break future functions, but sometimes there&rsquo;s no clean way to write code and shit happens. Just knowing this short-circuiting behavior is a thing may make a future bug more obvious though.</p>
+<h3 id="compound-conditionals">
+  Compound conditionals
+  <a class="anchor" href="#compound-conditionals">#</a>
+</h3>
+<p>Generally, if you need to check multiple things in an if, like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(a <span style="color:#f92672">&amp;&amp;</span> b <span style="color:#f92672">||</span> c <span style="color:#f92672">&amp;&amp;</span> d <span style="color:#f92672">&amp;&amp;</span> e <span style="color:#f92672">||</span> f){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>you should always group things together to convey your actual intent</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>((a <span style="color:#f92672">&amp;&amp;</span> b) <span style="color:#f92672">||</span> (c <span style="color:#f92672">&amp;&amp;</span> d) <span style="color:#f92672">&amp;&amp;</span> (e <span style="color:#f92672">||</span> f)){
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Otherwise you will have weird, hard to catch bugs. Again, short circuiting still applies, and now it applies to these groups, but it should be more clear with the added parentheses what will happen than without.</p>
+<h3 id="switchcase">
+  switch/case
+  <a class="anchor" href="#switchcase">#</a>
+</h3>
+<p>While seemingly redundant, there&rsquo;s also switch case statments. Becuse reasons, switch case statments are faster, but they&rsquo;re also more limited. You can only have &ldquo;constant expressions&rdquo; basically, this means no comparisons other than direct equality, but you can do it against many cases. This is easier if you see it:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1133,7 +1282,9 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>You should also know you can nest for loops, use different conditions, decrement them, etc:</p>
+</div><p>Python will of course let you do the same thing too, but you have to remember (or look up) how to use the <code>range()</code> function.</p>
+<p>If you only give range one argument (so like <code>range(10)</code> ) it will use 0 as the start and step by 1 (and end before the stop). if you want to start at a different number you can use two arguments so <code>range(5,10)</code> would give you 5,6,7,8,9. If you want to change the step, use 3 arguments, so <code>range(0,50,10)</code> will give you 0,10,20,30,40.</p>
+<p>You should also know you can nest for loops, use different conditions, decrement them, etc:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1226,14 +1377,15 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="for-each">
+</div><p>This is particularly handy for checking for an error each time a for loop runs if you think it may not error on the next iteration.</p>
+<h3 id="for-each">
   for each
   <a class="anchor" href="#for-each">#</a>
 </h3>
 <p class="tip ">
     C does not have a &lsquo;for each&rsquo; system
 </p>
-<p>Many languages have a convient system for iterating over each item in a data structure without needing to explicitly know the size of the structure before hand. This is generally really nice to read too. C doesn&rsquo;t have this. Oddly, python <strong>ONLY</strong> has for-each loops. The <code>range()</code> function previously just generates this list were iterating over internally. So, when you see <code>for i in range(10):</code> you can read it as &ldquo;for each element, i, in the the range 0 though 9&rdquo;. The power of this comes in python&rsquo;s (and languages that support for each) ability to iterate over non-numeric types and ranges. For example,</p>
+<p>Many languages have a convient system for iterating over each item in a data structure without needing to explicitly know the size of the structure before hand. This is generally really nice to read too. C doesn&rsquo;t have this. Oddly, python <strong>ONLY</strong> has for-each loops. The <code>range()</code> function previously just generates this list were iterating over internally. So, when you see <code>for i in range(10):</code> you can read it as &ldquo;for each element, i, in the the range 0 though 9&rdquo;. The power of this comes in python&rsquo;s (and languages that support &ldquo;for each&rdquo;) ability to iterate over non-numeric types and ranges. For example,</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1244,7 +1396,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>	print(letter)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>does exactly what you think it does - though it does put each letter on its own line. Reall, the big thing to notice here is the word <strong>in</strong>, which is what&rsquo;s making this easy. It&rsquo;s implying that we want to iterate over something. This get&rsquo;s stupidly powerful once you learn more about how to combine things in python using more functional-programming methods like <code>zip</code> or <code>map</code>, for example:</p>
+</div><p>does exactly what you think it does - though it does put each letter on its own line. Reall, the big thing to notice here is the word <strong>in</strong>, which is what&rsquo;s making this easy. It&rsquo;s implying that we want to iterate over something. This gets crazy powerful once you learn more about how to combine things in python using more functional-programming methods like <code>zip</code> or <code>map</code>, for example:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1625,7 +1777,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The code would work as expected&hellip;ish. That &ldquo;a&rdquo; inside the <code>set_a</code> function? Yeah, that a is still it&rsquo;s own a. It&rsquo;s actually making it&rsquo;s own <code>a</code> and setting the value.</p>
+</div><p>The code would work as expected&hellip;ish. That &ldquo;a&rdquo; inside the <code>set_a</code> function? Yeah, that a is still it&rsquo;s own a. It&rsquo;s actually making it&rsquo;s own <code>a</code>, returning the value of a, and the a = set_a(); is just applying that value to the a in main. They&rsquo;re both called a here, but they don&rsquo;t have to be and the effect would be the same.</p>
 <p>Now, there&rsquo;s a cheat here. We can use <strong>global variables</strong>. If we take the above code and move the <code>int a = 0;</code> out of <code>main</code>, we can make it global to all functions in the file:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1661,7 +1813,8 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>So, this code works. Problem is, this tends to cause issues and get really messy. Being able to reuse names is actually really good and helpful. So, what if we want to pass a into our <code>set_a</code> function - not just the value that a has, but actually the variable itself so we can change it without returning a new value? Well, finally, pointers from last chaper serve a purpose. If we just pass in <code>a</code> what were doing is saying &ldquo;take the value a holds and give it to the function&rdquo; but if we pass in <code>&amp;a</code> we&rsquo;re saying &ldquo;take the address where a is at and give it to the function&rdquo;.</p>
+</div><p>So, this code works. Problem is, this tends to cause issues and get really messy. Being able to reuse names is actually really good and helpful. So, what if we want to pass a into our <code>set_a</code> function - not just the value that a has, but actually the variable itself so we can change it without returning a new value?</p>
+<p>Well, finally, pointers from last chapter serve a purpose! If we just pass in <code>a</code> what were doing is saying &ldquo;take the value a holds and give it to the function&rdquo; but if we pass in <code>&amp;a</code> we&rsquo;re saying &ldquo;take the address where a is at and give it to the function&rdquo;.</p>
 <p>This gives rise to the two main ways to move data around &ldquo;Pass by value&rdquo; and &ldquo;Pass by reference&rdquo;. Passing by value is easy. Passing by reference is useful, but a bit harder to wrap your head around.</p>
 <p>[TODO]</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -1703,7 +1856,10 @@ https://github.com/alex-shpak/hugo-book
 <p>Think of it like this. Passing by value is like me standing next to you and showing you a piece of a paper that has the number 0 on it. You then show me a  piece of paper that says 42 on it. I can choose to erase the 0 on my paper and write 42. That&rsquo;s pass by value.</p>
 <p>If instead, I set my paper down, tell you where I set it, let you do what you want to it, then I take it back, that&rsquo;s pass by reference.</p>
 <p>So which is better?</p>
-<p>Neither. You need to use both. You may even need to use both in one function.</p>
+<p>Neither. You need to use both. You may even need to use both in one function. There are times when one pass by reference will even work though, most notably if you want to make a function that gets data from an array, you&rsquo;re going to have to deal with passing the pointer to the first element in the array.</p>
+<span class="smalltext ">
+    As an aside, if you ever pass an array&rsquo;s pointer as an argument to something in C, you should also pass in the length of the array and check that the pointer isn&rsquo;t NULL. More on null checks later.
+</span>
 <p>fns, the stack</p>
 <h3 id="the-stack">
   The Stack
@@ -1827,7 +1983,9 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#going-with-the-flow">Going with the flow</a>
           <ul>
             <li><a href="#if-else-else-if">If, else, else if</a></li>
-            <li><a href="#swichcase">swich/case</a></li>
+            <li><a href="#short-circuiting">Short-Circuiting</a></li>
+            <li><a href="#compound-conditionals">Compound conditionals</a></li>
+            <li><a href="#switchcase">switch/case</a></li>
             <li><a href="#for">for</a></li>
             <li><a href="#break">Break!</a></li>
             <li><a href="#continue">continue</a></li>

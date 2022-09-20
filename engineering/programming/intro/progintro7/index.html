@@ -17,7 +17,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properties, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.">
+<meta name="description" content="10.7 - Data Structures, Object Orientation, &amp; Encodings # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properties, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -29,7 +29,7 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="10.7 - Data Structures &amp; Object Orientation # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properties, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way." />
+<meta property="og:description" content="10.7 - Data Structures, Object Orientation, &amp; Encodings # Why not just structs? # C is a very low level language and only lets you make structs. Structs are fine, but they have some annoying properties, particularly in separating data from how you interact with it, making it difficult to make complex abstractions where you can be sure that data that should only be internal to a structure isn&rsquo;t exposed, or that the data can&rsquo;t be changed in an invalid way." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/intro/progintro7/" /><meta property="article:section" content="Engineering" />
 
@@ -39,7 +39,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.db6b19f8add774dbcd01e59c961e2e0fcf426aa7e5b04db9ff79e37721b28d81.css" integrity="sha256-22sZ&#43;K3XdNvNAeWclh4uD89CaqflsE25/3njdyGyjYE=">
-<script defer src="/en.search.min.07d357d4d1a48144f649dda084fd00a9fe69ace45a9d90648a0312e5c2ae92c1.js" integrity="sha256-B9NX1NGkgUT2Sd2ghP0Aqf5prORanZBkigMS5cKuksE="></script>
+<script defer src="/en.search.min.a20266d88ede4f07cf82904e07946e250b83a08814a1e72215fef667807220fb.js" integrity="sha256-ogJm2I7eTwfPgpBOB5RuJQuDoIgUoeciFf72Z4ByIPs="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -501,7 +501,7 @@ https://github.com/alex-shpak/hugo-book
     
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#107---data-structures--object-orientation">10.7 - Data Structures &amp; Object Orientation</a>
+    <li><a href="#107---data-structures-object-orientation--encodings">10.7 - Data Structures, Object Orientation, &amp; Encodings</a>
       <ul>
         <li><a href="#why-not-just-structs">Why not just structs?</a></li>
         <li><a href="#a-new-objective">A New Objective</a></li>
@@ -521,9 +521,9 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="107---data-structures--object-orientation">
-  10.7 - Data Structures &amp; Object Orientation
-  <a class="anchor" href="#107---data-structures--object-orientation">#</a>
+  <article class="markdown"><h1 id="107---data-structures-object-orientation--encodings">
+  10.7 - Data Structures, Object Orientation, &amp; Encodings
+  <a class="anchor" href="#107---data-structures-object-orientation--encodings">#</a>
 </h1>
 <script>
     document.getElementById("codeMenu").open = true;
@@ -587,7 +587,7 @@ https://github.com/alex-shpak/hugo-book
 </div><p>and so long as we only ever use this function, this is fine. Problem is, we really can&rsquo;t hide the data from other things and prevent them from modifying the name directly.</p>
 <p>The problem gets worse, too. For example, say we wanted to add something to the structure that stores the last time the ID was changed. This should never be able to be changed directly, it should only change if the ID changes, and it should ALWAYS change if the ID changes. This is impossible to enforce in C.</p>
 <p>Getting a bit more abstract, what if we want data to be able to inherit ideas. For example, say we want to be able to make a person, but also have a data type for employee and customer? It would make sense to make both employees and customers people. That is, we&rsquo;d want these data types to <em>inherit</em> their properties and data fields from the parent data structure. What I&rsquo;m beginning to describe is called &ldquo;Object orientation&rdquo; and it&rsquo;s a feature common to many languages, but notably not available in C. It generally makes it easy to model more complex data structures and limit the way you interact in them, preventing bugs.</p>
-<p>Really, the big difference here isn&rsquo;t that you can do something new (like inheritance, etc.) - you can do similar things in C with structures and pointers if you&rsquo;re clever - it&rsquo;s what we <em>can&rsquo;t</em> do. You can place limits on your code to prevent yourself from doing very stupid things, which once you&rsquo;ve written enough code, you&rsquo;ll know the majority of your time goes to fixing stupid mistakes.</p>
+<p>Really, the big difference here isn&rsquo;t that you can do something new (like inheritance, etc.) - you can do similar things in C with structures and pointers if you&rsquo;re clever - it&rsquo;s what we <em>can&rsquo;t</em> do. We often want to limit what we can do to prevent ourselves (and hackers) from making/exploiting errors. With Object Orientated Programming (OOP) You can place limits on your code to prevent yourself from doing very stupid things, which once you&rsquo;ve written enough code, you&rsquo;ll know the majority of your time goes to fixing stupid mistakes.</p>
 <h2 id="a-new-objective">
   A New Objective
   <a class="anchor" href="#a-new-objective">#</a>
@@ -774,7 +774,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>            player<span style="color:#f92672">.</span>add_to_inventory(PickTool(<span style="color:#ae81ff">20</span>,<span style="color:#e6db74">&#34;Wooden Pick&#34;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>And of course, there&rsquo;d be yet more code to actually let a player use the item once it&rsquo;s in their inventory. What you should note, though, is that when calling <code>PickTool(1,&quot;Wooden Pick&quot;,1,1)</code> a new object of that type is made. If another one is crafted, it will still be a new item, with its own durability, name, etc. Even if they&rsquo;re the same, if one is used, it won&rsquo;t use the other.</p>
+</div><p>And of course, there&rsquo;d be yet more code to actually let a player use the item once it&rsquo;s in their inventory. What you should note, though, is that when calling <code>PickTool(1,&quot;Wooden Pick&quot;,1,1)</code> a new object of that type is made. If another one is crafted, it will still be a new item, with its own durability, name, etc. Even if they&rsquo;re the same, if one is used, it won&rsquo;t use the other. They are distinct <strong>objects</strong>.</p>
 <p>Maybe this would be easier to see with a toy example:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -795,7 +795,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>There are two dogs being &ldquo;made&rdquo;. If both were named &ldquo;Spot&rdquo; that would be fine, but it&rsquo;s still two different dogs. Just like how meeting someone with your same name doesn&rsquo;t make the two of you the same person.</p>
-<p>Another nice thing about this is it gives us a good way to organize our code, as usually it&rsquo;s a good call to have a file per class, though not always.</p>
+<p>Another nice thing about this is it gives us a good way to organize our code, as usually it&rsquo;s a good call to have a file per class (though not always, we don&rsquo;t need separate files for 10 lines of code if it fits somewhere else nicely).</p>
 <p>[TODO]</p>
 <p>objects, classes, basic OO, inheritance, SOLID</p>
 <ul>
@@ -897,7 +897,7 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#107---data-structures--object-orientation">10.7 - Data Structures &amp; Object Orientation</a>
+    <li><a href="#107---data-structures-object-orientation--encodings">10.7 - Data Structures, Object Orientation, &amp; Encodings</a>
       <ul>
         <li><a href="#why-not-just-structs">Why not just structs?</a></li>
         <li><a href="#a-new-objective">A New Objective</a></li>
