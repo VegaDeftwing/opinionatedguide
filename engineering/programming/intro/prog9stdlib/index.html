@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+<script src="/footnotes.js"> </script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 10.9 - The Standard Library # Yunno&rsquo; how you&rsquo;ve been using print() and printf() all over the place? Well, those are functions, but where are they from?!
+Well, for C, in printf()&rsquo;s case it&rsquo;s pretty obvious - you can&rsquo;t use it unless you have #include &lt;stdio.h&gt; at the top of the file, so, clearly your computer has that file, and the associated .c file, somewhere. And frankly? That&rsquo;s good enough for the moment.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 10.9 - The Standard Library # Yunno&rsquo; how you&rsquo;ve been using print() and printf() all over the place? Well, those are functions, but where are they from?!
+Well, for C, in printf()&rsquo;s case it&rsquo;s pretty obvious - you can&rsquo;t use it unless you have #include &lt;stdio.h&gt; at the top of the file, so, clearly your computer has that file, and the associated .c file, somewhere. And frankly? That&rsquo;s good enough for the moment." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/engineering/programming/intro/prog9stdlib/" /><meta property="article:section" content="Engineering" />
+
+
+
+<title>Prog9stdlib | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
+<script defer src="/en.search.min.faa2ea0a1eb06b51b2ee28eb4df3303921624ca66d8edca05adbf966d7d4ab7a.js" integrity="sha256-&#43;qLqCh6wa1Gy7ijrTfMwOSFiTKZtjtygWtv5ZtfUq3o="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/engineering/engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1</dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+<dt>A2</dt><dd> <a href="/engineering/linux/windows/">Ugh. Windows.</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<!--<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a>-->
+</dd>
+    <dt>10 </dt><dd> <details id="codeMenu"> <summary><a href="/engineering/programming/intro/prog0intro">Let's Write Some Code</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog1math"> It's Math?</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog2turtle"> Turtles!</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog3tools"> Getting Tools</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog4comments"> Knowing our Tools</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog5two"> 2 for 1</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog6types"> Types</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog7logic"> logic & Functions</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog8oo"> Data Structures</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog9stdlib"> Libraries</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/intro/prog10"> Unnamed</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/programming/intro/progendreal"> Getting Real</a></dd>
+   </details> </dd>
+<dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/fosscopyright/">FOSS & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/codecont/">Yet More Programming</a></dd>
+<dt>12½</dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/bigprog/">Writing a Big Program</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/debugbuildtest/">Debugging, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a>
+</dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>22 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>23½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>27 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>28 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>33 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>34 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+<dt>37 </dt><dd> <a href="/engineering/networking/networking/">Networking</a></dd>
+<dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>40½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Making & Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>41 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>42 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>44 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A2 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/music-getting-started/">Getting Started</a></dd>
+<dt>2 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>3 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>4 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+   </details> </dd>
+<dt>5 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>6 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>7 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>8 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>9 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>1½</dt><dd> <a href="/design/vbasics/">Basics++</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/gen/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+<dt> </dt><dd> <a href="/interviews/spg/">Sex Positive Gaming</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+</details> </dd>
+   <dt></dt><dd> <details id="hciMenu"> <summary><a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+    <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	<dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+    <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+   <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+   <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+   <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+   </details> </dd>
+<dt> </dt><dd> <a href="/other/tokipona/">toki pona! <span class="conlang">󱥬󱦖󱥔</span> </a></dd>
+    <dt> </dt><dd> <a href="/other/fediverse/">The Fediverse, ActivityPub, & The IndieWeb </a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd class="blogdd" style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Prog9stdlib</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-109---the-standard-library">Chapter 10.9 - The Standard Library</a>
+      <ul>
+        <li><a href="#python">Python</a></li>
+        <li><a href="#c">C</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-109---the-standard-library">
+  Chapter 10.9 - The Standard Library
+  <a class="anchor" href="#chapter-109---the-standard-library">#</a>
+</h1>
+<script>
+    document.getElementById("codeMenu").open = true;
+</script>
+<p>Yunno&rsquo; how you&rsquo;ve been using <code>print()</code> and <code>printf()</code> all over the place? Well, those are functions, but where are they from?!</p>
+<p>Well, for C, in <code>printf()</code>&rsquo;s case it&rsquo;s pretty obvious - you can&rsquo;t use it unless you have <code>#include &lt;stdio.h&gt;</code> at the top of the file, so, clearly your computer has that file, and the associated <code>.c</code> file, somewhere. And frankly? That&rsquo;s good enough for the moment. Later, you may need to learn how to download C libraries from the Internet. But for now, just know you have many more than <code>&lt;stdio.h&gt;</code> available, which cover a lot of basic functionality.</p>
+<p>For Python, well, the language&rsquo;s motto is &ldquo;Batteries Included&rdquo;, basically, you should be able to do everything you need without adding libraries? Is this totally true, well, it depends. But still, the idea is very core functionality - a <a href="https://docs.python.org/3/library/functions.html">list of built-in functions</a> - is always ready to go and there are <a href="https://docs.python.org/3.10/library/index.html">many more</a> libraries with more specialized functions which should come with every python install and so be a <code>import whatever</code> away.</p>
+<p>So, let&rsquo;s look at each language&rsquo;s standard library. Maybe not everything in detail, but lets at least see what there is, so we don&rsquo;t try to reinvent any wheels and have a better idea of what&rsquo;s available to us when we go to solve bigger problems.</p>
+<h2 id="python">
+  Python
+  <a class="anchor" href="#python">#</a>
+</h2>
+<p>Okay, so, we have the <a href="https://docs.python.org/3.10/library/index.html">built-in functions</a> - things like <code>print()</code>, <code>sum()</code>, <code>len()</code>,<code>id()</code>,<code>input()</code>,etc. Most of these are pretty straight forward and do what you&rsquo;d think. Some are a bit weirder. Generally, if you read the function name and go &ldquo;What?&rdquo; it&rsquo;s probably not something you need to worry about quite yet.</p>
+<p>Then we&rsquo;ve got <a href="https://docs.python.org/3.10/library/string.html">string</a> with constants predefined like <code>string.ascii_letters</code> which has all the letters a-z and A-Z as well as a few functions.</p>
+<p><a href="https://docs.python.org/3.10/library/re.html">re</a> lets us evaluate &ldquo;regular expressions&rdquo; - little snippets in a sort-of language of its own that can help match patterns in text. For example, <code>^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$</code> may look crazy, but it&rsquo;s actually a way for <a href="https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number">identifying if a string is a phone number</a>.</p>
+<p>Skipping over <a href="https://docs.python.org/3.10/library/difflib.html">difflib</a>, <a href="https://docs.python.org/3.10/library/textwrap.html">textwrap</a>, <a href="https://docs.python.org/3.10/library/unicodedata.html">unicodedata</a>, <a href="https://docs.python.org/3.10/library/stringprep.html">stringprep</a>, <a href="https://docs.python.org/3.10/library/struct.html">struct</a>, <a href="https://docs.python.org/3.10/library/codecs.html">codecs</a>, and a few even less entertaining ones, we wind up at <a href="https://docs.python.org/3.10/library/datetime.html">datetime</a> which has data structures and functions for working with time, including <code>datetime.date.today()</code> to get the current date.</p>
+<p>Skipping over <a href="https://docs.python.org/3.10/library/zoneinfo.html">zoneinfo</a> and <a href="https://docs.python.org/3.10/library/calendar.html">calendar</a> we come to <a href="https://docs.python.org/3.10/library/collections.html">collections</a> which has functions like <code>counter()</code> for seeing how many times something in a list is repeated. It also has <code>deque</code> (pronounced &ldquo;deck&rdquo;) which is like a list, but much faster if you need to append or remove elements from either end often.</p>
+<p>Skipping over <a href="https://docs.python.org/3.10/library/heapq.html">heapq</a> and <a href="https://docs.python.org/3.10/library/bisect.html">bisect</a> there&rsquo;s <a href="https://docs.python.org/3.10/library/array.html">array</a>, which is a lot like the python built in list because it&rsquo;s <em>basically</em> a raw C array - that is, unlike a python list which may have mixed types (<code>a = [&quot;string&quot;, 2, 3.14159]</code>), an array has a static type. I mostly bring this up to say&hellip; don&rsquo;t. This is where you&rsquo;d start wanting to use external libraries like <a href="https://numpy.org">numpy</a> which is much, must more powerful and faster.</p>
+<p>Skipping over many boring bits, we run into <a href="https://docs.python.org/3.10/library/copy.html">copy</a> which will be very, very useful later as you&rsquo;ll see when we get deeper into object orientation. So, remember this exists.</p>
+<p>Skipping many more we finally hit <a href="https://docs.python.org/3.10/library/math.html">math</a> which has a wide array of useful mathematical functions: <code>ceil()</code>, <code>comb()</code> (combinations), <code>factorial()</code>, <code>log()</code>, <code>sqrt()</code>, all the trig functions, and many more. Plus, it has constants for pi and e. There&rsquo;s also <a href="https://docs.python.org/3.10/library/cmath.html">cmath</a> for those in need of functions working with complex numbers.</p>
+<p><a href="https://docs.python.org/3.10/library/decimal.html">decimal</a>&rsquo;s uses are niche, but if you&rsquo;re trying to avoid the problems of floating point, it may help.</p>
+<p>Skipping over a few more, we hit <a href="https://docs.python.org/3.10/library/random.html">random</a> which can get you a wide range of ways to get random numbers. Speaking of, there&rsquo;s <a href="https://docs.python.org/3.10/library/statistics.html">statistics</a> too! Everybody&rsquo;s favorite package for working with everything from averages to correlations and standard deviations.</p>
+<p>With <a href="https://docs.python.org/3.10/library/itertools.html">itertools</a> we&rsquo;re diving into some rather weird territory, but if you&rsquo;re wanting to learn functional programming (which, uh, is not what you think it is if you&rsquo;re thinking functions from the last page) then this will be handy.</p>
+<p><a href="https://docs.python.org/3.10/library/functools.html">functools</a> has some black magic that lets you speed things up dramatically if you know what you&rsquo;re doing. Really handy if you&rsquo;re in the situations of &ldquo;Ahh, shit, my python code isn&rsquo;t fast enough&rdquo; but caching (a topic for another day) is the answer.</p>
+<p>For reasons to do with functional programming (again, advanced topic, don&rsquo;t worry about it yet) you sometimes need to use the normal comparison operators as functions. That&rsquo;s where <a href="https://docs.python.org/3.10/library/operator.html">operator</a> comes in. So, uh, I guess I lied? <code>add()</code> is technically a thing? Don&rsquo;t use it unless you actually need it, and since we haven&rsquo;t gone over functional programming (again, not programming with functions - it&rsquo;s a bad name) you don&rsquo;t need it yet.</p>
+<p>Then the file-y stuff. You&rsquo;ve got all the stuff you&rsquo;d expect for reading and writing files and file paths (folders) and some weird stuff you won&rsquo;t know what&rsquo;s for.</p>
+<p>Next up is stuff for data persistence and the ever entertainingly named <a href="https://docs.python.org/3.10/library/pickle.html">pickle</a> which will let you save an object (like, an object orientation style object from before) to a file and then un-pickle it later. There&rsquo;s also some libraries for connecting to databases.</p>
+<p>There&rsquo;s also libraries for compressing and de-compressing data in .zip, .lzma (.7z), .tar, etc.</p>
+<p>Moving more quickly now, you&rsquo;ll also find libraries for:</p>
+<ul>
+<li>
+<p>Secrets and Hashlib - Generating secure random numbers (for use with passwords)</p>
+</li>
+<li>
+<p>OS - Determining what OS you&rsquo;re on (among other, more advanced uses)</p>
+</li>
+<li>
+<p>Along with Datetime and Calendar there&rsquo;s also just Time, which is useful for very precise times.</p>
+</li>
+<li>
+<p>A whole pile related to threading - These will let you use multiple cores.</p>
+<ul>
+<li>This is pretty difficult to program around. We&rsquo;ll talk about multithreaded programming in a future chapter.</li>
+</ul>
+</li>
+<li>
+<p>Another pile of em&rsquo; related to networking, email, HTML, HTTP, URLs, ip addresses, etc.</p>
+</li>
+<li>
+<p>Some (limited) for working with .wav audio files and color systems</p>
+<ul>
+<li>If you need to work with audio or color, you&rsquo;re probably going to want some 3rd party libraries.</li>
+</ul>
+</li>
+<li>
+<p>A bunch for debugging related stuff that you probably won&rsquo;t use directly</p>
+<ul>
+<li>Though you will still want to use a debugger, which does use them</li>
+</ul>
+</li>
+</ul>
+<p>And many, many, many more that you&rsquo;ll probably realize if you need and end up doing a web search for as necessary.</p>
+<p>Okay, so, uh, that&rsquo;s a big ol&rsquo; list of libraries alright. Why should you care?</p>
+<p>Well, you&rsquo;ll notice that pretty much covers the majority of things you&rsquo;d want to do with a computer, at least if you&rsquo;re willing to do a fair amount of heavy lifting. Like, if you wanted to make a Twitter bot, there&rsquo;s a networking library here and you could go read the twitter API docs and, using nothing more than what python comes with, you could make it.</p>
+<p>That&rsquo;s pretty cool, and makes Python really powerful.</p>
+<p>On the other hand - remember what I said about not reinventing wheels? Making a Twitter bot in Python is the kind of thing that has probably been done tens thousands of times and there will certainly be existing libraries which make it an even easier problem.</p>
+<p>Let&rsquo;s do a quick search for &ldquo;Python twitter bot&rdquo; - come on, you do it too. Open up a new tab and search it.</p>
+<p>You&rsquo;ll probably notice multiple of the results mentioning something called Tweepy. (as an aside, many python libraries end in py)</p>
+<p>Let&rsquo;s look that up directly. If we do, we&rsquo;ll find <a href="https://docs.tweepy.org/">https://docs.tweepy.org/</a> and, more importantly, the documentation for it at <a href="https://docs.tweepy.org/en/stable/">https://docs.tweepy.org/en/stable/</a>. If we were to dig around enough there, we&rsquo;d see how to install it, how to get an access token from Twitter, and how to make a very simple program using it. Sure, it&rsquo;s a bit of reading, but so was getting to this point. Fortunately, the more you read and work with this kind of stuff the faster it is to get though and to start actually doing cool things.</p>
+<p>To be clear, you shouldn&rsquo;t reach for third party libraries for every problem. If the basic python libraries are enough, that&rsquo;s a good thing. You&rsquo;ll need to build up this intuition for when the time and complexity cost in doing it yourself (and maintaining that solution) isn&rsquo;t worth it.</p>
+<h2 id="c">
+  C
+  <a class="anchor" href="#c">#</a>
+</h2>
+<p>It&rsquo;s relatively uncommon to use third party C libraries, but extremely common to use the built in ones. So far you&rsquo;ve seen:</p>
+<ul>
+<li><code>&lt;stdio.h&gt;</code> which provides <code>printf()</code> as well as file operations, and the ability to take in user input as text.</li>
+<li><code>&lt;math.h&gt;</code> which provides most trig function, pow, log, exp, sqrt, etc.</li>
+<li><code>&lt;string.h&gt;</code> which provides <code>memcpy()</code> as seen, but also has functions for taking a character array holding character-numbers and turns it into an interger or float (or, errors if it fails because the character-error holds letters, special characters, etc.). It also provides <code>malloc()</code> and <code>free()</code> which we&rsquo;ll get into later.</li>
+<li><code>&lt;time.h&gt;</code> which has data types and functions for working with time</li>
+<li><code>&lt;stdint.h&gt;</code> which has the specific bit types like <code>uint8_t</code></li>
+<li><code>&lt;stdbool.h&gt;</code> which defines <code>true</code> and <code>false</code>	<span class="smalltext ">
+    (The fact that this isn&rsquo;t just built in hurts me)
+</span></li>
+</ul>
+<p>And, yunno, that&rsquo;s pretty much the only ones you&rsquo;ll use for at least a good while. Eventually we&rsquo;ll probably need <code>&lt;signal.h&gt;</code>, but other than that, ╮(─▽─)╭. There are a few more, but they&rsquo;re rare to see.</p>
+<p>Now, you&rsquo;re probably seeing that and thinking &ldquo;Wow, compared to python that&rsquo;s not much!&rdquo;</p>
+<p>Yep. Now, there <strong>are</strong> third party libraries - here&rsquo;s a &ldquo;awesome&rdquo; list on github of quite a few useful ones: <a href="https://github.com/oz123/awesome-c">https://github.com/oz123/awesome-c</a>.</p>
+<p>One thing worth noting, some libraries will say they&rsquo;re &ldquo;header only&rdquo;. These libraries tend to be much easier to use. It&rsquo;s not always the case, but, it&rsquo;s often a win if you see it. We&rsquo;ll talk about headers soon, because if you&rsquo;re going to write anything remotely complicated in C, you have to use them.</p>
+<p>You&rsquo;ll also probably notice many of them claiming to be very small. This is because C is often used on embedded systems. We&rsquo;ll talk about this more later, but on an embedded system, you often only have a few killobytes of RAM, practically no storage, and a CPU roughly as fast as a home computer from 1980 - so small is really important.</p>
+<p>With all of the libraries you can find, you may think &ldquo;oh, huh, I could write a fully featured program in C&rdquo;, and, Yep. You can. It&rsquo;ll probably be a much, much larger pain in the ass than a language better suited for the task. If you knew what libraries C++ or Rust had for the equivalent problems, you&rsquo;d quickly see why plain C isn&rsquo;t used for really anything big.</p>
+<div class="speech big ">
+    <p>
+        Though, frankly, even if C had perfect libraries, the language doesn&rsquo;t scale super well for massive projects unless you&rsquo;re very, very, very, very, very careful and have very, very rigorous testing and quality checks.
+    </p>
+</div>
+
+
+
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/Intro/prog9stdlib.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-109---the-standard-library">Chapter 10.9 - The Standard Library</a>
+      <ul>
+        <li><a href="#python">Python</a></li>
+        <li><a href="#c">C</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
