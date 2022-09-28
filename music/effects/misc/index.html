@@ -41,7 +41,7 @@ Also keep in mind pitch correction isn&rsquo;t just for vocals, you might want t
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
-<script defer src="/en.search.min.faa2ea0a1eb06b51b2ee28eb4df3303921624ca66d8edca05adbf966d7d4ab7a.js" integrity="sha256-&#43;qLqCh6wa1Gy7ijrTfMwOSFiTKZtjtygWtv5ZtfUq3o="></script>
+<script defer src="/en.search.min.4f422bd73bcd0a8618dfbb92371f0cee455fb6d72ac520d8e5f2132721056f07.js" integrity="sha256-T0Ir1zvNCoYY37uSNx8M7kVfttcqxSDY5fITJyEFbwc="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -557,6 +557,7 @@ https://github.com/alex-shpak/hugo-book
   Auto-Tune
   <a class="anchor" href="#auto-tune">#</a>
 </h2>
+<!-- Doing autotune in code is well beyond the scope of a small comment. Outside of just throwing AI at the problem - witch is likely to sound god awful - there's no magic bullet here. It's spectral analysis hell. -->
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -576,6 +577,7 @@ https://github.com/alex-shpak/hugo-book
   Vocoders
   <a class="anchor" href="#vocoders">#</a>
 </h2>
+<!-- Traditionally, It's a lot of band pass filters with envelope followers. That's it. That said, actuall implementiton, use an FFT, not a fuck load of filters. See https://dsp.stackexchange.com/questions/1232/programming-a-vocoder -->
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -596,6 +598,7 @@ https://github.com/alex-shpak/hugo-book
   Pitch, Glitch, &amp; Granular
   <a class="anchor" href="#pitch-glitch--granular">#</a>
 </h2>
+<!-- Most of these come down to recording a buffer, ocassionally playing back from that buffer, and doing weird things with the sample rate or reversing the order. Some pitch effects, like the PitchFork+ below, are real time and are doing much crazier voodoo. If you just want to do monophonic octave up/down, that's easy though. Just use a PLL (or code to simulate one) and mulitply it for octave up or just use a digital counter and output on every-other above-threshold point for octave down. This just tends to sound like ass with polyphony. -->
 <p>Rather than try to explain all of these, I&rsquo;m just gonna throw a grid of videos at you. Skip around, hear some neat sounds. Get inspired.</p>
 <div class="book-columns flex flex-wrap">
   <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
@@ -662,16 +665,19 @@ https://github.com/alex-shpak/hugo-book
   De-Noising &amp; De-Essing
   <a class="anchor" href="#de-noising--de-essing">#</a>
 </h2>
+<!-- De-Essing is just a dynamic EQ - which is just a compressor with a pretty narrow frequency band applied right at the evil S point-->
 <p>(Make sure you didn&rsquo;t gloss over Noise Gates in the Dynamics Chapter)</p>
 <p>[TODO]</p>
 <h2 id="ring-modulators">
   Ring Modulators
   <a class="anchor" href="#ring-modulators">#</a>
 </h2>
+<!-- Make a bipolar OSC or LFO. Multiply it with the target signal. Profit. -->
 <h2 id="talk-boxes">
   Talk-boxes
   <a class="anchor" href="#talk-boxes">#</a>
 </h2>
+<!-- There's really no way to emulate this, as it's less a matter of the sound and more of the interface - using a real mouth as a filter. Vocoders are basically the closest you'll get, but you lose out on the infinite sustain. Even digital has limits, I'm afraid. -->
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/h_L5v9OTSxc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </article>
  

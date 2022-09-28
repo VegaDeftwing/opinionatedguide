@@ -39,7 +39,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
-<script defer src="/en.search.min.faa2ea0a1eb06b51b2ee28eb4df3303921624ca66d8edca05adbf966d7d4ab7a.js" integrity="sha256-&#43;qLqCh6wa1Gy7ijrTfMwOSFiTKZtjtygWtv5ZtfUq3o="></script>
+<script defer src="/en.search.min.4f422bd73bcd0a8618dfbb92371f0cee455fb6d72ac520d8e5f2132721056f07.js" integrity="sha256-T0Ir1zvNCoYY37uSNx8M7kVfttcqxSDY5fITJyEFbwc="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -568,6 +568,7 @@ https://github.com/alex-shpak/hugo-book
   Delay
   <a class="anchor" href="#delay">#</a>
 </h2>
+<!-- There are a million ways to make a delay that's weird. Most basic? Make a ring buffer and add the signals, probably with a dry/wet mix. Less basic? IDK, add in multilpe taps on the ring buffer? Use random samples in the buffer? Change the sample rate of the buffer? Reverse the buffer occassionally? Go nuts.-->
 <p>Delay is basically echo. Take a sound in, and repeat it it it. Normally the main controls on a delay are &lsquo;Time&rsquo;, which controls how long of a delay there is before each repeat, &lsquo;Feedback&rsquo; which controls how much the level is reduced each time the delay repeats (and in turn, how many audible repetitions there are), and &lsquo;Dry/Wet&rsquo; which controls how the signal is blended, entirely dry will have no delay, entirely wet may even miss the initial sound adding a weird latency before you hear what you&rsquo;re playing. Some delays have additional controls, obviously I can&rsquo;t cover every possible delay, but I&rsquo;ll try to cover most:</p>
 <p>Some delays instead of letting you set a delay time or &rsquo;tap&rsquo; a delay tempo in to actually synchronize to a clock signal input which lets the delayed repetitions always be in time with the rest of the song.</p>
 <p>Stereo delays many have additional controls as well, most commonly offering a different delay time for the left and right channels. Often a &lsquo;Ping Pong&rsquo; mode will also be available where the left and right speaker alternate for the echo&rsquo;d sound- &lsquo;ping&rsquo; and &lsquo;ponging&rsquo; out each side until the sound cuts out.</p>
@@ -618,6 +619,7 @@ https://github.com/alex-shpak/hugo-book
   Loopers
   <a class="anchor" href="#loopers">#</a>
 </h2>
+<!-- If I have to explain what you'd have to do in code for this, there's no helping you. -->
 <p>Loopers are most commonly seen in hardware and can be seen as a sort of mix between samplers and delays. Essentially you just tap in when you start playing, play what you want, then tap out, then, the loop of whatever you played will play back to you. There may be additional settings, such as a half speed effect.</p>
 <p>Often you&rsquo;ll see loopers used for &lsquo;Live Looping&rsquo; performances, where each layer is looped and overdubbed to create a full song</p>
 <p>Here for example is a jam using the Ditto X4 looper (the box slightly blurry, closest to the camera), which is used to loop the guitar here.</p>
@@ -626,6 +628,7 @@ https://github.com/alex-shpak/hugo-book
   Reverb
   <a class="anchor" href="#reverb">#</a>
 </h2>
+<!-- The DSP for reverb is a black magic. If you actually want to persue this, see https://www.youtube.com/watch?v=Il_qdtQKnqk then go read ALL of Valhalla DSP's blog post, then realize making a good algorithm is just thousands of hours of trial and error.-->
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/FfESec8Sy0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/qaEM78hdsXA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h3 id="rooms">
@@ -645,10 +648,12 @@ https://github.com/alex-shpak/hugo-book
   Convolutional
   <a class="anchor" href="#convolutional">#</a>
 </h3>
+<p>Take an impulse response, convolve it with the signal. If the impulse response is long, it&rsquo;ll eat CPU.</p>
 <h3 id="shimmer">
   Shimmer
   <a class="anchor" href="#shimmer">#</a>
 </h3>
+<p>Reverb + Octave up</p>
 <h3 id="internals">
   Internals
   <a class="anchor" href="#internals">#</a>

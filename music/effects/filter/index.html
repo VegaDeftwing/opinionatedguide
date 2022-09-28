@@ -41,7 +41,7 @@ Low Pass Filters # Low Pass filters do what you think, they let the low frequenc
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
-<script defer src="/en.search.min.faa2ea0a1eb06b51b2ee28eb4df3303921624ca66d8edca05adbf966d7d4ab7a.js" integrity="sha256-&#43;qLqCh6wa1Gy7ijrTfMwOSFiTKZtjtygWtv5ZtfUq3o="></script>
+<script defer src="/en.search.min.4f422bd73bcd0a8618dfbb92371f0cee455fb6d72ac520d8e5f2132721056f07.js" integrity="sha256-T0Ir1zvNCoYY37uSNx8M7kVfttcqxSDY5fITJyEFbwc="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -569,6 +569,7 @@ https://github.com/alex-shpak/hugo-book
   Filters (LP, HP, BP, Notch)
   <a class="anchor" href="#filters-lp-hp-bp-notch">#</a>
 </h2>
+<!-- See the signal processing chapters. If you're trying to do real time DSP and if you want to modulate the cutoff, you're probably stuck with an IIR. FWIW, the delay of an FIR means the linear phase is often worse than not anyway. If licencing isn't an issue, you'll probably want to start with at least https://www.musicdsp.org/en/latest/Filters/index.html or really any DSP library. Implimenting a well performing filter isn't that hard. Implimenting a well perofrming, variable-cutoff-filter is doable. Implimenting one better than open source libraries is a heckin' undertaking. All of that said, if you're after a particular character or Virtual Analog, you'll have to start from scratch anyway. -->
 <script>
     document.getElementById("effectMenu").open = true;
 </script>
@@ -616,6 +617,7 @@ https://github.com/alex-shpak/hugo-book
   Comb Filters
   <a class="anchor" href="#comb-filters">#</a>
 </h3>
+<!-- Comb filters can be feed-forward or feedback. They sound pretty different. The actually difference equation is dumb simple and easy to impliment, since it's usually just a single delay'd sample. Here be dragons for passing into instability though. Pick your coefficents wisely. -->
 <h3 id="all-pass-filters-phaser">
   All-Pass Filters (Phaser)
   <a class="anchor" href="#all-pass-filters-phaser">#</a>
@@ -658,23 +660,29 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#wasp-cmos">#</a>
 </h4>
 <p>Uses Inverters as amplifiers</p>
+<!-- Welcome back to virtual analog hell. The Wasp basically has a fuster-cluck of almost-hard-clipping internal to it's feedback path. This get's messy quickly. See https://dafx2020.mdw.ac.at/proceedings/papers/DAFx20in22_paper_34.pdf You might also be able to extrapolate something out of https://www.youtube.com/watch?v=DnO5sMU5DqU -->
 <h4 id="formant-filters">
   Formant Filters
   <a class="anchor" href="#formant-filters">#</a>
 </h4>
+<p>If you play with some band-pass filters for long enough, you&rsquo;ll accidentally make something that sounds like a human making a vowel noise. This is known. The frequencies of the peaks for each vowel can also be googled, but if you&rsquo;re just making music, you can usually just drop a formant filter that will let you pick (or morph!) between the vowels.</p>
+<!-- https://www.musicdsp.org/en/latest/Filters/110-formant-filter.html https://ccrma.stanford.edu/~jos/fp/Formant_Filtering_Example.html -->
 <h4 id="polivoks">
   Polivoks
   <a class="anchor" href="#polivoks">#</a>
 </h4>
+<!-- Back to VA hell. I wish you luck. -->
 <h3 id="slope-pole-zero-plots-db">
   Slope, Pole-Zero plots, dB
   <a class="anchor" href="#slope-pole-zero-plots-db">#</a>
 </h3>
+<!-- I haven't written this yet, but the intent is for this to be the for-dummies version of the DSP chapters. Just skip this. -->
 <p>different analog models</p>
 <h3 id="filter-resonance-q">
   Filter Resonance (Q)
   <a class="anchor" href="#filter-resonance-q">#</a>
 </h3>
+<!-- As above: I haven't written this yet, but the intent is for this to be the for-dummies version of the DSP chapters. Just skip this. -->
 <h4 id="self-oscillation">
   Self Oscillation
   <a class="anchor" href="#self-oscillation">#</a>
@@ -704,11 +712,13 @@ https://github.com/alex-shpak/hugo-book
   FIR, IIR?
   <a class="anchor" href="#fir-iir">#</a>
 </h3>
+<!-- As above, I haven't written this yet, but the intent is for this to be the for-dummies version of the DSP chapters. Just skip this. -->
 <p>Finite Impose Response, Infinite Impulse Response- ref Signals from Engineering</p>
 <h2 id="equalizers">
   Equalizers
   <a class="anchor" href="#equalizers">#</a>
 </h2>
+<!-- Unlike everywhere else where you probably want IIR. You may want FIR on the EQ, espically if it's going on the master as otherwise it's easy to absolutely sheck phase response and make bass sound like total crap. -->
 <h3 id="parametric">
   Parametric
   <a class="anchor" href="#parametric">#</a>
@@ -725,10 +735,12 @@ https://github.com/alex-shpak/hugo-book
   Fixed Filter Banks
   <a class="anchor" href="#fixed-filter-banks">#</a>
 </h3>
+<!-- Literally a bunch of filters with set coefficients. Typically, these are filters with more character than a traditional "pure" "good" filter, but not tons of character either.-->
 <h2 id="phaser">
   Phaser
   <a class="anchor" href="#phaser">#</a>
 </h2>
+<!-- It's a really steep notch with an LFO on the cutoff, abusing that a filter inhertitly incurs delay at the cutoff Magic. As an aside, I really hate the term cutoff for notch and band pass filters. -->
 <p><img src="/music/phase.webp" alt="phase" /></p>
 </article>
  
