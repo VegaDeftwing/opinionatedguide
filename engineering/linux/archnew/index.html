@@ -45,7 +45,7 @@ Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of th
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
-<script defer src="/en.search.min.4f422bd73bcd0a8618dfbb92371f0cee455fb6d72ac520d8e5f2132721056f07.js" integrity="sha256-T0Ir1zvNCoYY37uSNx8M7kVfttcqxSDY5fITJyEFbwc="></script>
+<script defer src="/en.search.min.8c15bebf8d28fd2055d379d7a989c45198b17a8bed6d9547623bcb7f5b40430e.js" integrity="sha256-jBW&#43;v40o/SBV03nXqYnEUZixeovtbZVHYjvLf1tAQw4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -100,6 +100,7 @@ https://github.com/alex-shpak/hugo-book
 <dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
 <dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
 <dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+<dt>EXT</dt><dd> <a href="https://soatok.blog/2020/06/08/furward-momentum-introduction/">Furward Momentum</a></dd>
 </dil>
 </div>
 <p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
@@ -352,26 +353,7 @@ https://github.com/alex-shpak/hugo-book
 <dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
 </dil>
 </div>
-<div class="progress-ww">
-<dl>
-<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
-<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
-</details> </dd>
-   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
-    <dt class="sub">.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
-	  <dt class="sub">.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
-    <dt class="sub">.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
-   </details> </dd>
-<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
-<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
-<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
-<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
-<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
-<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
-<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
-<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
-</dil>
-</div>
+<p class="navhead, webhead" style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
 </div>
 <div class="progress-ww">
 <dl>
@@ -548,6 +530,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#finally-removing-the-flash-drive">Finally Removing The Flash Drive</a></li>
         <li><a href="#but-wait-this-is-worse-than-when-we-started">But Wait? This is worse than when we started?</a>
           <ul>
+            <li></li>
             <li><a href="#setting-up-system-y-stuff-logs-background-tasks-etc">Setting up System-y Stuff (Logs, Background tasks, etc.)</a></li>
             <li><a href="#installing-and-removing-software">Installing and Removing Software</a></li>
             <li><a href="#making-your-mouse-serve-a-purpose-again">Making your mouse serve a purpose again</a></li>
@@ -1502,12 +1485,64 @@ myhostname
   <a class="anchor" href="#but-wait-this-is-worse-than-when-we-started">#</a>
 </h2>
 <p style="font-size: 30px;text-align: center;">⬢⬡⬡⬡⬡⬡⬡⬡⬡⬡</p>
+<p>Yep, as it is right now you&rsquo;ll have a terminal that pretty much does nothing. Great! Time to go grab all the things you want.</p>
+<h4 id="dual-boot-getting-access-to-the-other-disk">
+  Dual boot? Getting access to the other disk
+  <a class="anchor" href="#dual-boot-getting-access-to-the-other-disk">#</a>
+</h4>
+<p>Before we do that though, if you&rsquo;re dual booting, you&rsquo;ll want to set up your system so that it automatically mounts your other OS&rsquo;s disk. The easiest way to do this is to.</p>
+<ol>
+<li>
+<p>If it&rsquo;s not already, make sure you have ntfs-3g installed. Just do a <code>pacman -S ntfs-3g</code>.</p>
+</li>
+<li>
+<p>Run <code>lsblk -o name,mountpoint,label,size,fstype,uuid</code></p>
+</li>
+<li>
+<p>Figure out which Partition has Windows on it. If you have multiple disks, this may be a bit awkward. Here, for example is mine:</p>
+<pre tabindex="0"><code>nvme1n1                                            953.9G          
+├─nvme1n1p1 /boot                                      2G vfat     EAEC-8D86
+├─nvme1n1p2                                           16M          
+├─nvme1n1p3                                        951.2G ntfs     D00CEBCB0CEBAB24
+└─nvme1n1p4                                          715M ntfs     DA1E14C51E149C97
+nvme0n1                                            953.9G          
+├─nvme0n1p1                                            1G vfat     96EE-30CD
+└─nvme0n1p2 /                                      952.8G ext4     629cedc3-e5bf-4496-a75b-78d6d1c30d88
+</code></pre><p>What you should see is one partition that has a mount point of <code>/boot</code> (<code>nvme1n1p1</code>, in my case) and one that has a mountpoint of just <code>/</code> (<code>nvme0n1p2</code> in my case). Assuming nothing else weird about your setup, (no extra drives, etc.) you&rsquo;re looking  for a large (probably 250G+) ntfs partition that has no mount point. The only thing matching that above is <code>nvme1n1p3</code>. Note, your disks may start with &ldquo;sd_&rdquo; instead of &ldquo;nvme_&rdquo;</p>
+<p>Let&rsquo;s see if that&rsquo;s the right partition</p>
+</li>
+<li>
+<p>Run <code>mount /dev/[partition name] /mnt/win</code> (for me, this would be <code>mount /dev/nvme1n1p3 /mnt/win</code>)</p>
+</li>
+<li>
+<p>Run <code>cd /mnt/win</code> then <code>ls -a</code> . You should see all the folders you&rsquo;d expect to see at the base of a C drive, &ldquo;Users&rdquo;, &ldquo;Windows&rdquo;, &ldquo;Program Files&rdquo;, etc.</p>
+<p>If you don&rsquo;t - don&rsquo;t panic. Do you see anything other than <code>. ..</code>? Do you recognize the folders? It&rsquo;s possible you have multiple big partitions - maybe when your in Windows you also have another disk (probably D:/) - this might be that. This is good! It means we now know the partition with some of your data on it. Note this down somewhere - like <code>sda3 has data</code> and start from 1. again, pick another big NTFS partition, but when you go to mount change the path to <code>/mnt/win[number you increment]</code>, and go from there.</p>
+<p>If you don&rsquo;t see anything other than <code>. ..</code> it&rsquo;s likely nothing got mounted at all. Re-run the big <code>lsblk</code> command and see if the partition shows up as mounted - see how this has the <code>/mnt/win</code> next to it now?</p>
+<pre tabindex="0"><code>├─nvme1n1p3 /mnt/win                               951.2G ntfs     D00CEBCB0CEBAB24
+</code></pre><p>If <code>/mnt/win</code> is next to none of them, then the mount didn&rsquo;t even work. Start from 1. If you still can&rsquo;t get anywhere, ask around for some help.</p>
+</li>
+<li>
+<p>Okay, so your disk is mounted and you have access to your files, but you really don&rsquo;t want to do that every time you boot. Let&rsquo;s add the partition(s) (multiple, if you have a data disk) to our FSTAB. Run <code>nano /etc/fstab</code> (with <code>sudo</code>, if you&rsquo;ve jumped ahead and made a user) and add the line:</p>
+<pre tabindex="0"><code>UUID=[Your disks UUID] /mnt/win      ntfs-3g defaults,nofail,noatime,uid=1000,umask=0011 0 0
+</code></pre><p>For example, for mine, this would be:</p>
+<pre tabindex="0"><code>UUID=D00CEBCB0CEBAB24 /mnt/win      ntfs-3g defaults,nofail,noatime,uid=1000,umask=0011 0 0
+</code></pre><p>Now, if you reboot, your disk should automatically be mounted to /mnt/win.</p>
+<p>As a brief explanation. <code>ntfs-3g</code> sets what NTFS driver to use. <code>ntfs3</code> instead should in theory be <em>much</em> faster, but it&rsquo;s not super stable at the time of writing. As for the other flags:</p>
+<ul>
+<li><code>defaults</code> just sets sane mounting options for most things based on filesystem (NTFS, in this case) type</li>
+<li><code>nofail</code> sets it so that if it can&rsquo;t mount the Windows partition, Linux doesn&rsquo;t say &ldquo;Nope!&rdquo; and drop you into a &ldquo;recovery shell&rdquo;.</li>
+<li><code>noatime</code> sets it not to store access times. There&rsquo;s a not-insignificant performance impact in doing so, so may as well turn it off.</li>
+<li><code>uid=1000,umask=0011</code> - set&rsquo;s it so that files are the users (well, when you make one) which should be of id 1000 and that all files are set to be able to be read, written, or executed. This is bad for security, but as your computer is <em>probably</em> single user, it&rsquo;s fine.</li>
+<li>The <code>0 0</code> at the end The first one should always be 0 as it&rsquo;s for marking if the disk should be backed up using an old back up system nobody should use, and the second if a system should be checked for file system checking, and in what order. If it&rsquo;s an NTFS disk and you dual boot, set it to 0. Your root <code>/</code> partition should be set to 1, if you care, you can set the others (if you have any) to 2, but, like, FS checking (fsck) is usually one of those things you&rsquo;ll know if you need to do, so as long as the system boots, fuck it.</li>
+</ul>
+</li>
+</ol>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
-    <h4 id="post-installation">
+    <h3 id="post-installation">
   Post-installation
   <a class="anchor" href="#post-installation">#</a>
-</h4>
+</h3>
 <p>See <a href="https://wiki.archlinux.org/title/General_recommendations">General recommendations</a> for system management directions and post-installation tutorials (like creating unprivileged user accounts, setting up a graphical user interface, sound or a touchpad).</p>
 <p>For a list of applications that may be of interest, see <a href="https://wiki.archlinux.org/title/List_of_applications">List of applications</a>.</p>
 
@@ -2130,6 +2165,7 @@ myhostname
         <li><a href="#finally-removing-the-flash-drive">Finally Removing The Flash Drive</a></li>
         <li><a href="#but-wait-this-is-worse-than-when-we-started">But Wait? This is worse than when we started?</a>
           <ul>
+            <li></li>
             <li><a href="#setting-up-system-y-stuff-logs-background-tasks-etc">Setting up System-y Stuff (Logs, Background tasks, etc.)</a></li>
             <li><a href="#installing-and-removing-software">Installing and Removing Software</a></li>
             <li><a href="#making-your-mouse-serve-a-purpose-again">Making your mouse serve a purpose again</a></li>
