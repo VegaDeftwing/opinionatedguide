@@ -39,7 +39,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
-<script defer src="/en.search.min.305218d82532d43913b6e5e3f008bc68cda8787700250577414503426457923d.js" integrity="sha256-MFIY2CUy1DkTtuXj8Ai8aM2oeHcAJQV3QUUDQmRXkj0="></script>
+<script defer src="/en.search.min.2edfaebfaefb644bc0142bddbe0c6d062e70afe5dec54d49d4ad4a4d21c5ad7f.js" integrity="sha256-Lt&#43;uv677ZEvAFCvdvgxtBi5wr&#43;XexU1J1K1KTSHFrX8="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -532,7 +532,11 @@ https://github.com/alex-shpak/hugo-book
           </ul>
         </li>
         <li><a href="#automated-building-and-testing">Automated Building and Testing</a></li>
-        <li><a href="#continuous-integration">Continuous Integration</a></li>
+        <li><a href="#continuous-integration">Continuous Integration</a>
+          <ul>
+            <li><a href="#docker-the-portable-way">Docker: the portable way</a></li>
+          </ul>
+        </li>
         <li><a href="#continuous-deployment">Continuous Deployment</a></li>
       </ul>
     </li>
@@ -779,10 +783,132 @@ src: https://twitter.com/boo_radley/status/1062513898954391552
   Continuous Integration
   <a class="anchor" href="#continuous-integration">#</a>
 </h2>
-<h2 id="continuous-deployment">
+<p>This is a subject that many people have written books about, and in a small-to-medium sized open source project, may not seem necessary. But its usefulness will sneak up on you faster than you might think.</p>
+<p>First, there is the total time savings. If you consider everything it takes to make correct and clean code &ndash; not only compiling, but linting, testing, etc &ndash; then it is definitely worth automating for yourself. And if it&rsquo;s worth automating for yourself, it&rsquo;s worth automating for others.</p>
+<p><img src="https://imgs.xkcd.com/comics/is_it_worth_the_time.png" alt="" />
+<p class="attribution ">
+    <a href="https://xkcd.com/1205/">XKCD №1205</a>
+</p></p>
+<p>Second, there is consistency. Again, if you want <em>all</em> of your code to compile, you have to gate committing code to a successful compile (or at least syntax check). If you want <em>all</em> your code to have a certain format, then you have to gate committing code to passing lints. This will become a headache much faster than you think &ndash; even for a simple project!</p>
+<p>Third, there is compatibility. A big part of open source is that it must be flexible, and support multiple environments. If you end up using a lot of GCC-style syntax, for example, someone with LLVM, ICC, or another compiler might have trouble building it. A CI system can test builds in many environments, not just the one you develop in.</p>
+<p>Finally, if you start actually building out compatibility? It is a very small step to Continuous Deployment. And then you&rsquo;ve got something really nice to build a community around your software.</p>
+<p>Speaking of community, it is worth noting: if you want to impress people and make contributions, find an open source project who didn&rsquo;t learn this lesson, and write or improve CI for them. This will have a long-term positive impact that the community will benefit greatly from &ndash; even if it takes a while for the payoff to be realized.</p>
+<h3 id="docker-the-portable-way">
+  Docker: the portable way
+  <a class="anchor" href="#docker-the-portable-way">#</a>
+</h3>
+<p>There are a lot of different git platforms out there, and many of them have their own CI. In addition, the most popular ones are owned by companies who have a sketchy track record in open source &ndash; or once had good ones, but then were acquired by others who did.</p>
+<p>As a result, I want to push toward a tool that is platform independent: docker. This has some trade-offs:</p>
+<ul>
+<li>It&rsquo;s independent of any CI provider <a class="ptr">(1)</a></li>
+<li>It&rsquo;s well supported by most of them (a &ldquo;command&rdquo; makes it easy to handle containers)</li>
+<li>You can run the full CI on your own machine, e.g. to debug it without 20 pushes to trigger a rerun</li>
+<li>It doesn&rsquo;t rely on their support for a particular OS (especially ancient or exotic ones)</li>
+<li>But it means you are re-inventing the wheel to some extent compared to their tooling</li>
+</ul>
+<p>I&rsquo;m going to presume you&rsquo;re familiar with the basics of docker and have read <a href="/engineering/networking/servers/">the Containers section of the Servers chapter</a>. This section shows you specifics for this.</p>
+<p>In short, CI is way to build out your support matrix. Want to support Ubuntu, Debian, RedHat, and Arch Linux? Want to support every Python version from 3.2 to 3.10? Want to try compiling your C++ library with multiple compilers?</p>
+<p>With docker, just make one container for each, and run them all! (Although for the Python version specifically, tools like <a href="https://pypi.org/project/tox/">the tox library</a> can solve this in only one container.)</p>
+<p>Let&rsquo;s suppose we have a C++ project, and we want to make sure that it supports a variety of compilers. The easiest way is to define a docker file that prepares that compiler, but the actual compiler itself is not hard-coded. Instead, it is set up using <code>ARG</code> commands in the Dockerfile.</p>
+<p>Here is what that might look like:</p>
+<pre tabindex="0"><code>FROM ubuntu:20.04
+# Default to the distro&#39;s current GCC version
+ARG cc_pkgs=&#39;gcc g++&#39;
+# The name of the C compiler
+ARG cc=gcc
+ENV CC=$cc
+# The name of the C++ compiler
+ARG cxx=g++
+ENV CXX=$cxx
+
+# Install the compiler packages, along with any dependencies
+# Suppose your program requires OpenGL, for example:
+RUN apt update &amp;&amp; apt install -y libopengl-dev build-essential $cc_pkgs
+</code></pre><p>With this container, it should be possible to run a build by bind-mounting the source inside. This is because the variables used by GNU Makefiles, Ninja, GNU Autoconf, etc., will be set.</p>
+<p>It is easy to make all the containers for different compilers with a single shell script:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>COMPILER_NAMES<span style="color:#f92672">=(</span>gcc llvm-8 llvm-9 llvm-10<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>CC_NAMES<span style="color:#f92672">=(</span>gcc cc cc cc<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>CXX_NAMES<span style="color:#f92672">=(</span>g++ c++ c++ c++<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>PKGS<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;gcc g++&#34;</span> <span style="color:#e6db74">&#34;llvm-8-tools&#34;</span> <span style="color:#e6db74">&#34;llvm-9-tools&#34;</span> <span style="color:#e6db74">&#34;llvm-10-tools&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> i -le <span style="color:#e6db74">${#</span>COMPILER_NAMES[*]<span style="color:#e6db74">}</span> <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>	docker build -f ci/Dockerfile <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        --build-arg cc_pkgs<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PKGS[i]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        --build-arg cc<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CC_NAMES[i]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        --build-arg cxx<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>CXX_NAMES[i]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        -t ubuntu_<span style="color:#e6db74">${</span>COMPILER_NAMES[i]<span style="color:#e6db74">}</span> .
+</span></span><span style="display:flex;"><span>	i<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>expr $i + 1<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then you can test it on any compiler you wish. <a class="ptr">(2)</a></p>
+<p>If your CI provider supports &ldquo;build matrix&rdquo; definition (most do), then you don&rsquo;t even need to do that! Just put matrix variables for each one (so that the line up as a <em>group</em>, rather than a <em>cross product</em>).</p>
+<p>(Note: this is not exact for any vendor, but gives the idea.)</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">matrix</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">COMPILER_NAME</span>: [<span style="color:#e6db74">&#34;gcc&#34;</span>, <span style="color:#e6db74">&#34;llvm-8&#34;</span>, <span style="color:#e6db74">&#34;llvm-9&#34;</span>, <span style="color:#e6db74">&#34;llvm-10&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">CC_NAME</span>: [<span style="color:#e6db74">&#34;gcc&#34;</span>, <span style="color:#e6db74">&#34;cc&#34;</span>, <span style="color:#e6db74">&#34;cc&#34;</span>, <span style="color:#e6db74">&#34;cc&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">CXX_NAME</span>: [<span style="color:#e6db74">&#34;g++&#34;</span>, <span style="color:#e6db74">&#34;c++&#34;</span>, <span style="color:#e6db74">&#34;c++&#34;</span>, <span style="color:#e6db74">&#34;c++&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">PKGS</span>: [<span style="color:#e6db74">&#34;gcc g++&#34;</span>, <span style="color:#e6db74">&#34;llvm-8-tools&#34;</span>, <span style="color:#e6db74">&#34;llvm-9-tools&#34;</span>, <span style="color:#e6db74">&#34;llvm-10-tools&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">job</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Verify Compatibility with Ubuntu 20.04 on $COMPILER_NAME</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        docker build -f ci/Dockerfile \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            --build-arg cc_pkgs=&#34;$PKGS&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            --build-arg cc=&#34;$CC_NAME&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            --build-arg cxx=&#34;$CXX_NAME&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            -t $COMPILER_NAME .
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        docker run -v src:/src -w /src $COMPILER_NAME make</span>        
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="continuous-deployment">
   Continuous Deployment
   <a class="anchor" href="#continuous-deployment">#</a>
 </h2>
+<ol hidden id="footnotes">
+  <li>This may or may not be important to you. I would simply note that many platforms and CI systems have been taken over or bought by open-source hostile companies. Even formerly visionary ones that don't start with G.</li>
+  <li>Why have different versions of the same compiler? Because they default to different versions of the C++ standard. Not only will C++ "retcon" keywords, but semantics will change. Suffice to say this has caught issues in open source projects.</li>
+</ol>
 </article>
  
       
@@ -859,7 +985,11 @@ src: https://twitter.com/boo_radley/status/1062513898954391552
           </ul>
         </li>
         <li><a href="#automated-building-and-testing">Automated Building and Testing</a></li>
-        <li><a href="#continuous-integration">Continuous Integration</a></li>
+        <li><a href="#continuous-integration">Continuous Integration</a>
+          <ul>
+            <li><a href="#docker-the-portable-way">Docker: the portable way</a></li>
+          </ul>
+        </li>
         <li><a href="#continuous-deployment">Continuous Deployment</a></li>
       </ul>
     </li>

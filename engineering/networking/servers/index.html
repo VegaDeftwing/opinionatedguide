@@ -41,7 +41,7 @@ A good example of a server is this one, in which you are reading this, the only 
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
-<script defer src="/en.search.min.305218d82532d43913b6e5e3f008bc68cda8787700250577414503426457923d.js" integrity="sha256-MFIY2CUy1DkTtuXj8Ai8aM2oeHcAJQV3QUUDQmRXkj0="></script>
+<script defer src="/en.search.min.2edfaebfaefb644bc0142bddbe0c6d062e70afe5dec54d49d4ad4a4d21c5ad7f.js" integrity="sha256-Lt&#43;uv677ZEvAFCvdvgxtBi5wr&#43;XexU1J1K1KTSHFrX8="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -524,12 +524,13 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#application-servers">Application servers</a></li>
           </ul>
         </li>
-        <li><a href="#virtual-machines-and-containerization">Virtual machines and containerization</a>
+        <li><a href="#virtual-machines">Virtual machines</a></li>
+        <li><a href="#containers">Containers</a>
           <ul>
+            <li><a href="#an-example-container-in-docker">An Example Container in Docker</a></li>
             <li><a href="#why-dont-have-it-physical">Why don’t have it physical?</a></li>
             <li><a href="#local-vms">Local VMs</a></li>
             <li><a href="#cloud-vms">Cloud VMs</a></li>
-            <li><a href="#containers-and-the-convenience-of-not-breaking-things">Containers and the convenience of not breaking things</a></li>
           </ul>
         </li>
         <li><a href="#the-voodoo-magic-of-serverless">The voodoo magic of… serverless?</a></li>
@@ -539,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#file-storage-sharing-backups">File Storage, Sharing, Backups</a></li>
         <li><a href="#remote-access">Remote Access</a></li>
         <li><a href="#git-games-and-glory">Git, Games, and Glory</a></li>
-        <li><a href="#virtual-machines">Virtual Machines</a></li>
+        <li><a href="#virtual-machines-1">Virtual Machines</a></li>
         <li><a href="#containerization">Containerization</a></li>
         <li><a href="#fault-tolerance">Fault tolerance</a></li>
         <li><a href="#serverless">Serverless?</a></li>
@@ -611,21 +612,124 @@ https://github.com/alex-shpak/hugo-book
   File Servers and NAS
   <a class="anchor" href="#file-servers-and-nas">#</a>
 </h3>
-<p>[TODO]</p>
+<p>Some people would ask: why use a NAS? Don&rsquo;t all of my computers have hard disks in them?</p>
+<p>This is a question of optimization versus cost. To illustrate, let&rsquo;s compare four options to store a large collection of movies and music that is 300 GB.</p>
+<h4 id="option-1-a-plain-old-disk">
+  Option 1: A Plain Old Disk
+  <a class="anchor" href="#option-1-a-plain-old-disk">#</a>
+</h4>
+<p>Whether internal or external, this is the cheapest option. If your PC already has storage with 300 GB available, this option is &ldquo;free.&rdquo; Just make a partition, set some permissions, and call it a day.</p>
+<p>While that is good enough for a lot of people, you&rsquo;re probably reading this section for a reason. Consider the questions a large data set raises:</p>
+<ol>
+<li>How will you share with or stream to devices besides the PC itself?</li>
+<li>How will you recover lost data if something goes wrong?</li>
+<li>What level of redundancy do you want against hardware failures?</li>
+<li>What degree of uptime do you expect?</li>
+<li>What level of data security do you expect?</li>
+<li>How much performance do you expect, e.g. concurrent access?</li>
+</ol>
+<p>The standard hardware configuration for desktop PCs and laptops is not thinking about these questions. It is thinking about productivity not data preservation and management.</p>
+<p>Similarly, common Linux distros has software support for these, but there is significant assembly required.</p>
+<p>For reasons of performance, integrity and optimization, data storage is a problem that often benefits from a dedicated device. Let&rsquo;s see what that looks like.</p>
+<h4 id="option-2-a-turn-key-desktop-nas">
+  Option 2: A Turn-Key Desktop NAS
+  <a class="anchor" href="#option-2-a-turn-key-desktop-nas">#</a>
+</h4>
+<p>These devices are marketed to solve the above issues to people who consider themselves &ldquo;non-technical&rdquo; or otherwise don&rsquo;t want the hassle. An example is the <a href="https://www.qnap.com/en/product/ts-128a">QNAP TS-128A</a>.<a class="ptr">(1)</a></p>
+<p>Reading through their marketing, their dedicated box handles the storage and their software handles most of the common problems. They even have extra features for movies and music specifically: a playlist manager for music, and a Plex &ldquo;app&rdquo; you can install for movies.</p>
+<p>However, all of this is proprietary. Sure, you can configure it to be a file sharing server and nothing else, but then you&rsquo;re still taking on most of the problems yourself.</p>
+<div class="speech big ">
+    <p>
+        After reading <a href="https://arstechnica.com/gadgets/2021/06/mass-data-wipe-in-my-book-devices-prompts-warning-from-western-digital/">“I’m totally screwed.” WD My Book Live users wake up to find their data deleted</a> and <a href="https://arstechnica.com/information-technology/2022/09/new-wave-of-data-destroying-ransomware-attacks-hits-qnap-nas-devices/">New wave of data-destroying ransomware attacks hits QNAP NAS devices</a> I&rsquo;m less than enthusiastic to recommend this route.
+    </p>
+</div>
+
+
+
+
+<h4 id="option-3-buy-the-hardware-install-the-software">
+  Option 3: Buy the Hardware, Install the Software
+  <a class="anchor" href="#option-3-buy-the-hardware-install-the-software">#</a>
+</h4>
+<p>There is quite a bit of software that is designed to be focused on a data storage appliance, VM host, or certain other dedicated problems. Such software includes <a href="https://unraid.net/">unRAID</a>, <a href="https://www.synology.com/en-us">Synology</a>, and <a href="https://www.truenas.com/truenas-core/">TrueNAS</a>.</p>
+<p>Some are proprietary, some are open source, but all are optimized for the problem of storing, managing, sharing, and backing up large data sets.</p>
+<p>A lot of these are offered by companies who want to sell you the hardware, but building your own likely makes more sense for a 300 GB dataset instead of a 300 TB dataset. With this approach, you would buy a high-end, storage-focused PC and make it a dedicated device using software.</p>
+<p>Even that might seem much for 300 GB, though, even if it had only 16 TB of disks in it. Aside from growth in the data set, the main advantage this has is hardware redundancy. A lot of these servers will use multiple disk configurations and provide redundancy in hardware or software. That&rsquo;s in addition to the better performance you will likely get.</p>
+<h4 id="option-4-build-it-yourself">
+  Option 4: Build it Yourself
+  <a class="anchor" href="#option-4-build-it-yourself">#</a>
+</h4>
+<p>If you have the skill and interest in option 1, but want the better performance, data security, and redundancy of option 3, then this is the answer. Just set up a Linux machine exactly how you want, and then put something like <a href="https://openzfs.org/wiki/Main_Page">the Open ZFS filesystem</a> on it.</p>
+<p>You will learn a lot, and you will get exactly what you want. But it&rsquo;s a lot of effort, 80% of which would be saved by simply installing the open source <a href="https://www.truenas.com/truenas-core/">TrueNAS Core OS</a> instead.</p>
 <h3 id="application-servers">
   Application servers
   <a class="anchor" href="#application-servers">#</a>
 </h3>
 <p>[TODO]</p>
-<h2 id="virtual-machines-and-containerization">
-  Virtual machines and containerization
-  <a class="anchor" href="#virtual-machines-and-containerization">#</a>
+<h2 id="virtual-machines">
+  Virtual machines
+  <a class="anchor" href="#virtual-machines">#</a>
 </h2>
-<p>[TODO]</p>
+<p>Depending on what you want to do in your Home Lab, you may not need any VMs. They have their uses:</p>
+<ul>
+<li>Security: if you are playing around with suspicious software you don&rsquo;t trust</li>
+<li>Legacy support: if you need to emulate ancient hardware to run old software</li>
+<li>Experimentation: you want to build a network but don&rsquo;t want to risk real money yet</li>
+</ul>
+<p>While it is possible to use a recipe tool like <a href="https://www.vagrantup.com/">Hashicorp Vagrant</a>, <a href="https://www.virtualbox.org/">VirtualBox from Oracle</a> will get you started much faster if all you want are a couple machines and don&rsquo;t mind that it is open core <a href="https://opensource.com/article/21/11/open-core-vs-open-source">rather than open source</a>.</p>
+<h2 id="containers">
+  Containers
+  <a class="anchor" href="#containers">#</a>
+</h2>
+<p>While containers provide similar benefits of a VM, they have become much more engrained in the open source ecosystem.</p>
+<p>There are better in-depth overviews than this one, but a container is best thought of as a way to package up not only a program, but the entire environment around it when it runs.</p>
+<p>While different container hypervisors have different options, usually containers get &ldquo;virtual&rdquo; versions of:</p>
+<ul>
+<li>The file system. A container will have an isolated directory structure with what appears to be a root directory, but is separate from the rest of the system. It is similar to what <a href="https://man7.org/linux/man-pages/man2/chroot.2.html">chroot</a> provides, but it is not even a subtree of anywhere else on the host.</li>
+<li>The network stack. This can be anything from a full NAT, to port forwarding, to creating a Linux <a href="https://www.man7.org/linux/man-pages/man7/network_namespaces.7.html">network namespace</a> and virtual packet routing. The goal here is to let software send and receive packets (usually TCP) with standardized networks, and let the hypervisor handle the weird cases.</li>
+<li>Users, groups, and permissions. Most often containers run as root, but they can also be run as specific users &ndash; including users that don&rsquo;t exist on the host system.</li>
+<li>Environment variables. The process has a UNIX environment when it runs, and it is possible to add to this before it starts.</li>
+</ul>
+<p>This idea of packaging not just a binary but an environment allows all sorts of software to be shipped in containers. For open source projects, they are good not only for deployment, but CI/CD. They allow creating &ldquo;Linux dev environments&rdquo; to test your builds without &ldquo;ruining&rdquo; your machine. I have more on that in the CI/CD section once you get done with this one.</p>
+<h3 id="an-example-container-in-docker">
+  An Example Container in Docker
+  <a class="anchor" href="#an-example-container-in-docker">#</a>
+</h3>
+<p>As a concrete illustration, let&rsquo;s use the most common container system: docker. While there have been &ldquo;desktop editions&rdquo; that are non-commercial software (meaning not open-source), the original daemon (now called Moby) that ships on Linux remains open source.</p>
+<p>There are plenty of <a href="https://github.com/docker/getting-started">getting started with docker</a> articles out there, and they do a better job than this. This is just an example to demo the concepts.</p>
+<p>As an example container, we&rsquo;ll use an open-source S3 bucket server called <a href="https://github.com/minio/minio">minio</a>. As noted in the project&rsquo;s README, doing a standalone deployment for development (rather than production use) is as simple as downloading the container and running it. So let&rsquo;s do that.</p>
+<p>With docker, the first step is to download an <em>image</em> from the public docker repository, DockerHub:</p>
+<pre tabindex="0"><code>docker pull quay.io/minio/minio
+</code></pre><p>This will go out and get a list of &ldquo;layers.&rdquo; These are created by the instructions in the recipe file called a <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a> which define the environment.</p>
+<p>Once the image is downloaded, you can <em>run</em> it, i.e. create the process and put it into a new <em>container</em> (in docker&rsquo;s terminology).</p>
+<p>Here is a simple way to do that. (Don&rsquo;t worry about the details of the command line yet.)</p>
+<pre tabindex="0"><code>docker run --name my_minio -p 9000:9000 -p 9001:9001 \
+  quay.io/minio/minio server /data --console-address &#34;:9001&#34;
+</code></pre><p>This will generate startup output (take note of the default admin credentials for later!) ending with a link to documentation on my version, and then hang in the terminal.</p>
+<p>That&rsquo;s because the process is a server, and it&rsquo;s in the foreground. Not helpful, so press Control-C to interrupt it, and it will terminate.</p>
+<p>So what happens to the container when the process dies? The process is killed &ndash; but the &ldquo;husk&rdquo; of the container is still left behind. If you try to run the exact same command line again, you get an error:</p>
+<p><code> docker: Error response from daemon: Conflict. The container name &quot;/my_minio&quot; is already in use by container &lt;hash string&gt;. You have to remove (or rename) that container to be able to reuse that name.</code></p>
+<p>If you type <code>docker ps -a</code> you can see it.</p>
+<p>While the process is gone, the environment is not. It would be possible, for example, to use <code>docker cp</code> to copy files out of the filesystem. Even more powerfully, you could copy a file in and then <code>docker restart</code> the container.</p>
+<p>The key understanding here is that the &ldquo;environment&rdquo; of a container is <em>persistent</em>. Any time you create a new container, on the other hand, it starts with the image that was downloaded. Building and managing images I leave to <a href="https://docs.docker.com/get-started/02_our_app/">the official documentation</a>.</p>
+<p>Now let&rsquo;s <code>docker rm my_minio</code> in order to make the error go away and create a new one. But this time, add a <code>-d</code> right after <code>docker run</code> (argument order matters!) when you run it again to put it in the background.</p>
+<p>Now go to a browser and visit <code>http://127.0.0.1:9001</code>. You&rsquo;ll get the Minio admin console!</p>
+<p>But wait a minute, how come the browser can talk to it? Wasn&rsquo;t networking supposed to be isolated?</p>
+<p>Because specifically the <code>-p</code> arguments said to perform listener port forwarding for TCP on those two ports behind a lightweight NAT setup (the default). If you change the number before the colon in the <code>-p</code> argument, you will change the port your browser can connect to.</p>
+<p>To conclude, let&rsquo;s see where the bucket storage is. Log into the UI (default credentials should be in the output from earlier), create a bucket called &ldquo;test-bucket&rdquo;, and upload a file into it.</p>
+<p>That file has to get stored somewhere on the filesystem, which in this case is defined by a command-line argument the server was called with. I put that line-break in for a reason. It turns out that everything before the container name is arguments to docker and everything after is arguments to the process itself: its command line.</p>
+<p>So the process being run is: <code>/container/path/minio server /data --console-address &quot;:9001&quot;</code></p>
+<p>As noted in the minio project&rsquo;s docs, the first argument is the path to storage: <code>/data</code>. But of course, that&rsquo;s within the &ldquo;chroot&rdquo; of the container itself, not the host.</p>
+<p>If we want to actually see what&rsquo;s there, we need to run a command inside the container&rsquo;s &ldquo;context&rdquo;:</p>
+<pre tabindex="0"><code>docker exec my_minio ls /data/test-bucket
+</code></pre><p>It does indeed print the uploaded file.</p>
+<p>You can use either <a href="https://docs.docker.com/storage/">volumes or bind mounts</a> to share parts of the filesystem between containers and/or the host, but that&rsquo;s more advanced. Hopefully the concepts and pointers are good enough.</p>
+<p>And once again, if you need a practical example of the power of containers, take a look at the <a href="/engineering/programming/debugbuildtest/">CI/CD section</a> where I discuss an example.</p>
 <h3 id="why-dont-have-it-physical">
   Why don’t have it physical?
   <a class="anchor" href="#why-dont-have-it-physical">#</a>
 </h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/SCclo-eg0T8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>[TODO]</p>
 <h3 id="local-vms">
   Local VMs
@@ -635,11 +739,6 @@ https://github.com/alex-shpak/hugo-book
 <h3 id="cloud-vms">
   Cloud VMs
   <a class="anchor" href="#cloud-vms">#</a>
-</h3>
-<p>[TODO]</p>
-<h3 id="containers-and-the-convenience-of-not-breaking-things">
-  Containers and the convenience of not breaking things
-  <a class="anchor" href="#containers-and-the-convenience-of-not-breaking-things">#</a>
 </h3>
 <p>[TODO]</p>
 <h2 id="the-voodoo-magic-of-serverless">
@@ -677,9 +776,9 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#git-games-and-glory">#</a>
 </h2>
 <p>[TODO]</p>
-<h2 id="virtual-machines">
+<h2 id="virtual-machines-1">
   Virtual Machines
-  <a class="anchor" href="#virtual-machines">#</a>
+  <a class="anchor" href="#virtual-machines-1">#</a>
 </h2>
 <p>[TODO]</p>
 <h2 id="containerization">
@@ -702,6 +801,9 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#interesting-related-articles">#</a>
 </h2>
 <p><a href="https://brianschrader.com/archive/why-all-my-servers-have-an-8gb-empty-file/">Why All My Servers Have an 8GB Empty File (Brian Schrader)</a> (It&rsquo;s to buy time in case of a full disk)</p>
+<ol hidden id="footnotes">
+    <li>This device is dated, and intentionally so. It is an illustration, not a recommendation.</li>
+</ol>
 </article>
  
       
@@ -768,12 +870,13 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#application-servers">Application servers</a></li>
           </ul>
         </li>
-        <li><a href="#virtual-machines-and-containerization">Virtual machines and containerization</a>
+        <li><a href="#virtual-machines">Virtual machines</a></li>
+        <li><a href="#containers">Containers</a>
           <ul>
+            <li><a href="#an-example-container-in-docker">An Example Container in Docker</a></li>
             <li><a href="#why-dont-have-it-physical">Why don’t have it physical?</a></li>
             <li><a href="#local-vms">Local VMs</a></li>
             <li><a href="#cloud-vms">Cloud VMs</a></li>
-            <li><a href="#containers-and-the-convenience-of-not-breaking-things">Containers and the convenience of not breaking things</a></li>
           </ul>
         </li>
         <li><a href="#the-voodoo-magic-of-serverless">The voodoo magic of… serverless?</a></li>
@@ -783,7 +886,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#file-storage-sharing-backups">File Storage, Sharing, Backups</a></li>
         <li><a href="#remote-access">Remote Access</a></li>
         <li><a href="#git-games-and-glory">Git, Games, and Glory</a></li>
-        <li><a href="#virtual-machines">Virtual Machines</a></li>
+        <li><a href="#virtual-machines-1">Virtual Machines</a></li>
         <li><a href="#containerization">Containerization</a></li>
         <li><a href="#fault-tolerance">Fault tolerance</a></li>
         <li><a href="#serverless">Serverless?</a></li>
