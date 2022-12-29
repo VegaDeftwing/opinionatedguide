@@ -17,7 +17,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 37 - Networking # Quick links:
+<meta name="description" content="Chapter 37 - Networking # Quick links
 Blip - Check latency Speedtest.net - Speed test myexternalip.com - See your external IP portchecker.co - Check if a port is open crt.sh - Certificate search The Basics # To get started, let&rsquo;s just get some basic terminology down and take a look at the bigger picture:
 Nodes # These are all the points in the network. There are terminal nodes and intermediate nodes.">
 <meta name="theme-color" content="#FFFFFF">
@@ -31,19 +31,18 @@ Nodes # These are all the points in the network. There are terminal nodes and in
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 37 - Networking # Quick links:
+<meta property="og:description" content="Chapter 37 - Networking # Quick links
 Blip - Check latency Speedtest.net - Speed test myexternalip.com - See your external IP portchecker.co - Check if a port is open crt.sh - Certificate search The Basics # To get started, let&rsquo;s just get some basic terminology down and take a look at the bigger picture:
 Nodes # These are all the points in the network. There are terminal nodes and intermediate nodes." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/networking/networking/" /><meta property="article:section" content="Engineering" />
 
 
-
 <title>Networking | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.ad4ba95ab8d61b1afb3eb6c71cc9b4fce64c820a5d6f52035c493afc8f1455bd.css" integrity="sha256-rUupWrjWGxr7PrbHHMm0/OZMggpdb1IDXEk6/I8UVb0=">
-<script defer src="/en.search.min.de41f0c32ed48ae8cf39e6dbcda1ac916f96637c7d8cb65e42ab46869c0621a1.js" integrity="sha256-3kHwwy7UiujPOebbzaGskW&#43;WY3x9jLZeQqtGhpwGIaE="></script>
+<link rel="stylesheet" href="/book.min.62846e48ee97f45b46d3e0822467e2f49534993675e70dbeb04dd23184d19266.css" integrity="sha256-YoRuSO6X9FtG0&#43;CCJGfi9JU0mTZ15w2&#43;sE3SMYTRkmY=">
+<script defer src="/en.search.min.0f2cab553f716a8647ffaee5f244ba33c7b4b887650b5b600f84c8edfda8c36d.js" integrity="sha256-DyyrVT9xaoZH/67l8kS6M8e0uIdlC1tgD4TI7f2ow20="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -163,7 +162,7 @@ https://github.com/alex-shpak/hugo-book
     <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog7logic"> logic & Functions</a></dd>
     <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog8oo"> Data Structures</a></dd>
     <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog9stdlib"> Libraries</a></dd>
-    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/intro/prog10"> Unnamed</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/intro/prog10"> Rest of the Owl</a></dd>
     <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/programming/intro/progendreal"> Getting Real</a></dd>
    </details> </dd>
 <dt>10½</dt><dd> <a href="/engineering/programming/consequences/">Consequences</a></dd>
@@ -217,7 +216,11 @@ https://github.com/alex-shpak/hugo-book
 <p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
 <div class="progress-ww">
 <dl>
-<dt>37 </dt><dd> <a href="/engineering/networking/networking/"class=active>Networking</a></dd>
+     <dt>37 </dt><dd> <details id="netMenu"> <summary><a href="/engineering/networking/networking/"class=active>Networking</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/networking/howyougothere"> How You Got Here</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/networking/osi"> OSI</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/networking/tools"> Tools</a></dd>
+   </details> </dd>
 <dt>38 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
 <dt>38½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
 <dt>39 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
@@ -430,13 +433,13 @@ https://github.com/alex-shpak/hugo-book
                   <hr>
             
               <li class="flex justify-between">
-                <dd><a href="/tags/art/">art</a><dt>
-                <dd class="blogdd" style="color: #fff;">3</dt>
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">10</dt>
               </li>
             
               <li class="flex justify-between">
-                <dd><a href="/tags/technical/">technical</a><dt>
-                <dd class="blogdd" style="color: #fff;">9</dt>
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">3</dt>
               </li>
             
               <li class="flex justify-between">
@@ -526,115 +529,8 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#standards-and-governance-ieee-ietf-icann-w3c-">Standards and Governance: IEEE, IETF, ICANN, W3C, &hellip;?</a></li>
           </ul>
         </li>
-        <li><a href="#a-typical-network">A typical network</a></li>
       </ul>
     </li>
-    <li><a href="#the-osi-model">The OSI Model</a>
-      <ul>
-        <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
-          <ul>
-            <li><a href="#ethernet">Ethernet</a></li>
-            <li><a href="#wi-fi-wi-gig-">Wi-Fi, Wi-Gig, &hellip;</a></li>
-            <li><a href="#other-wireless-systems">Other Wireless Systems</a></li>
-            <li><a href="#end-to-end-delay">End to End Delay</a></li>
-            <li><a href="#queuing-delay">Queuing Delay</a></li>
-            <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
-            <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
-            <li><a href="#modems">Modems?</a></li>
-          </ul>
-        </li>
-        <li><a href="#2---data-link">2 - Data Link</a>
-          <ul>
-            <li><a href="#ethernet-1">Ethernet</a></li>
-            <li><a href="#ppp---point-to-point-protocol">PPP - Point-to-Point Protocol</a></li>
-            <li><a href="#switch">Switch</a></li>
-            <li><a href="#bridge">Bridge</a></li>
-            <li><a href="#frames">Frames</a></li>
-            <li><a href="#vlan---virtual-lan">VLAN - Virtual LAN</a></li>
-          </ul>
-        </li>
-        <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
-          <ul>
-            <li><a href="#service-models">Service Models</a></li>
-            <li><a href="#packets-1">Packets</a></li>
-            <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
-            <li><a href="#mac">MAC</a></li>
-            <li><a href="#icmp---internet-control-message-protocol">ICMP - Internet Control Message Protocol</a></li>
-            <li><a href="#igmp---internet-group-management-protocol">IGMP - Internet Group Management Protocol</a></li>
-            <li><a href="#subnets">Subnets</a></li>
-            <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
-            <li><a href="#bgp---boarder-gateway-protocol">BGP - Boarder Gateway Protocol</a></li>
-          </ul>
-        </li>
-        <li><a href="#4---transport-layer">4 - Transport Layer</a>
-          <ul>
-            <li><a href="#tcp---transmission-control-protocol">TCP - Transmission Control Protocol</a></li>
-            <li><a href="#udp---user-datagram-protocol">UDP - User Datagram Protocol</a></li>
-            <li><a href="#quic---quick-udp-internet-connections">QUIC - Quick UDP Internet Connections</a></li>
-            <li><a href="#raw">Raw</a></li>
-            <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
-            <li><a href="#go-back-n">Go-Back-N</a></li>
-            <li><a href="#selective-repeat">Selective Repeat</a></li>
-            <li><a href="#timeout-and-retransmission-from-estimated-rtt">Timeout and Retransmission from Estimated RTT</a></li>
-          </ul>
-        </li>
-        <li><a href="#5---session-layer">5 - Session Layer</a>
-          <ul>
-            <li><a href="#authentication">Authentication</a></li>
-            <li><a href="#sockets">Sockets</a></li>
-            <li><a href="#api---application-programming-interface">API - Application Programming Interface</a></li>
-            <li><a href="#netbios---network-basic-inputoutput-system">NetBios - <strong>Network Basic Input/Output System</strong></a></li>
-            <li><a href="#pap--">PAP -</a></li>
-            <li><a href="#rpc---remote-procedure-call">RPC - Remote Procedure Call</a></li>
-            <li><a href="#smb---server-message-block">SMB - Server Message Block</a></li>
-            <li><a href="#socks---socket-secure">SOCKS - Socket Secure</a></li>
-          </ul>
-        </li>
-        <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
-          <ul>
-            <li><a href="#tls---transport-layer-security">TLS - Transport Layer Security</a></li>
-            <li><a href="#ssl---secure-sockets-layer-deprecated">SSL - Secure Sockets Layer (Deprecated)</a></li>
-            <li><a href="#imap---internet-message-access-protocol">IMAP - Internet Message Access Protocol</a></li>
-          </ul>
-        </li>
-        <li><a href="#7---application-layer">7 - Application Layer</a>
-          <ul>
-            <li><a href="#https----hypertext-transfer-protocol">HTTP(s)  - Hypertext Transfer Protocol</a></li>
-            <li><a href="#ftp---file-transfer-protocol">FTP - File Transfer Protocol</a></li>
-            <li><a href="#dns---domain-name-service">DNS - Domain Name Service</a></li>
-            <li><a href="#dhcp---dynamic-host-configuration-protocol">DHCP - Dynamic Host Configuration Protocol</a></li>
-            <li><a href="#ssh---secure-shell">SSH - Secure Shell</a></li>
-            <li><a href="#irc---internet-relay-chat">IRC - Internet Relay Chat</a></li>
-            <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
-            <li><a href="#upnp---universal-plug-and-play">UPNP - Universal Plug and Play</a></li>
-            <li><a href="#ntp---network-time-protocol">NTP - Network Time Protocol</a></li>
-            <li><a href="#telnet">Telnet</a></li>
-            <li><a href="#nfs---network-file-system">NFS - Network File System</a></li>
-            <li><a href="#torrents">Torrents</a></li>
-          </ul>
-        </li>
-        <li><a href="#time">Time</a></li>
-        <li><a href="#vpns">VPNs</a>
-          <ul>
-            <li><a href="#openvpn">OpenVPN</a></li>
-            <li><a href="#wireguard">Wireguard</a></li>
-          </ul>
-        </li>
-        <li><a href="#networking-tools">Networking Tools</a>
-          <ul>
-            <li><a href="#etherape">Etherape</a></li>
-            <li><a href="#wireshark">Wireshark</a></li>
-            <li><a href="#nmap">Nmap</a></li>
-            <li><a href="#scapy--kamene">Scapy / Kamene</a></li>
-            <li><a href="#gns">(G)NS</a></li>
-            <li><a href="#httpie">HTTPie</a></li>
-            <li><a href="#tunnels--vpn">Tunnels &amp; VPN</a></li>
-          </ul>
-        </li>
-        <li><a href="#further-reading">Further Reading</a></li>
-      </ul>
-    </li>
-    <li><a href="#chapter-371---weird-networking-because-why-not">Chapter 37.1 - Weird Networking, because why not!</a></li>
   </ul>
 </nav>
 
@@ -650,14 +546,29 @@ https://github.com/alex-shpak/hugo-book
   Chapter 37 - Networking
   <a class="anchor" href="#chapter-37---networking">#</a>
 </h1>
-<p>Quick links:</p>
-<ul>
+<p>Quick links</p>
+<hr>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <ul>
 <li><a href="https://github.com/apenwarr/blip">Blip</a> - Check latency</li>
 <li><a href="https://www.speedtest.net">Speedtest.net</a> - Speed test</li>
 <li><a href="https://myexternalip.com">myexternalip.com</a> - See your external IP</li>
+</ul>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <ul>
 <li><a href="https://portchecker.co">portchecker.co</a> - Check if a port is open</li>
 <li><a href="https://crt.sh">crt.sh</a> - Certificate search</li>
 </ul>
+
+  </div>
+  
+</div>
+
 <hr>
 <h2 id="the-basics">
   The Basics
@@ -748,9 +659,9 @@ https://github.com/alex-shpak/hugo-book
 <span class="smalltext ">
     &hellip; and, technically, you could have enough IPv4 addresses to not need NAT too, but that would be very expensive
 </span>
-<p></br><span class="smalltext ">
-    &hellip; also, sometimes you&rsquo;ll be behind two NAT&rsquo;s because of <a href="https://en.wikipedia.org/wiki/Carrier-grade_NAT">CGNAT (Wikipedia)</a>
-</span></p>
+<span class="smalltext ">
+    </br>&hellip; also, sometimes you&rsquo;ll be behind two NAT&rsquo;s because of <a href="https://en.wikipedia.org/wiki/Carrier-grade_NAT">CGNAT (Wikipedia)</a>
+</span>
 </li>
 <li>
 <p>Deal with congestion (if to much data is being sent to the router, how should it be handled?)</p>
@@ -760,6 +671,9 @@ https://github.com/alex-shpak/hugo-book
 </li>
 <li>
 <p>Provide Quality-Of-Service (QoS) to prioritize certain applications</p>
+<span class="smalltext ">
+    &hellip; This sometimes breaks things
+</span>
 </li>
 <li>
 <p>Act as a Dynamic Host Configuration Protocol (DHCP) server to assign ip addresses to devices</p>
@@ -771,26 +685,47 @@ https://github.com/alex-shpak/hugo-book
 </h4>
 <p>A <em>switch</em> lets you connect multiple devices together, but does so a bit intelligently as the switch itself figures out what destination port an incoming packet should go to. In a typical setup the switch will have one &ldquo;upper level&rdquo; connection going up the network (so, in a home network, to the router that goes to the internet) and many connected devices (potentially including other switches). Except for in some weird scenarios, a connection between two devices connected to the same switch will only need to pass through the switch, not go to the router and back.</p>
 <p>Often, switches will have one or two high bandwidth ports (10Gbe, for example) along side many slower ports under the assumption that a server or the internet will be handling most requests. Sometimes, these ports may look different than the others, as they may be for <a href="https://en.wikipedia.org/wiki/Small_form-factor_pluggable_transceiver">SFP modules</a> instead of the typical RJ-45 jacks seen with most ethernet cables.</p>
-<p>[TODO] Managed vs Unmanaged</p>
-<p>[TODO] store and forward - buffering vs cutthrough <a href="https://www.networkacademy.io/ccna/ethernet/store-and-forward-vs-cut-through-switching">https://www.networkacademy.io/ccna/ethernet/store-and-forward-vs-cut-through-switching</a></p>
-<p>Note, there are also Ethernet Hubs, the key difference being the <em>lack</em> of a <a href="https://en.wikipedia.org/wiki/Forwarding_information_base">forwarding table</a>, and (mostly) just blindly merge data: &ldquo;It has multiple input/output (I/O) ports, in which a signal introduced at the input of any port appears at the output of every port except the original incoming.&rdquo;(<a href="https://en.wikipedia.org/wiki/Ethernet_hub">Wikipedia</a>) (see IEEE 802.3)</p>
+<p>If you&rsquo;re looking at getting a network switch, you&rsquo;ll see they come in two flavors: <strong>Managed</strong> and <strong>Unmanaged.</strong></p>
+<p>The majority of the cheap &ldquo;I just need something to connect multiple devices&rdquo; switches are <strong>unmanaged.</strong> The don&rsquo;t have any settings. You just plug your devices in and call it a day.</p>
+<p>Then there are <strong>managed</strong> switches. These typically have some added features, like rate limiting some ports, allowing for <a href="https://en.wikipedia.org/wiki/IEEE_802.1Q">VLAN setups</a>. It&rsquo;s very uncommon to need these outside of business use.</p>
+<p>You may also see the option to get a switch with <a href="https://en.wikipedia.org/wiki/Power_over_Ethernet">Power Over Ethernet</a> (PoE) which is a <del>collection</del> clusterfuck of standards for powering a connected device via the same line that provides network connectivity - useful for security cameras, office phones, etc.</p>
+<p>Note, technically there are also Ethernet Hubs, the key difference being the <em>lack</em> of a <a href="https://en.wikipedia.org/wiki/Forwarding_information_base">forwarding table</a>, and (mostly) just blindly merge data: &ldquo;It has multiple input/output (I/O) ports, in which a signal introduced at the input of any port appears at the output of every port except the original incoming.&rdquo;(<a href="https://en.wikipedia.org/wiki/Ethernet_hub">Wikipedia</a>) (see IEEE 802.3). I&rsquo;ve never seen one in use.</p>
 <h3 id="packet-loss">
   Packet Loss
   <a class="anchor" href="#packet-loss">#</a>
 </h3>
-<p>Sometimes packets in the network don&rsquo;t reach their destination. This can be for a variety of reasons. Maybe a switch along the line was overloaded and it&rsquo;s buffer was full, maybe it took a bad route, maybe you have crappy wifi. ╮(─▽─)╭. It happens. Usually the percent of dropped packets is called your packet loss.</p>
+<p>Sometimes packets in the network don&rsquo;t reach their destination. This can be for a variety of reasons. Maybe a switch along the line was overloaded and it&rsquo;s buffer was full, maybe it took a bad route, maybe you have crappy wifi. ╮(─▽─)╭. It happens. The percent of dropped packets vs total packets is called your packet loss.</p>
 <h3 id="bandwidth-throughput--latency">
   Bandwidth, Throughput, &amp; Latency
   <a class="anchor" href="#bandwidth-throughput--latency">#</a>
 </h3>
-<p>One thing a lot of people confuse is bandwidth and throughput. The two are related, but they&rsquo;re not the same.</p>
-<p>Throughput is how many bits of useful information you&rsquo;re actually getting out per second. This is the number you <em>probably</em> actually want. Bandwidth (quite literally how much of a frequency range you&rsquo;re using) is how much information the the connection can <em>theoretically</em> pass.</p>
+<p>One thing a lot of people confuse is <strong>bandwidth</strong> and <strong>throughput</strong>. The two are related, but they&rsquo;re not the same.</p>
+<p><strong>Throughput</strong> is how many bits of useful information you&rsquo;re actually getting out per second. This is the number you <em>probably</em> actually want. <strong>Bandwidth</strong> (quite literally how much of a frequency range you&rsquo;re using) is how much information the the connection can <u><em>theoretically</em></u> transmit.</p>
 <p>The easiest example of the difference here is a bad WiFi connection. You might have a good amount of bandwidth if you&rsquo;re using a nice silce of spectrum up near 5GHz, but if you&rsquo;re far away from the transmitter, near a running microwave, and your neighbor is using the same specturm for their Wi-Fi, you&rsquo;ll obviously have a lower throughput.</p>
-<blockquote>
-<p>As a brief digression, there&rsquo;s also the idea of bit/s and baud. The difference is bits is the true number of 1&rsquo;s and 0&rsquo;s you&rsquo;re recieving while baud is the number of <em>symbols</em> your&rsquo;re recieving. For example, say you define ■=00, ◀=01, ◇=10, ◉=11. if you send one symbol a second, that&rsquo;s still only 1 baud, but it&rsquo;s <em>2 bits</em> per second. Of course, in reality, it&rsquo;s not like we can just keep packing more bits into a given symbol to get faster rates. Typically, the trade off between how many bits are in a symbol and the rate you can transmit symbols works out to make things pretty even. <strong>Typically</strong> if you see baud it&rsquo;s talking about serial communication, but it&rsquo;s still usually actually provided in bits/second&hellip; so, it&rsquo;s confusing. Regardless, bit/s = baud rate * number of bits per symbol</p>
-</blockquote>
-<p>You should note that while you&rsquo;re internet provider may sell you 1000Mbit/s you probably won&rsquo;t actually be able to connect to very many severs at that speed, as they simply can&rsquo;t serve everyone at those rates. In my experiance, the only servers I&rsquo;ve seen handle very fast connections are YouTube for uploads and Steam for downloads.</p>
-<p>Finally, with any connection you&rsquo;ll also have to deal with latency. In networking, this is typically called &ldquo;ping time&rdquo;, which is simply how long it takes for a round trip - hence the more formal RTT for Round Trip Time. This time will varry depending on the distance from you to the target server/device and how many devices are between. A good sanity check is to ping a local device such as your router with <code>ping 192.168.1.1</code> (typically) where the result should be well under 1ms. Following this, you can try to ping a few websites, like <code>ping google.com</code> for example. For google.com, I get ~12ms, and for archlinux.org I get ~130ms. Note that some websites may not respond to ping.</p>
+<details >
+  <summary>What about bit rate and baud rate?</summary>
+  <div class="markdown-inner">
+    <p>There&rsquo;s also the idea of &ldquo;bits per second&rdquo; and &ldquo;baud rate&rdquo;. The difference is bits is the true number of 1&rsquo;s and 0&rsquo;s you&rsquo;re receiving while baud is the number of <em>symbols</em> you&rsquo;re receiving.</p>
+<p>For example, say you want to send the message &ldquo;Hello&rdquo; in ASCII, which is
+<code>01001000 01100101 01101100 01101100 01101111</code> And you&rsquo;re able to send that entire message in 5 seconds. As there are 40 bits in the message, your able to send <strong>8 bits per second.</strong></p>
+<p>However, let&rsquo;s say you&rsquo;re transmitting that signal over radio, and the wave you send looks something like this:</p>
+<img src="/eng/baud.svg" alt=" " width="30%">
+<p>This does show the same binary, we&rsquo;ve just taken groups of two bits at a time and represented each as a different level in the wave. If you want to think of it another way, say we take that that binary and make a little look up table:</p>
+<p>00 = ░,
+01 = ▒,
+10 = ▓,
+11 = █,</p>
+<p>We can now convert it into ▒░▓░ ▒▓▒▒ ▒▓█░ &hellip;</p>
+<p>Assuming the message still takes 5 seconds, we&rsquo;re getting 20 baud, because we&rsquo;re able to send 20 <strong>symbols</strong> a second.</p>
+<p>The point being, we&rsquo;re literally able to represent the same message with less symbols. We could of course make a special encoding where each character itself is it&rsquo;s own symbol to be transmitted, if we had that - if our symbols were the letters themselves, we&rsquo;d be getting 1 baud - 1 symbol a second.</p>
+<p>The number of <strong>symbols</strong> per second is the <strong>baud rate</strong>. Basically, this means if you&rsquo;re told two devices have the same baud rate that doesn&rsquo;t necessarily mean they both have the same bit rate (bits per second), which is probably the number you <em>actually</em> care about. The reason the baud rate is even important is because there&rsquo;s a bunch of fancy things we can do when transmitting signals where we can pack more information into less radio spectrum by using different numbers of symbols that are encoded as different frequencies, amplitudes, and phases. This is really into the weeds and not typically relevant to someone just trying to make a network out of existing equipment.</p>
+<p>Of course, in reality, it&rsquo;s not like we can just keep packing more bits into a given symbol to get faster rates. Typically, the trade off between how many bits are in a symbol and the rate you can transmit symbols works out to make things pretty even. Typically, if you see baud it&rsquo;s talking about serial communication, but it&rsquo;s still usually actually provided in bits/second because there is often only 1 symbol used per bit, so, it&rsquo;s confusing. Regardless, bit/s = baud rate * number of bits per symbol, but number of bits per symbol can be 1.</p>
+
+  </div>
+</details>
+
+<p>You should also note that while you&rsquo;re internet provider may sell you 1000Mbit/s you probably won&rsquo;t actually be able to connect to very many severs at that speed, as they simply can&rsquo;t serve everyone at those rates. In my experience, the only servers I&rsquo;ve seen handle very fast connections are YouTube for uploads and Steam for downloads. While it&rsquo;s not 100% right, it&rsquo;s not to far off to say that when you pay for a 1000Mbit/s plan, you&rsquo;re telling all the sites you connect to &ldquo;You can send me 1000M bits a second&rdquo;, it&rsquo;s just that many sites will respond with &ldquo;Cool. I can&rsquo;t actually go that fast though. Here&rsquo;s 20M bits a second&rdquo;.</p>
+<p>Finally, with any connection you&rsquo;ll also have to deal with latency. In networking, this is typically called &ldquo;ping time&rdquo;, which is simply how long it takes for a round trip - hence the more formal RTT for Round Trip Time. This time will vary depending on the distance from you to the target server/device and how many devices are between. A good sanity check is to ping a local device such as your router with <code>ping 192.168.1.1</code> (typically) where the result should be well under 1ms. Following this, you can try to ping a few websites, like <code>ping google.com</code> for example. For google.com, I get ~12ms, and for archlinux.org I get ~130ms. Note that some websites may not respond to ping.</p>
 <p>Later I&rsquo;ll show you traceroute and derivative software (mtr, visual traceroute, etc.) that will help you see why a particular path may have a high latency.</p>
 <h3 id="lan-vs-wan">
   LAN Vs WAN
@@ -816,8 +751,8 @@ https://github.com/alex-shpak/hugo-book
 <p>Meanwhile, the <a href="https://en.wikipedia.org/wiki/Internet_Research_Task_Force"><strong>IETF</strong></a> (Internet Engineering Task Force) often publishes technical documents as <strong>RFC</strong>s (Request for Comments) such as the ASCII standard, DNS, UTF-8, SMTP, SSH, POP, NTP, NFS, Kerberos, IRC, IPv4, IPv6, among many, many others. These each have a designated RFC number, and often multiple, such as the many associated with  <a href="https://en.wikipedia.org/wiki/Domain_Name_System#RFC_documents">DNS</a>. There&rsquo;s also the <a href="https://en.wikipedia.org/wiki/Internet_Research_Task_Force"><strong>IRTF</strong></a> (Internet Research Task Force) which &ldquo;focuses on longer term research issues related to the Internet while the parallel organization, the IETF&rdquo;. The IRTF is made up of 14 research groups ranging from cryptography to quantum computing and even human rights.</p>
 <p>The <strong>IANA</strong> (Internet Assigned Numbers Authority), a sub group of <strong>ICANN</strong> (Internet Corporation for Assigned Names and Numbers) assigns blocks of IP addresses, runs the root DNS servers, and runs the main time zone database. There are regional organizations (RIR - Regional Internet registry) that the IANA delegates responsibilities to. These are the <a href="https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers">American Registry for Internet Numbers</a> (ARIN),  <a href="https://en.wikipedia.org/wiki/RIPE_NCC">Réseaux IP Européens Network Coordination Centre</a> (RIPE NCC), <a href="https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre">Asia-Pacific Network Information Centre</a> (APNIC), <a href="https://en.wikipedia.org/wiki/AFRINIC">African Network Information Center</a> (AFRINIC), and <a href="https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre">Latin America and Caribbean Network Information Centre</a> (LACNIC).</p>
 <p>Then there&rsquo;s the <strong><a href="https://en.wikipedia.org/wiki/World_Wide_Web_Consortium">W3C</a></strong> (World Wide Web Consortium) which is probably most notable for defining the standards for HTML,  CSS, SVG, WebAssembly, and, more recently, ActivityPub. Of note, the W3C has faced backlash recently for adding DRM-specific <a href="https://en.wikipedia.org/wiki/Encrypted_Media_Extensions">Encrypted Media Extensions</a> (EME) to HTML5, a move that really really pissed of the EFF&hellip;</p>
-<p>Speaking of, the <a href="https://en.wikipedia.org/wiki/Electronic_Frontier_Foundation"><strong>EFF</strong></a> (Electronic Frontier Foundation) is a bit of an odd-one-out on this list, but is effectively to the internet what the ACLU is to the broader public. They regularly provide legal council to high profile cases regarding online rights and digital privacy. They&rsquo;ve regularly stood up for the right to encrypt your shit, are anti-DRM, and are basically all-around the good guys. Seriously, please <a href="https://supporters.eff.org/donate">donate to them</a> or <a href="https://supporters.eff.org/shop">buy some of their actually awesome merch</a></p>
-<p>Finally, getting pretty tangential, you&rsquo;ll also probably see a fair amount of stuff from the <a href="https://defcon.org">DEFCON</a> computer security conference influence the web at large - I&rsquo;ll talk more about that in the 
+<p>Speaking of, the <a href="https://en.wikipedia.org/wiki/Electronic_Frontier_Foundation"><strong>EFF</strong></a> (Electronic Frontier Foundation) is a bit of an odd-one-out on this list, but is effectively to the internet what the ACLU is to the broader public. They regularly provide legal council to high profile cases regarding online rights and digital privacy. They&rsquo;ve regularly stood up for the right to encrypt your shit, are anti-DRM, and are basically all-around the good guys. Seriously, please <a href="https://supporters.eff.org/donate">donate to them</a> or <a href="https://supporters.eff.org/shop">buy some of their actually awesome merch</a>. They&rsquo;re the bad asses protecting your rights online.</p>
+<p>Finally, getting even more tangential, you&rsquo;ll also probably see a fair amount of stuff from <a href="https://defcon.org">DEFCON</a> and related computer security conference influence the web at large - I&rsquo;ll talk more about that in the 
 
 
 
@@ -829,785 +764,11 @@ https://github.com/alex-shpak/hugo-book
   Security
 </a>
  chapter though.</p>
-<h2 id="a-typical-network">
-  A typical network
-  <a class="anchor" href="#a-typical-network">#</a>
-</h2>
-<p>So that we have some context through this chapter, lets look at what happens when you visit <a href="https://opguides.info">https://opguides.info</a> (assuming you have a normal network)</p>
-<ol start="0">
-<li>
-<p>You&rsquo;ve already connected to your home network. Let&rsquo;s make some assumptions about your setup:</p>
-<ul>
-<li>
-<p>This is over twisted pair wire, just to keep things simple for now. (Not using Wi-Fi)</p>
-</li>
-<li>
-<p>Let&rsquo;s also assume IPv4, since IPv6 still isn&rsquo;t used everywhere.</p>
-</li>
-<li>
-<p>Your router, at 192.168.1.1, has used DHCP to assign your device a local ip address of 192.168.1.123</p>
-</li>
-<li>
-<p>Your router is connected to the internet on it&rsquo;s WAN port, probably though a modem of some sort that takes care of the &ldquo;translation&rdquo; to whatever analog signaling carries your data to your ISP. If you&rsquo;re in a city, this is probably a fiber connection, so the modem translates the electrical signals in twisted pair cable to light to go down a fiber line.</p>
-</li>
-</ul>
-</li>
-<li>
-<p>You enter the URL (Uniform Resource Locator) into your browser&rsquo;s address bar and press enter</p>
-<ul>
-<li><a href="https://opguides.info">https://opguides.info</a> is a normal URL that doesn&rsquo;t contain emoji or anything weird, so the look up is pretty directly.</li>
-<li>If you entered <a href="http://opguides.info">http://opguides.info</a>, the [TODO] checks to see if https:// is available and redirects you.</li>
-</ul>
-</li>
-<li>
-<p>Your browser attempts to look up this domain name to turn it into an IP address using DNS</p>
-<ul>
-<li>Having been to the website recently, your computer has cached the DNS request</li>
-<li>Having <strong>not</strong> been to the website recently (or ever before) your computer has to ask a DNS Server where to go
-<ul>
-<li>This is done over UDP, using a source port over 1023, to connect to a DNS server running on port 53</li>
-<li>If the DNS request is not cached by your router, this will need to go out to a DNS caching sever ran by your ISP or even higher, and that requires Network Address Translation - more about this in step 4.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Your computer tries to find a vaild way to get to this address with ARP (Address Resolution Protocol)</p>
-<ul>
-<li>This is also cached, so if it&rsquo;s been done recently, it doesn&rsquo;t need to be done again</li>
-<li>The route table is looked up, to see if the Target IP address is on any of the subnets on the local route table.
-<ul>
-<li>This isn&rsquo;t a local IP so nope</li>
-</ul>
-</li>
-<li>Your &ldquo;Router&rdquo; probably has an internal switch, probably with some other devices wired in, so:
-<ul>
-<li>The switch will check its local CAM/MAC table to see which connection has the MAC address we are looking for. If the switch has no entry for the MAC address it will rebroadcast the ARP request to all other ports.
-<ul>
-<li>Assuming this is the switch built into the router, one of the MAC addresses will be the MAC address of the the router - so this is used: the switch sends the ARP request to the connection that has the correct MAC address. Note, that this connection is internal, but acts the same as having a separate real-router and real-switch (not the combo unit) wired together.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Being an http<strong>s</strong>, website, your browser requests your operating system to open a socket on port 443</p>
-<ul>
-<li>This request is first passed to the Transport Layer where a TCP segment is crafted. The destination port is added to the header, and a source port is chosen at random from within the kernel&rsquo;s dynamic port range (ip_local_port_range in Linux).</li>
-<li>This segment is sent to the Network Layer, which wraps an additional IPv4 header. The IPv4 address of the destination server as well as that of the current machine is inserted to form a packet.</li>
-<li>The packet next arrives at the Link Layer. A frame header is added that includes the MAC address of the machine&rsquo;s Network Interface Card (NIC) as well as the MAC address of the gateway (your home router). If the kernel does not know the MAC address of the gateway, it must broadcast an ARP query to find it.</li>
-</ul>
-</li>
-<li>
-<p>The connection from 192.168.1.123 (your computer) to [OpGuide&rsquo;s IP] requires network address translation.</p>
-<ul>
-<li>
-<p>Your computer sees the path for this as needing to use your home router</p>
-</li>
-<li>
-<p>When the router (192.168.1.1) gets the TCP SYN out, it records the destination ip, source port, and destination port triplet and uses that to route the incoming responses back to your computer</p>
-</li>
-</ul>
-</li>
-<li>
-<p>and starts <del>a</del> <strong>TCP</strong> connection(s) to start pulling each file - all the HTML, CSS, images, JavaScript, etc.</p>
-<ul>
-<li>The Browser&rsquo;s cache still has some of this content from a previous visit, and assumes this content is still valid</li>
-<li>The TCP connection goes though the SYN, ACK, SEQ, FIN process as is typical - more about this later</li>
-<li>In reality, a lot of TCP connections are made simultaneously.</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>Note, we&rsquo;re assuming all of the data is being sent over Ethernet. which means at any point any data is moving from one computer/switch/router to another, all of the complexity of ethernet&rsquo;s packetiziation applies too. The TCP packets of the main connection and UDP packets of the DNS request are all wrapped up in these Ethernet data packets (frames), which include the MAC destination, MAC Source, and some error checking.</p>
-<p>This means it&rsquo;s a sort of nesting doll of protocols, where the Ethernet frame holds the IP packet, which holds the UDP or TCP segment, which finally holds the data in question.</p>
-</blockquote>
-<ol start="7">
-<li>
-<p>Being an http<strong>s</strong>, The browser does a TLS handshake to encrypt the transfer.</p>
-<ul>
-<li>
-<p>This looks at the certificate of the website - for OpGuides this is issued by Let&rsquo;s Encrypt. Click the lock icon next to the URL in the address bar to see it.</p>
-</li>
-<li>
-<p>The certificate is checked to be valid both in that it hasn&rsquo;t expired and that the certificate is issued by a source the browser has trusted</p>
-<p><code>openssl s_client -showcerts -connect opguides.info:443</code>→Authorities, then look in <a href="chrome://settings/certificates">chrome://settings/certificates</a> and see that &ldquo;Internet Security Research Group&rdquo; is trusted.</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Browser starts rendering content from all the files</p>
-<ul>
-<li>If you play a YouTube video or load a twitter embed, etc. - that content is established via a new connection, which repeats all of these steps.</li>
-</ul>
-</li>
-</ol>
-<p>[TODO]</p>
-<p>IP addresses, Ports, Default Gateway, Routes &amp; kernel routing table, subnet mask - <a href="https://www.aelius.com/njh/subnet_sheet.html">https://www.aelius.com/njh/subnet_sheet.html</a>, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, <a href="https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/">https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/</a></p>
-<p>Parallel, Pipelined, Persistance and Performance</p>
-<h1 id="the-osi-model">
-  The OSI Model
-  <a class="anchor" href="#the-osi-model">#</a>
-</h1>
-<p>The <strong>OSI model of networking</strong> is the model of networking most classes will cover. It is slightly different from the one used by the internet, which is the <u><strong>TCP/IP</strong></u> model, but it&rsquo;s a bit more regularly used when talking about networking, so it&rsquo;s the one I&rsquo;ll cover here. Note, the big difference is really just that In the <strong><u>TCP/IP</u></strong> model, the <strong>Physical</strong> and <strong>Data Link</strong> Layers are viewed as a <strong>unified &lsquo;<u>Network Acces Layer</u>&rsquo;</strong>, the <strong>Network Layer</strong> is called the <strong><u>Internet</u> Layer,</strong> The Transport Layer <em>stays the same</em>, and the and The <strong>Session, Presentation, and Application</strong> layer are all part of a <strong>larger <u>Application</u></strong> Layer.</p>
-<p>Seriously though, don&rsquo;t think about this to much. It usually doesn&rsquo;t matter and the OSI Model is fine.</p>
-<h2 id="1---the-physical-layer">
-  1 - The physical Layer
-  <a class="anchor" href="#1---the-physical-layer">#</a>
-</h2>
-<p><strong>The <a href="https://www.youtube.com/watch?v=R8XSo0etBC4">series of tubes</a>, wireless media, etc. that you shove your information into</strong></p>
-<p>We&rsquo;ve already talked about Routers, Switches, Hubs, Nodes, and Links - all of these are part of the physical layer. Let&rsquo;s look at some of the details though:</p>
-<h3 id="ethernet">
-  Ethernet
-  <a class="anchor" href="#ethernet">#</a>
-</h3>
-<p>Over Coax, fiber , twisted pair(+ CAT_ ratings), wet string</p>
-<p>+ Sneakernet, Infiniband, Multigig</p>
-<h3 id="wi-fi-wi-gig-">
-  Wi-Fi, Wi-Gig, &hellip;
-  <a class="anchor" href="#wi-fi-wi-gig-">#</a>
-</h3>
-<p>Wi-Fi is a part of the IEEE 802.11 standard and <em>normally</em> uses 2.4GHz and 5GHz. However, there are varients that use 60Ghz (WiGig, CMMW) and sub 1Ghz (Wi-Fi HaLow, White-Fi).</p>
-<p>Generally, the high frequency will have worse coverage but higher data throughput. Each frequency range is split up into multiple channels. It is generally good practice to not be on the same channel as your neighbor.</p>
-<div class="wifi">
-<table>
-<thead>
-<tr>
-<th>Generation Name / IEEE Standard</th>
-<th>Year</th>
-<th>Frequency Range**</th>
-<th>Max Rate</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Wi-Fi 6E (802.11ax)</td>
-<td>2020</td>
-<td>2.401-2.495+5.030-5.990+&ldquo;6Ghz&rdquo;(5.925-7.125Ghz)</td>
-<td>9608 <span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    the &ldquo;E&rdquo; is to denote this extra spectrum
-</span></td>
-</tr>
-<tr>
-<td><a href="https://en.wikipedia.org/wiki/Wi-Fi_6">Wi-Fi 6</a> (802.11ax)</td>
-<td>2019</td>
-<td>2.401-2.495+5.030-5.990GHz</td>
-<td>9608 <span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    dramatic under-the-hood changes: notably <a href="https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiple_access">OFDMA</a>, more spatioal streams, and <strong>uplink</strong> MU-MIMO
-</span></td>
-</tr>
-<tr>
-<td>Wi-Fi 5 (<a href="https://en.wikipedia.org/wiki/IEEE_802.11ac-2013">802.11ac</a>)</td>
-<td>2014</td>
-<td>5.030-5.990GHz</td>
-<td>6933 <span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    Allows for wider channels, <a href="https://en.wikipedia.org/wiki/MU-MIMO">MU-MIMO</a>, Beamforming
-</span></td>
-</tr>
-<tr>
-<td>Wi-Fi 4* (<a href="https://en.wikipedia.org/wiki/IEEE_802.11n-2009">802.11n</a>)</td>
-<td>2008</td>
-<td>2.401-2.495+5.030-5.990GHz</td>
-<td>600<span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    Adds basic <a href="https://en.wikipedia.org/wiki/Multiple-input_multiple-output">MIMO</a>, <a href="https://en.wikipedia.org/wiki/Spatial_Division_Multiplexing">Spatial Division Multiplexing added</a>, <a href="https://en.wikipedia.org/wiki/Frame_aggregation">frame aggregation</a>, and possibility for 40Mhz channels
-</span></td>
-</tr>
-<tr>
-<td>Wi-Fi 3*  (<a href="https://en.wikipedia.org/wiki/IEEE_802.11g-2003">802.11g</a>)</td>
-<td>2003</td>
-<td>2.401-2.495GHz</td>
-<td>54 <span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    Basically a speed bump from Wi-Fi 2. Runs slower if there are any Wifi 1 devices on the network.
-</span></td>
-</tr>
-<tr>
-<td>Wi-Fi 2* (<a href="https://en.wikipedia.org/wiki/IEEE_802.11a-1999">802.11a</a>)</td>
-<td>1999</td>
-<td>5.030-5.990GHz</td>
-<td>54 <span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    Basically just defines the addition of the 5GHz band
-</span></td>
-</tr>
-<tr>
-<td>Wi-Fi 1*  (<a href="https://en.wikipedia.org/wiki/IEEE_802.11b-1999">802.11b</a>)</td>
-<td>1999</td>
-<td>2.401-2.495GHz</td>
-<td>11<span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    Yes, b is worse than a, but was short lived- you&rsquo;ll mostly see b/g/n support on low end devices.
-</span></td>
-</tr>
-<tr>
-<td>Wi-Fi 0*  (<a href="https://en.wikipedia.org/wiki/IEEE_802.11_%28legacy_mode%29">802.11</a>)</td>
-<td>1997</td>
-<td>2.401-2.495GHz</td>
-<td>2 <span class="smalltext ">
-    Mbit/s
-</span></td>
-<td><span class="smalltext ">
-    Initial spec, Extremely rare
-</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-<span class="smalltext ">
-    * Wi-Fi 0-4 are unoffical names</br>** Frequencies/Channels may be limited by region: see <a href="https://en.wikipedia.org/wiki/List_of_WLAN_channels">List of WLAN Channels</a>
-</span>
-<table>
-<thead>
-<tr>
-<th>Generation Name / IEEE Standard</th>
-<th>Year</th>
-<th>Frequency Range**</th>
-<th>Max Rate****</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>(<a href="https://en.wikipedia.org/wiki/IEEE_802.11y-2008">802.11y-2008</a>)</td>
-<td>2008</td>
-<td>3.65-3.7Ghz</td>
-<td>???</td>
-<td><span class="smalltext ">
-    A spectrum licenseing shit storm, can run at higher power
-</span></td>
-</tr>
-<tr>
-<td>(<a href="https://en.wikipedia.org/wiki/IEEE_802.11j-2004">802.11j</a>)</td>
-<td>2004</td>
-<td>5Ghz only</td>
-<td>???</td>
-<td><span class="smalltext ">
-    Mostly Japanese. Might(?) be used in the US by Law Enforcment?
-</span></td>
-</tr>
-<tr>
-<td>WiMax (<a href="https://en.wikipedia.org/wiki/IEEE_802.16">802.16</a>)</td>
-<td>2005</br>(802.16e)</td>
-<td>2-11Ghz</td>
-<td>~40<span class="smalltext ">
-    Mbit/s normally, 1Gbit/s for fixed stations
-</span></td>
-<td><span class="smalltext ">
-    Spectrum used may require licence. Hardware is actually available.
-</span></td>
-</tr>
-<tr>
-<td>White-Fi (<a href="https://en.wikipedia.org/wiki/IEEE_802.11af">802.11af</a>)***</td>
-<td>2014</td>
-<td>755-928<strong>Mhz</strong></td>
-<td>35.6<span class="smalltext ">
-    <strong>M</strong>bit/s, 426.7<strong>M</strong>bit/s with channel bonding &ndash;extremely variable
-</span></td>
-<td><span class="smalltext ">
-    Also known as &ldquo;White-Fi&rdquo;. Uses Licenced Spectrum. Also see <a href="https://en.wikipedia.org/wiki/IEEE_802.22">802.22</a>
-</span></td>
-</tr>
-<tr>
-<td>Wi-Fi HaLow (<a href="https://en.wikipedia.org/wiki/IEEE_802.11ah">802.11ah</a>)***</td>
-<td>2017</td>
-<td>900<strong>Mhz</strong></td>
-<td>150 <span class="smalltext ">
-    <strong>K</strong>bit/s
-</span> to 78<span class="smalltext ">
-    <strong>M</strong>bit/s &ndash; extremely variable
-</span></td>
-<td><span class="smalltext ">
-    Also known an Wi-Fi HaLow. Some consumer products available, dubious legality
-</span></td>
-</tr>
-<tr>
-<td>CMMW (802.11aj)</td>
-<td>2018</td>
-<td>45Ghz</td>
-<td>~15<span class="smalltext ">
-    Gbit/s
-</span></td>
-<td><span class="smalltext ">
-    Mostly used in China, CMMW = Chinna Milimeter Wave
-</span></td>
-</tr>
-<tr>
-<td>WiGig (<a href="https://en.wikipedia.org/wiki/IEEE_802.11ay">802.11ay</a>)</td>
-<td>2021</td>
-<td>57.24 to 70.20Ghz</td>
-<td>277(?)<span class="smalltext ">
-    Gbit/s - (When running with basically all of the spectrum dedicated to one link)
-</span></td>
-<td><span class="smalltext ">
-    Extension of ad
-</span></td>
-</tr>
-<tr>
-<td>WiGig (<a href="https://en.wikipedia.org/wiki/IEEE_802.11ad">802.11ad</a>)</td>
-<td>2012</td>
-<td>57.24 to 70.20Ghz</td>
-<td>~7<span class="smalltext ">
-    Gbit/s
-</span></td>
-<td><span class="smalltext ">
-    Used by Dell and Lenovo for a bit, hardware compatability &amp; drivers may be rough
-</span></td>
-</tr>
-</tbody>
-</table>
-<span class="smalltext ">
-    *** Also see <a href="https://en.wikipedia.org/wiki/LoRa">LoRa</a>, <a href="https://en.wikipedia.org/wiki/Zigbee">Zigbee</a>, <a href="https://en.wikipedia.org/wiki/Bluetooth_Low_Energy">BLE</a>, and <a href="https://en.wikipedia.org/wiki/Z-Wave">Z-Wave</a></br>**** Max Rate is a bit hard to research here, so take these numbers with a grain of salt
-</span>
-<p>Also note, WiFi generally uses the same 2.4Ghz spectrum as <a href="https://en.wikipedia.org/wiki/Bluetooth">Bluetooth</a> (IEEE 802.15.1) and <a href="https://en.wikipedia.org/wiki/Bluetooth_Low_Energy">Bluetooth Low Energy</a> (BLE, <strong>not from an IEEE standard</strong>).</p>
-<p>This is not all of the 802.11 standards. There&rsquo;s a bunch of extensions/application specific cases like <a href="https://en.wikipedia.org/wiki/IEEE_802.11p">802.11p</a> for use in moving vechicals</p>
-<h4 id="ssids---service-set-identifier">
-  SSIDs - Service Set Identifier
-  <a class="anchor" href="#ssids---service-set-identifier">#</a>
-</h4>
-<p>[TODO]</p>
-<h4 id="multiple-acccess-points-repeaters">
-  Multiple Acccess Points, Repeaters,
-  <a class="anchor" href="#multiple-acccess-points-repeaters">#</a>
-</h4>
-<h4 id="security">
-  Security
-  <a class="anchor" href="#security">#</a>
-</h4>
-<p>WEP, WPA(v2), EAP, TKIP, RADIUS, PEAP, LEAP &mdash;&gt; Maybe redirect to security chapter</p>
-<h4 id="not-using-wi-fi">
-  Not Using Wi-Fi
-  <a class="anchor" href="#not-using-wi-fi">#</a>
-</h4>
-<p><a href="https://en.wikipedia.org/wiki/G.hn">Ethernet over power</a>, wired tethering (USB)</p>
-<h3 id="other-wireless-systems">
-  Other Wireless Systems
-  <a class="anchor" href="#other-wireless-systems">#</a>
-</h3>
-<p>Satelite, geostationary &amp; LEO</p>
-<h3 id="end-to-end-delay">
-  End to End Delay
-  <a class="anchor" href="#end-to-end-delay">#</a>
-</h3>
-<p>d_ECE = 2 (L/R)</p>
-<p>where L = bits per packet, R = tx rate of link</p>
-<h3 id="queuing-delay">
-  Queuing Delay
-  <a class="anchor" href="#queuing-delay">#</a>
-</h3>
-<h3 id="hubs-repeaters-taps">
-  Hubs, Repeaters, Taps
-  <a class="anchor" href="#hubs-repeaters-taps">#</a>
-</h3>
-<h3 id="carrier-pidgeon-can-etc">
-  Carrier Pidgeon, Can, etc.
-  <a class="anchor" href="#carrier-pidgeon-can-etc">#</a>
-</h3>
-<h3 id="modems">
-  Modems?
-  <a class="anchor" href="#modems">#</a>
-</h3>
-<p>[TODO] <a href="http://www.whence.com/minimodem/">http://www.whence.com/minimodem/</a></p>
-<h2 id="2---data-link">
-  2 - Data Link
-  <a class="anchor" href="#2---data-link">#</a>
-</h2>
-<p><strong>Organize the information in the meduium into a packet, control who get&rsquo;s that packet</strong></p>
-<p>MAC and LLC</p>
-<h3 id="ethernet-1">
-  Ethernet
-  <a class="anchor" href="#ethernet-1">#</a>
-</h3>
-<h3 id="ppp---point-to-point-protocol">
-  PPP - Point-to-Point Protocol
-  <a class="anchor" href="#ppp---point-to-point-protocol">#</a>
-</h3>
-<h3 id="switch">
-  Switch
-  <a class="anchor" href="#switch">#</a>
-</h3>
-<h3 id="bridge">
-  Bridge
-  <a class="anchor" href="#bridge">#</a>
-</h3>
-<h3 id="frames">
-  Frames
-  <a class="anchor" href="#frames">#</a>
-</h3>
-<h3 id="vlan---virtual-lan">
-  VLAN - Virtual LAN
-  <a class="anchor" href="#vlan---virtual-lan">#</a>
-</h3>
-<h2 id="3---network-layerip-layer">
-  3 - Network Layer/IP Layer
-  <a class="anchor" href="#3---network-layerip-layer">#</a>
-</h2>
-<p><strong>Find paths though the mesh of links and forward the packets though it</strong></p>
-<h3 id="service-models">
-  Service Models
-  <a class="anchor" href="#service-models">#</a>
-</h3>
-<p>Not guaranteed delivery, bounded delay, or throughput. Sorta sucks, but it&rsquo;s cheap</p>
-<h3 id="packets-1">
-  Packets
-  <a class="anchor" href="#packets-1">#</a>
-</h3>
-<h3 id="ipv4-ipv6">
-  IPV4, IPV6
-  <a class="anchor" href="#ipv4-ipv6">#</a>
-</h3>
-<p><a href="https://teknikaldomain.me/post/ipv6-is-a-total-nightmare/">IPV6 is a total nightmare</a> &amp; <a href="https://news.ycombinator.com/item?id=24994587">Hacker News comments on this blog post</a> (note, I don&rsquo;t agree with everything here, just providing it as another person&rsquo;s comments)</p>
-<p>IPV4-&gt;6 Tunneling</p>
-<p>Logical: [6] &lt;-&gt; [6] &lt;- &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- -&gt; [6] &lt;-&gt; [6]</p>
-<p>Physical: [6] &lt;-&gt; [6] &lt;-&gt; [4] &lt;-&gt; [4] &lt;-&gt; [6] &lt;-&gt; [6]</p>
-<div class="book-columns flex flex-wrap">
-  
-  <div class="flex-even markdown-inner">
-    [TODO] ipv4 exhastion
-  </div>
-  
-  <div class="flex-even markdown-inner">
-    <img src="https://www.caida.org/research/id-consumption/census-map/images/2013-hilbert-plot.png" alt="" />
-  </div>
-  
-</div>
-
-<p>It&rsquo;s very reasonably to scan literally every IPv4 address. See <a href="https://blog.bithole.dev/mcmap.html">A Census of Minecraft Servers</a> or <a href="https://www.youtube.com/watch?v=JcJSW7Rprio">Harder Drive</a> for examples of this being done.</p>
-<h3 id="mac">
-  MAC
-  <a class="anchor" href="#mac">#</a>
-</h3>
-<h3 id="icmp---internet-control-message-protocol">
-  ICMP - Internet Control Message Protocol
-  <a class="anchor" href="#icmp---internet-control-message-protocol">#</a>
-</h3>
-<p><a href="https://xkln.net/blog/icmp-ping-and-traceroute--what-i-wish-i-was-taught/">https://xkln.net/blog/icmp-ping-and-traceroute--what-i-wish-i-was-taught/</a></p>
-<h3 id="igmp---internet-group-management-protocol">
-  IGMP - Internet Group Management Protocol
-  <a class="anchor" href="#igmp---internet-group-management-protocol">#</a>
-</h3>
-<p>traceroute</p>
-<script id="asciicast-458108" src="https://asciinema.org/a/458108.js" data-speed="4" data-rows="30" async></script>
-<h3 id="subnets">
-  Subnets
-  <a class="anchor" href="#subnets">#</a>
-</h3>
-<p><a href="https://www.aelius.com/njh/subnet_sheet.html">https://www.aelius.com/njh/subnet_sheet.html</a></p>
-<p><img src="/eng/devnullnetwork.webp" alt="devnullnetwork" title=":size=70%"/></p>
-<h3 id="static-and-dynamic-routes">
-  Static and Dynamic Routes
-  <a class="anchor" href="#static-and-dynamic-routes">#</a>
-</h3>
-<h3 id="bgp---boarder-gateway-protocol">
-  BGP - Boarder Gateway Protocol
-  <a class="anchor" href="#bgp---boarder-gateway-protocol">#</a>
-</h3>
-<p>BGP is one of those things that you should basically never have to worry about, and if you do, it&rsquo;s almost certainly because <em>somebody else</em> fucked up. That said, it does still matter. In 2021, a BGP mis-configuration <a href="https://www.theverge.com/2021/10/4/22709260/what-is-bgp-border-gateway-protocol-explainer-internet-facebook-outage">took FaceBook down globally</a> and in 2008 Pakistan used a BGP hijack to <a href="https://www.cnet.com/news/how-pakistan-knocked-youtube-offline-and-how-to-make-sure-it-never-happens-again/">take down YouTube</a>. But, uh, what is it.</p>
-<p>Well, if you&rsquo;ll allow me to follow the lead of the late Alaskan Senator Ted Stevens&rsquo; less-than-ideal analogy: &ldquo;The Internet is a series of tubes!&rdquo; and BGP is the logic that dictates where things get routed to go from one tube to the next, and tries to adapt to find the fastest, most efficient route when there are multiple available paths, but, while I could try to explain it, <a href="https://www.cloudflare.com/learning/security/glossary/what-is-bgp/">This article from Cloudflare</a> will do a much better job than I ever could, so just, read that and come back here.</p>
-<p>Hai, welcome back - so, okay, BGP is only something for the ISPs and big players, right? Well, no.</p>
-<p>First of all, you <em>might</em>, <em>occasionally</em> want to check something isn&rsquo;t taking a very stupid route, which means digging into BPG yourself. Julia Evans wrote a great blog post <a href="https://jvns.ca/blog/2021/10/05/tools-to-look-at-bgp-routes/">&ldquo;Tools to explore BGP&rdquo;</a> that does a good job of showing how to poke around things. If you actually want to get hands on, you can use <a href="https://www.gns3.com">GNS3</a> to simulate a network, or join <a href="https://dn42.eu/">https://dn42.eu/</a> to try something more tangible.</p>
-<p>There&rsquo;s some fantastic other pages I recommend reading too. Most notably, <a href="https://blog.benjojo.co.uk/post/eve-online-bgp-internet">EVE Online internet</a> from <a href="https://blog.benjojo.co.uk">https://blog.benjojo.co.uk</a> is a really neat look at BGP and just a fun read!</p>
-<span class="smalltext ">
-    BTW, Ben Cox blog has a ton of other <em>really</em> neat posts, like <a href="https://blog.benjojo.co.uk/post/speed-of-bgp-network-propagation">The Speed of BGP network propagation</a>, <a href="https://blog.benjojo.co.uk/post/bgp-stuck-routes-tcp-zero-window">BGP Stuck Routes</a>, and <a href="https://blog.benjojo.co.uk/post/ip-over-fibre-channel-hack">Hacking Ethernet out of Fibre Channel cards</a>
-</span>
-<p>To finish things up, the <a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol">Wikipedia article</a> for BGP is quite nice as well, and does a really good job of explaining the more technical operation in plain english.</p>
-<h2 id="4---transport-layer">
-  4 - Transport Layer
-  <a class="anchor" href="#4---transport-layer">#</a>
-</h2>
-<p><strong>Better reliability of the network by keeping packets in order, retransmitting lost packets, etc.</strong></p>
-<p>Multiplexing, Demultiplexing</p>
-<p>Reliable data tx/rx - checksums</p>
-<p>flow and congestion control</p>
-<h3 id="tcp---transmission-control-protocol">
-  TCP - Transmission Control Protocol
-  <a class="anchor" href="#tcp---transmission-control-protocol">#</a>
-</h3>
-<p><a href="https://research.swtch.com/tcpviz">https://research.swtch.com/tcpviz</a></p>
-<p>tcp header diagram</p>
-<p><a href="https://en.wikipedia.org/wiki/Multipath_TCP">Multipath TCP</a></p>
-<p><a href="https://github.com/appneta/tcpreplay">https://github.com/appneta/tcpreplay</a></p>
-<h3 id="udp---user-datagram-protocol">
-  UDP - User Datagram Protocol
-  <a class="anchor" href="#udp---user-datagram-protocol">#</a>
-</h3>
-<h3 id="quic---quick-udp-internet-connections">
-  QUIC - Quick UDP Internet Connections
-  <a class="anchor" href="#quic---quick-udp-internet-connections">#</a>
-</h3>
-<p>+ <a href="https://multipath-quic.org">https://multipath-quic.org</a></p>
-<h3 id="raw">
-  Raw
-  <a class="anchor" href="#raw">#</a>
-</h3>
-<h3 id="a-brief-dive-into-fsms">
-  A brief dive into FSMs
-  <a class="anchor" href="#a-brief-dive-into-fsms">#</a>
-</h3>
-<h3 id="go-back-n">
-  Go-Back-N
-  <a class="anchor" href="#go-back-n">#</a>
-</h3>
-<h3 id="selective-repeat">
-  Selective Repeat
-  <a class="anchor" href="#selective-repeat">#</a>
-</h3>
-<h3 id="timeout-and-retransmission-from-estimated-rtt">
-  Timeout and Retransmission from Estimated RTT
-  <a class="anchor" href="#timeout-and-retransmission-from-estimated-rtt">#</a>
-</h3>
-<h2 id="5---session-layer">
-  5 - Session Layer
-  <a class="anchor" href="#5---session-layer">#</a>
-</h2>
-<h3 id="authentication">
-  Authentication
-  <a class="anchor" href="#authentication">#</a>
-</h3>
-<h3 id="sockets">
-  Sockets
-  <a class="anchor" href="#sockets">#</a>
-</h3>
-<h3 id="api---application-programming-interface">
-  API - Application Programming Interface
-  <a class="anchor" href="#api---application-programming-interface">#</a>
-</h3>
-<h3 id="netbios---network-basic-inputoutput-system">
-  NetBios - <strong>Network Basic Input/Output System</strong>
-  <a class="anchor" href="#netbios---network-basic-inputoutput-system">#</a>
-</h3>
-<h3 id="pap--">
-  PAP -
-  <a class="anchor" href="#pap--">#</a>
-</h3>
-<h3 id="rpc---remote-procedure-call">
-  RPC - Remote Procedure Call
-  <a class="anchor" href="#rpc---remote-procedure-call">#</a>
-</h3>
-<h3 id="smb---server-message-block">
-  SMB - Server Message Block
-  <a class="anchor" href="#smb---server-message-block">#</a>
-</h3>
-<h3 id="socks---socket-secure">
-  SOCKS - Socket Secure
-  <a class="anchor" href="#socks---socket-secure">#</a>
-</h3>
-<h2 id="6---presentation-layer">
-  6 - Presentation Layer
-  <a class="anchor" href="#6---presentation-layer">#</a>
-</h2>
-<h3 id="tls---transport-layer-security">
-  TLS - Transport Layer Security
-  <a class="anchor" href="#tls---transport-layer-security">#</a>
-</h3>
-<h3 id="ssl---secure-sockets-layer-deprecated">
-  SSL - Secure Sockets Layer (Deprecated)
-  <a class="anchor" href="#ssl---secure-sockets-layer-deprecated">#</a>
-</h3>
-<h3 id="imap---internet-message-access-protocol">
-  IMAP - Internet Message Access Protocol
-  <a class="anchor" href="#imap---internet-message-access-protocol">#</a>
-</h3>
-<h2 id="7---application-layer">
-  7 - Application Layer
-  <a class="anchor" href="#7---application-layer">#</a>
-</h2>
-<h3 id="https----hypertext-transfer-protocol">
-  HTTP(s)  - Hypertext Transfer Protocol
-  <a class="anchor" href="#https----hypertext-transfer-protocol">#</a>
-</h3>
-<p><a href="https://fasterthanli.me/articles/the-http-crash-course-nobody-asked-for">https://fasterthanli.me/articles/the-http-crash-course-nobody-asked-for</a></p>
-<p><a href="http://bright28677.tripod.com/proj2/httpformat.htm">http://bright28677.tripod.com/proj2/httpformat.htm</a> (both images)</p>
-<p>response codes - 200, 300&rsquo;s, 400&rsquo;s, etc.</p>
-<p>In header lines</p>
-<p>Host, user agent, accept-language, connection (keep-alive), &hellip;?</p>
-<p>GET, POST, HEAD, PUT, DELETE</p>
-<p><img src="/eng/http-status-codes.webp" alt="Codes" title=":size=50%"/></p>
-<p class="attribution ">
-    <a href="https://www.monkeyuser.com/2017/http-status-codes/">https://www.monkeyuser.com/2017/http-status-codes/</a>
-</p>
-<p>http1 vs 2 v 3</p>
-<p>cookies because stateless</p>
-<p>in-band</p>
-<h3 id="ftp---file-transfer-protocol">
-  FTP - File Transfer Protocol
-  <a class="anchor" href="#ftp---file-transfer-protocol">#</a>
-</h3>
-<p>still TCP, out-of-band, maintains state, passive v active mode</p>
-<h3 id="dns---domain-name-service">
-  DNS - Domain Name Service
-  <a class="anchor" href="#dns---domain-name-service">#</a>
-</h3>
-<p><strong>TTL?</strong></p>
-<p><a href="https://00f.net/2019/11/03/stop-using-low-dns-ttls/">Stop Using Rediculously Low DNS TTLs (Frank Denis)</a></p>
-<p><strong>record types</strong></p>
-<p><a href="https://labzilla.io/blog/force-dns-pihole">You Smart TV is probably ignoring your PiHole (LabZilla)</a></p>
-<p><a href="https://arxiv.org/abs/2001.08288">72% of Smart TVs, 46% of Consoles hardcode DNS Settings</a>, <a href="https://news.ycombinator.com/item?id=25313480">(Hacker News Comments on article)</a></p>
-<h4 id="bonjour--zeroconf">
-  Bonjour / Zeroconf
-  <a class="anchor" href="#bonjour--zeroconf">#</a>
-</h4>
-<p>Occassionally, you may find things that want a name given to them by the local system. If two systems are running Bonjour / Zeroconf, then you can have a local name that should always point to the device. This is particularly handy for setting up devices like the Raspberry Pi Zero as a USB gadget and letting it show up as a network device on the system it&rsquo;s plugged into- now it&rsquo;ll have a local name. See <a href="https://learn.adafruit.com/bonjour-zeroconf-networking-for-windows-and-linux">Bonjour (Zeroconf) Networking for Windows and Linux (Adafruit)</a>.</p>
-<h3 id="dhcp---dynamic-host-configuration-protocol">
-  DHCP - Dynamic Host Configuration Protocol
-  <a class="anchor" href="#dhcp---dynamic-host-configuration-protocol">#</a>
-</h3>
-<p>Some texts will put this in Data or Network layer or Link Layer, it&rsquo;s a bit ambiguous. It&rsquo;s not -technically- necessary, much like DNS, but it&rsquo;s used as a core part of the network in most networks. It does appear the <a href="https://tools.ietf.org/html/rfc2131">RFC 2131</a> says it&rsquo;s Link Layer, but it seems most people think it belongs in Application Layer.</p>
-<h3 id="ssh---secure-shell">
-  SSH - Secure Shell
-  <a class="anchor" href="#ssh---secure-shell">#</a>
-</h3>
-<h3 id="irc---internet-relay-chat">
-  IRC - Internet Relay Chat
-  <a class="anchor" href="#irc---internet-relay-chat">#</a>
-</h3>
-<h3 id="email-smtp-imap-pop">
-  EMail (SMTP, IMAP, POP)
-  <a class="anchor" href="#email-smtp-imap-pop">#</a>
-</h3>
-<p>mail servers and useragents</p>
-<h3 id="upnp---universal-plug-and-play">
-  UPNP - Universal Plug and Play
-  <a class="anchor" href="#upnp---universal-plug-and-play">#</a>
-</h3>
-<h3 id="ntp---network-time-protocol">
-  NTP - Network Time Protocol
-  <a class="anchor" href="#ntp---network-time-protocol">#</a>
-</h3>
-<h3 id="telnet">
-  Telnet
-  <a class="anchor" href="#telnet">#</a>
-</h3>
-<h3 id="nfs---network-file-system">
-  NFS - Network File System
-  <a class="anchor" href="#nfs---network-file-system">#</a>
-</h3>
-<h3 id="torrents">
-  Torrents
-  <a class="anchor" href="#torrents">#</a>
-</h3>
-<p>Distributed Hash Tables</p>
-<h2 id="time">
-  Time
-  <a class="anchor" href="#time">#</a>
-</h2>
-<p>Real time clocks, timezones, utc, etc.</p>
-<h2 id="vpns">
-  VPNs
-  <a class="anchor" href="#vpns">#</a>
-</h2>
-<h3 id="openvpn">
-  OpenVPN
-  <a class="anchor" href="#openvpn">#</a>
-</h3>
-<h3 id="wireguard">
-  Wireguard
-  <a class="anchor" href="#wireguard">#</a>
-</h3>
-<p><a href="https://www.wireguard.com/quickstart/">Wireguard Quickstart page</a></p>
-<p><a href="https://wiki.archlinux.org/index.php/WireGuard">Wireguard entry on the (Arch Wiki)</a></p>
-<h4 id="tailscale">
-  Tailscale
-  <a class="anchor" href="#tailscale">#</a>
-</h4>
-<h2 id="networking-tools">
-  Networking Tools
-  <a class="anchor" href="#networking-tools">#</a>
-</h2>
-<h3 id="etherape">
-  Etherape
-  <a class="anchor" href="#etherape">#</a>
-</h3>
-<h3 id="wireshark">
-  Wireshark
-  <a class="anchor" href="#wireshark">#</a>
-</h3>
-<p><a href="https://wiki.wireshark.org/CaptureFilters">https://wiki.wireshark.org/CaptureFilters</a></p>
-<p><a href="https://www.cellstream.com/reference-reading/tipsandtricks/541-wireshark-packetdiagram">Enable Packet Diagram View</a></p>
-<h3 id="nmap">
-  Nmap
-  <a class="anchor" href="#nmap">#</a>
-</h3>
-<h3 id="scapy--kamene">
-  Scapy / Kamene
-  <a class="anchor" href="#scapy--kamene">#</a>
-</h3>
-<p><a href="https://kamene.readthedocs.io/en/latest/introduction.html">Kamene</a></p>
-<h3 id="gns">
-  (G)NS
-  <a class="anchor" href="#gns">#</a>
-</h3>
-<h3 id="httpie">
-  HTTPie
-  <a class="anchor" href="#httpie">#</a>
-</h3>
-<p><a href="https://github.com/httpie/httpie">HTTPie (Github)</a> - human-friendly CLI HTTP client for the API era</p>
-<h3 id="tunnels--vpn">
-  Tunnels &amp; VPN
-  <a class="anchor" href="#tunnels--vpn">#</a>
-</h3>
-<p><a href="https://github.com/ekzhang/bore">bore (Github)</a> - a simple CLI tool for making tunnels to localhost</p>
-<h2 id="further-reading">
-  Further Reading
-  <a class="anchor" href="#further-reading">#</a>
-</h2>
-<p><a href="https://github.com/alex/what-happens-when">What happens when&hellip; [Github]</a> - An attempt to answer the age old interview question &ldquo;What happens when you type google.com into your browser and press enter?&rdquo;</p>
-<p>Ben Eater&rsquo;s Networking Tutorial Series is pretty good:</p>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLowKtXNTBypH19whXTVoG3oKSuOcw_XeW" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<h1 id="chapter-371---weird-networking-because-why-not">
-  Chapter 37.1 - Weird Networking, because why not!
-  <a class="anchor" href="#chapter-371---weird-networking-because-why-not">#</a>
-</h1>
-<p><a href="https://www.youtube.com/watch?v=WcLmMLqnKCM">Weird URL Protocols (YouTube, ThioJoe)</a></p>
-<p><a href="https://github.com/cjdelisle/cjdns">cjdns</a> + <a href="https://hyperboria.net">hyperboria</a></p>
-<p><a href="https://ipfs.io">ipfs</a></p>
-<p><a href="https://dat.foundation">dat</a></p>
-<p><a href="http://netsukuku.freaknet.org">Netsukuku</a></p>
-<p><a href="https://beakerbrowser.com">Beaker Browser</a></p>
-<p><a href="https://bombadillo.colorfield.space">Bombadillo</a> is a non-web browser, designed for a growing list of protocols operating outside of the web.</p>
-<p>Software Defined Networking, ActivityPub</p>
-<p><a href="https://github.com/SadeghHayeri/GreenTunnel">GreenTunnel</a> - &ldquo;GreenTunnel bypasses DPI (Deep Packet Inspection) systems found in many ISPs (Internet Service Providers) which block access to certain websites.&rdquo;</p>
-<p><a href="https://github.com/leonjza/dnsfilexfer">File transfer via DNS</a></p>
-<p><a href="https://github.com/redecentralize/alternative-internet">Alternative Internet (Github list)</a></p>
-<p><a href="https://github.com/moarpepes/awesome-mesh">Awesome Mesh (Github list)</a></p>
-<p><a href="https://blackarch.org/tools.html">List of tools in the BlackArch repo</a>, meant mostly for security research, though obviously many of these are network related and so might give some inspiration or lead to interesting rabbit holes</p>
-<p><a href="https://www.youtube.com/user/DEFCONConference/videos">Defcon channel (YouTube)</a>, DefCon is a security confrence, and naturally that means a lot of network security, including <a href="https://www.youtube.com/watch?v=RnxcPeemHSc&amp;ab_channel=DEFCONConference">Including some on hacking sex toys</a></p>
-<p><a href="https://jvns.ca/blog/2016/06/30/why-do-we-use-the-linux-kernels-tcp-stack/">Why do we use the Linux Kernel&rsquo;s TCP Stack (Julia Evans Blog)</a></p>
-<p><a href="https://github.com/smoltcp-rs/smoltcp">A smol tcp stack (Github)</a></p>
-<p><a href="https://people.kernel.org/dsahern/the-cpu-cost-of-networking-on-a-host">The Cost of CPU Networking on a Host (David Ahern&rsquo;s Blog)</a></p>
-<p><a href="https://tools.ietf.org/id/draft-cheshire-tcp-over-udp-00.html">Encapsulation of TCP over UDP</a></p>
-<p><a href="https://youtu.be/uc9USAE6nJ0">WORST POSSIBLE quality on YouTube? (YouTube, FlyTech Videos)</a></p>
-<p><a href="https://hackaday.com/2020/12/04/nerfnet-tunnels-tcp-ip-over-nrf24l01-radios/">&lsquo;Nerfnet&rsquo; tunnells TCP/IP over cheap NRF24L01 Radios (Hackaday, Tom Nardi) </a></p>
-<p><a href="https://github.com/joho/7XX-rfc">RFC for 700 HTTP Status Codes (Github, Joho)</a></p>
-<p><a href="https://blog.dave.tf/post/ip-addr-parsing/">Fun with IP address parsing (David Anderson&rsquo;s Blog)</a></p>
-<p><a href="https://httptoolkit.tech/blog/http-wtf/">http-wtf</a></p>
-<p><a href="https://yggdrasil-network.github.io">Yggdrasil</a></p>
-<p><a href="https://github.com/ValdikSS/GoodbyeDPI">https://github.com/ValdikSS/GoodbyeDPI</a></p>
-<p>[TODO] Add follow along making a network stack</p>
-<p>[TODO] <a href="https://iximiuz.com/en/posts/computer-networking-101/">https://iximiuz.com/en/posts/computer-networking-101/</a></p>
-<p>[TODO] <a href="https://blog.benjojo.co.uk/post/scan-ping-the-internet-hilbert-curve">https://blog.benjojo.co.uk/post/scan-ping-the-internet-hilbert-curve</a></p>
-<blockquote class="twitter-tweet" data-conversation="none"><p lang="et" dir="ltr">midi <a href="https://t.co/5zd4dWJ3U4">pic.twitter.com/5zd4dWJ3U4</a></p>&mdash; Ravarcheon (@ravarcheon) <a href="https://twitter.com/ravarcheon/status/1383045683037413376?ref_src=twsrc%5Etfw">April 16, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<hr>
-<p><a href="https://blog.ikuamike.io/posts/2021/netcat/">Netcat - All you need to know</a></p>
+<!--- TODO: IP addresses, Ports, Default Gateway, Routes & kernel routing table, subnet mask - https://www.aelius.com/njh/subnet_sheet.html, ping, traceroute (mtr/lft), dns - resolv.conf, pihole, caching / squid, localhosts, port forwards, DHCP, private nets, firewalls, chromecast port thing, https vs no s,  rsync,scp,samba, cups, databases , pihole, BGP, RIP, OSFI, multi-zone wifi, single ap multi freq wifi, enterprise security, secured ethernet, https://blog.cloudflare.com/how-verizon-and-a-bgp-optimizer-knocked-large-parts-of-the-internet-offline-today/ -->
+<!-- Parallel, Pipelined, Persistance and Performance -->
+<script>
+    document.getElementById("netMenu").open = true;
+</script>
 </article>
  
       
@@ -1674,115 +835,8 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#standards-and-governance-ieee-ietf-icann-w3c-">Standards and Governance: IEEE, IETF, ICANN, W3C, &hellip;?</a></li>
           </ul>
         </li>
-        <li><a href="#a-typical-network">A typical network</a></li>
       </ul>
     </li>
-    <li><a href="#the-osi-model">The OSI Model</a>
-      <ul>
-        <li><a href="#1---the-physical-layer">1 - The physical Layer</a>
-          <ul>
-            <li><a href="#ethernet">Ethernet</a></li>
-            <li><a href="#wi-fi-wi-gig-">Wi-Fi, Wi-Gig, &hellip;</a></li>
-            <li><a href="#other-wireless-systems">Other Wireless Systems</a></li>
-            <li><a href="#end-to-end-delay">End to End Delay</a></li>
-            <li><a href="#queuing-delay">Queuing Delay</a></li>
-            <li><a href="#hubs-repeaters-taps">Hubs, Repeaters, Taps</a></li>
-            <li><a href="#carrier-pidgeon-can-etc">Carrier Pidgeon, Can, etc.</a></li>
-            <li><a href="#modems">Modems?</a></li>
-          </ul>
-        </li>
-        <li><a href="#2---data-link">2 - Data Link</a>
-          <ul>
-            <li><a href="#ethernet-1">Ethernet</a></li>
-            <li><a href="#ppp---point-to-point-protocol">PPP - Point-to-Point Protocol</a></li>
-            <li><a href="#switch">Switch</a></li>
-            <li><a href="#bridge">Bridge</a></li>
-            <li><a href="#frames">Frames</a></li>
-            <li><a href="#vlan---virtual-lan">VLAN - Virtual LAN</a></li>
-          </ul>
-        </li>
-        <li><a href="#3---network-layerip-layer">3 - Network Layer/IP Layer</a>
-          <ul>
-            <li><a href="#service-models">Service Models</a></li>
-            <li><a href="#packets-1">Packets</a></li>
-            <li><a href="#ipv4-ipv6">IPV4, IPV6</a></li>
-            <li><a href="#mac">MAC</a></li>
-            <li><a href="#icmp---internet-control-message-protocol">ICMP - Internet Control Message Protocol</a></li>
-            <li><a href="#igmp---internet-group-management-protocol">IGMP - Internet Group Management Protocol</a></li>
-            <li><a href="#subnets">Subnets</a></li>
-            <li><a href="#static-and-dynamic-routes">Static and Dynamic Routes</a></li>
-            <li><a href="#bgp---boarder-gateway-protocol">BGP - Boarder Gateway Protocol</a></li>
-          </ul>
-        </li>
-        <li><a href="#4---transport-layer">4 - Transport Layer</a>
-          <ul>
-            <li><a href="#tcp---transmission-control-protocol">TCP - Transmission Control Protocol</a></li>
-            <li><a href="#udp---user-datagram-protocol">UDP - User Datagram Protocol</a></li>
-            <li><a href="#quic---quick-udp-internet-connections">QUIC - Quick UDP Internet Connections</a></li>
-            <li><a href="#raw">Raw</a></li>
-            <li><a href="#a-brief-dive-into-fsms">A brief dive into FSMs</a></li>
-            <li><a href="#go-back-n">Go-Back-N</a></li>
-            <li><a href="#selective-repeat">Selective Repeat</a></li>
-            <li><a href="#timeout-and-retransmission-from-estimated-rtt">Timeout and Retransmission from Estimated RTT</a></li>
-          </ul>
-        </li>
-        <li><a href="#5---session-layer">5 - Session Layer</a>
-          <ul>
-            <li><a href="#authentication">Authentication</a></li>
-            <li><a href="#sockets">Sockets</a></li>
-            <li><a href="#api---application-programming-interface">API - Application Programming Interface</a></li>
-            <li><a href="#netbios---network-basic-inputoutput-system">NetBios - <strong>Network Basic Input/Output System</strong></a></li>
-            <li><a href="#pap--">PAP -</a></li>
-            <li><a href="#rpc---remote-procedure-call">RPC - Remote Procedure Call</a></li>
-            <li><a href="#smb---server-message-block">SMB - Server Message Block</a></li>
-            <li><a href="#socks---socket-secure">SOCKS - Socket Secure</a></li>
-          </ul>
-        </li>
-        <li><a href="#6---presentation-layer">6 - Presentation Layer</a>
-          <ul>
-            <li><a href="#tls---transport-layer-security">TLS - Transport Layer Security</a></li>
-            <li><a href="#ssl---secure-sockets-layer-deprecated">SSL - Secure Sockets Layer (Deprecated)</a></li>
-            <li><a href="#imap---internet-message-access-protocol">IMAP - Internet Message Access Protocol</a></li>
-          </ul>
-        </li>
-        <li><a href="#7---application-layer">7 - Application Layer</a>
-          <ul>
-            <li><a href="#https----hypertext-transfer-protocol">HTTP(s)  - Hypertext Transfer Protocol</a></li>
-            <li><a href="#ftp---file-transfer-protocol">FTP - File Transfer Protocol</a></li>
-            <li><a href="#dns---domain-name-service">DNS - Domain Name Service</a></li>
-            <li><a href="#dhcp---dynamic-host-configuration-protocol">DHCP - Dynamic Host Configuration Protocol</a></li>
-            <li><a href="#ssh---secure-shell">SSH - Secure Shell</a></li>
-            <li><a href="#irc---internet-relay-chat">IRC - Internet Relay Chat</a></li>
-            <li><a href="#email-smtp-imap-pop">EMail (SMTP, IMAP, POP)</a></li>
-            <li><a href="#upnp---universal-plug-and-play">UPNP - Universal Plug and Play</a></li>
-            <li><a href="#ntp---network-time-protocol">NTP - Network Time Protocol</a></li>
-            <li><a href="#telnet">Telnet</a></li>
-            <li><a href="#nfs---network-file-system">NFS - Network File System</a></li>
-            <li><a href="#torrents">Torrents</a></li>
-          </ul>
-        </li>
-        <li><a href="#time">Time</a></li>
-        <li><a href="#vpns">VPNs</a>
-          <ul>
-            <li><a href="#openvpn">OpenVPN</a></li>
-            <li><a href="#wireguard">Wireguard</a></li>
-          </ul>
-        </li>
-        <li><a href="#networking-tools">Networking Tools</a>
-          <ul>
-            <li><a href="#etherape">Etherape</a></li>
-            <li><a href="#wireshark">Wireshark</a></li>
-            <li><a href="#nmap">Nmap</a></li>
-            <li><a href="#scapy--kamene">Scapy / Kamene</a></li>
-            <li><a href="#gns">(G)NS</a></li>
-            <li><a href="#httpie">HTTPie</a></li>
-            <li><a href="#tunnels--vpn">Tunnels &amp; VPN</a></li>
-          </ul>
-        </li>
-        <li><a href="#further-reading">Further Reading</a></li>
-      </ul>
-    </li>
-    <li><a href="#chapter-371---weird-networking-because-why-not">Chapter 37.1 - Weird Networking, because why not!</a></li>
   </ul>
 </nav>
 
