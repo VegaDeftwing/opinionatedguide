@@ -1,3 +1,5 @@
+// code from https://github.com/rauschma/html_demos, which doesn't have a licence 
+
 (function () {
     var FOOTNOTE_REGEX = /^\([0-9]+\)$/;
     var REFERENCE_REGEX = /^\[[0-9]+\]$/;

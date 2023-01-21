@@ -44,7 +44,7 @@ Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of th
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.638bd80ee164691e7a272ca8b29b77a4ac6b3a3f0c2064b943e401919dbfd96c.css" integrity="sha256-Y4vYDuFkaR56Jyyospt3pKxrOj8MIGS5Q&#43;QBkZ2/2Ww=">
-<script defer src="/en.search.min.83587d20ccaa9169183b6f3638847551b9335c5c2283bf66c4bffbfbc2e983f3.js" integrity="sha256-g1h9IMyqkWkYO282OIR1UbkzXFwig79mxL/7&#43;8Lpg/M="></script>
+<script defer src="/en.search.min.b2d45b1136c522fe2941b1cff158422ab557cbd96583748465fc4631b4defde6.js" integrity="sha256-stRbETbFIv4pQbHP8VhCKrVXy9llg3SEZfxGMbTe/eY="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -539,6 +539,8 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#the-part-where-you-can-really-fuck-up">The Part Where You can Really Fuck Up</a>
           <ul>
             <li><a href="#a-tangent-about-file-systems--partition-table-schemes">A tangent about File Systems &amp; Partition Table Schemes</a></li>
+            <li><a href="#fuse-encryption-lvm-raid-wtffff">FUSE, Encryption, LVM, RAID, WTFFFF‽?</a></li>
+            <li><a href="#be-very-very-very-sure-you-know-the-diskpartition-youre-about-to-nuke">Be very, very, very sure you know the disk/partition you&rsquo;re about to nuke</a></li>
             <li><a href="#doing-the-actual-partitioning--mkfs">Doing the Actual Partitioning &amp; mkfs</a></li>
             <li><a href="#mounting">Mounting</a></li>
           </ul>
@@ -751,13 +753,13 @@ So, I want to help you understand your system and the choices you'll be making, 
   <a class="anchor" href="#windows">#</a>
 </h1>
 <p>open up a command prompt by pressing ctr+r and typing &lsquo;cmd&rsquo; then enter, and we&rsquo;ll need to navigate to the location of the downloaded file it should be named something along the lines of archlinux-20xx.xx.xx-x86_64.iso and be in your Downloads folder.</p>
-<p>When you open a command prompt on Windows it should start out in your user folder (C:\Users\%username%). To list the folders in this folder you can type &lsquo;dir&rsquo; and press enter. You should, at minimum, see folders like &lsquo;Downloads&rsquo; &lsquo;Desktop&rsquo; and &lsquo;Documents&rsquo; to enter the Downloads folder simply type &lsquo;cd Dow&rsquo; and press tab, the line should auto-complete to &lsquo;cd Downloads&rsquo;, then press enter. Now you can type &lsquo;certutil -hashfile arch&rsquo; , press tab to complete it to &lsquo;certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso&rsquo; then add &lsquo;sha1&rsquo; on the end so the finally command looks like</p>
+<p>When you open a command prompt on Windows it should start out in your user folder (C:\Users\%username%). To list the folders in this folder you can type &lsquo;dir&rsquo; and press enter. You should, at minimum, see folders like &lsquo;Downloads&rsquo; &lsquo;Desktop&rsquo; and &lsquo;Documents&rsquo; to enter the Downloads folder simply type &lsquo;cd Dow&rsquo; and press tab, the line should auto-complete to &lsquo;cd Downloads&rsquo;, then press enter. Now you can type &lsquo;certutil -hashfile arch&rsquo; , press tab to complete it to &lsquo;certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso&rsquo; then add &lsquo;sha256&rsquo; on the end so the finally command looks like</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso sha1
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certutil -hashfile archlinux-20xx.xx.xx-x86_64.iso sha256
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -766,7 +768,19 @@ So, I want to help you understand your system and the choices you'll be making, 
 <p>So let&rsquo;s look at this command:</p>
 <p>The first part, certutil, is a program on your computer, &lsquo;-hashfile&rsquo; says the next string of text is the name of the file we want to examine, and the last part sha1 is the checksum as mentioned before.</p>
 <p>Finally, if you go back to <a href="https://www.archlinux.org/download/">https://www.archlinux.org/download/</a> and look under &lsquo;Checksums&rsquo; you can compare the output of the command you just ran against the SHA1 sum provided to be sure you didn&rsquo;t have any errors in the file. This is mostly a security check as in theory someone could provide a &lsquo;bad&rsquo; version of the OS containing malware, but such a version would produce an incorrect checksum, in practice this is extraordinarily uncommon. Though this does also serve to ensure the download wasn&rsquo;t corrupted in any way either.</p>
-<p>We&rsquo;re not quite done though, as this only really checks the integrity of the file, not that you got it from someone trusted as, in theory, someone could hack the Arch website and put the checksum of virus-filled version there. So, now we want to check the GPG signature. To do this, install <a href="https://gpg4win.org/download.html">GPG4Win</a> [TODO]</p>
+<p>We&rsquo;re not quite done though, as this only really checks the integrity of the file, not that you got it from someone trusted as, in theory, someone could hack the Arch website and put the checksum of virus-filled version there. So, now we want to check the GPG signature. To do this, install <a href="https://gpg4win.org/download.html">GPG4Win</a>. Close your command prompt and reopen it (ctrl+r &ldquo;cmd&rdquo;). Go back to your browser and scroll down on the download page and you&rsquo;ll see a link to download the &ldquo;ISO PGP signature&rdquo; - do that. You&rsquo;ll also see a long command prefixed by &ldquo;WKD Lookup&rdquo; that should start with <code>gpg --auto-key-locate clear,wkd -v --locate-external-key </code> and end in an arch maintainer&rsquo;s email. <strong>WKD</strong> stands for <strong>W</strong>eb <strong>K</strong>ey <strong>D</strong>irectory, so this is looking up the maintainer&rsquo;s public key which they used to sign the image, which we&rsquo;ll check matches the image signature and the file together with the next command which uses both files we&rsquo;ve downloaded:</p>
+<p><code>gpg --verify archlinux-xxxx.iso.sig archlinux-xxx.iso</code></p>
+<p>What you should see is something like:</p>
+<pre>
+gpg: Signature made 1/1/2023 9:49:49 AM Central Standard Time
+gpg:                using EDDSA key 3E80CA1A8B89F69CBA57D98A76A5EF9054449A5C
+gpg: Good signature from "Pierre Schmitz <pierre@archlinux.org>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 3E80 CA1A 8B89 F69C BA57  D98A 76A5 EF90 5444 9A5C
+</pre>
+<p>Which should concern you, right? <code>This key is not certified with a trusted signature!</code> sounds bad? Well, if we look back on the download page, there&rsquo;s a link with some hex characters ( looks like 0xABCEDF ) that, if you go to, you should see the same long string of numbers as that last line on the top of the page (Search results for &lsquo;0x3E80CA&hellip;, in this case.). Congrats, while that was incredibly tedious and more-or-less unnecessary, you should at least somewhat understand there&rsquo;s some cryptographic systems at play to ensure what you&rsquo;ve downloaded is what you think it is and signed to be from the person it says it&rsquo;s from.</p>
+<p>Why do you care? Because Linux will do this automatically for almost all software you install in the future. This gives us trust. Could someone still do something malicious / make a virus? Sure. It&rsquo;s just much, much, much harder for it to wind up on your computer.</p>
 </div><input type="radio" class="toggle" name="tabs-hashing" id="tabs-hashing-1"  />
   <label for="tabs-hashing-1">Mac</label>
   <div class="book-tabs-content markdown-inner"><h1 id="mac">
@@ -790,7 +804,19 @@ So, I want to help you understand your system and the choices you'll be making, 
 <p>upon pressing enter the terminal should print out a long string of text.</p>
 <p>So let&rsquo;s look at this command. The first part, shasum, is a program on your computer, &lsquo;-a 1&rsquo; says to use the sha1 algorithm instead of something like sha256, and the last part is the filename we want to compute the checksum of.</p>
 <p>Now, if you go back to <a href="https://www.archlinux.org/download/">https://www.archlinux.org/download/</a> and look under &lsquo;Checksums&rsquo; you can compare the output of the command you just ran against the SHA1 sum provided to be sure you didn&rsquo;t have any errors in the file. This is mostly a security check as in theory someone could provide a &lsquo;bad&rsquo; version of the OS containing malware, but such a version would produce an incorrect checksum, in practice this is extraordinarily uncommon. Though this does also serve to ensure the download wasn&rsquo;t corrupted in any way either.</p>
-<p>We&rsquo;re not quite done though, as this only really checks the integrity of the file, not that you got it from someone trusted as, in theory, someone could hack the Arch website and put the checksum of virus-filled version there. So, now we want to check the GPG signature. To do this, install <a href="https://gpgtools.org">GPG Tools</a> and [TODO]</p>
+<p>We&rsquo;re not quite done though, as this only really checks the integrity of the file, not that you got it from someone trusted as, in theory, someone could hack the Arch website and put the checksum of virus-filled version there. So, now we want to check the GPG signature. To do this, install <a href="https://gpgtools.org">GPG Tools</a>. Once you have that, go back to your browser and scroll down on the download page and you&rsquo;ll see a link to download the &ldquo;ISO PGP signature&rdquo; - do that. You&rsquo;ll also see a long command prefixed by &ldquo;WKD Lookup&rdquo; that should start with <code>gpg --auto-key-locate clear,wkd -v --locate-external-key </code> and end in an arch maintainer&rsquo;s email. <strong>WKD</strong> stands for <strong>W</strong>eb <strong>K</strong>ey <strong>D</strong>irectory, so this is looking up the maintainer&rsquo;s public key which they used to sign the image, which we&rsquo;ll check matches the image signature and the file together with the next command which uses both files we&rsquo;ve downloaded:</p>
+<p><code>gpg --verify archlinux-xxxx.iso.sig archlinux-xxx.iso</code></p>
+<p>What you should see is something like:</p>
+<pre>
+gpg: Signature made 1/1/2023 9:49:49 AM Central Standard Time
+gpg:                using EDDSA key 3E80CA1A8B89F69CBA57D98A76A5EF9054449A5C
+gpg: Good signature from "Pierre Schmitz <pierre@archlinux.org>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 3E80 CA1A 8B89 F69C BA57  D98A 76A5 EF90 5444 9A5C
+</pre>
+<p>Which should concern you, right? <code>This key is not certified with a trusted signature!</code> sounds bad? Well, if we look back on the download page, there&rsquo;s a link with some hex characters ( looks like 0xABCEDF ) that, if you go to, you should see the same long string of numbers as that last line on the top of the page (Search results for &lsquo;0x3E80CA&hellip;, in this case.). Congrats, while that was incredibly tedious and more-or-less unnecessary, you should at least somewhat understand there&rsquo;s some cryptographic systems at play to ensure what you&rsquo;ve downloaded is what you think it is and signed to be from the person it says it&rsquo;s from.</p>
+<p>Why do you care? Because Linux will do this automatically for almost all software you install in the future. This gives us trust. Could someone still do something malicious / make a virus? Sure. It&rsquo;s just much, much, much harder for it to wind up on your computer.</p>
 </div></div>
 
 <p>Now, we finally have file that we can 100% trust. Realistically, this level of scruntiny isn&rsquo;t really necessary, but I wanted you do go through it and understand it at least once for reasons you&rsquo;ll understand later.</p>
@@ -821,7 +847,11 @@ So, I want to help you understand your system and the choices you'll be making, 
 See <a href="https://medium.com/@terajournal/increasing-size-of-available-shrink-space-for-hard-drive-partition-in-windows-8fffa50535d3">This Medium Article</a> for additional info on getting Windows to let you make room.</p>
 </blockquote>
 <p>Alright, we&rsquo;re getting there I promise. You should now have a gray block next to that blue block of space that shows unused space, that&rsquo;s perfect. Next up we&rsquo;ll need to turn Fast Boot <strong>off</strong>. In my experience turning this off doesn&rsquo;t effect windows boot time at all, and by having it off we&rsquo;ll be able to access window&rsquo;s file from inside linux later. To do this: go to &rsquo;edit power plan&rsquo;, then in the top bar navigate back to &lsquo;Power Options&rsquo;, select &lsquo;Chose what the buttons do&rsquo; on the left side, click &lsquo;Change settings that are currently unavailable&rsquo; and then un-check &lsquo;Turn on Fast Startup&rsquo;.</p>
-<p>Okay, now we&rsquo;re finally ready to copy the OS to a flash drive so we can install Arch, to do this, you&rsquo;ll need to download a program called Etcher from <a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a>. Download, run, etc. When it opens select the flash drive as your &lsquo;device&rsquo; , press the select button under that and select the archlinux-20xx.xx.xx-x86_64.iso file we downloaded earlier. Everything else should be fine, so click start. This may take a second, in the mean time, open this guide on <strong>another computer</strong> as the next few steps will require a lot of restarting and doing things outside of windows.</p>
+<p>Okay, now we&rsquo;re finally ready to copy the OS to a flash drive so we can install Arch, to do this, you&rsquo;ll need to download a program called Etcher from <a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a>. Download, run, etc. When it opens select the flash drive as your &lsquo;device&rsquo; , press the select button under that and select the archlinux-20xx.xx.xx-x86_64.iso file we downloaded earlier.</p>
+<p class="tip ">
+    The <code>.iso</code> file <strong>NOT</strong> the <code>.iso.sig</code> , the one you got from torrenting.
+</p>
+<p>Everything else should be fine, so click start. This may take a second, in the mean time, open this guide on <strong>another computer</strong> as the next few steps will require a lot of restarting and doing things outside of windows.</p>
 </div><input type="radio" class="toggle" name="tabs-Install" id="tabs-Install-1"  />
   <label for="tabs-Install-1">Mac</label>
   <div class="book-tabs-content markdown-inner"><h1 id="mac">
@@ -857,7 +887,7 @@ See <a href="https://medium.com/@terajournal/increasing-size-of-available-shrink
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
-<p>If you followed along, you should have already prepared the installation image on a flash drive, but you could have put it on a CD or use PXE. You&rsquo;re probably thinking &ldquo;WTF is PXE?&rdquo; Well, it&rsquo;s a way to send a new operating system image to a computer <em>over the network</em>. This is <em>mostly</em> used by really big sever farms/datacenters, but you should still know it exists.</p>
+<p>If you followed along, you should have already prepared the installation image on a flash drive, but you could have put it on a CD or use PXE. You&rsquo;re probably thinking &ldquo;WTF is PXE?&rdquo; Well, it&rsquo;s a way to send a new operating system image to a computer <em>over the network</em>. This is <em>mostly</em> used by really big sever farms/datacenters, but you should still know it exists, even if you&rsquo;re unlikely to ever use it.</p>
 <h2 id="booting-up-the-live-environment">
   Booting Up The Live Environment
   <a class="anchor" href="#booting-up-the-live-environment">#</a>
@@ -865,7 +895,7 @@ See <a href="https://medium.com/@terajournal/increasing-size-of-available-shrink
 <p style="font-size: 30px;text-align: center;">⬤⬤⬤⬤⬤◯◯◯◯◯</p>
 <p class="tip">☠☠☠</br>
     Seriously, <b>backup your shit.</b> I've done this countless times and have still managed to accidentally wipe a drive. There's a non-0 chance you're about to completely murder your windows install, It shouldn't happen, but it can. This is a necssary evil to learn, and I assure you'll be happy you've done all this, but this next bit is actual hell for people. I'm sorry it gets so bad so early. I promise it's worth it, okay?
-The next section requires a lot of reboots and has steps where you can't have this guide open on the computer you're working on, so you may want to have a spare system next to you to follow these insturctions on and Google if anything goes wrong.</br>☠☠☠ </p>
+The next section requires a lot of reboots and has steps where you can't have this guide open on the computer you're working on, so you may want to have a spare system (or this page open on your phone) next to you to follow these insturctions on and Google if anything goes wrong.</br>☠☠☠ </p>
 <div class="speech right big">
     <p>
         To be fair, you should probably be doing backups anyway. We&rsquo;ll talk about this at some point, but, if you don&rsquo;t have a regular back up solution + an occasional full disk backup you sholud remedy that sooner rather than later
@@ -937,9 +967,12 @@ The next section requires a lot of reboots and has steps where you can't have th
 </div>
 <p>With secure boot disabled (or the modified installation image) you should, finally, be able to reboot your computer into the installation image. Mash the whatever key is required to get to the boot menu on your system (F11,Delete,F12,F7, and F2 are common). Do this and select the flash drive from the list.</p>
 <p>You <em>might</em> have a system that makes the time in the UEFI loading screen to short to be able to get to a boot menu. As recommended on the the disabling secure boot page, you can also do <code>Settings &gt; Update &amp; Security &gt; Recovery &gt; Advanced startup (Restart now) &gt; Troubleshoot &gt; Advanced options &gt; UEFI Firmware settings</code> and <em>hopefully</em> you can find a setting to change to give yourself some time on load to change boot device, but you&rsquo;ll almost certainly see a boot order or boot override option. Chance things as necessary so that the next boot will be off of the flash drive.</p>
+<p class="tip ">
+    For some reason some times the flash drive will show up multiple times. If this is the case and it doesn&rsquo;t work the first try, try one of the other entries.
+</p>
 <p>Until this point I&rsquo;ve been avoiding going over the difference between UEFI and BIOS, but now we really need to cover it. For most newer systems (~2015ish) the computer will be using UEFI, while if it&rsquo;s older it&rsquo;s probably using BIOS. The Binary Input Output System or Unified Extensible Firmware Interface both more-or-less serve the same purpose: When you turn the system on, they initialize the firmware of all of the components inside your system and sort of serve as the initial system to get everything working before handing things off to the boot loader, which then boots up the operating system. So, the process goes:</p>
 <p>BIOS/UEFI → Boot loader→ OS (Windows/Linux/Mac)</p>
-<p>From our perspective, the biggest difference is really just that UEFI is newer and a bit easier to work with, but there are a lot of interesting changes I encourage you to read up on later. We do still need to know which we&rsquo;re using though. Assuming you had to deal with Secure Boot, you&rsquo;re using UEFI. If you didn&rsquo;t, you&rsquo;re probably using BIOS. Fortunately, we can now check by running a command. So, go ahead and get your keyboard layout set so you can comfortably type, and then run the command under &ldquo;Verify the boot mode&rdquo;.</p>
+<p>From our perspective, the biggest difference is really just that UEFI is newer and a bit easier to work with, but there are a lot of interesting changes I encourage you to read up on later. We do still need to know which we&rsquo;re using though. Assuming you had to deal with Secure Boot, you&rsquo;re using UEFI. If you didn&rsquo;t, you&rsquo;re probably using BIOS. Fortunately, we can now check by running a command. So, go ahead and get your keyboard layout set so you can comfortably type, and then run the command under &ldquo;Verify the boot mode&rdquo; →</p>
 <h2 id="connecting-to-the-internet">
   Connecting to the Internet
   <a class="anchor" href="#connecting-to-the-internet">#</a>
@@ -970,6 +1003,9 @@ The next section requires a lot of reboots and has steps where you can't have th
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<span class="smalltext ">
+    If you&rsquo;re a dvorak user, like me, the command you want is <code>loadkeys dvorak</code>
+</span>
 <p>Take note of if you&rsquo;re using BIOS or UEFI, because it will be relevant later. For now, we need to get you connected to the internet.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
@@ -1015,11 +1051,7 @@ The next section requires a lot of reboots and has steps where you can't have th
 </div>
 <p>Okay, so, there&rsquo;s a lot here, let&rsquo;s just step back and go over this. The first step here is just making sure the system detected your hardware and has a driver for connecting to the network. Linux has <em>most</em> network drivers you&rsquo;d ever want baked in, so that should <em>just work</em>. In this case, when running <code>ip link</code> you should see either something like <code>enp6s0</code> or <code>wlan0</code>. In this case, the former is a wired interface while the latter is for Wi-Fi.</p>
 <p>If this didn&rsquo;t work and there&rsquo;s only a device called <code>lo</code>, there are options, but they&rsquo;re a bit complicated.</p>
-<p>If you can, getting things working by using a wired connection is much, much easier. If you had a wired connection attached when you booted into the installation environment, it should just be working. in which case you can run <code>ping archlinux.ong</code> and if after a few seconds you see something like</p>
-<p><code>64 bytes from archlinux.org (░░.░░░.░░░.░░░): icmp_seq=░ ttl=░░ time=░░░ms</code></p>
-<blockquote>
-<p>Press Ctrl+c to stop ping</p>
-</blockquote>
+<p>If you can, getting things working by using a wired connection is much, much easier. If you had a wired connection attached when you booted into the installation environment, it should just be working. in which case you can r</p>
 <p>Then, congrats, you&rsquo;re good to move on.</p>
 
 
@@ -1187,6 +1219,168 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
   A tangent about File Systems &amp; Partition Table Schemes
   <a class="anchor" href="#a-tangent-about-file-systems--partition-table-schemes">#</a>
 </h3>
+<p>Okay, here we have to go off into the weeds to understand something real quick - partition tables and file systems.</p>
+<p>To begin with, let&rsquo;s look at what good ol&rsquo; Wikipedia has to say:</p>
+<div class="quote [Wikipedia - &#34;Partition Table&#34;](https://en.wikipedia.org/wiki/Disk_partitioning#Partition_table)">
+<p>
+    A partition table is a table maintained on a disk by the operating system that outlines and describes the partitions on that disk. The terms partition table and partition map are similar terms and can be used interchangeably. The term is most commonly associated with the MBR partition table of a Master Boot Record (MBR) in PCs, but it may be used generically to refer to other formats that divide a disk drive into partitions, such as: GUID Partition Table (GPT), Apple partition map (APM), or BSD disklabel.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/Disk_partitioning#Partition_table">Wikipedia - &ldquo;Partition Table&rdquo;</a>
+    </div>
+</div>
+<p>Well, uh, that was a lot of words that didn&rsquo;t say much, we have to go deeper. MBR? That sounds familiar <span class="smalltext ">
+    click.
+</span></p>
+<div class="quote [Wikipedia - &#34;Master Boot Record&#34;](https://en.wikipedia.org/wiki/Master_boot_record)">
+<p>
+    <p>A master boot record (MBR) is a special type of boot sector at the very beginning of partitioned computer mass storage devices like fixed disks or removable drives intended for use with IBM PC-compatible systems and beyond.</p>
+<p>[&hellip;]</p>
+<p>The MBR holds the information on how the disc&rsquo;s sectors are divided into partitions, each partition notionally containing a file system. The MBR also contains executable code to function as a loader for the installed operating system—usually by passing control over to the loader&rsquo;s second stage, or in conjunction with each partition&rsquo;s volume boot record (VBR). This MBR code is usually referred to as a boot loader.</p>
+<p>[&hellip;]</p>
+<p>The organization of the partition table in the MBR limits the maximum addressable storage space of a partitioned disk to 2 TiB</p>
+<p>[&hellip;]</p>
+<p>Therefore, the MBR-based partitioning scheme is in the process of being superseded by the GUID Partition Table (GPT) scheme in new computers.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/Master_boot_record">Wikipedia - &ldquo;Master Boot Record&rdquo;</a>
+    </div>
+</div>
+<p>Okay, so, the <strong>Partition Table</strong> is basically an index of partitions - divided sections of your disk - and what file system each one uses. Old computers used to use a MBR partition table, new computers use GPT.</p>
+<p>What about these <em>File Systems</em> then, what&rsquo;s that? Let&rsquo;s ask the all knowing Wikipedia again:</p>
+<div class="quote [Wikipedia - &#34;File System&#34;](https://en.wikipedia.org/wiki/File_system)">
+<p>
+    In computing, a file system or filesystem (often abbreviated to fs) is a method and data structure that the operating system uses to control how data is stored and retrieved. Without a file system, data placed in a storage medium would be one large body of data with no way to tell where one piece of data stopped and the next began, or where any piece of data was located when it was time to retrieve it. </br></br>By separating the data into pieces and giving each piece a name, the data are easily isolated and identified. Taking its name from the way a paper-based data management system is named, each group of data is called a &ldquo;file&rdquo;. The structure and logic rules used to manage the groups of data and their names is called a &ldquo;file system.&rdquo;
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/File_system">Wikipedia - &ldquo;File System&rdquo;</a>
+    </div>
+</div>
+<p>Wow, uh, that was strangely readable for tech stuff, right? There is one bit of context missing here though - there&rsquo;s more than one way to sort your files - similarly, different file systems have been made over time.</p>
+<p>The two you&rsquo;re likely familiar with are NTFS and FAT32. NTFS is the one Windows uses by default for your operating system and storage drives, FAT32 is what most flash drives use. You may have ran into limitations of FAT32 before, most notably that you can&rsquo;t store a file larger than 4GB - making moving a large video or ZIP archive an issue.</p>
+<p>But, why? If NTFS doesn&rsquo;t have this problem, why would anything use NTFS? Moreover, what does Apple use HFS+ and Linux use EXT4 or BTRFS (commonly, there&rsquo;s many others).</p>
+<p>Well, the answer is complicated. Some of it is politics with patents, some of it is backwards compatibility, some of it is for speed vs stability, some of it for supporting different physical media (spinning platters vs solid state vs tape)</p>
+<p>While there&rsquo;s literally hundreds of file systems in existence, only some are used enough to be worth knowing about. Here&rsquo;s the extreme TLDR of each:</p>
+<ul>
+<li><strong>NTFS</strong> -The only decent file system that Windows supports. Stable, does the job. Annoying to mount on Apple devices, but can accessed on most systems.</li>
+<li><strong>FAT32, exFAT</strong> - Old, shit, but it works on everything easily. The default for SD cards and flash drives.</li>
+<li><strong>EXT3, EXT4</strong> - Common on Linux. Stable, does the job. Very annoying to mount on Windows.</li>
+<li><strong>HFS, HFS+, APFS</strong> - 🍎, Think Different.</li>
+<li><strong>ZFS</strong> - Need to store an ever living fuck load of data across a boat load of drives? ZFS will do that, make sure some drives can fail without loosing anything, let you speed it up by using an SSD or RAM for cache, and do some crazy voodoo to ensure data never gets corrupted + snapshotting (file history) + automaticly using spare disks if one fails + per-user limits&hellip; Awesome, right? Yep. And also a true pain in the ass to setup, a RAM hog, etc. Basically, ZFS is <em>perfect</em> for a file server and not worth the pain &amp; RAM use at all in a normal setup.</li>
+<li><strong>BTRFS</strong> - Somewhere between ZFS and EXT4. A sane option for most personal Linux setups. Has had broken RAID 5 for a long time, don&rsquo;t use that and you&rsquo;re fine.</li>
+<li><strong>F2FS</strong> - I have a NEED, A NEED FOR SPEED &hellip; and data corruption&hellip; Shit. For SSDs, the new kid on the block, and ready to eat your data if you have to hard shutdown. Only use this if you know what you&rsquo;re doing. But, it do zoom.</li>
+</ul>
+<p>For setting up your system to dual boot Linux and Windows, you&rsquo;ll need to use NTFS to read your existing data, FAT for the boot partition (more on that soon), and I&rsquo;ll be showing setting up the Linux root using BTRFS, but using EXT4 is also a fine choice.</p>
+<p>There are a few weird not-true-filesystems you should be aware of too:</p>
+<ul>
+<li><strong>CIFS/SAMBA</strong> - Used to mount network shared storarge</li>
+<li><strong>SWAP</strong> - Swap isn&rsquo;t actuallllly a file system, it&rsquo;s actually more like explicitly saying you don&rsquo;t want a filesystem here.  This is used for storage when you&rsquo;re out of RAM or when something in RAM hasn&rsquo;t been used in while it gets swapped to, well, swap. You can&rsquo;t directly put files here.</li>
+<li><strong>TMPFS</strong> - Almost the inverse of Swap, TMPFS is a special file system for storing data directly in RAM. This makes it stupidly fast. It&rsquo;s also <em>volatile</em>, data written to TMPFS will be lost when your computer reboots.</li>
+</ul>
+<p>You may want to dive into the <a href="https://wiki.archlinux.org/title/File_systems">Arch Wiki page on File systems</a>.</p>
+<h4 id="an-aside-about-size">
+  An aside about size
+  <a class="anchor" href="#an-aside-about-size">#</a>
+</h4>
+<p>If you bought a computer and were told it has a 1TB SSD, it does, but your computer may tell you it&rsquo;s only 931GB. What gives!?</p>
+<p>Well, the problem is we have two ways of specifying size, <strong>Mega</strong>bytes and <strong>Mebi</strong>bytes, and often the &ldquo;wrong&rdquo; term is used. I say &ldquo;wrong&rdquo; as it&rsquo;s very rare anybody uses the <strong>Mebi</strong> version at all, and instead <strong>Mega</strong> is used for both. But, okay, what&rsquo;s the difference?</p>
+<p>In SI units, we have prefixes that you should known killo=1000, mega=100000, Gig=1000000000, etc. So a <strong>Kilo</strong>byte should be 1000 bytes, right? Well, by definition yes, but often people will mean <strong>Kibi</strong>bytes where it&rsquo;s actually 1024 Bytes. Why 1024?</p>
+<p>Computers work in base-2 (binary) and so if we do <code>1 &lt;&lt; 10</code>, an operation that literally means take <code>1</code> (in binary, which is also 1 in decimal) and move it over 10 places, to put 10 zeros behind it, we get the number, in binary, <code>10000000000</code>, now, to read a binary number you start at the right most digit and that&rsquo;s your 1&rsquo;s place (just like decimal) but then the 2nd digit is your 2&rsquo;s, the 3rd your 4&rsquo;s, and so on. Finally, you&rsquo;ll hit the 11&rsquo;th digit which is your 1024&rsquo;s place. so this number, with only the 11th digit being 1, is equal to 1024 in decimal.</p>
+<p>Basically, 1024 is a much more convenient number to work with for the computer than 1000, which in binary would be  <code>1111101000</code>.</p>
+<p>Finally, we can work our way up and the problem get&rsquo;s worse. A megabyte is a thousand killobytes, but a mebibyte is 1024 kibibytes. So now the difference is 1000*1000 vs 1024*1024, then repeat up to Terabyte. That&rsquo;s why your numbers may not match.</p>
+<p>Fortunately, this rarely matters as if you&rsquo;re doing something where you have to think about the difference it&rsquo;ll usually be with other numbers that set your constraints and the difference won&rsquo;t matter. For example, we&rsquo;re about to format your drive for Linux, but you&rsquo;ll be constrained by the remaining size for each partition and for the few small ones we need to make being off by the difference of the binary or decimal version just won&rsquo;t matter. Still, good to know.</p>
+<h3 id="fuse-encryption-lvm-raid-wtffff">
+  FUSE, Encryption, LVM, RAID, WTFFFF‽?
+  <a class="anchor" href="#fuse-encryption-lvm-raid-wtffff">#</a>
+</h3>
+<h4 id="fuse">
+  FUSE
+  <a class="anchor" href="#fuse">#</a>
+</h4>
+<p>Okay, I swear we&rsquo;ll get to the actual formatting soon, but there are a few more things you need to know about first.</p>
+<p>First, FUSE,</p>
+<div class="quote [Archwiki - FUSE](https://wiki.archlinux.org/title/FUSE)">
+<p>
+    <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">Filesystem in Userspace</a> (FUSE) is a mechanism for Unix-like operating systems that lets non-privileged users create their own file systems without editing kernel code. This is achieved by running file system code in <em>user space</em>, while the FUSE kernel module provides only a &ldquo;bridge&rdquo; to the actual kernel interfaces.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/FUSE">Archwiki - FUSE</a>
+    </div>
+</div>
+<p>You&rsquo;re eyes probably just glazed over reading that. I don&rsquo;t blame you. Basically, Linux will normally assume only the root (admin) user can create a files system as doing so is something that typically happens at the kernel (operating system core) level. FUSE, well, fuses fyle systems on to kernel interfaces that are already there so that a non-admin user can mount things.</p>
+<p>Why is this helpful?</p>
+<p>Well, the most obvious is flash drives. It&rsquo;d sort suck if you had to provide a password and do low level management every time you want to read a flash drive. FUSE let&rsquo;s you not do that.</p>
+<p>But that&rsquo;s not all. With extra software on top,</p>
+<ul>
+<li>It&rsquo;ll let you mount a .iso so you can peruse it&rsquo;s contents without actually writing it to flashdrive/CD.</li>
+<li>It&rsquo;ll let you mount network shares via SSH (the normal tool used to remotely manage Linux devices)</li>
+<li>It&rsquo;ll let you mount NTFS file systems with an older, more stable, and faster implementation of the file system driver</li>
+<li>It&rsquo;ll let you mount your GoggleDrive as a local folder for easier use</li>
+</ul>
+<p>Among other things.</p>
+<p>There&rsquo;s a catch to all of this though. FUSE is generally a bit slow. The NTFS situation as mentioned above is an outlier here, but there are some negatives to its convenience.</p>
+<h4 id="encryption">
+  Encryption
+  <a class="anchor" href="#encryption">#</a>
+</h4>
+<p>I&rsquo;m sure you know what Encryption is broadly, and generally that it&rsquo;s a good thing for security. But I want to point out a few things before we jump on the &ldquo;Let&rsquo;s encrypt all the things!&rdquo; train.</p>
+<ul>
+<li>
+<p>Encryption makes your computer do a bit more work on every read and write, making it a hair slower and use more battery.</p>
+</li>
+<li>
+<p>Encryption makes recovering your system if something has gone wrong more difficult</p>
+</li>
+<li>
+<p>Encryption can be a pain to setup</p>
+</li>
+<li>
+<p>Encryption only protects your files when the computer is off *</p>
+<span class="smalltext ">
+    *  -ish. It is possible to setup encryption that locks most of your files if the computer goes to sleep or locks after you&rsquo;ve been away for a while, but this doesn&rsquo;t lock <em>everything</em>.
+</span>
+</li>
+</ul>
+<p>It&rsquo;s up to you to decide if it&rsquo;s worth it to you. If you do want full system encryption, I do recommend making an extra, unencrypted FAT32 partition with a singe .txt file with details to contact you if you loose your computer - or, better, put an &ldquo;IF FOUND RETURN TO&rdquo; sticker on it.</p>
+<p>I&rsquo;ll lead you though setting up home directory encryption on this page, as I think it&rsquo;s a happy middle ground.</p>
+<h4 id="lvm">
+  LVM
+  <a class="anchor" href="#lvm">#</a>
+</h4>
+<p>I swear we&rsquo;ll be getting back to the install for real in a second, the last thing related to drive formatting you should know about is <strong>L</strong>ogical <strong>V</strong>olume <strong>M</strong>anagement. To Wikipedia we go!</p>
+<div class="quote source">
+<p>
+    <p>LVM is used for the following purposes:</p>
+<ul>
+<li>Creating single logical volumes of multiple physical volumes or entire hard disks (somewhat similar to RAID 0, but more similar to JBOD), allowing for dynamic volume resizing.</li>
+<li>Managing large hard disk farms by allowing disks to be added and replaced without downtime or service disruption, in combination with hot swapping.</li>
+<li>On small systems (like a desktop), instead of having to estimate at installation time how big a partition might need to be, LVM allows filesystems to be easily resized as needed.</li>
+<li>Performing consistent backups by taking snapshots of the logical volumes.</li>
+<li>Encrypting multiple physical partitions with one password.</li>
+</ul>
+<p>LVM can be considered as a thin software layer on top of the hard disks and partitions, which creates an abstraction of continuity and ease-of-use for managing hard drive replacement, repartitioning and backup.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - source
+    </div>
+</div>
+<p>Plus, not on that page, it can be used to cache frequently used content on a faster disk. This is awesome for making an old HDD feel snappy on a system with a big HDD(s) and a small SSD.</p>
+<p>So, basically, it&rsquo;s a layer in between the physical device (SSD, HDD, whatever) and the file systems to make it so you can resize and mess with them while the system is still running, use encryption in a sane way, and easily add or remove drives.</p>
+<p>There is a big ol&rsquo; fuck you here: Using LVM makes it more annoying to access the Linux files from Windows. So while in nearly any other situation I&rsquo;d say you should use it, if you&rsquo;re setting up dual boot, don&rsquo;t. Since that&rsquo;s the setup I&rsquo;m assuming you&rsquo;re going for here, I will not be showing LVM setup on this page.</p>
+<p>If you&rsquo;re not setting up a dual boot system and you&rsquo;re up to the challenge, these two pages are very nice:</p>
+<p><a href="https://wiki.archlinux.org/title/LVM">Arch Wiki - LVM</a> &amp; <a href="https://wiki.archlinux.org/title/Install_Arch_Linux_on_LVM">Arch Wiki - Installing on LVM</a></p>
+<h3 id="be-very-very-very-sure-you-know-the-diskpartition-youre-about-to-nuke">
+  Be very, very, very sure you know the disk/partition you&rsquo;re about to nuke
+  <a class="anchor" href="#be-very-very-very-sure-you-know-the-diskpartition-youre-about-to-nuke">#</a>
+</h3>
+<p>Okay, so, we from here on this guide has a lot of commands that are not exactly what you should type, as the exact command will vary depending on your hardware. The most important variable here is the disk you&rsquo;re planning to install to. If you get this wrong, you&rsquo;ll eat Windows. Just be careful and you&rsquo;ll be okay.</p>
 <h3 id="doing-the-actual-partitioning--mkfs">
   Doing the Actual Partitioning &amp; mkfs
   <a class="anchor" href="#doing-the-actual-partitioning--mkfs">#</a>
@@ -1208,6 +1402,7 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
   Example layouts
   <a class="anchor" href="#example-layouts">#</a>
 </h4>
+<p><strong>UEFI with</strong> <a href="https://wiki.archlinux.org/title/GPT">GPT</a>:</p>
 <table>
 <thead>
 <tr>
@@ -1241,6 +1436,7 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
 <ol>
 <li><a href="https://wiki.archlinux.org/title/EFI_system_partition#Typical_mount_points">Other mount points</a>, such as <code>/mnt/efi</code>, are possible, provided that the used boot loader is capable of loading the kernel and initramfs images from the root volume. See the warning in <a href="https://wiki.archlinux.org/title/Arch_boot_process#Boot_loader">Arch boot process#Boot loader</a>.</li>
 </ol>
+<p><strong>BIOS with</strong> <a href="https://wiki.archlinux.org/title/MBR">MBR</a>:</p>
 <table>
 <thead>
 <tr>
@@ -1273,6 +1469,49 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>Okay, what this is saying is that when we got to make our partitions - assuming we&rsquo;re on a not-ancient computer - We&rsquo;ll need 3 partitions. One for booting, one for swap, and one for everything else. This is where things start to get weird in this guide, as, if you&rsquo;re dual booting with Windows, we can commandeer the Windows EFI system partition (the boot partition) to make our lives easier. First though, we need to check we can actually do that.</p>
+<p>Above, what probably feels like forever ago with all this reading, you should have ran</p>
+<p><code>lsblk --output NAME,MODEL,TRAN,SIZE,FSTYPE,MOUNTPOINT</code></p>
+<p>and you should get output at least sorta-kinda similar to this:</p>
+<pre tabindex="0"><code>NAME        MODEL                           TRAN     SIZE FSTYPE   MOUNTPOINT
+loop0                                              702.1M squashfs /run/archiso/airootfs
+sda         Cruzer Blade                    usb     29.3G iso9660       
+├─sda1                                               801M iso9960
+└─sda2                                                15M vfat
+nvme1n1     CT4000P3SSD8                    nvme     3.6T        
+├─nvme1n1p1                                 nvme     300M vfat
+├─nvme1n1p2                                 nvme     128M        
+├─nvme1n1p3                                 nvme     3.6T ntfs
+└─nvme1n1p4                                 nvme     714M ntfs   
+nvme0n1     SPCC M.2 PCIe SSD               nvme   953.9G        
+</code></pre><p>Now, there&rsquo;s bound to be some differences. Here, I have a separate, unused disk to install Linux onto - <code>nvme0n1</code> down there with no file system, no partitions, and nearly a whole terabyte free to use. If you instead had to shrink Windows to make room for the install, you&rsquo;ll probably have something closer to this:</p>
+<pre tabindex="0"><code>NAME        MODEL                           TRAN     SIZE FSTYPE   MOUNTPOINT
+loop0                                              702.1M squashfs /run/archiso/airootfs
+sda         Cruzer Blade                    usb     29.3G iso9660       
+├─sda1                                               801M iso9960
+└─sda2                                                15M vfat
+nvme1n1     CT4000P3SSD8                    nvme     3.6T        
+├─nvme0n1p1                                 nvme     300M vfat
+├─nvme0n1p2                                 nvme     128M        
+├─nvme0n1p3                                 nvme     1.6T ntfs
+├─nvme0n1p4                                 nvme     714M ntfs   
+└─nvme0n1p5                                 nvme      2TB 
+</code></pre><p>Where instead of having a second disk, you have a large (hopefully 128GB+) partition with no file system on it. Either is fine. Regardless, what you need to note is the name of disk or partition. In the first example that&rsquo;s <code>nvme0n1</code>, as the entire disk is free for use to use as windows is on an entirely different drive. In the second example it&rsquo;s <code>nvme0n1p5</code> as we&rsquo;re going to be splitting up and using that partition, but you&rsquo;ll also still need to note the drive, which in that case is also <code>nvme0n1</code>.</p>
+<p>In either case, we can avoid the need to make a new boot partition because that <code>vfat</code> partition on the same drive that has the NTFS partitions is a boot partition. It&rsquo;s the one Windows uses and the one we&rsquo;re going to steal.</p>
+<p class="tip ">
+    My examples here all use <code>nvmeXnX</code> but your drives may be <code>sdX</code> which is fine. It won&rsquo;t matter.
+</p>
+<p>So, let&rsquo;s do it. In both examples above - the made-space and fresh drive - the drive name we&rsquo;re targeting is <code>/dev/nvme0n1</code> so, we can run <code>cfdisk /dev/nvme0n1</code> . That <code>c</code> on the start of the command the guide recommends will give us a nicer interface.</p>
+<p>(note, this is a screenshot of a drive with Windows without free space, as I can&rsquo;t easily screenshot from a system mid-install)</p>
+<p><img src="/eng/cfdisk.png" alt="" /></p>
+<p>What you should do is first make 10GB SWAP partition. To do this, arrow-key down to the big block of free space on your drive (or, if it&rsquo;s a fresh disk, it&rsquo;s the only thing there) and use the left and right arrows to highlight &ldquo;new&rdquo; at the bottom. Press enter. It&rsquo;ll ask you for a size. It should default to all the remaining size. We don&rsquo;t want that. Backspace it and write <code>10G</code> for 10 gigabytes. This is a good amount of swap on most systems.</p>
+<p>Alright, that should have made the partition, but it&rsquo;ll say &ldquo;Linux Filesystem&rdquo; on the right. We want this to be swap. With it highlighted, go over to &ldquo;Type&rdquo; and press enter. That&rsquo;ll bring up a big dialog, select &ldquo;Linux Swap&rdquo;.</p>
+<p>Now, arrow down to your remaining free space and hit New. Leave it with all your remaining space. Press enter. This new partition should say Linux Filesystem, it should be at least 100GB in size, and conveniently, if we hover over it it sholud say at the bottom <code>Filesystem: BTRFS</code> - it&rsquo;s making a BTRFS file system on the partition for us. Sweet.</p>
+<p>Okay, that&rsquo;s done, we can now use the arrow keys to select &ldquo;Write&rdquo; and press enter. It&rsquo;ll warn you this is where shit can hit the fan. Type &ldquo;yes&rdquo; to say you want to do it, to which it should respond with &ldquo;The partition table has been altered.&rdquo;</p>
+<p>Congrats, you made the partitions and formatted the drive. Easy, right? arrow over to quit, and press the up arrow a few times until the previously entered <code>lsblk --output NAME,MODEL,TRAN,SIZE,FSTYPE,MOUNTPOINT</code> command shows up, and press enter. You should now see your new partitions - one with the FSTYPE <code>btrfs</code> and one <code>swap</code>. Hell yeah!</p>
+<p class="tip ">
+    At the time of writing, there appears to be a bug with how <code>cfdisk</code> makes the btrfs partition. To remedy this, look for the btrfs partition name in the above output and run </br><code>mkfs.btrfs -f /dev/[name of partition]</code> for example, <code>mkfs.btrfs -f /dev/nvme0n1p2</code>.
+</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h3 id="format-the-partitions">
@@ -1299,10 +1538,52 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>AYYYY, we already did this. We already have our swap and BTRFS partitions. (We&rsquo;re using BTRFS, but the above shows using EXT4 for the same use - it doesn&rsquo;t matter much). That big warning in yellow is exactly the step we&rsquo;re <strong>not doing</strong> because we&rsquo;re using Windows EFI partition.</p>
 <h3 id="mounting">
   Mounting
   <a class="anchor" href="#mounting">#</a>
 </h3>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="mount-the-file-systems">
+  Mount the file systems
+  <a class="anchor" href="#mount-the-file-systems">#</a>
+</h3>
+<p><a href="https://wiki.archlinux.org/title/Mount">Mount</a> the root volume to <code>/mnt</code>. For example, if the root volume is <code>/dev/*root_partition*</code>:</p>
+<pre tabindex="0"><code># mount /dev/root_partition /mnt
+</code></pre><p>Create any remaining mount points (such as <code>/mnt/efi</code>) and mount their corresponding volumes.</p>
+<p><strong>Tip:</strong> Run <a href="https://man.archlinux.org/man/mount.8">mount(8)</a> with the <code>--mkdir</code> option to create the specified mount point. Alternatively, create it using <a href="https://man.archlinux.org/man/mkdir.1">mkdir(1)</a> beforehand.</p>
+<p>For UEFI systems, mount the EFI system partition:</p>
+<pre tabindex="0"><code># mount --mkdir /dev/efi_system_partition /mnt/boot
+</code></pre><p>If you created a <a href="https://wiki.archlinux.org/title/Swap">swap</a> volume, enable it with <a href="https://man.archlinux.org/man/swapon.8">swapon(8)</a>:</p>
+<pre tabindex="0"><code># swapon /dev/swap_partition
+</code></pre><p><a href="https://man.archlinux.org/man/genfstab.8">genfstab(8)</a> will later detect mounted file systems and swap space.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>Okay, when we ran <code>lsblk</code> to confirm we have our partitions, we can see what the partition name is. For me, on the fresh disk, this gave me</p>
+<pre tabindex="0"><code>NAME        MODEL                           TRAN     SIZE FSTYPE   MOUNTPOINT
+loop0                                              702.1M squashfs /run/archiso/airootfs
+sda         Cruzer Blade                    usb     29.3G iso9660       
+├─sda1                                               801M iso9960
+└─sda2                                                15M vfat
+nvme1n1     CT4000P3SSD8                    nvme     3.6T        
+├─nvme1n1p1                                 nvme     300M vfat
+├─nvme1n1p2                                 nvme     128M        
+├─nvme1n1p3                                 nvme     3.6T ntfs
+└─nvme1n1p4                                 nvme     714M ntfs   
+nvme0n1     SPCC M.2 PCIe SSD               nvme   953.9G   
+├─nvme1n1p1                                 nvme     10GB swap
+└─nvme1n1p2                                 nvme   943.9G btrfs  
+</code></pre><p>So to mount my btrfs partition I&rsquo;m going to run <code>mount /dev/nvme1n1p2 /mnt</code>. This will make the storage we made accessible at the folder <code>/mnt</code>. Finally. We could actually go store a file there now if we wanted. We don&rsquo;t want to, but we could.</p>
+<p>Okay, now we need to mount the boot partition, the place we&rsquo;re going to store the information Linux needs to start itself. Like I said, we&rsquo;re commandeering the Windows spot for this. Fortunately both can live along side eachother fine. You&rsquo;re looking for the moderately sized <code>vfat</code> partition on the same drive as some <code>NTFS</code> partitions. Here, that&rsquo;s <code>nvme1n1p1</code>.</p>
+<p>We want to mount this inside of the existing <code>/mnt</code>  This may seem weird, but it&rsquo;s like saying if you go to this folder inside of this file system, you&rsquo;re <em>actually</em> going to a different file system all together. This is really common in Linux and admittedly a bit weird to think about.</p>
+<p>Anyway, we need to put this boot partition at <code>/mnt/boot</code>, so with this example I&rsquo;ll run <code>mount --mkdir /dev/nvme1n1p1 /mnt/boot</code>. The <code>--mkdir</code> part of that makes the folder named &ldquo;boot&rdquo; on the btrfs partition to mount this in. If that doesn&rsquo;t make sense don&rsquo;t worry about it to much.</p>
+<p>Finally, we&rsquo;ll enable our swap, you know the drill. Find the partition the swap is on - above it&rsquo;s <code>nvme1n1p1</code> so I&rsquo;ll run <code>swapon /dev/nvme1n1p1</code>.</p>
 <h2 id="congrats-now-you-can-actually-install-arch">
   Congrats, Now you can actually install Arch.
   <a class="anchor" href="#congrats-now-you-can-actually-install-arch">#</a>
@@ -1324,6 +1605,7 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>Technically you should check this and make sure it&rsquo;s sane. In reality, if you have internet connection - which we made sure you did above - it should be. Doing this manually is a pain, so I&rsquo;ll just assume it&rsquo;s fine.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h4 id="install-essential-packages">
@@ -1356,21 +1638,13 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
-<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
-<p>
-    
-</p>
-    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
-        <p style="font-size:.85em;color:#aaa;"> 
-        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
-    </div>
-</div>
+<p>FINALLY. This is the fun command. It&rsquo;s called <code>pacstrap</code> because it uses <code>pacman</code> (the system package-manager) to pull the system up by it&rsquo;s bootstraps - We&rsquo;re finally getting this thing rockin`.</p>
+<p>So, lets do it. run <code>pacstrap /mnt base base-devel linux linux-firmware linux-headers</code>. That&rsquo;ll take a hot minute and fill you screen with many lines of text. When it&rsquo;s done you&rsquo;ll have a very minimal (read: Mostly useless) Linux install done. Unfortunately, you can&rsquo;t even boot into it yet as you haven&rsquo;t even installed a boot loader.</p>
 <h2 id="getting-the-basics-configured">
   Getting The Basics Configured
   <a class="anchor" href="#getting-the-basics-configured">#</a>
 </h2>
 <p style="font-size: 30px;text-align: center;">⬤⬤⬤⬤⬤⬤⬤⬤⬤◯</p>
-<p>Technically you&rsquo;ve installed Arch. Unfortunately, you couldn&rsquo;t really boot into it right now if you wanted. Plus, even if you did, it wouldn&rsquo;t really be set up for even basic use yet. So, there&rsquo;s a lot more to go.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h4 id="fstab">
@@ -1387,6 +1661,8 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>Do the thing ↑. We&rsquo;ll need to edit it later, but for now that command alone should do the trick.</p>
+<p>In short, this is generating (gen) your filesystem (fs) tabulation (tab) file which is what Linux looks for on startup to figure out what filesystems to load, where they&rsquo;re at, and how to load them.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h4 id="chroot">
@@ -1402,6 +1678,8 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>Run that command ↑.</p>
+<p>What this is doing is changing our root (chroot = change root) to our new install. This means when we edit files from here on out we&rsquo;re working on the system we&rsquo;ll actually be using instead of the one that booted off the flash drive.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h3 id="time-zone">
@@ -1413,18 +1691,31 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
 </code></pre><p>Run <a href="https://man.archlinux.org/man/hwclock.8">hwclock(8)</a> to generate <code>/etc/adjtime</code>:</p>
 <pre tabindex="0"><code># hwclock --systohc
 </code></pre><p>This command assumes the hardware clock is set to <a href="https://en.wikipedia.org/wiki/UTC">UTC</a>. See <a href="https://wiki.archlinux.org/title/System_time#Time_standard">System time#Time standard</a> for details.</p>
-<h3 id="localization">
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
+    </div>
+</div>
+<p>To see your options you can type <code>ln -sf /usr/share/zoneinfo/</code> and press tab. Type the region and the slash, then press tab again. Obviously the city doesn&rsquo;t have to be where you live, it just has to be in the same time zone.</p>
+<p>The second command synchronizes the computer&rsquo;s hardware clock.</p>
+<p>This does have an annoying side effect. When you boot back to Windows, the time will be wrong. You can fix that by next time your in windows, opening an admin command prompt and running</p>
+<p><code>reg add &quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot; /v RealTimeIsUniversal /d 1 /t REG_DWORD /f</code></p>
+<div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
+<p>
+    <h3 id="localization">
   Localization
   <a class="anchor" href="#localization">#</a>
 </h3>
 <p><a href="https://wiki.archlinux.org/title/Textedit">Edit</a> <code>/etc/locale.gen</code> and uncomment <code>en_US.UTF-8 UTF-8</code> and other needed <a href="https://wiki.archlinux.org/title/Locale">locales</a>. Generate the locales by running:</p>
 <pre tabindex="0"><code># locale-gen
 </code></pre><p><a href="https://wiki.archlinux.org/title/Create">Create</a> the <a href="https://man.archlinux.org/man/locale.conf.5">locale.conf(5)</a> file, and <a href="https://wiki.archlinux.org/title/Locale#Setting_the_system_locale">set the LANG variable</a> accordingly:</p>
-<pre tabindex="0"><code>/etc/locale.conf
-LANG=en_US.UTF-8
+<p><strong>/etc/locale.conf:</strong></p>
+<pre tabindex="0"><code>LANG=en_US.UTF-8
 </code></pre><p>If you <a href="https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout">set the console keyboard layout</a>, make the changes persistent in <a href="https://man.archlinux.org/man/vconsole.conf.5">vconsole.conf(5)</a>:</p>
-<pre tabindex="0"><code>/etc/vconsole.conf
-KEYMAP=de-latin1
+<p><strong>/etc/vconsole.conf:</strong></p>
+<pre tabindex="0"><code>KEYMAP=de-latin1
 </code></pre>
 </p>
     <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
@@ -1432,6 +1723,11 @@ KEYMAP=de-latin1
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>Ironically, the <code>edit</code> part of this is the awkward part as you don&rsquo;t actually have a text editor yet. So, lets go install one.</p>
+<p>Because your system has just been installed, we know it&rsquo;s list of packages that are available is up to date, so we can run <code>pacman -S nano</code> to <strong>-S</strong>ynchonize the <code>nano</code> package to our system using <code>pacman</code>. <code>nano</code> is the name of a basic, terminal-user-interface (TUI) text editor. You&rsquo;ll be asked if you want to install it. Press &lsquo;y&rsquo; and &rsquo;enter&rsquo;.</p>
+<p>Now, we can edit that file. Run <code>nano /etc/locale.gen</code>. For pretty much any of my readers your LANG should be <code>en_US.UTF-8</code> so scroll down in the file that opened with your arrow keys until you find that and then remove the <code>#</code> before it. Then, to save the change, do Ctrl+o (the <code>^</code> character in the usage guide at the bottom means Ctrl). Then do Ctrl+x to exit.</p>
+<p>Then make the /etc/locale.conf file, to do this run <code>nano /etc/locale.conf</code> and fill it with what you need, <code>LANG=en_US.UTF-8</code> as in the example above is probably applicable to most readers. Save it and exit nano again.</p>
+<p>Finally, run <code>locale-gen</code>.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h4 id="network-configuration">
@@ -1439,8 +1735,8 @@ KEYMAP=de-latin1
   <a class="anchor" href="#network-configuration">#</a>
 </h4>
 <p><a href="https://wiki.archlinux.org/title/Create">Create</a> the <a href="https://wiki.archlinux.org/title/Hostname">hostname</a> file:</p>
-<pre tabindex="0"><code>/etc/hostname
-myhostname
+<p><strong>/etc/hostname:</strong></p>
+<pre tabindex="0"><code>myhostname
 </code></pre><p>Complete the <a href="https://wiki.archlinux.org/title/Network_configuration">network configuration</a> for the newly installed environment. That may include installing suitable <a href="https://wiki.archlinux.org/title/Network_management">network management</a> software.</p>
 
 </p>
@@ -1449,6 +1745,12 @@ myhostname
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>Okay, so, right now you have access to the network in your chroot because the networking as setup from the flash-drive&rsquo;s live system is still active, but if were to reboot (and you had a bootloader, which you don&rsquo;t yet) you wouldn&rsquo;t have networking because you have no networking stack setup to provide it!</p>
+<p>Let&rsquo;s fix that.</p>
+<p>First, you should do what the guide says and set your host name. This is the name other computers on the network can use to identify your computer. You could make it say &ldquo;bobs-laptop&rdquo; but you can also have fun and make it more-or-less whatever you want. Don&rsquo;t use spaces or weird characters though.</p>
+<p>Like before, you just need to <code>nano /etc/hostname</code>. Type the name you want. Save. Close.</p>
+<p>Okay, now we need to actually set up the networking software. I recommend using <a href="https://wiki.archlinux.org/title/NetworkManager">NetworkManager</a>. We can install that with <code>pacman -S networkmanager</code></p>
+<p>We&rsquo;ll set it up in full later.</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h4 id="root-password">
@@ -1464,6 +1766,60 @@ myhostname
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>This is effectively the admin password. Do not forget this, or you&rsquo;re pretty much fucked.</p>
+<p>While we&rsquo;re at it, let&rsquo;s set up the very start of a user account, as using root all the time is very unsafe. To do so run:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd -m -G wheel mycrappyusername
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>followed by,</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>passwd mycrappyusername
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(I recommend using the same password you used for root)</p>
+<p>Now, we need to make it easy to use your account as an admin account via the <code>sudo</code> command (<strong>s</strong>uper <strong>u</strong>ser <strong>do</strong>).</p>
+<p>run</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>EDITOR<span style="color:#f92672">=</span>nano visudo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>then find the line that says</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># %wheel ALL=(ALL) ALL</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>and remove the &lsquo;#&rsquo;</p>
+<p>As an explanation, the &lsquo;#&rsquo; is turning that line in that file into a comment. In programming it&rsquo;s common practice to use comments to disable sections of code so say we had a program:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#print(i)</span>
+</span></span><span style="display:flex;"><span>    print(i<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>the <code>#</code> before <code>print(i)</code> is preventing it from actually executing so the output of this would be {1/2,1,3/2,2,5/2} instead of {1,1/2,2,1,3,3/2,4,2,5/2,5}</p>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h4 id="boot-loader">
@@ -1477,6 +1833,13 @@ myhostname
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>This gets to be all kinds of fun, because this is where some computers just say &ldquo;Nah, fuck you.&rdquo; And you&rsquo;ll have to either debug from hell to figure out why something isn&rsquo;t working or you&rsquo;ll have to try another option.</p>
+<p>If you&rsquo;re computer is UEFI (so, not ancient) <a href="https://wiki.archlinux.org/title/Systemd-boot">systemd-boot</a> has historically work quite well for me, but because I want to be 100% sure if you&rsquo;re following this guide that your computer will actually work, I&rsquo;m going to reccomend the ol&rsquo; reliable: <a href="https://wiki.archlinux.org/title/GRUB">Grub</a>.</p>
+<p>To do so, first actually install the packages <code>pacman -S grub efibootmgr os-prober</code></p>
+<p>We need to set grub to detect the Windows install. <code>nano /etc/default/grub</code> and remove the <code>#</code> on the line with <code>GRUB_DISABLE_OS_PROBER=false</code></p>
+<p>then actually install grub with</p>
+<p><code>grub-install --efi-directory=/boot --bootloader-id=GRUB</code></p>
+<p>In it&rsquo;s output it should say <code>os-prober will be executed...</code> somewhere.</p>
 <h2 id="finally-removing-the-flash-drive">
   Finally Removing The Flash Drive
   <a class="anchor" href="#finally-removing-the-flash-drive">#</a>
@@ -1498,6 +1861,12 @@ myhostname
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
+<p>[TODO] make sure the UEFI loads the new bootloader</p>
+<p>When you boot into the new system it will ask you for a username and password. The username is and password is whatever you set before. When you type the password it won&rsquo;t look like you&rsquo;re entering anything, don&rsquo;t worry, it&rsquo;s still registering the input. Just type it and press enter.</p>
+<p>Now, we can load up networking. Run <code>systemctl enable NetworkManager</code> and <code>systemctl start NetworkManager</code>. Enabling makes it start up on each boot, starting it starts it now for this boot. You won&rsquo;t need to run these again. Now, we can actually configure the network - if you&rsquo;re wired in, it should just work, but if you&rsquo;re on WiFi just run <code>nmuti</code>  → &ldquo;Activate a connection&rdquo; → find your network, enter your password. Keep pressing escape to get back to the terminal when done.</p>
+<p>Run <code>ping archlinux.org</code> and if after a few seconds you see something like</p>
+<p><code>64 bytes from archlinux.org (░░.░░░.░░░.░░░): icmp_seq=░ ttl=░░ time=░░░ms</code></p>
+<p>Then you&rsquo;re good to go. Press Ctrl+c to stop ping.</p>
 <h2 id="but-wait-this-is-worse-than-when-we-started">
   But Wait? This is worse than when we started?
   <a class="anchor" href="#but-wait-this-is-worse-than-when-we-started">#</a>
@@ -2174,6 +2543,8 @@ nvme0n1                                            953.9G
         <li><a href="#the-part-where-you-can-really-fuck-up">The Part Where You can Really Fuck Up</a>
           <ul>
             <li><a href="#a-tangent-about-file-systems--partition-table-schemes">A tangent about File Systems &amp; Partition Table Schemes</a></li>
+            <li><a href="#fuse-encryption-lvm-raid-wtffff">FUSE, Encryption, LVM, RAID, WTFFFF‽?</a></li>
+            <li><a href="#be-very-very-very-sure-you-know-the-diskpartition-youre-about-to-nuke">Be very, very, very sure you know the disk/partition you&rsquo;re about to nuke</a></li>
             <li><a href="#doing-the-actual-partitioning--mkfs">Doing the Actual Partitioning &amp; mkfs</a></li>
             <li><a href="#mounting">Mounting</a></li>
           </ul>
