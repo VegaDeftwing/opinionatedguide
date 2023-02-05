@@ -27,8 +27,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 15 - Writing a larger program # From https://wiki.xxiivv.com/site/development.html
-Prototype before polishing. Get it working before optimizing it. Separate policy from mechanism, separate interfaces from engines. Write simple modular parts connected by clean interfaces. Design programs to be connected to other programs. Write programs to write programs when you can. Design for the future, because it will be here sooner than you think. In interface design, always do the least surprising thing.">
+<meta name="description" content="Chapter 15 - Writing a larger program # Prototype before polishing. Get it working before optimizing it. Separate policy from mechanism, separate interfaces from engines. Write simple modular parts connected by clean interfaces. Design programs to be connected to other programs. Write programs to write programs when you can. Design for the future, because it will be here sooner than you think. In interface design, always do the least surprising thing.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -40,8 +39,7 @@ Prototype before polishing. Get it working before optimizing it. Separate policy
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 15 - Writing a larger program # From https://wiki.xxiivv.com/site/development.html
-Prototype before polishing. Get it working before optimizing it. Separate policy from mechanism, separate interfaces from engines. Write simple modular parts connected by clean interfaces. Design programs to be connected to other programs. Write programs to write programs when you can. Design for the future, because it will be here sooner than you think. In interface design, always do the least surprising thing." />
+<meta property="og:description" content="Chapter 15 - Writing a larger program # Prototype before polishing. Get it working before optimizing it. Separate policy from mechanism, separate interfaces from engines. Write simple modular parts connected by clean interfaces. Design programs to be connected to other programs. Write programs to write programs when you can. Design for the future, because it will be here sooner than you think. In interface design, always do the least surprising thing." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/bigprog/" /><meta property="article:section" content="Engineering" />
 
@@ -50,7 +48,7 @@ Prototype before polishing. Get it working before optimizing it. Separate policy
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5a0c4ce8c27aee626709f8fbc667d7b907e6c9347a6617631077d6df665a2140.css" integrity="sha256-WgxM6MJ67mJnCfj7xmfXuQfmyTR6ZhdjEHfW32ZaIUA=">
-<script defer src="/en.search.min.ab69e26f68c7c44c531ca2459ed47b9d69f84ee978a35211eb90a636a1a5e57b.js" integrity="sha256-q2nib2jHxExTHKJFntR7nWn4Tul4o1IR65CmNqGl5Xs="></script>
+<script defer src="/en.search.min.8370902fca1d1ff37c1e5372152e285dcf8fd7ed35347feb1771c19f817de89b.js" integrity="sha256-g3CQL8odH/N8HlNyFS4oXc&#43;P1&#43;01NH/rF3HBn4F96Js="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -538,6 +536,19 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-15---writing-a-larger-program">Chapter 15 - Writing a larger program</a>
       <ul>
+        <li><a href="#organization-naming-and-style">Organization, Naming, and Style</a>
+          <ul>
+            <li><a href="#function-names-should-have-verbs">Function names should have verbs</a></li>
+            <li><a href="#variable-names-should-be-descripive">Variable names should be descripive</a></li>
+            <li><a href="#peren-all-the-things">Peren all the things</a></li>
+            <li><a href="#avoid-nesting">Avoid nesting</a></li>
+            <li><a href="#avoid-potential-infinite-loops">Avoid Potential Infinite Loops</a></li>
+            <li><a href="#dont-hard-code-values-avoid-magic-numbers">Don&rsquo;t hard code values (avoid &ldquo;Magic Numbers&rdquo;)</a></li>
+            <li><a href="#pick-a-naming-scheme">Pick a naming scheme</a></li>
+            <li><a href="#check-all-the-things-for-failure">Check all the things for failure</a></li>
+          </ul>
+        </li>
+        <li><a href="#why-you-shouldnt-write-big-programs-brthe-unix-philosophy">Why You Shouldn&rsquo;t Write Big Programs: </br>&ldquo;The Unix Philosophy&rdquo;</a></li>
         <li><a href="#object-oriented-programming">Object Oriented Programming</a></li>
         <li><a href="#planning">Planning</a></li>
         <li><a href="#software-engineering">Software Engineering</a></li>
@@ -558,9 +569,9 @@ https://github.com/alex-shpak/hugo-book
   Chapter 15 - Writing a larger program
   <a class="anchor" href="#chapter-15---writing-a-larger-program">#</a>
 </h1>
-<p>From <a href="https://wiki.xxiivv.com/site/development.html">https://wiki.xxiivv.com/site/development.html</a></p>
-<blockquote>
-<ul>
+<div class="quote [xxiivv/development](https://wiki.xxiivv.com/site/development.html)">
+<p>
+    <ul>
 <li>Prototype before polishing. Get it working before optimizing it.</li>
 <li>Separate policy from mechanism, separate interfaces from engines.</li>
 <li>Write simple modular parts connected by clean interfaces.</li>
@@ -573,13 +584,394 @@ https://github.com/alex-shpak/hugo-book
 <li>Write big programs only when it is clear by demonstration that nothing else will do.</li>
 <li>Consider how you would solve your immediate problem without adding anything new.</li>
 </ul>
-</blockquote>
-<p>Programming can seem scary at first, but the more you exercise, the easier and more exciting it gets. After all, practice makes perfect! :)</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://wiki.xxiivv.com/site/development.html">xxiivv/development</a>
+    </div>
+</div>
+<hr>
+<p>If you&rsquo;re on this page, presumably you&rsquo;re feeling ready to tackle making some bigger programs. Fortunately for you, the core building blocks are the same. The biggest difference is the amount of discipline required. This is why the first thing I want to touch on is the equivalent of janitorial work for code:</p>
+<h2 id="organization-naming-and-style">
+  Organization, Naming, and Style
+  <a class="anchor" href="#organization-naming-and-style">#</a>
+</h2>
+<p>There is one absolutely universal rule of code organization</p>
+<p style="text-decoration-line: underline;
+text-decoration-thickness: 3px;">Do not write large, monolithic functions</p>
+<p>Read that again. And again. Burn this idea into your brain. Even if the function will only ever be called in one place and there&rsquo;s no repeated segments in it, if it gets to big you absolutely have to split it up. This is rule №1, do not break it.</p>
+<p>To quickly barrel though some of the others.</p>
+<h3 id="function-names-should-have-verbs">
+  Function names should have verbs
+  <a class="anchor" href="#function-names-should-have-verbs">#</a>
+</h3>
+<p>Even if this is just <code>get_whatever()</code>, &ldquo;get&rdquo; is a verb. If it doesn&rsquo;t have a verb, it&rsquo;s a bad name.</p>
+<h3 id="variable-names-should-be-descripive">
+  Variable names should be descripive
+  <a class="anchor" href="#variable-names-should-be-descripive">#</a>
+</h3>
+<span class="smalltext ">
+    *Unless it&rsquo;s really, really dumb, like using <code>i</code>, <code>j</code>, and <code>k</code> for loop counters
+</span>
+<p>Don&rsquo;t name your variables <code>bool blunt_master_420</code>. Give it a name that actually means something in the code.</p>
+<h3 id="peren-all-the-things">
+  Peren all the things
+  <a class="anchor" href="#peren-all-the-things">#</a>
+</h3>
+<p><code>if(a &lt; b || b &gt; c)</code> isn&rsquo;t bad to read, but under some circumstances statements like these can get super confusing, so always use extra parentheses to enclose each idea <code>if((a &lt; b) || (b &gt; c))</code> is a lot easier to read.</p>
+<p>If you had something like <code>if(a &amp;&amp; (b || ((c &lt;&lt; (d + e)) == f) || ((g &lt;&lt; h) == !l)))</code> those parentheses become vital to have any chance in hell of reading what&rsquo;s going on. This shouldn&rsquo;t happen anyway though. If you&rsquo;re doing anything like that you should store the result  of  <code>((c &lt;&lt; (d + e)) == f)</code> and <code>((g &lt;&lt; h) == !l)</code> into some temporary variables to make this easier to read in the first place.</p>
+<h3 id="avoid-nesting">
+  Avoid nesting
+  <a class="anchor" href="#avoid-nesting">#</a>
+</h3>
+<p>Don&rsquo;t write</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(a){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(b){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(c){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(d){
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (e){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(g){
+</span></span><span style="display:flex;"><span>                   <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// throw error and return
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It&rsquo;s fucking impossible to read and debug.</p>
+<p>There&rsquo;s a few ways to fix this. First is moving some of the nested blocks into their own functions</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">my_func</span>(c,e,d,g){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(c){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(d){
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		}
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (e){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(g){
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(a){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(b){
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">my_func</span>(c,d,e,g);
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        	<span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    	}
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span> 	   <span style="color:#75715e">// throw error and return
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The other is to reverse-logic and move a conditional out of the chain.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">my_func</span>(c,e,d,g){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(c){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(d){
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		}
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (e){
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(g){
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>a){
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// throw error and return
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(b){
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">my_func</span>(c,d,e,g);
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="avoid-potential-infinite-loops">
+  Avoid Potential Infinite Loops
+  <a class="anchor" href="#avoid-potential-infinite-loops">#</a>
+</h3>
+<p>This is less code organization and more just general best practice, but only using <code>while</code> when absolutely necessary and - in cases where you do have to - making damn sure it can&rsquo;t get stuck in an infinite loop will save you  a lot of pain.</p>
+<p>Similarly, don&rsquo;t use floats in the conditional of your loops (for or while) if you can help it. Floats are weird and annoying as hell to debug.</p>
+<h3 id="dont-hard-code-values-avoid-magic-numbers">
+  Don&rsquo;t hard code values (avoid &ldquo;Magic Numbers&rdquo;)
+  <a class="anchor" href="#dont-hard-code-values-avoid-magic-numbers">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">do_something</span>()){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">==</span> <span style="color:#ae81ff">9</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;ERROR, failed after 10 attemps&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Is a pretty common block of code, just retry the thing 10 times, allowing some room for a function to fail. This is also a terrible way to write it. If we wanted to update the number of times it can retry, we have to update the code in 3 different places which is very error prone. Instead, we could do something like this,</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#define RETRIES 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> RETRIES; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">do_something</span>()){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">==</span> (RETRIES <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;ERROR, failed after %u attemps&#34;</span>, RETRIES);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="pick-a-naming-scheme">
+  Pick a naming scheme
+  <a class="anchor" href="#pick-a-naming-scheme">#</a>
+</h3>
+<p>Generally you&rsquo;ll see variable and functions named with either <code>PascalCase</code>, <code>camelCase</code>, <code>snake_case</code>. Some code basses will mix styles to differentiate between variable, functions, or classes. It&rsquo;s also common to use <code>UPPERCASE</code> for some lesser used things, like constants. If you&rsquo;re working in an existing code base, it&rsquo;s vital that you match the style in use. If you&rsquo;re writing your own code from scratch, ensure you&rsquo;re consistent with your naming unless you have a damn good reason to break your own rules.</p>
+<p>You&rsquo;ll also probably see some naming styles that add characters to specify something. For example, in C, using <code>_t</code> at the end of a new type is common - as you should be used to with types like <code>uint8_t</code>. You may also see <code>_f</code> for float things.</p>
+<h3 id="check-all-the-things-for-failure">
+  Check all the things for failure
+  <a class="anchor" href="#check-all-the-things-for-failure">#</a>
+</h3>
+<p>Opening a file? What if it doesn&rsquo;t exist.</p>
+<p>Accessing a value at a pointer? What if somebody passed you a <code>NULL</code>.</p>
+<p>Checking the size of a string? What if the <code>\0</code> is missing.</p>
+<p>Writing good code requires thinking about all the ways it can fail. Some of this becomes routine, like adding <code>if (ptr == NULL){//complain}</code> to the start of any function your write in C that takes in pointers or arrays</p>
+<div class="speech big ">
+    <p>
+        Notice that 3 of my 4 examples are more-or-less C specific? This the biggest reasons people complain about it as a language. It&rsquo;s a shit show for &ldquo;safety&rdquo; - it makes you constantly think about everything that can go wrong, otherwise you&rsquo;re writing security vulnerabilities and the potential for your program to crash super hard.
+    </p>
+</div>
+
+
+
+
+<p>Alternatively, write functions so they <strong>can not fail</strong>. This is pretty hard to do though.</p>
+<p>When you&rsquo;re writing functions, if they can fail, make sure they can tell the caller if they failed. Usually you do this by returning a <code>bool</code> of true for success and false for failure.</p>
 <p>[TODO]</p>
+<ul>
+<li>
+<p>Use tools to help</p>
+<ul>
+<li>Colored regions</li>
+</ul>
+</li>
+<li>
+<p>Autoformatters</p>
+<ul>
+<li>Should probably pick some of the important options in clang-format and talk about them.</li>
+</ul>
+</li>
+<li>
+<p>Comments &amp; Doxygen</p>
+<ul>
+<li>Document the &lsquo;Why&rsquo; not the &lsquo;How&rsquo; - Future you can read code, but future you probably won&rsquo;t remember why it&rsquo;s there or why it was done this way.</li>
+</ul>
+</li>
+<li>
+<p>Test your code.</p>
+</li>
+<li>
+<p>Make your tools work for you - especially your compiler.</p>
+</li>
+</ul>
+<p><a href="https://medium.com/@msandin/strategies-for-organizing-code-2c9d690b6f33">https://medium.com/@msandin/strategies-for-organizing-code-2c9d690b6f33</a></p>
+<h2 id="why-you-shouldnt-write-big-programs-brthe-unix-philosophy">
+  Why You Shouldn&rsquo;t Write Big Programs: </br>&ldquo;The Unix Philosophy&rdquo;
+  <a class="anchor" href="#why-you-shouldnt-write-big-programs-brthe-unix-philosophy">#</a>
+</h2>
+<p>There are absolutely times you&rsquo;ll need to write large, single purpose, cotained programs. For example, a video game fit&rsquo;s this description pretty well.</p>
+<p>However, the vast majority of programs you may want to write probably don&rsquo;t need written, at least not in the way you&rsquo;re envisioning.</p>
+<p>If you dug deep into the 
+
+
+
+
+  
+
+
+<a  href="/engineering/linux/linuxshell/"   class="book-btn ">
+  Linux Shell
+</a>
+ and learned a bit of shell programming, you&rsquo;d have come across the <a href="https://opguides.info/engineering/linux/linuxshell/">Unix Philosophy</a> which is beautifully summed up by Peter H. Salus,</p>
+<div class="quote Peter H. Salus in A Quarter-Century of Unix ">
+<p>
+    <ul>
+<li>Write programs that do one thing and do it well.</li>
+<li>Write programs to work together.</li>
+<li>Write programs to handle text streams, because that is a universal interface.</li>
+</ul>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - Peter H. Salus in A Quarter-Century of Unix
+    </div>
+</div>
+<p>The idea is that for most programs - the actual process-data-and-move-on-with-life kind of programs - we can make them by stringing together simpler programs in our shell (or, today, in Python if it&rsquo;s a bit more complex) This means that for many &ldquo;big programs&rdquo; you might want to write, a &ldquo;big program&rdquo; is the wrong solution to begin with.</p>
+<p>The main advatages of this design are that you&rsquo;ll have a pile of reusable parts and that each part has been tested independently.</p>
+<p>For example,</p>
+<p><code>lynx -dump www.example.com | fltrdr</code></p>
+<p>Uses <a href="https://lynx.invisible-island.net">Lynx</a> to get the text of a webpage and shoves it into <a href="https://github.com/octobanana/fltrdr">fltrdr</a> to allow for very fast reading. That&rsquo;s two otherwise unrelated programs, chained together.</p>
+<p><code>for file in *.wav; do lame &quot;$file&quot; &quot;$(basename &quot;$file&quot; .wav).mp3&quot; ; done;</code></p>
+<p>Is another good one from <a href="https://stackoverflow.com/questions/68372/what-is-your-single-most-favorite-command-line-trick-using-bash">this thread</a> that will convert all the .wav files in a folder to .mp3.</p>
+<p>If you get clever you can really get these chains to do some crazy shit. By reading log files, poking things on the network, and chaining together commands, you&rsquo;ll realize a large portion of the programs you might otherwise make can be be much simpler chains of existing tools or you may only need to make one custom tool to sit somewhere in that chain. You might do this in Bash (the language used above) or Python if there a fair amount of logic (writing conditionals and error handling in Bash is a tad awkward) but either way, that mindset of &ldquo;I can make this by chaining together existing tools, maybe adding just a bit of my own code&rdquo; will avoid tedious wheel reinvention.</p>
+<p>Still, not <em>all</em> problems can be solved this way. Sometimes you actually do have to either reinvent some wheels or make a large program that isn&rsquo;t just a combination of existing tools. Generally, this is because of one or more of these reasons:</p>
+<ul>
+<li>You want to sell something and don&rsquo;t want to make it open source, and so you cant use existing open source tools (viral licenses)</li>
+<li>You&rsquo;re working on a very constrained system (needs to be high performance, low memory, low power, etc.)</li>
+<li>You have an original idea (You&rsquo;ve looked everywhere and nobody&rsquo;s done it <em>or</em> it&rsquo;s something artistic, like a video game, audio effect, etc.)</li>
+</ul>
+<p>or you just want to learn how something works, so you&rsquo;re making it from scratch, like making your own game engine.</p>
+<p>Regardless, if you&rsquo;re on this page you&rsquo;re clearly thinking about writing something bigger than you&rsquo;ve made so far. Depending on the language, your goals, and you&rsquo;re experience this can mean a lot of different things so to be clear, here I&rsquo;m meaning writing something that is, at minimum, going to occupy multiple files.</p>
 <h2 id="object-oriented-programming">
   Object Oriented Programming
   <a class="anchor" href="#object-oriented-programming">#</a>
 </h2>
+<p>We already talked about 
+
+
+
+
+  
+
+
+<a  href="/engineering/programming/intro/prog8oo/"   class="book-btn ">
+  Object Oriented Programming
+</a>
+ a bit in the intro pages but there&rsquo;s a few more things that come with it you should know about:</p>
+<p>[TODO]</p>
+<p>Templates - <a href="https://www.geeksforgeeks.org/templates-cpp/">https://www.geeksforgeeks.org/templates-cpp/</a> (Not technically OOP but it sorta fits here)</p>
+<p>Operatator and Function overloading</p>
+<p>Private &amp; Public methods (also not necessarliy OOP, but make more sense in this context)</p>
+<p>explain <code>this</code></p>
 <h2 id="planning">
   Planning
   <a class="anchor" href="#planning">#</a>
@@ -588,11 +980,15 @@ https://github.com/alex-shpak/hugo-book
   Software Engineering
   <a class="anchor" href="#software-engineering">#</a>
 </h2>
-<p>Software Engineering is a fucking nightmare. You&rsquo;ll hear terms like <a href="https://en.wikipedia.org/wiki/Agile_software_development">Agile</a>, <a href="https://en.wikipedia.org/wiki/Scrum_%28software_development%29">Scrum</a>, <a href="https://en.wikipedia.org/wiki/Stand-up_meeting">Stand-up</a>, Sprints, <a href="https://en.wikipedia.org/wiki/Kanban_%28development%29">Kanban Boards</a>, <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a>, and the word &ldquo;Actionable&rdquo; enough that it makes you want to puke. The entire process is the corporatization of code, the distillation of a creative art into something gray and bland, lifeless and dull. They&rsquo;ll tell you it makes your code better, more organized, better tested. That this is the true way to do software development, and that it&rsquo;s necessary for writing good code. That all the best startups use all of these things 110% percent of the time and look how great they are, all the employees have access to an arcade at work, unlimited beer and soda at work, a pool table at work, a gym at work. Hell, they even do work at work! But maybe, just maybe, there should be some things that&hellip; aren&rsquo;t work? Is that a radical idea, that a work-life balance means going home at the end of the work day and not working 60-hour weeks for a 40 hour salary so that you can meet a deadline of self-assigned deadlines. No, I will not talk about software engineering in earnest on OpGuides because the entire field is one of masochism and unsustaniability, where the only focus is to make a product good enough to sell to a larger, more abusive corporate overlord.</p>
-<p>I&rsquo;m not saying all the buzzwords above are bad things, I don&rsquo;t think they are. My problem is with the workaholic to burnout culture they tend to come along with as well as the inability to understand that humans do have emotions and are not, in fact, machines. Sometimes talking about something that is not actionable is still important just for the sake of thinking and letting the brain wander a bit. Sometimes it&rsquo;s hard to write the test case before the code is written, as you may not understand the problem 100% yet. <strong>It&rsquo;s the blind following of these ideas without thought about why they&rsquo;re used that&rsquo;s the problem</strong>. It often results in more code that is harder to maintain, instead of good, clean code. Being overly rigid with any workflow- ironically even agile- without consideration for why it is used leads to a bad and unproductive work environment.</p>
+<p>Software Engineering is a fucking nightmare.</p>
+<p>You&rsquo;ll hear terms like <a href="https://en.wikipedia.org/wiki/Agile_software_development">Agile</a>, <a href="https://en.wikipedia.org/wiki/Scrum_%28software_development%29">Scrum</a>, <a href="https://en.wikipedia.org/wiki/Stand-up_meeting">Stand-up</a>, Sprints, <a href="https://en.wikipedia.org/wiki/Kanban_%28development%29">Kanban Boards</a>, <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a>, and the word &ldquo;Actionable&rdquo; enough that it makes you want to puke. The entire process is the corporatization of code, the distillation of a creative art into something gray and bland, lifeless and dull. They&rsquo;ll tell you it makes your code better, more organized, better tested. That this is the true way to do software development, and that it&rsquo;s necessary for writing good code. That all the best startups use all of these things 110% percent of the time and look how great they are, all the employees have access to an arcade at work, unlimited beer and soda at work, a pool table at work, a gym at work. Hell, they even do work at work! But maybe, just maybe, there should be some things that&hellip; aren&rsquo;t work?</p>
+<p>Is that a radical idea, that a work-life balance means going home at the end of the work day and not working 60-hour weeks for a 40 hour salary so that you can meet a deadline of self-assigned deadlines. No, I will not talk about software engineering in earnest on OpGuides because the entire field is one of masochism and unsustaniability, where the only focus is to make a product good enough to sell to a larger, more abusive corporate overlord.</p>
+<p>I&rsquo;m not saying all the buzzwords above are bad things, I don&rsquo;t think they are. My problem is with the workaholic to burnout culture they tend to come along with as well as the inability to understand that humans do have emotions and are not, in fact, machines. Sometimes talking about something that is not actionable is still important just for the sake of thinking and letting the brain wander a bit. Sometimes it&rsquo;s hard to write the test case before the code is written, as you may not understand the problem 100% yet.</p>
+<p><strong>It&rsquo;s the blind following of these ideas without thought about why they&rsquo;re used that&rsquo;s the problem</strong>. It often results in more code that is harder to maintain, instead of good, clean code. Being overly rigid with any workflow- ironically even agile- without consideration for why it is used leads to a bad and unproductive work environment.</p>
 <p>Having standards, workflows, tests, roadmaps, etc. are all good! You shouldn&rsquo;t just merge in any shit code. The problems start when working with others it becomes expected to work and write code in one super specific way -not just like, use camelCase, but like, actual restrictions on logic or over adherence to SOLID to the point the code is made unnecessarily complicated and hard to follow, as more and more boilerplate code forms to tie all the mess together.</p>
 <p>Development teams do need a good way to stay organized, I just think a lot of how it&rsquo;s done in the Hail Corporate™ world results in worse code with more bugs and employees that need therapy.</p>
-<p>Yes, you should test your code. Yes, some of these methods can help. No, you shouldn&rsquo;t turn this shit into a bonafide religion and your workers into cultists. If in talking to others you can only think &ldquo;What they&rsquo;re saying isn&rsquo;t actionable&rdquo; you cease to be human.</p>
+<p>Yes, you should test your code.</br>Yes, some of these methods can help.</br>No, you shouldn&rsquo;t turn this shit into a bonafide religion and your workers into cultists.</p>
+<p>If in talking to others you can only think &ldquo;What they&rsquo;re saying isn&rsquo;t actionable&rdquo; you cease to be human.</p>
 <img class="center" src="/nonfree/character/throw.png" alt="Table Flip" height="200em">
 </article>
  
@@ -644,6 +1040,19 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-15---writing-a-larger-program">Chapter 15 - Writing a larger program</a>
       <ul>
+        <li><a href="#organization-naming-and-style">Organization, Naming, and Style</a>
+          <ul>
+            <li><a href="#function-names-should-have-verbs">Function names should have verbs</a></li>
+            <li><a href="#variable-names-should-be-descripive">Variable names should be descripive</a></li>
+            <li><a href="#peren-all-the-things">Peren all the things</a></li>
+            <li><a href="#avoid-nesting">Avoid nesting</a></li>
+            <li><a href="#avoid-potential-infinite-loops">Avoid Potential Infinite Loops</a></li>
+            <li><a href="#dont-hard-code-values-avoid-magic-numbers">Don&rsquo;t hard code values (avoid &ldquo;Magic Numbers&rdquo;)</a></li>
+            <li><a href="#pick-a-naming-scheme">Pick a naming scheme</a></li>
+            <li><a href="#check-all-the-things-for-failure">Check all the things for failure</a></li>
+          </ul>
+        </li>
+        <li><a href="#why-you-shouldnt-write-big-programs-brthe-unix-philosophy">Why You Shouldn&rsquo;t Write Big Programs: </br>&ldquo;The Unix Philosophy&rdquo;</a></li>
         <li><a href="#object-oriented-programming">Object Oriented Programming</a></li>
         <li><a href="#planning">Planning</a></li>
         <li><a href="#software-engineering">Software Engineering</a></li>

@@ -50,7 +50,7 @@ Samples # A snippet of a .wav file open in audacity A sample is exactly as the n
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5a0c4ce8c27aee626709f8fbc667d7b907e6c9347a6617631077d6df665a2140.css" integrity="sha256-WgxM6MJ67mJnCfj7xmfXuQfmyTR6ZhdjEHfW32ZaIUA=">
-<script defer src="/en.search.min.ab69e26f68c7c44c531ca2459ed47b9d69f84ee978a35211eb90a636a1a5e57b.js" integrity="sha256-q2nib2jHxExTHKJFntR7nWn4Tul4o1IR65CmNqGl5Xs="></script>
+<script defer src="/en.search.min.8370902fca1d1ff37c1e5372152e285dcf8fd7ed35347feb1771c19f817de89b.js" integrity="sha256-g3CQL8odH/N8HlNyFS4oXc&#43;P1&#43;01NH/rF3HBn4F96Js="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -546,7 +546,7 @@ https://github.com/alex-shpak/hugo-book
         </li>
         <li><a href="#basic-oscillators">Basic Oscillators</a></li>
         <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
-        <li><a href="#wavetables">Wavetables</a></li>
+        <li><a href="#span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan"><span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span></a></li>
         <li><a href="#fm-synthesis">FM Synthesis</a></li>
         <li><a href="#granular-synthesis">Granular Synthesis</a></li>
         <li><a href="#feedback-todo">Feedback [TODO]</a></li>
@@ -615,7 +615,7 @@ https://github.com/alex-shpak/hugo-book
 <span class="smalltext ">
     Bitwig Studio&rsquo;s Sampler. Here pitch tracking is enabled, making it so the sample can be played sped up or slowed down to pitch chromatically along the keyboard. Bitwig&rsquo;s Sampler is pretty similar to many other samplers in other DAWs like Ableton Live or modules like Simpliciter In VCV rack
 </span>
-<p>Here, we&rsquo;re looking at the sampler device in in Bitwig Studio, though most of this should be similar in other software. Starting with the obvious, the sample wave form in the middle. I have loaded a sample which has multiple drum sound in it, but I&rsquo;ve zoomed in on one sample and placed these yellow flags to denote the start an end points. Bitwig&rsquo;s sampler, like many others, will try to snap these points to aforementioned zero crossings.  You&rsquo;ll also see next to the file name that the keyboard icon is blue and says 100% and next to that the root is set to C3. This means that if I play the C3 key on my keyboard it will play the sample as is, but if I play a different key it will slow playback down or speed playback up to match the pitch to the key I&rsquo;m playing. The reason there&rsquo;s a way to set the root being is because, say I hit and recorded the A4 key on my piano- it&rsquo;s nice to be able to correct for the pitch of the sample in the keyboard tracking - you want to tell the computer what note a sample contains.</p>
+<p>Here, we&rsquo;re looking at the sampler device in in Bitwig Studio, though most of this should be similar in other software. Starting with the obvious, the sample wave form in the middle. I have loaded a sample which has multiple drum sounds in it, but I&rsquo;ve zoomed in on one sample and placed these yellow flags to denote the start an end points. Bitwig&rsquo;s sampler, like many others, will try to snap these points to aforementioned zero crossings. You&rsquo;ll also see next to the file name that the keyboard icon is blue and says 100% and next to that the root is set to C3. This means that if I play the C3 key on my keyboard it will play the sample as is, but if I play a different key it will slow playback down or speed playback up to match the pitch to the key I&rsquo;m playing. Say I hit and record the A4 key on my piano- it&rsquo;s nice to be able to correct for the pitch of the sample in the keyboard tracking - you want to tell the computer what note a sample contains.</p>
 <p>Still in the same section of the window but below the first yellow flag that denotes the start, you&rsquo;ll see two smaller yellow flag icons that have a time specified. These are the times in the sample where the start and end flags are placed.</p>
 <p>Left of that you&rsquo;ll also see an arrow with an <strong>R</strong> over it, that&rsquo;s the button to tell it you want to play the sample in reverse. To the right, there&rsquo;s some loop options. Right now it&rsquo;s in &lsquo;<strong>Single Shot</strong>&rsquo; mode. If the button to trigger the sample is held for longer than the length of the sample, it will still only play once. The other two options are a forward repeat, the equivilent of leaving a song on loop, and a &lsquo;ping-pong&rsquo; loop, where the slice will play forwards then-backwards then forwards then &hellip;. as long as the gate is held.</p>
 <p>I also want to mention the freeze ability in this sampler- the snowflake below the end-time indicator. When enabled sample playback has to be done manually - and new controls to do so become available. Think of it like a record that you have to spin yourself. This can lead to some really cool sounds.</p>
@@ -625,9 +625,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#lets-sample">#</a>
 </h3>
 <p>Talk is cheap, let&rsquo;s actually put this to use. First, we&rsquo;ll need some samples. To give us something fun to start with, go grab <a href="https://www.glitch.cool/projects/glitch-with-friends-samples-vol-3">Glitch With Friends, Vol Ⅲ.</a> (It&rsquo;s free) - Note that it is a 7.23GB download, so if you&rsquo;re on a slow connection it might take a hot minute. Once you have it downloaded, extract the .zip somewhere.</p>
-<p>Now, we need something to play back samples. We could go grab something like like <a href="https://www.youtube.com/watch?v=bY6-Vxwdj_k">Simpliciter</a> or <a href="https://library.vcvrack.com/NYSTHI/MusicalBox">MusicalBox</a> to play back samples in VCV Rack, but instead I think we should broaden our horizons a bit.</p>
-<p>[TODO] Sunvox? LMMS? FL Demo? Whatever we use, it probably needs a page before this one to set it up, which sorta ruins the VCV flow. FL Probably makes the most sense, as it&rsquo;s the most pro for least money (long term) option, and the free trial should be enough. This probably means moving up the explanation of DAWs and their differences. I&rsquo;m not sure how to handle this yet.</p>
-<p>[TODO] Multisamples</p>
+<p>Now, we need something to play back samples. Let&rsquo;s go grab both <a href="https://library.vcvrack.com/NYSTHI/Simpliciter">Simpliciter</a> to play back samples in VCV Rack.</p>
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -646,10 +644,14 @@ https://github.com/alex-shpak/hugo-book
 </div>
 
 <p>Unlike the bitwig sampler, this sampler, &lsquo;Simpliciter&rsquo; in VCV Rack can take in live input to layer sounds or record the inital sample. In general you should see a lot of the same controls I talked about above exposed in this UI. There are some extra neat ones here though, including the ability to detect peaks as is enabled in the lower left in this screenshot. With this and a longer sample file with multiple drums you can just select the drum sample you want on each play-trigger.</p>
+<p>Watch the above video from Omri Cohen, get a vibe of what Simpliciter can do. Then, go nuts. You know enough about how VCV works now that experimentation will be the best way to learn.</p>
+<p>One thing I do want to stress is that this workflow of right clicking the module and digging trough your file system to find the right sound <strong>sucks</strong>. In a normal DAW - as mentioned on the last page - you won&rsquo;t have this problem.</p>
+<p>[TODO] Multisamples</p>
 <h3 id="field-recordings-tape-loops-and-other-sampling-goodness">
   Field Recordings, Tape Loops, and other sampling goodness
   <a class="anchor" href="#field-recordings-tape-loops-and-other-sampling-goodness">#</a>
 </h3>
+<p>While you may not be able to do anything with the knowledge at the moment, I do want to note a few other things related to samples.</p>
 <div class="book-columns flex flex-wrap">
   
   <div class="flex-even markdown-inner">
@@ -659,21 +661,21 @@ https://github.com/alex-shpak/hugo-book
   </div>
   
   <div class="flex-even markdown-inner">
-    
+    <p>First, tape loops are a thing. These typically use normal cassette tapes but the tape on the inside has been replaced with a loop so that it&rsquo;ll repeat. Because tape naturally degrades and can be pitch shifted by slowing down or speeding up the play back speed they can act as a neat physical implementation of the same techniques we use samples for. Similarly, they&rsquo;ve inspired many techniques that are used for effects, such as the distortion/satuartion that comes with tape and the wobble that comes with an old motor.</p>
+<p>See <a href="https://www.youtube.com/watch?v=JZ-yp2cCGbQ">Tape Loops Are Dope (YouTube, Andrew Huang)</a> for more on Tape Loops.</p>
+
   </div>
   
 </div>
 
-<p>[TODO]</p>
-<p><a href="https://soundslikenoise.org">https://soundslikenoise.org</a></p>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/JZ-yp2cCGbQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Another source of samples you may come across are field recordings. While these are really the same as samples like mentioned above, they&rsquo;re often <em>very</em> long, including hours of content taken from nature or background noises in a city. Often these are used to add a subtle texture to a piece, everything from putting on a rainy day to a sci-fi cityscape. Recording good field recordings is an art in itself and is both fun and challenging. You can find plenty for free online or even nab this <a href="https://bedroomproducersblog.com/2022/04/02/free-to-use-sounds-bundle/">1.6Tb pack</a> (yes, terrabytes) for $20. I do recommend trying to record a few rainy days yourself though.</p>
 <h2 id="basic-oscillators">
   Basic Oscillators
   <a class="anchor" href="#basic-oscillators">#</a>
 </h2>
 <p>Generally there are a few kinds of oscillators you should know about, but first, what&rsquo;s an oscillator?</p>
 <p>Well, very simply, it&rsquo;s a thing that oscillates- moves in a repeating pattern. Generally there are three ways you&rsquo;ll hear Oscillators refereed to as being VCO, DCO, or LFO. You may also see Oscillators in general refereed to with the abbreviation osc. Unfortunately, that can be confusing because OSC can also mean Open Sound Control, something I&rsquo;ll get into in the Sequencing and MIDI chapter in a bit.</p>
-<p>A <strong>VCO</strong> is a Voltage Controlled Oscillator. Back in VCV you saw these being emulated where each volt of constant input applied made the oscillator oscillates at twice the speed, one octave higher. In real life, VCOs tend to be a bit unstable and have minor pitch drift. While this may sound like a negative, it&rsquo;s generally seen as a feature, as stacked, slightly out of tune oscillators sound really good. In fact, VCV Rack&rsquo;s basic VCO, &lsquo;VCO-1&rsquo;, emulates this behavior by default.</p>
+<p>As you&rsquo;ve already seen, a <strong>VCO</strong> is a Voltage Controlled Oscillator. Back in VCV you saw these being emulated where each volt of constant input applied made the oscillator oscillates at twice the speed, one octave higher. In real life, VCOs tend to be a bit unstable and have minor pitch drift. While this may sound like a negative, it&rsquo;s generally seen as a feature, as stacked, slightly out of tune oscillators sound really good. In fact, VCV Rack&rsquo;s basic VCO, &lsquo;VCO-1&rsquo;, emulates this behavior by default.</p>
 <p>A <strong>DCO</strong> is a Digitally Controlled Oscillator. These (usually) exhibit no pitch drift and are far easier to tune.</p>
 <p>Note that some hardware may go from a digital input to a VCO internally, or take a voltage pitch signal as input but just sample it to use a DCO internally.</p>
 <p>an <strong>LFO</strong> is a Low Frequency Oscillator, they can still be either digital or analog (DCO or VCO), but they typically have a max frequency of around a hundred hertz and are meant to be used to control other things, not make sound to hear directly.</p>
@@ -681,19 +683,39 @@ https://github.com/alex-shpak/hugo-book
 <blockquote class="book-hint info ">
   <p><strong>Analog? Digital?</strong></p>
 <p>Avoiding the complex explanation of what actually makes an oscilator analog or digital, here&rsquo;s what you need to know:</p>
-<p>no, really it&rsquo;s a matter of a few things:</p>
 <ul>
-<li>Analog systems have some natural pitch drift and non-linearity (distortion), this makes them sound &lsquo;warmer&rsquo;</li>
-<li>Most analog designs can handle audio-rate modulation by default, you&rsquo;re not fighting a limited sample rate</li>
-<li>If you record at very high bit depth / rate or direct to analog media (tape), it&rsquo;s relevent to not have the computational overhead on the sources, so analog oscilators help with that.</li>
-<li>Analog is low latency: a DSP based source/effect will incurr latency due to the neccitity of a sample buffer. <em>technically</em> you can somewhat avoid this with dedicated DSP/FGPA hardware, but even then there&rsquo;s some.
+<li>
+<p>Analog systems have some natural pitch drift and non-linearity (distortion), this makes them sound &lsquo;warmer&rsquo;</p>
+</li>
+<li>
+<p>Most analog designs can handle audio-rate modulation by default, you&rsquo;re not fighting a limited sample rate</p>
+<blockquote>
+<p>Because Math, digital systems can only understand frequencies up to half their sample rate. This is how often a new sample (in the single &lsquo;dot&rsquo; of the waveform sense) is taken. If you try to go over this frequency, they &ldquo;alias&rdquo;.</p>
+<p>The audible ramification of this is sound not being reproduced at the right frequency. This is a problem because things like distortion add that flavor to a wave by adding more and more higher-pitched frequencies that are related to the original sound. If they try to add too many, they alias. This adds those unexpected frequencies which generally sound bad.</p>
+<p>Audio rate modulation, that is doing something such having a 5khz sine wave change the frequency of another sine wave at, say, 4khz, generates a ton of these same distortions. In an analog system, there in no sample rate so this isn&rsquo;t a problem.</p>
+<p>If this doesn&rsquo;t make sense right now, that&rsquo;s okay. We&rsquo;ll se more on it later.</p>
+</blockquote>
+</li>
+<li>
+<p>If you record at very high bit depth / rate or direct to analog media (tape), it&rsquo;s relevent to not have the computational overhead on the sources, so analog oscilators help with that.</p>
+</li>
+<li>
+<p>Analog is low latency: a digital source/effect will incur latency due to the necessity of a sample buffer.</p>
+<blockquote>
+<p>Almost everything that uses sound digitally will work on a group of samples at a time as it is significantly easier on the computer to do so. Unfortunately, this means you&rsquo;ll have a delay of how long it takes to collect that many samples at that sample rate. For example, if you&rsquo;re sampling at 48kHz and you have a buffer size of 512, you&rsquo;ll end up with 48,000/512 = .0106 seconds = 10.6 milliseconds of delay. for context, 10 milliseconds is right on the edge of the limit of time between plucking a string on a guitar and hearing the result though an amp that most guitarist find comfortable to play it.</p>
+</blockquote>
 <ul>
-<li>This also means analog systems are great for feedback patching</li>
+<li>
+<p>This also means analog systems are great for feedback patching</p>
+<p>For example, in VCV you can take the output of a VCO and plug it into it&rsquo;s own FM input! <strong>Try it!</strong></p>
+</li>
 </ul>
 </li>
-<li>Digital (DSP) oscilators can get complexity and polyphony for cheaper, so they&rsquo;re good for really complex timbres, for example with wavetables, which I&rsquo;ll cover in a bit</li>
+<li>
+<p>Digital (DSP) oscilators can get complexity and polyphony for cheaper, so they&rsquo;re good for really complex timbres, for example with wavetables, which I&rsquo;ll cover in a bit</p>
+</li>
 </ul>
-<p>So, which is better? Neither! If you want to go all analog or all digital, that&rsquo;s cool, but both have their strengths and weaknesses.</p>
+<p>So, which is better? Neither! If you want to go all analog or all digital, that&rsquo;s cool, but both have their strengths and weaknesses. But going analog means using physical hardware, which is usually very expensive.</p>
 
 </blockquote>
 
@@ -702,15 +724,11 @@ https://github.com/alex-shpak/hugo-book
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Waveforms.svg/557px-Waveforms.svg.png" alt="Waveforms" style="-webkit-filter: invert(.85);">
 <p>Often, the square wave output has PWM or &lsquo;Pulse Width Modulation&rsquo; control:</p>
 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Duty_Cycle_Examples.png" style="-webkit-filter: invert(.85);zoom:75%;" />
-<p>Varying the pulse width over time sounds really good, to give it a shot try setting this up in VCV:</p>
-<p><img src="/music/PWMosc.webp" alt="PWMosc" /></p>
-<blockquote class="book-hint info ">
-  Here I&rsquo;ve set the LFO to be bi-polar with the switch on the left, and VCO-1&rsquo;s PWM CV knob has been turned up to make the input do something.
-</blockquote>
-
+<p>Varying the pulse width over time sounds really good, though you should already know this because this is exactly what we setup a few pages ago!</p>
 <p>Some oscillators will also have Sync, either Hard or Soft. Sync, in general, makes the waveform reset once it gets an input from another oscillator. This means you&rsquo;ll need two oscillators to do sync.</p>
-<blockquote>
-<p><strong>Oscillator sync</strong> is a feature in some synthesizers with two or more VCOs, DCOs, or &ldquo;virtual&rdquo; oscillators. As one oscillator finishes a cycle, it resets the period of another oscillator, forcing the latter to have the same <a href="https://en.wikipedia.org/wiki/Frequency">base frequency</a>.</p>
+<div class="quote [Wikipeda](https://en.wikipedia.org/wiki/Oscillator_sync)">
+<p>
+    <p><strong>Oscillator sync</strong> is a feature in some synthesizers with two or more VCOs, DCOs, or &ldquo;virtual&rdquo; oscillators. As one oscillator finishes a cycle, it resets the period of another oscillator, forcing the latter to have the same <a href="https://en.wikipedia.org/wiki/Frequency">base frequency</a>.</p>
 <p>[For <strong>Hard Sync</strong>] If the [following oscillator] is tuned to a lower frequency than the [controlling oscillator] it will be forced to repeat before it completes an entire cycle, and if it is tuned to a higher frequency it will be forced to repeat partway through a second or third cycle.</p>
 <p>[&hellip;] There are several other kinds of sync which may also be called <strong>Soft Sync</strong>.</p>
 <p><strong>Reversing Sync</strong></p>
@@ -729,46 +747,70 @@ https://github.com/alex-shpak/hugo-book
 <p>When the [leading] oscillator crosses some threshold, the normal reset of the [following oscillator] is disabled: it will stick at its final level, positive or negative. When the [leader] crosses back over some threshold, the [following oscillator] is reset.</p>
 <p><strong>Overlap Sync</strong></p>
 <p>In this method, the current wave completes but a new waveform is generated at the sync pulse. The tail of the old wave and the new wave are output summed if they overlap.</p>
-</blockquote>
-<p class="attribution ">
-    <a href="https://en.wikipedia.org/wiki/Oscillator_sync">https://en.wikipedia.org/wiki/Oscillator_sync</a>
+
 </p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:#aaa;"> 
+        - <a href="https://en.wikipedia.org/wiki/Oscillator_sync">Wikipeda</a>
+    </div>
+</div>
 <p>I&rsquo;d also like to briefly mention oscillator cores. Especially in VCOs, knowing what the &lsquo;core&rsquo; of an oscillator is can make a difference. The core is simply the waveform from which the other waveform are derived. Generally, there are three kinds you&rsquo;ll see (though others are possible): Triangle, Saw, and Trapezoid core. To get an idea of what a core is, lets look at the saw.</p>
 <p>You can think of making a saw wave as just progressively counting higher with time. So, at t=0, we start at 0, at t=1 we go to 1, etc. until at, let&rsquo;s say t=10, we reset back to 0, and count back up to 10. If we assume this process is continuous, that is we could look at any decimal, like at t=1.12 the wave is at 1.12, we&rsquo;ve generated a sawtooth wave. This is our core. Now, we can say whenever that &lsquo;core&rsquo; wave is less than 5, output 0 on the square output. If it&rsquo;s greater than 5, output 10. If the blue wave is that core oscilator, the pink wave is the result (ignore the awkward spikes at the transition points)</p>
 <p><img src="/music/cores.webp" alt="cores" /></p>
 <p>The core used will often change the features of the oscillator. Generally, saw core oscillators are the cheapest and most common but also the least capable. Triangle and trapezoid cores often offer extra features, such as outputs other than the common sine, tri, saw, square.</p>
 <p>Finally, I&rsquo;d like to bring up harmonics.</p>
-<p>The really dumb version: If the wave has quick transitions (cliffs, ridges, etc) it&rsquo;s going to be more harmonically rich, and therefore have more &lsquo;sonic content&rsquo; above the base frequency. For example, say you play a 440hz sine wave. It will have no harmonics, it will be a pure, 440hz tone. But, if you play a 440hz square wave?  That&rsquo;ll have a ton of harmonics, actually, by definition, it will have <strong>odd</strong> harmonics. If you care about the mathy stuff you can read <a href="http://www.jezzamon.com/fourier/">An Interactive Introduction to Fourier Transforms by
-Jez Swanson</a>. But, the relevant bit for for musical stuff is that these harmonics, the phase relationship between them, and how they change over time is what makes a sound sound like <em>that sound</em>. It&rsquo;s what makes a piano sound like a piano, etc.</p>
+<p>The really dumb version: If the wave has quick transitions (cliffs, ridges, etc) it&rsquo;s going to be more harmonically rich, and therefore have more &lsquo;sonic content&rsquo; above the base frequency. For example, say you play a 440hz sine wave. It will have no harmonics, it will be a pure, 440hz tone. But, if you play a 440hz square wave?  That&rsquo;ll have a ton of harmonics, actually, by definition, it will have <strong>odd</strong> harmonics. If you care about the mathy stuff you can read <span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="http://www.jezzamon.com/fourier/">An Interactive Introduction to Fourier Transforms by Jez Swanson</a>
+</span> But, the relevant bit for for musical stuff is that these harmonics, the phase relationship between them, and how they change over time is what makes a sound sound like <em>that sound</em>. It&rsquo;s what makes a piano sound like a piano, etc - This is what I called &ldquo;Flavor&rdquo; on the first page.</p>
 <p>Anyway, knowing what these harmonics add to a sound make a big difference. Often with synths, you&rsquo;ll find you have separate control or outputs of the even and odd harmonics. This is sort of what you expect.</p>
 <p>For example, say we have a 100hz &lsquo;base&rsquo; sound. Then the even harmonics would be 200, 400, 600, 800, etc. Odd harmonics will be at 300, 500, 700, etc. Note that humans can only hear up to 20,000 hertz anyway, so, technically it&rsquo;s impossible for you to hear a true square wave (Well, technically a <em>true</em> square wave would have infinite energy, so it&rsquo;s impossible for more than one reason).</p>
 <p>I&rsquo;ll spare you going any deeper into terminology like the difference between harmonics and overtones, but, and here&rsquo;s the important parts:</p>
 <ul>
-<li>Even harmonics have the perfect octaves and 5th, while odd harmonics have 3rds- which turns into dominant seventh chords</li>
-<li>If you add in a lower harmonic (say you have a sub-octave pedal on your guitar) your brain will (usually) perceive the note as being the lowest frequency in that harmonic series available</li>
+<li>Even harmonics have the perfect octaves and 5th, while odd harmonics have 3rds- which turns into dominant seventh chords
+<ul>
+<li>We&rsquo;ll hit music theory later, but generally 5ths are thought to sound happy, albeit a bit bland while 7ths are dissonant and so carry a lot more emotional weight. This in turn means that even harmonics tend to sound more pleasing while odd harmonics are a lot grittier and in your face.</li>
+</ul>
+</li>
+<li>If you add in a lower harmonic (say you have a sub-octave pedal on your guitar) your brain will (usually) perceive the note as being the new, lower note. That is, or brains tend to use the lowest frequency in a sound to assign it a note on the keyboard.</li>
 <li>Distortion is literally just adding harmonics to the sound, clipping a sine wave (a form of distortion) is a really easy way to see this</li>
 </ul>
+<p>Check this video out for a nice introduction to this that you can actually hear:</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/Wx_kugSemfY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="additive-and-subtractive-synthesis">
   Additive and Subtractive Synthesis
   <a class="anchor" href="#additive-and-subtractive-synthesis">#</a>
 </h2>
+<p>When using oscillators, you usually will want to sculpt your sound a bit more beyond the basic waves. While there are many, many, many ways to do this the most basic two are additive and subtractive synthesis (Though more often not you&rsquo;ll usually use both together).</p>
+<p>The easier to understand but harder to master is additive. Basically, you can just use a whole pile of oscillators together and sum up (mix) their outputs to get a different sound. If you do this with a different envelope on each oscillator&rsquo;s volume and frequency you can basically make any sound imaginable, with enough effort. Usually you&rsquo;ll mix simple oscillators, often even just sine waves.</p>
+<p>Subtractive synthesis on the other hand works by starting with a complex wave and filtering out some of the sound. The key word these is <strong>filtering</strong>. Filters are something we&rsquo;ll talk about more later, but the gist is they can be used to alter the flavor of a wave. The most common types of filters are the <strong>L</strong>ow <strong>P</strong>ass <strong>F</strong>ilter (LPF) and <strong>H</strong>igh <strong>P</strong>ass <strong>F</strong>ilter (HPF). Each does what it sounds like. If you use a LPF you can remove some of the higher frequencies in wave. If you use a HPF, you can remove some of the lower frequencies. At the extremes with either type you can filter out everything, making the sound silent. You could also end up right against that threshold and getting any sound into just a sine wave.</p>
+<p><img src="/music/filter.gif" alt="filter" /></p>
+<p>Go ahead and setup the same thing in VCV Rack (Note, the above .gif uses an old version, but the connections should be the same) but also hook it up to the audio output so you can hear what each knob does. Most notably, the <code>RES</code> knob which will change the peak at the cutoff point. This will make a lot more sense when you actually try it.</p>
+<p>If you want a gentle intro, check out this 3 part video series (Of which only the first in embedded directly below.)</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLrnjie9klQEkZGar3zZ4hRurU_kUDk7Md" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p>[TODO] making a basic subtractive synth voice in VCV</p>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/SCujIf5eJ2w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<h2 id="wavetables">
-  Wavetables
-  <a class="anchor" href="#wavetables">#</a>
+<p>To learn more about Additive Synthesis, I really recommend <a href="https://www.youtube.com/watch?v=SCujIf5eJ2w">Additive Synthesis Magical Mystery Tour (Loopop, YouTube)</a>.</p>
+<h2 id="span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan">
+  <span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span>
+  <a class="anchor" href="#span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan">#</a>
 </h2>
+<p>There&rsquo;s more to life than Sines, Saws, Tris, and Squares. Welcome to the future, Baby! We&rsquo;ve got WAVETABLES.</p>
+<div style="float: right; width: 15%; padding: 10px;">
+<img src="https://library.vcvrack.com/screenshots/100/Fundamental/VCO2.png" style="zoom:62%;" />
+</div>
+<p>VCV has a built in wavetable VCO that is preloaded with a table that will let you morph between each of the waveforms you&rsquo;ve seen repeatedly now, but much more interesting is you can load custom wave tables. Let&rsquo;s go grab some <a href="https://waveeditonline.com">https://waveeditonline.com</a> - just go to the bottom of the page and click &ldquo;<a href="https://waveeditonline.com/wav-files.zip">
+Download all WAV at once (ZIP file)</a>&rdquo; &hellip; or click this link directly.</p>
+<p>Once that&rsquo;s downloaded, extract it. In VCV load the <strong>WT VCO</strong> module. Hook it up like you would the a VCO from the prior pages.</p>
+<p>Right click it and select <code>Load Wavetable</code> and select one of the files in the folder you extracted. I like &ldquo;KYMA_PAR.WAV&rdquo;, if you can&rsquo;t decide. When it&rsquo;s loaded, right click the module again and change <code>Wave Points</code> to 256. All of the files you just downloaded should use this same 256 setting.</p>
+<p>Now try adjusting the <code>WT POS</code> knob. If you want, try to build up a bigger patch with these wave table modules and the other modules you&rsquo;ve tried so far.</p>
+<p>If you need some inspiration, try duplicating the <strong>WT VCO</strong> module, hooking up the second one to the <code>RIGHT</code> input on the <strong>AUDIO</strong> module and using two different <strong>LFO</strong> modules into the <code>POS</code> inputs on each <strong>WT VCO</strong> - make sure to turn up the small knob above each <code>POS</code> input so the LFOs have some effect.</p>
+<p>To learn more about Wavetables, I suggest watching the video below. It uses a paid software synthesizer, but there are plenty of free wavetable based synthesizers we can dive into later after we get a DAW setup.</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/8DjnDVWKaEs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p>Note, that not all wavetable synths have the linear FM (discussed in the next section), Phase mod / distortion, and wavefolding that pigments has, though many do.</p>
-<p>I really recommend using <a href="https://blamsoft.com/vcv-rack/xfx-wave/">Blamsoft&rsquo;s XFX-Wave</a> for VCV rack to try out Wavetable synthesis. Also in VCV, <a href="https://library.vcvrack.com/TinyTricks/WAVE">Tiny Tricks Wave</a> is a neat way to experiment with recording your own tables- just hook up three signals and press &lsquo;capture&rsquo;.</p>
+<p>Note, that not all wavetable synths have the linear FM (discussed in the next section), Phase mod / distortion, and wavefolding that pigments - the synth in that video - has, though many do.</p>
+<p>I really recommend using <a href="https://library.vcvrack.com/Blamsoft-XFXWave/Blamsoft-XFXWave">Blamsoft&rsquo;s XFX-Wave</a> for VCV Rack for more advanced wave table synthesis. It doesn&rsquo;t let you load your own waves, but it has really good ones built in. Also in VCV Rack, <a href="https://library.vcvrack.com/TinyTricks/WAVE">Tiny Tricks Wave</a> is a neat way to experiment with recording your own tables- just hook up three signals and press &lsquo;capture&rsquo;.</p>
 <p><img src="/music/VCVWavetables.webp" alt="" /></p>
 <p>You may also hear about <a href="https://xferrecords.com/products/serum">XFer Serum</a>, it&rsquo;s the sort of EDM/Dubstep standard synth, and is a powerhouse for wavetables. It&rsquo;s incredibly popular, so there&rsquo;s a ton of great wavetable packs for it too (I particularly like the <a href="https://www.echosoundworks.com/coda">Coda</a> pack). Because Serum is so popular, it&rsquo;s wavetable format is supported by most other wavetable synths as well, so if you&rsquo;re jonesn&rsquo; for more wavetables, looking up free packs for serum can be a good place to start.</p>
 <p>Serum is pretty expensive though, so you may want to check out <a href="https://vital.audio">VITAL</a> (which TBH I think is a bit better anyway)</p>
 <p>There are of course, many, many other Wavetable synths out there, but I can&rsquo;t mention all of them. If you do want to check out more though, I recommend looking into <a href="https://kilohearts.com/products/phase_plant">Phase Plant (VST)</a>, <a href="https://www.modalelectronics.com/argon8/">Argon8 (Standalone Synth)</a>, <a href="https://www.perfectcircuit.com/harvestman-piston-honda-mk3.html">Piston Honda MKⅢ (Eurorack)</a>, Plaits &amp; Braids (Eurorack or <a href="https://library.vcvrack.com/Atelier/AtelierPalette">VCV</a>), Cursus Iteritas (<a href="https://www.perfectcircuit.com/noise-eng-cursus-iteritas-black.html">Eurorack</a> or <a href="https://www.reasonstudios.com/shop/rack-extension/cursus-iteritas-vereor/">Reason</a>), and the <a href="https://www.perfectcircuit.com/asm-hydrasynth-desktop.html">Hydrasynth (Desktop)</a>.</p>
-<p>The Spherical Wavetable Navigator from 4MS is too cool to not link a video too as well:</p>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/qosfee4qJbM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h2 id="fm-synthesis">
   FM Synthesis
   <a class="anchor" href="#fm-synthesis">#</a>
@@ -778,23 +820,24 @@ Jez Swanson</a>. But, the relevant bit for for musical stuff is that these harmo
     <a href="https://scsynth.org/t/coding-fm-synthesis-algorithms/1381">Source (Likely originally from the Yahmaha DX7 Manual)</a>
 </p>
 <p>Frequency Modulation or FM, is just the simply when you let the output of one oscillator modulate the frequency of another oscillator. Usually this is done in simple ratios and, ideals, uses linear, through zero modulation.</p>
-<p>First, Let&rsquo;s start with linear vs exponential FM. It&rsquo;s worth noting that most pitch tracking is exponential since our music system itself is inherently exponential (each octave is a doubling, that is the frequency between C5 and C4 is twice the frequency between C3 and C4). This causes a problem though, if we modulate with exponential FM, say with a sine wave that is +/- 1V (2Vpp) and we start with an A4 at 440hz, then we&rsquo;ll swing up to 880hz and down to 220hz. Fine right? Not so much. If this modulation is meant to simply give us a more harmonically interesting A as we mix in different octaves that won&rsquo;t be the effect, as now we&rsquo;re (to oversimplify) at 880hz half the time and 220hz half the time, and if we average those, 
+<p>First, Let&rsquo;s start with linear vs exponential FM. It&rsquo;s worth noting again that most pitch tracking is exponential since our music system itself is inherently exponential (each octave is a doubling, that is the frequency between C5 and C4 is twice the frequency between C3 and C4).</p>
+<p>This causes a problem though, if we modulate with exponential FM, say with a sine wave that is +/- 1V (2Vpp) and we start with an A4 at 440hz, then we&rsquo;ll swing up to 880hz and down to 220hz. Fine right? Not so much. If this modulation is meant to simply give us a more harmonically interesting A as we mix in different octaves that won&rsquo;t be the effect, as now we&rsquo;re (to oversimplify) at 880hz half the time and 220hz half the time, and if we average those, 
 <link rel="stylesheet" href="/katex/katex.min.css" />
 <script defer src="/katex/katex.min.js"></script>
 <script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
   \(\frac{880&#43;220}{2}\)
 </span>
-, then we don&rsquo;t still get the original A 440hz but rather we get 550Hz, so, we&rsquo;ve detuned. Linear FM won&rsquo;t be able to follow the V/Oct standard (though some may use the Hz/V standard) but will keep you in tune as you modulate. This, however, begins to pose a more interesting problem. Imagine you want to modulate a 100hz signal by +/- 200hz. Clearly, that would mean going as high as 300hz, but what happens when we get past the first half of that negative signal and hit 0hz? Well, this is where having a Though Zero FM (TZFM) capability comes in handy, as this issue is solved sonically by actually inverting the phase of the signal when crossing the 0Hz point. While this may seem an odd solution, it does produce sounds that line up with what our ears expect.</p>
-<p>Exponential FM and V/Oct, assuming the same scaling, are the same thing though so sometimes you can actually view it more as a second V/Oct input. For example, you could use the Exp FM input to specify the note, and then the normal V/Oct input to change the octave. Of note however, this may not always work as the Exp FM input may be AC coupled, meaning that DC values, like note data, will not be able to get through and instead you&rsquo;ll just hear a &ldquo;ping&rdquo; as the pitch is modulated at the cutoff of the AC coupling filter, in these cases the Exp FM input will have a minimum frequency that the input signal can oscillate at to perform properly.</p>
+, then we don&rsquo;t still get the original A 440hz but rather we get 550Hz, so, we&rsquo;ve detuned by a heck of a lot. That&rsquo;s an entirely different note.</p>
+<p>Linear FM won&rsquo;t follow the V/Oct standard (though some may use the Hz/V standard) but will keep you in tune as you modulate. This, however, begins to pose a more interesting problem. Imagine you want to modulate a 100hz signal by +/- 200hz. Clearly, that would mean going as high as 300hz, but what happens when we get past the first half of that negative signal and hit 0hz? Well, this is where having a Though Zero FM (TZFM) capability comes in handy, as this issue is solved sonically by actually inverting the phase of the signal when crossing the 0Hz point. While this may seem an odd solution, it does produce sounds that line up with what our ears expect.</p>
+<p>Exponential FM and V/Oct, assuming the same scaling, are the same thing though so sometimes you can actually view it more as a second V/Oct input. For example, you could use the Exp FM input to specify the note, and then the normal V/Oct input to change the octave. Note though that this may not always work as the Exp FM input may be AC coupled, meaning that DC (nearly constant) values, like note data, will not be able to get through and instead you&rsquo;ll just hear a &ldquo;ping&rdquo; as the pitch is modulated at the cutoff of the AC coupling filter, in these cases the Exp FM input will have a minimum frequency that the input signal can oscillate at to perform properly.</p>
 <p>When talking about Linear FM, I mentioned that simple ratios are best. This isn&rsquo;t entirely true, but they will produce the least complicated harmonics, and while complicated harmonics are <em>awesome</em> it&rsquo;s also really easy to make something that sounds awful.</p>
-<p>Becasue FM synthesis is a pretty complicated topic to wrap your head around, I recommend giving these three videos a watch:</p>
-<!-- "FM Synthesis Explained & Tutorial [FM8 // Reaktor // Bass Design]" by Venus Theory - Video has been privated.
-
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/L1QZuEuMD_E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
---> 
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/P4EYqMEH6Dc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/2BmFnA0YsUc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/wqc8rZnzTVI" title="FM Synthesis Explained: A Musician's Guide To FM 🔥 | feat. Kilohearts Phase Plant" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style="float: right; width: 15%; padding: 10px;">
+<img src="https://library.vcvrack.com/screenshots/100/Bogaudio/Bogaudio-FMOp.png" style="zoom:62%;" />
+</div>
+<p>If you want to try this in VCV, you can start with the <strong>WT VCO</strong> we just used. It has an <code>FM</code> input with a button next to it to enable Linear FM instead. Chain a few together, see what sounds you can get out. Because it&rsquo;s really hard to precisely set the frequency on the <strong>WT VCO</strong> you&rsquo;ll probably only get mostly garbage. I&rsquo;d recommend grabbing <a href="https://library.vcvrack.com/Bogaudio/Bogaudio-FMOp">FM-OP</a> from the VCV library.</p>
+<p>Just drop two of them down, route the <code>OUT</code> from the one on the right into the <code>FM</code> of the other, take the <code>OUT</code> of the left one to your audio interface, and turn up the <code>DEPTH</code> knob on the first one. From there, you can start to tweak the big frequency ratio knob and the level knob. Try adding even more of the module into a longer chain and using <a href="https://library.vcvrack.com/Fundamental/CVMix">CV MIX</a> (Which you should already have) to sum some of them together to feed one. Play around. You may want to hook up a <strong>MIDI ▶ CV</strong> Module&rsquo;s <code>V/OCT</code> and <code>GATE</code> outputs to each <strong>FM-OP</strong> - just remember to set the <strong>MIDI ▶ CV</strong> module to use your computer keyboard as input to get it working.</p>
+<p><img src="/music/fmop.webp" alt="" /></p>
 <h2 id="granular-synthesis">
   Granular Synthesis
   <a class="anchor" href="#granular-synthesis">#</a>
@@ -884,7 +927,7 @@ Jez Swanson</a>. But, the relevant bit for for musical stuff is that these harmo
         </li>
         <li><a href="#basic-oscillators">Basic Oscillators</a></li>
         <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
-        <li><a href="#wavetables">Wavetables</a></li>
+        <li><a href="#span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan"><span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span></a></li>
         <li><a href="#fm-synthesis">FM Synthesis</a></li>
         <li><a href="#granular-synthesis">Granular Synthesis</a></li>
         <li><a href="#feedback-todo">Feedback [TODO]</a></li>

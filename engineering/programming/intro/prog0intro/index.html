@@ -48,7 +48,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.5a0c4ce8c27aee626709f8fbc667d7b907e6c9347a6617631077d6df665a2140.css" integrity="sha256-WgxM6MJ67mJnCfj7xmfXuQfmyTR6ZhdjEHfW32ZaIUA=">
-<script defer src="/en.search.min.ab69e26f68c7c44c531ca2459ed47b9d69f84ee978a35211eb90a636a1a5e57b.js" integrity="sha256-q2nib2jHxExTHKJFntR7nWn4Tul4o1IR65CmNqGl5Xs="></script>
+<script defer src="/en.search.min.8370902fca1d1ff37c1e5372152e285dcf8fd7ed35347feb1771c19f817de89b.js" integrity="sha256-g3CQL8odH/N8HlNyFS4oXc&#43;P1&#43;01NH/rF3HBn4F96Js="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -542,6 +542,7 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#2-because-not-all-solutions-are-created-equal">2. Because not all solutions are created equal</a></li>
             <li><a href="#3-because-making-decisions-before-you-know-everything-is-hard">3. Because making decisions before you know everything is hard</a></li>
             <li><a href="#3--because-you-need-to-know-what-tool-to-use-for-the-problem">3½ &hellip; Because you need to know what tool to use for the problem</a></li>
+            <li><a href="#4-because-your-code-has-to-run-on-hardware-and-probably-an-os-too">4. Because your code has to run on hardware (and probably an OS too)</a></li>
           </ul>
         </li>
         <li><a href="#why-is-learning-programming-hard">Why is <em>learning</em> programming hard?</a></li>
@@ -578,6 +579,7 @@ https://github.com/alex-shpak/hugo-book
   Why is programming hard?
   <a class="anchor" href="#why-is-programming-hard">#</a>
 </h2>
+<p><strong>(and how to programmers think)</strong></p>
 <p>Programming is difficult for a few reasons:</p>
 <h3 id="1-because-you-have-to-use-math-logic-and-data-structures-to-model-your-problem">
   1. Because you have to use math, logic, and data structures to model your problem.
@@ -698,7 +700,8 @@ my_numbers[3] = my_numbers[3] + 1
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>my_numbers <span style="color:#f92672">=</span> [x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> my_numbers]
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="3-because-making-decisions-before-you-know-everything-is-hard">
+</div><p>Though that&rsquo;s only a small block of code. Most problems will be much larger and abstract, and have wildly ranging solutions. This leads in to the next point,</p>
+<h3 id="3-because-making-decisions-before-you-know-everything-is-hard">
   3. Because making decisions before you know everything is hard
   <a class="anchor" href="#3-because-making-decisions-before-you-know-everything-is-hard">#</a>
 </h3>
@@ -777,7 +780,7 @@ my_numbers[3] = my_numbers[3] + 1
 </h3>
 <p>Yunno&rsquo; the expression &ldquo;when you have a hammer everything is nail&rdquo;? It&rsquo;s a real problem in programming, because while you <em>can</em> use a hammer to pound in a screw, sharpen a knife, or smooth out wood, it&rsquo;s probably going to be a real pain in the ass. Knowing that things like a screwdriver, knife sharpener, and sander even <em>exist</em> is half the battle. Of course, this can go the other way too- just because an ultra-specialized tool exits, you may still want to make do with what you have - having more tools is great, but each tool requires maintenance and upkeep of its own.</p>
 <p>This is one of those things that comes with experience and knowing what problems tend to grow into unmaintainable monsters and so should be done by using a tool that solves the problem for you. For example: time.</p>
-<p>Time sounds easy. Storing the time, reading the time, etc. Yeah, no. Time zones, daylight savings, leap years, leap seconds, date formats, etc. will all make you hate your life as soon as you start to mess with time.</p>
+<p>Time sounds easy. Storing the time, reading the time, etc. Yeah, no. Time zones, daylight savings, leap years, leap seconds, date formats, etc. will all make you hate your life as soon as you start to mess with time. You absolutely should use libraries and tools other people have made if you&rsquo;re working with time.</p>
 <p>On the other hand, some people over-use external tools. The <a href="https://www.npmjs.com/package/is-odd">is-odd</a> JavaScript package, which just checks if a number is odd, has <strong>425,000</strong> downloads this week. As you&rsquo;ll see later, doing this in code is as simple as</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -794,7 +797,34 @@ my_numbers[3] = my_numbers[3] + 1
 </span>
 <p>This is extra dumb when you realize that the maintainers of the is-odd package <em>could</em> push a malicious update doing something as mundane as breaking it (making it is <em>always</em> say a number is odd, April Fools!) or making it check if a number is odd while also running code to mine cryptocurrency in the background!</p>
 <p>To make matters worse, there&rsquo;s a problem of deciding what level of abstraction you want to work at. While it&rsquo;s possible to learn it all and be good at everything, most programmers pick a niche. Maybe you&rsquo;re into web dev. Maybe you want to make games. (both of which are considered high-level). Maybe you want to make hardware move and be right down at the circuit level (which is known as low level). Most good low level programmers aren&rsquo;t great high-level programmers, and vis-versa. Both can be a ton of fun though, and so you&rsquo;ll inevitably want to do some of both.</p>
-<p>This tends to cause problems. As an extreme example, there&rsquo;s these things called &ldquo;Game jams&rdquo;. These are events where programmer/artist/masochists (or small teams of masochists) will make an entire game in one weekend. The vast majority of these are going to use platforms which already give them things like a way to render 3D or 2D objects to the screen, to handle real time user input, physics between objects, etc. Making all of that stuff from scratch, for most programmers, would take months if not years to get something even remotely functional.</p>
+<p>As an extreme example, there&rsquo;s these things called &ldquo;Game jams&rdquo;. These are events where programmer/artist/masochists (or small teams of masochists) will make an entire game in one weekend. The vast majority of these are going to use platforms which already give them things like a way to render 3D or 2D objects to the screen, to handle real time user input, physics between objects, etc. Making all of that stuff from scratch, for most programmers, would take months if not years to get something even remotely functional. In one weekend, they have to use everything they can to make the goals manageable.</p>
+<p>My main point though is you should kind of always have an angel and a devil on your shoulders, one asking &ldquo;Is this a problem I can solve easily with what I have&rdquo; and the other saying &ldquo;You should go look into what exists to make this easier&rdquo;</p>
+<p>Finding the right tool will occupy a lot of your time programming at first, and will take up a fair amount of time again if you ever change the kind of code you&rsquo;re working on. For example, at the start, you&rsquo;ll have a lot to learn about things that are sort of meta for programming, like what text editor to use, what tools you need to build and run your code, what a debugger is, etc. plus a few extremely common tools for the program&rsquo;s logic itself, like <a href="https://en.wikipedia.org/wiki/Regular_expression">Regex</a> for text processing.</p>
+<p>As you dive into a project, you&rsquo;ll often find you need something that make specific extremely hard problems much easier, but you&rsquo;ll have to learn how to use that tool. For example, the math behind doing AI work is pretty damn complicated and getting it to run quickly is really important and very, very hard. Fortunately, if you google &ldquo;How do I write AI code&rdquo; you should pretty quickly run into mentions of &ldquo;Tensorflow&rdquo; and &ldquo;Pytorch&rdquo;, both of which are incredible tools that will make AI stuff, not-quite-<em>easy</em> but it will change the bar from <em>nearly impossible</em> to &ldquo;Oh, I can do that&rdquo;.</p>
+<p>Again, these vary from problem to problem, but it&rsquo;s actually insane how many really hard problem are approachable because of the existence of good, application-specific tools.</p>
+<h3 id="4-because-your-code-has-to-run-on-hardware-and-probably-an-os-too">
+  4. Because your code has to run on hardware (and probably an OS too)
+  <a class="anchor" href="#4-because-your-code-has-to-run-on-hardware-and-probably-an-os-too">#</a>
+</h3>
+<p>Running on hardware varies in importance.</p>
+<p>If you&rsquo;re writing a quick utility that doesn&rsquo;t do much and runs infrequently, it can be a bit slow and it doesn&rsquo;t really matter. An extra few hundredth of a second won&rsquo;t be noticeable to anyone in that case.</p>
+<p>But what about a game or an audio effect? For a game, you probably want to get at least 60FPS, for audio you&rsquo;re probably processing that audio 48,000 times a second. That means for the game you need to do all your calculations in 1/60th of a second window (or faster) consistently. For audio you have 20 microseconds to process each sample.</p>
+<p>This means you need to take full advantage of your hardware to hit those targets.</p>
+<p>This means looking into ways you can speed things up. For most games, this means using the graphics card (though usually you&rsquo;d be using something that does this for you). For audio stuff, this means digging into each function call to figure out what&rsquo;s slowing you down. Maybe you&rsquo;re trying to compute <code>sin(x)</code> and <code>sin()</code> is just to slow, so you may need to dive into learning about <a href="https://datagenetics.com/blog/july12019/index.html">approximations of sine</a> or figure out how to use a <a href="https://www.daycounter.com/Calculators/Sine-Generator-Calculator.phtml">look up table</a>.</p>
+<p>Of course, this same concept applies to more than audio and games, you can find performance critical code in anything - though in many applications &ldquo;bad&rdquo; performance is relative. Users won&rsquo;t care if their accounting software takes an extra few hundredths of a second to finish a calculation.</p>
+<p>You&rsquo;ll also have to know what causes slow downs.</p>
+<p>For example, your processor and graphics card are crazy fast, but your bulk storage (SSD or HDD) isn&rsquo;t. If you&rsquo;re making a game and you try to load the next level in full between two frames you can &hellip; it&rsquo;s just that those two frames are going to be a hell of a lot more than 1/60th of a second apart and the user is going to wonder if their game just froze.</p>
+<blockquote>
+<p>This brings up a common problem in programming:</p>
+<p>Is it faster/better to check if something needs done, and only do it if it does, or is it faster to just do it regardless (doing something useless if it doesn&rsquo;t actually need done)</p>
+<p>The answer is a massive &ldquo;It depends&rdquo;. It depends on the hardware. It depends on if consistent times or lowest total time is important. It depends on if doing the thing will slow other things down. It depends on how much time it takes to check vs how much time it takes to do.</p>
+<p>It also depends on if you care at all. Does writing the check take more code? That&rsquo;s also a factor. Every line of code is another line where you could accidentally introduce a bug.</p>
+</blockquote>
+<p>Deeper still, you may be writing code for an <em>embedded system</em>. These are chips that, usually, are roughly on par in power with a computer from the 80s but consume very little power (Some as little as <em>nano</em>amps when in low-power states) and let you directly send electrical signals to other parts, like LEDs, motors, etc.</p>
+<p>On these systems there is a memory address that if you write a &lsquo;1&rsquo; to (binary 1&rsquo;s and 0&rsquo;s, I mean) it will make a pin on the physical chip on which the processor resides output a higher voltage. Similarly, you&rsquo;ll have memory address you can read that will tell you if there&rsquo;s a signal on that pin. These devices are everywhere. In your keyboard (even if you&rsquo;re on a laptop) and your mouse. In your alarm clock. In your Bluetooth speakers. In industrial equipment. In your smart light bulbs. In many newer guitar pedals. In your TV. Even a normal computer (or things you&rsquo;d think of as one, like a game console or SmartTV) will have multiple of these really lame computers in them.</p>
+<p>This opens an enormous can of worms. If you&rsquo;re working on something like this, you&rsquo;ll often have to make sure those signals are actually &lsquo;clean&rsquo; enough for the processor to read and that when you toggle a pin, the signal you send gets to where it&rsquo;s going like it should, even though you might be toggling these pins a million times a second.</p>
+<p>Then there&rsquo;s the Operating System (Windows, Mac, Linux) that you&rsquo;re code - if not for an embedded system - is likely to be running on. These will provide systems for things like multi-threading (letting your program do two or more things at once), a way to access file (you can&rsquo;t go changing bytes on the hard drive at will - the OS will make you ask for a file to read, modify, and save), and access to networking. You can think of the OS as very beefy waiter at a bar. He&rsquo;ll happily take your order and get you what you need, but if you try to go into the kitchen yourself, he won&rsquo;t hesitate to throw you out.</p>
+<p>In short: How you use your hardware dictates performance, the OS may limit how you use your hardware, but make doing so much easier and more secure.</p>
 <h2 id="why-is-learning-programming-hard">
   Why is <em>learning</em> programming hard?
   <a class="anchor" href="#why-is-learning-programming-hard">#</a>
@@ -945,6 +975,7 @@ my_numbers[3] = my_numbers[3] + 1
             <li><a href="#2-because-not-all-solutions-are-created-equal">2. Because not all solutions are created equal</a></li>
             <li><a href="#3-because-making-decisions-before-you-know-everything-is-hard">3. Because making decisions before you know everything is hard</a></li>
             <li><a href="#3--because-you-need-to-know-what-tool-to-use-for-the-problem">3½ &hellip; Because you need to know what tool to use for the problem</a></li>
+            <li><a href="#4-because-your-code-has-to-run-on-hardware-and-probably-an-os-too">4. Because your code has to run on hardware (and probably an OS too)</a></li>
           </ul>
         </li>
         <li><a href="#why-is-learning-programming-hard">Why is <em>learning</em> programming hard?</a></li>
