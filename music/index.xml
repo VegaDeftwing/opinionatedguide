@@ -23,8 +23,7 @@ First, they do sound massively different depending on how much volume and the fr
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://opguides.info/music/effects/filter/</guid>
-      <description>Filters (LP, HP, BP, Notch) # https://www.perfectcircuit.com/signal/learning-synthesis-filters
-Low Pass Filters # Low Pass filters do what you think, they let the low frequencies pass and cut out the high frequencies. As with most filters, this will typically not be a sharp cutoff but instead be a gradual fading of the higher frequencies. Despite this, there is still a point called the cut off frequency, which is defined as the point where the signal is cut by 3db (what this means is discussed below).</description>
+      <description>Filters (LP, HP, BP, Notch) # See the signal processing chapters. If you&amp;rsquo;re trying to do real time DSP and if you want to modulate the cutoff, you&amp;rsquo;re probably stuck with an IIR. FWIW, the delay of an FIR means the linear phase is often worse than not anyway. If licencing isn&amp;rsquo;t an issue, you&amp;rsquo;ll probably want to start with at least https://www.musicdsp.org/en/latest/Filters/index.html or really any DSP library. Implimenting a well performing filter isn&amp;rsquo;t that hard.</description>
     </item>
     
     <item>
@@ -43,8 +42,7 @@ Gain-Staging # Gain staging is the practice of setting the gain or level of each
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://opguides.info/music/effects/misc/</guid>
-      <description>Misc Effects # Auto-Tune # Given it&amp;rsquo;s basically a meme now, I assume you know what Auto-Tune is. What you may not realize is that not all auto-tune is, well, auto. A lot of the time it&amp;rsquo;s done manually, painstakingly correcting the tuning. If the original sound is close enough, it&amp;rsquo;s usually pretty easy to get it to sound natural, too.
-Also keep in mind pitch correction isn&amp;rsquo;t just for vocals, you might want to pitch correct your guitar playing, change a note in an already recorded sequence when you change keys, or even just use it as a glitchy effect on pitch bends.</description>
+      <description>Misc Effects # Auto-Tune # Doing autotune in code is well beyond the scope of a small comment. Outside of just throwing AI at the problem - witch is likely to sound god awful - there&amp;rsquo;s no magic bullet here. It&amp;rsquo;s spectral analysis hell. Given it&amp;rsquo;s basically a meme now, I assume you know what Auto-Tune is. What you may not realize is that not all auto-tune is, well, auto.</description>
     </item>
     
     <item>
@@ -53,7 +51,7 @@ Also keep in mind pitch correction isn&amp;rsquo;t just for vocals, you might wa
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://opguides.info/music/effects/time/</guid>
-      <description>Time Based Effects # Delay # Delay is basically echo. Take a sound in, and repeat it it it. Normally the main controls on a delay are &amp;lsquo;Time&amp;rsquo;, which controls how long of a delay there is before each repeat, &amp;lsquo;Feedback&amp;rsquo; which controls how much the level is reduced each time the delay repeats (and in turn, how many audible repetitions there are), and &amp;lsquo;Dry/Wet&amp;rsquo; which controls how the signal is blended, entirely dry will have no delay, entirely wet may even miss the initial sound adding a weird latency before you hear what you&amp;rsquo;re playing.</description>
+      <description>Time Based Effects # Delay # There are a million ways to make a delay that&amp;rsquo;s weird. Most basic? Make a ring buffer and add the signals, probably with a dry/wet mix. Less basic? IDK, add in multilpe taps on the ring buffer? Use random samples in the buffer? Change the sample rate of the buffer? Reverse the buffer occassionally? Go nuts. Delay is basically echo. Take a sound in, and repeat it it it.</description>
     </item>
     
     <item>
@@ -108,8 +106,7 @@ Octobasse: A really, really big upright bass (YouTube)</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://opguides.info/music/instruments/perc/</guid>
-      <description>Percussion # Theory # Before I even dive into Percussion, I think it&amp;rsquo;s necessary to point out how generic the term is. Just looking at the Wikipedia page for drum kit, you&amp;rsquo;ll see this:
-Drum Kit page on Wikipedia and clearly that&amp;rsquo;s still not an exhaustive list. Just off the top of my head I can see it lacks the Cajon or Taiko as acoustic instruments, let alone anything more specific than electronic drum, which can make for a class all its own.</description>
+      <description>Percussion # Theory # Before I even dive into Percussion, I think it&amp;rsquo;s necessary to point out how generic the term is. Just looking at the Wikipedia page for drum kit, you&amp;rsquo;ll see this: Drum Kit page on Wikipedia and clearly that&amp;rsquo;s still not an exhaustive list. Just off the top of my head I can see it lacks the Cajon or Taiko as acoustic instruments, let alone anything more specific than electronic drum, which can make for a class all its own.</description>
     </item>
     
     <item>
@@ -118,7 +115,7 @@ Drum Kit page on Wikipedia and clearly that&amp;rsquo;s still not an exhaustive 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://opguides.info/music/instruments/strings/</guid>
-      <description>Strings # Picture of my character by Alex the Nerd Bird Guitars # Acoustic, Electric, Acoustic-Electric? # Hollow Body, Solid Body? # Pickups? # Strings? # [TODO]
+      <description>Strings # Guitars # Picture of my character by Alex the Nerd Bird Acoustic, Electric, Acoustic-Electric? # Hollow Body, Solid Body? # Pickups? # Strings? # [TODO]
 Nylon vs plain vs wound, metal types, coated. Gauges. https://blog.ernieball.com/strings/what-string-gauges-should-you-be-playing/ . This page does reference neck length, so keep that in mind too!
 My recommendation, first and foremost, is try them. Strings are cheap, swap &amp;rsquo;em out, try each for a month, note your experiences before and after- how they felt, sounded, if they left your fingers sore, if pitch bending was fun, etc.</description>
     </item>
@@ -129,7 +126,7 @@ My recommendation, first and foremost, is try them. Strings are cheap, swap &amp
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://opguides.info/music/instruments/synth/</guid>
-      <description>Synthesizers # [TODO] I&amp;rsquo;ve already talked about FM, additive, subtractive, etc. in Sound Sources. Here I want to go into how they fit into a song, the idea of pads, leads, bass. As well as how a lot of famous sounds have been done and what some of the most famous synths are. I&amp;rsquo;d also like to cover some of why some newer synths are exciting, like the Hydrasynth, Continumm, Norand Mono, Subharmonicon, Polygogo,</description>
+      <description>Synthesizers # I&amp;rsquo;ve already talked about FM, additive, subtractive, etc. in Sound Sources. Here I want to go into how they fit into a song, the idea of pads, leads, bass. As well as how a lot of famous sounds have been done and what some of the most famous synths are. I&amp;rsquo;d also like to cover some of why some newer synths are exciting, like the Hydrasynth, Continumm, Norand Mono, Subharmonicon, Polygogo,</description>
     </item>
     
     <item>
@@ -199,6 +196,15 @@ For the most part, yeah. Everything works together and you can make all your har
       
       <guid>https://opguides.info/music/psychoacoustic/</guid>
       <description>Psychoacoustics and Cultural Associations # When we hear music, we don&amp;rsquo;t hear individual sine waves and sum them up. We don&amp;rsquo;t hear instruments devoid of context, either- a ukulele carries a different cultural meaning than a mandolin. We also don&amp;rsquo;t just hear what comes out the speakers as plainly as basic frequencies. Our ears process what we here. Our ears take in the reverb of the room, ignore sounds before and after drum hits, find speech in sounds that weren&amp;rsquo;t meant to.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://opguides.info/music/seqandmidi/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://opguides.info/music/seqandmidi/</guid>
+      <description>Sequencing &amp;amp; Midi # MIDI In Detail covers the technical bits of MIDI in much more detail, but you&#39;ll still probably want to read this this first if you don&#39;t know what MIDI even is. Sequencing # The definition of a sequence is pretty obvious, but don&amp;rsquo;t be misled by the name- a &amp;ldquo;sequence&amp;rdquo; is not always just a list of notes to be played one after the other. Sometimes there&amp;rsquo;s overlap, gaps (rests), bends from one note to another (legato) and almost always information about how hard a note is pressed and how long it should be held for are saved.</description>
     </item>
     
     <item>
@@ -306,15 +312,6 @@ Sample Packs &amp;amp; Wavetables # Echo Sound Works Coda (~$30) - Wavetables &a
 Cool People # https://twitter.com/RichardDevine https://twitter.com/LOOKMUMNOCMPUTR
 https://twitter.com/electricdahliia
 https://t.me/thePatchBay - some shameless self promo, as this is my chat.</description>
-    </item>
-    
-    <item>
-      <title>Sequencing and MIDI</title>
-      <link>https://opguides.info/music/sequencing-and-midi/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://opguides.info/music/sequencing-and-midi/</guid>
-      <description>Sequencing &amp;amp; Midi # This chapter only goes over the basics of MIDI. Because MIDI is so important to music production, I&amp;rsquo;ll dive much deeper into the details of MIDI in Chapter 6½ - MIDI in Detail Sequencing # The definition of a sequence is pretty obvious, but don&amp;rsquo;t be misled by the name- a &amp;ldquo;sequence&amp;rdquo; is not always just a list of notes to be played one after the other.</description>
     </item>
     
     <item>

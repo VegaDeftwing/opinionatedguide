@@ -49,8 +49,8 @@ An embedded system is a computer system—a combination of a computer processor,
 <title>Embedded | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.8f7d5df400c686d318b232dad880657bf2f5567d99aa105fe653cfd43ecc4d10.css" integrity="sha256-j31d9ADGhtMYsjLa2IBle/L1Vn2ZqhBf5lPP1D7MTRA=">
-<script defer src="/en.search.min.62ffb31259d05f480cbecd5b585ce46cdc236b363f1905d2a814e946ae7ffbea.js" integrity="sha256-Yv&#43;zElnQX0gMvs1bWFzkbNwjazY/GQXSqBTpRq5/&#43;&#43;o="></script>
+<link rel="stylesheet" href="/book.min.090a2ee185b3d9835b5dcdf1310d84576ccff13987c642c603226c3fc6370c8d.css" integrity="sha256-CQou4YWz2YNbXc3xMQ2EV2zP8TmHxkLGAyJsP8Y3DI0=">
+<script defer src="/en.search.min.efbb8444b944b198a1fdf1ea01f7e4f5b3a3e4d75316153bb8fa2398b1ad77fe.js" integrity="sha256-77uERLlEsZih/fHqAffk9bOj5NdTFhU7uPojmLGtd/4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -299,7 +299,7 @@ https://github.com/alex-shpak/hugo-book
     <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
     <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
    </details> </dd>
-<dt>7 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
   </details> </dd>
    <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
     <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
@@ -759,9 +759,9 @@ https://github.com/alex-shpak/hugo-book
 <p>Finally, just to be though, that <code>9600</code> which may seem like a magic number, is the baudrate the board was sending data to the computer at. <code>9600</code> is stupidly slow, yet is the default that many programs with the Arduino framework will use- most boards can do <code>115200</code>, which is 12 times faster.</p>
 <p>All of this is to say, a lot of &ldquo;Makers&rdquo; will only learn to use the Arduino functions and way of doing things. Yeah, they might make some things easier, but long term they&rsquo;ll seriously limit what you can do. There&rsquo;s often nothing wrong with this! Sometimes, a quick n&rsquo; dirty solution will work. If you just want to make some LEDs blink or switch a relay to turn something on and off, sure. The problem is, sooner or later you&rsquo;ll find something where you need fast response times and need to use interrupts, or where you need to get fine control over PWM and need to twiddle bits, and the Arduino library will make doing so a massive pain in the ass.</p>
 <p>So, let&rsquo;s try this again, this time, don&rsquo;t use the Arduino IDE, but grab PlatformIO and make a new project. I&rsquo;ll assume that most people reading this are- <em>despite how much of a massive pile of shit they are</em>- using an Arduino Uno (or clone). If that&rsquo;s all you have, frankly, the Arduino library is still your best bet for <em>some</em> things, so when you make a new project because it does provide some things that are a total pain to do by hand, like setup aforementioned <code>Serial</code>. That said, the other library that works in PlatfromIO for the Uno, <a href="https://simba-os.readthedocs.io/en/latest/index.html">Simba</a> is pretty cool and will abstract out a lot of that mess too. The biggest reason to use the Arduino framework is that there&rsquo;s a mountain of libraries written for it, so if you get a little board for RFID or temperature sensing or GPS or whatever, there&rsquo;s probably already a drop in library with example code. But, frankly, the 328P is so under powered and old that I just can not justify learning on it. Instead, I&rsquo;m going to recommend the STM32F411CE - or, as it&rsquo;s more commonly known, the &ldquo;Black Pill&rdquo;</p>
-<p class="tip ">
+<div class="tip ">
     If you&rsquo;re buying one to follow along, be careful. There are variants of the BlackPill that have the F401 or F103. The F103 boards almost universally have issues, so at the very least make sure it&rsquo;s an F401 or F411.
-</p>
+</div>
 <p>But, I hear you asking, <strong>&ldquo;why?&rdquo;</strong></p>
 <table>
 <thead>
@@ -825,9 +825,9 @@ https://github.com/alex-shpak/hugo-book
   PWM, SPI, I2C, What&rsquo;s going on?!
   <a class="anchor" href="#pwm-spi-i2c-whats-going-on">#</a>
 </h2>
-<p class="tip ">
+<div class="tip ">
     For this, you&rsquo;ll probably actually want a few devices to experiment with. Unless you&rsquo;ve already gone out and gotten a kit of stuff, I <strong>strongly</strong> recommend against those &ldquo;Lean Arduino&rdquo; kits, and instead insist you buy the parts yourself. It&rsquo;s a tad more expensive just to get started, but honestly a lot of the kit shit, is, well, shit. </br></br>For this section, I&rsquo;ll be talking about and using a strip of WS2812b RGB LEDs (~$5), the MPU GY-521 Gyroscope/Accelerometer ($1), a HC-SR04 ultrasonic distance sensor ($5), and a ENC28J60 Ethernet breakout (~$8), as well as various parts from the <a href="https://store.digilentinc.com/analog-parts-kit-by-analog-devices-companion-parts-kit-for-the-analog-discovery/">Digilent Analog Parts Kit</a> (~$55) and breadboards (don&rsquo;t cheap out, get good ones ~$11) that I recommended earlier. I do realize this makes the total cost probably peak a smidge above the $100 mark. Sorry ¯\ _(ツ)_/¯
-</p>
+</div>
 <p>Alright, so making the board send text to the computer or blink an LED is cool and all, but, that&rsquo;s not really all that interesting. Let&rsquo;s go further, lets&hellip; uh&hellip; blink a <strong>different</strong> LED!</p>
 <p>[TODO] LED pull up/down</p>
 <p>[TODO] PWM dimming, show in slo-mo</p>
@@ -939,9 +939,9 @@ https://github.com/alex-shpak/hugo-book
   Arduino ≠ Arduino
   <a class="anchor" href="#arduino--arduino">#</a>
 </h2>
-<p class="tip ">
+<div class="tip ">
     I <strong>really</strong> want to make this clear: Arduino is a framework. Not a specific hardware platform. Different Arduino devices can run with wildly different specs and support wildly different features, and not all devices that run the Arduino framework are made by the Arduino foundation. The Arduino Uno (ATmega328p) is both an Arduino foundation project <em>and</em> runs the Arduino framework. The STM32 BlackPill, NodeMCU, PiPico, etc. are all <em>not</em> made by the Arduino foundation, but can run the Arduino framework.
-</p>
+</div>
 <h2 id="stm-32">
   STM 32
   <a class="anchor" href="#stm-32">#</a>

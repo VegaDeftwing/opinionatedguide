@@ -47,8 +47,8 @@
 <title>Prog6types | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.8f7d5df400c686d318b232dad880657bf2f5567d99aa105fe653cfd43ecc4d10.css" integrity="sha256-j31d9ADGhtMYsjLa2IBle/L1Vn2ZqhBf5lPP1D7MTRA=">
-<script defer src="/en.search.min.62ffb31259d05f480cbecd5b585ce46cdc236b363f1905d2a814e946ae7ffbea.js" integrity="sha256-Yv&#43;zElnQX0gMvs1bWFzkbNwjazY/GQXSqBTpRq5/&#43;&#43;o="></script>
+<link rel="stylesheet" href="/book.min.090a2ee185b3d9835b5dcdf1310d84576ccff13987c642c603226c3fc6370c8d.css" integrity="sha256-CQou4YWz2YNbXc3xMQ2EV2zP8TmHxkLGAyJsP8Y3DI0=">
+<script defer src="/en.search.min.efbb8444b944b198a1fdf1ea01f7e4f5b3a3e4d75316153bb8fa2398b1ad77fe.js" integrity="sha256-77uERLlEsZih/fHqAffk9bOj5NdTFhU7uPojmLGtd/4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -297,7 +297,7 @@ https://github.com/alex-shpak/hugo-book
     <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
     <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
    </details> </dd>
-<dt>7 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
   </details> </dd>
    <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
     <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
@@ -615,9 +615,9 @@ https://github.com/alex-shpak/hugo-book
 </blockquote>
 <p>Now, there&rsquo;s also a variant for <em><strong>unsigned</strong></em> integers or <code>uint</code>, these, as you might expect, can only be positive, but this means you get the full range from 0 up to 4,294,967,295 to play with before you wrap around.</p>
 <p>Finally, you might find times when you&rsquo;ll want to specify the number of bits in a number, and in the language I&rsquo;ve been showing so far, <strong>C</strong>, you can do that by including a library (more on this later) and using <code>uint8_t</code>, for example, to get an unsigned, 8 bit integer. This can only range from 0 to 255.</p>
-<p class="tip ">
+<div class="tip ">
     That library is accessed by using <code>#include &lt;stdint.h&gt;</code>, but despite my above description doesn&rsquo;t give you arbitrary bit widths. It has 8, 16, 32, and 64. The big advantage is that, unlike plain <code>int</code> which may vary between platforms, they will always be that size. This isn&rsquo;t to say you should never use plain <code>int</code>, just be aware it may be a problem for portability between platforms if you really want it to run <strong>everywhere</strong>.
-</p>
+</div>
 <p>So, if we look back to when we did 200+100 last chapter, while we&rsquo;d <em>expect</em> 300, the place we&rsquo;re trying to store that number simply isn&rsquo;t big enough. At 8 bits, it can only store up to 2^8 = 256. So, we wind up wrapping around, 300-256 is indeed 44. Do keep in mind that with signed integers this wrapping around means you&rsquo;ll go from positive to negative if you overflow.</p>
 <h3 id="boolean">
   Boolean
@@ -917,9 +917,9 @@ A is 0b01<strong>0</strong>00001</p>
 </blockquote>
 <p>&hellip; Well, almost. Actually, saying the array version of that is the same is a lie. C actually adds in an extra character for us automatically when we make the string like <code>char my_string[] = &quot;Hello World\n&quot;;</code>.</p>
 <p>There&rsquo;s an added <code>\0</code> after the <code>\n</code> when we make the string like this, and we do want it. It&rsquo;s what tells other functions in C (like <code>printf()</code>) where the end of a string is. If we make it using the array, we&rsquo;d have to add this ourselves. That <code>\0</code> is called a &ldquo;Null Terminator&rdquo;. Without this, things would just keep on printing or processing the string not knowing where to stop.</p>
-<p class="tip ">
+<div class="tip ">
     This doesn&rsquo;t apply (directly) in Python. The <code>print()</code> function in python will add the new line for you unless you go out of your way to have it not. We&rsquo;ll talk about this later - but in general Python tries to do what it thinks you probably want, and that includes internally dealing with new lines and null termination so that you don&rsquo;t have to think about it.
-</p>
+</div>
 
 </blockquote>
 

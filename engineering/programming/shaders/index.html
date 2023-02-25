@@ -47,8 +47,8 @@
 <title>Shaders | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.8f7d5df400c686d318b232dad880657bf2f5567d99aa105fe653cfd43ecc4d10.css" integrity="sha256-j31d9ADGhtMYsjLa2IBle/L1Vn2ZqhBf5lPP1D7MTRA=">
-<script defer src="/en.search.min.62ffb31259d05f480cbecd5b585ce46cdc236b363f1905d2a814e946ae7ffbea.js" integrity="sha256-Yv&#43;zElnQX0gMvs1bWFzkbNwjazY/GQXSqBTpRq5/&#43;&#43;o="></script>
+<link rel="stylesheet" href="/book.min.090a2ee185b3d9835b5dcdf1310d84576ccff13987c642c603226c3fc6370c8d.css" integrity="sha256-CQou4YWz2YNbXc3xMQ2EV2zP8TmHxkLGAyJsP8Y3DI0=">
+<script defer src="/en.search.min.efbb8444b944b198a1fdf1ea01f7e4f5b3a3e4d75316153bb8fa2398b1ad77fe.js" integrity="sha256-77uERLlEsZih/fHqAffk9bOj5NdTFhU7uPojmLGtd/4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -297,7 +297,7 @@ https://github.com/alex-shpak/hugo-book
     <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
     <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
    </details> </dd>
-<dt>7 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
   </details> </dd>
    <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
     <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
@@ -639,12 +639,12 @@ https://github.com/alex-shpak/hugo-book
 <p><em>The Book</em> focuses entirely on Fragment Shaders - the ones that pick what color a given pixel should be. However, there are other kinds. Vertex Shaders allow you to move the vertices of a 3D object to change it&rsquo;s shape. Geometry and Tessellation shaders allow for interesting performance optimizations (Though are very rarely used by artists), and Compute Shaders allow for using the graphics card to do massively parallel math that would otherwise be impractical to do on the CPU - though with the limitations imposed from using the GPU. Compute Shaders can be written in HLSL, but the concept is applicable more broadly and so there are other, more purpose built languages for the task such as OpenCL and CUDA as well. See the GpGPU section near the bottom of this page for more information.</p>
 </div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-1"  />
   <label for="tabs-Getting Started-1">2 - Hello World!</label>
-  <div class="book-tabs-content markdown-inner"><p class="tip ">
+  <div class="book-tabs-content markdown-inner"><div class="tip ">
     Again, I&rsquo;m writing this assuming you&rsquo;re following along with <span class="best ">
 <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
 <a href="https://thebookofshaders.com">The Book Of Shaders</a>
 </span>
-</p>
+</div>
 <p>As you use the web editor, you&rsquo;ll notice that you have syntax highlighting. That is, the important words appear in different colors. If you want to be able to edit code with this yourself, you may want to use <a href="https://code.visualstudio.com">VS Code</a> and grab <a href="https://marketplace.visualstudio.com/items?itemName=slevesque.shader">Shader Languages Support for VS Code</a>.</p>
 <p>I also want to note that some of the names used in <em>The Book</em> aren&rsquo;t totally standard. Most notably, it seems every platform calls their uniforms something else, so if you go to write shaders for Unity or Unreal or something the names won&rsquo;t be the same - for example, while <em>The Book</em> uses <code>u_time</code>, Unity&rsquo;s equivalent would be <code>_Time</code> and <a href="https://docs.unity3d.com/Manual/SL-UnityShaderVariables.html">is actually a Float4</a> as the components of it contain different divisions and multiples of the global time.</p>
 </div><input type="radio" class="toggle" name="tabs-Getting Started" id="tabs-Getting Started-2"  />
@@ -683,9 +683,9 @@ https://github.com/alex-shpak/hugo-book
  is the same as <span>
   \(asinh()\)
 </span>
-<p class="tip ">
+<div class="tip ">
     Make sure you re-center the graph about (0,0), otherwise some will appear to be missing!
-</p>
+</div>
 <iframe src="https://www.geogebra.org/calculator/r8guft9v?embed" width="110%" height="600" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
 <p>Of particular use is <code>tanh()</code> as it can be used as a smooth clamping function</p>
 <p>There&rsquo;s also <code>dFdx()</code> and <code>dFdy()</code> for derivatives (<a href="https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/dFdx.xhtml">see documentation</a>). These do what you think if you know calculus, but you can check <a href="https://www.shadertoy.com/view/lsXSzn">This Shadertoy Example from HLorenzi</a> if you want to see it in action. These can be quite useful for things like <a href="https://www.shadertoy.com/view/Xtd3W7">Edge Detection</a> (try the reccomendation from jump89 in the comments); <strong>However,</strong> support for them is hit-or-miss (try <a href="https://www.shadertoy.com/view/WtKcRW">this</a> and <a href="https://www.shadertoy.com/view/WdccRS">this</a> to check your system)</p>
@@ -1034,9 +1034,9 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
   19.2 - GpGPU
   <a class="anchor" href="#192---gpgpu">#</a>
 </h1>
-<p class="tip ">
+<div class="tip ">
     If you want to learn how to do GpGPU programming, I highly reccomend you learn how to do basic shader programming first. They both generally have the same limitations imposed by the hardware and, depending on the environment you&rsquo;re working in, it may be that using the normal graphics languages (GLSL, HLSL, etc.) to write <strong>compute shaders</strong> is what you want anyway. In that case, you may as well learn the language from the more used and well documented side first. Even if you know you don&rsquo;t need the image output, still try it, as it&rsquo;s a much nicer introduction than jumping right into GpGPU and you&rsquo;ll have a much better idea of what&rsquo;s going on.
-</p>
+</div>
 <p>So, we&rsquo;ve got this extra massively parrallel co-processor just hanging out in our computer, and unless we&rsquo;re running games or complex 3D programs, it&rsquo;s probably sitting nearly completely idle. So, how do we put it to use?</p>
 <p>Well first of all, we need to know a few things about the GPU:</p>
 <ol>
@@ -1054,9 +1054,9 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 <p>Fortunately, we dont.</p>
 <p>From my digging I&rsquo;ve found two good options that play nice with a lot of languages and different system configurations:  <a href="https://futhark-lang.org">Futhark</a> and <a href="https://arrayfire.com">Arrayfire</a>. I&rsquo;ll focus on these two, but you should know there are other options. If you&rsquo;re into Rust, there&rsquo;s <a href="https://github.com/calebwin/emu">emu</a>. Nim? check out <a href="https://github.com/treeform/shady">shady</a>. JS? <a href="https://github.com/DanRuta/GPGPU">this library called &ldquo;GPGPU &ldquo;</a> should do the trick. If you use Matlab, it should already be GPU accelerated, at least assuming you have an Nvidia graphics card. For these more specific ones  I don&rsquo;t have experance with these to know if they&rsquo;re good or bad. All of that said, you can <em>probably</em> make Futhark work damn near anywhere on account of the fact that it spits out C code for using either OpenCL, Cuda, Ptheads, or - failing all else - normal ol&rsquo; sequantial processing (just C, no special sauce). So, anywhere you can load C code, Futhark should work too. This is pretty much everywhere, as almost all languages have at least some way to load in a library written in C for speed sake. It also can generate python libraries easily, which is nice too.</p>
 <p>So, why do I have two reccomendations? <strong>Futhark</strong> is a programming language, just not a general purpose one. You really only use it to make small, individual functions that utilize the GPU that you then call from another language. <strong>Arrayfire</strong>, on the other hand, is more of a bucket of functions, your more typical library. If arrayfire happens to have the <a href="https://arrayfire.org/docs/group__func__categories.htm">functions you need</a> - or those you need to compose your program, ranging from basic operations up to a ready to use functions ranging from signal processing to computer vision - then it&rsquo;s easy to import and pretty much good to go. So, if you know you only really ever grind your wheels on one big operation that accounts for a majority of your programs run time and it&rsquo;s a commo problem, Arrayfire is worth trying. If you know you&rsquo;re going to need to do a weird opeartion that isn&rsquo;t in Arrayfire&rsquo;s bag of tricks ore you need to have finer control, Futhark probably makes sense.</p>
-<p class="tip ">
+<div class="tip ">
     Arrayfire, at the time of writing, has bindings for C++, Python, Rust, Julia, and Nim, with a plethora of other langauge bindings in progress. <strong>However,</strong> not all of these bindings are created equal. I had to use Futhark for a project because while the C++ version of Arrayfire has bitwise operations, the python version does not. So, YMMV.
-</p>
+</div>
 <p>So, what about Futhark?</p>
 <p>Futhark is a weird language, at least to most people. This is because it&rsquo;s <em>functional</em>. We&rsquo;ll talk about this more in a few chapters - that&rsquo;s what the weird looking 
 

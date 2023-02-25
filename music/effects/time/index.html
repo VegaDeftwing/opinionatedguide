@@ -27,7 +27,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Time Based Effects # Delay # Delay is basically echo. Take a sound in, and repeat it it it. Normally the main controls on a delay are &lsquo;Time&rsquo;, which controls how long of a delay there is before each repeat, &lsquo;Feedback&rsquo; which controls how much the level is reduced each time the delay repeats (and in turn, how many audible repetitions there are), and &lsquo;Dry/Wet&rsquo; which controls how the signal is blended, entirely dry will have no delay, entirely wet may even miss the initial sound adding a weird latency before you hear what you&rsquo;re playing.">
+<meta name="description" content="Time Based Effects # Delay # There are a million ways to make a delay that&rsquo;s weird. Most basic? Make a ring buffer and add the signals, probably with a dry/wet mix. Less basic? IDK, add in multilpe taps on the ring buffer? Use random samples in the buffer? Change the sample rate of the buffer? Reverse the buffer occassionally? Go nuts. Delay is basically echo. Take a sound in, and repeat it it it.">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -39,7 +39,7 @@
   ::-webkit-scrollbar-thumb {background: #973999 !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Time Based Effects # Delay # Delay is basically echo. Take a sound in, and repeat it it it. Normally the main controls on a delay are &lsquo;Time&rsquo;, which controls how long of a delay there is before each repeat, &lsquo;Feedback&rsquo; which controls how much the level is reduced each time the delay repeats (and in turn, how many audible repetitions there are), and &lsquo;Dry/Wet&rsquo; which controls how the signal is blended, entirely dry will have no delay, entirely wet may even miss the initial sound adding a weird latency before you hear what you&rsquo;re playing." />
+<meta property="og:description" content="Time Based Effects # Delay # There are a million ways to make a delay that&rsquo;s weird. Most basic? Make a ring buffer and add the signals, probably with a dry/wet mix. Less basic? IDK, add in multilpe taps on the ring buffer? Use random samples in the buffer? Change the sample rate of the buffer? Reverse the buffer occassionally? Go nuts. Delay is basically echo. Take a sound in, and repeat it it it." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/music/effects/time/" /><meta property="article:section" content="Music" />
 
@@ -47,8 +47,8 @@
 <title>Time | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.8f7d5df400c686d318b232dad880657bf2f5567d99aa105fe653cfd43ecc4d10.css" integrity="sha256-j31d9ADGhtMYsjLa2IBle/L1Vn2ZqhBf5lPP1D7MTRA=">
-<script defer src="/en.search.min.62ffb31259d05f480cbecd5b585ce46cdc236b363f1905d2a814e946ae7ffbea.js" integrity="sha256-Yv&#43;zElnQX0gMvs1bWFzkbNwjazY/GQXSqBTpRq5/&#43;&#43;o="></script>
+<link rel="stylesheet" href="/book.min.090a2ee185b3d9835b5dcdf1310d84576ccff13987c642c603226c3fc6370c8d.css" integrity="sha256-CQou4YWz2YNbXc3xMQ2EV2zP8TmHxkLGAyJsP8Y3DI0=">
+<script defer src="/en.search.min.efbb8444b944b198a1fdf1ea01f7e4f5b3a3e4d75316153bb8fa2398b1ad77fe.js" integrity="sha256-77uERLlEsZih/fHqAffk9bOj5NdTFhU7uPojmLGtd/4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -297,7 +297,7 @@ https://github.com/alex-shpak/hugo-book
     <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
     <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
    </details> </dd>
-<dt>7 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
   </details> </dd>
    <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
     <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
@@ -549,6 +549,7 @@ https://github.com/alex-shpak/hugo-book
           <ul>
             <li><a href="#slapback-delay">Slapback delay</a></li>
             <li><a href="#delay-at-100-feedback">Delay at 100%(+) feedback?</a></li>
+            <li><a href="#vintage-delays">Vintage Delays</a></li>
           </ul>
         </li>
         <li><a href="#loopers">Loopers</a></li>
@@ -589,8 +590,11 @@ https://github.com/alex-shpak/hugo-book
   Delay
   <a class="anchor" href="#delay">#</a>
 </h2>
-<!-- There are a million ways to make a delay that's weird. Most basic? Make a ring buffer and add the signals, probably with a dry/wet mix. Less basic? IDK, add in multilpe taps on the ring buffer? Use random samples in the buffer? Change the sample rate of the buffer? Reverse the buffer occassionally? Go nuts.-->
-<!--- https://zeptobars.com/en/read/MN3207-1024-stage-analog-delay-line-CCD --->
+<div class="egg" hidden>
+<hr>
+    There are a million ways to make a delay that&rsquo;s weird. Most basic? Make a ring buffer and add the signals, probably with a dry/wet mix. Less basic? IDK, add in multilpe taps on the ring buffer? Use random samples in the buffer? Change the sample rate of the buffer? Reverse the buffer occassionally? Go nuts.
+<hr>
+</div>
 <p>Delay is basically echo. Take a sound in, and repeat it it it. Normally the main controls on a delay are &lsquo;Time&rsquo;, which controls how long of a delay there is before each repeat, &lsquo;Feedback&rsquo; which controls how much the level is reduced each time the delay repeats (and in turn, how many audible repetitions there are), and &lsquo;Dry/Wet&rsquo; which controls how the signal is blended, entirely dry will have no delay, entirely wet may even miss the initial sound adding a weird latency before you hear what you&rsquo;re playing. Some delays have additional controls, obviously I can&rsquo;t cover every possible delay, but I&rsquo;ll try to cover most:</p>
 <p>Some delays instead of letting you set a delay time or &rsquo;tap&rsquo; a delay tempo in to actually synchronize to a clock signal input which lets the delayed repetitions always be in time with the rest of the song.</p>
 <p>Stereo delays many have additional controls as well, most commonly offering a different delay time for the left and right channels. Often a &lsquo;Ping Pong&rsquo; mode will also be available where the left and right speaker alternate for the echo&rsquo;d sound- &lsquo;ping&rsquo; and &lsquo;ponging&rsquo; out each side until the sound cuts out.</p>
@@ -635,8 +639,27 @@ https://github.com/alex-shpak/hugo-book
   Delay at 100%(+) feedback?
   <a class="anchor" href="#delay-at-100-feedback">#</a>
 </h3>
+<p><img src="/common/TODO.svg" alt="TODO" /></p>
 <p>[TODO] Chornoblobs infinite mode</p>
 <p><a href="https://www.youtube.com/watch?v=l9uX_slwbzk">My Secret Guitar Pad Patch from the 1990&rsquo;s</a> - Inversely linking volume and delay feedback</p>
+<h3 id="vintage-delays">
+  Vintage Delays
+  <a class="anchor" href="#vintage-delays">#</a>
+</h3>
+<p><img src="/common/TODO.svg" alt="TODO" /></p>
+<h4 id="bucket-brigade-delays">
+  Bucket Brigade Delays
+  <a class="anchor" href="#bucket-brigade-delays">#</a>
+</h4>
+<!--- https://zeptobars.com/en/read/MN3207-1024-stage-analog-delay-line-CCD --->
+<h4 id="tape-delays">
+  Tape Delays
+  <a class="anchor" href="#tape-delays">#</a>
+</h4>
+<h4 id="oil-can-delays">
+  Oil Can Delays
+  <a class="anchor" href="#oil-can-delays">#</a>
+</h4>
 <h2 id="loopers">
   Loopers
   <a class="anchor" href="#loopers">#</a>
@@ -651,6 +674,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#reverb">#</a>
 </h2>
 <!-- The DSP for reverb is a black magic. If you actually want to persue this, see https://www.youtube.com/watch?v=Il_qdtQKnqk then go read ALL of Valhalla DSP's blog post, then realize making a good algorithm is just thousands of hours of trial and error.-->
+<p><img src="/common/TODO.svg" alt="TODO" /></p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/FfESec8Sy0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/qaEM78hdsXA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <h3 id="rooms">
@@ -761,6 +785,7 @@ https://github.com/alex-shpak/hugo-book
           <ul>
             <li><a href="#slapback-delay">Slapback delay</a></li>
             <li><a href="#delay-at-100-feedback">Delay at 100%(+) feedback?</a></li>
+            <li><a href="#vintage-delays">Vintage Delays</a></li>
           </ul>
         </li>
         <li><a href="#loopers">Loopers</a></li>

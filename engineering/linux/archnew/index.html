@@ -53,8 +53,8 @@ Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of th
 <title>Archnew | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.8f7d5df400c686d318b232dad880657bf2f5567d99aa105fe653cfd43ecc4d10.css" integrity="sha256-j31d9ADGhtMYsjLa2IBle/L1Vn2ZqhBf5lPP1D7MTRA=">
-<script defer src="/en.search.min.62ffb31259d05f480cbecd5b585ce46cdc236b363f1905d2a814e946ae7ffbea.js" integrity="sha256-Yv&#43;zElnQX0gMvs1bWFzkbNwjazY/GQXSqBTpRq5/&#43;&#43;o="></script>
+<link rel="stylesheet" href="/book.min.090a2ee185b3d9835b5dcdf1310d84576ccff13987c642c603226c3fc6370c8d.css" integrity="sha256-CQou4YWz2YNbXc3xMQ2EV2zP8TmHxkLGAyJsP8Y3DI0=">
+<script defer src="/en.search.min.efbb8444b944b198a1fdf1ea01f7e4f5b3a3e4d75316153bb8fa2398b1ad77fe.js" integrity="sha256-77uERLlEsZih/fHqAffk9bOj5NdTFhU7uPojmLGtd/4="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -303,7 +303,7 @@ https://github.com/alex-shpak/hugo-book
     <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
     <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
    </details> </dd>
-<dt>7 </dt><dd> <a href="/music/sequencing-and-midi/">Sequencing & MIDI</a></dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
   </details> </dd>
    <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
     <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
@@ -848,9 +848,9 @@ Primary key fingerprint: 3E80 CA1A 8B89 F69C BA57  D98A 76A5 EF90 5444 9A5C
 <p style="font-size: 30px;text-align: center;">⬤⬤⬤⬤◯◯◯◯◯◯</p>
 <p>Okay, so we have the OS, how do you install the damn thing? Well, get ready for a fun time. The first thing you&rsquo;ll need is a flash drive with nothing on it you care about, as it&rsquo;s going to be reformated, which will <strong>wipe any data on it</strong>. To install an OS you have to create &lsquo;bootable media&rsquo; this used to be done with a CD, though mostly it&rsquo;s done with flash drives now. You&rsquo;ll actually be putting the OS on the flash drive and then using that to put it on your hard drive / SSD.</p>
 <p>Let&rsquo;s not get ahead of ourselves though, we need room to put the new operating system in! Thankfully Linux is small- really small. Even 50Gb should be plenty for the OS, all your programs, and tons of room to spare for data, but I typically recommend at least 100GB, and since we&rsquo;ll be installing a lot of development tools, it makes sense to do this right to begin with.</p>
-<p class="tip ">
+<div class="tip ">
     The following guide will be assuming you&rsquo;re installing Linux on the same drive as Windows or MacOS, making it applicable for most systems right away; however, I strongly recommend getting an extra SSD and giving Linux it&rsquo;s own disk outright instead. This is far easier to do in a desktop, but if you have a laptop with a CD drive you may be able to put a SSD in it&rsquo;s place, or the system may just have an unused slot.</br></br>SSD prices have been steadily declining over the past few years, but as of the time of writing a 250Gb SSD should be available for under 50 USD. I&rsquo;d recommend a larger disk though, with 500Gb being plenty for most people. You&rsquo;ll want to do research about what works best in your computer. There&rsquo;s multiple form factors (2.5&quot; and M.2) as well as connection standards (NVMe and SATA), but not all computers will support everything, so look first! If you need help with this, first see <a href="https://www.youtube.com/watch?v=opwON-7J_wI">M.2 As Fast As Possible (YouTube, Techquickie)</a><a class="ptr">(1)</a> but if you still need help you can <a href="https://twitter.com/Vega_DW">reach out to me directly</a>.
-</p>
+</div>
 
 
 
@@ -869,9 +869,9 @@ See <a href="https://medium.com/@terajournal/increasing-size-of-available-shrink
 </blockquote>
 <p>Alright, we&rsquo;re getting there I promise. You should now have a gray block next to that blue block of space that shows unused space, that&rsquo;s perfect. Next up we&rsquo;ll need to turn Fast Boot <strong>off</strong>. In my experience turning this off doesn&rsquo;t effect windows boot time at all, and by having it off we&rsquo;ll be able to access window&rsquo;s file from inside linux later. To do this: go to &rsquo;edit power plan&rsquo;, then in the top bar navigate back to &lsquo;Power Options&rsquo;, select &lsquo;Chose what the buttons do&rsquo; on the left side, click &lsquo;Change settings that are currently unavailable&rsquo; and then un-check &lsquo;Turn on Fast Startup&rsquo;.</p>
 <p>Okay, now we&rsquo;re finally ready to copy the OS to a flash drive so we can install Arch, to do this, you&rsquo;ll need to download a program called Etcher from <a href="https://www.balena.io/etcher/">https://www.balena.io/etcher/</a>. Download, run, etc. When it opens select the flash drive as your &lsquo;device&rsquo; , press the select button under that and select the archlinux-20xx.xx.xx-x86_64.iso file we downloaded earlier.</p>
-<p class="tip ">
+<div class="tip ">
     The <code>.iso</code> file <strong>NOT</strong> the <code>.iso.sig</code> , the one you got from torrenting.
-</p>
+</div>
 <p>Everything else should be fine, so click start. This may take a second, in the mean time, open this guide on <strong>another computer</strong> as the next few steps will require a lot of restarting and doing things outside of windows.</p>
 </div><input type="radio" class="toggle" name="tabs-Install" id="tabs-Install-1"  />
   <label for="tabs-Install-1">Mac</label>
@@ -988,9 +988,9 @@ The next section requires a lot of reboots and has steps where you can't have th
 </div>
 <p>With secure boot disabled (or the modified installation image) you should, finally, be able to reboot your computer into the installation image. Mash the whatever key is required to get to the boot menu on your system (F11,Delete,F12,F7, and F2 are common). Do this and select the flash drive from the list.</p>
 <p>You <em>might</em> have a system that makes the time in the UEFI loading screen to short to be able to get to a boot menu. As recommended on the the disabling secure boot page, you can also do <code>Settings &gt; Update &amp; Security &gt; Recovery &gt; Advanced startup (Restart now) &gt; Troubleshoot &gt; Advanced options &gt; UEFI Firmware settings</code> and <em>hopefully</em> you can find a setting to change to give yourself some time on load to change boot device, but you&rsquo;ll almost certainly see a boot order or boot override option. Chance things as necessary so that the next boot will be off of the flash drive.</p>
-<p class="tip ">
+<div class="tip ">
     For some reason some times the flash drive will show up multiple times. If this is the case and it doesn&rsquo;t work the first try, try one of the other entries.
-</p>
+</div>
 <p>Until this point I&rsquo;ve been avoiding going over the difference between UEFI and BIOS, but now we really need to cover it. For most newer systems (~2015ish) the computer will be using UEFI, while if it&rsquo;s older it&rsquo;s probably using BIOS. The Binary Input Output System or Unified Extensible Firmware Interface both more-or-less serve the same purpose: When you turn the system on, they initialize the firmware of all of the components inside your system and sort of serve as the initial system to get everything working before handing things off to the boot loader, which then boots up the operating system. So, the process goes:</p>
 <p>BIOS/UEFI → Boot loader→ OS (Windows/Linux/Mac)</p>
 <p>From our perspective, the biggest difference is really just that UEFI is newer and a bit easier to work with, but there are a lot of interesting changes I encourage you to read up on later. We do still need to know which we&rsquo;re using though. Assuming you had to deal with Secure Boot, you&rsquo;re using UEFI. If you didn&rsquo;t, you&rsquo;re probably using BIOS. Fortunately, we can now check by running a command. So, go ahead and get your keyboard layout set so you can comfortably type, and then run the command under &ldquo;Verify the boot mode&rdquo; →</p>
@@ -1080,9 +1080,9 @@ The next section requires a lot of reboots and has steps where you can't have th
 
 <div class="book-tabs"><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-0" checked="checked" />
   <label for="tabs-%!s(&lt;nil&gt;)-0">Wi-FI</label>
-  <div class="book-tabs-content markdown-inner"><p class="tip ">
+  <div class="book-tabs-content markdown-inner"><div class="tip ">
     Unless you really have to use Wi-Fi, please don&rsquo;t. While sometimes it works easily, sometimes connecting to Wi-Fi from the installation image is a massive headache. We can still make it work later, but just getting through the installer with a wired connection is usually easier. If your computer doesn&rsquo;t have an ether port and you don&rsquo;t mind dropping a few bucks, you can buy pretty much any cheap USB-Ethernet adapter, usually it&rsquo;s about $15 for a good, gigabit, adapter.
-</p>
+</div>
 <p>Okay, so you&rsquo;re really gonna use Wi-Fi to install, fine.</p>
 <p>Again, this assumes that <code>ip link</code> showed up with something like <code>wlan0</code> in its output, as otherwise you&rsquo;re probably in for a bad time, as you need to switch over to the &ldquo;I don&rsquo;t see a network interface&rdquo; tab.</p>
 <p>Now, as the guide says, let&rsquo;s double check the interface isn&rsquo;t blocked with rfkill:</p>
@@ -1519,9 +1519,9 @@ nvme1n1     CT4000P3SSD8                    nvme     3.6T
 └─nvme0n1p5                                 nvme      2TB 
 </code></pre><p>Where instead of having a second disk, you have a large (hopefully 128GB+) partition with no file system on it. Either is fine. Regardless, what you need to note is the name of disk or partition. In the first example that&rsquo;s <code>nvme0n1</code>, as the entire disk is free for use to use as windows is on an entirely different drive. In the second example it&rsquo;s <code>nvme0n1p5</code> as we&rsquo;re going to be splitting up and using that partition, but you&rsquo;ll also still need to note the drive, which in that case is also <code>nvme0n1</code>.</p>
 <p>In either case, we can avoid the need to make a new boot partition because that <code>vfat</code> partition on the same drive that has the NTFS partitions is a boot partition. It&rsquo;s the one Windows uses and the one we&rsquo;re going to steal.</p>
-<p class="tip ">
+<div class="tip ">
     My examples here all use <code>nvmeXnX</code> but your drives may be <code>sdX</code> which is fine. It won&rsquo;t matter.
-</p>
+</div>
 <p>So, let&rsquo;s do it. In both examples above - the made-space and fresh drive - the drive name we&rsquo;re targeting is <code>/dev/nvme0n1</code> so, we can run <code>cfdisk /dev/nvme0n1</code> . That <code>c</code> on the start of the command the guide recommends will give us a nicer interface.</p>
 <p>(note, this is a screenshot of a drive with Windows without free space, as I can&rsquo;t easily screenshot from a system mid-install)</p>
 <p><img src="/eng/cfdisk.png" alt="" /></p>
@@ -1530,9 +1530,9 @@ nvme1n1     CT4000P3SSD8                    nvme     3.6T
 <p>Now, arrow down to your remaining free space and hit New. Leave it with all your remaining space. Press enter. This new partition should say Linux Filesystem, it should be at least 100GB in size, and conveniently, if we hover over it it sholud say at the bottom <code>Filesystem: BTRFS</code> - it&rsquo;s making a BTRFS file system on the partition for us. Sweet.</p>
 <p>Okay, that&rsquo;s done, we can now use the arrow keys to select &ldquo;Write&rdquo; and press enter. It&rsquo;ll warn you this is where shit can hit the fan. Type &ldquo;yes&rdquo; to say you want to do it, to which it should respond with &ldquo;The partition table has been altered.&rdquo;</p>
 <p>Congrats, you made the partitions and formatted the drive. Easy, right? arrow over to quit, and press the up arrow a few times until the previously entered <code>lsblk --output NAME,MODEL,TRAN,SIZE,FSTYPE,MOUNTPOINT</code> command shows up, and press enter. You should now see your new partitions - one with the FSTYPE <code>btrfs</code> and one <code>swap</code>. Hell yeah!</p>
-<p class="tip ">
+<div class="tip ">
     At the time of writing, there appears to be a bug with how <code>cfdisk</code> makes the btrfs partition. To remedy this, look for the btrfs partition name in the above output and run </br><code>mkfs.btrfs -f /dev/[name of partition]</code> for example, <code>mkfs.btrfs -f /dev/nvme0n1p2</code>.
-</p>
+</div>
 <div class="quote [Install Guide](https://wiki.archlinux.org/title/installation_guide) - [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html)">
 <p>
     <h3 id="format-the-partitions">
