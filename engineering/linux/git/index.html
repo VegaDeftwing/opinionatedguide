@@ -27,8 +27,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 5½ - Git. # &hellip; Despite the chapter name, git isn&rsquo;t just a Linux thing - it&rsquo;s actually more of a programming thing, but you&rsquo;ll still probably want to use it for storing your configuration files for Linux, and it&rsquo;s worth learning before you really get into programming, which is why it&rsquo;s here. So, uh, what&rsquo;s git?
-The ELI5 of it is that it&rsquo;s a Version Control System, which really just means it can give you the equivalent of save states on your files, like in a video game- and just like a video game, you can save (or go back to a previous save) and have two different branches where you make a different decision in each.">
+<meta name="description" content="Chapter 5½ - Git. # Git is a distributed version control system that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development. - Wikipedia So it&rsquo;s a way of versioning my files? Why not just click save-as and give it a new name? You could. It&rsquo;s just that git can do a lot more! Namely, it&rsquo;s really good at:">
 <meta name="theme-color" content="#FFFFFF">
 
 
@@ -40,8 +39,7 @@ The ELI5 of it is that it&rsquo;s a Version Control System, which really just me
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 5½ - Git. # &hellip; Despite the chapter name, git isn&rsquo;t just a Linux thing - it&rsquo;s actually more of a programming thing, but you&rsquo;ll still probably want to use it for storing your configuration files for Linux, and it&rsquo;s worth learning before you really get into programming, which is why it&rsquo;s here. So, uh, what&rsquo;s git?
-The ELI5 of it is that it&rsquo;s a Version Control System, which really just means it can give you the equivalent of save states on your files, like in a video game- and just like a video game, you can save (or go back to a previous save) and have two different branches where you make a different decision in each." />
+<meta property="og:description" content="Chapter 5½ - Git. # Git is a distributed version control system that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development. - Wikipedia So it&rsquo;s a way of versioning my files? Why not just click save-as and give it a new name? You could. It&rsquo;s just that git can do a lot more! Namely, it&rsquo;s really good at:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/linux/git/" /><meta property="article:section" content="Engineering" />
 
@@ -50,7 +48,7 @@ The ELI5 of it is that it&rsquo;s a Version Control System, which really just me
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.b062cf3da1fc9785da43bb7bffdf22c625aabbe6d7c33cb2f5e330024571dd8d.css" integrity="sha256-sGLPPaH8l4XaQ7t7/98ixiWqu&#43;bXwzyy9eMwAkVx3Y0=">
-<script defer src="/en.search.min.5f103551665ee8e304a989488eabcf14647650406e9fa5708e4b3461fa981eb4.js" integrity="sha256-XxA1UWZe6OMEqYlIjqvPFGR2UEBun6Vwjks0YfqYHrQ="></script>
+<script defer src="/en.search.min.a4bf32f34be910e8e52407fe88f0bccc824379022132caf552a903a0b18f636d.js" integrity="sha256-pL8y80vpEOjlJAf&#43;iPC8zIJDeQIhMsr1UqkDoLGPY20="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -565,10 +563,28 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-5---git">Chapter 5½ - Git.</a>
       <ul>
+        <li><a href="#1-letting-multiple-people-work-together">1. Letting multiple people work together</a></li>
+        <li><a href="#2-allowing-changes-to-be-reverted-later">2. Allowing changes to be reverted later</a>
+          <ul>
+            <li><a href="#3-allowing-for-branches">3. Allowing for branches</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#setting-up-a-github-account">Setting up a GitHub account</a>
+      <ul>
+        <li><a href="#even-more-security">Even more security&hellip;</a></li>
         <li><a href="#making-a-pr-on-github">Making A PR on GitHub</a></li>
         <li><a href="#cool-people-that-have-submitted-a-pr-to-edit-this-page">Cool People that Have Submitted A PR To Edit This Page</a></li>
-        <li><a href="#notes-on-github-and-competition">Notes on GitHub and competition</a></li>
-        <li><a href="#other-version-control-systems">Other Version Control Systems</a></li>
+        <li><a href="#actually-learning-to-use-git-correctly">Actually learning to use Git correctly:</a></li>
+        <li><a href="#git-user-interfaces">Git User Interfaces</a>
+          <ul>
+            <li><a href="#graphical">Graphical</a></li>
+          </ul>
+        </li>
+        <li><a href="#command-line-interface">Command Line Interface</a></li>
+        <li><a href="#a-note-on-github-and-competition">A Note on GitHub and competition</a></li>
+        <li><a href="#todo">TODO:</a></li>
         <li><a href="#weird-git">Weird Git</a></li>
         <li><a href="#further-reading">Further Reading</a></li>
       </ul>
@@ -589,8 +605,87 @@ https://github.com/alex-shpak/hugo-book
   Chapter 5½ - Git.
   <a class="anchor" href="#chapter-5---git">#</a>
 </h1>
-<p>&hellip; Despite the chapter name, <code>git</code> isn&rsquo;t just a Linux thing - it&rsquo;s actually more of a programming thing, but you&rsquo;ll still probably want to use it for storing your configuration files for Linux, and it&rsquo;s worth learning <em>before</em> you really get into programming, which is why it&rsquo;s here. So, uh, what&rsquo;s <code>git</code>?</p>
-<p>The ELI5 of it is that it&rsquo;s a <strong>Version Control System</strong>, which really just means it can give you the equivalent of save states on your files, like in a video game- and just like a video game, you can save (or go back to a previous save) and have two different <strong>branches</strong> where you make a different decision in each. The only big point where this analogy breaks down is that you can <strong>merge</strong> two branches, resolving conflicts between them and that two different people can work on two different branches for them to be merged together. Rather than reinvent the wheel trying to teach you the basics, you should go read</p>
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/Git)">
+<p>
+    Git is a distributed <strong>version control system</strong>  that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - <a href="https://en.wikipedia.org/wiki/Git">Wikipedia</a>
+    </div>
+</div>
+<div class="speech right triode">
+    <p>
+        So it&rsquo;s a way of versioning my files? Why not just click <code>save-as</code> and give it a new name?
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech  ">
+    <p>
+        You could. It&rsquo;s just that git can do a lot more!
+    </p>
+</div>
+
+
+
+
+<p>Namely, it&rsquo;s really good at:</p>
+<ol>
+<li>Letting multiple people work together where real-time (Google Docs style) colaboration doesn&rsquo;t work well.</li>
+<li>Allowing for changes to be reverted later</li>
+<li>Allowing for branches</li>
+</ol>
+<p>If it helps, think of it like saving in a video game. You can save - or go back to a previous save -and have two different <strong>branches</strong> where you make a different decision in each. The only big point where this analogy breaks down is that you can <strong>merge</strong> two branches, resolving conflicts between them and that two different people can work on two different branches for them to be merged together.</p>
+<blockquote class="book-hint info ">
+  Technically, Git isn&rsquo;t the only version control system out there. There&rsquo;s also Subversion, Mercurial, CVS, &amp; Fossil to name a few. It&rsquo;s just that git has a supermajority of the market share because it&rsquo;s really damn good.
+</blockquote>
+
+<h2 id="1-letting-multiple-people-work-together">
+  1. Letting multiple people work together
+  <a class="anchor" href="#1-letting-multiple-people-work-together">#</a>
+</h2>
+<p>Say you have a file with the single sentence <code>Bob has a dog</code> in it. You want to change Bob&rsquo;s name to <code>Dave</code> and your friend wants to change the dog to a <code>cat</code></p>
+<p>So, you both make the changes to your versions of the file, each on your own computers.
+You have <code>Dave has a dog</code>, your friend has <code>Bob has a cat</code>.</p>
+<p>Now, you both go submit your changes. Naturally, one of you has to go first. Let&rsquo;s assume you make it first, the file now says <code>Dave has a dog</code>. Then, your friend goes to do their changes. Keep in mind, their version they were based on doesn&rsquo;t have the name changed to Dave yet. Now, git is smart enough to realize that you <em>only</em> changed Dave&rsquo;s name and your friend <em>only</em> changed the dog to a cat, so, it merges the two for you and you get <code>Dave has a cat</code></p>
+<p>Sometimes, the changes can&rsquo;t be resolved so easily and you will have what&rsquo;s called a <strong>merge conflict</strong>. These are fine, but does require some human intervention. In the above, if both of you had changed the persons name, the latter person would have to select which name to keep. Usually, each change is reviewed by multiple people working on the project, and if there&rsquo;s a conflict the preson the conflict is with would help get it resolved - in this case, picking which name to actually use.</p>
+<h2 id="2-allowing-changes-to-be-reverted-later">
+  2. Allowing changes to be reverted later
+  <a class="anchor" href="#2-allowing-changes-to-be-reverted-later">#</a>
+</h2>
+<p>Say you&rsquo;re working alone on the project and are working with two files</p>
+<pre tabindex="0"><code>FILE A: The Rockwell Engineering Retroencabultor is neat.
+FILE B: Usuage Guide: Don&#39;t.
+</code></pre><p>and you make some changes</p>
+<pre tabindex="0"><code>FILE A: The Aperture Science Retroencabultor is neat.
+FILE B: Usuage Guide: Lick it.
+</code></pre><p>and some more,</p>
+<pre tabindex="0"><code>FILE A: The Aperture Science Retroencabultor is dangerous.
+FILE B: Instructions: Lick it.
+</code></pre><p>But you realize you realize the middle edit was in error. Git will let you revert one or both files, plucking just the changes you made in that single &ldquo;commit&rdquo; (basically a project snapshot). If we wanted to revert the changes just to File B in the second change, we could:</p>
+<pre tabindex="0"><code>FILE A: The Aperture Science Retroencabultor is dangerous.
+FILE B: Instructions: Don&#39;t.
+</code></pre><p>Again, sometimes this will fail. If you&rsquo;ve made changes where reverting like this is nonsensical or there&rsquo;s just to many changes for it to understand what has actually changed, it won&rsquo;t work. But, generally, it&rsquo;ll do a decent job.</p>
+<p>Even if it doesn&rsquo;t work, it&rsquo;ll let you pluck it out manually and ask you to fix all the changes after it to make sense based on removing that change - a bit tedious, but better than any alternative in complex situations.</p>
+<h3 id="3-allowing-for-branches">
+  3. Allowing for branches
+  <a class="anchor" href="#3-allowing-for-branches">#</a>
+</h3>
+<p>Motivating this outside of Git&rsquo;s intended purpose (code) is a bit awkward, but branches generally serve two uses:</p>
+<ol>
+<li>Letting multiple people make a series of changes without constantly breaking eachother&rsquo;s work</li>
+<li>Keeping a large project organized</li>
+</ol>
+<p><span>1.</span> should sort of make sense intuitively. If multiple people on a team are working on a series of complex changes, a change to one thing while someone works might temporarily break something else. It&rsquo;s easier if you can take a snapshot, work off of that <strong>branch</strong>, and then submit those changes when they&rsquo;re ready, not constantly keeping up with everyone else&rsquo;s changes.</p>
+<p>Sure, sometimes someone else&rsquo;s changes will conflict with yours, but espically if you&rsquo;re mostly adding entirely new files, it usually just works - no conflicts.</p>
+<p><span>2.</span> is roughly the same idea. Say you&rsquo;re working on a program and you want to add a feature to do X. All of the changes to make X work should be self contained. When the feature is fully ready, then you merge the branch in as one big &ldquo;add this feature&rdquo; to the project merge. This is done because otherwise half-finished ideals will have code just hanging around.</p>
+<hr>
+<p>With that context, I really reccomend you go watch &amp; read:</p>
 <style>
     .cool{
 		background: #333;
@@ -602,13 +697,30 @@ https://github.com/alex-shpak/hugo-book
     <a href="https://missing.csail.mit.edu/2020/version-control/">./missing-semester - Version Control</a>
 </span>
 <p><img src="/common/arrowthis.svg" alt="" /></p>
-<div class="tip ">
-    The above link does a better job of covering the vast majority of what I&rsquo;d say than I could hope to put here. Just check it out. But do come back here!
-</div>
-<p>Oh, hai! Welcome back.</p>
-<p>So, a lot of people conflate Git and Github, the largest git cloud service on the internet. This isn&rsquo;t totally without reason: Github is actually super nice to use, and is often the only way a lot of people use git. For better or worse, you&rsquo;ll probably want to know how to use it and use it well.</p>
-<p>One of the first things you <del>should</del> have to do when using Github is set up authentication, that is a method for logging in from the command line so that you can push your changes in your code to Github&rsquo;s servers. For security reasons, you can&rsquo;t just use a password (This is a good thing) and instead need to set up key based authentication.</p>
-<p>I&rsquo;m going to save the nitty-gritty about how public-private key based authentication works for the <a href="/engineering/networking/security/">Security &amp; Exploitation</a> chapter, but for now what you need to know is having a key pair will let you securely access git and ssh services on various servers, so we need to get keys setup.</p>
+<hr>
+<p>Done with that page? Cool, welcome back.</p>
+<p>There are a few extra things I want to mention:</p>
+<p>A lot of people conflate Git and Github</p>
+<p><strong>GIT</strong> is the protocol. <strong>GITHUB</strong> is a provider of git services. You can use git using Github&rsquo;s platform, but you could also use Gitlab, Gitea, or about 10000 other hosting provides - or host your own git server.</p>
+<p>Still, you may want to use Github. It&rsquo;s nice to use and is often the only way a lot of people use git. It does add a fair amount of extra features on top of git too. So, for better or worse, you&rsquo;ll probably want to know how to use it and those extra features too.</p>
+<h1 id="setting-up-a-github-account">
+  Setting up a GitHub account
+  <a class="anchor" href="#setting-up-a-github-account">#</a>
+</h1>
+<p>If you haven&rsquo;t already, go though the usual steps to make an account on <a href="https://github.com">https://github.com</a>.</p>
+<p>One of the first things you <del>should</del> have to do when using Github is set up a secure method to send your changes to GitHub&rsquo;s servers. For security reasons, you can&rsquo;t just use a password (This is a good thing) and instead need to set up <strong>key based authentication</strong>.</p>
+<p>I&rsquo;m going to save the nitty-gritty about how public-private key based authentication works for the 
+
+
+
+
+  
+
+
+<a  href="/engineering/networking/security/"   class="book-btn ">
+  Security
+</a>
+ chapter, but for now what you need to know is having a key pair will let you securely access git (and ssh, when we get to that) services on various servers, so we need to get keys setup.</p>
 
 
 
@@ -683,7 +795,12 @@ https://github.com/alex-shpak/hugo-book
 <p>Now we can set up your user in a <code>.gitconfig</code> file, fortunately, you can do this directly from the same command prompt you&rsquo;re at. Just run <code>git config --global user.email &quot;YourEmail@InQuotesHere&quot;</code> followed by <code>git config --global user.name &quot;Your Username In Quotes Here&quot;</code>. For simplicity, you might want to make sure the email and username both match the ones you use on GitHub, though (I think?) the username can be different without issue.</p>
 </div></div>
 
-<p>That&rsquo;s half the battle, you have successfully set up keys for your account, but GitHub has a second layer of authentication that&rsquo;s worth setting up too, which adds a sort of virtual signature to each change you push to GitHub as a confirmation to people that what they see was really written by you.</p>
+<p>You have successfully set up keys for your account!</p>
+<h2 id="even-more-security">
+  Even more security&hellip;
+  <a class="anchor" href="#even-more-security">#</a>
+</h2>
+<p>GitHub has a second layer of authentication that&rsquo;s worth setting up too, which adds a sort of virtual signature to each change you push to GitHub as a confirmation to people that what they see was really written by you.</p>
 <details >
   <summary>But I already had repos on GitHub, how do I make them use these keys?</summary>
   <div class="markdown-inner">
@@ -754,7 +871,10 @@ https://github.com/alex-shpak/hugo-book
 <p>Add your name to the list below using a text editor.</p>
 </li>
 <li>
-<p>Run <code>git add .</code>, followed by <code>git commit -m &quot;added [yourname] to Cool People&quot;</code></p>
+<p>Run <code>git add .</code> to stage your changes. (The <code>.</code> character means all files)</p>
+</li>
+<li>
+<p>Then <code>git commit -m &quot;added [yourname] to Cool People&quot;</code> To put put those staged files into a commit.</p>
 </li>
 <li>
 <p>Run <code>git push</code> to push your changes to <em>your</em> copy of the repo on GitHub</p>
@@ -786,23 +906,62 @@ https://github.com/alex-shpak/hugo-book
 <li>[Your Name Here]</li>
 </ol>
 </div>
-<p><a href="https://github.com/chriswalz/bit">Bit, an alternative git CLI (Github)</a></p>
-<p><a href="https://learngitbranching.js.org">learngitbranching.js.org</a> (more than just branching)</p>
+<h2 id="actually-learning-to-use-git-correctly">
+  Actually learning to use Git correctly:
+  <a class="anchor" href="#actually-learning-to-use-git-correctly">#</a>
+</h2>
+<span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="https://learngitbranching.js.org">learngitbranching.js.org</a>
+</span>
+<p><img src="/common/arrowthis.svg" alt="" /></p>
+<h2 id="git-user-interfaces">
+  Git User Interfaces
+  <a class="anchor" href="#git-user-interfaces">#</a>
+</h2>
+<h3 id="graphical">
+  Graphical
+  <a class="anchor" href="#graphical">#</a>
+</h3>
+<p>There are graphical user interfaces that can be used to make working with git dramatically easier. If you&rsquo;re using GitHub, <a href="https://desktop.github.com">Github Desktop</a> is a decent option.</p>
+<p>You may want to dig through these if that doesn&rsquo;t work well for you:</p>
+<ul>
+<li><a href="https://extrawurst.itch.io/gitui">https://extrawurst.itch.io/gitui</a></li>
+<li><a href="https://aurees.com">https://aurees.com</a></li>
+<li><a href="https://gitfiend.com">https://gitfiend.com</a></li>
+<li><a href="http://cong.tools">http://cong.tools</a> (Windows only)</li>
+<li><a href="https://github.com/FredrikNoren/ungit">https://github.com/FredrikNoren/ungit</a></li>
+<li><a href="https://gitextensions.github.io">https://gitextensions.github.io</a> (Windows only)</li>
+<li><a href="https://tortoisegit.org/download/">https://tortoisegit.org/download/</a> (Windows only)</li>
+</ul>
+<h2 id="command-line-interface">
+  Command Line Interface
+  <a class="anchor" href="#command-line-interface">#</a>
+</h2>
+<p>Some tools also exist to make the command line interface to git better.</p>
+<p>Again, GitHub has their own tool, <a href="https://cli.github.com">https://cli.github.com</a></p>
+<p>But you may also want to check out <a href="https://github.com/chriswalz/bit">Bit, an alternative git CLI (Github)</a></p>
+<p>The basic <code>git</code> command really isn&rsquo;t bad though. <a href="http://www.ndpsoftware.com/git-cheatsheet.html#loc=index;">This Cheatsheet</a> may help you if you want to learn it better.</p>
+<h2 id="a-note-on-github-and-competition">
+  A Note on GitHub and competition
+  <a class="anchor" href="#a-note-on-github-and-competition">#</a>
+</h2>
+<p>Many people will use a fleshed out, consistent timeline of git-commits as a high point in their resume. While having this is good, it&rsquo;s also really easy to abuse and shouldn&rsquo;t be used as some golden metric. See <a href="https://www.reddit.com/r/CryptoCurrency/comments/cub9c2/stop_using_number_of_git_commits_as_any_metric/">Stop using number of git commits as any metric (u/Sajjon on Reddit)</a></p>
+<p>Still, I do understand taking pride in your work and have this <a href="https://github.com/ryo-ma/github-profile-trophy">auto-generating trophy thing</a> on my profile:</p>
+<p><a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=vegadeftwing" alt="trophy" /></a></p>
+<p>So, while it&rsquo;s okay to brag a bit, don&rsquo;t think that someone not doing so - or using Git in a way that looks less flashy or consistent - means they&rsquo;re a bad programmer. Some people have workflows that result in them intentionally pushing as few commits as possible. It&rsquo;s quality, not sheer quantity, that matters.</p>
+<img src="/eng/gitcontrib.png" alt="Vegas git contrib graph" style="zoom:50%;" />
+<p>Plus, you can totally cheat the graph. It&rsquo;s really a ＢＡＤ ＭＥＴＲＩＣ.</p>
+<img src="/eng/badmetric.png" alt="badmetric" style="zoom:50%;" />
+<p class="attribution ">
+    <a href="https://github.com/gelstudios/gitfiti">https://github.com/gelstudios/gitfiti</a>
+</p>
+<h2 id="todo">
+  TODO:
+  <a class="anchor" href="#todo">#</a>
+</h2>
 <p><a href="https://www.leshenko.net/p/ugit/">μGit- DIY Git in python</a></p>
 <p><a href="https://wiki.archlinux.org/index.php/SSH_keys">SSH keys article on the (Arch Wiki)</a></p>
-<p><code>ssh-keygen</code></p>
-<p>you may need to change the existing repo to use a git based origin rather than a HTTPS one:</p>
-<p>[TODO] show graphical git tools</p>
-<p><a href="https://desktop.github.com">https://desktop.github.com</a></p>
-<p><a href="https://extrawurst.itch.io/gitui">https://extrawurst.itch.io/gitui</a></p>
-<p><a href="https://aurees.com">https://aurees.com</a></p>
-<p><a href="https://gitfiend.com">https://gitfiend.com</a></p>
-<p><a href="http://cong.tools">http://cong.tools</a> (Windows only)</p>
-<p><a href="https://gitahead.github.io/gitahead.com/">https://gitahead.github.io/gitahead.com/</a></p>
-<p><a href="https://github.com/FredrikNoren/ungit">https://github.com/FredrikNoren/ungit</a></p>
-<p><a href="https://gitextensions.github.io">https://gitextensions.github.io</a> (Windows only)</p>
-<p><a href="https://tortoisegit.org/download/">https://tortoisegit.org/download/</a> (Windows only)</p>
-<p>[TODO] comparison of Bit, Git, GithubCLI</p>
 <p>[TODO] .gitignores</p>
 <p>[TODO] show <code>git log --all --graph --decorate --oneline</code> and adding it to the gitconfig</p>
 <p>[TODO] git diff</p>
@@ -813,34 +972,7 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/">https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/</a></p>
 <p>[TODO] Not committing private info to Git</p>
 <p><a href="https://tinysubversions.com/spooler/?url=https://twitter.com/andrzejdyjak/status/1324360914812940293">What will happen when you commit secrets to a public Git repo? </a></p>
-<p><a href="http://www.ndpsoftware.com/git-cheatsheet.html#loc=index;">http://www.ndpsoftware.com/git-cheatsheet.html#loc=index;</a></p>
 <p><a href="https://onlywei.github.io/explain-git-with-d3/">https://onlywei.github.io/explain-git-with-d3/</a></p>
-<h2 id="notes-on-github-and-competition">
-  Notes on GitHub and competition
-  <a class="anchor" href="#notes-on-github-and-competition">#</a>
-</h2>
-<p><a href="https://www.reddit.com/r/CryptoCurrency/comments/cub9c2/stop_using_number_of_git_commits_as_any_metric/">Stop using number of git commits as any metric (u/Sajjon on Reddit)</a></p>
-<p><a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=vegadeftwing" alt="trophy" /></a></p>
-<blockquote>
-<p>generated using <a href="https://github.com/ryo-ma/github-profile-trophy">https://github.com/ryo-ma/github-profile-trophy</a>, the above are the stats on my GitHub profile</p>
-</blockquote>
-<img src="/eng/gitcontrib.png" alt="Vegas git contrib graph" style="zoom:50%;" />
-<img src="/eng/badmetric.png" alt="badmetric" style="zoom:50%;" />
-<blockquote>
-<p>ahh, much better. Made using <a href="https://github.com/gelstudios/gitfiti">https://github.com/gelstudios/gitfiti</a>, inspired by someone else that wrote the same thing, but I can&rsquo;t find the original.</p>
-</blockquote>
-<h2 id="other-version-control-systems">
-  Other Version Control Systems
-  <a class="anchor" href="#other-version-control-systems">#</a>
-</h2>
-<div class="tip ">
-    Git is by far the most used VCS out there. If you want to use something else I encourage you to try it and learn it, but realize if the point is to work with others it might be a pain
-</div>
-<p>[TODO]</p>
-<p>Subversion</p>
-<p>Mercurial</p>
-<p>CVS</p>
-<p>Fossil</p>
 <h2 id="weird-git">
   Weird Git
   <a class="anchor" href="#weird-git">#</a>
@@ -907,10 +1039,28 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-5---git">Chapter 5½ - Git.</a>
       <ul>
+        <li><a href="#1-letting-multiple-people-work-together">1. Letting multiple people work together</a></li>
+        <li><a href="#2-allowing-changes-to-be-reverted-later">2. Allowing changes to be reverted later</a>
+          <ul>
+            <li><a href="#3-allowing-for-branches">3. Allowing for branches</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#setting-up-a-github-account">Setting up a GitHub account</a>
+      <ul>
+        <li><a href="#even-more-security">Even more security&hellip;</a></li>
         <li><a href="#making-a-pr-on-github">Making A PR on GitHub</a></li>
         <li><a href="#cool-people-that-have-submitted-a-pr-to-edit-this-page">Cool People that Have Submitted A PR To Edit This Page</a></li>
-        <li><a href="#notes-on-github-and-competition">Notes on GitHub and competition</a></li>
-        <li><a href="#other-version-control-systems">Other Version Control Systems</a></li>
+        <li><a href="#actually-learning-to-use-git-correctly">Actually learning to use Git correctly:</a></li>
+        <li><a href="#git-user-interfaces">Git User Interfaces</a>
+          <ul>
+            <li><a href="#graphical">Graphical</a></li>
+          </ul>
+        </li>
+        <li><a href="#command-line-interface">Command Line Interface</a></li>
+        <li><a href="#a-note-on-github-and-competition">A Note on GitHub and competition</a></li>
+        <li><a href="#todo">TODO:</a></li>
         <li><a href="#weird-git">Weird Git</a></li>
         <li><a href="#further-reading">Further Reading</a></li>
       </ul>
