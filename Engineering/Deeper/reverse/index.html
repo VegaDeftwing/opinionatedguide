@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+<script src="/footnotes.js"> </script>
+<script src="/js/egg.min.js"> </script>
+
+<script>
+  var egg = new Egg("d,e,v", function() {
+    var elements = document.getElementsByClassName("egg");
+    for(var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute("hidden");
+    }
+  }).listen();
+</script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 35 - Reverse Engineering # Software # Anyone know of good resources for learning binary reversing? Not particular tools necessarily, but like theory and how to think @XMPPwocky on Twitter An Opinionated Guide on How To Reverse Engineer Software is decent.
+for me personally:
+know some assembly, and in particular make sure you know the calling conventions for your platform.
+when starting out, do it on binaries you can actually run in a debugger and see what&rsquo;s actually happening at runtime.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 35 - Reverse Engineering # Software # Anyone know of good resources for learning binary reversing? Not particular tools necessarily, but like theory and how to think @XMPPwocky on Twitter An Opinionated Guide on How To Reverse Engineer Software is decent.
+for me personally:
+know some assembly, and in particular make sure you know the calling conventions for your platform.
+when starting out, do it on binaries you can actually run in a debugger and see what&rsquo;s actually happening at runtime." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/Engineering/Deeper/reverse/" /><meta property="article:section" content="Engineering" />
+
+<meta property="article:modified_time" content="2022-12-30T16:10:45-06:00" />
+<title>Reverse | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg=">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/search.js" integrity=""></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+        
+        
+        <script src="https://unpkg.com/@h0rn0chse/night-sky/dist/bundle.min.js"></script>
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/Engineering/Engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+<dt>EXT</dt><dd> <a href="https://soatok.blog/2020/06/08/furward-momentum-introduction/">Furward Momentum</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1</dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+<dt>A2</dt><dd> <a href="/engineering/linux/windows/">Ugh. Windows.</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<!--<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a>-->
+</dd>
+    <dt>10 </dt><dd> <details id="codeMenu"> <summary><a href="/engineering/programming/intro/prog0intro">Let's Write Some Code</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog1math"> It's Math?</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog2turtle"> Turtles!</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog3tools"> Getting Tools</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog4comments"> Knowing our Tools</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog5two"> 2 for 1</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog6types"> Types</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog7logic"> logic & Functions</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog8oo"> Data Structures</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog9stdlib"> Libraries</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/intro/prog10"> Rest of the Owl</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/programming/intro/progendreal"> Getting Real</a></dd>
+   </details> </dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/bestpractices/">Best Practices</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/ethics/">Ethics & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/lifeofcode/">Life Of Code</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15½</dt><dd> <a href="/engineering/programming/data/">Data is hard</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/gitcicd/">Git, Testing, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dl>
+<dt>22 </dt><dd> <details id="compilersMenu"> <summary><a href="/engineering/programming/compilers/intro/">Custom Languages</a></summary>
+	<dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/compilers/prelude/"> Prelude</a></dd>
+    <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/compilers/lexing/"> Lexing</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/compilers/parsing/"> Parsing</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/compilers/translation/"> Translation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/generation/"> Code Generation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/intermezzo/"> Intermezzo</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/compilers/commands/"> Commands</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/compilers/subroutines/"> Subroutines</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/compilers/conditionals/"> Conditionals</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/compilers/variables/"> Variables</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/compilers/conclusion/"> Conclusion</a></dd>
+   </details></dd>
+</dil>
+    <dt>A3 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>27 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>28 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>37 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+     <dt>38 </dt><dd> <details id="netMenu"> <summary><a href="/engineering/networking/networking/">Networking</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/networking/howyougothere"> How You Got Here</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/networking/osi"> OSI</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/networking/tools"> Tools</a></dd>
+   </details> </dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>30½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>41 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>41½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Making & Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>42 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>44 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>45 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A6 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/intro">Bang Zwoop Bada-dap-bap</a></dd>
+<dt>2 </dt><dd> <a href="/music/gettingstarted/">Getting Started</a></dd>
+<dt>3 </dt><dd> <a href="/music/gettingstartedcont/">On We Go</a></dd>
+<dt>4 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>5 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>6 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+<dt class="sub">.6</dt><dd class="sub"> <a href="/music/effects/meta/"> Meta</a></dd>
+   </details> </dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>8½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>10 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>11 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>EXT</dt><dd> <a href=https://www.youtube.com/watch?v=5Tx6U5OhMDg&list=PL6haVw-BFETw13kBFhbWl6UCshzgIC7Ea> Catastrovtivity </a></dd>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>1½</dt><dd> <a href="/design/vbasics/">Basics++</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/gen/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p class="navhead, webhead" style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+<dt> </dt><dd> <a href="/interviews/spg/">Sex Positive Gaming</a></dd>
+<dt> </dt><dd> <a href="/interviews/cendyne/">Cendyne</a></dd>
+<dt> </dt><dd> <a href="/interviews/wolfgun/">Wolfgun</a></dd>
+<dt> </dt><dd> <a href="/interviews/paulshapera/">Paul Shapera</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/advice/">Advice</a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Technical</p>
+<dt></dt><dd>
+      <details id="hciMenu"> <summary> <a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+         <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	      <dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+         <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+         <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+         <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+         <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+      </details>
+</dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/fediverse/">The Fediverse, ActivityPub, & The IndieWeb </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Conlangs & Neography</p>
+<dt> </dt><dd> <a href="/other/conlangs/tokipona/">toki pona! <span class="conlang">󱥬󱦖󱥔</span> </a></dd>
+    <dt> </dt><dd> <a href="/other/conlangs/janolin/">Thoughts on olin</a> <span style="font-size:.4rem;">by jan Usawi</span></dd>
+<!--
+<dt> </dt><dd> <a href="/other/conlangs/neography/">Neography </a></dd>
+<dt> </dt><dd> <a href="/other/conlangs/rhapsodaic/">Rhapsodaic </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Writing & Storytelling</p>
+<dt>1 </dt><dd> <a href="/other/writing/writing">Writing is hard</a></dd>
+<dt>1½</dt><dd> <a href="/other/writing/creative">Creative Thinking</a></dd>
+<dt>2 </dt><dd> <a href="/other/writing/plot">Plot & Pacing</a></dd>
+<dt>3 </dt><dd> <a href="/other/writing/conflict">Conflict</a></dd>
+<dt>4 </dt><dd> <a href="/other/writing/characters">Characters</a></dd>
+<dt>5 </dt><dd> <a href="/other/writing/language">Language</a></dd>
+<dt>6 </dt><dd> <a href="/other/writing/worldbuilding">World Building</a></dd>
+<dt>7 </dt><dd> <a href="/other/writing/revision">Revision</a></dd>
+<dt>A1</dt><dd> <a href="/other/writing/poetry">Poetry</a></dd>
+--->
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd class="blogdd" style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">11</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">3</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      
+      
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Reverse</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-35---reverse-engineering">Chapter 35 - Reverse Engineering</a>
+      <ul>
+        <li><a href="#software">Software</a></li>
+        <li><a href="#circuits">Circuits</a></li>
+        <li><a href="#tools">Tools?</a>
+          <ul>
+            <li><a href="#hardware">Hardware:</a></li>
+            <li><a href="#software-1">Software:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#341---is-this-even-legal">34.1 - Is This Even Legal?</a></li>
+    <li><a href="#342---resources">34.2 - Resources</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-35---reverse-engineering">
+  Chapter 35 - Reverse Engineering
+  <a class="anchor" href="#chapter-35---reverse-engineering">#</a>
+</h1>
+<h2 id="software">
+  Software
+  <a class="anchor" href="#software">#</a>
+</h2>
+<div class="speech right ">
+    <p>
+        Anyone know of good resources for learning binary reversing?
+Not particular tools necessarily, but like theory and how to think
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech mimir big">
+    <p>
+        <p class="attribution ">
+    <a href="https://twitter.com/XMPPwocky">@XMPPwocky on Twitter</a>
+</p>
+<p><a href="https://margin.re/media/an-opinionated-guide-on-how-to-reverse-engineer-software-part-1.aspx">An Opinionated Guide on How To Reverse Engineer Software</a> is decent.</p>
+<p>for me personally:</p>
+<p>know some assembly, and in particular make sure you know the calling conventions for your platform.</p>
+<p>when starting out, do it on binaries you can actually run in a debugger and see what&rsquo;s actually happening at runtime.</p>
+<p>learn common patterns for things like &ldquo;looping over an array&rdquo;, &ldquo;iterating over a linked list&rdquo;, etc. this is very important.</p>
+<p>the process, at least for me and most of the folks i&rsquo;ve talked to, is one of iteration - start with what you know, use that to figure out other stuff. now you know more things, repeat.</p>
+<p>So:</p>
+<ol>
+<li>go for easy wins as much as you can. Strings! I love strings (mind you I don&rsquo;t do malware much). See a <code>printf(&quot;access_check: ACL rule %d check denies action %s for user %s&quot;, foo, bar, baz)</code>? Rename that function to access_check, rename foo to &ldquo;acl_rule&rdquo;, rename bar to &ldquo;acl_action&rdquo;, rename baz to &ldquo;user&rdquo;. Now follow those back as far as you can, with everything that calls access_check. Something calls <code>access_check(woof, bark, meow)</code>? woof is acl_rule, bark is acl_action, meow is user. if you use Binary Ninja right it&rsquo;ll do a lot of this for you, not sure about other tools these days.</li>
+</ol>
+<p>Look for logging functions especially - not only are they helpful, often they&rsquo;re called by macros that pass the function name as an argument - you can set the name of hundreds of functions with a script that way.</p>
+<p>Also, symbols obviously help- not just exported/local symbols either. Use imports! if something&rsquo;s passed as the first argument to <code>open</code>, that&rsquo;s a filename.</p>
+<ol start="2">
+<li>structs structs structs structs. again, binary ninja does really well here because it propagates type information. but for most binaries I encounter, figuring out a handful of structs and looking at how they&rsquo;re passed between functions pretty much makes it clear exactly what&rsquo;s going on.</li>
+<li>DON&rsquo;T GET STUCK. if you can&rsquo;t figure out roughly what a function does (enough to give it a name) within a few minutes or so of looking at it, bookmark the function and move on- reverse other stuff. Very good chance that&rsquo;ll make it obvious what the function does. If not - remember why you are reversing this binary. If you&rsquo;re doing it to hunt for vulns&hellip; does the function handle user input or do security-critical things? If not, MOVE ON.</li>
+<li>Cheat! see an interesting string? Google it, and search GitHub for it! You never know where open-source code pops up&hellip; (or where some helpful engineer has accidentally put proprietary code on GitHub). Not sure what protocol something&rsquo;s using? Look up the company&rsquo;s engineers on LinkedIn- what do they have experience with? Don&rsquo;t be afraid to use things other than the specific binary you&rsquo;re reversing to figure out how it works.</li>
+</ol>
+<hr>
+<p>oh also if you see a function with loads of xrefs to it that seems really complicated, maybe does a bunch of bitwise operations, maybe uses weird vector instructions you don&rsquo;t understand, and takes at least one pointer as an argument&hellip; it&rsquo;s probably memcpy/memset/bzero/str[n]len/str[n]cpy. if it&rsquo;s not obviously something else, assume it is - if its prototype matches memcpy&rsquo;s, call it memcpy_maybe and DON&rsquo;T GET STUCK trying to figure it out exactly unless something else means you need to (e.g. if a vuln would be exploitable only if it&rsquo;s strncpy instead of memcpy</p>
+
+    </p>
+</div>
+
+
+
+
+<hr>
+<p><a href="https://0x41.cf/reversing/2021/07/21/reversing-x86-and-c-code-for-beginners.html">Reversing for dummies - x86 assembly and C code (Beginner/ADHD friendly) (0x41.cf)</a> and <a href="https://pwn.college/modules/reversing.html">pwn.college</a> also look good, but I haven&rsquo;t gotten the chance to go though either link yet!</p>
+<h2 id="circuits">
+  Circuits
+  <a class="anchor" href="#circuits">#</a>
+</h2>
+<p>[TODO]</p>
+<h2 id="tools">
+  Tools?
+  <a class="anchor" href="#tools">#</a>
+</h2>
+<h3 id="hardware">
+  Hardware:
+  <a class="anchor" href="#hardware">#</a>
+</h3>
+<p>Most tools for reverse engineering are really tools you&rsquo;d use for otheng things anyway <em>plus</em> some special sauce. For circuits, your logic analyzer, OScope, etc. are all still valid; however, you may want to add some tools like a software defined radio (like the HackRF with portapack running <a href="https://github.com/eried/portapack-mayhem">mayhem</a>), <a href="http://www.grandideastudio.com/jtagulator/">Jtagulator</a>, <a href="https://proxmark.com/proxmark-3-hardware/proxmark-3-easy">Proxmark-3</a> (with <a href="https://github.com/RfidResearchGroup/proxmark3">iceman firmware</a>), a Bus Pirate/Shikra, and the <a href="https://www.youtube.com/watch?v=FktI4qSjzaE">ChipWhisperer</a> - and some less specialized, but abnormal for electroics work too, like a microscope, endoscope, and a current probe. Don&rsquo;t like race out to buy these things though - you&rsquo;ll know if you need them. On top of this, you&rsquo;ll need some actual tools - screwdrivers with those weird torx security bit, pry tools to take off a screen, etc. Hardware hacking tends to get rather crazy rather fast, so dont be suprised if you find you need some acids to get at the die in an IC, to throw a board in a freezer to get it nice and cold, or to shine a bright light on an IC to get it to crash.</p>
+<p>Don&rsquo;t forget your search enginer either though- looking up the FCC certification, patents, and documention on anything and everything you can is likely to tell you a lot more a lot faster than you can figure it out by actually poking the thing.</p>
+<h3 id="software-1">
+  Software:
+  <a class="anchor" href="#software-1">#</a>
+</h3>
+<h4 id="binaries">
+  Binaries:
+  <a class="anchor" href="#binaries">#</a>
+</h4>
+<p>As for software, the big one is an executable reverse engineering tool like Radare2, Cutter, Ida, BinaryNinja, etc.</p>
+<p>These let you take a compiled program and work your way back to source code&hellip; slowly. Of course, this sometimes isn&rsquo;t necessary. Hell, sometimes you just need to throw <code>strings</code> at the problem. Other times, the reverse engineering tool won&rsquo;t be enough, and you may need to throw <a href="https://github.com/horsicq/Detect-It-Easy">DIE</a>, <a href="https://github.com/endrazine/wcc">WCC</a>, <a href="https://github.com/ReFirmLabs/binwalk">Binwalk</a>, <a href="https://docs.pwntools.com/en/stable/">pwntools</a>, etc. at the problem. Of course, you shouldn&rsquo;t forget about watching the actually active state about the problam either, so GDB is still your friend - and <a href="https://rr-project.org">rr</a> and <a href="https://gef.readthedocs.io/en/master/">gef</a> make great companions to GDB. Other times, <a href="https://www.cheatengine.org">cheatengine</a> may be useful for finding an important piece of memory, Valgrind for finding when memory goes wrong, and you&rsquo;ve always got <code>strace</code> &amp; <code>ltrace</code> handy. Keep in mind that there may be special binary reversing tools for your platform too, like apktool or</p>
+<p>Resource hacker may be handy too.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    If all else fails, there&rsquo;s always the ever-unfriendly hex-editor at your disposal, or <a href="https://github.com/Mahlet-Inc/hobbits">Hobbits (GitHub)</a> if you&rsquo;re feeling fancy.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="https://github.com/Mahlet-Inc/hobbits/raw/master/docs/hobbits_screenshot.png" alt="" /></p>
+<p class="attribution ">
+    Example image from <a href="https://github.com/Mahlet-Inc/hobbits">the Hobbits Github repo</a>
+</p>
+
+  </div>
+  
+</div>
+
+<h4 id="networking">
+  Networking:
+  <a class="anchor" href="#networking">#</a>
+</h4>
+<p>Assuming things start to get network-y, you&rsquo;ll need to be familiar with network-y tools. See the 
+
+
+
+
+  
+
+
+<a  href="/Engineering/Networking/networking/"   class="book-btn ">
+  Networking
+</a>
+ page, but the short version is you&rsquo;ll want to know:</p>
+<ul>
+<li>Traceroute (or mtr)</li>
+<li>Dig</li>
+<li>Wireshark</li>
+<li>netcat (or socat)</li>
+<li>Scapy</li>
+<li>Airmon-ng</li>
+<li>&hellip; and your firewall system, be it <a href="https://wiki.archlinux.org/title/iptables">iptables</a> or something else</li>
+<li>&hellip; and your network config tool. On Linux, <code>ip</code>; on Windows, pain &amp; suffering.</li>
+</ul>
+<p>With those, you really should be able to about 99% of the reversing &amp; security reseach for networking you&rsquo;d want to do, at least assuming you don&rsquo;t need to setup some crazy, emulated networking environment or that you&rsquo;re not trying to just crack a wifi-password or router password or bypass a captive portal (which is boring <em>and</em> illegal, so not usually worth doing)</p>
+<h4 id="breaking-things-and-watching-them-scream">
+  Breaking Things and Watching Them Scream:
+  <a class="anchor" href="#breaking-things-and-watching-them-scream">#</a>
+</h4>
+<p>Of course, sometimes you just need to break things to see how they work. For that, having a whole pile of fuzzers tends to come in handy</p>
+<p>Trust me, you&rsquo;ll want a VM of basically every system you can think of ready to go. Windows XP through 11, Arch, Ubuntu, MacOS, android, <em>out of date</em> Ubuntu and Android&hellip; everything. <em>On each of these</em>, you&rsquo;ll want a full suite of system analsis tools. Task Manager and Top isn&rsquo;t going to cut it here - you&rsquo;re gonna want Process Explorer (or Process Hacker), Process Monitor for Windows and htop for Linux at minimum, though <a href="https://github.com/Sysinternals/ProcMon-for-Linux">procmon</a>, <a href="https://github.com/draios/sysdig">sysdig</a>, VmStat, lsof, netstat, iotop, nethogs, pmap, and nmon are all awesome in Linux too. Also, in Windows being able to trigger a BSOD is sometimes nice. For that there&rsquo;s <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/notmyfault">NotMyFault</a> and the good ol&rsquo; <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools">WinDbg</a>. Occasionally, <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/vmmap">vmmap</a> might come in handy as well. Keep in mind that on Linux systems you can dive into /proc, /sys, and /dev to get information too.</p>
+<h4 id="but-what-about-x">
+  But what about X?
+  <a class="anchor" href="#but-what-about-x">#</a>
+</h4>
+<p>Of course, this list is <strong>far</strong> from exhaustive. There&rsquo;s a lot of other tools that you&rsquo;ll want depending on the situation - so naturally a search engine is your №1 friend. Hell, you can probably assume it was the №1 friend of whoever wrote what you&rsquo;re poking too, so don&rsquo;t be afraid to google &ldquo;how do I X?&rdquo;, look at stack overflow, and assume that is the same code you&rsquo;re trying to reverse.</p>
+<h1 id="341---is-this-even-legal">
+  34.1 - Is This Even Legal?
+  <a class="anchor" href="#341---is-this-even-legal">#</a>
+</h1>
+<p>I am not a lawyer, but a lawyer would tell you &ldquo;It depends&rdquo;.</p>
+<p>It&rsquo;d be nice if you could do whatever you want to anything you own, but IP is a bitch and if you put Linux on your PlayStation, Sony can probably sue you and win- same for emulating a Switch on your PC, getting root on your TV, etc.</p>
+<p>Will they? Probably not. If you&rsquo;re actually woried about it, talk to a lawyer. If you think this is bullshit, then join me in giving everyone the middle finger and getting root on everything you own.</p>
+<h1 id="342---resources">
+  34.2 - Resources
+  <a class="anchor" href="#342---resources">#</a>
+</h1>
+<p><a href="https://www.youtube.com/channel/UCVeW9qkBjo3zosnqUbG7CFw">John Hammond (YouTube)</a></p>
+<p><a href="https://www.youtube.com/c/LiveOverflow">LiveOverflow (YouTube)</a></p>
+<p>&ndash; TODO</p>
+<p><a href="https://dogbolt.org/">https://dogbolt.org/</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+  <div><a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/commit/2a462bcf312e452b3a98a5b68f6bf9fc72a7e569" title='Last modified by Vega Deftwing | December 30, 2022' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>December 30, 2022</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Deeper/reverse.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-35---reverse-engineering">Chapter 35 - Reverse Engineering</a>
+      <ul>
+        <li><a href="#software">Software</a></li>
+        <li><a href="#circuits">Circuits</a></li>
+        <li><a href="#tools">Tools?</a>
+          <ul>
+            <li><a href="#hardware">Hardware:</a></li>
+            <li><a href="#software-1">Software:</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#341---is-this-even-legal">34.1 - Is This Even Legal?</a></li>
+    <li><a href="#342---resources">34.2 - Resources</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

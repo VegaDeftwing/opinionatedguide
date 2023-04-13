@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+<script src="/footnotes.js"> </script>
+<script src="/js/egg.min.js"> </script>
+
+<script>
+  var egg = new Egg("d,e,v", function() {
+    var elements = document.getElementsByClassName("egg");
+    for(var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute("hidden");
+    }
+  }).listen();
+</script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 5½ - Git. # Git is a distributed version control system that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development. - Wikipedia So it&rsquo;s a way of versioning my files? Why not just click save-as and give it a new name? You could. It&rsquo;s just that git can do a lot more! Namely, it&rsquo;s really good at:">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 5½ - Git. # Git is a distributed version control system that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development. - Wikipedia So it&rsquo;s a way of versioning my files? Why not just click save-as and give it a new name? You could. It&rsquo;s just that git can do a lot more! Namely, it&rsquo;s really good at:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/Engineering/Linux/git/" /><meta property="article:section" content="Engineering" />
+
+<meta property="article:modified_time" content="2023-03-20T20:32:25-05:00" />
+<title>Git | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg=">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/search.js" integrity=""></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+        
+        
+        <script src="https://unpkg.com/@h0rn0chse/night-sky/dist/bundle.min.js"></script>
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/Engineering/Engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+<dt>EXT</dt><dd> <a href="https://soatok.blog/2020/06/08/furward-momentum-introduction/">Furward Momentum</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1</dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+<dt>A2</dt><dd> <a href="/engineering/linux/windows/">Ugh. Windows.</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<!--<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a>-->
+</dd>
+    <dt>10 </dt><dd> <details id="codeMenu"> <summary><a href="/engineering/programming/intro/prog0intro">Let's Write Some Code</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog1math"> It's Math?</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog2turtle"> Turtles!</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog3tools"> Getting Tools</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog4comments"> Knowing our Tools</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog5two"> 2 for 1</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog6types"> Types</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog7logic"> logic & Functions</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog8oo"> Data Structures</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog9stdlib"> Libraries</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/intro/prog10"> Rest of the Owl</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/programming/intro/progendreal"> Getting Real</a></dd>
+   </details> </dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/bestpractices/">Best Practices</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/ethics/">Ethics & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/lifeofcode/">Life Of Code</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15½</dt><dd> <a href="/engineering/programming/data/">Data is hard</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/gitcicd/">Git, Testing, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dl>
+<dt>22 </dt><dd> <details id="compilersMenu"> <summary><a href="/engineering/programming/compilers/intro/">Custom Languages</a></summary>
+	<dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/compilers/prelude/"> Prelude</a></dd>
+    <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/compilers/lexing/"> Lexing</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/compilers/parsing/"> Parsing</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/compilers/translation/"> Translation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/generation/"> Code Generation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/intermezzo/"> Intermezzo</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/compilers/commands/"> Commands</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/compilers/subroutines/"> Subroutines</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/compilers/conditionals/"> Conditionals</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/compilers/variables/"> Variables</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/compilers/conclusion/"> Conclusion</a></dd>
+   </details></dd>
+</dil>
+    <dt>A3 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>27 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>28 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>37 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+     <dt>38 </dt><dd> <details id="netMenu"> <summary><a href="/engineering/networking/networking/">Networking</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/networking/howyougothere"> How You Got Here</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/networking/osi"> OSI</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/networking/tools"> Tools</a></dd>
+   </details> </dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>30½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>41 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>41½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Making & Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>42 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>44 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>45 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A6 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/intro">Bang Zwoop Bada-dap-bap</a></dd>
+<dt>2 </dt><dd> <a href="/music/gettingstarted/">Getting Started</a></dd>
+<dt>3 </dt><dd> <a href="/music/gettingstartedcont/">On We Go</a></dd>
+<dt>4 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>5 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>6 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+<dt class="sub">.6</dt><dd class="sub"> <a href="/music/effects/meta/"> Meta</a></dd>
+   </details> </dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>8½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>10 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>11 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>EXT</dt><dd> <a href=https://www.youtube.com/watch?v=5Tx6U5OhMDg&list=PL6haVw-BFETw13kBFhbWl6UCshzgIC7Ea> Catastrovtivity </a></dd>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>1½</dt><dd> <a href="/design/vbasics/">Basics++</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/gen/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p class="navhead, webhead" style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+<dt> </dt><dd> <a href="/interviews/spg/">Sex Positive Gaming</a></dd>
+<dt> </dt><dd> <a href="/interviews/cendyne/">Cendyne</a></dd>
+<dt> </dt><dd> <a href="/interviews/wolfgun/">Wolfgun</a></dd>
+<dt> </dt><dd> <a href="/interviews/paulshapera/">Paul Shapera</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/advice/">Advice</a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Technical</p>
+<dt></dt><dd>
+      <details id="hciMenu"> <summary> <a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+         <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	      <dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+         <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+         <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+         <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+         <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+      </details>
+</dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/fediverse/">The Fediverse, ActivityPub, & The IndieWeb </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Conlangs & Neography</p>
+<dt> </dt><dd> <a href="/other/conlangs/tokipona/">toki pona! <span class="conlang">󱥬󱦖󱥔</span> </a></dd>
+    <dt> </dt><dd> <a href="/other/conlangs/janolin/">Thoughts on olin</a> <span style="font-size:.4rem;">by jan Usawi</span></dd>
+<!--
+<dt> </dt><dd> <a href="/other/conlangs/neography/">Neography </a></dd>
+<dt> </dt><dd> <a href="/other/conlangs/rhapsodaic/">Rhapsodaic </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Writing & Storytelling</p>
+<dt>1 </dt><dd> <a href="/other/writing/writing">Writing is hard</a></dd>
+<dt>1½</dt><dd> <a href="/other/writing/creative">Creative Thinking</a></dd>
+<dt>2 </dt><dd> <a href="/other/writing/plot">Plot & Pacing</a></dd>
+<dt>3 </dt><dd> <a href="/other/writing/conflict">Conflict</a></dd>
+<dt>4 </dt><dd> <a href="/other/writing/characters">Characters</a></dd>
+<dt>5 </dt><dd> <a href="/other/writing/language">Language</a></dd>
+<dt>6 </dt><dd> <a href="/other/writing/worldbuilding">World Building</a></dd>
+<dt>7 </dt><dd> <a href="/other/writing/revision">Revision</a></dd>
+<dt>A1</dt><dd> <a href="/other/writing/poetry">Poetry</a></dd>
+--->
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd class="blogdd" style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">11</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">3</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      
+      
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Git</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-5---git">Chapter 5½ - Git.</a>
+      <ul>
+        <li><a href="#1-letting-multiple-people-work-together">1. Letting multiple people work together</a></li>
+        <li><a href="#2-allowing-changes-to-be-reverted-later">2. Allowing changes to be reverted later</a>
+          <ul>
+            <li><a href="#3-allowing-for-branches">3. Allowing for branches</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#setting-up-a-github-account">Setting up a GitHub account</a>
+      <ul>
+        <li><a href="#even-more-security">Even more security&hellip;</a></li>
+        <li><a href="#making-a-pr-on-github">Making A PR on GitHub</a></li>
+        <li><a href="#cool-people-that-have-submitted-a-pr-to-edit-this-page">Cool People that Have Submitted A PR To Edit This Page</a></li>
+        <li><a href="#actually-learning-to-use-git-correctly">Actually learning to use Git correctly:</a></li>
+        <li><a href="#git-user-interfaces">Git User Interfaces</a>
+          <ul>
+            <li><a href="#graphical">Graphical</a></li>
+          </ul>
+        </li>
+        <li><a href="#command-line-interface">Command Line Interface</a></li>
+        <li><a href="#a-note-on-github-and-competition">A Note on GitHub and competition</a></li>
+        <li><a href="#todo">TODO:</a></li>
+        <li><a href="#weird-git">Weird Git</a></li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-6---documentation">Chapter 6¾ - Documentation</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-5---git">
+  Chapter 5½ - Git.
+  <a class="anchor" href="#chapter-5---git">#</a>
+</h1>
+<div class="quote [Wikipedia](https://en.wikipedia.org/wiki/Git)">
+<p>
+    Git is a distributed <strong>version control system</strong>  that tracks changes in any set of computer files, usually used for coordinating work among programmers collaboratively developing source code during software development.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - <a href="https://en.wikipedia.org/wiki/Git">Wikipedia</a>
+    </div>
+</div>
+<div class="speech right triode">
+    <p>
+        So it&rsquo;s a way of versioning my files? Why not just click <code>save-as</code> and give it a new name?
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<div class="speech  ">
+    <p>
+        You could. It&rsquo;s just that git can do a lot more!
+    </p>
+</div>
+
+
+
+
+<p>Namely, it&rsquo;s really good at:</p>
+<ol>
+<li>Letting multiple people work together where real-time (Google Docs style) colaboration doesn&rsquo;t work well.</li>
+<li>Allowing for changes to be reverted later</li>
+<li>Allowing for branches</li>
+</ol>
+<p>If it helps, think of it like saving in a video game. You can save - or go back to a previous save -and have two different <strong>branches</strong> where you make a different decision in each. The only big point where this analogy breaks down is that you can <strong>merge</strong> two branches, resolving conflicts between them and that two different people can work on two different branches for them to be merged together.</p>
+<blockquote class="book-hint info ">
+  Technically, Git isn&rsquo;t the only version control system out there. There&rsquo;s also Subversion, Mercurial, CVS, &amp; Fossil to name a few. It&rsquo;s just that git has a supermajority of the market share because it&rsquo;s really damn good.
+</blockquote>
+
+<h2 id="1-letting-multiple-people-work-together">
+  1. Letting multiple people work together
+  <a class="anchor" href="#1-letting-multiple-people-work-together">#</a>
+</h2>
+<p>Say you have a file with the single sentence <code>Bob has a dog</code> in it. You want to change Bob&rsquo;s name to <code>Dave</code> and your friend wants to change the dog to a <code>cat</code></p>
+<p>So, you both make the changes to your versions of the file, each on your own computers.
+You have <code>Dave has a dog</code>, your friend has <code>Bob has a cat</code>.</p>
+<p>Now, you both go submit your changes. Naturally, one of you has to go first. Let&rsquo;s assume you make it first, the file now says <code>Dave has a dog</code>. Then, your friend goes to do their changes. Keep in mind, their version they were based on doesn&rsquo;t have the name changed to Dave yet. Now, git is smart enough to realize that you <em>only</em> changed Dave&rsquo;s name and your friend <em>only</em> changed the dog to a cat, so, it merges the two for you and you get <code>Dave has a cat</code></p>
+<p>Sometimes, the changes can&rsquo;t be resolved so easily and you will have what&rsquo;s called a <strong>merge conflict</strong>. These are fine, but does require some human intervention. In the above, if both of you had changed the persons name, the latter person would have to select which name to keep. Usually, each change is reviewed by multiple people working on the project, and if there&rsquo;s a conflict the preson the conflict is with would help get it resolved - in this case, picking which name to actually use.</p>
+<h2 id="2-allowing-changes-to-be-reverted-later">
+  2. Allowing changes to be reverted later
+  <a class="anchor" href="#2-allowing-changes-to-be-reverted-later">#</a>
+</h2>
+<p>Say you&rsquo;re working alone on the project and are working with two files</p>
+<pre tabindex="0"><code>FILE A: The Rockwell Engineering Retroencabultor is neat.
+FILE B: Usuage Guide: Don&#39;t.
+</code></pre><p>and you make some changes</p>
+<pre tabindex="0"><code>FILE A: The Aperture Science Retroencabultor is neat.
+FILE B: Usuage Guide: Lick it.
+</code></pre><p>and some more,</p>
+<pre tabindex="0"><code>FILE A: The Aperture Science Retroencabultor is dangerous.
+FILE B: Instructions: Lick it.
+</code></pre><p>But you realize you realize the middle edit was in error. Git will let you revert one or both files, plucking just the changes you made in that single &ldquo;commit&rdquo; (basically a project snapshot). If we wanted to revert the changes just to File B in the second change, we could:</p>
+<pre tabindex="0"><code>FILE A: The Aperture Science Retroencabultor is dangerous.
+FILE B: Instructions: Don&#39;t.
+</code></pre><p>Again, sometimes this will fail. If you&rsquo;ve made changes where reverting like this is nonsensical or there&rsquo;s just to many changes for it to understand what has actually changed, it won&rsquo;t work. But, generally, it&rsquo;ll do a decent job.</p>
+<p>Even if it doesn&rsquo;t work, it&rsquo;ll let you pluck it out manually and ask you to fix all the changes after it to make sense based on removing that change - a bit tedious, but better than any alternative in complex situations.</p>
+<h3 id="3-allowing-for-branches">
+  3. Allowing for branches
+  <a class="anchor" href="#3-allowing-for-branches">#</a>
+</h3>
+<p>Motivating this outside of Git&rsquo;s intended purpose (code) is a bit awkward, but branches generally serve two uses:</p>
+<ol>
+<li>Letting multiple people make a series of changes without constantly breaking eachother&rsquo;s work</li>
+<li>Keeping a large project organized</li>
+</ol>
+<p><span>1.</span> should sort of make sense intuitively. If multiple people on a team are working on a series of complex changes, a change to one thing while someone works might temporarily break something else. It&rsquo;s easier if you can take a snapshot, work off of that <strong>branch</strong>, and then submit those changes when they&rsquo;re ready, not constantly keeping up with everyone else&rsquo;s changes.</p>
+<p>Sure, sometimes someone else&rsquo;s changes will conflict with yours, but espically if you&rsquo;re mostly adding entirely new files, it usually just works - no conflicts.</p>
+<p><span>2.</span> is roughly the same idea. Say you&rsquo;re working on a program and you want to add a feature to do X. All of the changes to make X work should be self contained. When the feature is fully ready, then you merge the branch in as one big &ldquo;add this feature&rdquo; to the project merge. This is done because otherwise half-finished ideals will have code just hanging around.</p>
+<hr>
+<p>With that context, I really reccomend you go watch &amp; read:</p>
+<style>
+    .cool{
+		background: #333;
+		padding-bottom: 10px;
+    }
+</style>
+<span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="https://missing.csail.mit.edu/2020/version-control/">./missing-semester - Version Control</a>
+</span>
+<p><img src="/common/arrowthis.svg" alt="" /></p>
+<hr>
+<p>Done with that page? Cool, welcome back.</p>
+<p>There are a few extra things I want to mention:</p>
+<p>A lot of people conflate Git and Github</p>
+<p><strong>GIT</strong> is the protocol. <strong>GITHUB</strong> is a provider of git services. You can use git using Github&rsquo;s platform, but you could also use Gitlab, Gitea, or about 10000 other hosting provides - or host your own git server.</p>
+<p>Still, you may want to use Github. It&rsquo;s nice to use and is often the only way a lot of people use git. It does add a fair amount of extra features on top of git too. So, for better or worse, you&rsquo;ll probably want to know how to use it and those extra features too.</p>
+<h1 id="setting-up-a-github-account">
+  Setting up a GitHub account
+  <a class="anchor" href="#setting-up-a-github-account">#</a>
+</h1>
+<p>If you haven&rsquo;t already, go though the usual steps to make an account on <a href="https://github.com">https://github.com</a>.</p>
+<p>One of the first things you <del>should</del> have to do when using Github is set up a secure method to send your changes to GitHub&rsquo;s servers. For security reasons, you can&rsquo;t just use a password (This is a good thing) and instead need to set up <strong>key based authentication</strong>.</p>
+<p>I&rsquo;m going to save the nitty-gritty about how public-private key based authentication works for the 
+
+
+
+
+  
+
+
+<a  href="/Engineering/Networking/security/"   class="book-btn ">
+  Security
+</a>
+ chapter, but for now what you need to know is having a key pair will let you securely access git (and ssh, when we get to that) services on various servers, so we need to get keys setup.</p>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-0" checked="checked" />
+  <label for="tabs-%!s(&lt;nil&gt;)-0">Windows</label>
+  <div class="book-tabs-content markdown-inner"><p>Assuming you&rsquo;re running a somewhat recent release of Windows 10 or Windows 11, <code>ssh</code> should be installed by default. SSH is something we&rsquo;ll use later for it&rsquo;s intended purpose, but right now we need to use something included along with it, called <code>ssh-keygen</code>. If you open up a command prompt window, you should be able to run, well, exactly that- just type <code>ssh-keygen</code> and press enter. It should prompt you for where to save it - leave it the default by pressing enter. Then, it&rsquo;ll ask if you want to put a password on it, that&rsquo;s up to you, it&rsquo;s not strictly necessary. When done, that will make some new files for you in a folder at <code>C:/Users/{YourUserName}/.ssh</code> (note, this isn&rsquo;t in your documents, it&rsquo;s literally in your user folder, one below documents) the two files you just made are <code>id_rsa</code> and <code>id_rsa.pub</code>, these are your private and public keys respectively.</p>
+<div class="book-columns flex flex-wrap">
+  <div class="flex-even markdown-inner">
+    <p>It&rsquo;ll also probably generate a pretty picture, something sorta like this:</p>
+<p>As the names imply, you should keep your private key private, while you need to share your public key - in this case that means sharing it with Github. To do so, you can open <code>id_rsa.pub</code> in a text editor (if you have office installed, it might try to open it with &ldquo;Publisher&rdquo; - don&rsquo;t. Notepad or VSCode will work though)</p>
+<p>You should see text that looks something like this:</p>
+  </div>
+  <div class="flex-even markdown-inner">
+    <pre>
++---[RSA 3072]----+
+|             ..oo|
+|            o  ++|
+|        .  + o .=|
+|       + . E= ..*|
+|      = S...   +.|
+|     o =o=o=  .  |
+|      o ooX.=.   |
+|       + =.B +.o |
+|        . +...=  |
++----[SHA256]-----+
+<p></pre></p>
+  </div>
+</div>
+<pre tabindex="0"><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXdDCxYNL58FFxfeDRuokZGfvmo1S7cTr7tXOjQ1oAFAF4cWNjcNsFWUVO5oHkY59yVcLM0OSe029rCIP8ecGsXQdDP9wi3sRgpWBfaEf0vTKQ8oAJN1ipw+J2e57gV+UOMIapoTPHSSp3pCyUVS9GnZHct5vorLOCdr6V6JCTMj0KzvrlF67FV8pX9/6kiRjAQuFdFkYzeXwebW2l2GSe7nF/WfkZWMK6KAYPltnWjN9sXXbv5SXyeU6UmrnmKFJAygUj24AK8eXT8wqxIJBsIMUtO1pplLM/XJUCYC8XGcAmjo+E4heWmj3PAHO3A7GltmZoBNzsYdAvYbqVWNpn [YourUserName]@[YourComputersName]
+</code></pre><p>We need to copy that and upload it to GitHub. Just head on over to <a href="https://github.com/settings/keys">https://github.com/settings/keys</a> and click New SSH Key and paste that text in, name it whatever you like.</p>
+<p>When done, you should see something like this:</p>
+<img src="/eng/gitkeys.webp" alt="keysongithub" style="zoom:50%;" />
+<p>Now, you need to actually go install git to Windows. There are plenty of ways to do this, but since you&rsquo;re in the command prompt anyway. You can use <code>winget</code>, Microsoft&rsquo;s package manager to grab it - just run <code>winget install -e --id Git.Git</code>. If you&rsquo;re on an older system without winget or just don&rsquo;t want to use it, you can <a href="https://gitforwindows.org">grab git for windows here</a>.</p>
+<div class="speech  ">
+    <p>
+        By the way, <code>winget</code> is pretty awesome and has a lot of packages. Everything from Chrome to VLC is available, and it&rsquo;s a nice way to quickly set up a new computer.
+    </p>
+</div>
+<p>Now we can set up your user in a <code>.gitconfig</code> file, fortunately, you can do this directly from the same command prompt you&rsquo;re at. Just run <code>git config --global user.email &quot;YourEmail@InQuotesHere&quot;</code> followed by <code>git config --global user.name &quot;Your Username In Quotes Here&quot;</code>. For simplicity, you might want to make sure the email and username both match the ones you use on GitHub, though (I think?) the username can be different without issue.</p>
+</div><input type="radio" class="toggle" name="tabs-%!s(&lt;nil&gt;)" id="tabs-%!s(&lt;nil&gt;)-1"  />
+  <label for="tabs-%!s(&lt;nil&gt;)-1">Linux &amp; Mac</label>
+  <div class="book-tabs-content markdown-inner"><p>Mac OS X <code>ssh</code> should be installed by default, as should almost any Linux distro, if it&rsquo;s not, it&rsquo;ll usually be in the <code>openssh</code> package, so just install that with your package manager. SSH is something we&rsquo;ll use later for it&rsquo;s intended purpose, but right now we need to use something included along with it, called <code>ssh-keygen</code>. If you open up a terminal, you should be able to run, well, exactly that- just type <code>ssh-keygen</code> and press enter. It should prompt you for where to save it - leave it the default by pressing enter. Then, it&rsquo;ll ask if you want to put a password on it, that&rsquo;s up to you, it&rsquo;s not strictly necessary. When done, that will make some new files for you in a folder at <code>~/.ssh</code> the two files you just made are <code>id_rsa</code> and <code>id_rsa.pub</code>, these are your private and public keys respectively.</p>
+<div class="book-columns flex flex-wrap">
+  <div class="flex-even markdown-inner">
+    <p>It&rsquo;ll also probably generate a pretty picture, something sorta like this:</p>
+<p>As the names imply, you should keep your private key private, while you need to share your public key - in this case that means sharing it with Github. To do so, you can open <code>id_rsa.pub</code> in a text editor, such as TextEdit on Mac or VSCode/Nano/Sublime/Whatever on Linux.</p>
+<p>You should see text that looks something like this:</p>
+  </div>
+  <div class="flex-even markdown-inner">
+    <pre>
++---[RSA 3072]----+
+|             ..oo|
+|            o  ++|
+|        .  + o .=|
+|       + . E= ..*|
+|      = S...   +.|
+|     o =o=o=  .  |
+|      o ooX.=.   |
+|       + =.B +.o |
+|        . +...=  |
++----[SHA256]-----+
+<p></pre></p>
+  </div>
+</div>
+<pre tabindex="0"><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCXdDCxYNL58FFxfeDRuokZGfvmo1S7cTr7tXOjQ1oAFAF4cWNjcNsFWUVO5oHkY59yVcLM0OSe029rCIP8ecGsXQdDP9wi3sRgpWBfaEf0vTKQ8oAJN1ipw+J2e57gV+UOMIapoTPHSSp3pCyUVS9GnZHct5vorLOCdr6V6JCTMj0KzvrlF67FV8pX9/6kiRjAQuFdFkYzeXwebW2l2GSe7nF/WfkZWMK6KAYPltnWjN9sXXbv5SXyeU6UmrnmKFJAygUj24AK8eXT8wqxIJBsIMUtO1pplLM/XJUCYC8XGcAmjo+E4heWmj3PAHO3A7GltmZoBNzsYdAvYbqVWNpn [YourUserName]@[YourComputersName]
+</code></pre><p>We need to copy that and upload it to GitHub. Just head on over to <a href="https://github.com/settings/keys">https://github.com/settings/keys</a> and click New SSH Key and paste that text in, name it whatever you like.</p>
+<p>When done, you should see something like this:</p>
+<img src="/eng/gitkeys.webp" alt="keysongithub" style="zoom:50%;" />
+<p>Now we need Git. On Mac, <code>git</code> is <em>kinda</em> installed by default. If you go to run it, you&rsquo;ll get prompted to install &ldquo;Command Line Developer Tools&rdquo;. Do that.</p>
+<p>On Linux, you probably already have git, but if not, it&rsquo;s probably in your distro&rsquo;s repositories as <code>git</code>, so just install it as you normally would.</p>
+<p>Now we can set up your user in a <code>.gitconfig</code> file, fortunately, you can do this directly from the same command prompt you&rsquo;re at. Just run <code>git config --global user.email &quot;YourEmail@InQuotesHere&quot;</code> followed by <code>git config --global user.name &quot;Your Username In Quotes Here&quot;</code>. For simplicity, you might want to make sure the email and username both match the ones you use on GitHub, though (I think?) the username can be different without issue.</p>
+</div></div>
+
+<p>You have successfully set up keys for your account!</p>
+<h2 id="even-more-security">
+  Even more security&hellip;
+  <a class="anchor" href="#even-more-security">#</a>
+</h2>
+<p>GitHub has a second layer of authentication that&rsquo;s worth setting up too, which adds a sort of virtual signature to each change you push to GitHub as a confirmation to people that what they see was really written by you.</p>
+<details >
+  <summary>But I already had repos on GitHub, how do I make them use these keys?</summary>
+  <div class="markdown-inner">
+    <p>There&rsquo;s a good chance that when you made the repo and pulled it down to your computer you used the URL of the repo on GitHub, such as running <code>git clone https://github.com/VegaDeftwing/OpGuidesHugoSrc</code>, while this does work, it sets GitHub to use the HTTP protocol for authentication, which isn&rsquo;t what we want, instead we need to use the git protocol.</p>
+<img src="/eng/gitclone.webp" alt="GitHub Code Button" style="zoom:35%;" />
+<p>Like this, where the link is instead <code>git@github.com:VegaDeftwing/OpGuidesHugoSrc.git</code> (so the command you need to run might be <code>git clone git@github.com:VegaDeftwing/OpGuidesHugoSrc.git</code>) but the problem is you already cloned your repo, so what now? You don&rsquo;t need to delete everything and restart, you just need to change the remote.</p>
+<ol>
+<li>Start by running <code>git remote -v</code> to see what the current URL is</li>
+<li>Copy the <code>git</code> based URL from GitHub (or wherever you host your repo)</li>
+<li>Run <code>git remote set-url origin git@github.com:UserName/repo.git</code>, using the URL you copied</li>
+<li>run <code>git remote -v</code> again to confirm it changed over.</li>
+</ol>
+<p>For example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>╭─vega@lyrae ~/git/local/opguides  ‹master› 
+</span></span><span style="display:flex;"><span>╰─➤  git remote -v
+</span></span><span style="display:flex;"><span>origin	https://github.com/VegaDeftwing/opinionatedguide <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin	https://github.com/VegaDeftwing/opinionatedguide <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>╭─vega@lyrae ~/git/local/opguides  ‹master› 
+</span></span><span style="display:flex;"><span>╰─➤  git remote set-url origin git@github.com:VegaDeftwing/opinionatedguide.git
+</span></span><span style="display:flex;"><span>╭─vega@lyrae ~/git/local/opguides  ‹master› 
+</span></span><span style="display:flex;"><span>╰─➤  git remote -v
+</span></span><span style="display:flex;"><span>origin	git@github.com:VegaDeftwing/opinionatedguide.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin	git@github.com:VegaDeftwing/opinionatedguide.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>Note though, you probably don&rsquo;t want to clone <em>everything</em> as git, especially if it&rsquo;s someone eles&rsquo; repo you&rsquo;re grabbing to build yourself, as sometimes it will try to authenticate with git and fail because you don&rsquo;t have permissions to access the repo. This is an annoying edge case and <em>usually</em> doesn&rsquo;t matter, but it can.</p>
+
+  </div>
+</details>
+
+<p>[TODO] adding GPG key to account for Github verified thing</p>
+<p>[TODO] Github PR to OpGuides</p>
+<h2 id="making-a-pr-on-github">
+  Making A PR on GitHub
+  <a class="anchor" href="#making-a-pr-on-github">#</a>
+</h2>
+<ol>
+<li>
+<p>Go to <a href="https://github.com/VegaDeftwing/OpGuidesHugoSrc">OpGuide&rsquo;s GitHub Repo</a></p>
+</li>
+<li>
+<p>Click &ldquo;<svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" >
+<path fill="#FFFFFF" fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
+</svg> Fork &quot; in the top right</p>
+</li>
+<li>
+<p>Clone your copy of the repo, <code>git clone git@github.com:YouUserName/OpGuidesHugoSrc.git</code></p>
+</li>
+<li>
+<p>Go to this file (content→Engineering→Linux→git.md)</p>
+</li>
+<li>
+<p>Add your name to the list below using a text editor.</p>
+</li>
+<li>
+<p>Run <code>git add .</code> to stage your changes. (The <code>.</code> character means all files)</p>
+</li>
+<li>
+<p>Then <code>git commit -m &quot;added [yourname] to Cool People&quot;</code> To put put those staged files into a commit.</p>
+</li>
+<li>
+<p>Run <code>git push</code> to push your changes to <em>your</em> copy of the repo on GitHub</p>
+</li>
+<li>
+<p>Go back to the <a href="https://github.com/VegaDeftwing/OpGuidesHugoSrc">OpGuide&rsquo;s GitHub Repo</a></p>
+</li>
+<li>
+<p>You&rsquo;ll see a banner at the top of the page that looks something like this:</p>
+<p>[TODO]</p>
+<p>Click [TODO]</p>
+</li>
+<li>
+<p>You&rsquo;ll be prompted with the checklist that&rsquo;s in the <a href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/blob/main/pull_request_template.md">pull_request_template.md</a> file. Since you&rsquo;re just adding your name, please check the first box &ldquo;Everything I&rsquo;m contributing&hellip;&rdquo; and the first box on the Public Domain option.</p>
+</li>
+<li>
+<p>Click [TODO]. Now the Pull Request has been summited but should be marked as &ldquo;Open&rdquo;. This means that I now need to either approve it or not. If it gets approved you&rsquo;ll see &ldquo;Merged&rdquo; otherwise you&rsquo;ll see &ldquo;Closed&rdquo;. This may take a few days. Once I&rsquo;ve merged the change, it may not go live right away, as I still have to push it to the live version of the website.</p>
+</li>
+<li>
+<p>Optionally, once the PR is done, you may want to delete your copy of the repo from your repositories.</p>
+</li>
+</ol>
+<div class="cool">
+<h2 id="cool-people-that-have-submitted-a-pr-to-edit-this-page">
+  Cool People that Have Submitted A PR To Edit This Page
+  <a class="anchor" href="#cool-people-that-have-submitted-a-pr-to-edit-this-page">#</a>
+</h2>
+<ol>
+<li>[Your Name Here]</li>
+</ol>
+</div>
+<h2 id="actually-learning-to-use-git-correctly">
+  Actually learning to use Git correctly:
+  <a class="anchor" href="#actually-learning-to-use-git-correctly">#</a>
+</h2>
+<span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="https://learngitbranching.js.org">learngitbranching.js.org</a>
+</span>
+<p><img src="/common/arrowthis.svg" alt="" /></p>
+<h2 id="git-user-interfaces">
+  Git User Interfaces
+  <a class="anchor" href="#git-user-interfaces">#</a>
+</h2>
+<h3 id="graphical">
+  Graphical
+  <a class="anchor" href="#graphical">#</a>
+</h3>
+<p>There are graphical user interfaces that can be used to make working with git dramatically easier. If you&rsquo;re using GitHub, <a href="https://desktop.github.com">Github Desktop</a> is a decent option.</p>
+<p>You may want to dig through these if that doesn&rsquo;t work well for you:</p>
+<ul>
+<li><a href="https://extrawurst.itch.io/gitui">https://extrawurst.itch.io/gitui</a></li>
+<li><a href="https://aurees.com">https://aurees.com</a></li>
+<li><a href="https://gitfiend.com">https://gitfiend.com</a></li>
+<li><a href="http://cong.tools">http://cong.tools</a> (Windows only)</li>
+<li><a href="https://github.com/FredrikNoren/ungit">https://github.com/FredrikNoren/ungit</a></li>
+<li><a href="https://gitextensions.github.io">https://gitextensions.github.io</a> (Windows only)</li>
+<li><a href="https://tortoisegit.org/download/">https://tortoisegit.org/download/</a> (Windows only)</li>
+</ul>
+<h2 id="command-line-interface">
+  Command Line Interface
+  <a class="anchor" href="#command-line-interface">#</a>
+</h2>
+<p>Some tools also exist to make the command line interface to git better.</p>
+<p>Again, GitHub has their own tool, <a href="https://cli.github.com">https://cli.github.com</a></p>
+<p>But you may also want to check out <a href="https://github.com/chriswalz/bit">Bit, an alternative git CLI (Github)</a> and <a href="https://gut-cli.dev">gut</a></p>
+<p>The basic <code>git</code> command really isn&rsquo;t bad though. <a href="http://www.ndpsoftware.com/git-cheatsheet.html#loc=index;">This Cheatsheet</a> may help you if you want to learn it better.</p>
+<h2 id="a-note-on-github-and-competition">
+  A Note on GitHub and competition
+  <a class="anchor" href="#a-note-on-github-and-competition">#</a>
+</h2>
+<p>Many people will use a fleshed out, consistent timeline of git-commits as a high point in their resume. While having this is good, it&rsquo;s also really easy to abuse and shouldn&rsquo;t be used as some golden metric. See <a href="https://www.reddit.com/r/CryptoCurrency/comments/cub9c2/stop_using_number_of_git_commits_as_any_metric/">Stop using number of git commits as any metric (u/Sajjon on Reddit)</a></p>
+<p>Still, I do understand taking pride in your work and have this <a href="https://github.com/ryo-ma/github-profile-trophy">auto-generating trophy thing</a> on my profile:</p>
+<p><a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=vegadeftwing" alt="trophy" /></a></p>
+<p>So, while it&rsquo;s okay to brag a bit, don&rsquo;t think that someone not doing so - or using Git in a way that looks less flashy or consistent - means they&rsquo;re a bad programmer. Some people have workflows that result in them intentionally pushing as few commits as possible. It&rsquo;s quality, not sheer quantity, that matters.</p>
+<img src="/eng/gitcontrib.png" alt="Vegas git contrib graph" style="zoom:50%;" />
+<p>Plus, you can totally cheat the graph. It&rsquo;s really a ＢＡＤ ＭＥＴＲＩＣ.</p>
+<img src="/eng/badmetric.png" alt="badmetric" style="zoom:50%;" />
+<p class="attribution ">
+    <a href="https://github.com/gelstudios/gitfiti">https://github.com/gelstudios/gitfiti</a>
+</p>
+<h2 id="todo">
+  TODO:
+  <a class="anchor" href="#todo">#</a>
+</h2>
+<p><a href="https://www.leshenko.net/p/ugit/">μGit- DIY Git in python</a></p>
+<p><a href="https://wiki.archlinux.org/index.php/SSH_keys">SSH keys article on the (Arch Wiki)</a></p>
+<p>[TODO] .gitignores</p>
+<p>[TODO] show <code>git log --all --graph --decorate --oneline</code> and adding it to the gitconfig</p>
+<p>[TODO] git diff</p>
+<p><a href="https://github.com/dandavison/delta">https://github.com/dandavison/delta</a></p>
+<p>[TODO] Git on not-github, DIY hosting</p>
+<p><a href="https://dhwthompson.com/2019/my-favourite-git-commit">https://dhwthompson.com/2019/my-favourite-git-commit</a></p>
+<p>[TODO] Files Git works with</p>
+<p><a href="https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/">https://blog.martinfenner.org/2014/08/25/using-microsoft-word-with-git/</a></p>
+<p>[TODO] Not committing private info to Git</p>
+<p><a href="https://tinysubversions.com/spooler/?url=https://twitter.com/andrzejdyjak/status/1324360914812940293">What will happen when you commit secrets to a public Git repo? </a></p>
+<p><a href="https://onlywei.github.io/explain-git-with-d3/">https://onlywei.github.io/explain-git-with-d3/</a></p>
+<h2 id="weird-git">
+  Weird Git
+  <a class="anchor" href="#weird-git">#</a>
+</h2>
+<p><a href="https://github.com/sindresorhus/css-in-readme-like-wat">CSS in Github READMEs</a></p>
+<h2 id="further-reading">
+  Further Reading
+  <a class="anchor" href="#further-reading">#</a>
+</h2>
+<p><a href="https://missing.csail.mit.edu/2020/metaprogramming/">./missing-semester - Metaprogramming</a></p>
+<h1 id="chapter-6---documentation">
+  Chapter 6¾ - Documentation
+  <a class="anchor" href="#chapter-6---documentation">#</a>
+</h1>
+<p><a href="https://raymii.org/s/blog/Rant_Lets_talk_about_changelogs.html">Let&rsquo;s talk about changelogs, or, how I loathe &lsquo;bugfixes and performance improvements&rsquo; (Remy van Elst&rsquo;s Blog)</a></p>
+<p><a href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+  <div><a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/commit/6ac873b2f7ef52ff7f6bb9e6407079e1a0620c21" title='Last modified by Vega Deftwing | March 20, 2023' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>March 20, 2023</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/git.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-5---git">Chapter 5½ - Git.</a>
+      <ul>
+        <li><a href="#1-letting-multiple-people-work-together">1. Letting multiple people work together</a></li>
+        <li><a href="#2-allowing-changes-to-be-reverted-later">2. Allowing changes to be reverted later</a>
+          <ul>
+            <li><a href="#3-allowing-for-branches">3. Allowing for branches</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#setting-up-a-github-account">Setting up a GitHub account</a>
+      <ul>
+        <li><a href="#even-more-security">Even more security&hellip;</a></li>
+        <li><a href="#making-a-pr-on-github">Making A PR on GitHub</a></li>
+        <li><a href="#cool-people-that-have-submitted-a-pr-to-edit-this-page">Cool People that Have Submitted A PR To Edit This Page</a></li>
+        <li><a href="#actually-learning-to-use-git-correctly">Actually learning to use Git correctly:</a></li>
+        <li><a href="#git-user-interfaces">Git User Interfaces</a>
+          <ul>
+            <li><a href="#graphical">Graphical</a></li>
+          </ul>
+        </li>
+        <li><a href="#command-line-interface">Command Line Interface</a></li>
+        <li><a href="#a-note-on-github-and-competition">A Note on GitHub and competition</a></li>
+        <li><a href="#todo">TODO:</a></li>
+        <li><a href="#weird-git">Weird Git</a></li>
+        <li><a href="#further-reading">Further Reading</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-6---documentation">Chapter 6¾ - Documentation</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

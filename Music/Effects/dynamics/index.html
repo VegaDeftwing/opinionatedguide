@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+<script src="/footnotes.js"> </script>
+<script src="/js/egg.min.js"> </script>
+
+<script>
+  var egg = new Egg("d,e,v", function() {
+    var elements = document.getElementsByClassName("egg");
+    for(var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute("hidden");
+    }
+  }).listen();
+</script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dynamics # Distortion # How Distortion Works in Music (Ben Sheron&rsquo;s Blog)
+Dynamics &amp; Transients # When thinking of effects, our lil&rsquo; brains like to think about them as being volume and having a nice simple relationship with what comes out. Distortions are not that.
+First, they do sound massively different depending on how much volume and the frequency content on the input. That&rsquo;s why in the above video he mentions that putting an EQ before and after a distortion that would normally cancel each other out can still sound wildly different than no EQ at all.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #c448c7;}
+  a:active{color: #c448c7;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+  ::-webkit-scrollbar-thumb {background: #973999 !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Dynamics # Distortion # How Distortion Works in Music (Ben Sheron&rsquo;s Blog)
+Dynamics &amp; Transients # When thinking of effects, our lil&rsquo; brains like to think about them as being volume and having a nice simple relationship with what comes out. Distortions are not that.
+First, they do sound massively different depending on how much volume and the frequency content on the input. That&rsquo;s why in the above video he mentions that putting an EQ before and after a distortion that would normally cancel each other out can still sound wildly different than no EQ at all." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/Music/Effects/dynamics/" /><meta property="article:section" content="Music" />
+
+<meta property="article:modified_time" content="2023-03-18T19:44:43-05:00" />
+<title>Dynamics | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg=">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/search.js" integrity=""></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+        
+        
+        <script src="https://unpkg.com/@h0rn0chse/night-sky/dist/bundle.min.js"></script>
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/Engineering/Engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+<dt>EXT</dt><dd> <a href="https://soatok.blog/2020/06/08/furward-momentum-introduction/">Furward Momentum</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1</dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+<dt>A2</dt><dd> <a href="/engineering/linux/windows/">Ugh. Windows.</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<!--<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a>-->
+</dd>
+    <dt>10 </dt><dd> <details id="codeMenu"> <summary><a href="/engineering/programming/intro/prog0intro">Let's Write Some Code</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog1math"> It's Math?</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog2turtle"> Turtles!</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog3tools"> Getting Tools</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog4comments"> Knowing our Tools</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog5two"> 2 for 1</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog6types"> Types</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog7logic"> logic & Functions</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog8oo"> Data Structures</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog9stdlib"> Libraries</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/intro/prog10"> Rest of the Owl</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/programming/intro/progendreal"> Getting Real</a></dd>
+   </details> </dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/bestpractices/">Best Practices</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/ethics/">Ethics & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/lifeofcode/">Life Of Code</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15½</dt><dd> <a href="/engineering/programming/data/">Data is hard</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/gitcicd/">Git, Testing, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dl>
+<dt>22 </dt><dd> <details id="compilersMenu"> <summary><a href="/engineering/programming/compilers/intro/">Custom Languages</a></summary>
+	<dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/compilers/prelude/"> Prelude</a></dd>
+    <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/compilers/lexing/"> Lexing</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/compilers/parsing/"> Parsing</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/compilers/translation/"> Translation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/generation/"> Code Generation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/intermezzo/"> Intermezzo</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/compilers/commands/"> Commands</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/compilers/subroutines/"> Subroutines</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/compilers/conditionals/"> Conditionals</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/compilers/variables/"> Variables</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/compilers/conclusion/"> Conclusion</a></dd>
+   </details></dd>
+</dil>
+    <dt>A3 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>27 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>28 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>37 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+     <dt>38 </dt><dd> <details id="netMenu"> <summary><a href="/engineering/networking/networking/">Networking</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/networking/howyougothere"> How You Got Here</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/networking/osi"> OSI</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/networking/tools"> Tools</a></dd>
+   </details> </dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>30½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>41 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>41½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Making & Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>42 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>44 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>45 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A6 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/intro">Bang Zwoop Bada-dap-bap</a></dd>
+<dt>2 </dt><dd> <a href="/music/gettingstarted/">Getting Started</a></dd>
+<dt>3 </dt><dd> <a href="/music/gettingstartedcont/">On We Go</a></dd>
+<dt>4 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>5 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>6 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+<dt class="sub">.6</dt><dd class="sub"> <a href="/music/effects/meta/"> Meta</a></dd>
+   </details> </dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>8½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>10 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>11 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>EXT</dt><dd> <a href=https://www.youtube.com/watch?v=5Tx6U5OhMDg&list=PL6haVw-BFETw13kBFhbWl6UCshzgIC7Ea> Catastrovtivity </a></dd>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>1½</dt><dd> <a href="/design/vbasics/">Basics++</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/gen/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p class="navhead, webhead" style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+<dt> </dt><dd> <a href="/interviews/spg/">Sex Positive Gaming</a></dd>
+<dt> </dt><dd> <a href="/interviews/cendyne/">Cendyne</a></dd>
+<dt> </dt><dd> <a href="/interviews/wolfgun/">Wolfgun</a></dd>
+<dt> </dt><dd> <a href="/interviews/paulshapera/">Paul Shapera</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/advice/">Advice</a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Technical</p>
+<dt></dt><dd>
+      <details id="hciMenu"> <summary> <a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+         <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	      <dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+         <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+         <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+         <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+         <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+      </details>
+</dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/fediverse/">The Fediverse, ActivityPub, & The IndieWeb </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Conlangs & Neography</p>
+<dt> </dt><dd> <a href="/other/conlangs/tokipona/">toki pona! <span class="conlang">󱥬󱦖󱥔</span> </a></dd>
+    <dt> </dt><dd> <a href="/other/conlangs/janolin/">Thoughts on olin</a> <span style="font-size:.4rem;">by jan Usawi</span></dd>
+<!--
+<dt> </dt><dd> <a href="/other/conlangs/neography/">Neography </a></dd>
+<dt> </dt><dd> <a href="/other/conlangs/rhapsodaic/">Rhapsodaic </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Writing & Storytelling</p>
+<dt>1 </dt><dd> <a href="/other/writing/writing">Writing is hard</a></dd>
+<dt>1½</dt><dd> <a href="/other/writing/creative">Creative Thinking</a></dd>
+<dt>2 </dt><dd> <a href="/other/writing/plot">Plot & Pacing</a></dd>
+<dt>3 </dt><dd> <a href="/other/writing/conflict">Conflict</a></dd>
+<dt>4 </dt><dd> <a href="/other/writing/characters">Characters</a></dd>
+<dt>5 </dt><dd> <a href="/other/writing/language">Language</a></dd>
+<dt>6 </dt><dd> <a href="/other/writing/worldbuilding">World Building</a></dd>
+<dt>7 </dt><dd> <a href="/other/writing/revision">Revision</a></dd>
+<dt>A1</dt><dd> <a href="/other/writing/poetry">Poetry</a></dd>
+--->
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd class="blogdd" style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">11</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">3</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      
+      
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Dynamics</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dynamics">Dynamics</a>
+      <ul>
+        <li><a href="#distortion">Distortion</a>
+          <ul>
+            <li><a href="#dynamics--transients">Dynamics &amp; Transients</a></li>
+            <li><a href="#clipping-soft--hard">Clipping (Soft &amp; Hard)</a></li>
+            <li><a href="#waveshaping">Waveshaping</a></li>
+            <li><a href="#wavefolding">Wavefolding</a></li>
+            <li><a href="#drive-and-tubes">Drive, and Tubes</a></li>
+            <li><a href="#bitcrushing--comparators">Bitcrushing &amp; Comparators</a></li>
+            <li><a href="#fuzz">Fuzz</a></li>
+          </ul>
+        </li>
+        <li><a href="#octave--pitch-shifter-effects">Octave &amp; Pitch Shifter Effects</a>
+          <ul>
+            <li><a href="#analog-octave-effects">Analog Octave effects</a></li>
+            <li><a href="#digital-pitch-effects">Digital Pitch Effects</a></li>
+            <li><a href="#tracking">Tracking?</a></li>
+            <li><a href="#how-did-we-get-here">How did we get here&hellip;</a></li>
+          </ul>
+        </li>
+        <li><a href="#noise-gating">Noise Gating</a>
+          <ul>
+            <li><a href="#gating-other-effects-with-a-mix">Gating other effects with a mix</a></li>
+          </ul>
+        </li>
+        <li><a href="#limiting">Limiting</a></li>
+        <li><a href="#compression">Compression</a></li>
+        <li><a href="#guitar-amps">Guitar Amps</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="dynamics">
+  Dynamics
+  <a class="anchor" href="#dynamics">#</a>
+</h1>
+<script>
+    document.getElementById("effectMenu").open = true;
+</script>
+<h2 id="distortion">
+  Distortion
+  <a class="anchor" href="#distortion">#</a>
+</h2>
+<!-- https://static.roland.com/assets/media/pdf/guitar_effects_guidebook_vol_20.pdf -->
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/erv4lit4aWY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://benmosheron.gitlab.io/blog/2020/04/26/distortion.html">How Distortion Works in Music (Ben Sheron&rsquo;s Blog)</a></p>
+<h3 id="dynamics--transients">
+  Dynamics &amp; Transients
+  <a class="anchor" href="#dynamics--transients">#</a>
+</h3>
+<p>When thinking of effects, our lil&rsquo; brains like to think about them as being volume and having a nice simple relationship with what comes out. Distortions are not that.</p>
+<p>First, they do sound massively different depending on how much volume and the frequency content on the input. That&rsquo;s why in the above video he mentions that putting an EQ before and after a distortion that would normally cancel each other out can still sound wildly different than no EQ at all.</p>
+<p>But it&rsquo;s still more complicated than that - Distortions also tend to massively impact transiants and your sustain. That is, if you have a lot of distortion on, the <em>pluck</em> of the guitar string may get swallowed up and the amount of time your string can ring out before it becomes inaudible will go up considerably.</p>
+<p><img src="/music/distortionvolcurve.svg" alt="distortionvolcurve" /></p>
+<p>Sort of like this. Here, the blue curve is the volume of a guitar though no distortion over time, and the red though a distortion. The white dashed line is the level where it fades into the background so that it can&rsquo;t be heard.</p>
+<p>Because the blue has a lot more difference between the initial bump (the pluck of the string) and the fade out, that pluck will be much more noticeable. On the other hand, the blue also gets to a level where we can&rsquo;t hear it a lot sooner.</p>
+<p>How exactly a distortion handles that &lsquo;pluck&rsquo; at the start - the initial transient - can make a huge difference in the resulting sound. Armed with this knowledge, when mixing and playing with effects you can try to tweak things intentionally to let some of the pluck through or make the sustain even longer, or kill the pluck entirely to make a controllable wall of noise. What matters is you understand there&rsquo;s more to distortion than just making the sound spicier and louder.</p>
+<h3 id="clipping-soft--hard">
+  Clipping (Soft &amp; Hard)
+  <a class="anchor" href="#clipping-soft--hard">#</a>
+</h3>
+<p>Clipping does exactly what it sounds like, it just chops off the wave. While you can use it as an effect intentionally, it&rsquo;s origin - which you&rsquo;re likely to do on accident yourself - is from accidently driving a louder signal into something than it&rsquo;s meant to handle. When this happens, the portion of the incoming wave that is out of range is going to get chopped off no matter what, but there are mulitple ways than can happen: it can be <strong>hard</strong> or <strong>soft</strong>.</p>
+<p>Hard clipping will let the original signal pass though undistrubed until it crosses a threshold (positive or negative), at which point the value is snapped to that threshold. Soft clipping will start to bend the signal away as it gets close, avoiding the hard cut edges.</p>
+<p>Here, visually this should help:</p>
+<div class="egg" hidden>
+<hr>
+    <p>In code, hard clipping is as easy as two comparisons. You might be able to do some SSE voodoo to accelerate this. See <a href="https://stackoverflow.com/questions/427477/fastest-way-to-clamp-a-real-fixed-floating-point-value">https://stackoverflow.com/questions/427477/fastest-way-to-clamp-a-real-fixed-floating-point-value</a></p>
+<p>Soft clipping will be more expensive than hard. Using an actually trig call like <code>atan()</code> will wreck you on some platforms, so probably either use a LUT or polynomial approximation.</p>
+
+<hr>
+</div>
+<div id="softclip"> </div>
+<div class="slidecontainer">
+  Gain: <input type="range" min="0" max="3" step="0.01" value="1" class="slider" id="softSlider">
+ Type: <button id="softButton">Hard</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+<script>
+var softHardSwitch = false;
+const softButton = document.getElementById('softButton');
+softButton.addEventListener('click', function() {
+	softHardSwitch = !softHardSwitch;
+	if(softHardSwitch){
+		softButton.textContent = `Soft`;
+	} else {
+		softButton.textContent = `Hard`;
+	}
+});
+var offset = 0;
+var strum = .6;
+var softSlider = document.getElementById("softSlider");
+function setup() { 
+  myCanvas = createCanvas(400, 200);
+  myCanvas.parent("softclip");
+} 
+function draw() { 
+  let softSliderVal = softSlider.value;
+  background(31);
+  stroke(100);
+  strokeWeight(4);
+  noFill();
+  vertex(0, height);
+  beginShape();
+  for(var x = -5; x < width + 10; x += 5){
+    var angle = offset + x * 0.04;
+    var xval = sin(angle) * softSliderVal
+	var y = map(xval , -strum, strum, 50, 150);
+    vertex(x, y);
+  }
+  endShape();
+  vertex(width, height);
+  stroke(196,72,199);
+  vertex(0, height);
+  beginShape();
+  for(var x = -10; x < width + 20; x += 3){
+    var angle = offset + x * 0.04;
+    var xval = sin(angle) * softSliderVal
+    if(softHardSwitch){
+        if(xval < -1){
+            xval = -2/3;
+        } else if (xval > 1){
+            xval = 2/3;
+        } else{
+            xval = xval - ((xval * xval * xval)/3);
+        }
+    } else {
+    	if(xval < -2/3){
+            xval = -2/3;
+        } else if (xval > 2/3){
+            xval = 2/3;
+        } else{
+            xval = xval;
+        }
+    }
+	var y = map(xval , -strum, strum, 50, 150);
+	endShape();
+    vertex(x, y);
+  }
+  vertex(width, height);
+  offset += 0.05;
+}
+</script>
+<!--- TODO: 1. Make this allow for multiple canvases. https://github.com/processing/p5.js/wiki/Global-and-instance-mode 2. Add actual audio and FFT stuff https://p5js.org/reference/#/p5.FFT --->
+<style>
+canvas {
+	width: 100%;
+}
+</style>
+<p>The key takeaway from the two different kinds of clipping is that while both add harmonics (which is the whole point of distortion) hard clipping adds <strong>significantly</strong> more, furthermore, soft-clipping mostly adds even harmonics, while hard clipping will give you odd harmonics. That is, it adds a lot more to the higher frequencies.</p>
+<p>If you inetionally use clipping, the effect will usually apply some gain to bring the signal back up to the same amplitude, but if this is done, it will usually be a few Loudness Units<a class="ptr">(1)</a> higher in volume. This is because more harmonics <em>sounds</em> louder. Mix with care.</p>
+<h3 id="waveshaping">
+  Waveshaping
+  <a class="anchor" href="#waveshaping">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Wave shaping is a pretty broad term, but usually it refers to a method of mapping a wave onto another. It&rsquo;s basically just a function, like you&rsquo;ve seen in math class, if you think y=x, that&rsquo;s a simple 45° slope, and that corresponds to this:</p>
+<hr>
+<p>The dashed line represents an example input and output. Because here the line is that simple x=y the input and output values are exactly the same. If we change this line to be something else though, that&rsquo;s where the magic happens</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/waveshaper.svg" alt="waveshaper" />
+  </div>
+  
+</div>
+
+<p><img src="/music/waveshaping.gif" alt="waveshaping" /></p>
+<p class="attribution ">
+    This gif uses <a href="https://library.vcvrack.com/NYSTHI/BZ-MAPPER">Nysthi&rsquo;s BZ-Mapper</a>
+</p>
+<p>despite the fact that I&rsquo;m showing this on a basic oscillator, that isn&rsquo;t necessary. The input wave can be anything, drums, guitar, whatever you want. This kind of distortion can get pretty crazy pretty quickly.</p>
+<p>If you want to know more <span class="best ">
+    <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
+    <a href="https://www.perfectcircuit.com/signal/learning-synthesis-waveshapers">Learning Synthesis: Waveshapers</a>
+</span></p>
+<p>explains things beautifully, and also goes into some of the other kinds of distortion and wave mangling up ahead</p>
+<div class="egg" hidden>
+<hr>
+    Most obvious implemenation is a LUT, but if you have 16bit+ audio you&rsquo;re looking at a freakishly large LUT. Actually generating whatever function you need and doing the math is probably wise. If you know certain values are common, do a LUT for those.
+<hr>
+</div>
+<h3 id="wavefolding">
+  Wavefolding
+  <a class="anchor" href="#wavefolding">#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/wavefolding.gif" alt="" />
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p>This is one of those things where while the name is pretty self-descriptive, you sorta just have to see the signal on a scope and hear it to see what it does.</p>
+<p>Like any distortion, it ultimately adds in more harmonics, so it will make any sound you give it have a lot more high frequency content; however, folding in particular adds a ludicrous amount, so much so they&rsquo;re sort of deemed &ldquo;Anti-Filters&rdquo;.</p>
+
+  </div>
+  
+</div>
+
+<p>Wavefolding eats the transition between high and low, the slopes, so with a square wave it has nothing to grab onto and so does nothing except for maybe changing the level. Because of this, you&rsquo;ll usually see simple waves forms like sines fed into wavefolders, like sines, triangles, and saws.</p>
+<p>If you&rsquo;re looking to get really crazy, check out <a href="https://library.vcvrack.com/Befaco/ChoppingKinky">Befaco&rsquo;s Chopping Kinky</a> (available in hardware and VCV) which basically replaces the top half of the wave with one input, the bottom half of the wave with another, and then lets you wavefold both of those inputs. It&rsquo;s absolutely nuts. <a href="https://befaco.org/docs/Chopping_Kinky/Chopping%20Kinky_User_Manual.pdf">See the manual here</a> if you&rsquo;re still confused.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/nxH6lyfpLxk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="egg" hidden>
+<hr>
+    Wave folding is very easily done by using <code>fmod()</code> and compensating for the reduced signal with gain. This is relatively efficient, but if you need more control you can also just generate a polynomial/LUT to do the folding. That&rsquo;s a bit harder to add control to though. See <a href="https://ccrma.stanford.edu/~jatin/ComplexNonlinearities/Wavefolder.html">https://ccrma.stanford.edu/~jatin/ComplexNonlinearities/Wavefolder.html</a>
+<hr>
+</div>
+<h3 id="drive-and-tubes">
+  Drive, and Tubes
+  <a class="anchor" href="#drive-and-tubes">#</a>
+</h3>
+<!-- TODO, explain how you can get better distortions by turning the volume *down* "you can't really distort a square wave, it's already maximally distorted" -->
+<p><img src="/common/TODO.svg" alt="TODO" /></p>
+<div class="egg" hidden>
+<hr>
+    &ldquo;Drive&rdquo; is usually just soft clipping with some extra non linearities. Tubes are hard to emulate because they do a bit of everything. Soft clipping, adding some harmonics, compression, some hysteresis - basically, this is entering the fustercluck that is Virtual Analog and there be dragons. See <a href="https://infocomp.dcc.ufla.br/index.php/infocomp/article/view/369/353">https://infocomp.dcc.ufla.br/index.php/infocomp/article/view/369/353</a>
+<hr>
+</div>
+<h3 id="bitcrushing--comparators">
+  Bitcrushing &amp; Comparators
+  <a class="anchor" href="#bitcrushing--comparators">#</a>
+</h3>
+<p>Bit crushing is often related to sample rate reduction as well, so one at a time:</p>
+<p>Bit crushing is taking the signal and lowering the number of bits that are used to store it. This means it&rsquo;s an inherently digital effect. Most audio is processed at 16 or 24 bit, even at just 16 bit that means each sample point can be any of 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(2^16 = 65536\)
+</span>
+ values. Usually, audio is sampled with a Digital to Analog Converter (DAC) at around 44.1khz. This means that 44,100 times a second the signal is sampled and the level (amplitude) of the signal is stored as a value between 0 and 65536. That bit depth (16bit) is good enough that you shouldn&rsquo;t really be able to tell it&rsquo;s digital once it&rsquo;s spit back though a Digital to Analog Converter (ADC). However, if we turn that bit depth down, let&rsquo;s say all the way to 8 bit now there are only <span>
+  \(2^8 = 256\)
+</span>
+ levels of amplitude the signal can be represented with, even if we continue to sample at the same rate, this will cause audible distortion and bring a lo-fi sound. Crush even harder, say down to 2 bit (4 levels), and it turns into an outright destructive distortion that mangles the signal.</p>
+<p>Similarly, the sample rate can be reduced to cause the signal to have issues with higher frequencies as a result of aliasing.</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/59Nc9pPND8A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="egg" hidden>
+<hr>
+    Re sample, quantize. This is about as textbook DSP as it gets. Doing the quantiazation (bit reduction) efficiently is often as easy as just &amp;= 0xFF00 or whatever to match the bit count you want.
+<hr>
+</div>
+<h3 id="fuzz">
+  Fuzz
+  <a class="anchor" href="#fuzz">#</a>
+</h3>
+<p>Describing fuzz in words without being recursive and calling it &ldquo;fuzzy&rdquo; is difficult. Generally, Fuzz is the dirtiest of the dirty when talking about distortions. It&rsquo;s the punk-rock sound. <em>But</em>, it doesn&rsquo;t have to be. Most fuzz effects (usually guitar pedals) can be used subtly so that they add just a bit of crunch on the hardest played notes, adding some grit that&rsquo;s more at home in a country song than punk or metal.</p>
+<p>Fuzz is typical done for guitar and so most of the famous ones are pedals. Of those, the most well known are:</p>
+<ul>
+<li>The Big Muff by Electro-Harmonix
+<ul>
+<li><span class="smalltext ">
+    Though competitors have cloned it and <a href="https://www.kma-machines.com/m_chief.html">made it better</a>
+</span></li>
+</ul>
+</li>
+<li>Fuzz-Tone / Tone Bender / Fuzz-Face all have roughly the same circuit, evolved in slightly different directions
+<ul>
+<li><span class="smalltext ">
+    Each has clones made by pretty much every pedal maker
+</span></li>
+</ul>
+</li>
+<li>Super-Fuzz by Univox
+<ul>
+<li><span class="smalltext ">
+    Also cloned by everyone
+</span></li>
+</ul>
+</li>
+</ul>
+<p>I do recommend looking each up and getting a vibe for how they sound. Even if you never intend to get a hardware fuzz pedal, most software fuzz effects are trying to sound like one of these.</p>
+<p>Unfortunately, there&rsquo;s an aspect of fuzz that makes it hard to convey over a video: It plays like a totally different instrument.</p>
+<p>All distortions <em>change</em> the dynamics of your input (See the whole first section of this page) but they also respond differently depending on the input dynamics as well. Fuzzes do this to the extreme. The difference between playing softly and playing hard is crazy, as is the difference depending on how much input gain you feed it (how much do you turn the volume up or down <em>before</em> the effect). All of this makes playing a fuzz well radically change how you have to play your instrument. At minimum it necessitates some care in thinking about your volume knob as a tone control.</p>
+<p>Many fuzzes will have an in-built analog octave effect. <em>Usually</em> this is an octave up, but down is fair game too. These  are sort of their own thing, and while they don&rsquo;t have much to do with dynamics or distortion, they don&rsquo;t really fit anywhere else either, so&hellip;.</p>
+<h2 id="octave--pitch-shifter-effects">
+  Octave &amp; Pitch Shifter Effects
+  <a class="anchor" href="#octave--pitch-shifter-effects">#</a>
+</h2>
+<p>Okay, from earlier in this guide we talked about how on the piano every 12 notes, the note repeats, and that&rsquo;s called an <em>octave</em>.</p>
+<p>Well, that also means you can play both notes at once and your ears will only really hear 1 note, it&rsquo;ll just be a lot <em>thicker</em>. It adds a lot of extra flavor.</p>
+<h3 id="analog-octave-effects">
+  Analog Octave effects
+  <a class="anchor" href="#analog-octave-effects">#</a>
+</h3>
+<div class="tip ">
+    These &ldquo;analog&rdquo; effects can be done in software too, it&rsquo;s just that they&rsquo;re well known from a pre-digital era, where they could be implemented in circuits relatively easily.
+</div>
+<h4 id="octave-up">
+  Octave Up
+  <a class="anchor" href="#octave-up">#</a>
+</h4>
+<p>There are two very super simple ways to get an octave up effect, the easiest to understand is <strong>rectification</strong>:</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    What this means is to take the negative bit and flip it positive - here, the blue sine wave is rectified to make the red wave:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/rectification.svg" alt="rectification" />
+  </div>
+  
+</div>
+
+<p>Now, remember frequnecy = pitch = how often does the signal repeat. If it repeats twice as often that&rsquo;s twice the frequency or up 1 octave. If it repeats 3 times as fast, that&rsquo;s up two octaves, and so on.  So by doing this we&rsquo;ve made a new signal, one octave up.</p>
+<p>We can can then mix those two signals together and it&rsquo;ll have <em>roughly</em> the same sound as playing the same note at the same time an octave up on the instrument in the first place. The <em>roughly</em> is because there&rsquo;s two big differences:</p>
+<ol>
+<li>The red wave above isn&rsquo;t a sine wave anymore. Sure, it&rsquo;s an octave up, but it also has a lot more flavor than a basic sine wave too.</li>
+<li>On a anything but a synthesizer, it would be impossible to make the phase match perfectly on each octave if playing by hand. In the above picture you can see how the hills and valleys of the two waves align perfectly. That wouldn&rsquo;t happen if you actually struck both keys / strings / whatever.</li>
+</ol>
+<p>The other way you can do it is by what the audio world calls &ldquo;Ring Mod&rdquo; but is really just multiplying two signals together. Now, Ring Mod can, and usually does, sound totallllllly different from an octave effect. Typically an entirely different signal is multiplied with the input, causing what&rsquo;s effectively a tremolo-that-can-invert-the signal effect, but really fast. Despite usually being done with analog electronics, this sounds similar to sample-rate-reduction (Some of what makes Lo-Fi sound Lo-Fi) &hellip; anyway&hellip;. Ring Mod <em>can</em> give an octave effect if you just multiply the signal with itself.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    If you&rsquo;re wondering why that works, it&rsquo;s because -1 * -1 = 1. That is, we&rsquo;re still rectifying the signal (making the negative bits positive) but we&rsquo;re doing it in a different way.
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/ringmodoctave.svg" alt="ringmodoctave" />
+  </div>
+  
+</div>
+
+<p>The result is a much &ldquo;cleaner&rdquo; octave sound, as you can see, the output is a lot closer to the input this time. Depending on how this is done, it may also be inverted first - imagine flipping the red wave. The effect is nearly identical in sound if inverted, but may change how other effects in the chain respond.</p>
+<h4 id="octave-down">
+  Octave Down
+  <a class="anchor" href="#octave-down">#</a>
+</h4>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    The easiest way to generate a signal an octave down is to just set some threshold and flip a signal every other time that threshold is crossed. Effectively, this means counting how many peaks you see and generating a square wave at half that frequency:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/basicsuboctave.svg" alt="basicsuboctave" />
+  </div>
+  
+</div>
+
+<p>This, uh, isn&rsquo;t great? If out input was a square wave, awesome, we just got a perfect square an octave down back out. If it was anything else&hellip; we also just got a square. This <em>can</em> sound good, but isn&rsquo;t always what you want.</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    Another option is to use that output square wave to allow the original signal though or not:
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <img src="/music/bettersuboctave.svg" alt="bettersuboctave" />
+  </div>
+  
+</div>
+
+<p>And that&rsquo;s getting a lot better, but most analog octave effects will be a bit fancier than this,</p>
+<div class="quote [Wikipedia &#34;Octave Effect&#34;](https://en.wikipedia.org/wiki/Octave_effect)">
+<p>
+    <p>The Boss OC-2 unit generates tones at one and two octaves down from the input signal. This effect also uses flip-flops to generate square waves at 1/2 and 1/4 of the input signal frequency, but rather than simply mixing in these signals, it uses them to invert the polarity of the input signal on every other cycle (every two out of four cycles for the second octave).</p>
+<p>This effectively amplitude modulates the input signal with a carrier at half the input signal, creating new frequency components at 1/2 and 3/2 the input signal. The 3/2 component is low-pass filtered out. This more complex approach lessens the synthetic sound of the octave tones by making them more closely associated with the original signal, and also makes the effect volume-sensitive.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - <a href="https://en.wikipedia.org/wiki/Octave_effect">Wikipedia &ldquo;Octave Effect&rdquo;</a>
+    </div>
+</div>
+<h3 id="digital-pitch-effects">
+  Digital Pitch Effects
+  <a class="anchor" href="#digital-pitch-effects">#</a>
+</h3>
+<p>I don&rsquo;t want to go into how real-time digital pitch shifting works. If you really must know, looking up <a href="https://en.wikipedia.org/wiki/Phase-locked_loop">Phase-Locked Loops (Wikipedia)</a> and the <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">Fast Fourier Transfrom (Wikipedia)</a> will give you the start of an idea, but both require a fair amount of math-y science-y engineering-y background to gronk, and it mostly doesn&rsquo;t matter. What does matter is unlike the analog-effects (which can also be done digitally anyway) these can:</p>
+<ul>
+<li>Pitch shift to non-octave intervals (Perfect 5<sup>th</sup>s are particularly fun )</li>
+<li>Handle playing multiple notes much, much better than the above</li>
+<li>Allow live sweeping of the shift amount (&ldquo;a digital whammy bar&rdquo;)</li>
+<li>Produce much better reproductions of the original waveform at the new frequency</li>
+</ul>
+<div class="speech triode ">
+    <p>
+        So, digital is all around better?
+    </p>
+</div>
+
+
+
+
+<div class="speech right ">
+    <p>
+        <p>Ehhhh. I really don&rsquo;t want to say &ldquo;better&rdquo;. First, some of how the analog effects - which again, can be done digitally - can misbehave sounds good.</p>
+<p>Some of this &ldquo;good&rdquo; sound is cultural context too. You&rsquo;ve heard these effects, and the distortions they cause, before - even if you didn&rsquo;t realize they were being used.</p>
+<p>If you want to sound like 80&rsquo;s metal, using a digital octave effect may sound &ldquo;wrong&rdquo; as they didn&rsquo;t have digital octave effects back then.</p>
+
+    </p>
+</div>
+
+
+<br style="clear: both;">
+
+
+
+<p>If you&rsquo;re wanting to try a digital pitch shifter in VCV Rack, <a href="https://library.vcvrack.com/Bidoo/HCTIP">HCTIP (VCV Library)</a> does good enough, and is free and open source. If you need a VST Plugin for pitch shifting, the <a href="https://kilohearts.com/products/pitch_shifter">Kilohearts Pitch Shifter</a> is free and does an incredibly good job.</p>
+<h3 id="tracking">
+  Tracking?
+  <a class="anchor" href="#tracking">#</a>
+</h3>
+<p>Tracking is how well the effect produces the correct frequency based on your input. If you play an C and you get a C# and octave up from the effect, you&rsquo;ll have a lot of dissonance and it&rsquo;ll sound weird. You want the effect to consistently produce the right tone.</p>
+<p>Generally, all of these effects have <em>some</em> issues with <em>polyphony</em> - playing multiple notes at once. So, if you play a chord, it may not sound like playing that same chord twice, one octave up.</p>
+<p>The basic rectification, octave up tends to sound fine with polyphony, the ring-mod version &hellip; not so much. <strong>But</strong>, the ring-mod does fail in really cool sounding ways so long as the chords have simple relationships, like perfect 5ths. This produces what is actually one of my absolute favorite sounds in the realm of guitar pedals, though as a general-purpose effect on other instruments that tracking failure is less useful.</p>
+<p>Digital octave ups can be all over the place. They may do the analog methods digitally, in which case they&rsquo;ll behave more-or-less the same, or they may use some of the black-magic DSP techniques, and so fail in weird ways, like making random tones at different frequencies, ignoring low frequency notes, or generally just sounding robotic and weird. Failure isn&rsquo;t always bad in music though, so see what happens.</p>
+<p>Most octave down effects are usually implemented using the basic counter / frequency divider method described above, so they all tend to fail in the same way.  There can be subtle difference though. For example, some will try to monitor the input signal and do some intelligent things to produce a cleaner octave sound - this can fail.</p>
+<p>Some digital octave downs will do as described above and get the spectrum of the sound, shift it down, and then turn it back into a waveform. This process, for technical reasons, tends to fail at lower input frequencies (~200Hz and below will sound weird). Most digital effect designers know this and will do tricks to compensate, but it&rsquo;s still something to look out for.</p>
+<p>I wouldn&rsquo;t worry to much about the <em>why</em> it sounds weird. Unless you&rsquo;re trying to DIY your own effect, it doesn&rsquo;t really matter. What does matter is if you can make it sound cool/good, and again, its failures might be good for this.</p>
+<h3 id="how-did-we-get-here">
+  How did we get here&hellip;
+  <a class="anchor" href="#how-did-we-get-here">#</a>
+</h3>
+<p>Ah, right, fuzz.</p>
+<p>Octave effects and fuzz, despite on the surface having nothing to do with each other, are often paired for two reasons:</p>
+<ol>
+<li>They sound really kick ass together</li>
+<li>The circuits for doing fuzz often make adding an octave effect really, really easy.</li>
+</ol>
+<p>This is why you can grab the <a href="https://www.amazon.com/JF-12-Voodoo-Octava-Guitar-Pedal/dp/B007T8OGLK">Joyo Voodoo Octave</a> (not my favorite pedal by any means&hellip;) for $40, which in the world of pedals, is stupidly cheap.</p>
+<p>You should note that <em>most</em> analog octave up guitar effects won&rsquo;t have any knobs at all, for example, the <a href="https://www.amazon.com/EarthQuaker-Devices-Tentacle-Analog-Effects/dp/B079X31JDV">EQD Tentacle</a> - but this applies to the 2-in-1 Fuzz-plus-octave pedals too: Usually the octave is only on or off, no controls.</p>
+<h2 id="noise-gating">
+  Noise Gating
+  <a class="anchor" href="#noise-gating">#</a>
+</h2>
+<p>Some effects, especially if you&rsquo;re using hardware, will add a lot of noise to your signal.</p>
+<p>There are two ways to handle this, the simplest is to to use a <em>noise gate</em>. The idea is simple, that noise should be a lot quieter than your normal signal, so whenever you drop below a certain threshold, just cut the signal. You&rsquo;re not really removing the noise, but you are only letting it get though when there&rsquo;s something else to cover it up.</p>
+<p>This obviously has it&rsquo;s limits. If your <strong>S</strong>ignal to <strong>N</strong>oise <strong>R</strong>ation (SNR) is to low (that is, the sound you want to hear isn&rsquo;t much louder than the noise) then the gate may be to set to aggressive to actually cut the noise, causing the intended signal to fade out to quickly, missing the tail-end of each note (or string pluck, as this is most commonly a guitar problem).</p>
+<p>The other option is to use a true de-noising plugin. There&rsquo;s many out there. Probably the most popular are the various plugin in <a href="https://www.izotope.com/en/products/rx/features/spectral-de-noise.html">Izotopes RX suite</a> - These regularly go on sale <strong>dramatically</strong> - you should not pay full price for them. While I haven&rsquo;t tried it, <a href="https://tonelib.net/tl-noisereducer.html">ToneLib NoiseReducer</a> looks like a good bet if you&rsquo;re trying to use all free tool.s</p>
+<p><a href="https://patches.zone/the-animated-guide-to-gates">The Animated Guide to Gates (Patches.zone)</a></p>
+<div class="egg" hidden>
+<hr>
+    This will require something to do the thresholding. You&rsquo;ll want an envelope follower on the signal that you&rsquo;re detecting the threshold of, otherwise you&rsquo;ll cut out wayyyy to often. The follower can be as dumb as a very cheap LPF implementation. The detection may benefit from having a different on and off point for the gate too - so different rising and falling thresholds.
+<hr>
+</div>
+<h3 id="gating-other-effects-with-a-mix">
+  Gating other effects with a mix
+  <a class="anchor" href="#gating-other-effects-with-a-mix">#</a>
+</h3>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/DPFuhvFV9aU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>gated verb, gated distortion</p>
+<h2 id="limiting">
+  Limiting
+  <a class="anchor" href="#limiting">#</a>
+</h2>
+<p>Limiting is basically the exact same as clipping from before (including the hard and soft bits) <em>except</em> it usually involves being a little more clever about when to clip the signal, usually having some attack time before the signal get&rsquo;s clipped, moreover, the intention is usually to avoid distortion outright and so the limiter will usually try to turn down the gain a bit to keep signals in check, rather than just clipping them and getting all those extra harmonics.</p>
+<p>see: <a href="https://www.soundonsound.com/sound-advice/q-there-difference-between-clipping-and-limiting">Q. Is there a difference between clipping and limiting?</a> from Sound on Sound.</p>
+<div class="quote [[deleted] account on Reddit](https://www.reddit.com/r/edmproduction/comments/29tl0p/limiting_vs_clipping/ciod5zw?utm_source=share&amp;utm_medium=web2x&amp;context=3)">
+<p>
+    <p>The limiter says stuff like &ldquo;every time the signal gets loud, I&rsquo;ll gently attenuate it so that it&rsquo;s not TOO loud&rdquo;.</p>
+<p>A clipper will say &ldquo;every time the signal gets too loud, I&rsquo;ll chop every peak that&rsquo;s too loud and fuck you&rdquo;.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - <a href="https://www.reddit.com/r/edmproduction/comments/29tl0p/limiting_vs_clipping/ciod5zw?utm_source=share&amp;utm_medium=web2x&amp;context=3">[deleted] account on Reddit</a>
+    </div>
+</div>
+<p>If you already know what compressors do, you can basically think of limiters as compressors with the ratio knob at ∞. See <a href="https://www.musicianonamission.com/limiter-vs-compressor/">Limiter Vs Compressor: What you need to know (Musician on a Mission).</a></p>
+<h2 id="compression">
+  Compression
+  <a class="anchor" href="#compression">#</a>
+</h2>
+<p><a href="https://patches.zone/compression-guide">The Animated Guide To Compression (patche.zone)</a> is a great place to start, but if you still need more, I recommend reading on:</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/BIVfpsoPnOo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<blockquote class="book-hint info ">
+  The above is a 3 part series that explains compressors better than anything I can really write here
+</blockquote>
+
+<p>Compression can mean multiple things when talking about music and sometimes this makes talking about it sometimes confusing. Usually, when talking about compression the meaning is for compression that changes the <em>dynamics</em> of the audio, making loud sounds quieter and quiet sounds louder sort of ~squishing~ the sound. The other, unrelated, definition of compression is data compression, for example .mp3 vs .wav. We&rsquo;ll go into that later.</p>
+<p class="tip">Okay, this is sort of a lie. Compressors don't <i>technically</i> make anything louder. Only quieter. It's just that usually there's some input and/or output gain that makes it seem this way. If you first boost all your signals, then lower louder parts that's <i>nearly</i> the same thing as making the quiet stuff louder and louder stuff qquieter The reason this is worth bringing up is because not all compressors actually have that gain stage, so they will literally only make the loud sounds quieter and assume the user knows they need to compensate</p>
+<p>Usually, compression has a few basic attributes that are relevant:</p>
+<p>The &lsquo;Threshold&rsquo; is what level the compressor has to be over to do anything at all. &lsquo;Attack&rsquo; is the time it takes for the signal to be affected. All compressors will have some minimum attack time if they&rsquo;re happening live (there are some compressors with &lsquo;Lookahead&rsquo; that solve this problem) which lets the transients (sharp changes) of louder sounds, like the start of a drum hit, get through to some extent, but more attack will let more of the drum transient through. Tune to taste, release is a similar idea, but controls how the compressor behaves as it falls below the threshold, letting the compressor fade out with a given time instead of having a sharp cut. Compressors can be used to make drums really stand out, give guitars a longer sustained sound, or just glue the mix together better.</p>
+<p><img src="/common/TODO.svg" alt="TODO" /></p>
+<p>[TODO] knee, sidechain</p>
+<p>[TODO] Dynamic range compression, Parallel Compression, Multiband compression, different analog models (ie Fets v tube v optical)</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/j4NrWQljyso?list=PL5cGwrD7cv8jd0PSN2E8pFD97H3R5aQwN" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://www.youtube.com/watch?v=ZRP5uI9mbzQ">WTF is a Compander? (YouTube, Dan Worrall)</a></p>
+<p><a href="https://www.musicianonamission.com/how-to-use-a-compressor-plus-10-top-tips/">How to use a Compressor + 10 tips (Musician on a Mission)</a></p>
+<p>[TODO] parallel Compression</p>
+<p>[TODO] Multiband Compression</p>
+<p>[TODO] Expansion</p>
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/bxnb8cGDAzU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="egg" hidden>
+<hr>
+    There&rsquo;s so many ways to do a compressor. The most basic is to just multiply the signal with the a scaled inverse from an envelope follower, and then multiple that with some make up gain. The envelope follower is the tricky part, as the attack and release of that follower will make a huge difference. More over, a lot of compressors have non-linear frequency response. Things, of course, get even weirder when you&rsquo;re doing multi-band compression - though that is mostly just doing a LPF, BPF, and HPF with related cut-off frequencies and compressing each &ldquo;band&rdquo; individually. TL;DR: A compressor is easy to make, but hard to make good.
+<hr>
+</div>
+<h2 id="guitar-amps">
+  Guitar Amps
+  <a class="anchor" href="#guitar-amps">#</a>
+</h2>
+<p>So, all of this sort of misses a point about how all of these things play together. The truth is you probably want your distortion to do a lot of effects all at once. You probably want some overdrive, some soft clipping, some of the dry signal, some eq applied, some filtering, some &hellip; magic - that is, you probably want your distortion to do all the things you&rsquo;re thinking about when you think about what a guitar sounds like after running though the guitar amp and speaker.</p>
+<p>Calling this magic really isn&rsquo;t that far from the truth. The way analog circuits that are known to sound damn good do distortion is really, really, really fucking tricky to emulate digitally. It&rsquo;s so bad that the best emulations <a href="https://guitar.com/features/interviews/neural-dsp-doug-castro-machine-learning-amplifiers/">are using AI to model the circuits</a> because humans just can&rsquo;t get all the weird little quirks.</p>
+<p>So, where I really want to end this page is a recommendation to know what wavefolding, waveshaping, bitcrushing, soft vs hard clipping etc. all are, but to just not care most of the time and instead focus on finding a few distortion sounds you like.</p>
+<p>I, personally, have found my go-to tools are</p>
+<ul>
+<li><a href="https://library.vcvrack.com/VultModules/Flame">Vult&rsquo;s &ldquo;Flame&rdquo; for VCV Rack</a> ($25 iirc)</li>
+<li>Literally any clone of the Pro Co &ldquo;RAT&rdquo; distortion pedal - but actually hardware, software emulations alias like hell. (clone go for ~$30)</li>
+<li><a href="https://noiseengineering.us/products/the-freequel-bundle-sinc-vereor-virt-vereor-ruina">Noise Engineering Ruina VST </a> (FREE)</li>
+<li>When paired with another distortion (Rat, DS-1, whatever) the a green ringer pedal clone with <strong>germanium diodes</strong> (the diodes are important, as otherwise they respond like ass, imho) adds a lot of &hellip; something. It is an octave effect, but the way it distorts with chords yields something I haven&rsquo;t heard in anything else. These are pretty much only available from random hand made pedal builders on Reverb, prices vary wildly. The one I have was made by <a href="https://reverb.com/shop/dongeomac">Dongeomac</a>, but there are others.</li>
+</ul>
+<p>All of these have a really nice response to varying dynamics and feel &ldquo;right&rdquo;</p>
+<ol hidden id="footnotes">
+    <li>See <a href="https://en.wikipedia.org/wiki/EBU_R_128">EBU R 128 (Wikipedia)</a> if you're curious how loudness is usually defined. I'll talk about this more in the mixing and mastering chapter </li>
+</ol>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+  <div><a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/commit/16495c5b9bf0a34e343c575b21a69b62057e5c89" title='Last modified by Vega Deftwing | March 18, 2023' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>March 18, 2023</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Effects/dynamics.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dynamics">Dynamics</a>
+      <ul>
+        <li><a href="#distortion">Distortion</a>
+          <ul>
+            <li><a href="#dynamics--transients">Dynamics &amp; Transients</a></li>
+            <li><a href="#clipping-soft--hard">Clipping (Soft &amp; Hard)</a></li>
+            <li><a href="#waveshaping">Waveshaping</a></li>
+            <li><a href="#wavefolding">Wavefolding</a></li>
+            <li><a href="#drive-and-tubes">Drive, and Tubes</a></li>
+            <li><a href="#bitcrushing--comparators">Bitcrushing &amp; Comparators</a></li>
+            <li><a href="#fuzz">Fuzz</a></li>
+          </ul>
+        </li>
+        <li><a href="#octave--pitch-shifter-effects">Octave &amp; Pitch Shifter Effects</a>
+          <ul>
+            <li><a href="#analog-octave-effects">Analog Octave effects</a></li>
+            <li><a href="#digital-pitch-effects">Digital Pitch Effects</a></li>
+            <li><a href="#tracking">Tracking?</a></li>
+            <li><a href="#how-did-we-get-here">How did we get here&hellip;</a></li>
+          </ul>
+        </li>
+        <li><a href="#noise-gating">Noise Gating</a>
+          <ul>
+            <li><a href="#gating-other-effects-with-a-mix">Gating other effects with a mix</a></li>
+          </ul>
+        </li>
+        <li><a href="#limiting">Limiting</a></li>
+        <li><a href="#compression">Compression</a></li>
+        <li><a href="#guitar-amps">Guitar Amps</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

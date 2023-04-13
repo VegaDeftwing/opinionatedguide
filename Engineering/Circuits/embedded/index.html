@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+<html lang="en" dir=>
+
+<link href="https://github.com/VegaDeftwing" rel="me">
+
+<link rel="webmention" href="https://webmention.io/opguides.info/webmention" />
+<link rel="pingback" href="https://webmention.io/opguides.info/xmlrpc" />
+
+<script src="/webmention.min.js" async></script>
+
+<script src="/footnotes.js"> </script>
+<script src="/js/egg.min.js"> </script>
+
+<script>
+  var egg = new Egg("d,e,v", function() {
+    var elements = document.getElementsByClassName("egg");
+    for(var i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute("hidden");
+    }
+  }).listen();
+</script>
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chapter 26 - Embedded Systems # By Make It With Me If you&rsquo;re reading this page, it&rsquo;s expected that you&rsquo;re either pretty comfortable with C and programming on a normal computer already or that you&rsquo;ve at least read though both the programming intro chapter starting with
+&ldquo;Lets Write Some Code&rdquo; and the &ldquo;Low Level Programming&rdquo; page What is an Embedded System? # [TODO] need source These little devices are Pocket Operators made by Teenage Engineering, they&rsquo;re relatively inexpensive synths that can be chained together, and I think they&rsquo;re a great example of what an embedded system is, but for the sake of clarity, here&rsquo;s how Wikipedia defines it: An embedded system is a computer system—a combination of a computer processor, computer memory, and input/output peripheral devices—that has a dedicated function within a larger mechanical or electronic system.">
+<meta name="theme-color" content="#FFFFFF">
+
+
+
+<style>
+  a{color:  #42b9f3;}
+  a:active{color: #42b9f3;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+  ::-webkit-scrollbar-thumb {background: #009CDF !important;}
+</style>
+<meta property="og:title" content="" />
+<meta property="og:description" content="Chapter 26 - Embedded Systems # By Make It With Me If you&rsquo;re reading this page, it&rsquo;s expected that you&rsquo;re either pretty comfortable with C and programming on a normal computer already or that you&rsquo;ve at least read though both the programming intro chapter starting with
+&ldquo;Lets Write Some Code&rdquo; and the &ldquo;Low Level Programming&rdquo; page What is an Embedded System? # [TODO] need source These little devices are Pocket Operators made by Teenage Engineering, they&rsquo;re relatively inexpensive synths that can be chained together, and I think they&rsquo;re a great example of what an embedded system is, but for the sake of clarity, here&rsquo;s how Wikipedia defines it: An embedded system is a computer system—a combination of a computer processor, computer memory, and input/output peripheral devices—that has a dedicated function within a larger mechanical or electronic system." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opguides.info/Engineering/Circuits/embedded/" /><meta property="article:section" content="Engineering" />
+
+<meta property="article:modified_time" content="2023-03-18T19:44:43-05:00" />
+<title>Embedded | Opinionated Guides</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg=">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/search.js" integrity=""></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  <script src="/sw-register.js"></script>
+</head>
+
+<body dir=>
+
+        
+        
+
+        
+        
+        <script src="https://unpkg.com/@h0rn0chse/night-sky/dist/bundle.min.js"></script>
+        
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
+
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="navbak" style="background:#009CDF;>
+<ul>
+<li><a href="/Engineering/Engineering/"><strong>Engineering</strong></a></li>
+</ul>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Introduction</p>
+<div class="progress-ww">
+<dl>
+<dt>0 </dt><dd> <a href="/engineering/engineering/">What is this?</a></dd>
+<dt>Ⅰ </dt><dd> <a href="/engineering/intro/community/">Community</a></dd>
+<dt>Ⅱ </dt><dd> <a href="/engineering/intro/howtolearn/">Learn How to Learn</a></dd>
+<dt>EXT</dt><dd> <a href="https://soatok.blog/2020/06/08/furward-momentum-introduction/">Furward Momentum</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Linux & Your Computer</p>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/engineering/linux/firstgoal/">The First Goal</a></dd>
+<dt>2 </dt><dd> <a href="/engineering/linux/arch/">Installing Arch Linux</a></dd>
+   <dt>3 </dt><dd> <details id="hardwareMenu"> <summary><a href="/engineering/linux/hardware/">Into The Hardware</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cpu"> CPU</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/linux/hardware/ram"> RAM</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/linux/hardware/motherboard"> Motherboard</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/linux/hardware/gpu"> Graphics</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/linux/hardware/storage"> Storage</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/linux/hardware/network"> Networking</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/linux/hardware/power"> Power</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/linux/hardware/cooling"> Cooling</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/linux/hardware/peripherals"> Peripherals</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/linux/hardware/biggerpicture"> The Bigger Picture</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/linux/hardware/buying"> What to Buy?</a></dd>
+    <dt class="sub">.12</dt><dd class="sub"> <a href="/engineering/linux/hardware/legacy"> Legacy</a></dd>
+   </details> </dd>
+<dt>3½</dt><dd> <a href="/engineering/linux/hardware/architectures/">Architectures</a></dd>
+<dt>4 </dt><dd> <a href="/engineering/linux/linuxdirtree/">Getting Rooted in Linux</a></dd>
+<dt>5 </dt><dd> <a href="/engineering/linux/howwework/">Working on <i>How</i> we work</a></dd>
+<dt>5½</dt><dd> <a href="/engineering/linux/git/">Git</a></dd>
+<dt>A1</dt><dd> <a href="/engineering/linux/linuxshell/">Using The Linux Shell</a></dd>
+<dt>A2</dt><dd> <a href="/engineering/linux/windows/">Ugh. Windows.</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Prerequisites</p>
+<div class="progress-ww">
+<dl>
+   <dt>6 </dt><dd> <details id="mathMenu"> <summary><a href="/engineering/math/math/">Math</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/math/algebra"> Algebra</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/math/logic"> Logic</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/math/geometry"> Geometry & Trig</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/engineering/math/calc"> Calculus</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/engineering/math/diffeq"> Diff Eq</a></dd>
+    <dt class="sub">.6</dt><dd class="sub"> <a href="/engineering/math/linalg"> Linear Algebra</a></dd>
+    <dt class="sub">.7</dt><dd class="sub"> <a href="/engineering/math/numanalysis"> Numerical Analysis</a></dd>
+    <dt class="sub">.8</dt><dd class="sub"> <a href="/engineering/math/settheory"> Set Theory</a></dd>
+    <dt class="sub">.9</dt><dd class="sub"> <a href="/engineering/math/probability"> Probability</a></dd>
+   </details> </dd>
+<dt>6½</dt><dd> <a href="/engineering/math/units/">Units</a></dd>
+<dt>7 </dt><dd> <a href="/engineering/prereq/physics/">Physics</a></dd>
+<dt>8 </dt><dd> <a href="/engineering/prereq/chem/">Chemistry</a></dd>
+<dt>9 </dt><dd> <a href="/engineering/prereq/othersubjects/">'The Rest'</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Programming</p>
+<div class="progress-ww">
+<dl>
+<!--<dt>10 </dt><dd> <a href="/engineering/programming/codeintro/">Let's Write Some Code</a>-->
+</dd>
+    <dt>10 </dt><dd> <details id="codeMenu"> <summary><a href="/engineering/programming/intro/prog0intro">Let's Write Some Code</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog1math"> It's Math?</a></dd>
+	  <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog2turtle"> Turtles!</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog3tools"> Getting Tools</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog4comments"> Knowing our Tools</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog5two"> 2 for 1</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog6types"> Types</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog7logic"> logic & Functions</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog8oo"> Data Structures</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/intro/prog9stdlib"> Libraries</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/intro/prog10"> Rest of the Owl</a></dd>
+    <dt class="sub">.11</dt><dd class="sub"> <a href="/engineering/programming/intro/progendreal"> Getting Real</a></dd>
+   </details> </dd>
+<dt>11 </dt><dd> <a href="/engineering/programming/bestpractices/">Best Practices</a></dd>
+<dt>11½</dt><dd> <a href="/engineering/programming/ethics/">Ethics & Copyright</a></dd>
+<dt>12 </dt><dd> <a href="/engineering/programming/lifeofcode/">Life Of Code</a></dd>
+<dt>13 </dt><dd> <a href="/engineering/programming/fixxingissuses/">Fixing Issues</a></dd>
+<dt>14 </dt><dd> <a href="/engineering/programming/lowlvl/">Low Level Programming</a></dd>
+<dt>15 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
+<dt>15½</dt><dd> <a href="/engineering/programming/data/">Data is hard</a></dd>
+<dt>16 </dt><dd> <a href="/engineering/programming/gitcicd/">Git, Testing, CI & CD</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
+<dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
+<dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
+<dt>21 </dt><dd> <a href="/engineering/programming/game/">Game Programming</a></dd>
+<dl>
+<dt>22 </dt><dd> <details id="compilersMenu"> <summary><a href="/engineering/programming/compilers/intro/">Custom Languages</a></summary>
+	<dt class="sub">.1 </dt><dd class="sub"> <a href="/engineering/programming/compilers/prelude/"> Prelude</a></dd>
+    <dt class="sub">.2 </dt><dd class="sub"> <a href="/engineering/programming/compilers/lexing/"> Lexing</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/engineering/programming/compilers/parsing/"> Parsing</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/engineering/programming/compilers/translation/"> Translation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/generation/"> Code Generation</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/engineering/programming/compilers/intermezzo/"> Intermezzo</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/engineering/programming/compilers/commands/"> Commands</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/engineering/programming/compilers/subroutines/"> Subroutines</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/engineering/programming/compilers/conditionals/"> Conditionals</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/engineering/programming/compilers/variables/"> Variables</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/engineering/programming/compilers/conclusion/"> Conclusion</a></dd>
+   </details></dd>
+</dil>
+    <dt>A3 </dt><dd> <a href="/engineering/programming/languages/">Programming Languages</a></dd>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Circuits</p>
+<div class="progress-ww">
+<dl>
+<dt>23 </dt><dd> <a href="/engineering/circuits/circuits1/">Circuits!</a></dd>
+<dt>24 </dt><dd> <a href="/engineering/circuits/circuits2/">Semiconductors</a></dd>
+<dt>24½</dt><dd> <a href="/engineering/circuits/parts/">Parts</a></dd>
+<dt>25 </dt><dd> <a href="/engineering/circuits/digitallogic/">Digital Logic</a></dd>
+<dt>26 </dt><dd> <a href="/engineering/circuits/embedded/">Embedded Systems</a></dd>
+<dt>27 </dt><dd> <a href="/engineering/circuits/pcb/">Let's Make our own PCB</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Signal Processing</p>
+<div class="progress-ww">
+<dl>
+<dt>28 </dt><dd> <a href="/engineering/signals/sigandsys">Signals & Systems</a></dd>
+<dt>29 </dt><dd> <a href="/engineering/signals/commsys">Communications</a></dd>
+<dt>30 </dt><dd> <a href="/engineering/signals/dsp">DSP</a></dd>
+<dt>31 </dt><dd> <a href="/engineering/signals/controlsys">Control Systems</a></dd>
+<dt>32 </dt><dd> <a href="/engineering/signals/compvision/">Computer Vision</a></dd>
+<dt>33 </dt><dd> <a href="/engineering/signals/aiml/">Fine, here's AI/ML</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Going Deeper</p>
+<div class="progress-ww">
+<dl>
+<dt>34 </dt><dd> <a href="/engineering/deeper/compileassemble/">Compilers & Assemblers</a></dd>
+<dt>35 </dt><dd> <a href="/engineering/deeper/reverse/">Reverse Engineering</a></dd>
+<dt>36 </dt><dd> <a href="/engineering/deeper/fpga1/">Programmable Logic</a></dd>
+<dt>37 </dt><dd> <a href="/engineering/deeper/comparch/">Let's Make our own CPU</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Networking & Servers</p>
+<div class="progress-ww">
+<dl>
+     <dt>38 </dt><dd> <details id="netMenu"> <summary><a href="/engineering/networking/networking/">Networking</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/engineering/networking/howyougothere"> How You Got Here</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/engineering/networking/osi"> OSI</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/engineering/networking/tools"> Tools</a></dd>
+   </details> </dd>
+<dt>39 </dt><dd> <a href="/engineering/networking/servers/">Servers!</a></dd>
+<dt>30½</dt><dd> <a href="/engineering/networking/cloud/">"The Cloud"</a></dd>
+<dt>40 </dt><dd> <a href="/engineering/networking/databases/">Databases</a></dd>
+<dt>41 </dt><dd> <a href="/engineering/networking/security/">Security & Exploitation</a></dd>
+<dt>41½</dt><dd> <a href="/engineering/networking/privacy/">Privacy</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Making & Hobbies</p>
+<div class="progress-ww">
+<dl>
+<dt>42 </dt><dd> <a href="/engineering/making/3dprint/">3D Printing & CNC</a></dd>
+<dt>43 </dt><dd> <a href="/engineering/making/hamradio/">Ham Radio</a></dd>
+<dt>44 </dt><dd> <a href="/engineering/making/history/">Computer History</a></dd>
+</dil>
+</div>
+<p class="navhead" style="color:#009CDF;margin-bottom:0px;" >    Wrapping Up</p>
+<div class="progress-ww">
+<dl>
+<dt>45 </dt><dd> <a href="/engineering/wrappingup/wrappingup/">Where next?</a></dd>
+<dt>A3 </dt><dd> <a href="/engineering/wrappingup/cheat/">Cheat Sheets & Libraries</a></dd>
+<dt>A4 </dt><dd> <a href="/engineering/wrappingup/resources/">Other Great Resources</a></dd>
+<dt>A5 </dt><dd> <a href="/engineering/wrappingup/job/">Getting a Job</a></dd>
+<dt>A6 </dt><dd> <a href="/engineering/wrappingup/latex/">Markdown and LaTeX</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#973999;">
+<ul>
+<li><strong>Music</strong></li>
+</ul>
+</div>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/music/intro">Bang Zwoop Bada-dap-bap</a></dd>
+<dt>2 </dt><dd> <a href="/music/gettingstarted/">Getting Started</a></dd>
+<dt>3 </dt><dd> <a href="/music/gettingstartedcont/">On We Go</a></dd>
+<dt>4 </dt><dd> <a href="/music/sound-sources/">Sound Sources</a></dd>
+   <dt>5 </dt><dd> <details id="instMenu"> <summary><a href="/music/instruments/">Instruments</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/instruments/perc/"> Percussion</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/instruments/strings/"> Strings</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/instruments/wind/"> Wind</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/instruments/synth/"> Synths</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/instruments/esoteric/"> The Esoteric</a></dd>
+   </details> </dd>
+   <dt>6 </dt><dd> <details id="effectMenu"> <summary><a href="/music/effects/">Effects</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/effects/trivial/"> Trivial Effects</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/effects/time/"> Time Based Effects</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/effects/filter/"> Filters!</a></dd>
+    <dt class="sub">.4</dt><dd class="sub"> <a href="/music/effects/dynamics/"> Dʸⁿᵃᵐᶦᶜˢ</a></dd>
+    <dt class="sub">.5</dt><dd class="sub"> <a href="/music/effects/misc/"> Everything Else</a></dd>
+<dt class="sub">.6</dt><dd class="sub"> <a href="/music/effects/meta/"> Meta</a></dd>
+   </details> </dd>
+<dt>7 </dt><dd> <a href="/music/seqandmidi/">Sequencing & MIDI</a></dd>
+  </details> </dd>
+   <dt>8 </dt><dd> <details id="softMenu"> <summary><a href="/music/software/music-software">Software</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/music/software/daw"> DAW?</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/music/software/plugin/"> Plugins!</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/music/software/livecoding/"> Live Code</a></dd>
+   </details> </dd>
+<dt>8½</dt><dd> <a href="/music/midi/">MIDI in Detail</a></dd>
+<dt>9 </dt><dd> <a href="/music/music-hardware/">Hardware</a></dd>
+<dt>10 </dt><dd> <a href="/music/theory/">Theory</a></dd>
+<dt>11 </dt><dd> <a href="/music/mix-and-master/">Mixing & Mastering</a></dd>
+<dt>A1 </dt><dd> <a href="/music/other-resources-music/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/music/video/">Video</a></dd>
+<dt>A3 </dt><dd> <a href="/music/vcv/">VCV Tips</a></dd>
+<dt>A4 </dt><dd> <a href="/music/musicpiracy/">Piracy</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#E23838;">
+<ul>
+<li><strong>Philosophy</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/phil/basic-phil/">Basic Philosophy</a></dd>
+<dt>2 </dt><dd> <a href="/phil/fallacies/">Logical Fallacies+</a></dd>
+<dt>3 </dt><dd> <a href="/phil/arguments/">Arguments</a></dd>
+<dt>4 </dt><dd> <a href="/phil/idea-labs/">Community Idea Labs</a></dd>
+<dt>5 </dt><dd> <a href="/phil/community/">Community Efforts</a></dd>
+<dt>6 </dt><dd> <a href="/phil/education/">Education</a></dd>
+<dt>7 </dt><dd> <a href="/phil/labor/">Labor & Compensation</a></dd>
+<dt>8 </dt><dd> <a href="/phil/copyright/">Copyright</a></dd>
+<dt>9 </dt><dd> <a href="/phil/consumerism/">Consumerism</a></dd>
+<dt>10 </dt><dd> <a href="/phil/law-and-order/">Law & Order</a></dd>
+<dt>11 </dt><dd> <a href="/phil/infrastructure/">Infrasturcture</a></dd>
+<dt>12 </dt><dd> <a href="/phil/environment/">Environment</a></dd>
+<dt>13 </dt><dd> <a href="/phil/religion/">Religion</a></dd>
+<dt>14 </dt><dd> <a href="/phil/sex/">Sex</a></dd>
+<dt>15 </dt><dd> <a href="/phil/medical/">Medical</a></dd>
+<dt>16 </dt><dd> <a href="/phil/foriegn/">Foriegn Involvement</a></dd>
+<dt>17 </dt><dd> <a href="/phil/voting/">Voting</a></dd>
+<dl>
+   <dt>18 </dt><dd> <details id="freedomMenu"> <summary><a href="/phil/freedoms/freedoms/">Freedoms</a></summary>
+    <dt class="sub">.1 </dt><dd class="sub"> <a href="/phil/freedoms/speech/"> Speech</a></dd>
+	<dt class="sub">.2 </dt><dd class="sub"> <a href="/phil/freedoms/press/"> Press</a></dd>
+    <dt class="sub">.3 </dt><dd class="sub"> <a href="/phil/freedoms/search/"> Search & Seizure</a></dd>
+    <dt class="sub">.4 </dt><dd class="sub"> <a href="/phil/freedoms/fairtrial/"> Fair Trial</a></dd>
+    <dt class="sub">.5 </dt><dd class="sub"> <a href="/phil/freedoms/body/"> Bodily Autonomy</a></dd>
+    <dt class="sub">.6 </dt><dd class="sub"> <a href="/phil/freedoms/environmentalconcern/"> Environment</a></dd>
+    <dt class="sub">.7 </dt><dd class="sub"> <a href="/phil/freedoms/travel/"> Travel</a></dd>
+    <dt class="sub">.8 </dt><dd class="sub"> <a href="/phil/freedoms/armament/"> Armament</a></dd>
+    <dt class="sub">.9 </dt><dd class="sub"> <a href="/phil/freedoms/recording/"> Recording</a></dd>
+    <dt class="sub">.10</dt><dd class="sub"> <a href="/phil/freedoms/ownership"> Ownership</a></dd>
+    <dt class="sub">EXT</dt><dd class="sub"> <a href="https://anewdigitalmanifesto.com"> Digital Manifesto</a></dd>
+   </details> </dd>
+<dt>19 </dt><dd> <a href="/phil/duties/">Duties</a></dd>
+<dt>20 </dt><dd> <a href="/phil/phil-and-the-internet/">Internet</a></dd>
+<dt>21 </dt><dd> <a href="/phil/phil-misc/">Misc</a></dd>
+<dt>A1 </dt><dd> <a href="/phil/phil-other/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#F78200;">
+<ul>
+<li><strong>Design</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>EXT</dt><dd> <a href=https://www.youtube.com/watch?v=5Tx6U5OhMDg&list=PL6haVw-BFETw13kBFhbWl6UCshzgIC7Ea> Catastrovtivity </a></dd>
+<dt>1 </dt><dd> <a href="/design/basics/">Basics of Art</a></dd>
+<dt>1½</dt><dd> <a href="/design/vbasics/">Basics++</a></dd>
+<dt>2 </dt><dd> <a href="/design/analog/">Analog Art</a></dd>
+<dt>3 </dt><dd> <a href="/design/digital/">Digital Art</a></dd>
+<dt>3½</dt><dd> <a href="/design/dacadc/">DAC/ADC</a></dd>
+<dt>4 </dt><dd> <a href="/design/ui/">UI/UX</a></dd>
+<dt>5 </dt><dd> <a href="/design/3d/">3D</a></dd>
+<dt>6 </dt><dd> <a href="/design/gen/">Generative Tools</a></dd>
+<dt>A1 </dt><dd> <a href="/design/design-other/">Other Resources</a></dd>
+<dt>A2 </dt><dd> <a href="/design/ia/">Inspirational Art</a></dd>
+<dt>A3 </dt><dd> <a href="/design/photo/">Photo</a></dd>
+</dil>
+</div>
+<p class="navhead, webhead" style="background: linear-gradient(90deg, #F78200 0%, #FFF 50%, #009CDF 75%) ;-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:0px;" >    Web Development</p>
+</div>
+<div class="progress-ww">
+<dl>
+<dt>1 </dt><dd> <a href="/design/web/jack/">Jack of all trades</a></dd>
+<dt>2 </dt><dd> <a href="/design/web/garden/">Your own garden</a></dd>
+</details> </dd>
+   <dt>3 </dt><dd> <details id="webMenu"> <summary><a href="/design/web/langs">HTML, CSS, JS, WUT?</a></summary>
+    <dt class="sub">.1</dt><dd class="sub"> <a href="/design/web/langs/html/"> HTML</a></dd>
+	  <dt class="sub">.2</dt><dd class="sub"> <a href="/design/web/langs/css/"> CSS</a></dd>
+    <dt class="sub">.3</dt><dd class="sub"> <a href="/design/web/langs/js/"> JS</a></dd>
+   </details> </dd>
+<dt>4 </dt><dd> <a href="/design/web/static/">Static & Dynamic</a></dd>
+<dt>5 </dt><dd> <a href="/design/web/cost/">Cost?</a></dd>
+<dt>6 </dt><dd> <a href="/design/web/setup/">Getting Setup</a></dd>
+<dt>7 </dt><dd> <a href="/design/web/content/">Content is King</a></dd>
+<dt>8 </dt><dd> <a href="/design/web/thinkingweb/">Thinking Web</a></dd>
+<dt>8½</dt><dd> <a href="/design/web/access/">Accessability</a></dd>
+<dt>A1 </dt><dd> <a href="/design/web/tools/">Web development tools</a></dd>
+<dt>A2 </dt><dd> <a href="/design/web/resources/">Other Resources</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#FFB900;">
+<ul>
+<li><strong>Interviews</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/interviews/loial/">Loial Otter</a></dd>
+<dt> </dt><dd> <a href="/interviews/soatok/">Soatok Dreamseeker</a></dd>
+<dt> </dt><dd> <a href="/interviews/cadeyratio/">Cadey Ratio</a></dd>
+<dt> </dt><dd> <a href="/interviews/kell/">Kell Bengal</a></dd>
+<dt> </dt><dd> <a href="/interviews/taxbadger/">Tax Badger</a></dd>
+<dt> </dt><dd> <a href="/interviews/spg/">Sex Positive Gaming</a></dd>
+<dt> </dt><dd> <a href="/interviews/cendyne/">Cendyne</a></dd>
+<dt> </dt><dd> <a href="/interviews/wolfgun/">Wolfgun</a></dd>
+<dt> </dt><dd> <a href="/interviews/paulshapera/">Paul Shapera</a></dd>
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background:#5EBD3E;">
+<ul>
+<li><strong>Other</strong></li>
+</ul>
+</div>
+<div class="progress-ww">
+<dl>
+<dt> </dt><dd> <a href="/other/funlinks/">Interesting Links</a></dd>
+<dt> </dt><dd> <a href="/other/advice/">Advice</a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Technical</p>
+<dt></dt><dd>
+      <details id="hciMenu"> <summary> <a href="/other/hci2/intro/">The Way We Interact With Computers Sucks</a></summary>
+         <dt class="sub">1</dt><dd class="sub"> <a href="/other/hci2/physical"> The Physical</a></dd>
+	      <dt class="sub">2</dt><dd class="sub"> <a href="/other/hci2/digital"> The Digital</a></dd>
+         <dt class="sub">3</dt><dd class="sub"> <a href="/other/hci2/whatelse"> What Is Needed?</a></dd>
+         <dt class="sub">4</dt><dd class="sub"> <a href="/other/hci2/contradictions"> What Contradicts?</a></dd>
+         <dt class="sub">5</dt><dd class="sub"> <a href="/other/hci2/radicallychanging"> Radically Changing</a></dd>
+         <dt class="sub">6</dt><dd class="sub"> <a href="/other/hci2/wrappingup"> Wrapping Up</a></dd>
+      </details>
+</dd>
+<dt> </dt><dd> <a href="/other/coolhardware/">Cool Hardware</a></dd>
+<dt> </dt><dd> <a href="/other/fediverse/">The Fediverse, ActivityPub, & The IndieWeb </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Conlangs & Neography</p>
+<dt> </dt><dd> <a href="/other/conlangs/tokipona/">toki pona! <span class="conlang">󱥬󱦖󱥔</span> </a></dd>
+    <dt> </dt><dd> <a href="/other/conlangs/janolin/">Thoughts on olin</a> <span style="font-size:.4rem;">by jan Usawi</span></dd>
+<!--
+<dt> </dt><dd> <a href="/other/conlangs/neography/">Neography </a></dd>
+<dt> </dt><dd> <a href="/other/conlangs/rhapsodaic/">Rhapsodaic </a></dd>
+<p class="navhead" style="color:#5EBD3E;margin-bottom:0px;" >   Writing & Storytelling</p>
+<dt>1 </dt><dd> <a href="/other/writing/writing">Writing is hard</a></dd>
+<dt>1½</dt><dd> <a href="/other/writing/creative">Creative Thinking</a></dd>
+<dt>2 </dt><dd> <a href="/other/writing/plot">Plot & Pacing</a></dd>
+<dt>3 </dt><dd> <a href="/other/writing/conflict">Conflict</a></dd>
+<dt>4 </dt><dd> <a href="/other/writing/characters">Characters</a></dd>
+<dt>5 </dt><dd> <a href="/other/writing/language">Language</a></dd>
+<dt>6 </dt><dd> <a href="/other/writing/worldbuilding">World Building</a></dd>
+<dt>7 </dt><dd> <a href="/other/writing/revision">Revision</a></dd>
+<dt>A1</dt><dd> <a href="/other/writing/poetry">Poetry</a></dd>
+--->
+</dil>
+</div>
+<hr>
+<div class="navbak" style="background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);animation: animatedgradient 5s ease alternate infinite;background-size: 300% 300%;">
+<ul>
+<li><b><a href="/posts/" style="color: #000 !important;">Blog<a></b></li>
+</ul>
+</div>
+
+<div style="width: 90%;margin: auto;">
+        
+          
+            <dl>
+                <li class="flex justify-between">
+                    <dd><b><a href="/tags/">TAG</a></b><dt>
+                    <b><dd class="blogdd" style="color: #fff;">№ of Posts</dt></b>
+                  </li>
+                  <hr>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/technical/">technical</a><dt>
+                <dd class="blogdd" style="color: #fff;">11</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/art/">art</a><dt>
+                <dd class="blogdd" style="color: #fff;">3</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">8</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/school/">school</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/politics/">politics</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+            </dil>
+          </li>
+          
+        
+</div>
+<br />
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      
+      
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Embedded</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-26---embedded-systems">Chapter 26 - Embedded Systems</a>
+      <ul>
+        <li><a href="#what-is-an-embedded-system">What is an Embedded System?</a></li>
+        <li><a href="#playing-around---hello-world-and-blink">Playing around - Hello World and blink</a></li>
+        <li><a href="#pwm-spi-i2c-whats-going-on">PWM, SPI, I2C, What&rsquo;s going on?!</a></li>
+        <li><a href="#project-1---calculator">Project 1 - Calculator</a></li>
+        <li><a href="#project-2---midi-controller">Project 2 - MIDI Controller</a></li>
+        <li><a href="#project-3---adc-to-the-dac">Project 3 - ADC to the DAC</a></li>
+        <li><a href="#project-4---leds-again">Project 4 - LEDs&hellip; again?</a></li>
+        <li><a href="#project-5---euclidean-rhythms">Project 5 - Euclidean Rhythms</a></li>
+        <li><a href="#project-6---the-epochalypse">Project 6 - The Epochalypse</a></li>
+        <li><a href="#real-time-operating-systems">Real Time Operating Systems</a></li>
+        <li><a href="#intrinsic-operations--asm">Intrinsic Operations &amp; ASM</a></li>
+        <li><a href="#project-7-asm-blink">Project 7: ASM Blink</a></li>
+        <li><a href="#other-weird-and-cool-projects">Other weird and cool projects:</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-141---embedded-hardware-comparison">Chapter 14.1 - Embedded Hardware comparison</a>
+      <ul>
+        <li><a href="#arduino--arduino">Arduino ≠ Arduino</a></li>
+        <li><a href="#stm-32">STM 32</a></li>
+      </ul>
+    </li>
+    <li><a href="#142---projects-i-recommend">14.2 - Projects I recommend</a></li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="chapter-26---embedded-systems">
+  Chapter 26 - Embedded Systems
+  <a class="anchor" href="#chapter-26---embedded-systems">#</a>
+</h1>
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/571259885" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+<p class="attribution ">
+    By <a href="https://www.instructables.com/Cheapest-Plug-Play-Room-Automation-Setup/">Make It With Me</a>
+</p>
+<div class="tip ">
+    <p>If you&rsquo;re reading this page, it&rsquo;s expected that you&rsquo;re either pretty comfortable with C and programming on a normal computer already or that you&rsquo;ve at least read though both the programming intro chapter starting with</p>
+<a  href="/Engineering/Programming/Intro/prog0intro/"   class="book-btn ">
+  &ldquo;Lets Write Some Code&rdquo;
+</a>
+ and the 
+<a  href="/Engineering/Programming/lowlvl/"   class="book-btn ">
+  &ldquo;Low Level Programming&rdquo;
+</a>
+ page
+
+</div>
+<h2 id="what-is-an-embedded-system">
+  What is an Embedded System?
+  <a class="anchor" href="#what-is-an-embedded-system">#</a>
+</h2>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/eng/pos.webp" alt="pos" /></p>
+<p class="attribution ">
+    [TODO] need source
+</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    These little devices are <em>Pocket Operators</em> made by Teenage Engineering, they&rsquo;re relatively inexpensive synths that can be chained together, and I think they&rsquo;re a great example of what an embedded system is, but for the sake of clarity, here&rsquo;s how Wikipedia defines it:
+  </div>
+  
+</div>
+
+<div class="quote Wikipedia">
+<p>
+    An embedded system is a computer system—a combination of a computer processor, computer memory, and input/output peripheral devices—that has a dedicated function within a larger mechanical or electronic system.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - Wikipedia
+    </div>
+</div>
+<p>Alright, so how do these pocket operators show this well? Well, the pocket operators have a <em>Microcontroller</em> on them as well as a fair amount of things connects to it, but let&rsquo;s hang on for a second- Microcontroller? Microcontrollers, sometimes written as <em>μC</em>, <em>MCU</em>, or just <em>micro</em> are the heart of most embeded projects</p>
+<div class="quote Wikipedia, minor edits">
+<p>
+    <p><strong>A microcontroller</strong> is a small computer contained in an integrated circuit (IC) chip. A microcontroller contains one or more CPUs (processor cores) along with memory and programmable input/output peripherals. Microcontrollers are designed for embedded applications, in contrast to the microprocessors used in personal computers.</p>
+<p>Microcontrollers are used in automatically controlled products and devices, such as automobile engine control systems, implantable medical devices, remote controls, office machines, appliances, power tools, toys and other <strong>embedded systems</strong>.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - Wikipedia, minor edits
+    </div>
+</div>
+<p>Alright, so that&rsquo;s a lot of words. The gist of it is you&rsquo;re getting a tiny computer that&rsquo;s roughly comprable in specs to a computer from the 80&rsquo;s, but is inexpensive (usually under $2.00, especially in bulk) and that has a ton of pins that you can connect other things to- LEDs, motors, buttons, etc.</p>
+<p>These computers <em>usually</em> don&rsquo;t run a full operating system, and instead <em>usually</em> just run a loop of your code forever. They also usually have some special pins that can do things like read analog voltages, communicate over SPI or 
+<link rel="stylesheet" href="/katex/katex.min.css" />
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
+  \(\text{I}^2 \text{C}\)
+</span>
+, trigger interrupts, or be used for PWM (Puse Width Modulation).</p>
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p>Probably the most commonly recommend microcontroller for beginners is the ATMEGA328P on the Arduino Uno. The 328P and Uno are both&hellip; not awesome. But, for first learning and getting your toes wet they&rsquo;re fine.</p>
+<p>It&rsquo;s worth noting, the μC itself is the Atmega328P- the really big black rectangular chip. The board that breaks these pins out to the headers for you to plug wires into, provides the USB connection, power filtering, reset button, etc. is the Development Board- in this case it&rsquo;s been named the Arduino Uno.</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/unsplash/duino.webp" alt="" /></p>
+<p class="attribution ">
+    Image by <a href="https://unsplash.com/@sahandbabali">Sahand Babali</a>
+</p>
+
+  </div>
+  
+</div>
+
+<div class="book-columns flex flex-wrap">
+  
+  <div class="flex-even markdown-inner">
+    <p><img src="/unsplash/pi.webp" alt="" /></p>
+<p class="attribution ">
+    Image by <a href="https://unsplash.com/photos/rZKdS0wI8Ks">Vishnu Mohanan</a>
+</p>
+
+  </div>
+  
+  <div class="flex-even markdown-inner">
+    Sometimes the lines for what&rsquo;s a microcontroller or embedded system can get blurry. This is especially the case when using a development board on a finished product or when a full computer that runs a desktop OS is involved. For example, the Raspberry Pi, pictured here, is an embeded system; <em>however</em>, it has a full blow ARM System On a Chip (SoC) that can run Linux and be used as a full desktop computer.
+  </div>
+  
+</div>
+
+<p>More confusing still, the Pi itself has multiple embedded systems <em>in</em> the embedded system- for example the dedicated chip on the Pi3b+ that provides the Ethernet connectivity could be considered part of its own embedded system. Yet, the Pi has General Purpose Input Output (GPIO) pins like most microcontrollers.</p>
+<p>All of this is to say, don&rsquo;t worry about it too much. As you work with it more, you&rsquo;ll learn the differences. This is all just jargon anyway, and sometimes not everything fits cleanly under a single label. Instead, you should focus on what matters: Knowing what parts to use, what features they offer, and how to program them to do what you want.</p>
+<hr>
+<p>For the rest of this page, I&rsquo;m going to be talking about embedded systems that <em>don&rsquo;t</em> have processors beefy enough to run Linux - those are usually called &ldquo;Single Board Computers&rdquo; or SBC&rsquo;s anyway, just because they&rsquo;re really in an entirelly different weight class and price bracket. If you know how to work on the classic μC embedded systems as I&rsquo;ll dicuss going forward <em>and</em> you know how to do general desktop development, making software for a Single Board Computer, such as the Pi, is really just a blend of the two and should come pretty naturally.</p>
+<h2 id="playing-around---hello-world-and-blink">
+  Playing around - Hello World and blink
+  <a class="anchor" href="#playing-around---hello-world-and-blink">#</a>
+</h2>
+<p>Alright, so you have a microcontroller, presumably on a dev board, maybe even aforementioned Arduino Uno (though seriously, the 328p is trash- coming back to that in a bit) but you want to make it <em>do something</em>. Generally, the first thing you&rsquo;ll want to do with a devboard is the exact same as you do when learning any programming language, make it say &ldquo;Hello World&rdquo;. Now, this is pretty easy, if you have a controller that can run the Arduino framework (this is more than just boards from Arduino- Arduino the framework runs on a bunch of other boards that aren&rsquo;t made by Arduino the foundation), you can download the Arduino IDE, write this code:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// put your setup code here, to run once:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  Serial.begin(<span style="color:#ae81ff">9600</span>);
+</span></span><span style="display:flex;"><span>  Serial.println(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// put your main code here, to run repeatedly:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Connect your board, press upload, and if you go to <em>Tools → Serial Monitor</em> you should see the Arduino send back the words &ldquo;Hello World!&rdquo;. Now, this is super not exciting, as it doesn&rsquo;t really seem any different from just running similar code on your computer. However, keep in mind that code spitting out that text <em>didn&rsquo;t</em> execute on your computer. It ran on that lil&rsquo; board, and then that text was sent back over the USB cable.</p>
+<p>But, there are a few things I want to address first:</p>
+<ol>
+<li>The Arduino IDE is fucking garbage (for now, it should be getting better with Version 2.0)</li>
+<li>This code leaves a lot obscured.
+<ul>
+<li>Where is <code>Serial</code> from?</li>
+<li>Why are we not just using <code>printf()</code>?</li>
+<li>What&rsquo;s up with <code>setup()</code> and <code>loop()</code> instead of <code>main()</code>?</li>
+<li>Why <code>9600</code>?</li>
+</ul>
+</li>
+</ol>
+<p>So, to answer 1. - Yeah, don&rsquo;t use the Arduino IDE. For now, the best option is <a href="https://platformio.org">PlatformIO</a> on VSCode.</p>
+<p>To rapid fire 2. - <code>Serial</code> is from a library that gets installed by default with Arduino and by using a call to it in your code, the Arduino IDE links it in for you, without the need for <code>#include</code> like we saw back in the low level programming chapter. This may sound nice, but it&rsquo;s actually really annoying. There are a bunch of libraries like this, and often you won&rsquo;t realize you&rsquo;re even using something non-standard- like <code>setup()</code> and <code>loop()</code> Arduino actually has a file sitting elsewhere that literally has the code:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Arduino.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    init();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#if defined(USBCON)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    USBDevice.attach();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    setup();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (;;) {
+</span></span><span style="display:flex;"><span>        loop();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (serialEventRun) serialEventRun();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>which, while may look a bit weird, you&rsquo;ll see does contain our typical <code>main()</code> and just executes <code>setup()</code> once then whatever we put in <code>loop()</code> in an infinite for loop. It also contains <code>#include &lt;arduino.h&gt;</code> which will include if you dive into you&rsquo;d see includes the Serial library too.</p>
+<div class="speech left triode">
+    <p>
+        Okay, but WTF is &ldquo;Serial&rdquo;? Why not just use <code>printf()</code>
+    </p>
+</div>
+
+
+
+
+<p>Okay, so, there&rsquo;s a few things here.</p>
+<p>First, the &ldquo;arduino&rdquo; framework isn&rsquo;t actually C it&rsquo;s <em>C++</em> and the standard way printing is done in C++ is a bit different anyway - yes, you can use <code>printf()</code> in normal desktop programs in C++, but you usually want to use a syntax closer to this</p>
+<p><code>cout &lt;&lt; &quot;Hello World!&quot;;</code></p>
+<p>But, more improtantly, C++ is also object oriented, so we&rsquo;re calling the <code>println()</code> function from the <code>Serial</code> class - it&rsquo;s an entirely different language. Again, not a big deal to think about right now. There are two take aways you need to really answer your question</p>
+<ol>
+<li><code>println</code> is basically just a <code>printf</code> that add&rsquo;s the newline for us</li>
+<li><code>Serial</code> is a class that gives provides us functions for working with the serial interface <em>hardware</em> on the board</li>
+</ol>
+<p>Now, 2. Is the more important and more confusing point and requires a smidgen of historical context.</p>
+<p>You connected the board to your computer over USB or <strong>U</strong>niversal <strong>S</strong>erial <strong>B</strong>us. Prior to USB we also had &hellip; Serial. Just&hellip; Serial. USB can (with a lot of hand waving to what is actually going on) let devices show up as old school Serial devices though. If you&rsquo;re on Windows, these will show up as com ports (COM4 or whatever) on Linux, they&rsquo;ll show up as <code>/dev/ttyACM0</code> or <code>/dev/ttyUSB0</code> (with the number incrementing depending on the number of devices)  - this old school serial connection is pretty damn slow but basically just gives us a way to send data (usually text) back and forth to a device - allowing us to print that data to a terminal or send data from a terminal.</p>
+<p>This is why we can&rsquo;t just use <code>printf()</code> - where would that text even show up?! <strong>There&rsquo;s no screen on the board!</strong> no terminal. We need to send the data back to the computer over the serial interface to have a way to read it!</p>
+<p>Finally, just to be though, that <code>9600</code> which may seem like a magic number, is the baudrate the board was sending data to the computer over Serial. <code>9600</code> is stupidly slow, yet is the default that many programs with the Arduino framework will use- most boards can do <code>115200</code>, which is 12 times faster.</p>
+<p>Really, most of this abstraction is just in our way. This isn&rsquo;t C++&rsquo;s fault, the <code>Serial</code> class providing functions like println and having encasulated functions for setup - great, that&rsquo;s well made. Not including <code>serial.h</code> ourselves or having a convient tool for looking at how the underlying libraries tie together? That is a dumpster fire.</p>
+<p>There&rsquo;s no need for all of that to sit between us and the code!</p>
+<p>A lot of &ldquo;Makers&rdquo; will only learn to use the Arduino functions and way of doing things. Yeah, they might make some things easier, but long term they&rsquo;ll seriously limit what you can do. I love &ldquo;Makers&rdquo; and &ldquo;Hackers&rdquo; and consider myself one, but if you use the title as an excuse to not learn how shit works, you&rsquo;re doing it wrong.</p>
+<p>Sometimes, a quick n&rsquo; dirty solution will work. If you just want to make some LEDs blink or switch a relay to turn something on and off, sure. The problem is, sooner or later you&rsquo;ll find something where you need fast response times and need to use interrupts, or where you need to get fine control over PWM and need to twiddle bits, and the Arduino library will make doing so a massive pain in the ass.</p>
+<p>So, let&rsquo;s try this again, this time, don&rsquo;t use the Arduino IDE, but grab PlatformIO and make a new project.</p>
+<p>I&rsquo;ll assume that most people reading this are- <em>despite how much of a massive pile of shit they are</em>- using an Arduino Uno (or clone). If that&rsquo;s all you have, frankly, the Arduino library is still your best bet for <em>some</em> things, so when you make a new project because it does provide some things that are a total pain to do by hand, like setup aforementioned <code>Serial</code>. That said, the other library that works in PlatfromIO for the Uno, <a href="https://simba-os.readthedocs.io/en/latest/index.html">Simba</a> is pretty cool and will abstract out a lot of that mess too.</p>
+<p>The biggest reason to use the Arduino framework is that there&rsquo;s a mountain of libraries written for it, so if you get a little board for RFID or temperature sensing or GPS or whatever, there&rsquo;s probably already a drop in library with example code. But, frankly, the 328P is so under powered and old that I just can not justify learning on it. Instead, I&rsquo;m going to recommend the STM32F411CE - or, as it&rsquo;s more commonly known, the &ldquo;Black Pill&rdquo;</p>
+<div class="tip ">
+    If you&rsquo;re buying one to follow along, be careful. There are variants of the BlackPill that have the F401 or F103. The F103 boards almost universally have issues, so at the very least make sure it&rsquo;s an F401 or F411.
+</div>
+<p>But, I hear you asking, <strong>&ldquo;why?&rdquo;</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Arduino Uno/Nano (328p)</th>
+<th>BlackPill (STM32F411CE)*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Price</td>
+<td>~$6.00</td>
+<td>~$6.00 + ~$7 debugger</td>
+</tr>
+<tr>
+<td>№ Bits</td>
+<td>8</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Clock Speed</td>
+<td>20Mhz</td>
+<td>100Mhz</td>
+</tr>
+<tr>
+<td>Program Memory</td>
+<td>32Kb</td>
+<td>512Kb</td>
+</tr>
+<tr>
+<td>Ram</td>
+<td>2Kb</td>
+<td>128Kb</td>
+</tr>
+<tr>
+<td>I/O Voltage</td>
+<td>5V</td>
+<td>3.3V (lots of 5V tolerant pins)</td>
+</tr>
+<tr>
+<td>Debugging</td>
+<td>Kinda, but not really.</td>
+<td>With ST-Link</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>that big ol&rsquo; printer style on the UNO, or micro-usb on the Nano</td>
+<td>USB-C</td>
+</tr>
+</tbody>
+</table>
+<p class="attribution ">
+    *The STM32F4<strong>0</strong>1CE boards are a smidgen worse, but honestly, they&rsquo;re both so good it probably won&rsquo;t matter to you. Get whatever is cheaper.
+</p>
+<p>Even if <em>most</em> of these specs don&rsquo;t mean anything to you and whatever projects you have in mind don&rsquo;t need a beefy processor, while learning espcially you don&rsquo;t want to be constantly running out of RAM or room to store your code.</p>
+<p>If that doesn&rsquo;t convince you, then I don&rsquo;t know what will. Oh, and the BlackPill still supports the Arduino framework, if you do actually need it. Now, to be fair, there&rsquo;s a lot more to this than these specs. The 328p will almost certainly have better library support than the BlackPill, the Uno has a bunch of snap-on accessories, and some things do actually work better with the 5V i/o of the Uno. It&rsquo;s just&hellip; sort of dumb to start on something so old and so far removed from modern practices.</p>
+<p>You&rsquo;d also want to consider what protocols and inputs the boards can handle. In this case, the BlackPill is basically better in every way in that front too. If you were looking at other options though, some boards may not have analog input pins, for example, and that might be a dealbreaker for some projects. I&rsquo;ll talk more about how to find the right μC / Devboard for your project later, for now, let&rsquo;s move on assuming you have the BlackPill in front of you.</p>
+<p>So, let&rsquo;s try making our <code>Hello World!</code> again.</p>
+<p>[TODO] Blinking the onboard LED</p>
+<p>[TODO] Using the Arduino framework in PlatformIO, then setting up STM32CubeIDE because it&rsquo;s actually good. But explain that PlatformIO is still great because of support for ATmega, ESP8266/32, bigger STM boards like the STM32F7xx, Longan Nano, BBC Micro:bit, pi pico</p>
+<h2 id="pwm-spi-i2c-whats-going-on">
+  PWM, SPI, I2C, What&rsquo;s going on?!
+  <a class="anchor" href="#pwm-spi-i2c-whats-going-on">#</a>
+</h2>
+<div class="tip ">
+    For this, you&rsquo;ll probably actually want a few devices to experiment with. Unless you&rsquo;ve already gone out and gotten a kit of stuff, I <strong>strongly</strong> recommend against those &ldquo;Lean Arduino&rdquo; kits, and instead insist you buy the parts yourself. It&rsquo;s a tad more expensive just to get started, but honestly a lot of the kit shit, is, well, shit. </br></br>For this section, I&rsquo;ll be talking about and using a strip of WS2812b RGB LEDs (~$5), the MPU GY-521 Gyroscope/Accelerometer ($1), a HC-SR04 ultrasonic distance sensor ($5), and a ENC28J60 Ethernet breakout (~$8), as well as various parts from the <a href="https://store.digilentinc.com/analog-parts-kit-by-analog-devices-companion-parts-kit-for-the-analog-discovery/">Digilent Analog Parts Kit</a> (~$55) and breadboards (don&rsquo;t cheap out, get good ones ~$11) that I recommended earlier. I do realize this makes the total cost probably peak a smidge above the $100 mark. Sorry ¯\ _(ツ)_/¯
+</div>
+<p>Alright, so making the board send text to the computer or blink an LED is cool and all, but, that&rsquo;s not really all that interesting. Let&rsquo;s go further, lets&hellip; uh&hellip; blink a <strong>different</strong> LED!</p>
+<p>[TODO] LED pull up/down</p>
+<p>[TODO] PWM dimming, show in slo-mo</p>
+<p>[TODO] WS2812b, but without a library</p>
+<p>Alright, hopefully you&rsquo;re not totally bored by making lights flash, let&rsquo;s have a bit more fun! We&rsquo;ll start by looking at that Ultrasonic sensor</p>
+<p>[TODO] ultrasonic sensor, basic digital input and timing, interrupts, etc.</p>
+<p>Now, let&rsquo;s look at that MPU GY-521 Gyroscope/Accelerometer</p>
+<p>[TODO] i2c? SDA, SCL, and interrupt handling (not on all devices)</p>
+<p>So, that&rsquo;s i2c, which is nice, but sometimes you&rsquo;ll want to talk to a device with <em>full duplex</em> communication. &ldquo;<em>Full duplex</em>?&rdquo; I hear you ask. Well, while <span>
+  \(\text{I}^2 \text{C}\)
+</span>
+ is a great protocol and is easy to use, it&rsquo;s also only <em>half duplex</em> this means that, like a radio, only one side can talk at a time. <em>Full duplex</em> communication methods let both sides talk at once. While in a phone call this might be chaotic, there&rsquo;s often times when it&rsquo;s helpful to be able to send data to a device while we get data from it- for example, when working with that Ethernet adapter I said we&rsquo;d be using above. For Ethernet, this is often necessary, as with TCP, a networking protocol I&rsquo;ll dive into in the programming chapter, you need to repeated send replies saying &ldquo;Yep, I got what you last sent, keep em&rsquo; coming&rdquo; while still listening for more data.</p>
+<p>[TODO] SPI Ethernet or SPI flash?</p>
+<ul>
+<li>SPI has four modes, depending on CPOL and CPHA</li>
+</ul>
+<p>[TODO] mention UART &amp; CAN bus</p>
+<p><a href="https://hackaday.com/2020/08/26/driving-a-pal-tv-over-rf-thanks-to-pwm-harmonics/">Driving a PAL TV over RF thanks to PWM harmonics (Hackaday)</a></p>
+<h2 id="project-1---calculator">
+  Project 1 - Calculator
+  <a class="anchor" href="#project-1---calculator">#</a>
+</h2>
+<p>[TODO] diode matrix inputs, LED matrix outputs (7-seg), beeper, what&rsquo;s a memory mapped register, bit-fields, structs, basic polling, no return from main, ever.</p>
+<h2 id="project-2---midi-controller">
+  Project 2 - MIDI Controller
+  <a class="anchor" href="#project-2---midi-controller">#</a>
+</h2>
+<p>[TODO] Gyro + photo-resistor + a few knobs &amp; buttons, interrupts</p>
+<h2 id="project-3---adc-to-the-dac">
+  Project 3 - ADC to the DAC
+  <a class="anchor" href="#project-3---adc-to-the-dac">#</a>
+</h2>
+<p>[TODO] ADC → μC →DAC, floating point, DMA?</p>
+<p>Depending on the board you&rsquo;re using (not the Arduino Uno) you may have a/multiple <strong>D</strong>igital to <strong>A</strong>nalog <strong>C</strong>onverter(s) (DAC), as well as <strong>A</strong>nalog to <strong>D</strong>igital <strong>C</strong>onverters (ADCs) which&hellip; do what you think. ADCs let you take an analog signal in - like the output of a guitar or the voltage as you turn a knob. DACs let you output a signal (like audio). Assuming you have enough computational horsepower and the DACs and ADCs on board are good enough, the combination of these could let you do everything from a guitar pedal to making your own radio (On top of just being able to read knob positions)</p>
+<p>Unfortunately, DACs and ADCs are complicated, and you really should know a lot about them as they&rsquo;re used a lot, so, without further-a-deux:</p>
+<blockquote>
+<p>More about DACs than you probably need to know:</p>
+<ul>
+<li>Nyquist Rate vs Oversampling DACs</li>
+<li>Decoder-based, Binary weighted, Thermometer code, &amp; hybrid</li>
+<li>Monotonictity &amp; Linearity ; Integral &amp; Derivative Nonlinearity (INL/DNL)</li>
+</ul>
+</blockquote>
+<p>Some DACs &amp; ADCs also allow for <strong>D</strong>irect <strong>M</strong>emory <strong>A</strong>ccess (DMA). A DAC with DMA, for example, will let you write samples to a buffer and at a defined rate spit them back out without CPU intervention. This allows for dramatically more complicated processing, as you no longer need to consistently get a new sample to the DAC before the next deadline (often this would need done 48,000 times a second!) Basically, DMA lets you offload some processing from the CPU. Problem? Now you need to write memory that something else is trying to access. So, how do we fix this? Well, there&rsquo;s a pretty easy solution:</p>
+<p>A ping pong buffer.</p>
+<p>Essentially, we can just alternate back and forth between the DMA device &ldquo;owning&rdquo; half of the memory and the CPU owning half, alternating who gets what half every time the DMA indicates that it ran out of samples.</p>
+<blockquote class="book-hint info ">
+  Note, here I&rsquo;m talking about DMA as if they only apply to DACs and ADCs; however, they can be used for <em>many</em> other things. Commonly, this includes networking and writing to displays, though there are <em>many</em> other times they&rsquo;re useful. So, keep this in mind.
+</blockquote>
+
+<hr>
+<p>Want to know more about ADCs and DACs? Here are some links:</p>
+<p><a href="https://hackaday.com/2022/06/08/retrotechtacular-the-forgotten-vacuum-tube-a-d-converters-of-1965/">Retrotechtacular: The Forgotten Vacuum Tube A/D Converters of 1965 (Hackaday)</a></p>
+<h2 id="project-4---leds-again">
+  Project 4 - LEDs&hellip; again?
+  <a class="anchor" href="#project-4---leds-again">#</a>
+</h2>
+<p>[TODO] Power with transistors, filtering, PWM. Color input from temp and magnetic field sensors</p>
+<h2 id="project-5---euclidean-rhythms">
+  Project 5 - Euclidean Rhythms
+  <a class="anchor" href="#project-5---euclidean-rhythms">#</a>
+</h2>
+<p>[TODO] Power with high, spiky loads, code with events and scheduling, watchdogs- using stepper, servo, and solenoids</p>
+<h2 id="project-6---the-epochalypse">
+  Project 6 - The Epochalypse
+  <a class="anchor" href="#project-6---the-epochalypse">#</a>
+</h2>
+<img src="/eng/Year_2038_problem.gif" style="-webkit-filter: invert(.87);" alt=" ">
+<p>[TODO] low power (sleep states), graphics (eink), RTC</p>
+<p>only 24 most significant bits, which should only change every 255 seconds, or every 4.25 minutes. Plenty of time to sit in sleep mode</p>
+<hr>
+<p>[TODO] <a href="https://interrupt.memfault.com/blog/tag/zero-to-main/">From Zero to main() (Interrupt)</a></p>
+<h2 id="real-time-operating-systems">
+  Real Time Operating Systems
+  <a class="anchor" href="#real-time-operating-systems">#</a>
+</h2>
+<p>RIOT-OS, MBED, etc</p>
+<p>[TODO note, MBED was used on the euclidean drum project for its event queue]</p>
+<p>talk about scheduling (CFS, etc.)</p>
+<h2 id="intrinsic-operations--asm">
+  Intrinsic Operations &amp; ASM
+  <a class="anchor" href="#intrinsic-operations--asm">#</a>
+</h2>
+<p>Your <strong>I</strong>nstruction <strong>S</strong>et <strong>A</strong>rchitecture (ISA)</p>
+<ul>
+<li>different operations may take a different number of instructions</li>
+<li>Pipelining may make this hard to predict, especially with interrupts</li>
+</ul>
+<h2 id="project-7-asm-blink">
+  Project 7: ASM Blink
+  <a class="anchor" href="#project-7-asm-blink">#</a>
+</h2>
+<h2 id="other-weird-and-cool-projects">
+  Other weird and cool projects:
+  <a class="anchor" href="#other-weird-and-cool-projects">#</a>
+</h2>
+<!--- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">a lot of people have been mocking this video but having tried it, I can confirm this is actually the most reliable way to fake keyboard events on windows 10. <a href="https://t.co/kTz5a6YlTI">https://t.co/kTz5a6YlTI</a></p>&mdash; foone (@Foone) <a href="https://twitter.com/Foone/status/1247233159596367883?ref_src=twsrc%5Etfw">April 6, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> This tweet is archived at https://web.archive.org/web/20220117015343/https://twitter.com/null4bl3/status/1247032404990210053 but as I can't DL the video easily and rehost here, it's just not a good experiance, so for now, it'll stay commented out --->
+<p><a href="https://groups.google.com/forum/message/raw?msg=comp.lang.ada/E9bNCvDQ12k/1tezW24ZxdAJ">Of Course It Leaks!</a></p>
+<p><a href="https://hackaday.com/2019/04/23/the-simplest-of-pseudo-random-number-generators/">&ldquo;The Simplest of Pseudo Random Number Generators&rdquo; - Hackaday</a></p>
+<p><a href="https://dmitry.gr/?r=05.Projects&amp;proj=30.%20Reverse%20Engineering%20an%20Unknown%20Microcontroller">Reverse Engineering an Unknown Microcontroller (Dmitry.GR)</a></p>
+<hr>
+<h1 id="chapter-141---embedded-hardware-comparison">
+  Chapter 14.1 - Embedded Hardware comparison
+  <a class="anchor" href="#chapter-141---embedded-hardware-comparison">#</a>
+</h1>
+<p>[TODO, Pi V RockPi4 V Arduino V x86, ref architecture information from chapter 3.3]</p>
+<p>mention pi SD card performance / stability limits and pi advantages in how common it is</p>
+<h2 id="arduino--arduino">
+  Arduino ≠ Arduino
+  <a class="anchor" href="#arduino--arduino">#</a>
+</h2>
+<div class="tip ">
+    I <strong>really</strong> want to make this clear: Arduino is a framework. Not a specific hardware platform. Different Arduino devices can run with wildly different specs and support wildly different features, and not all devices that run the Arduino framework are made by the Arduino foundation. The Arduino Uno (ATmega328p) is both an Arduino foundation project <em>and</em> runs the Arduino framework. The STM32 BlackPill, NodeMCU, PiPico, etc. are all <em>not</em> made by the Arduino foundation, but can run the Arduino framework.
+</div>
+<h2 id="stm-32">
+  STM 32
+  <a class="anchor" href="#stm-32">#</a>
+</h2>
+<p><a href="https://hackaday.com/2021/01/20/blue-pill-vs-black-pill-transitioning-from-stm32f103-to-stm32f411/">The &lsquo;Black Pill&rsquo; (STM32F411) is replacing the &lsquo;Blue Pill&rsquo; (STM32F103) (Hackaday)</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">First up is the brains of the operation: an STM32F103. Not a lightweight chip: It&#39;s a Cortex M3 @ 72MHz. It&#39;s got 256kB of flash and 48kB of RAM and that&#39;s a 100-pin TQFP package!<a href="https://t.co/oPCeo7XMpe">https://t.co/oPCeo7XMpe</a> <a href="https://t.co/niDPuIFBPT">pic.twitter.com/niDPuIFBPT</a></p>&mdash; Stargirl 🌠 (@theavalkyrie) <a href="https://twitter.com/theavalkyrie/status/1328555704676913153?ref_src=twsrc%5Etfw">November 17, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<span class="smalltext ">
+    <a href="https://web.archive.org/web/20201117043019/https://twitter.com/theavalkyrie/status/1328555704676913153">Archive.org link to Tweet</a>
+</span>
+<p><a href="https://allshire.org/getting-started-robotics/">Getting Started in Robotics (Arthur Allshire&rsquo;s Blog)</a></p>
+<h1 id="142---projects-i-recommend">
+  14.2 - Projects I recommend
+  <a class="anchor" href="#142---projects-i-recommend">#</a>
+</h1>
+<ul>
+<li>Hand wiring a keyboard: <a href="https://docs.qmk.fm/#/hand_wire?id=hand-wiring-guide">https://docs.qmk.fm/#/hand_wire?id=hand-wiring-guide</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+  <div><a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/commit/16495c5b9bf0a34e343c575b21a69b62057e5c89" title='Last modified by Vega Deftwing | March 18, 2023' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>March 18, 2023</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Circuits/embedded.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+<hr/>
+<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+</footer>
+
+<div id="webmentions"></div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-26---embedded-systems">Chapter 26 - Embedded Systems</a>
+      <ul>
+        <li><a href="#what-is-an-embedded-system">What is an Embedded System?</a></li>
+        <li><a href="#playing-around---hello-world-and-blink">Playing around - Hello World and blink</a></li>
+        <li><a href="#pwm-spi-i2c-whats-going-on">PWM, SPI, I2C, What&rsquo;s going on?!</a></li>
+        <li><a href="#project-1---calculator">Project 1 - Calculator</a></li>
+        <li><a href="#project-2---midi-controller">Project 2 - MIDI Controller</a></li>
+        <li><a href="#project-3---adc-to-the-dac">Project 3 - ADC to the DAC</a></li>
+        <li><a href="#project-4---leds-again">Project 4 - LEDs&hellip; again?</a></li>
+        <li><a href="#project-5---euclidean-rhythms">Project 5 - Euclidean Rhythms</a></li>
+        <li><a href="#project-6---the-epochalypse">Project 6 - The Epochalypse</a></li>
+        <li><a href="#real-time-operating-systems">Real Time Operating Systems</a></li>
+        <li><a href="#intrinsic-operations--asm">Intrinsic Operations &amp; ASM</a></li>
+        <li><a href="#project-7-asm-blink">Project 7: ASM Blink</a></li>
+        <li><a href="#other-weird-and-cool-projects">Other weird and cool projects:</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-141---embedded-hardware-comparison">Chapter 14.1 - Embedded Hardware comparison</a>
+      <ul>
+        <li><a href="#arduino--arduino">Arduino ≠ Arduino</a></li>
+        <li><a href="#stm-32">STM 32</a></li>
+      </ul>
+    </li>
+    <li><a href="#142---projects-i-recommend">14.2 - Projects I recommend</a></li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
