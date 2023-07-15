@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 37.2 - The OSI Model # The OSI model of networking is the model of networking most classes will cover. It is slightly different from the one used by the internet, which is the TCP/IP model, but it&rsquo;s a bit more regularly used when talking about networking, so it&rsquo;s the one I&rsquo;ll cover here. Note, the big difference is really just that In the TCP/IP model, the Physical and Data Link Layers are viewed as a unified &lsquo;Network Acces Layer&rsquo;, the Network Layer is called the Internet Layer, The Transport Layer stays the same, and the and The Session, Presentation, and Application layer are all part of a larger Application Layer.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>OSI | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-372---the-osi-model">Chapter 37.2 - The OSI Model</a>
       <ul>
@@ -661,6 +670,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -688,8 +698,7 @@ https://github.com/alex-shpak/hugo-book
 <p>The wire itself often has a rating such as Cat5, Cat5e, Cat6, Cat7, etc. Generally, bigger number (or +e/A) means you can get it to go further or carry higher bandwidth signals (for example, 2.5, 5, or 10 gigabit Ethernet) before the noise in the wires kills everything. See <a href="http://www.cablek.com/technical-reference/cat-5---5e--6--6a---7--8-standards#:~:text=Category%205%20%28CAT5%29%20cable%20is,at%2010%20or%20100%20Mbps.">cablek.com&rsquo;s handy, based on their HTML probably stolen, tables</a>.</p>
 <p>But, again, not all Ethernet signals are carried over those wires. Historically, it was often carried over Coax (same wires as you&rsquo;d use for connecting a TV antenna), and in modern times you&rsquo;re likely to see <a href="https://en.wikipedia.org/wiki/Small_Form-factor_Pluggable">SFP</a> cables used for the really high throughput stuff (100GbE+, for example.). Those may use copper, or they may be direct fiber connections - because - again - Ethernet is a layer up. We&rsquo;re still at the physical layer.</p>
 <p>All of that said, please still call it an Ethernet cable.</p>
-<details >
-  <summary>What about PoE?</summary>
+<details ><summary>What about PoE?</summary>
   <div class="markdown-inner">
     <p>Power over Ethernet, or PoE, allows network cables to carry electrical power. This means that network devices such as routers and switches can be powered through or provide power via the same cables that are used for data transmission. This can be convenient because it eliminates the need for separate power cables, which can be difficult to install. PoE is commonly used in applications where it is not practical or possible to provide power to network devices through a traditional wall outlet, such as for security cameras. The technology is also often used to power IP cameras and other networked devices that require a power source.</p>
 <p>The standard is a bit of a fustercluck. There&rsquo;s a decent char on the <a href="https://en.wikipedia.org/wiki/Power_over_Ethernet">Wikipedia page</a> detailing the voltages, currents, cable requirements, max power, etc.</p>
@@ -795,8 +804,7 @@ filter: invert(1);"></p>
     * Wi-Fi 0-4 are unoffical names
 </span>
 <p>If all of this feels really abstract, go grab the <a href="https://play.google.com/store/apps/details?id=com.farproc.wifi.analyzer&amp;hl=en_US&amp;gl=US">WiFi Analyzer</a> app and checkout all the signals around you. You can see see what&rsquo;s operating on what channel and maybe move to another one so that you and your neighbor&rsquo;s signals aren&rsquo;t trying to scream over each other.</p>
-<details >
-  <summary>More about those weird standards:</summary>
+<details ><summary>More about those weird standards:</summary>
   <div class="markdown-inner">
     <p>Generally, transmitting at higher the frequency will yield worse range but higher data throughput. This isn&rsquo;t strictly true, but it&rsquo;s mostly true.</p>
 <table>
@@ -979,15 +987,15 @@ filter: invert(1);"></p>
 <p>Logical: [6] &lt;-&gt; [6] &lt;- &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- -&gt; [6] &lt;-&gt; [6]</p>
 <p>Physical: [6] &lt;-&gt; [6] &lt;-&gt; [4] &lt;-&gt; [4] &lt;-&gt; [6] &lt;-&gt; [6]</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     [TODO] ipv4 exhastion
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="https://www.caida.org/research/id-consumption/census-map/images/2013-hilbert-plot.png" alt="" />
   </div>
-  
+
 </div>
 
 <p>It&rsquo;s very reasonably to scan literally every IPv4 address. See <a href="https://blog.bithole.dev/mcmap.html">A Census of Minecraft Servers</a> or <a href="https://www.youtube.com/watch?v=JcJSW7Rprio">Harder Drive</a> for examples of this being done.</p>
@@ -1012,15 +1020,15 @@ filter: invert(1);"></p>
 </h3>
 <p><a href="https://www.aelius.com/njh/subnet_sheet.html">https://www.aelius.com/njh/subnet_sheet.html</a></p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/eng/devnullnetwork.webp" alt="devnullnetwork" title=":size=70%"/>
   </div>
-  
+
 </div>
 
 <p><a href="https://en.wikipedia.org/wiki/Subnetwork">https://en.wikipedia.org/wiki/Subnetwork</a></p>
@@ -1151,11 +1159,11 @@ filter: invert(1);"></p>
 <p>Host, user agent, accept-language, connection (keep-alive), &hellip;?</p>
 <p>GET, POST, HEAD, PUT, DELETE</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/eng/http-status-codes.webp" alt="Codes" title=":size=50%"/></p>
 <p class="attribution ">
@@ -1163,7 +1171,7 @@ filter: invert(1);"></p>
 </p>
 
   </div>
-  
+
 </div>
 
 <p>http1 vs 2 v 3</p>
@@ -1269,27 +1277,27 @@ filter: invert(1);"></p>
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/osi.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/osi.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1307,8 +1315,10 @@ filter: invert(1);"></p>
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-372---the-osi-model">Chapter 37.2 - The OSI Model</a>
       <ul>
@@ -1409,14 +1419,14 @@ filter: invert(1);"></p>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

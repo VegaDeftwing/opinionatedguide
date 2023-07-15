@@ -31,6 +31,7 @@
 Blip - Check latency Speedtest.net - Speed test myexternalip.com - See your external IP portchecker.co - Check if a port is open crt.sh - Certificate search The Basics # To get started, let&rsquo;s just get some basic terminology down and take a look at the bigger picture:
 Nodes # These are all the points in the network. There are terminal nodes and intermediate nodes.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -51,11 +52,13 @@ Nodes # These are all the points in the network. There are terminal nodes and in
 <title>Networking | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -70,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -534,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -563,7 +571,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-38---networking">Chapter 38 - Networking</a>
       <ul>
@@ -589,6 +598,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -603,7 +613,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Quick links</p>
 <hr>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <ul>
 <li><a href="https://github.com/apenwarr/blip">Blip</a> - Check latency</li>
@@ -612,7 +622,7 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <ul>
 <li><a href="https://portchecker.co">portchecker.co</a> - Check if a port is open</li>
@@ -620,7 +630,7 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 
   </div>
-  
+
 </div>
 
 <hr>
@@ -668,11 +678,11 @@ https://github.com/alex-shpak/hugo-book
 </h3>
 <p>While we could just send a continual stream of data down a wire, that has a lot of issues. For one, it makes it hard to share the wire with multiple people. Of course you could split the wire so each person gets a split amount of time on the wire (Time Division Multiplexing (TDM)) or, if the wire can carry a range of frequencies give each user a small portion of those (Frequency Division Multiplexing (FDM), which limits the throughput similarly), but both of these sorta suck as they assume a user will always be using their provided channel. Instead, we do a sort of Time Division, but by packet-izing everything. Basically, each stream of data you want to send get&rsquo;s broken up into manageable chunks called packets, and then these packets can be sent though the network. Now, if someone isn&rsquo;t using the network, it&rsquo;s free for others.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     It&rsquo;s worth noting, these packets typically have a <em>header</em> which carries some information about it, like what version of a protocol is being used, where it should go, and who it is from. Here, for example, is the full packet layout of an IPv4 packet, with the header being in the first 20 bytes.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><a href="https://commons.wikimedia.org/wiki/File:IPv4_Packet-en.svg#/media/File:IPv4_Packet-en.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/IPv4_Packet-en.svg" alt="IPv4 Packet-en.svg" width="100%" style="-webkit-filter: invert(.8);filter: invert(.8);"></a></p>
 <p class="attribution ">
@@ -680,7 +690,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 
 <h3 id="routers-and-switches">
@@ -756,8 +766,7 @@ https://github.com/alex-shpak/hugo-book
 <p>One thing a lot of people confuse is <strong>bandwidth</strong> and <strong>throughput</strong>. The two are related, but they&rsquo;re not the same.</p>
 <p><strong>Throughput</strong> is how many bits of useful information you&rsquo;re actually getting out per second. This is the number you <em>probably</em> actually want. <strong>Bandwidth</strong> (quite literally how much of a frequency range you&rsquo;re using) is how much information the the connection can <u><em>theoretically</em></u> transmit.</p>
 <p>The easiest example of the difference here is a bad WiFi connection. You might have a good amount of bandwidth if you&rsquo;re using a nice silce of spectrum up near 5GHz, but if you&rsquo;re far away from the transmitter, near a running microwave, and your neighbor is using the same specturm for their Wi-Fi, you&rsquo;ll obviously have a lower throughput.</p>
-<details >
-  <summary>What about bit rate and baud rate?</summary>
+<details ><summary>What about bit rate and baud rate?</summary>
   <div class="markdown-inner">
     <p>There&rsquo;s also the idea of &ldquo;bits per second&rdquo; and &ldquo;baud rate&rdquo;. The difference is bits is the true number of 1&rsquo;s and 0&rsquo;s you&rsquo;re receiving while baud is the number of <em>symbols</em> you&rsquo;re receiving.</p>
 <p>For example, say you want to send the message &ldquo;Hello&rdquo; in ASCII, which is
@@ -830,27 +839,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/networking.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/networking.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -868,8 +877,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-38---networking">Chapter 38 - Networking</a>
       <ul>
@@ -894,14 +905,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

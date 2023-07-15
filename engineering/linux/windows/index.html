@@ -30,6 +30,7 @@
 <meta name="description" content="Appendix 2 - Ugh. Windows. # Windows? In a Linux Chapter?
 Okay, so, I hate Windows for many, many reasons. Beyond the Candy Crush being bundled and privacy concerns, it&rsquo;s generally just a pain in the ass- and as a Linux user, that&rsquo;s saying something. That said, you&rsquo;ll probably need to do some stuff with it from time to time regardless. So, in this page I want to do three things:">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ Okay, so, I hate Windows for many, many reasons. Beyond the Candy Crush being bu
 <title>Windows | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-2---ugh-windows">Appendix 2 - Ugh. Windows.</a></li>
     <li><a href="#1-making-windows-suck-less">1. Making Windows Suck Less</a>
@@ -593,6 +602,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -607,7 +617,7 @@ https://github.com/alex-shpak/hugo-book
 <p><strong>Windows? In a Linux Chapter?</strong></p>
 <hr>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Okay, so, I hate Windows for many, many reasons. Beyond the Candy Crush being bundled and privacy concerns, it&rsquo;s generally just a pain in the ass- and as a Linux user, that&rsquo;s saying something. That said, you&rsquo;ll probably need to do some stuff with it from time to time regardless. So, in this page I want to do three things:</p>
 <ol>
@@ -617,13 +627,13 @@ https://github.com/alex-shpak/hugo-book
 </ol>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/character/shade/blegh.webp" style="width:80%;" />
 <p class="attribution ">
     Character owned by Vega, art by <a href="https://twitter.com/shadepiplup10">Shade</a>
   </div>
-  
+
 </div>
 
 <h1 id="1-making-windows-suck-less">
@@ -696,11 +706,11 @@ https://github.com/alex-shpak/hugo-book
 <p>Windows also has a few application specific tools you should be aware exist, like the disk managment tool, device manager, and task scheduler, and services manager. While we&rsquo;re on the subject, now tould be a good time to go check each and make sure everything is sane.</p>
 <p>Let&rsquo;s start by opening up &ldquo;device manager&rdquo;, you should see a bunch of different caterogories ranging from &ldquo;Audio Inputs and Outputs&rdquo; to &ldquo;Universal Serial Bus Controllers&rdquo;. What you shoud be looking for is a any thing showing up as &ldquo;⚠ Unknown Device&rdquo; as this is a sign that you have something that&rsquo;s unhappy about drivers. The exact method for figuring out which device this is varies, but a good portion of the time this will be a USB device. If that&rsquo;s the case, a good place to start is to right click the device, select <em>properties</em> then the Details tab, then select the &ldquo;Hardware IDs&rdquo; property. You should see something like &ldquo;USB\VID_258A&amp;PID_0013&amp;REV_0100&amp;MI_00&rdquo; what we actually need from that is the Vendor ID (VID) and Product ID (PID), in this case that&rsquo;s 258A and 0013. If you search the web for these together as VendorID:DeviceID (so, 258A:0013), you&rsquo;ll often be able to figure out what the offending device is. For example, Googling this example &ldquo;258A:0013&rdquo; the first result is for a gaming keyboard, which is correct.</p>
 <p>Now, let&rsquo;s head over to Disk managment. Here the big thing we should be looking for is any large blocks of unallocated space or partitions you don&rsquo;t recognize (if you&rsquo;ve installed Linux, Windows will see these partitions, but have no idea what they are!) - on a normal, single disk, Windows system there will probably be a ~300Mb EFI System Partition, a very large (the majority of the disk in size) &ldquo;Windows C:/&rdquo; partition, and one or two recovery partitions, totalling less than 30Gb.</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   Heads up, the graphical disk managment utility may not let you do some things! In this case you may need to run <code>diskpart</code> in cmd.
 </blockquote>
 
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   Things can get weird if you&rsquo;re using Bitlocker for encryption or if your BIOS is set to to RAID mode (even if there&rsquo;s only one disk) in either case, it will be really tough to access data from Linux. This may not seem like a big deal to you if you don&rsquo;t intend to dual boot, but it can make data recovery or virus removal a massive pain in the ass later.
 </blockquote>
 
@@ -947,27 +957,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/windows.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/windows.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -985,8 +995,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-2---ugh-windows">Appendix 2 - Ugh. Windows.</a></li>
     <li><a href="#1-making-windows-suck-less">1. Making Windows Suck Less</a>
@@ -1017,14 +1029,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

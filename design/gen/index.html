@@ -32,6 +32,7 @@ r/generative
 r/PlotterArt
 You may notice this page lacks AI generative art tools such as DALL·E 2, Midjourney, &amp; Stable Diffusion.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -53,11 +54,13 @@ You may notice this page lacks AI generative art tools such as DALL·E 2, Midjou
 <title>Gen | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -72,18 +75,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -536,7 +544,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -565,11 +573,13 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#generative-art">Generative Art</a></li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -584,18 +594,18 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#generative-art">#</a>
 </h1>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     This page is almost completely devoid of actual educational content. Instead, I&rsquo;ve tried to make the most complete list of generative art tools and libraries on the internet. Of course, I can&rsquo;t actually make an exhaustive list and may be missing some of the newest tools and ideals, so please check out these other communities for more:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><a href="https://www.reddit.com/r/proceduralgeneration/">r/proceduralgeneration</a></p>
 <p><a href="https://www.reddit.com/r/generative">r/generative</a></p>
 <p><a href="https://www.reddit.com/r/PlotterArt/">r/PlotterArt</a></p>
 
   </div>
-  
+
 </div>
 
 <div class="tip ">
@@ -614,8 +624,7 @@ https://github.com/alex-shpak/hugo-book
   Live coding Music Software
 </a>
 .</p>
-<details >
-  <summary>World Building Tools</summary>
+<details ><summary>World Building Tools</summary>
   <div class="markdown-inner">
     <hr>
 <div class="book-columns2 flex flex-wrap">
@@ -811,8 +820,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Constructed Langugages, Generative Text</summary>
+<details ><summary>Constructed Langugages, Generative Text</summary>
   <div class="markdown-inner">
     <div class="book-columns2 flex flex-wrap">
   <div class="flex-even markdown-inner">
@@ -860,8 +868,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Generative Textures and Geometry</summary>
+<details ><summary>Generative Textures and Geometry</summary>
   <div class="markdown-inner">
     <div class="book-columns2 flex flex-wrap">
   <div class="flex-even markdown-inner">
@@ -1007,8 +1014,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Pixel Sorting</summary>
+<details ><summary>Pixel Sorting</summary>
   <div class="markdown-inner">
     <p><img src="/design/pixelsorting.webp" alt="" title=":size=40%"/></p>
 <p class="attribution ">
@@ -1024,8 +1030,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Fractal Art</summary>
+<details ><summary>Fractal Art</summary>
   <div class="markdown-inner">
     <div class="book-columns2 flex flex-wrap">
   <div class="flex-even markdown-inner">
@@ -1100,8 +1105,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Generative Eyes</summary>
+<details ><summary>Generative Eyes</summary>
   <div class="markdown-inner">
     </br>
 <p><a href="https://www.reddit.com/r/generative/comments/j4uati/iris/">Iris (Reddit)</a></p>
@@ -1111,8 +1115,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Livecoding Visuals</summary>
+<details ><summary>Livecoding Visuals</summary>
   <div class="markdown-inner">
     </br>
 <iframe width="100%" height="450" src="https://www.youtube.com/embed/6avJHaC3C2U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -1375,8 +1378,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Creative Coding (Non Live)</summary>
+<details ><summary>Creative Coding (Non Live)</summary>
   <div class="markdown-inner">
     </br>
 <p><a href="https://www.youtube.com/playlist?list=PL_tws4AXg7att6rxtRNsGa36fOoRtdKJV">HackadayU Creative Code with Casey Hunt (YouTube)</a></p>
@@ -1633,8 +1635,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Data Visulization</summary>
+<details ><summary>Data Visulization</summary>
   <div class="markdown-inner">
     <div class="book-columns2 flex flex-wrap">
   <div class="flex-even markdown-inner">
@@ -1700,8 +1701,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Scripting/Generative tools IN other tools</summary>
+<details ><summary>Scripting/Generative tools IN other tools</summary>
   <div class="markdown-inner">
     <div class="book-columns2 flex flex-wrap">
   <div class="flex-even markdown-inner">
@@ -1751,8 +1751,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Super resolution, frame interpolation, and other effects</summary>
+<details ><summary>Super resolution, frame interpolation, and other effects</summary>
   <div class="markdown-inner">
     </br>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/_KRb_qV9P4g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -1843,8 +1842,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>For Plotters</summary>
+<details ><summary>For Plotters</summary>
   <div class="markdown-inner">
     </br>
 <p>See the <a href="/engineering/making/3dprint/">3D Printing &amp; CNC</a> page from the Engineering section of OpGuides for more resources</p>
@@ -1854,8 +1852,7 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Sequence Diagrams, Flow Charts, etc. (Mostly for the nerds)</summary>
+<details ><summary>Sequence Diagrams, Flow Charts, etc. (Mostly for the nerds)</summary>
   <div class="markdown-inner">
     <div class="book-columns2 flex flex-wrap">
   <div class="flex-even markdown-inner">
@@ -2027,8 +2024,7 @@ by <a href="https://github.com/sullerandras">Andras Suller</a></p>
 </details>
 
 <hr>
-<details >
-  <summary>Other Resources</summary>
+<details ><summary>Other Resources</summary>
   <div class="markdown-inner">
     <h3 id="sound-design">
   Sound Design
@@ -2090,27 +2086,27 @@ by <a href="https://github.com/sullerandras">Andras Suller</a></p>
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Design/gen.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Design/gen.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -2128,21 +2124,23 @@ by <a href="https://github.com/sullerandras">Andras Suller</a></p>
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#generative-art">Generative Art</a></li>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

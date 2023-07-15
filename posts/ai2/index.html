@@ -32,6 +32,7 @@ I said that it was more likely to simply augment how artists work. I wrote about
 Small problem with that assessment:
 Character is owned by me, art is by Siplick Character is owned by me, art created with DreamBooth trained model.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -54,11 +55,13 @@ Character is owned by me, art is by Siplick Character is owned by me, art create
 <title>Does it still count as a tool? | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -73,18 +76,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -537,7 +545,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -566,7 +574,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -580,6 +589,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -606,7 +616,8 @@ https://github.com/alex-shpak/hugo-book
   
 
 
-  <p><p>I previously wrote  
+
+<p>I previously wrote  
 
 
 
@@ -621,19 +632,19 @@ https://github.com/alex-shpak/hugo-book
 <p>I said that it was more likely to simply augment how artists work. I wrote about how it had limitations, like not being able to generate somebody&rsquo;s personal character.</p>
 <p>Small problem with that assessment:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/character/opguidesSiplick.png" alt="opguidesSiplick" style="zoom:34%;" />
 <p class="attribution ">
     Character is owned by me, art is by <a href="https://www.deviantart.com/siplick">Siplick</a>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/character/notperfect.webp" alt="" style="zoom:60%;" />
 <p class="attribution ">
     Character is owned by me, art created with DreamBooth trained model.
   </div>
-  
+
 </div>
 
 <p>It can.</p>
@@ -726,7 +737,7 @@ https://github.com/alex-shpak/hugo-book
 </a>
  page. There is no smooth slider where I can morph between individual attributes. There is no way to look at the source code and change the underlying algorithm in a way that would have a clear impact on the end result.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>As stated, it&rsquo;s not as if all prior tools have stopped existing.</p>
 <p>Having this new assistant-like option - and an assistant with approximate knowledge of nearly everything at that - is pretty awesome.</p>
@@ -735,13 +746,13 @@ https://github.com/alex-shpak/hugo-book
 <p>I want to feel like I have real agency in the process again.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/memes/frank_the_human_boy.png" alt="" style="zoom:60%;" />
 <p class="attribution ">
     <a href="https://adventuretimesuperfans.fandom.com/wiki/Demon_Cat">Demon Cat</a> from Adventure Time
   </div>
-  
+
 </div>
 
 <h2 id="how-do-we-get-agency-back">
@@ -909,7 +920,6 @@ The human spirit still prevails, a beacon burning bright.</br></p>
 <ol hidden id="footnotes">
 <li>Not that it's not a concern at all. Obviously something like a self driving car has the ability to kill someone if it goes wrong. That's just not what I want to talk about here.</li>
 </ol>
-</p>
 </article>
  
       
@@ -917,27 +927,27 @@ The human spirit still prevails, a beacon burning bright.</br></p>
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//posts/ai2.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//posts/ai2.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -955,8 +965,10 @@ The human spirit still prevails, a beacon burning bright.</br></p>
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -971,14 +983,14 @@ The human spirit still prevails, a beacon burning bright.</br></p>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

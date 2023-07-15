@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 41 - Security &amp; Exploitation # I&rsquo;m going to assume at least some prior knowledge here, if you want a quick intro, I recommend going through ./missing-semester-Security so that we can all be on the same page. Often when we think about Exploitation, better known as hacking, we conjure images of a more-punk-than-cyber cyberpunk person clicking away wildly on a keyboard as code flies by, like the 1995 movie, Hackers, and to some extent this isn&rsquo;t wrong, as one look around the floor at DefCon, will show you.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Security | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-41---security--exploitation">Chapter 41 - Security &amp; Exploitation</a>
       <ul>
@@ -618,6 +627,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -629,16 +639,16 @@ https://github.com/alex-shpak/hugo-book
   Chapter 41 - Security &amp; Exploitation
   <a class="anchor" href="#chapter-41---security--exploitation">#</a>
 </h1>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   I&rsquo;m going to assume at least some prior knowledge here, if you want a quick intro, I recommend going through <a href="https://missing.csail.mit.edu/2020/security/">./missing-semester-Security</a> so that we can all be on the same page.
 </blockquote>
 
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Often when we think about Exploitation, better known as hacking, we conjure images of a more-punk-than-cyber cyberpunk person clicking away wildly on a keyboard as code flies by, like the <a href="https://en.wikipedia.org/wiki/Hackers_%28film%29">1995 movie, Hackers</a>, and to some extent this isn&rsquo;t wrong, as one look around the floor at <a href="https://www.defcon.org/">DefCon</a>, will show you. And honestly, that&rsquo;s not by accident. While there are strictly professional security experts, those that work at corporations and banks, a large number do it for the lolz and to bring a little fun back into computing. Calling exploitation &lsquo;hacking&rsquo; is almost a misnomer, as hacking encompass a lot more than exploitation, and exploitation a lot more than hacking. For that reason, before we start, I recommend you watch <a href="https://www.youtube.com/watch?v=wjge1bVobN0">this video</a>, on speed running Super Mario 64, this is a prime example of hacking in a non-harmful manner done for fun.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="https://imgs.xkcd.com/comics/stack.png" alt="STACK" /></p>
 <p class="attribution ">
@@ -646,7 +656,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 
 <hr>
@@ -744,7 +754,7 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div><p>Got it. By making the string one character (not including the %n itself) %n&rsquo;s character count output is stored into the interger i, and we trigger the if, printing the string.</p>
 <p>Hopefully you see that this is a big problem. The user was able to change code flow on a <em>print</em> statement. With a little more work the input could be crafted to access arbitary memory of the program, potentially getting the print to divuldge something in memory you&rsquo;d really rather keep private- maybe a password?</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   <p><a href="https://youtu.be/0WvrSfcdq1I">This video from Live Overflow</a> explains this much more in depth in just 10 minutes. Give it a watch.</p>
 <p>See <a href="https://web.ecs.syr.edu/~wedu/Teaching/cis643/LectureNotes_New/Format_String.pdf">These Lecture notes on Format String Vulnerabilities from Syracuse University</a> and <a href="https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html">Intoduction to Format String Exploits from Code Arcana</a> for even more.</p>
 
@@ -947,8 +957,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#do-not-claim-unhackability">#</a>
 </h3>
 <p>If you do, and you get hacked, it goes from being tragic to funny, and it&rsquo;s a huge welcome sign to bored hackers that <em>will</em> find a way in.</p>
-<details >
-  <summary>Examples of &#39;unhackable&#39; systems:</summary>
+<details ><summary>Examples of &lsquo;unhackable&rsquo; systems:</summary>
   <div class="markdown-inner">
     <p><a href="https://techcrunch.com/2019/05/10/eyedisk-encrypted-flash-drive-unhackable/">‘Unhackable’ encrypted flash drive eyeDisk is, as it happens, hackable (TechCrunch)</a></p>
 <hr>
@@ -963,7 +972,7 @@ https://github.com/alex-shpak/hugo-book
 </h3>
 <p>The code you write is not the code that will run.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -987,7 +996,7 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>When this code is compiled with even basic optimization (<code>-O</code>), this is the assembly output:</p>
 <pre tabindex="0"><code class="language-assembly" data-lang="assembly">main: # @main
@@ -995,7 +1004,7 @@ https://github.com/alex-shpak/hugo-book
   ret
 </code></pre>
   </div>
-  
+
 </div>
 
 <p>Notice it&rsquo;s not actually doing any math? It&rsquo;s just storing the result as a constant in the program. The compiler did some magic, realized the programmer was being lazy and not doing math ahead of time, so did the math once. This is normal. Don&rsquo;t make the assumption that the code you write will necessarily be the code the machine runs.</p>
@@ -1015,17 +1024,17 @@ https://github.com/alex-shpak/hugo-book
 <p>[TODO]</p>
 <p><a href="https://0l.wtf/blog/4_visual_browser_fingerprinting.html">https://0l.wtf/blog/4_visual_browser_fingerprinting.html</a></p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/fairuse/twitter/MalwareJake.webp" style="border-radius:25px;">
 <p class="attribution ">
     <a href="https://twitter.com/MalwareJake/status/1361022885687664646">From @MalwareJake on Twitter</a>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     
   </div>
-  
+
 </div>
 
 <p>[TODO] <a href="https://anonymousplanet.org/">The Hitchhiker&rsquo;s Guide to Online Anonymity</a></p>
@@ -1118,7 +1127,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#network-security">#</a>
 </h2>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <ul>
 <li>
@@ -1143,7 +1152,7 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/nonfree/permissiongranted/phyxius.webp" alt="phyxius" /></p>
 <p class="attribution ">
@@ -1151,7 +1160,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 
 <h2 id="types-of-exploits">
@@ -1322,8 +1331,7 @@ The freedom to redistribute copies so you can help others.</br>
 The freedom to distribute copies of your modified versions to others.</p>
 </blockquote>
 <p>The hacker and information freedom community has multiple &lsquo;sacred texts&rsquo; if you will, which I think do a good job of outlining some of the ideologies of the communities. Probably the most famous is the Guerrilla Open Access Manifesto written by Aaron Swartz, an amazing man that, according to Wikipedia &ldquo;was involved in the development of the web feed format RSS and the Markdown publishing format, the organization Creative Commons, and the website framework web.py, and was a co-founder of the social news site Reddit&rdquo;. Due to his extensive work in online politics his Wikipedia page almost acts like a hub of sorts for relevant information: <a href="https://en.wikipedia.org/wiki/Aaron_Swartz">https://en.wikipedia.org/wiki/Aaron_Swartz</a>. His most famous text though is probably the Guerrilla Open Access Manifesto.</p>
-<details >
-  <summary>&#39;Guerrilla Open Access Manifesto:</summary>
+<details ><summary>&lsquo;Guerrilla Open Access Manifesto:</summary>
   <div class="markdown-inner">
     <blockquote>
 <p>Information is power. But like all power, there are those who want to keep it for
@@ -1379,8 +1387,7 @@ privatization of knowledge — we&rsquo;ll make it a thing of the past. Will you
 </details>
 
 <p>Another one that you should read is <em>The Conscience of a Hacker</em> written by &lsquo;The Mentor&rsquo; in &lsquo;86:</p>
-<details >
-  <summary>The Conscience of a Hacker</summary>
+<details ><summary>The Conscience of a Hacker</summary>
   <div class="markdown-inner">
     <blockquote>
 <p>Another one got caught today, It&rsquo;s all over the papers.
@@ -1457,27 +1464,27 @@ Racketeers</p>
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/security.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Networking/security.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1495,8 +1502,10 @@ Racketeers</p>
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-41---security--exploitation">Chapter 41 - Security &amp; Exploitation</a>
       <ul>
@@ -1554,14 +1563,14 @@ Racketeers</p>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

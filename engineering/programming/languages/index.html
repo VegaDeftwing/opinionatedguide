@@ -27,9 +27,11 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Appendix 3 - Programming Languages # for (🥚 = 1; 🥚 &lt; 🐔; 🥚&#43;&#43;){ //whatever } Hello nerds,
-Before you get on my case, I know this isn&rsquo;t a complete list, so it&rsquo;s possible your favorite language isn&rsquo;t on it. Hell, a complete list can&rsquo;t even really exist. Still, there are a lot of cool languages I didn&rsquo;t put here, so if you&rsquo;re looking for some weird but not incredibly weird languages see Awesome Programming Languages (GitHub), though note even it doesn&rsquo;t include the obvious - like C and Java.">
+<meta name="description" content="Appendix 3 - Programming Languages # 1 2 3 for (🥚 = 0; 🥚 &lt; 🐔; 🥚&#43;&#43;){ hatch(🥚); } Why hello,
+If you&rsquo;ve found this page, it&rsquo;s likely your curiosity is getting the better of you and you&rsquo;re killing time gawking at the weird syntax and features of a variety of languages. I know I have been guilty of doing so.
+This page is meant to give you a taste, not a full list.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -40,8 +42,9 @@ Before you get on my case, I know this isn&rsquo;t a complete list, so it&rsquo;
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Appendix 3 - Programming Languages # for (🥚 = 1; 🥚 &lt; 🐔; 🥚&#43;&#43;){ //whatever } Hello nerds,
-Before you get on my case, I know this isn&rsquo;t a complete list, so it&rsquo;s possible your favorite language isn&rsquo;t on it. Hell, a complete list can&rsquo;t even really exist. Still, there are a lot of cool languages I didn&rsquo;t put here, so if you&rsquo;re looking for some weird but not incredibly weird languages see Awesome Programming Languages (GitHub), though note even it doesn&rsquo;t include the obvious - like C and Java." />
+<meta property="og:description" content="Appendix 3 - Programming Languages # 1 2 3 for (🥚 = 0; 🥚 &lt; 🐔; 🥚&#43;&#43;){ hatch(🥚); } Why hello,
+If you&rsquo;ve found this page, it&rsquo;s likely your curiosity is getting the better of you and you&rsquo;re killing time gawking at the weird syntax and features of a variety of languages. I know I have been guilty of doing so.
+This page is meant to give you a taste, not a full list." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/languages/" /><meta property="article:section" content="Engineering" />
 
@@ -49,11 +52,13 @@ Before you get on my case, I know this isn&rsquo;t a complete list, so it&rsquo;
 <title>Languages | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,14 +571,17 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-3---programming-languages">Appendix 3 - Programming Languages</a>
       <ul>
         <li><a href="#low-level">Low Level</a>
           <ul>
-            <li><a href="#the-c-family">The C Family</a></li>
             <li><a href="#assembly">Assembly</a></li>
+            <li><a href="#c">C</a></li>
+            <li><a href="#c-1">C++</a></li>
+            <li><a href="#c-2">C#</a></li>
             <li><a href="#rust">Rust</a></li>
             <li><a href="#go">Go</a></li>
             <li><a href="#zig">Zig</a></li>
@@ -578,10 +591,10 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#nim">Nim</a></li>
             <li><a href="#red">Red</a></li>
             <li><a href="#haxe">Haxe</a></li>
-            <li><a href="#java--kotlin">Java &amp; Kotlin</a></li>
+            <li><a href="#java">Java</a></li>
+            <li><a href="#kotlin">Kotlin</a></li>
             <li><a href="#webassembly">WebAssembly</a></li>
             <li><a href="#vult">Vult</a></li>
-            <li><a href="#call-for-contribution">Call for Contribution</a></li>
           </ul>
         </li>
         <li><a href="#high-level">High Level</a>
@@ -589,6 +602,7 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#python">Python</a></li>
             <li><a href="#javascript">JavaScript</a></li>
             <li><a href="#php">PHP</a></li>
+            <li><a href="#hack">Hack</a></li>
             <li><a href="#ruby">Ruby</a></li>
             <li><a href="#perl">Perl</a></li>
             <li><a href="#scallop">Scallop</a></li>
@@ -600,7 +614,7 @@ https://github.com/alex-shpak/hugo-book
             <li><a href="#ahk">AHK</a></li>
             <li><a href="#tasker-android">Tasker (Android)</a></li>
             <li><a href="#cmdexe">CMD.exe</a></li>
-            <li><a href="#bash-zsh-fish-xonsh-wut">Bash, ZSH, Fish, Xonsh, wut?</a></li>
+            <li><a href="#bash-zsh-fish-xonsh-elvish-wut">Bash, ZSH, Fish, Xonsh, Elvish, wut?</a></li>
             <li><a href="#node-red">Node-Red</a></li>
             <li><a href="#n8n">n8n</a></li>
           </ul>
@@ -614,6 +628,17 @@ https://github.com/alex-shpak/hugo-book
           </ul>
         </li>
         <li><a href="#esolangs-the-hole-goes-deeper">Esolangs, the hole goes deeper</a></li>
+        <li><a href="#the-old-guard">The Old Guard</a>
+          <ul>
+            <li><a href="#forth">Forth</a></li>
+            <li><a href="#cobol">Cobol</a></li>
+            <li><a href="#fortran">Fortran</a></li>
+            <li><a href="#pascal">Pascal</a></li>
+            <li><a href="#basic">BASIC</a></li>
+            <li><a href="#objective-c">Objective C</a></li>
+            <li><a href="#apl">APL</a></li>
+          </ul>
+        </li>
         <li><a href="#graphics-programming">Graphics Programming</a></li>
         <li><a href="#functional-programming">Functional Programming</a></li>
         <li><a href="#database">Database</a></li>
@@ -621,6 +646,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -634,80 +660,197 @@ https://github.com/alex-shpak/hugo-book
   Appendix 3 - Programming Languages
   <a class="anchor" href="#appendix-3---programming-languages">#</a>
 </h1>
-<!-- TODO: https://pldb.com/lists/languages.html , https://buttondown.email/hillelwayne/archive/microfeatures-id-like-to-see-in-more-languages/ , https://renato.athaydes.com/posts/unison-revolution.html , https://github.com/betaveros/noulith, https://github.com/esotericist/frf, https://cyberscript.dev, https://github.com/Vexu/bog, https://github.com/m-ender/hexagony (https://hexagony.net), https://www.roc-lang.org, https://koka-lang.github.io/koka/doc/index.html, https://ianthehenry.com/posts/why-janet/ -->
-<pre tabindex="0"><code>for (🥚 = 1; 🥚 &lt; 🐔; 🥚++){
-   //whatever
-}
-</code></pre><p>Hello nerds,</p>
-<p>Before you get on my case, I know this isn&rsquo;t a complete list, so it&rsquo;s possible your favorite language isn&rsquo;t on it. Hell, a complete list can&rsquo;t even really exist. Still, there are a lot of cool languages I didn&rsquo;t put here, so if you&rsquo;re looking for some weird but not <em>incredibly weird</em> languages see <a href="https://github.com/ChessMax/awesome-programming-languages">Awesome Programming Languages (GitHub)</a>, though note even it doesn&rsquo;t include the obvious - like C and Java.</p>
-<p>[TODO] talk about to why there are so many, pros &amp; cons per domain, etc</p>
-<p><a href="https://esoteric.codes">https://esoteric.codes</a></p>
-<p><a href="http://harmful.cat-v.org/software/OO_programming/why_oo_sucks">Why OO Sucks (Joe Armstrong)</a></p>
-<p><a href="https://hisham.hm/2021/01/18/again-on-0-based-vs-1-based-indexing/">0-based vs. 1-based indexing (Hisham Hm)</a></p>
-<p><a href="https://www.youtube.com/watch?v=8Ab3ArE8W3s">Stop Writing Dead Programs (YouTube)</a></p>
-<p><a href="https://cs.lmu.edu/~ray/notes/syntaxdesign/">https://cs.lmu.edu/~ray/notes/syntaxdesign/</a></p>
+<!-- https://renato.athaydes.com/posts/unison-revolution.html , https://github.com/betaveros/noulith, https://github.com/esotericist/frf, https://cyberscript.dev, https://github.com/Vexu/bog, https://github.com/m-ender/hexagony (https://hexagony.net), https://www.roc-lang.org, https://koka-lang.github.io/koka/doc/index.html, https://ianthehenry.com/posts/why-janet/, futhark, This page really needs functional - Haskell, Lisp, etc. + Matlab, Dart, F#, R, Scheme Powershell, Smalltalk, Swift, scala, GLSL/HLSL, V, VHDL, Verilog, https://github.com/rxi/fe  -->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#960050;background-color:#1e0010">🥚</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#960050;background-color:#1e0010">🥚</span> <span style="color:#f92672">&lt;</span> <span style="color:#960050;background-color:#1e0010">🐔</span>; <span style="color:#960050;background-color:#1e0010">🥚</span><span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">hatch</span>(<span style="color:#960050;background-color:#1e0010">🥚</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Why hello,</p>
+<p>If you&rsquo;ve found this page, it&rsquo;s likely your curiosity is getting the better of you and you&rsquo;re killing time gawking at the weird syntax and features of a variety of languages. I know I have been guilty of doing so.</p>
+<p>This page is meant to give you a taste, not a full list. There&rsquo;s so many niche languages, <a href="https://esolangs.org/wiki/Main_Page">esolangs</a>, and outright jokes gone to far (like <a href="https://www.emojicode.org">emojicode</a>) to possibly make this list exhaustive.</p>
+<p>This also means it&rsquo;s quite possible your favorite language isn&rsquo;t here. Depending on how esoteric it is, it may not even be on <a href="https://pldb.com/lists/languages.html">pldb</a> or <a href="https://github.com/ChessMax/awesome-programming-languages">Awesome Programming Languages (GitHub)</a>, in which case, congrats, you&rsquo;ve truly found something strange.</p>
+<p>Still though, you may be here just to get a better idea of the answer to the questions all people learning their first language begin to wonder:</p>
+<ol>
+<li>What do the other languages do that the one I&rsquo;m using doesn&rsquo;t?</li>
+<li>Why have all these languages instead of one do-it-all language everyone uses</li>
+</ol>
+<p>Well, those are big questions, and hopefully as you browse this page you&rsquo;ll begin to understand, but in general the answers are</p>
+<ol>
+<li>Nothing - but it can make some things a whole hell of a lot easier.</li>
+<li>Different logical representations making solving different problems easier</li>
+</ol>
+<p>Before we look at each language though I want to get your brain in the right receptive place, so please enjoy these links first:</p>
+<ul>
+<li><a href="https://esoteric.codes">https://esoteric.codes</a></li>
+<li><a href="https://www.youtube.com/watch?v=QM1iUe6IofM">Object Oriented Programming is Bad (Brian Will)</a></li>
+<li><a href="https://hisham.hm/2021/01/18/again-on-0-based-vs-1-based-indexing/">0-based vs. 1-based indexing (Hisham Hm)</a></li>
+<li><a href="https://www.youtube.com/watch?v=8Ab3ArE8W3s">Stop Writing Dead Programs (YouTube)</a></li>
+<li><a href="https://cs.lmu.edu/~ray/notes/syntaxdesign/">https://cs.lmu.edu/~ray/notes/syntaxdesign/</a></li>
+<li><a href="https://buttondown.email/hillelwayne/archive/microfeatures-id-like-to-see-in-more-languages/">Microfeatures I&rsquo;d like to see in more languages (Hillel Wayne)</a></li>
+</ul>
+<p>Now let&rsquo;s actually see what each language has to offer.</p>
 <h2 id="low-level">
   Low Level
   <a class="anchor" href="#low-level">#</a>
 </h2>
-<h3 id="the-c-family">
-  The C Family
-  <a class="anchor" href="#the-c-family">#</a>
-</h3>
-<p>[TODO] - a lot, talk about the varieties and differences of C and C++ and C# and why thery&rsquo;re good and bad, etc.</p>
-<h4 id="c">
-  C
-  <a class="anchor" href="#c">#</a>
-</h4>
-<p>[TODO] Briefly mention that compliers are effectively dilects - GCC vs <a href="https://clang.llvm.org/docs/AttributeReference.html#diagnose-if">Clang</a> vs MSVC vs TCC due to their varied support for different preprocessor macros and library functions.</p>
-<h4 id="c-1">
-  C++
-  <a class="anchor" href="#c-1">#</a>
-</h4>
-<h4 id="c-2">
-  C#
-  <a class="anchor" href="#c-2">#</a>
-</h4>
-<p><a href="https://blog.joren.ga/programming/best-of-c">Best-of-C</a></p>
-<p><a href="https://www.learncpp.com">https://www.learncpp.com</a></p>
-<p><a href="https://nedbatchelder.com/code/cog/">https://nedbatchelder.com/code/cog/</a> for making plain C suck a bit less.</p>
-<p><a href="https://arobenko.github.io/bare_metal_cpp/">https://arobenko.github.io/bare_metal_cpp/</a></p>
+<p>In the intro to programming chapters we looked at some of the differences between low level and high level languages, and how at the very bottom of the layers of abstraction there&rsquo;s assembly, so let&rsquo;s start there.</p>
 <h3 id="assembly">
   Assembly
   <a class="anchor" href="#assembly">#</a>
 </h3>
-<p>Assembly code is specific to an <a href="https://en.wikipedia.org/wiki/Instruction_set_architecture">Instruction Set Architecture</a> or ISA, that means it is written for a specific family of processors. Most laptops and desktops today run on <a href="https://en.wikipedia.org/wiki/X86-64">x86_64</a> processors made by either AMD or Intel, while most tablets and phones use processors that use <a href="https://en.wikipedia.org/wiki/ARM_architecture">ARM</a>. Of course, there are many, many other instruction sets than these two. For example, <a href="https://en.wikipedia.org/wiki/MOS_Technology_6502">6502</a> assembly is particularly easy to write, as it&rsquo;s from an era <a class="ptr">(1)</a> when programming at the assembly level was still common. On the other hand, <a href="https://en.wikipedia.org/wiki/RISC-V">RISC-V</a> is a newer ISA that has been gaining a lot of traction due to its open nature. Knowing ASM can allow you to do some black magic, like pushing out FizzBuzz at <a href="https://codegolf.stackexchange.com/questions/215216/high-throughput-fizz-buzz/236630#236630">57.2GiB/s</a>.</p>
-<h4 id="x86-asm">
-  x86 ASM:
-  <a class="anchor" href="#x86-asm">#</a>
-</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>.LC0:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">.ascii</span> <span style="color:#e6db74">&#34;hello world!\015\000&#34;</span>
+</span></span><span style="display:flex;"><span>main:
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">push</span> <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">r3</span>, <span style="color:#66d9ef">lr</span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">movw</span> <span style="color:#66d9ef">r0</span>, <span style="color:#75715e">#:lower16:.LC0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">movt</span> <span style="color:#66d9ef">r0</span>, <span style="color:#75715e">#:upper16:.LC0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">bl</span> <span style="color:#66d9ef">puts</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">movs</span> <span style="color:#66d9ef">r0</span>, <span style="color:#75715e">#0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">pop</span> <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">r3</span>, <span style="color:#66d9ef">pc</span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Assembly code is specific to an <a href="https://en.wikipedia.org/wiki/Instruction_set_architecture">Instruction Set Architecture</a> or ISA, that means it is written for a specific family of processors. Most laptops and desktops today run on <a href="https://en.wikipedia.org/wiki/X86-64">x86_64</a> processors made by either AMD or Intel, while most tablets and phones use processors that use <a href="https://en.wikipedia.org/wiki/ARM_architecture">ARM</a>. Of course, there are many, many other instruction sets than these two. For example, <a href="https://en.wikipedia.org/wiki/MOS_Technology_6502">6502</a> assembly is particularly easy to write, as it&rsquo;s from an era <a class="ptr">(1)</a> when programming at the assembly level was still common. On the other hand, <a href="https://en.wikipedia.org/wiki/RISC-V">RISC-V</a> is a newer ISA that has been gaining a lot of traction due to its open nature.</p>
+<p>Knowing ASM can allow you to do some black magic, like pushing out FizzBuzz at <a href="https://codegolf.stackexchange.com/questions/215216/high-throughput-fizz-buzz/236630#236630">57.2GiB/s</a> or may even be required to mundane tasks on micro controllers.</p>
+<p>There&rsquo;s only really a handful of instruction sets you&rsquo;re likely to encounter today though, and of them the two most common by far are x86_64 and ARM. x86_64 (often, incorrectly, called just x86 - though I&rsquo;ll do that often here as well) is very, very annoying to read because it is a CISC (Complex Instruction Set Computer) design. Complex is no joke, while the most complex variant of ARM has ~60 instructions (many of which won&rsquo;t be available on all processors), x86_64 has (due to a myriad of extensions onto the instruction set) has roughly 1,000 depending on how you count them.</p>
+<p>This could derail into a whole conversation about ISA, but you should really go read [TODO] for that.</p>
 <p><a href="https://www.youtube.com/watch?v=HgEGAaYdABA">x86 Assembly: Hello World! (YouTube, John Hammond)</a></p>
 <p><a href="https://0xax.github.io/archive/">Say hello to x86_64 Assembly 1-8</a> by 0xAX</p>
-<p>or</p>
 <p><a href="https://gpfault.net/posts/asm-tut-0.txt.html">Let&rsquo;s Learn x86-64 Assembly! Part 0 - Setup and First Steps</a></p>
 <p><a href="https://gpfault.net/posts/asm-tut-1.txt.html">Part 1 - Metaprogramming in Flat Assembler</a></p>
 <p><a href="https://gpfault.net/posts/asm-tut-2.txt.html">Part 2 - We&rsquo;re Writing a Virtual Machine</a></p>
-<p>or for the very adventurous</p>
-<p><a href="https://github.com/cirosantilli/linux-kernel-module-cheat#userland-assembly">Linux-kernal-module-cheat [Github]</a>, has a nice guide to ASM</p>
-<h4 id="6502">
-  6502
-  <a class="anchor" href="#6502">#</a>
-</h4>
-<p><a href="https://github.com/gnomon-/furby-source">&lsquo;Furby&rsquo; Source Code</a></p>
+<p><a href="https://github.com/cirosantilli/linux-kernel-module-cheat#userland-assembly">Linux-kernal-module-cheat [Github]</a> has a nice guide to ASM</p>
+<p><a href="https://github.com/gnomon-/furby-source">&lsquo;Furby&rsquo; Source Code</a> is in 6502 assembly</p>
+<p>[TODO] - a lot, talk about the varieties and differences of C and C++ and C# and why thery&rsquo;re good and bad, etc.</p>
+<h3 id="c">
+  C
+  <a class="anchor" href="#c">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Hello World!</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The next stop is the language that simultaneously gets the &ldquo;most used by embedded&rdquo; and &ldquo;most hated for embedded&rdquo; awards.</p>
+<p>You&rsquo;ve already seen C if you followed along with the intro to programming chapters, and really, by following those you&rsquo;ve seen most of what it has to offer. It&rsquo;s a pretty minimalist language with a small standard library. It&rsquo;s both beautiful and immensely frustrating in its simplicity, mostly because of just how much it lacks in terms of safety, code organization systems, and portability.</p>
+<p>You see, for as much as everyone likes to shout from the rooftops that C supports any and all processors ever made, they&rsquo;re only half telling the truth. The problem is, <a href="https://faultlore.com/blah/c-isnt-a-language/">C isn&rsquo;t a programming language anymore (Aria Beingessner)</a>.</p>
+<p>As that article argues, it&rsquo;s turned into more of a &ldquo;<em>lingua franca</em> of programming&rdquo; but I&rsquo;d also argue it&rsquo;s not even <strong>one</strong> language anymore, because each compiler (GCC, Clang, MSVC, TCC, IAR, &hellip;) all support different prepossessing macros and language revisions, be it ANSI C, C89, C99, C11, or C23, witch each compiler and C version having a non insignificant amount of compatibility fusterclucks between one another.</p>
+<p>Still, it&rsquo;s a language that pretty much every programmer should know and know well and setting the above aside, it does still port to most platforms with lower effort than anything else.</p>
+<p>So you really should dive into it. Learn pointers, macros, include guards, bounds safe function variants, memory alignment issues, <code>asm()</code>, and all. It&rsquo;ll make you a better programmer.</p>
+<p>Just, if you&rsquo;re going to write in C, at least unit test your code. If you do that - if you care - <a href="https://blog.joren.ga/best-of-c#safety">C can be the safest option</a>.</p>
+<p>If you&rsquo;re really looking to make C easier to work with - albeit in a way that&rsquo;ll likely annoy others working on the code - <a href="https://nedbatchelder.com/code/cog/">Cog</a> may come in handy.</p>
+<h3 id="c-1">
+  C++
+  <a class="anchor" href="#c-1">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you want to increment C by one, you&rsquo;d write C++.</p>
+<p>C++ has a reputation for being overly complicated, throwing in everything and the kitchen sink worse than Python does, changing every 5 years, and being a little too flexible.</p>
+<p>It has absolutely earned all of those criticisms. It&rsquo;s also one of the most commonly used programming languages exactly because of all of those things. If you like some of C&rsquo;s close-to-the-metal nature, but want a bit more functionality to be included so you&rsquo;re not always reinventing the wheel or fighting things to have some semblance of type safety, C++ is probably a good bet.</p>
+<p>Just know that while it&rsquo;s possible to become a good C programmer than can read any C code and know what it&rsquo;s doing (<a href="https://www.ioccc.org">outside of intentionally obfuscated code</a>), C++ is nearly a different language to each project which uses it. It&rsquo;s object oriented, it&rsquo;s heavier, and it still lets you shoot yourself in the foot, but now with a rube Goldberg machine filled with gunpowder instead of a pistol loaded with uninitialized memory.</p>
+<p>If C is a desert, C++ is the Amazon. Both can be deadly and beautiful in their own ways.</p>
+<p>If you&rsquo;re looking to learn C++, <a href="https://www.learncpp.com">https://www.learncpp.com</a> is a decent bet. <a href="https://arobenko.github.io/bare_metal_cpp/">https://arobenko.github.io/bare_metal_cpp/</a> may prove helpful too.</p>
+<h3 id="c-2">
+  C#
+  <a class="anchor" href="#c-2">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> HelloWorld
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hello</span> {         
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            System.Console.WriteLine(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[TODO]: Get someone else to write this</p>
 <h3 id="rust">
   Rust
   <a class="anchor" href="#rust">#</a>
 </h3>
-<blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;Hello, world!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>Rust’s rich type system and ownership model guarantee memory-safety and thread-safety — enabling you to eliminate many classes of bugs at compile-time.</p>
 </blockquote>
-<p>Basically, Rust doesn&rsquo;t let you screw up. It enforces writing code that&rsquo;s safe (except when you specify you want to do something unsafe). It has a lot of other really nice features and makes using efficient data structures easy. Another really nifty thing about Rust is that it has a sort of at compile time garbage collection of sorts, for lack of a better way to put it. Read more on that <a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html#memory-and-allocation">here</a>.</p>
-<p>While I think Rust is great for desktop programs, for embedded, <a href="https://zackoverflow.dev/writing/unsafe-rust-vs-zig/">When Zig is safer and faster than Rust</a> from ZackOverflow makes a good argument for why you may want to oxidize everything.</p>
-<p>I really recommend <a href="https://fasterthanli.me/blog/2020/a-half-hour-to-learn-rust/">A half-hour to learn Rust</a></p>
-<p><a href="https://nannou.cc/">Nannou</a>, is a creative coding framework for Rust that&rsquo;s pretty nifty, too.</p>
-<p>To show the maturity, just check out <a href="https://www.redox-os.org/">https://www.redox-os.org/</a>, a full OS written in Rust!</p>
-<p>Also, it&rsquo;s worth noting Rust can be used to generate Web Assembly (more about that below)</p>
-<p>Other sources to lean rust:</p>
+<p>Basically, Rust doesn&rsquo;t let you screw up the №1 thing that causes bugs.</p>
+<p>It enforces writing code that&rsquo;s safe (except when you specify you want to do something unsafe). It has a lot of other really nice features and makes using efficient data structures easy.</p>
+<p>While I think Rust is great for desktop programs, for embedded, <a href="https://zackoverflow.dev/writing/unsafe-rust-vs-zig/">When Zig is safer and faster than Rust</a> from ZackOverflow makes a good argument for why you may want to oxidize <em>everything</em> - especially if you&rsquo;re working on embedded hardware.</p>
+<p>If you are working on desktop software though, I can not stress strong enough how much better of a choice Rust is than C or C++ for the vast majority of programs now.</p>
+<p>If you&rsquo;d like to learn Rust, I recommend <a href="https://fasterthanli.me/blog/2020/a-half-hour-to-learn-rust/">A half-hour to learn Rust</a> as well as</p>
 <ul>
 <li><a href="https://doc.rust-lang.org/book/foreword.html">https://doc.rust-lang.org/book/foreword.html</a></li>
 <li><a href="http://cliffle.com/p/dangerust/">Learning Rust the Dangerous Way (Cliff L. Biffle)</a></li>
@@ -715,40 +858,99 @@ https://github.com/alex-shpak/hugo-book
 <li><a href="https://cheats.rs">Rust Cheat Sheet</a></li>
 <li><a href="https://www.mylomusic.net/octane">Python -&gt; Rust guide - learning Rust when you know Python (Github)</a></li>
 </ul>
-<p>You may also want to check out <a href="https://github.com/dtolnay/cxx">CXX</a> for C++&lt;-&gt; Rust interop</p>
+<p>Rust isn&rsquo;t a &ldquo;new&rdquo; language anymore, but it&rsquo;s certainly not as battle tested as C or C++, so to show the maturity, just check out <a href="https://www.redox-os.org/">https://www.redox-os.org/</a>, a full OS written in Rust!</p>
+<p>Also, it&rsquo;s worth noting Rust can be used to generate Web Assembly (more about that below). This means you can (in a roundabout way) use it on the Web. This isn&rsquo;t unique to Rust by any means, but Rust is heavily used for it and has good resources for doing so.</p>
+<p>You may also want to check out <a href="https://github.com/dtolnay/cxx">CXX</a> for C++ ⟷ Rust interop. If you&rsquo;re looking for some fun projects to get started in Rust, you may want to use <a href="https://nannou.cc/">Nannou</a>, a creative coding framework for Rust.</p>
 <h3 id="go">
   Go
   <a class="anchor" href="#go">#</a>
 </h3>
-<blockquote>
-<p>Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.</p>
-</blockquote>
-<p>The big claim to fame for go is, well <code>go</code>, which lets you do really easy threading. (<a href="https://gobyexample.com/goroutines">https://gobyexample.com/goroutines</a>)</p>
-<p>Other sources to learn Go:</p>
-<ul>
-<li><a href="https://tour.golang.org/welcome/1">https://tour.golang.org/welcome/1</a></li>
-</ul>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, World!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The big claim to fame for go is its <code>go</code> keyword, which lets you do really easy threading. (<a href="https://gobyexample.com/goroutines%29">https://gobyexample.com/goroutines)</a>. This has made it a favorite among those writing networking utilities and servers - just look at the list of programs that use it on its <a href="https://en.wikipedia.org/wiki/Go_%28programming_language%29#Applications">Wikipedia page</a>.</p>
+<p>If you&rsquo;re wanting to learn go, you should go to <a href="https://tour.golang.org/welcome/1">https://tour.golang.org/welcome/1</a> as your first stop.</p>
 <h3 id="zig">
   Zig
   <a class="anchor" href="#zig">#</a>
 </h3>
-<blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zig" data-lang="zig"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> print <span style="color:#f92672">=</span> @import(<span style="color:#e6db74">&#34;std&#34;</span>).debug.print;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> main() <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Hello, world!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, .{});
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>A general-purpose programming language and toolchain for maintaining <strong>robust</strong>, <strong>optimal</strong>, and <strong>reusable</strong> software.</p>
 <p><a href="https://ziglang.org/">https://ziglang.org/</a></p>
 </blockquote>
-<p><a href="https://www.youtube.com/watch?v=Z4oYSByyRak">Zig: A programming language designed for robustness, optimality, and clarity – Andrew Kelley (YouTube)</a></p>
-<p><a href="https://nelari.us/post/raytracer_with_rust_and_zig/">Writing a small ray tracer in Rust and Zig</a></p>
-<p><a href="https://gist.github.com/ityonemo/769532c2017ed9143f3571e5ac104e50">A Half hour to Learn Zig (Github Gist)</a></p>
-<p><a href="https://zserge.com/posts/zig-the-small-language/">Zig, The Small Language (Serge Zaitsev)</a></p>
-<p><a href="https://zackoverflow.dev/writing/unsafe-rust-vs-zig/">When Zig is safer and faster than Rust (Zachoverflow)</a></p>
-<blockquote>
-<p>If you&rsquo;re going to use Zig, make sure to set up the <a href="https://github.com/zigtools/zls/wiki/Installing-for-Visual-Studio-Code">Zig Language Server</a></p>
-</blockquote>
+<p>If Rust is the next logical progression for the majority of C++ programmers, Zig is the future for C programmers. We need unsafe code to be productive, so we have it. We need good ways to write compile time code for our targets with limited memory, and so we have it. Zig fits very nicey as an upgrade to C without throwing everything and the kitchen sink in at the same time.</p>
+<p>For a proficient C programmer,  the bullet points on the homepage should say everything you need to hear. Seriously, go read it: <a href="https://ziglang.org/">https://ziglang.org/</a></p>
+<p>I highly recommend checking out each of these:</p>
+<ul>
+<li><a href="https://gist.github.com/ityonemo/769532c2017ed9143f3571e5ac104e50">A Half hour to Learn Zig (Github Gist)</a></li>
+<li><a href="https://zserge.com/posts/zig-the-small-language/">Zig, The Small Language (Serge Zaitsev)</a></li>
+<li><a href="https://www.youtube.com/watch?v=Z4oYSByyRak">Zig: A programming language designed for robustness, optimality, and clarity – Andrew Kelley (YouTube)</a></li>
+</ul>
+<p>Additionally,</p>
+<ul>
+<li><a href="https://nelari.us/post/raytracer_with_rust_and_zig/">Writing a small ray tracer in Rust and Zig</a></li>
+<li><a href="https://zackoverflow.dev/writing/unsafe-rust-vs-zig/">When Zig is safer and faster than Rust (Zachoverflow)</a></li>
+</ul>
+<p>are interesting reads.</p>
+<p>Zig is also particularly nice to develop in, thanks to the <a href="https://github.com/zigtools/zls/wiki/Installing-for-Visual-Studio-Code">Zig Language Server</a>. If you try Zig, make sure to set it up.</p>
 <h3 id="odin">
   Odin
   <a class="anchor" href="#odin">#</a>
 </h3>
-<blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;core:fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main</span> :: <span style="color:#a6e22e">proc</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.println(<span style="color:#e6db74">&#34;Hellope!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>Odin is a general-purpose programming language with distinct typing built for high performance, modern systems and data-oriented programming.</p>
 <p>Odin is the C alternative for the Joy of Programming</p>
 <p><a href="https://odin-lang.org">https://odin-lang.org</a></p>
@@ -758,45 +960,53 @@ https://github.com/alex-shpak/hugo-book
   Crystal
   <a class="anchor" href="#crystal">#</a>
 </h3>
-<p>Crystal&rsquo;s big thing is a Ruby (a very fast to write language) that&rsquo;s compiled and fast. From the home page:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># A very basic HTTP server</span>
-</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#34;http/server&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>server <span style="color:#f92672">=</span> <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">::</span><span style="color:#66d9ef">Server</span><span style="color:#f92672">.</span>new <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>context<span style="color:#f92672">|</span>
-</span></span><span style="display:flex;"><span>  context<span style="color:#f92672">.</span>response<span style="color:#f92672">.</span>content_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;text/plain&#34;</span>
-</span></span><span style="display:flex;"><span>  context<span style="color:#f92672">.</span>response<span style="color:#f92672">.</span>print <span style="color:#e6db74">&#34;Hello world, got </span><span style="color:#e6db74">#{</span>context<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>path<span style="color:#e6db74">}</span><span style="color:#e6db74">!&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>puts <span style="color:#e6db74">&#34;Listening on http://127.0.0.1:8080&#34;</span>
-</span></span><span style="display:flex;"><span>server<span style="color:#f92672">.</span>listen(<span style="color:#ae81ff">8080</span>)
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-crystal" data-lang="crystal"><span style="display:flex;"><span>puts <span style="color:#e6db74">&#34;Hello World!&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Seriously, check it out at <a href="https://crystal-lang.org/">https://crystal-lang.org/</a></p>
+</div><p>Crystal&rsquo;s big thing is that it&rsquo;s similar to Ruby (a very fast to write language) that&rsquo;s compiled and so quite fast. Additionally, it makes some sane choices to check for common problems at compile time. It also has good C interop. Check it out at <a href="https://crystal-lang.org/">https://crystal-lang.org/</a>.</p>
+<p>It may not be well suited to every task due to how abstracted it can be, but for quick solutions with decent performance, it&rsquo;s a good option and fairly mature compared to other languages (Such as Nim) which aim to do similar things.</p>
 <h3 id="d">
   D
   <a class="anchor" href="#d">#</a>
 </h3>
-<p>A lesser used competitor to C++ mostly. It&rsquo;s very syntactically similar. Might be worth looking at.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-D" data-lang="D"><span style="display:flex;"><span><span style="color:#f92672">import</span> std.stdio<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    writeln<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello World!&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A lesser used competitor to C++ mostly. It&rsquo;s very syntactically similar. Might be worth looking at.</p>
 <p><a href="https://dlang.org">https://dlang.org</a></p>
 <h3 id="nim">
   Nim
   <a class="anchor" href="#nim">#</a>
 </h3>
-<blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nim" data-lang="nim"><span style="display:flex;"><span>echo(<span style="color:#e6db74">&#34;hello world&#34;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>Nim is a statically typed compiled systems programming language. It combines successful concepts from mature languages like Python, Ada and Modula.</p>
 <p><a href="https://nim-lang.org/">https://nim-lang.org/</a></p>
 </blockquote>
@@ -806,53 +1016,111 @@ https://github.com/alex-shpak/hugo-book
   Red
   <a class="anchor" href="#red">#</a>
 </h3>
-<p>To be honest, I&rsquo;m not sure Red belongs in the low level category, as it can be run as a JIT language.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print <span style="color:#e6db74">&#34;Hello World!&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To be honest, I&rsquo;m not sure Red belongs in the low level category, as it can be run as a <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation">JIT</a> language, but ╮(─▽─)╭.</p>
+<p>I&rsquo;m not sure I&rsquo;d actually reach for this language for anything - it tries to do everything, instead of being good at one thing first. That&rsquo;s not necessarily a bad thing (see Python) but Red isn&rsquo;t super mature yet. Still, it has some net enough features that I think it&rsquo;s worth mentioning. From the home page:</p>
 <blockquote>
 <p><strong>Red</strong> is a next-gen programming language, strongly inspired by <a href="http://rebol.com/">REBOL</a>. Main features are:</p>
+<p>[&hellip;]</p>
 <ul>
-<li><strong>Human-friendly</strong> <a href="https://pointillistic.com/ren/">syntax</a></li>
-<li><strong><a href="http://en.wikipedia.org/wiki/Homoiconicity">Homoiconic</a></strong> (Red is its own meta-language and own <strong><a href="http://www.rebol.com/rebolsteps.html">data-format</a></strong>)</li>
-<li><strong>Functional</strong>, imperative, <strong><a href="http://www.red-lang.org/2016/06/061-reactive-programming.html">reactive</a></strong> and <strong>symbolic</strong> programming</li>
-<li><strong>Prototype</strong>-based object support</li>
-<li>**Gradual and multi-**typing</li>
-<li><strong><a href="http://www.red-lang.org/2016/12/entering-world-of-macros.html">Macros</a></strong> system</li>
-<li><strong>Rich</strong> set of built-in datatypes (50+)</li>
-<li>Both <strong>statically</strong> and <strong>JIT</strong>-<strong>compiled</strong> to native code</li>
-<li><strong>Cross-compilation</strong> <a href="https://github.com/red/red/blob/master/usage.txt">done</a> <a href="https://github.com/red/red/blob/master/system/config.r">right</a></li>
-<li>Produces executables of <strong>less than 1MB</strong>, with <strong>no dependencies</strong></li>
-<li><strong>Concurrency</strong> and <strong>parallelism</strong> strong support (actors, parallel collections)</li>
-<li>Low-level <strong>system programming</strong> abilities through the built-in Red/System <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a></li>
 <li>Powerful <strong>PEG <a href="http://www.red-lang.org/2013/11/041-introducing-parse.html">parser </a></strong><a href="http://www.red-lang.org/2013/11/041-introducing-parse.html">DSL</a> included</li>
 <li><strong>Cross-platform native <a href="http://www.red-lang.org/2016/03/060-red-gui-system.html">GUI </a></strong><a href="http://www.red-lang.org/2016/03/060-red-gui-system.html">system</a>, with a <a href="http://doc.red-lang.org/gui/VID.html">UI DSL</a> and <a href="http://doc.red-lang.org/gui/Draw.html">drawing DSL</a></li>
 <li><strong>Bridging</strong> <a href="https://github.com/red/red/blob/master/bridges/java/hello.red">to the JVM</a></li>
-<li>High-level <strong>scripting</strong> and <a href="http://en.wikipedia.org/wiki/Read-eval-print_loop"><strong>REPL</strong></a> console included</li>
-<li>Visual Studio Code <strong><a href="https://marketplace.visualstudio.com/items?itemName=red-auto.red">plugin</a></strong>, with many helpful features</li>
-<li>Highly <strong><a href="http://www.red-lang.org/2017/03/062-libred-and-macros.html">embeddable</a></strong></li>
-<li><strong>Low</strong> memory footprint, <strong>garbage collected</strong></li>
-<li><strong><a href="http://www.red-lang.org/p/download.html">Single-file</a></strong> (~1MB) contains whole toolchain, full standard library and REPL.</li>
-<li><strong>No install, no setup</strong></li>
-<li><strong>Fun</strong> guaranteed!</li>
 </ul>
-<p><a href="https://www.red-lang.org/p/about.html">https://www.red-lang.org/p/about.html</a></p>
 </blockquote>
 <p>If you&rsquo;re interested, check out <a href="https://www.red-lang.org/p/getting-started.html">Red&rsquo;s &lsquo;Getting Started&rsquo; page</a>.</p>
 <h3 id="haxe">
   Haxe
   <a class="anchor" href="#haxe">#</a>
 </h3>
-<blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Haxe" data-lang="Haxe"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> HelloWorld {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>():Void {
+</span></span><span style="display:flex;"><span>    trace(<span style="color:#e6db74">&#34;Hello World&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>Haxe is an open source high-level strictly-typed programming language with a fast optimizing cross-compiler.</p>
 <p><a href="https://haxe.org/">https://haxe.org/</a></p>
 </blockquote>
-<h3 id="java--kotlin">
-  Java &amp; Kotlin
-  <a class="anchor" href="#java--kotlin">#</a>
+<h3 id="java">
+  Java
+  <a class="anchor" href="#java">#</a>
 </h3>
-<p>!&gt; This is Opinionated Guides, so let me be clear, I really, <strong>really</strong> hate Java. It&rsquo;s a language that didn&rsquo;t even become popular on its own merit, instead Sun Microsystem paid a <a href="https://www.theregister.com/2003/06/09/sun_preps_500m_java_brand/">fuck ton</a> of money to push it- hence the <strong>&ldquo;3 Billion Devices Run Java&rdquo;</strong> Thing. I&rsquo;m hopeful (albeit probably naively) that Oracle (Which bought Java from Sun) making Java a mess of licensing as the &lsquo;main&rsquo; Java Virtual Machine goes <a href="https://en.wikipedia.org/wiki/Java_%28programming_language%29">paid (Read on Wikipedia)</a> and <a href="https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.">suing Google</a> will be the nail in the coffin for education using it and that it will die out with time.
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorld</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello, World!&#34;</span><span style="color:#f92672">);</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="tip ">
+    <p>This is Opinionated Guides, so let me be clear, I really, <strong>really</strong> hate Java.</p>
+<p>It&rsquo;s a language that didn&rsquo;t even become popular on its own merit, instead Sun Microsystem paid a <a href="https://www.theregister.com/2003/06/09/sun_preps_500m_java_brand/">fuck ton</a> of money to push it- hence the <strong>&ldquo;3 Billion Devices Run Java&rdquo;</strong> Thing.</p>
+<p>I&rsquo;m hopeful (albeit probably naively) that Oracle (Which bought Java from Sun) making Java a mess of licensing as the &lsquo;main&rsquo; Java Virtual Machine goes <a href="https://en.wikipedia.org/wiki/Java_%28programming_language%29">paid (Read on Wikipedia)</a> and <a href="https://en.wikipedia.org/wiki/Google_LLC_v._Oracle_America,_Inc.">suing Google</a> will be the nail in the coffin for education using it and that it will die out with time. See
 <a href="https://en.wikipedia.org/wiki/Criticism_of_Java">Criticism of Java (Wikipedia)</a></p>
-<p>don&rsquo;t.
-but, here&rsquo;s why not to use Java:</p>
-<p><a href="https://jakewharton.com/shrinking-a-kotlin-binary/">https://jakewharton.com/shrinking-a-kotlin-binary/</a></p>
+<p>So, frankly, I&rsquo;m not even going to give Java an honest effort here. Use literally anything else.</p>
+
+</div>
+<p>There are a few things you should know about Java only because at one point or another, it may become relevant.</p>
+<ul>
+<li>Java code compiles to &ldquo;java bytecode&rdquo; which runs on the &ldquo;java virtual machine&rdquo; (JVM).
+<ul>
+<li>This means (in theory) any platform with the JVM should be able to run Java programs with no incompatabilities.</li>
+</ul>
+</li>
+<li>Java programs could once be made into &ldquo;applets&rdquo;. That&rsquo;s dead now.</li>
+<li>Java source code is stored in .java files</li>
+<li>The compiled code becomes java bytecode in .class files</li>
+<li>These class files can be collected into a .jar, which is the final executable program <em>if</em> the user has a JVM installed.</li>
+<li>Sometimes, the .jars are wrapped into an executable which bundles the JVM</li>
+<li>Java used to be the goto for Android development, now Kotlin (see below) is better for that in most cases.</li>
+<li>Java Jars are often relatively easy to de-compile compared to other programs in complied languages</li>
+</ul>
+<p>And, no, there&rsquo;s no connection between Java and Javascript.</p>
+<h3 id="kotlin">
+  Kotlin
+  <a class="anchor" href="#kotlin">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>(args : Array&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Hello, World!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://jakewharton.com/shrinking-a-kotlin-binary/">https://jakewharton.com/shrinking-a-kotlin-binary/</a></p>
 <h3 id="webassembly">
   WebAssembly
   <a class="anchor" href="#webassembly">#</a>
@@ -861,21 +1129,14 @@ but, here&rsquo;s why not to use Java:</p>
 <p>WebAssembly (abbreviated <em>Wasm</em>) is a binary instruction format for a stack-based virtual machine. Wasm is designed as a portable target for compilation of high-level languages like C/C++/Rust, enabling deployment on the web for client and server applications.</p>
 <p><a href="https://webassembly.org/">https://webassembly.org/</a></p>
 </blockquote>
-<p>While not technically a programming language, I wanted to bring it up and encourage you to look into it to be used instead of JavaScript for real projects.</p>
-<p><a href="https://www.assemblyscript.org">https://www.assemblyscript.org</a> is a TypeScript variant that can generate Web ASM.</p>
-<p><a href="https://webassembly.studio">https://webassembly.studio</a></p>
+<p>While not technically a programming language, I wanted to bring it up and encourage you to look into it to be used instead of JavaScript for real projects. You can use a large portion of the languages mentioned above to write Webassembly.</p>
+<p>Additionally, there are languages where WebAssembly is the primary target, such as <a href="https://www.assemblyscript.org">https://www.assemblyscript.org</a>, a TypeScript variant.</p>
 <h3 id="vult">
   Vult
   <a class="anchor" href="#vult">#</a>
 </h3>
 <p><a href="https://www.vult-dsp.com/vult-language">Vult Language Homepage</a></p>
 <p>&ldquo;The Vult Language is a transcompiler to write high-performance DSP code&rdquo;</p>
-<h3 id="call-for-contribution">
-  Call for Contribution
-  <a class="anchor" href="#call-for-contribution">#</a>
-</h3>
-<p>If I missed a language you think I should have mentioned or would like to write a nice guide to your language of choice to be included in this Opinionated Guide please submit a pull request. I&rsquo;d love to expand the Rust, Go, and Zig sections significantly!</p>
-<hr>
 <h2 id="high-level">
   High Level
   <a class="anchor" href="#high-level">#</a>
@@ -931,9 +1192,54 @@ but, here&rsquo;s why not to use Java:</p>
   PHP
   <a class="anchor" href="#php">#</a>
 </h3>
-<p>don&rsquo;t.
-but, here&rsquo;s why not to use PHP:
-If you must, you might want to check out Hack: <a href="https://hacklang.org/">https://hacklang.org/</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">title</span>&gt;PHP Test&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;?php echo &#39;&lt;p&gt;Hello World&lt;/p&gt;&#39;; ?&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>PHP is a language focused on making websites with sever side logic (process on the server, instead of JS in the browser). While a large portion of the web has moved to Javascript frameworks PHP is still a good option for many tasks, and i<a href="https://themsaid.com/go-with-php">sn&rsquo;t very hard to read.</a></p>
+<p>PHP as a language is hated on, a lot. This is mostly because of historical decisions to not use typing, but type hints have been added for a while and it&rsquo;s actually quite nice today. It&rsquo;s not many people&rsquo;s language of choice, but it works. Still, I wouldn&rsquo;t fully recommend it. As mentioned above, Go is doing quite well in the networking space due to it&rsquo;s ease of parallelism and abundant libraries for tasks that would&rsquo;ve classically been PHP&rsquo;s job.</p>
+<p>Another option is Hack,</p>
+<h3 id="hack">
+  Hack
+  <a class="anchor" href="#hack">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> <span style="color:#66d9ef">namespace</span> <span style="color:#a6e22e">HH\Lib\IO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;&lt;</span><span style="color:#a6e22e">__EntryPoint</span><span style="color:#f92672">&gt;&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">Awaitable</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">void</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">IO\request_output</span>()<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">writeAllAsync</span>(<span style="color:#e6db74">&#34;Hello World!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Hack, <a href="https://hacklang.org/">https://hacklang.org/</a>, is Facebook&rsquo;s (🤮) answer to PHP. They needed something safer, salable, and designed in this century. It&rsquo;s syntax is PHP like, but it has easy async like Go. It also includes more intelligent ways of writing UI code to avoid XSS &amp; Injection attacks.</p>
 <h3 id="ruby">
   Ruby
   <a class="anchor" href="#ruby">#</a>
@@ -960,10 +1266,18 @@ If you must, you might want to check out Hack: <a href="https://hacklang.org/">h
   For the Skript Kidd3s
   <a class="anchor" href="#for-the-skript-kidd3s">#</a>
 </h2>
-<blockquote>
-<p>In programming and hacking cultures, a <strong>script kiddie</strong>, <strong>skiddie</strong>, or <strong>skid</strong> is an unskilled individual who uses <a href="https://en.wikipedia.org/wiki/Scripting_language">scripts</a> or programs developed by others to attack computer systems and networks and <a href="https://en.wikipedia.org/wiki/Website_defacement">deface websites</a>, such as a <a href="https://en.wikipedia.org/wiki/Web_shell">web shell</a>. It is generally assumed that most script kiddies are juveniles who lack the ability to write sophisticated programs or exploits on their own and that their objective is to try to impress their friends or gain credit in computer-enthusiast communities. However, the term does not relate to the actual age of the participant. The term is considered to be derogatory.</p>
-<p>from <a href="https://en.wikipedia.org/wiki/Script_kiddie">https://en.wikipedia.org/wiki/Script_kiddie</a></p>
-</blockquote>
+<div class="quote https://en.wikipedia.org/wiki/Script_kiddie">
+<p>
+    <p>In programming and hacking cultures, a <strong>script kiddie</strong>, <strong>skiddie</strong>, or <strong>skid</strong> is an unskilled individual who uses <a href="https://en.wikipedia.org/wiki/Scripting_language">scripts</a> or programs developed by others to attack computer systems and networks and <a href="https://en.wikipedia.org/wiki/Website_defacement">deface websites</a>, such as a <a href="https://en.wikipedia.org/wiki/Web_shell">web shell</a>.</p>
+<p>It is generally assumed that most script kiddies are juveniles who lack the ability to write sophisticated programs or exploits on their own and that their objective is to try to impress their friends or gain credit in computer-enthusiast communities. However, the term does not relate to the actual age of the participant.</p>
+<p>The term is considered to be derogatory.</p>
+
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - <a href="https://en.wikipedia.org/wiki/Script_kiddie">https://en.wikipedia.org/wiki/Script_kiddie</a>
+    </div>
+</div>
 <p>But, really, some absolutely incredible code has been written in the following languages. They more than serve their purpose and are generally some of the fastest &ldquo;I just need a quick and dirty solution&rdquo; options out there. Not everything needs a blazing fast hand optimized C implementation, and code that&rsquo;s really just for personal use, to accomplish a one-off task, or that runs inside a bigger program (3D modeling software like Blender, Video editing software like Premier, Game development editors, etc.)  should probably be easy to read and modify quickly. Rapid prototyping certainly has its place.</p>
 <p>Just don&rsquo;t think you should use these to write efficient, safe code.</p>
 <h3 id="lua">
@@ -987,9 +1301,9 @@ If you must, you might want to check out Hack: <a href="https://hacklang.org/">h
   CMD.exe
   <a class="anchor" href="#cmdexe">#</a>
 </h3>
-<h3 id="bash-zsh-fish-xonsh-wut">
-  Bash, ZSH, Fish, Xonsh, wut?
-  <a class="anchor" href="#bash-zsh-fish-xonsh-wut">#</a>
+<h3 id="bash-zsh-fish-xonsh-elvish-wut">
+  Bash, ZSH, Fish, Xonsh, Elvish, wut?
+  <a class="anchor" href="#bash-zsh-fish-xonsh-elvish-wut">#</a>
 </h3>
 <h3 id="node-red">
   Node-Red
@@ -1036,7 +1350,7 @@ If you must, you might want to check out Hack: <a href="https://hacklang.org/">h
 <p><a href="https://antfs10.itch.io/brainfuck-designer">Brainfuck Designer</a></p>
 <p>As a quick tour of esolangs, here are some of my favorites:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <ul>
 <li><a href="https://www.dangermouse.net/esoteric/piet.html">Piet</a></li>
@@ -1047,7 +1361,7 @@ If you must, you might want to check out Hack: <a href="https://hacklang.org/">h
 </blockquote>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <ul>
 <li><a href="https://puddledockgames.itch.io/puddlelang">Puddlelang</a></li>
@@ -1061,7 +1375,7 @@ If you must, you might want to check out Hack: <a href="https://hacklang.org/">h
 </ul>
 
   </div>
-  
+
 </div>
 
 <div class="book-columns flex flex-wrap">
@@ -1139,6 +1453,105 @@ v
 </blockquote>
 <hr>
 <p>If you&rsquo;re looking to learn more, check out <a href="https://github.com/angrykoala/awesome-esolangs">Awesome Esolangs (Github)</a> and <a href="https://esolangs.org">https://esolangs.org</a>. Also, the <a href="https://github.com/Timwi/EsotericIDE/">Esoteric IDE</a> may be of use.</p>
+<h2 id="the-old-guard">
+  The Old Guard
+  <a class="anchor" href="#the-old-guard">#</a>
+</h2>
+<h3 id="forth">
+  Forth
+  <a class="anchor" href="#forth">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-forth" data-lang="forth"><span style="display:flex;"><span><span style="color:#f92672">:</span> <span style="color:#a6e22e">hello</span>   <span style="color:#e6db74">.&#34;</span> <span style="color:#e6db74">Hello World!</span><span style="color:#a6e22e">&#34;</span> <span style="color:#66d9ef">CR ;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cobol">
+  Cobol
+  <a class="anchor" href="#cobol">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cobol" data-lang="cobol"><span style="display:flex;"><span><span style="color:#75715e">000100</span>  <span style="color:#66d9ef">IDENTIFICATION</span> <span style="color:#66d9ef">DIVISION</span>. <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">000200</span>  <span style="color:#66d9ef">PROGRAM-ID</span>. MFPROG1.     <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">000300</span>  <span style="color:#66d9ef">PROCEDURE</span> <span style="color:#66d9ef">DIVISION</span>.      <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">000400</span>  MAIN-PARA.               <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">000500</span>      <span style="color:#66d9ef">DISPLAY </span><span style="color:#e6db74">&#39;HELLO WORLD&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">000600</span>      <span style="color:#66d9ef">STOP</span> <span style="color:#66d9ef">RUN</span>.<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p class="attribution ">
+    From  <a href="https://www.mainframebug.com/tuts/COBOL/module2/Top3COBOLsimpleProgram.php">mainframebug.com</a>
+</p>
+<h3 id="fortran">
+  Fortran
+  <a class="anchor" href="#fortran">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fortran" data-lang="fortran"><span style="display:flex;"><span><span style="color:#66d9ef">program</span> hello
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">! This is a comment line; it is ignored by the compiler
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">print</span> <span style="color:#f92672">*</span>, <span style="color:#e6db74">&#39;Hello, World!&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span> <span style="color:#66d9ef">program</span> hello
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="pascal">
+  Pascal
+  <a class="anchor" href="#pascal">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>program Hello<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>begin
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">writeln</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello, world.&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>end<span style="color:#f92672">.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="basic">
+  BASIC
+  <a class="anchor" href="#basic">#</a>
+</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-basic" data-lang="basic"><span style="display:flex;"><span>10 <span style="color:#66d9ef">PRINT</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>
+</span></span><span style="display:flex;"><span>20 <span style="color:#66d9ef">GOTO</span> 10
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="objective-c">
+  Objective C
+  <a class="anchor" href="#objective-c">#</a>
+</h3>
+<h3 id="apl">
+  APL
+  <a class="anchor" href="#apl">#</a>
+</h3>
 <h2 id="graphics-programming">
   Graphics Programming
   <a class="anchor" href="#graphics-programming">#</a>
@@ -1196,27 +1609,27 @@ v
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/languages.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/languages.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1234,15 +1647,19 @@ v
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-3---programming-languages">Appendix 3 - Programming Languages</a>
       <ul>
         <li><a href="#low-level">Low Level</a>
           <ul>
-            <li><a href="#the-c-family">The C Family</a></li>
             <li><a href="#assembly">Assembly</a></li>
+            <li><a href="#c">C</a></li>
+            <li><a href="#c-1">C++</a></li>
+            <li><a href="#c-2">C#</a></li>
             <li><a href="#rust">Rust</a></li>
             <li><a href="#go">Go</a></li>
             <li><a href="#zig">Zig</a></li>
@@ -1252,10 +1669,10 @@ v
             <li><a href="#nim">Nim</a></li>
             <li><a href="#red">Red</a></li>
             <li><a href="#haxe">Haxe</a></li>
-            <li><a href="#java--kotlin">Java &amp; Kotlin</a></li>
+            <li><a href="#java">Java</a></li>
+            <li><a href="#kotlin">Kotlin</a></li>
             <li><a href="#webassembly">WebAssembly</a></li>
             <li><a href="#vult">Vult</a></li>
-            <li><a href="#call-for-contribution">Call for Contribution</a></li>
           </ul>
         </li>
         <li><a href="#high-level">High Level</a>
@@ -1263,6 +1680,7 @@ v
             <li><a href="#python">Python</a></li>
             <li><a href="#javascript">JavaScript</a></li>
             <li><a href="#php">PHP</a></li>
+            <li><a href="#hack">Hack</a></li>
             <li><a href="#ruby">Ruby</a></li>
             <li><a href="#perl">Perl</a></li>
             <li><a href="#scallop">Scallop</a></li>
@@ -1274,7 +1692,7 @@ v
             <li><a href="#ahk">AHK</a></li>
             <li><a href="#tasker-android">Tasker (Android)</a></li>
             <li><a href="#cmdexe">CMD.exe</a></li>
-            <li><a href="#bash-zsh-fish-xonsh-wut">Bash, ZSH, Fish, Xonsh, wut?</a></li>
+            <li><a href="#bash-zsh-fish-xonsh-elvish-wut">Bash, ZSH, Fish, Xonsh, Elvish, wut?</a></li>
             <li><a href="#node-red">Node-Red</a></li>
             <li><a href="#n8n">n8n</a></li>
           </ul>
@@ -1288,6 +1706,17 @@ v
           </ul>
         </li>
         <li><a href="#esolangs-the-hole-goes-deeper">Esolangs, the hole goes deeper</a></li>
+        <li><a href="#the-old-guard">The Old Guard</a>
+          <ul>
+            <li><a href="#forth">Forth</a></li>
+            <li><a href="#cobol">Cobol</a></li>
+            <li><a href="#fortran">Fortran</a></li>
+            <li><a href="#pascal">Pascal</a></li>
+            <li><a href="#basic">BASIC</a></li>
+            <li><a href="#objective-c">Objective C</a></li>
+            <li><a href="#apl">APL</a></li>
+          </ul>
+        </li>
         <li><a href="#graphics-programming">Graphics Programming</a></li>
         <li><a href="#functional-programming">Functional Programming</a></li>
         <li><a href="#database">Database</a></li>
@@ -1296,14 +1725,14 @@ v
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

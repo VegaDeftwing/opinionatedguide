@@ -31,6 +31,7 @@
 I want you to try something. Put your foot back up on your heel and each time you see a new peak, tap the ground. Play a non existent kick drum to each new peak. (or just tap a finger on your desk)
 To some people, keeping this beat is difficult. To some it will come naturally. Either is fine. This could be the tempo of a song, the metronome that everything is playing in time to, and it&rsquo;s just a wave.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -51,11 +52,13 @@ To some people, keeping this beat is difficult. To some it will come naturally. 
 <title>Intro | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -70,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -534,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -563,7 +571,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#span-style-webkit-text-stroke-2px-f8f8f8text-shadow-0px-4px-0px-red--5px-8px-0px-973999color-000bangspan-span-styletext-shadow2px-2px-2px-9739992px-4px-2px-white8px-8px-4px-9739994px-12px-4px-white8px-16px-8px-9739994px-20px-8px-whitezwoopspan-span-styletext-shadow2px-2px-0-black-4px-4px-0-db5c606px-6px-0-dbd9678px-8px-0-d951db10px-10px-0-3bdb6612px-12px-0-blue14px-14px-0-8746dbbada-dap-bapspan"><span style="-webkit-text-stroke: 2px #F8F8F8;text-shadow: 0px 4px 0px red, -5px 8px 0px #973999;color: #000;">Bang!</span>. <span style="text-shadow:2px 2px 2px #973999,2px 4px 2px white,8px 8px 4px #973999,4px 12px 4px white,8px 16px 8px #973999,4px 20px 8px white;">Zwoop</span>. <span style="text-shadow:2px 2px 0 black, 4px 4px 0 #DB5C60,6px 6px 0 #DBD967,8px 8px 0 #D951DB,10px 10px 0 #3BDB66,12px 12px 0 blue,14px 14px 0 #8746DB;">Bada-dap-bap</span>.</a>
       <ul>
@@ -574,6 +583,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -768,27 +778,27 @@ setInterval(render, 30);
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/intro.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/intro.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -806,8 +816,10 @@ setInterval(render, 30);
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#span-style-webkit-text-stroke-2px-f8f8f8text-shadow-0px-4px-0px-red--5px-8px-0px-973999color-000bangspan-span-styletext-shadow2px-2px-2px-9739992px-4px-2px-white8px-8px-4px-9739994px-12px-4px-white8px-16px-8px-9739994px-20px-8px-whitezwoopspan-span-styletext-shadow2px-2px-0-black-4px-4px-0-db5c606px-6px-0-dbd9678px-8px-0-d951db10px-10px-0-3bdb6612px-12px-0-blue14px-14px-0-8746dbbada-dap-bapspan"><span style="-webkit-text-stroke: 2px #F8F8F8;text-shadow: 0px 4px 0px red, -5px 8px 0px #973999;color: #000;">Bang!</span>. <span style="text-shadow:2px 2px 2px #973999,2px 4px 2px white,8px 8px 4px #973999,4px 12px 4px white,8px 16px 8px #973999,4px 20px 8px white;">Zwoop</span>. <span style="text-shadow:2px 2px 0 black, 4px 4px 0 #DB5C60,6px 6px 0 #DBD967,8px 8px 0 #D951DB,10px 10px 0 #3BDB66,12px 12px 0 blue,14px 14px 0 #8746DB;">Bada-dap-bap</span>.</a>
       <ul>
@@ -819,14 +831,14 @@ setInterval(render, 30);
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

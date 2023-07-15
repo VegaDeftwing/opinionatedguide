@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 19 - Shaders # The Book Of Shaders GLSL 2D Tutorials by Vug Here for VRChat Stuff? Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortunately, there&rsquo;s some added complexity that comes with handling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Shaders | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-19---shaders">Chapter 19 - Shaders</a>
       <ul>
@@ -603,6 +612,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -625,8 +635,7 @@ https://github.com/alex-shpak/hugo-book
 </span>
 <p><img src="/common/arrowthis.svg" alt="" /></p>
 <!-- TODO https://www.youtube.com/watch?v=i5yK56XFbrU&list=PLOunECWxELQQwayE8e3WjKPJsTGKknJ8w -->
-<details >
-  <summary>Here for VRChat Stuff?</summary>
+<details ><summary>Here for VRChat Stuff?</summary>
   <div class="markdown-inner">
     <p>Cool! VR chat is a really neat platform to work with and it&rsquo;s really fun to be able to hold or walk around your art. Unfortunately, there&rsquo;s some added complexity that comes with handling VR, Unity, and even just 3D stuff outright that, all together, takes a hot minute to build up to. That said, there are some particularly good resources for getting started in VR Chat and Unity development that aren&rsquo;t available for anything else. So, after you&rsquo;ve gone though the above links, in no particular order, I recommend looking at:</p>
 <ul>
@@ -1018,7 +1027,7 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 </blockquote>
 </blockquote>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <ul>
 <li>Multiple Buffers
@@ -1030,13 +1039,13 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 </ul>
 <p>[TODO] text on lighting &amp; physics as shaders in egines, vulkan, etc.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="250" src="https://www.youtube.com/embed/8ptH79R53c0" title="New Voxel Engine Reveal - Crystal Islands Experiment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p class="attribution ">
     Voxel Engine by <a href="https://twitter.com/ProgrammerLin">John &ldquo;Lin&rdquo;</a>
   </div>
-  
+
 </div>
 
 <p><a href="https://wwwtyro.net/2019/11/18/instanced-lines.html">https://wwwtyro.net/2019/11/18/instanced-lines.html</a></p>
@@ -1064,7 +1073,7 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 </ol>
 <p>Basically, this means you need to both be sure you&rsquo;re workload will actually benefit. It needs to be parrallizable in the first place, you need to be processing <em>a lot</em> of data to justify the overhead, and you need to know you have a GPU in the system(s) that can actually use it. As a general rule of thumb, if you&rsquo;re not processing an array/matrix with at least 100,000 items, it&rsquo;s probably not worth it. For context, assuming each item is a byte, that&rsquo;s about 100 killobytes.</p>
 <p>So, if it&rsquo;s not enough data or if it&rsquo;s not a parallizable task, the anser to &ldquo;how do we put it to use?&rdquo; is &ldquo;Don&rsquo;t.&rdquo;</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   If you hadn&rsquo;t guessed from the mentioning of there being overhead, various platforms, and thresholds for the amount of data before it makes sense: Profiling matters. You will absolutly need to profile your code for this. Generating <a href="https://www.brendangregg.com/flamegraphs.html">Flamegraphs</a> (if you can) is particularly helpful.
 </blockquote>
 
@@ -1162,6 +1171,7 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 <!-- TODO: Look into [halide](https://halide-lang.org), [emu](https://github.com/calebwin/emu) --> 
 <!-- TODO: WebGL + https://observablehq.com/@rreusser/the-double-pendulum-fractal?collection=@rreusser/writeups -->
 <!-- TODO https://godotengine.org/article/emulating-double-precision-gpu-render-large-worlds -->
+<!-- TODO https://iquilezles.org/articles/distfunctions/ -->
 </article>
  
       
@@ -1169,27 +1179,27 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/shaders.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/shaders.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1207,8 +1217,10 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-19---shaders">Chapter 19 - Shaders</a>
       <ul>
@@ -1251,14 +1263,14 @@ from <a href="https://forum.unity.com/threads/translating-a-glsl-shader-noise-al
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

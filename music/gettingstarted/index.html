@@ -30,6 +30,7 @@
 <meta name="description" content="Getting Our Hands Dirty # Music, like any creative endeavor, requires you keep your left and right brains equally talkative.
 Logical Mixing parts together Studying music theory Getting core components of the song laid out Practicing tecnique on an instrument Writing lyrics with good timings and structure Creative Using weird sound sources Combining effects Finding inspiration outside of music Adding fun frills to the song Writing vivid, emotional lyrics If you know that you&rsquo;re a creative type, try to focus on the science and math and technique of things more on these pages and as you practice.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ Logical Mixing parts together Studying music theory Getting core components of t
 <title>Gettingstarted | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,11 +569,13 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#getting-our-hands-dirty">Getting Our Hands Dirty</a></li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -614,7 +624,7 @@ https://github.com/alex-shpak/hugo-book
 <p>When it&rsquo;s setup you should see something like this:</p>
 <p><img src="/music/vcv2default.webp" alt="vcv1default" /></p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>This has instructions, but, uh, wow point 1. assumes you know a lot from the bat. Ideally, you should be able to click the yellow text the top right, in the <code>AUDIO</code> module where it says &ldquo;<span style="color:yellow;font-family: 'Space Mono', monospace;">No device</span>&rdquo; and select your audio device and holy what the fuck is this:</p>
 <hr>
@@ -624,11 +634,11 @@ https://github.com/alex-shpak/hugo-book
 <p>The <strong>device</strong> is, well, what device you want to use. On some computers, there may only be one option, but if you have monitors connected via HDMI, they may have built in speakers so show up as an option, as may a gaming headset, your webcam (if it has a built in microphone), etc.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/audiodevices.webp" alt="audiodevices" />
   </div>
-  
+
 </div>
 
 <p>Making matters more confusing, some devices will show up multiple times with only slight variances in names. On the computer in this screenshot, the speakers are hooked up to &ldquo;Speakers (Realtek(R) Audio)&rdquo; and <strong>not</strong> &ldquo;Realtek Digital Output (Realtek(R) Audio)&rdquo;. You may need to click a few until you find that you can get sound out. Just click one, mash some keys, see if you hear anything. If not, try another.</p>
@@ -662,13 +672,13 @@ https://github.com/alex-shpak/hugo-book
 <p>We start with a <strong>MIDI</strong> (<strong>M</strong>usical <strong>I</strong>nstrument <strong>D</strong>igital <strong>I</strong>nterface) input which outputs a &lsquo;voltage&rsquo; from the V/oct (Volt per Octave) output, which is fed into the  V/oct input of multile <strong>VCO</strong>&rsquo;s (<strong>V</strong>oltage <strong>C</strong>ontrolled <strong>O</strong>scillator)</p>
 <p>That hurt to read?  Let&rsquo;s break it down.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>First, you need to know something about VCV Rack, this software. VCV rack actually <strong>emulates real hardware systems</strong> called modular synthesizers.</p>
 <p>More specifically, VCV emulates the Eurorack standard of modular synths. Skipping some finer details for a moment, the standard defines one really important, and that&rsquo;s the idea of <strong>1 Volt per Octave</strong> frequency control.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/nonfree/permissiongranted/Stinkbomb.webp" alt="Stinkbomb" /></p>
 <p class="attribution ">
@@ -676,7 +686,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 
 <p>In the real hardware, all of those wires are carrying a signals in the form of varying voltages. Some of these are varying really quickly so that they can ultimately be passed to the output and play a tone though a speaker.</p>
@@ -730,7 +740,7 @@ https://github.com/alex-shpak/hugo-book
 <p><img src="/music/addedvca.webp" alt="addedvca" /></p>
 <p>Some explanation is due. The <strong>VCA</strong> is a <strong>V</strong>oltage <strong>C</strong>ontrolled <strong>A</strong>mplifier, though contrary to the name, it usually only <em>attenuates</em> signals - makes them quieter. Basically, it&rsquo;s a volume control where you can use another signal to set the volume. The <code>GATE</code> output of the <strong>MIDI ▶ CV</strong> module sends a very strong signal whenever you hold a key, so it either fully &ldquo;opens&rdquo; the VCA (lets all the sound though) or closes it (lets no sound though) but we could use another signal. For example, we could use slower sine wave to control it:</p>
 <p><img src="/music/vcavult.gif" alt="vcavult" /></p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   <p><strong>Basal</strong> here is just a <strong>VCO</strong>, it&rsquo;s just from a collection of 3rd party modules for VCV rack.</p>
 <p><strong>LFO-2</strong> is from an older version of VCV rack, but is effectively the same as <strong>WT LFO</strong> in modern versions. It&rsquo;s a <strong>L</strong>ow <strong>F</strong>requency <strong>O</strong>scilator, which is just a special VCO that&rsquo;s specialized for making very slow signals that are usually meant to be used to control other things, not be listened to directly.</p>
 
@@ -744,27 +754,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/gettingstarted.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/gettingstarted.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -782,21 +792,23 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#getting-our-hands-dirty">Getting Our Hands Dirty</a></li>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

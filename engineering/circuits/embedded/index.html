@@ -30,6 +30,7 @@
 <meta name="description" content="Chapter 26 - Embedded Systems # By Make It With Me If you&rsquo;re reading this page, it&rsquo;s expected that you&rsquo;re either pretty comfortable with C and programming on a normal computer already or that you&rsquo;ve at least read though both the programming intro chapter starting with
 &ldquo;Lets Write Some Code&rdquo; and the &ldquo;Low Level Programming&rdquo; page What is an Embedded System? # [TODO] need source These little devices are Pocket Operators made by Teenage Engineering, they&rsquo;re relatively inexpensive synths that can be chained together, and I think they&rsquo;re a great example of what an embedded system is, but for the sake of clarity, here&rsquo;s how Wikipedia defines it: An embedded system is a computer system—a combination of a computer processor, computer memory, and input/output peripheral devices—that has a dedicated function within a larger mechanical or electronic system.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@
 <title>Embedded | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-26---embedded-systems">Chapter 26 - Embedded Systems</a>
       <ul>
@@ -589,6 +598,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#142---projects-i-recommend">14.2 - Projects I recommend</a></li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -623,7 +633,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#what-is-an-embedded-system">#</a>
 </h2>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/eng/pos.webp" alt="pos" /></p>
 <p class="attribution ">
@@ -631,11 +641,11 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     These little devices are <em>Pocket Operators</em> made by Teenage Engineering, they&rsquo;re relatively inexpensive synths that can be chained together, and I think they&rsquo;re a great example of what an embedded system is, but for the sake of clarity, here&rsquo;s how Wikipedia defines it:
   </div>
-  
+
 </div>
 
 <div class="quote Wikipedia">
@@ -668,13 +678,13 @@ https://github.com/alex-shpak/hugo-book
 </span>
 , trigger interrupts, or be used for PWM (Puse Width Modulation).</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Probably the most commonly recommend microcontroller for beginners is the ATMEGA328P on the Arduino Uno. The 328P and Uno are both&hellip; not awesome. But, for first learning and getting your toes wet they&rsquo;re fine.</p>
 <p>It&rsquo;s worth noting, the μC itself is the Atmega328P- the really big black rectangular chip. The board that breaks these pins out to the headers for you to plug wires into, provides the USB connection, power filtering, reset button, etc. is the Development Board- in this case it&rsquo;s been named the Arduino Uno.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/unsplash/duino.webp" alt="" /></p>
 <p class="attribution ">
@@ -682,11 +692,11 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/unsplash/pi.webp" alt="" /></p>
 <p class="attribution ">
@@ -694,11 +704,11 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     Sometimes the lines for what&rsquo;s a microcontroller or embedded system can get blurry. This is especially the case when using a development board on a finished product or when a full computer that runs a desktop OS is involved. For example, the Raspberry Pi, pictured here, is an embeded system; <em>however</em>, it has a full blow ARM System On a Chip (SoC) that can run Linux and be used as a full desktop computer.
   </div>
-  
+
 </div>
 
 <p>More confusing still, the Pi itself has multiple embedded systems <em>in</em> the embedded system- for example the dedicated chip on the Pi3b+ that provides the Ethernet connectivity could be considered part of its own embedded system. Yet, the Pi has General Purpose Input Output (GPIO) pins like most microcontrollers.</p>
@@ -939,7 +949,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Some DACs &amp; ADCs also allow for <strong>D</strong>irect <strong>M</strong>emory <strong>A</strong>ccess (DMA). A DAC with DMA, for example, will let you write samples to a buffer and at a defined rate spit them back out without CPU intervention. This allows for dramatically more complicated processing, as you no longer need to consistently get a new sample to the DAC before the next deadline (often this would need done 48,000 times a second!) Basically, DMA lets you offload some processing from the CPU. Problem? Now you need to write memory that something else is trying to access. So, how do we fix this? Well, there&rsquo;s a pretty easy solution:</p>
 <p>A ping pong buffer.</p>
 <p>Essentially, we can just alternate back and forth between the DMA device &ldquo;owning&rdquo; half of the memory and the CPU owning half, alternating who gets what half every time the DMA indicates that it ran out of samples.</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   Note, here I&rsquo;m talking about DMA as if they only apply to DACs and ADCs; however, they can be used for <em>many</em> other things. Commonly, this includes networking and writing to displays, though there are <em>many</em> other times they&rsquo;re useful. So, keep this in mind.
 </blockquote>
 
@@ -1031,27 +1041,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Circuits/embedded.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Circuits/embedded.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1069,8 +1079,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-26---embedded-systems">Chapter 26 - Embedded Systems</a>
       <ul>
@@ -1099,14 +1111,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

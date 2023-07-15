@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="2 - RAM # Note, that some RAM sticks, especially the full size ones, have metal heat spreaders on top of them. In gaming computer especially it&rsquo;s common for these to have RGB lights as well. This is RAM or Random Access Memory. The above two sticks are the normal-sized used in desktop PCs, this form factor is called a DIMM (Dual In-Line Memory Module) while the bottom two are from laptops and are called SO-DIMMS, the placement of the notch is an indicator of the generation of RAM, with nearly all modern ram being a consecutive generation of the DDR standard.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>RAM | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#2---ram">2 - RAM</a>
       <ul>
@@ -578,6 +587,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -668,37 +678,37 @@ https://github.com/alex-shpak/hugo-book
 <p>Memory can have quite a few issues, sometimes resulting in random Blue Screen of Death (BSoD) or Linux Kernel Panics, other times just occasionally corrupting data with no way to know.</p>
 <p>If you&rsquo;re working with super critical data, you can at least know that something has gone wrong by using Error Correction Code (ECC) memory. In an ideal world, ECC would just be standard on everything. Unfortunately, Intel is a bag of dicks and uses it for product segmentation and people are cheap: ECC is also more expensive because it requires an extra bit for every byte. This also means that instead of the normal 8 memory dies per stick of RAM, ECC memory actually has 9 dies (usually). The reason there are normally 8 dies is simple- there are 8 bits in a byte. Servers don&rsquo;t work on some magic 9-bit in a byte system, instead, this extra bit per byte is used to ensure the data hasn&rsquo;t been corrupted.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>The math to do this is generally capable of detecting and fixing a single bit flip per byte, and at least detecting a double flip.</p>
 <p>This video explains how that works if you&rsquo;re interested:</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="250" src="https://www.youtube.com/embed/X8jsijhllIA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
 <p>It is worth noting that along with being more expensive, ECC is also usually a tad slower. There&rsquo;s also such thing as Registered/Buffered memory, which you may see with ECC as well. Buffered memory is basically just adding an extra &lsquo;buffer&rsquo; between the read/write and again, it&rsquo;s a server thing- you&rsquo;re unlikely to ever see it on a consumer platform. Just know that if you&rsquo;re buying RAM for a server, you may need to be careful to ensure you&rsquo;re getting the right thing.</p>
 <p>When DDR5 comes along, ECC is built into the spec for all levels to some extent because as memory speeds have increased, the likelihood of an error has as well. It&rsquo;s becoming necessary for basic functionality at DDR5 speeds.</p>
 <p>Now, ECC would be great and all, but the memory in the system you&rsquo;re reading this on almost certainly isn&rsquo;t using it, so what can you do?</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Well, for one, you need to get a feel for when something might be a memory error. Generally, if you see issues that you can&rsquo;t attribute to anything in software, where there&rsquo;s no obvious pattern, it&rsquo;s a good bet that it&rsquo;s memory. Assuming you&rsquo;re on an x86(_64) system, like <em>most</em> laptops or desktops, you can check with <a href="https://en.wikipedia.org/wiki/Memtest86">Memtest86(+) (Wikipedia)</a>. It often needs to run for a few hours to find anything, but when it does you&rsquo;ll get a big red error.</p>
 <p>Unfortunately, this probably means you need to buy new RAM. In the absolute worst case, maybe a new CPU if the memory controller has gotten damaged, but this is unlikely.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Memtest86%2B_15_million_errors_2017.jpg/2560px-Memtest86%2B_15_million_errors_2017.jpg" style="zoom:50%;border-radius:50px;" />
 <p class="attribution ">
     Image by Андрей Крижановский on Wikipedia, Public Domain
   </div>
-  
+
 </div>
 
 <p>You&rsquo;re far more likely to get RAM errors if you Overclock your RAM as well, so just be smart if you do OC your RAM- though I really don&rsquo;t recommend doing so beyond applying the <a href="https://www.tomshardware.com/reviews/how-to-enable-xmp-ddr4-overclocking,6133.html#:~:text=Intel%20XMP%20is%20an%20automated,few%20clicks%20and%20compatible%20hardware.">XMP profile (Tom&rsquo;s Hardware)</a> your RAM may have shipped with.</p>
@@ -714,7 +724,7 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#row-hammer">#</a>
 </h2>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Row Hammer is vulnerability that arises due to the way memory is arranged physically and electrically on a memory stick. It lets you flip bits you shouldn&rsquo;t be able to by &lsquo;hammering&rsquo; on the row above or below the target row, hoping that you can induce a bit flip in the target row. It&rsquo;s also been &ldquo;fixed&rdquo; multiple times, <a href="https://comsec.ethz.ch/research/dram/blacksmith/">and is <em>still</em> a problem</a> <span class="smalltext ">
 …though it is supposed to be fixed for real this time in DDR5
@@ -722,12 +732,12 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://en.wikipedia.org/wiki/Row_hammer">Row Hammer&rsquo;s Wikipedia Page</a> has some a very good overview as well as some example assembly to explain the exploit</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="250" src="https://www.youtube.com/embed/rGaF15-ko5w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
 </article>
@@ -737,27 +747,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/ram.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/ram.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -775,8 +785,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#2---ram">2 - RAM</a>
       <ul>
@@ -796,14 +808,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

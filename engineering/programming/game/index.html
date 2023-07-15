@@ -38,6 +38,7 @@ Unreal Engine
 Unity
 2d # LEd engine - &ldquo;LEd is a modern and open-source 2D level editor, specifically designed for indie devs&rdquo;">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -65,11 +66,13 @@ Unity
 <title>Game | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -84,18 +87,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -548,7 +556,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -577,7 +585,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-21---game-programming--design">Chapter 21 - Game Programming &amp; Design</a>
       <ul>
@@ -603,6 +612,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -652,26 +662,26 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://bevyengine.org/news/bevy-0-3/">Bevy</a> - &ldquo;A refreshingly simple data-driven game engine built in Rust
 Free and Open Source Forever!&rdquo;</p>
 <p><a href="https://www.youtube.com/watch?v=K7BwHjs0Il0">A Minecraft clone in hyperbolic space</a></p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   &lsquo;Non Euclidean&rsquo; is a super mathy term and I&rsquo;m really into it, basically it just means that space doesn&rsquo;t quite work as you expect. The shortest distance between two points doesn&rsquo;t have to be a line, portals connecting spaces, walking in circles takes you new places, etc. <a href="https://zenorogue.medium.com/non-euclidean-geometry-and-games-fb46989320d4">Here&rsquo;s a decent blog post about some</a>.
 </blockquote>
 
 <p>There&rsquo;s also been some neat progress in the realm of voxel engines:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height=200 src="https://www.youtube.com/embed/8ptH79R53c0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="500" src="https://www.youtube.com/embed/i7vq-HY10hI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   Heads up, not all 3d systems use the same coordinate systems. It&rsquo;s a bit of a pain. Here&rsquo;s a good chart for that (<a href="https://twitter.com/FreyaHolmer/status/1325556229410861056/photo/1">source - @FreyaHolmer on Twitter</a>)
 </blockquote>
 
@@ -710,16 +720,16 @@ Free and Open Source Forever!&rdquo;</p>
 <p><a href="https://noitagame.com">Notia</a> - Rougelite where every pixel is simulated</p>
 <p><a href="https://www.gridsagegames.com/cogmind/">Cogmind</a> - ASCII art game with a similarly extreme amount of environment destructibility</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     
   </div>
-  
+
   <div class="flex-even markdown-inner">
     A very long thread on &hellip; stairs? Yeah. Look up advice on DND level design if you need general level design or architecture design n advice. The same twitter (<a href="https://twitter.com/the_Norberg/status/1359516288087973888">Tommy Norberg, @the_Norberg</a>) has <strong>many</strong> other good posts</p>
 <img src="/fairuse/twitter/tommyNorberg.webp" alt=" " style="border-radius:25px;">
   </div>
-  
+
 </div>
 
 <h2 id="game-engines-for-non-games">
@@ -739,27 +749,27 @@ Free and Open Source Forever!&rdquo;</p>
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/game.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/game.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -777,8 +787,10 @@ Free and Open Source Forever!&rdquo;</p>
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-21---game-programming--design">Chapter 21 - Game Programming &amp; Design</a>
       <ul>
@@ -805,14 +817,14 @@ Free and Open Source Forever!&rdquo;</p>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

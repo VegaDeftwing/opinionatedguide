@@ -31,6 +31,7 @@
 This lil&rsquo; synth works, but it doesn&rsquo;t give us much control, and unlike a real instrument, after we let go of the key it just immediately stops. Similarly, most real instruments have a either a bit of a pluck at the start or a more gentle fade in.
 This leads us to the idea of envelopes. In music, you&rsquo;ll often want to draw a shape that evelopes a signal.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -51,11 +52,13 @@ This leads us to the idea of envelopes. In music, you&rsquo;ll often want to dra
 <title>Gettingstartedcont | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -70,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -534,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -563,7 +571,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#continuing-our-adventure">Continuing our Adventure</a></li>
     <li><a href="#old-content">OLD CONTENT</a>
@@ -573,6 +582,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -590,17 +600,17 @@ https://github.com/alex-shpak/hugo-book
 <p><img src="/music/addedvca.webp" alt="addedvca" /></p>
 <p>This lil&rsquo; synth works, but it doesn&rsquo;t give us much control, and unlike a real instrument, after we let go of the key it just immediately stops. Similarly, most real instruments have a either a bit of a pluck at the start or a more gentle fade in.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>This leads us to the idea of <strong>envelopes</strong>. In music, you&rsquo;ll often want to draw a shape that evelopes a signal. That is, it contains it and determines when it is active and how much. We want to envelope our volume signal - that is, we want to shape it more than the basic on/off that we have right now.</p>
 <p>One of the most common shapes to use for enveloping is called the <strong>ADSR</strong>. This stands for <strong>A</strong>ttack <strong>D</strong>ecay <strong>S</strong>ustain <strong>R</strong>elease and is called such because, well, it has those four stages.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/adsr.gif" alt="adsr" />
   </div>
-  
+
 </div>
 
 <!-- TODO: Show why it's called enveloping on a second scope with the output signal but the same scope settings.-->
@@ -646,7 +656,7 @@ https://github.com/alex-shpak/hugo-book
 </li>
 <li>
 <p>Play some notes and adjust the <code>PWM</code> and <code>FREQ</code> knobs of the <strong>VCO</strong> while looking at the result both on the <strong>SCOPE</strong> and on the <strong>ANALYZER-XL</strong> module.</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   If you can&rsquo;t see everything on your screen at once, </br><kbd>ctrl</kbd> + <kbd>+</kbd> &amp; <kbd>ctrl</kbd> + <kbd>-</kbd> OR <kbd>ctrl</kbd> + <kbd>scroll-wheel</kbd> can be used to zoom in and out.</br></br> <kbd>↑</kbd> , <kbd>↓</kbd> , <kbd>→</kbd> ,<kbd>←</kbd> or holding the scroll wheel and dragging can be used to pan around
 </blockquote>
 
@@ -762,27 +772,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/gettingstartedcont.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/gettingstartedcont.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -800,8 +810,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#continuing-our-adventure">Continuing our Adventure</a></li>
     <li><a href="#old-content">OLD CONTENT</a>
@@ -812,14 +824,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

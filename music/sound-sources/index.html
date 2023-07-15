@@ -30,6 +30,7 @@
 <meta name="description" content="Methods of making noise* # * Excluding traditional instruments. We&rsquo;ll get there soon.
 Samples # A snippet of a .wav file open in audacity A sample is exactly as the name implies- a &lsquo;sample&rsquo; of audio. Sample is a pretty broad term though, so usually some more terms are applied to help categorize them. Still, for the generic term what is usually meant is a small audio file that contains one sound, like one drum hit or one piano key press.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ Samples # A snippet of a .wav file open in audacity A sample is exactly as the n
 <title>Sound Sources | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#methods-of-making-noise">Methods of making noise*</a>
       <ul>
@@ -584,6 +593,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -612,7 +622,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Often these will be of drums or guitar. The term &rsquo;loop&rsquo; can be used broadly for audio snippets of this length though, so not all loops, uh, loop. Usually when using a loop it&rsquo;s best to do some mangling, swapping some beats or putting on destructive effects to transform it in some way. This prevents your audio from just sounding like layered tracks from another artist mashed together and is a good way to put creativity into what you make.</p>
 <p>Another term you might hear is <strong>stems</strong>. Stems are just separate recordings of each part of a song - say the vocals as one audio file and the drums as another, these would make up the stems.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Samples are also, sort of confusingly, made of samples. But these words mean two different things in that sentence. The sample of sound as a whole is made up of a bunch of different points in a wave, usually captured thousand of times a second- whatever the sampling rate is (commonly 44.1, 48, or 96 <a class="ptr">(1)</a>). This is what gives us the this image, where with the originally pretty smooth looking wave, when zoomed in, we can see is made of these discrete points.</p>
 <p>This is particularly relevant to making music for multiple reasons:</p>
@@ -627,7 +637,7 @@ https://github.com/alex-shpak/hugo-book
 </ol>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/music/wavfile.png" alt="wavfile" /></p>
 <span class="smalltext ">
@@ -635,7 +645,7 @@ https://github.com/alex-shpak/hugo-book
 </span>
 
   </div>
-  
+
 </div>
 
 <p><img src="/music/sampler.webp" alt="sampler" /></p>
@@ -654,7 +664,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Talk is cheap, let&rsquo;s actually put this to use. First, we&rsquo;ll need some samples. To give us something fun to start with, go grab <a href="https://www.glitch.cool/projects/glitch-with-friends-samples-vol-3">Glitch With Friends, Vol Ⅲ.</a> (It&rsquo;s free) - Note that it is a 7.23GB download, so if you&rsquo;re on a slow connection it might take a hot minute. Once you have it downloaded, extract the .zip somewhere.</p>
 <p>Now, we need something to play back samples. Let&rsquo;s go grab both <a href="https://library.vcvrack.com/NYSTHI/Simpliciter">Simpliciter</a> to play back samples in VCV Rack.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/music/simpliciter.webp" alt="simpliciter" title=":size=50%"/></p>
 <span class="smalltext ">
@@ -662,12 +672,12 @@ https://github.com/alex-shpak/hugo-book
 </span>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="500" src="https://www.youtube.com/embed/bY6-Vxwdj_k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
 <p>Unlike the bitwig sampler, this sampler, &lsquo;Simpliciter&rsquo; in VCV Rack can take in live input to layer sounds or record the inital sample. In general you should see a lot of the same controls I talked about above exposed in this UI. There are some extra neat ones here though, including the ability to detect peaks as is enabled in the lower left in this screenshot. With this and a longer sample file with multiple drums you can just select the drum sample you want on each play-trigger.</p>
@@ -681,19 +691,19 @@ https://github.com/alex-shpak/hugo-book
 </h3>
 <p>While you may not be able to do anything with the knowledge at the moment, I do want to note a few other things related to samples.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/fairuse/other/lakesloops-2.webp" style="border-radius:50px;">
 <p class="attribution ">
     Image from <a href="https://tabsout.com/?p=17050">&ldquo;The Tape Loop Labyrinths of Justin Lakes&rdquo; by Mike Haley</a>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>First, tape loops are a thing. These typically use normal cassette tapes but the tape on the inside has been replaced with a loop so that it&rsquo;ll repeat. Because tape naturally degrades and can be pitch shifted by slowing down or speeding up the play back speed they can act as a neat physical implementation of the same techniques we use samples for. Similarly, they&rsquo;ve inspired many techniques that are used for effects, such as the distortion/satuartion that comes with tape and the wobble that comes with an old motor.</p>
 <p>See <a href="https://www.youtube.com/watch?v=JZ-yp2cCGbQ">Tape Loops Are Dope (YouTube, Andrew Huang)</a> for more on Tape Loops.</p>
 
   </div>
-  
+
 </div>
 
 <p>Another source of samples you may come across are field recordings. While these are really the same as samples like mentioned above, they&rsquo;re often <em>very</em> long, including hours of content taken from nature or background noises in a city. Often these are used to add a subtle texture to a piece, everything from putting on a rainy day to a sci-fi cityscape. Recording good field recordings is an art in itself and is both fun and challenging. You can find plenty for free online or even nab this <a href="https://bedroomproducersblog.com/2022/04/02/free-to-use-sounds-bundle/">1.6Tb pack</a> (yes, terrabytes) for $20. I do recommend trying to record a few rainy days yourself though.</p>
@@ -708,7 +718,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Note that some hardware may go from a digital input to a VCO internally, or take a voltage pitch signal as input but just sample it to use a DCO internally.</p>
 <p>an <strong>LFO</strong> is a Low Frequency Oscillator, they can still be either digital or analog (DCO or VCO), but they typically have a max frequency of around a hundred hertz and are meant to be used to control other things, not make sound to hear directly.</p>
 <p>Some oscillators, whether digital or analog, cover enough range to be either a &rsquo;normal&rsquo; oscillator used for sounds you&rsquo;re intended to hear or an LFO, so there&rsquo;s not always a clear distinction.</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   <p><strong>Analog? Digital?</strong></p>
 <p>Avoiding the complex explanation of what actually makes an oscilator analog or digital, here&rsquo;s what you need to know:</p>
 <ul>
@@ -906,27 +916,27 @@ Download all WAV at once (ZIP file)</a>&rdquo; &hellip; or click this link direc
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/sources.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/sources.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -944,8 +954,10 @@ Download all WAV at once (ZIP file)</a>&rdquo; &hellip; or click this link direc
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#methods-of-making-noise">Methods of making noise*</a>
       <ul>
@@ -969,14 +981,14 @@ Download all WAV at once (ZIP file)</a>&rdquo; &hellip; or click this link direc
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

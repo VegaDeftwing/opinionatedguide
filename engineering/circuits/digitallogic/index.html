@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 25 - Digital Logic # Digital logic is what it sounds like- it&rsquo;s doing logical operations on digital data - 1&rsquo;s and 0&rsquo;s; True and False. Chain some of (er, a lot of) these logical operations together and you can do anything you want! Want to make your own CPU? Done. Want to make dedicated circuitry to do what your code does but hundreds of times faster? This is the way to do it.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Digitallogic | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-25---digital-logic">Chapter 25 - Digital Logic</a>
       <ul>
@@ -614,6 +623,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -628,7 +638,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Digital logic is what it sounds like- it&rsquo;s doing logical operations on digital data - 1&rsquo;s and 0&rsquo;s; True and False. Chain some of (er, a lot of) these logical operations together and you can do anything you want! Want to make your own CPU? Done. Want to make dedicated circuitry to do what your code does but hundreds of times faster? This is the way to do it.</p>
 <p>As an example, here&rsquo;s a rather artistic representation of a digital logic circuit that takes in a four bit binary number and outputs seven different signals corresponding to the lights on a 7-segment LED to show the right number (in hexadecimal)</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <table>
 <thead>
@@ -723,13 +733,13 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/eng/logicloop.gif" alt="logicloop" height="760em" style="border-radius:50px;">
 <p class="attribution ">
     lineart by <a href="https://merveilles.town/@chirrolafupa">https://merveilles.town/@chirrolafupa</a>, </br>I (Vega) filled it in and turned it into a gif.</br> To access the original line art, use a <a href="https://gemini.circumlunar.space">gemini</a> browser to go to</br> gemini://caracolito.mooo.com/coloring-computers/
   </div>
-  
+
 </div>
 
 <p>Now, it&rsquo;s worth considering here that this circuit is probably not the most efficient way to do this. This could also be done by just using a look up table (LUT), in that case, all of those individual logic elements are skipped and the input bits are basically just used as an address to look up a different value. The end result is the same. We&rsquo;ll wrap back around to this idea later.</p>
@@ -786,7 +796,7 @@ https://github.com/alex-shpak/hugo-book
 </table>
 <p>[TODO] transistor implementation w/ CMOS, cost, power consumption at switch</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <h3 id="and">
   AND
@@ -827,7 +837,7 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <h3 id="nand-not-and">
   NAND (Not AND)
@@ -868,11 +878,11 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
 </div>
 
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <h3 id="or">
   OR
@@ -913,7 +923,7 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <h3 id="nor-not-or">
   NOR (Not OR)
@@ -960,11 +970,11 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
 </div>
 
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <h3 id="xor-exclusive-or">
   XOR (Exclusive OR)
@@ -1005,7 +1015,7 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <h3 id="xnor-exclusive-not-or--also-known-as-xand">
   XNOR (Exclusive Not OR ) (also known as XAND)
@@ -1049,7 +1059,7 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
 </div>
 
 <h3 id="mux--demux">
@@ -1135,14 +1145,14 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#schmitt-triggers">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>I like to think of a schmitt trigger as the logical equivalent of a heavy light switch. Once it&rsquo;s on, it takes a fair amount of force to turn off, and once it&rsquo;s off, it takes a fair amount of force to turn on, but in our case that force is a voltage.</p>
 <p>This means we can say &ldquo;Until you see 1V at the input, don&rsquo;t turn on&rdquo; and &ldquo;Until you see -1V at the input don&rsquo;t turn off&rdquo;. If after being turned on, it went to .5, or even -.5V, it would stay on. If it was off and we gave it input of .5V, it would stay off. We have to cross the threshold either way to change state.</p>
 <p>Of course, we can make schmitt triggers with different thresholds and output levels.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Hysteresis_sharp_curve.svg" style="-webkit-filter: invert(1);filter: invert(1);">
 <span class="smalltext ">
@@ -1151,7 +1161,7 @@ https://github.com/alex-shpak/hugo-book
 <p class="attribution ">
     Image by Alessio Damato - CC BY-SA 3.0. <a href="https://commons.wikimedia.org/w/index.php?curid=528681">From Wikipedia</a>.
   </div>
-  
+
 </div>
 
 <h3 id="adcs">
@@ -1177,27 +1187,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Circuits/digitallogic.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Circuits/digitallogic.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1215,8 +1225,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-25---digital-logic">Chapter 25 - Digital Logic</a>
       <ul>
@@ -1270,14 +1282,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

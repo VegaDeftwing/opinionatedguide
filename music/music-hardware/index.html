@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Music Hardware # While you could make all of your music with just a computer, you’ll probably want some tools that make your life as a musician easier and let you explore ideas faster. Like I said back in the Audio Effects Chapter , in my experience, making music depends on a really quick brain to input device feedback loop. Being able to turn a physical knob and mash physical keys will often lead to better results if only because you’re able to try things both faster and by physically interacting with something that you may not have thought of otherwise.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Music Hardware | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#music-hardware">Music Hardware</a>
       <ul>
@@ -580,6 +589,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -612,11 +622,11 @@ https://github.com/alex-shpak/hugo-book
 <p>So, while I don&rsquo;t think you should go <em>crazy</em> deep into hardware and spend your life savings, there&rsquo;s some things that just make sense to get, like a good keyboard MIDI controller, some knobs, and at least one realllly expressive instrument like a guitar or MPE controller. Something that really lets you <em>feel</em> what you&rsquo;re playing.</p>
 <hr>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     First things first, I also want to go over the difference between Digital and Analog in music hardware:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p class="dshift">Digital: 1010111010010010110100101110101</p><p class="ashift">Analog: ∿∿~∿~∿∿∿~∿∿~∿~∿∿∿~∿∿~∿</p>
 <script>
@@ -632,14 +642,14 @@ https://github.com/alex-shpak/hugo-book
 </script>
 
   </div>
-  
+
 </div>
 
 <p>A quick note before you read anything further: you can only hear an analog signal. At the end of the chain, everything needs to be analog, as ultimately sound waves exist not as the 1’s and 0’s of binary, but as waves of pressure in the air- which is an analog medium.</p>
 <p>To start, let’s look at an all-analog signal path. Here, a guitar string is plucked, the signal is picked up by the guitar’s pickup (as the metal string causes a magnet to move, generating a weak electrical signal), the signal is amplified (twice), and then the amplified signal is used to move a speaker cone, which in turn moves the air, so you can hear it.</p>
 <p><img src="/music/allanalog.svg" alt="" /></p>
 <hr>
-<blockquote class="book-hint gray ">
+<blockquote class="book-hint gray">
   Note, I’ve drawn a light gray cable along side all the analog signals. This is the ground cable. Audio circuits are no different from any other circuit, and require a full, well, circuit. A circuit is a full loop, with ground. Where the cables come out of the amplifier, I’ve drawn these two wires much more distinctly, with a red wire- meant to visualize the ‘live’ wire that carries the signal- and gray wire the ground. This is by convention. If you ever have to wire up an amplifier, you’ll probably see one red and one black wire, representing these in turn. In many cases (but definitely not always), things will still work if you get these backwards, but you’ll end up with audio that is out of phase, as your signal is quite literally flipped. In the case of a guitar amp with a single speaker, this probably won’t matter. But, if you have two speakers (left and right) and only flip one, this is very likely to make things sound awful.
 </blockquote>
 
@@ -647,7 +657,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Here, a digital keyboard is hooked up to a laptop, presumably running some sort of sound-generating software - Maybe a DAW or VCV Rack. Here I&rsquo;ve shown the audio interface (labeled DAC) as an external box hooked up over USB, but this could also just be internal to the computer. All computers or phones will have an internal audio interface, it&rsquo;s just that most musicians end up attaching their own that offer better features.</p>
 <p><img src="/music/digitalsound.svg" alt="" /></p>
 <p>Here, everything on the blue cables is digital, it&rsquo;s only 1&rsquo;s and 0&rsquo;s. The first cable is only carrying information about what note you&rsquo;re playing and knobs you&rsquo;re turning, while the second one (between the laptop and the DAC) is carrying digital information that represents the audio, but it hasn&rsquo;t yet been turned into an analog signal. That&rsquo;s the job of the DAC. It takes those 1&rsquo;s and 0&rsquo;s and turns it back into an analog signal.</p>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   Often you&rsquo;ll hear the terms Audio Interface, Sound Card, and DAC used interchangeably. They&rsquo;re not all the same thing, but generally it&rsquo;s the part that turns the digital signal into an analog one. If you&rsquo;re plugging a guitar or microphone into your computer, the terms Audio Interface and Sound Card still apply, but in that case you&rsquo;re using an ADC. I&rsquo;ll come back to this in a bit.
 </blockquote>
 
@@ -664,23 +674,23 @@ https://github.com/alex-shpak/hugo-book
 </a>
 . For more information on how Digital to Analog and Analog to Digital conversion works, check out <a href="https://xiph.org/video/vid2.shtml">this video from xiph.org</a>.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Some devices may have almost everything in this chain internally. This is true of a lot of digital instruments, like the Elektron Digitakt pictured here:</p>
 <p>The Digitakt is a drum machine that uses samples saved internally as .wav files. It&rsquo;s basically just a very specialized computer in a box.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/digitakt.webp" alt="" />
   </div>
-  
+
 </div>
 
 <p>Though, the really confusing thing to beginners is when the device is digital, but has both analog input and outputs. Just like there&rsquo;s a DAC (<strong>D</strong>igital to <strong>A</strong>nalog <strong>C</strong>onverter) for analog output, you&rsquo;ll often be working with ADCs or <strong>A</strong>nalog to <strong>D</strong>igital <strong>C</strong>onverters to take your analog input and use it on your computer (or internally, like in a digital guitar pedal)</p>
 <p>For the most basic possible example, let&rsquo;s look at a bit-crusher and sample rate reducer pedal. These pedals basically just hook a DAC directly into an ADC, then let you purposely mess up the conversion.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Bit crushing, as explained back in the effects chapter, is just purposefully reducing the range of values a sample of digital audio can be. So, while an 8-bit audio point can be any whole number up to</p>
 <link rel="stylesheet" href="/katex/katex.min.css" />
@@ -694,7 +704,7 @@ https://github.com/alex-shpak/hugo-book
  possible values, which will really start to sound pretty distorted. Similarly, sample rate reduction distorts the audio by intentionally limiting the rate at which new digital samples of the input audio are acquired. As long as samples are gotten at a rate at least twice that of the highest frequency in the input audio, there will be no difference, but as this goes below that, the converter simply doesn't get enough data to reproduce the input signal.
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>This effect is inherently digital. It&rsquo;s really just purposely doing digital to analog conversion poorly. If we want it as a guitar pedal, that means the pedal has to first convert the analog signal to digital, then convert the digital signal back to analog.</p>
 <p><img src="/music/bitcrusher.svg" alt="" /></p>
@@ -703,7 +713,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/FNa3uyWfL_Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -731,21 +741,21 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#trs-35mm--inch">#</a>
 </h2>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <iframe src="https://merveilles.town/@zens/105891797104825087/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://merveilles.town/embed.js" async="async"></script>
 <!-- So, let's start simple, and look at some MIDI controllers, why you might want one, and what features you might want to look for. -->
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>Your normal every-day headphones that you&rsquo;d plug into your phone (or did. Thanks Apple (¬､¬)) use a 3.5mm <strong>T</strong>ip <strong>R</strong>ing <strong>S</strong>leave cable. If your headphones have an in-line mic, they&rsquo;re probably TRRS. The difference, as this meme shows, is how many &lsquo;rings&rsquo; are on the connector. Normally, for headphones, the <strong>T</strong>ip would carry the left channel, the <strong>R</strong>ing the <strong>r</strong>ight and the <strong>S</strong>leave the common ground for each. If there&rsquo;s an inline mic, the connections <em>usually</em> go Left, Right, Ground, Microphone on the TRRS pins respectively.</p>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   Don&rsquo;t assume all devices will support the TRRS headsets with mics. Some devices will have a dedicated microphone in line, and others will just omit it outright.
 </blockquote>
 
   </div>
-  
+
 </div>
 
 <p>But, because nothing can ever be simple, that&rsquo;s not always the case. Enter, balanced audio.</p>
@@ -777,7 +787,7 @@ https://github.com/alex-shpak/hugo-book
 <p>[TODO] <a href="https://www.youtube.com/watch?v=JZ5yPdoPooU">Building a MIDI Controller Using Arduino (YouTube, Switch &amp; Lever)</a></p>
 <p>Note, there&rsquo;s a pretty limited number of MPE capable instruments, thankfully there&rsquo;s still a decent price range between them. This list is not exhaustive, but I think gives a good sampling:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><strong>Small:</strong></p>
 <p>Artiphon Orba</p>
@@ -785,7 +795,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Haken Audio ContinuuMini</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><strong>Big:</strong></p>
 <p><a href="https://www.expressivee.com/2-osmose">Expressive e - Osmose</a> (<a href="https://www.youtube.com/watch?v=UjZ6SuWxBFg">Demo</a>)</p>
@@ -794,7 +804,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Haken Audio Continuum</p>
 
   </div>
-  
+
 </div>
 
 <h2 id="audio-interfaces">
@@ -876,27 +886,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/musichard.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/musichard.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -914,8 +924,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#music-hardware">Music Hardware</a>
       <ul>
@@ -937,14 +949,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

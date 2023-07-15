@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 5 - Working on how we work # The Terminal | # In the world of programming, embedded development, and electrical debugging you will inevitably need to understand how to use a terminal/command line at some point. While the text only interface can look intimidating, it has some clear advantages. Namely it&rsquo;s significantly faster to use the cli or &lsquo;command line interface&rsquo; version of many tools. Because of the nature of this guide you will be using the terminal frequently, so for convince sake information on using it effectively has been moved to Appendix A, I highly recommend you read though it after you finish this page.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Howwework | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-5---working-on-how-we-work">Chapter 5 - Working on how we work</a>
       <ul>
@@ -580,6 +589,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -640,7 +650,7 @@ https://github.com/alex-shpak/hugo-book
 <p>This gives you a pretty kick butt editor on par with most full Integrated Development Environments (IDE). I recommend you try out IDEs, especially if for some unholy reason you want to write in Java, but otherwise this will do fine.</p>
 <p><img src="/eng/code.webp" alt="code" /></p>
 <p>There are of course a ton of other options, Emacs, Atom, Eclipse &hellip; If what I recommended doesn&rsquo;t suit you, feel free to look into these. Regardless, a text editor should be pretty high up on your list of things to get setup, as it will make the latter steps much easier.</p>
-<blockquote class="book-hint gray ">
+<blockquote class="book-hint gray">
   Alright, some disclosure. I don&rsquo;t really use Vim. I only use nano and VSCode. This is because if I really need to edit something in a CLI (so on a remote server or when first getting a system running) it&rsquo;s almost always the case that it&rsquo;s either a quick n&rsquo; dirty config file edit that <code>nano</code> is fine for or something complicated enough to justify the annoyance of bringing the file off the server, using VSCode, then uploading it again. Often, I don&rsquo;t even need to do that though, as I&rsquo;m able to edit the file in VSCode using <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">VSCode&rsquo;s Remote Development</a> plugin or just connecting with <a href="https://github.com/libfuse/sshfs">sshfs</a>. That said, I did still learn vim well enough that I can use it if it is the only editor available, and do still recommend learning it as in a lot of professional contexts the servers will not have these modern conveniences.
 </blockquote>
 
@@ -663,11 +673,11 @@ https://github.com/alex-shpak/hugo-book
 <p>For setting the wallpaper (which you probably wont see much) you can use <code>nitrogen</code> or <code>feh</code>.</p>
 <p>if you have multiple monitors before setting the wallpaper though you&rsquo;ll probably want to arrange your monitors correctly, for this you can use <code>xrandr</code> , read the man page for more information. You can add the command you use to set up your displays to your i3 config file to apply them at each reboot. If you&rsquo;re having issuse with <code>xrandr</code> you may want to use <code>arandr</code> to make the initial config file.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     if you have a high resolution monitor and things are small, you may want to look here: <a href="https://wiki.archlinux.org/index.php/HiDPI">https://wiki.archlinux.org/index.php/HiDPI</a> , the best thing from this is to add the text on the right to your <code>/etc/environment</code> file.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -685,7 +695,7 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div>
   </div>
-  
+
 </div>
 
 <p>You&rsquo;ll be needing quite a few different utilities beyond this. for a terminal I highly recommend <code>kitty</code>,  <code>rxvt-unicode</code>, or <code>Alacritty</code>, though I actually use <code>deepin-terminal-gtk</code>.</p>
@@ -701,8 +711,7 @@ https://github.com/alex-shpak/hugo-book
 <blockquote>
 <p>if you want to game, you&rsquo;ll probably want <code>steam</code> too. I recommend using <code>steam-native-runtime</code> and installing <code>steam-fonts</code>. Steam also provides &lsquo;proton&rsquo; which is like <code>wine</code> on steroids. It makes a huge number of Windows games work with no added effort.</p>
 </blockquote>
-<details >
-  <summary>What are all of these things???</summary>
+<details ><summary>What are all of these things???</summary>
   <div class="markdown-inner">
     <table>
 <thead>
@@ -1022,15 +1031,15 @@ but these clones don&rsquo;t always follow this chart</p>
 </blockquote>
 <p><a href="https://www.reddit.com/r/MechanicalKeyboards/comments/jqy923/better_than_uwu_keycaps/">r/Mechancial Keyboards</a> is a good place to go for inspiration and more information</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Beyond the physical layout you may also consider the keymap or software layout. Not only does my keyboard look weird, but the keys aren&rsquo;t arranged as you&rsquo;d expect either. Instead of typing in QWERTY, I actually use Dvorak. That layout looks a like this on a normal keyboard:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/KB_United_States_Dvorak.svg/1200px-KB_United_States_Dvorak.svg.png" alt="Image result for dvorak" />
   </div>
-  
+
 </div>
 
 <p>though obviously anything is possible. A lot of programmers like to disable their Caps key for example and put something more useful there, or you may just want to move around a letter or two. Using a standard layout like Dovark is a bit easier though as I can easily load my keymap pretty quickly on any computer. Plain old Qwerty is fine, but I personally like my &lsquo;weird&rsquo; keymap.</p>
@@ -1120,27 +1129,27 @@ but these clones don&rsquo;t always follow this chart</p>
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/howwework.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/howwework.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1158,8 +1167,10 @@ but these clones don&rsquo;t always follow this chart</p>
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-5---working-on-how-we-work">Chapter 5 - Working on how we work</a>
       <ul>
@@ -1181,14 +1192,14 @@ but these clones don&rsquo;t always follow this chart</p>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

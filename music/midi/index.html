@@ -31,6 +31,7 @@
 Sounds Great?
 For the most part, yeah. Everything works together and you can make all your hardware speak the same language.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -51,11 +52,13 @@ For the most part, yeah. Everything works together and you can make all your har
 <title>Midi | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -70,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -534,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -563,7 +571,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#midi-in-detail">MIDI in Detail</a>
       <ul>
@@ -601,6 +610,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -617,19 +627,19 @@ https://github.com/alex-shpak/hugo-book
 <p>For the most part, yeah. Everything works together and you can make all your hardware speak the same language. Let your keyboard talk to your computer, your computer talk to your drums, now you can play the drums with your keyboard! Send automation from your computer to a parameter on your synth to vary the sound over time, whatever. MIDI is pretty much carries all the information about your music expect the audio itself.</p>
 <p>The Catch? MIDI is outright ancient by technology standards, having come out in 1981. It&rsquo;s so damn old, that it&rsquo;s (mostly) a 7-bit standard. Worse, over time the standard has had extensions bolted on and so older devices may not work exactly as expected. Now, ideally, a musician shouldn&rsquo;t have to know what this means and the gear should stay out of the way. Unfortunately, we&rsquo;ve been sticking with this standard for so long that basically everything abuses it in one way or another to the extent you sorta have to know how it works. So, 7-bit, what does that mean?</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Well, it&rsquo;s talking about bits, so 1&rsquo;s and 0&rsquo;s. For each message in midi, you get 7 bit&rsquo;s of data. So, when you turn a knob it can range from 0000000 to 1111111, which, works out to be 0 to 127.</p>
 <p>This means each knob, even if it feels smooth to you, only has 128 distinct levels whatever it&rsquo;s talking to can receive. This is <em>really</em> bad. But, wait, it gets worse. This applies to <em>almost</em> everything in MIDI, so how hard you hit the keys and how finely you can set the volume with a physical slider. This really just isn&rsquo;t fine enough control.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/quantization.webp" alt=" ">
 <p class="attribution ">
     Here, this sine wave is being forced down to 4-bits, making the discrete levels obvious. If you imagine this is what is happening to the knob as you turn it, you could see how this would limit your possibilities and might make setting the knob to a sweet spot difficult.
   </div>
-  
+
 </div>
 
 <p>Because of MIDI&rsquo;s age and lack of resolution, there&rsquo;s a whole fustercluck of things that have been done to make working with digital instruments work better over the years. Some you might see include</p>
@@ -659,8 +669,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Given human hearing starts at about 20hz, the lowest notes are inaudible except for harmonics assuming no octave shifting or other quirks. As such, these lowest notes are often re-purposed for control messages. Even if they&rsquo;re not, a lot of sound sources will only respond to a limited range of these notes anyway.</p>
 <p>While MIDI does have an <a href="https://en.wikipedia.org/wiki/MIDI_tuning_standard">extension</a> for supporting alternate tunings, it&rsquo;s rarely directly supported. As microtonal and other non-12TET (12 True Equal Temperament) scales have become common, various tools exist to use MIDI pitch messages, which we&rsquo;ll look at in a bit, to force notes to a chosen scale anyway.</p>
 <p>General MIDI, one of various MIDI extensions (that often get ignored anyway) also defines a few specific instruments to belong to specific midi channels and program change messages (rarely used unless listening to midi files directly with soundfonts) one of these is a drum setting, which is really the only one that is still commonly used, and is generally close to the normal mapping you&rsquo;ll see in tools like Ableton&rsquo;s Drum Rack. If you buy an electronic drum kit or use a drum machine, it&rsquo;s likely to at least try to respect this mapping from notes to drum sounds. Of course, you can still make any note map to any sound you like and ignore this altogether if you want.</p>
-<details >
-  <summary>General MIDI Drum Map</summary>
+<details ><summary>General MIDI Drum Map</summary>
   <div class="markdown-inner">
     </br>
 <blockquote>
@@ -1000,16 +1009,16 @@ word-wrap: break-word;
 <p>MIDI <strong>C</strong>ontrol <strong>C</strong>hange messages are what they sound like. They&rsquo;re used to represent turning knobs or moving sliders- controls. You can then move these knobs to control whatever you like, and with most DAWs you can record these movements to play them back or edit them after the fact later- just like with notes.</p>
 <p>Generally, controls get mapped to whatever parameter you want using <strong>MIDI Learn</strong>. This is a feature in most software where you click the &lsquo;Learn&rsquo; button, click the parameter you want to control, and then move the physical control you want to map it to. Then, click the &lsquo;Learn&rsquo; button again to resume normal operation. Now that physical knob or slider or whatever will control the virtual knob/slider.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Here I&rsquo;m controlling various parameters of a patch in VCV rack using a MIDI CC →CV module, though the better way to do this is probably to use <a href="https://library.vcvrack.com/Core/MIDI-Map">MIDI-MAP</a> which let&rsquo;s you map a virtual knob to physical knob without the wire, which is generally a bit nicer to use. I&rsquo;ve only used the wire breakout module here as I think it makes it more clear what&rsquo;s going on.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="250" src="https://www.youtube.com/embed/eHYCmPawQdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
 <p>Typically, you&rsquo;ll also be able to record and edit your adjustments of MIDI CC&rsquo;s after the fact. This is <em>usually</em> done in the same place as all other automation in whatever software you&rsquo;re using, and typically in the same area that you place clips of MIDI note data, in most software that will look something like this:</p>
@@ -1084,17 +1093,17 @@ word-wrap: break-word;
   <a class="anchor" href="#pitchbend">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/pitchwheel.webp">
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>Pitchbend is inherently a simple idea, play a note, move this wheel and the note will &lsquo;bend&rsquo; in pitch up or down, similar to a whammy bar on a guitar. There are some things you should know about how it works in MIDI though:</p>
 <p>Throughout this page I&rsquo;ve been referencing MIDI typically only being 7-bit. MIDI pitch bend is the main reason for this &ldquo;typically&rdquo; as it is a 14 bit value, so it ranges from 0 to 16383 instead of the 0 to 127 of everything else. This is necessary as pitch bend is used for, well, bending the pitch of a note. If it only had 127 values, you&rsquo;d be able to hear as  it snapped to particular pitches. The pitch bend can go both ways, so a value of 8192 (half of 16383) represents no pitch bend. Confusingly, the range of the pitch bend varies by the software or hardware you&rsquo;re sending the pitch bend message too. The &lsquo;default&rsquo; range is ±2 semitones; however, I&rsquo;ve found that both ±12 semitones (1 octave up, and 1 octave down) as well as ±24 semitones are reasonably common as well.</p>
 
   </div>
-  
+
 </div>
 
 <p>While the pitchbend MIDI message supports 14bits of resolution, may MIDI controllers will not actually read in 14 bits of resolution, so they will feel less smooth than the standard actually allows for. If you like to play with pitchbend a lot, this may be something you want to research before buying a MIDI controller.</p>
@@ -1103,19 +1112,19 @@ word-wrap: break-word;
   <a class="anchor" href="#clock--transport">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>In the last chapter, <a href="/music/sequencing-and-midi/">Sequencing &amp; MIDI</a>, clocks were shown briefly. Basically, the idea is to send the tempo around to every other device/module/plugin/etc. that needs it so that everything can stay in sync. It&rsquo;s like the &lsquo;click&rsquo; the drummer feels internally that the rest of the band plays to.</p>
 <p>Generally, this clock is displayed as your tempo, in Beats Per Minute, or <strong>BPM</strong>. There is some other subtle things you need to be aware of though. The biggest being Swing: most software will let you set in an amount of <em>swing</em> which makes the beat go duh duh-duh, duh duh-duh, almost as if the drummer is always a bit late on one note so rushes to catch up, but does this consistently.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/basicanalogstep.gif" alt=" ">
 <p class="attribution ">
     A clock driving a step sequencer in VCV Rack
   </div>
-  
+
 </div>
 
 <h4 id="clock">
@@ -1211,7 +1220,7 @@ word-wrap: break-word;
   <a class="anchor" href="#midi-through">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>From this,</p>
 <script src="/mermaid.min.js"></script>
@@ -1219,8 +1228,7 @@ word-wrap: break-word;
   "flowchart": {
     "useMaxWidth":true
   },
-  "theme": "neutral",
-  "themeCSS": ".edgePath path { fill: white; }"
+  "theme": "default"
 }
 )</script>
 <p class="mermaid">
@@ -1231,7 +1239,7 @@ graph LR
 </p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>To this:</p>
 <p class="mermaid">
@@ -1242,7 +1250,7 @@ graph LR
 </p>
 
   </div>
-  
+
 </div>
 
 <p>MIDI though is a feature where there&rsquo;s an extra MIDI port that just passes the input data along. Say you have your computer with one USB→5-Pin DIN MIDI adapter so you send that data first to a polyphonic synth, listening on channel 1, for playing chords and that synth has a midi though so you can connect that to the input of your next device, say a drum machine, and have that react to inputs on channel 2, and so on. This just allows for a much cleaner cable setup.</p>
@@ -1272,20 +1280,20 @@ graph LR
   <a class="anchor" href="#eurorack-midicv">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/fh-2.webp">
 <p class="attribution ">
     The Expert Sleepers FH-2
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>One common place to run into issues is with MIDI⇄CV.</p>
 <p>Doing MIDI to CV with an MPE controller is particularly difficult, so you should expect to need a nicer adapter that explicitly says it will work. Going the other way around, CV to MIDI, is even more complicated due to these bandwidth considerations. Even with the bandwidth of USB, CV→MIDI adapters will still top out at pretty slow LFOs (<strong>you absolutely will never be able to do CV→MIDI at audio rate!</strong>) and, if they&rsquo;re really slamming the USB controller or OS level virtual MIDI devices, they can cause more extreme issues- lots of software crashing ahead for those that go this route.</p>
 <p>That said, it does seem some devices are more user friendly than others. While my experience with Expert Sleepers FH-2 for CV→MIDI has been a headache, it appears the Befaco <em>CV Thing</em> and <em>VCMC</em> work much more smoothly. I suspect this largely comes down how much the MIDI output bandwidth is being limited.</p>
 
   </div>
-  
+
 </div>
 
 <p>The FH-2 appears to just try to throw as much data down the pipe as it can muster, while the Befaco modules seem to apply sane rate limiting- but that also means that they will not feel as smooth or support as fast of input LFOs.</p>
@@ -1354,27 +1362,27 @@ graph LR
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/midi.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/midi.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1392,8 +1400,10 @@ graph LR
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#midi-in-detail">MIDI in Detail</a>
       <ul>
@@ -1430,14 +1440,14 @@ graph LR
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

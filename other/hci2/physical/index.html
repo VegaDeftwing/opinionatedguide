@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 1: The Physical # Computers aren&rsquo;t just about software, websites, and programs. As the most powerful tool that most people have access to and often one that we spend many hours a day looking at, it makes sense that we make working with that tool comfortable, straight forward, and healthy. In general, we&rsquo;ve mostly sucked at this, and while some things are getting better (monitor resolution) some things have gotten significantly worse (keyboards).">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Physical | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-1-the-physical">Chapter 1: The Physical</a>
       <ul>
@@ -599,6 +608,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -662,7 +672,7 @@ https://github.com/alex-shpak/hugo-book
 </span>
 symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or maybe UTF-8, giving us those sweet, sweet emoji 🔥🔥🔥💯💯💯💯 when we could have something that allows text, diagrams, pictures, videos, etc.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Why are we limited to only buttons on our keyboards anyway? I have a BDN9 macro pad that has encoders which I can use to input keystrokes too, this lets me map knobs to functions that makes sense, like pageup/down, volume up/down, brush size in an art program, etc.</p>
 <span class="smalltext ">
@@ -670,11 +680,11 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
 </span>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/bdn9.webp" alt="BDN9 keypad with encoders" />
   </div>
-  
+
 </div>
 
 <hr>
@@ -692,24 +702,24 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
 <p>What would be better? Clearly pointing with a mouse is actually already pretty good. If you just need more functions a gaming mouse with a plethora of buttons goes a long way, but I think that&rsquo;s more of a stop-gap. What could we do better?</p>
 <p>Well, There&rsquo;s already the Leap Motion</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/leapmotion.webp" alt="" /></p>
 <p>The leap motion hardware is basically just two cameras without an infrared filter and some infrared leds.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/leapplayground.webp" alt="" /></p>
 <p>The Leap Motion software does an actually really good job of using this information to reconstruct the finger positions in software.</p>
 
   </div>
-  
+
 </div>
 
 <p>and the Lexip 3D mouse - <a href="https://www.lexip.co">https://www.lexip.co</a></p>
 <p><img src="/hci/3dmouse.gif" alt="pu94" /></p>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   Note, This mouse, the Lexip pu94, is a complete disaster and the result of what is effectively a failed kickstarter. The windows drivers are broken, I&rsquo;m currently working on a custom Linux driver for it but like, yeah. Don&rsquo;t buy one.
 </blockquote>
 
@@ -726,19 +736,19 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
   <a class="anchor" href="#foot-controllers">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/mc6.webp" alt="" /></p>
 <p>MorningStar MC6, a MIDI foot pedal that&rsquo;s highly customizable and has inputs for connecting analog expression pedals (the green thing on the left). 10/10 recommended</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/stinky.webp" alt="" /></p>
 <p><a href="http://www.stinkyboard.com">Stinky Footboard</a> - it&rsquo;s effectively a 4-key mechanical keyboard for your feet. The driver for this product sucks, so I swapped the controller out for a promicro running QMK.</p>
 
   </div>
-  
+
 </div>
 
 <p>Both of the above are great. Being able to use my feet to control my system really allows for a lot of flexibility; however, your feet can only do so fine-grained control. Unlike keyboards where our fingers are great at hitting a bunch of individual keys, we&rsquo;re better at hitting smaller buttons or controlling pedals (think pressure sensitive like a gas pedal) with our feet. So, with that in mind, you only get a limited number of inputs you can practically control, so those inputs really need to count. That&rsquo;s the problem. They really don&rsquo;t.</p>
@@ -766,8 +776,7 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
 <hr>
 <p>Your mic is also shit for the same reason. When doing audio mixing for a video or podcast there&rsquo;s some basic things that will almost always be in the mix chain: A noise supressor, A De-Esser, A Compressor (or multiple), and an Equalizer. For the most part, the settings on these things can be determined pretty algorithmically, or, better, a database of settings for hardware can be created and maintained - You&rsquo;d still need to adjust for your voice (particularly for if you have a low or high pitch voice) but it could massively help.</p>
 <p>If you&rsquo;ve gone out and gotten an expensive mic or audio interface to plug you mic into, you may have decided to get one that connects to the computer and is <strong>powered by</strong> USB. This is really, really dumb. I think every audio device I&rsquo;ve ever used that connects via USB has had some sort of noise issues because of the USB power. Stop it. Isolate the power and use a real power supply and some real filtering. Please.</p>
-<details >
-  <summary>Why is USB Power so bad?</summary>
+<details ><summary>Why is USB Power so bad?</summary>
   <div class="markdown-inner">
     It isn&rsquo;t <em>universally</em> bad. It&rsquo;s just <em>usually</em> bad. Skipping over the technical details about how the USB spec treats power and ground, how differential signaling works, and all of that noise there&rsquo;s one pretty obvious thing to pick on: Phantom power. A lot of microphones need a low current, 48V DC offset to be applied to them to work. So, think about it, this means you need to take the 5V in from USB and boost it all the way up to 48V (a nearly 10x boost), keep that 48V DC power super clean (no ripple in the voltage) and you only get the 500mA or so from the USB port to do it. Meanwhile, in that same power budget, the processor in the audio interface, DACs, ADCs, and OpAmps all need to run. It&rsquo;s just not practical. Also, consider that most of those parts will need both a positive and negative voltage rail usually at +12 and -12, so, now you&rsquo;re taking 5V and you need to make three different voltages that are quite &ldquo;far away&rdquo;. This all sounds rather backwards to me.
   </div>
@@ -850,7 +859,7 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
   <a class="anchor" href="#your-chair-sucks">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Did you get a gaming, racing chair that cost about $100 off of ebay? Yeah, you&rsquo;ll regret that one soon enough.</p>
 <p><img src="/hci/racingchair.webp" alt="" /></p>
@@ -861,11 +870,11 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
 </blockquote>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/chair.webp" alt="" />
   </div>
-  
+
 </div>
 
 <p>But, I&rsquo;m here to talk about the future, so what do I think can be better than anything I&rsquo;ve even seen? Well, a good start would be threshold latches. Nicer office chairs often have a lock for allowing leaning back or not, but it&rsquo;d be great if it was &rsquo;locked&rsquo; until a pressure threshold so you can lean back and stretch without un-locking and necessitating re-adjusting the chair, a sort of temporary unlock done by just leaning back harder.</p>
@@ -896,7 +905,7 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
 </p>
 <p>This, is a midi through. On most gear, it&rsquo;s accompanied by (at least) a MIDI IN, so, you can take your MIDI info in, and then, because a single midi cable carries 16 channels, chain other gear on.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>From this,</p>
 <script src="/mermaid.min.js"></script>
@@ -904,8 +913,7 @@ symbol names <a class="ptr">(3)</a>? Why are so many fields limited to ASCII, or
   "flowchart": {
     "useMaxWidth":true
   },
-  "theme": "neutral",
-  "themeCSS": ".edgePath path { fill: white; }"
+  "theme": "default"
 }
 )</script>
 <p class="mermaid">
@@ -916,7 +924,7 @@ graph LR
 </p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>To this:</p>
 <p class="mermaid">
@@ -927,7 +935,7 @@ graph LR
 </p>
 
   </div>
-  
+
 </div>
 
 <p>And, okay, so what? Well, I&rsquo;ll tell you what. This is rad as hell. I currently have 3 6&rsquo; Display Port cables running from my desktop on the floor up to my displays on my desk. The monitors are 4k and get pissy if I go over a 6&rsquo; cable, so with my tower on my right, the left-most monitor has to have this perfectly 45&rsquo; cable making the connection, so I can&rsquo;t even organize the cables in the first place. But what if I could just route all of that to one monitor then piggy-back each one going forward?</p>
@@ -935,18 +943,18 @@ graph LR
 <p><strong>Departing Cable Abyss Hell, Back to your Regularly Scheduled Ranting</strong></p>
 <p>Where was I? Ah, right. Desks.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Next is adequate space for interruptions. While I&rsquo;m a strong proponent of <a href="https://www.youtube.com/watch?v=snAhsXyO3Ck&amp;ab_channel=CGPGrey">separating a space&rsquo;s responsibilities</a> (not eating where you work, not working where you consume media, not consuming media where you sleep, etc.) I understand that sometimes it&rsquo;s necessary, and there&rsquo;s nothing worse than not having a flat surface to put your bowl of soup on.</p>
 <p>So, why are desks with pull outs (as pictured on the right) not more common?</p>
 <p>More practically though, as mentioned before, it&rsquo;s ideal if the mouse and keyboard weren&rsquo;t in the way of desk space that would otherwise be used for physical craft, note taking, art, etc. So I think three spaces total are ideal: one for primary input devices- today that&rsquo;s a mouse and keyboard; a second for papers, a main project, etc; and a third that is easily accessible added for the interruptions and side projects in life.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/deskpullout.webp" alt="" />
   </div>
-  
+
 </div>
 
 <p>In summary</p>
@@ -972,7 +980,7 @@ graph LR
 <p>But nothing like that is even needed in order to make things suck less.</p>
 <p>How many times have you watched a YouTube video where the speakers voice had far too much bass or was masked by a high pitch whine? How many streams have you heard where there&rsquo;s some hum or annoying background noise? I&rsquo;m sure you&rsquo;ve turned up your audio because something is quiet only to have your ears ravaged as soon as the audio is fixed in the stream.</p>
 <p>All of these things are totally fixable using a mix of hardware and software.</p>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   Before I get into all the following, I&rsquo;m not saying all of these things should always be in use. For example when somebody is making music all of this obviously needs to be able to bypassed.
 </blockquote>
 
@@ -1085,7 +1093,7 @@ graph LR
   <a class="anchor" href="#non-pixel-displays">#</a>
 </h4>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>You know what would really help with the search for the perfect display though? Needing it for less things.</p>
 <p>As time has moved on computers have taken over the role of more and more tools on our desk, but that also means the screen has had more responsibilities - I doubt you have a physical clock on your desk.</p>
@@ -1095,7 +1103,7 @@ graph LR
 <p><img src="/hci/nixieclock.webp" alt="nixieclock" /></p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/radiation_meter.webp" alt="radiation meter" /></p>
 <p><img src="/hci/nimbus.webp" alt="nimbus" /></p>
@@ -1108,7 +1116,7 @@ graph LR
 </p>
 
   </div>
-  
+
 </div>
 
 <h2 id="your-space-sucks">
@@ -1130,17 +1138,17 @@ graph LR
 </h3>
 <p>If you&rsquo;re in an office right now, I can take a pretty good guess that the lights above you are some of those 4ft long fluorescent tube bulbs, probably in an excruciating 6500k.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     The problem with that color temperature isn&rsquo;t necessarily that it&rsquo;s too &lsquo;cool&rsquo;, it&rsquo;s that it&rsquo;s fixed at that point. 6500k is about the same as the sun on a clear day&hellip; at about noon. The problem is our bodies expect warmer colored light closer to night or it screws up our sleep cycle. The website for the software <a href="https://justgetflux.com">f.lux</a> has aggregated some good <a href="https://justgetflux.com/research.html">research</a> on this subject, but I think at this point it&rsquo;s actually pretty common knowledge as even Samsung phones ship with the ability to turn a blue light filter on.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/Color_temperature_black_body_800-12200K.svg" style="background-color:white;">
 <p class="attribution ">
     Image from <a href="https://en.wikipedia.org/wiki/Color_temperature#/media/File:Color_temperature_black_body_800-12200K.svg">Bhutajata</a> on this <a href="https://en.wikipedia.org/wiki/Color_temperature">Wikipedia article</a>
   </div>
-  
+
 </div>
 
 <blockquote>
@@ -1152,14 +1160,14 @@ graph LR
 </blockquote>
 <p>But worse, the software to keep these bulbs in sync is pretty gross, and some bulbs will just end up snapping from one color to another every 15 minutes or so, which is more distracting than it&rsquo;s worth.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>The next worst offender with lighting is all way to bright (often blue) leds on <em><strong>E V E R Y T H I N G</strong></em> . For the love of god guys, the lights are supposed to be indicators, not light the entire room. There shouldn&rsquo;t be a product with over a <a href="https://www.amazon.com/LightDims-Original-Strength-Electronics-Appliances/dp/B009WSJNCW">thousand reviews on Amazon</a> with the sole purpose of dimming obnoxious LEDs. Like, leds aren&rsquo;t even the best thing for the job anyway most of the time. I&rsquo;d think an e-ink screen, like on the <a href="https://pwnagotchi.ai">pwnagotchi</a> below, would be sooo much better for most applications that need multiple indicators. For a power on indicator, an led is fine, but please just make it like 20x dimmer or put it near the power input instead of somewhere normally visible.</p>
 <p>Like, my center display has a <strong>blue</strong> led that is on when the monitor is on instead of the more normal standby indicator that goes off when the display is on found on TVs. It&rsquo;s immensely distracting. Sure it can be fixed with a tiny piece of electrical tape, but whyyyy?</p>
 <p>Further Reading: <a href="https://tedium.co/2020/07/10/led-indicator-light-history/">LED History (Tedium.co)</a>, <a href="https://hackaday.com/2020/02/20/we-ruined-status-leds-heres-why-that-needs-to-change/comment-page-2/">We Ruined Status LEDs (Hackaday)</a></p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/offensiveled.webp" alt="" /></p>
 <blockquote>
@@ -1167,17 +1175,17 @@ graph LR
 </blockquote>
 
   </div>
-  
+
 </div>
 
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>On a far less useful but neat note- I think &lsquo;ambilight&rsquo; systems need to be more common, obviously user choice whether or not to use it, but yeah. 10/10 need more ambilight in my life.</p>
 <p>Basically ambilight is just a system for letting the colors from the pixels near the edge of the screen be mirrored onto some RGB leds so that the color spills onto the wall behind. It&rsquo;s a really neat effect for games or movies.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/Ambilight-2.webp" alt="" /></p>
 <p class="attribution ">
@@ -1185,7 +1193,7 @@ graph LR
 </p>
 
   </div>
-  
+
 </div>
 
 <h3 id="co2">
@@ -1208,7 +1216,7 @@ graph LR
 <p>It&rsquo;s also worth considering what is in your space to keep visually appealing. Wires dangling over things, pealing paint, unorganized shelves, etc. are obviously off-putting, but I&rsquo;d go the step further to say they actively interrupt productivity as they stick out and beg to be fixed. It&rsquo;s the standard scenario of not wanting to do homework until the room is clean. On the other hand, adding a bit of tactile flair can go a long way. It is tough to strike a good balance. I personally don&rsquo;t want art or static words (paintings with text, motivational posters etc.) in front of me in my work space as I find that distracting. Instead, some acoustic panels (not cheap acoustic foam) on the wall can go a long way, both for sound in a room and adding visual interest to the wall, and it&rsquo;s pretty cheap too.</p>
 <p>To keep your desk tidy a good start is just getting rid of your monitor&rsquo;s base and using a VESA mount to the wall or back of desk. the flexibility in position and extra available desk space goes a long way, and it&rsquo;s much, much more visually appealing.</p>
 <p>Rather paradoxically, I do see value in motion in the work space too. For example, <a href="https://www.youtube.com/watch?v=1fV-B0E9rP4">MIT&rsquo;s reactive table</a> or those <a href="https://www.youtube.com/watch?v=Ztax9lCE-Mk">fancy marble in sand tables</a> can add much needed visual motion to prevent a space from becoming stale. Hell, even a simple fish tank or plant that adds a bit of change with time make&rsquo;s a huge difference.</p>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   If you do think &ldquo;huh, I could go for a fish tank&rdquo;, I will warn you most produce a fair amount of noise with running water and motors for the air pump and filtration. There are some tanks that avoid both though, so don&rsquo;t immediately rule it out, just do your research.
 </blockquote>
 
@@ -1278,27 +1286,27 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Other/HCI2/physical.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Other/HCI2/physical.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1316,8 +1324,10 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-1-the-physical">Chapter 1: The Physical</a>
       <ul>
@@ -1358,14 +1368,14 @@ Taking the crown however, is Display Port (DP). Like HDMI display port does have
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

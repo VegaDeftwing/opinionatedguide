@@ -30,6 +30,7 @@
 <meta name="description" content="CSS # Let me start by saying that Cascading Style Sheets - CSS - is not a hard language to write. The problem is not the language(1), but with how humans don&rsquo;t think about style and art in a linear way and dealing with the complexities of different devices.
 How we think about style # Look around this website, there are things that have been made stylistically cohesive - the color theme, the way I indicate that something is a local link by putting it in a button with a color that matches where it goes.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ How we think about style # Look around this website, there are things that have 
 <title>Css | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#css">CSS</a>
       <ul>
@@ -575,6 +584,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -708,19 +718,19 @@ text-align: center;
 <p>This is the first problem: We have to think about <strong>microscopic</strong> changes as how they <strong>extend</strong> the behavior of the macroscopic. Normally in art, we can just zoom in, change a few pixels, and know that the sum of these small changes will result in a better picture as a whole - yes, even in normal art you&rsquo;d have to keep the entire composition in mind - but In CSS, you need to think in both directions and be sure you understand what you want to applied on a macroscopic scale and what you want to be microscopic, and decide what you want to be &ldquo;default&rdquo;.</p>
 <p>For example, lets say you have a bunch of images on your website,</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/memes/pantyandstockingpop.webp">
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/memes/spongebobthreeweeks.webp">
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/memes/speech100.webp">
   </div>
-  
+
 </div>
 
 <p>and you decide they&rsquo;d all look better with rounded corners, so you make a CSS rule to apply rounded cornerns to ALL images on the site:</p>
@@ -737,19 +747,19 @@ text-align: center;
 </span></span></code></pre></td></tr></table>
 </div>
 </div><div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/memes/pantyandstockingpop.webp" style="border-radius:1rem;">
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/memes/spongebobthreeweeks.webp" style="border-radius:1rem;">
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/memes/speech100.webp" style="border-radius:1rem;">
   </div>
-  
+
 </div>
 
 <p>That looks good, does what we want, great, right&hellip;</p>
@@ -974,15 +984,15 @@ setInterval(updateUnicodeLetters, 70); // Update the letters every second
 <p>You may want to follow along with some tutorials: <a href="https://web.dev/learn/css/">https://web.dev/learn/css/</a> and <a href="https://www.w3schools.com/css/">https://www.w3schools.com/css/</a> are both decent starting places.</p>
 <p>As some homework, I&rsquo;d recommend trying to get</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     columns of text to work, as it it&rsquo;s a good test of your ability to correctly handle padding, grids, etc.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     Plus, you should experiment with how having a smaller browser window breaks this.
   </div>
-  
+
 </div>
 
 <p>To work smarter not harder, you may want to use the browser&rsquo;s development window and try changing things live - nothing you do there will save after a refresh - just press <kbd>F12</kbd>,  <span class="smalltext ">
@@ -1065,27 +1075,27 @@ setInterval(updateUnicodeLetters, 70); // Update the letters every second
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Design/web/langs/css.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Design/web/langs/css.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1103,8 +1113,10 @@ setInterval(updateUnicodeLetters, 70); // Update the letters every second
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#css">CSS</a>
       <ul>
@@ -1119,14 +1131,14 @@ setInterval(updateUnicodeLetters, 70); // Update the letters every second
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

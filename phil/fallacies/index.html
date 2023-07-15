@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Logical Fallacies (and a bit more) # If you&rsquo;ve been on the internet for more than about a quarter of a second, you&rsquo;ve likely been accused of a whole host of logical fallacies. Unfortunately, most people really don&rsquo;t understand what they&rsquo;re saying and often use a lot of these incorrectly. On the other hand, you also likely encounter politicians people using these fallacies on a regular basis as well, and it&rsquo;s nice to be able to call them out on it.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Fallacies | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#logical-fallacies-and-a-bit-more">Logical Fallacies (and a bit more)</a>
       <ul>
@@ -604,6 +613,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#other-resources">Other Resources</a></li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -701,7 +711,7 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p><a href="https://en.wikipedia.org/wiki/Survivorship_bias">Survivorship Bias (Wikipedia)</a></p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Survivorship-bias.png" alt="" /></p>
 <p class="attribution ">
@@ -709,7 +719,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="quote Wikipedia">
 <p>
@@ -723,7 +733,7 @@ https://github.com/alex-shpak/hugo-book
 </div>
 
   </div>
-  
+
 </div>
 
 <h2 id="sunk-cost">
@@ -982,7 +992,7 @@ One of the most familiar examples of contextomy is the ubiquitous &ldquo;review 
     - William of Ockham, but not really?
 </div>
 <hr>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   Okay, so technically, this is a misquote. See the Wikipedia article: <a href="https://en.wikipedia.org/wiki/Occam%27s_razor">Occam&rsquo;s Razor (Wikipedia)</a> for more information on this. Regardless, this is what everybody means when they talk about Occam&rsquo;s Razor
 </blockquote>
 
@@ -1006,7 +1016,7 @@ One of the most familiar examples of contextomy is the ubiquitous &ldquo;review 
 <p>The easiest way to see this is to talk about an example, so let&rsquo;s assume the case of two criminals, arrested by the police and some weird judicial system where the following is possible:</p>
 <p>The police don&rsquo;t have enough evidence to get a large sentence on either perp, if neither fesses up, each gets 2 years in prison. But, they have an idea, they offer either of the criminals to only serve 1 year if they rat out the other, and then the other serves 10 years. If they both rat out each other, then both serve 10 years. Both criminals are given the same offer, but neither is given a chance to coordinate. Each of them, acting in their own self interest, would only have to serve 1 year, but if both do, each has to serve 10. If they chose to rat each other out, that&rsquo;s an example of the tragedy of the commons.</p>
 <p>This scales up too, everything from CO2 emissions causing climate change to vaccines can be seen as cases of this.</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   Vaccines do have some side effects, usually just a low fever and a sore arm, and <strong>very</strong> rarely something serious. It&rsquo;s just that by having a high enough population vaccinated we can be safe from much much more likely threats like polio. Vaccinate your fucking kids, Karen. Don&rsquo;t contribute to the tragedy of the commons.
 </blockquote>
 
@@ -1150,7 +1160,7 @@ One of the most familiar examples of contextomy is the ubiquitous &ldquo;review 
   Think of The Children
   <a class="anchor" href="#think-of-the-children">#</a>
 </h2>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   There is a whole class of fallacies in this group, as appeals to emotions like fear, flattery, being part of the in group, loyalty, etc. Covering all of them seems a bit excessive, so instead, just know to look out for any appeals to emotion that attempt to stand in for actual evidence.
 </blockquote>
 
@@ -1215,27 +1225,27 @@ One of the most familiar examples of contextomy is the ubiquitous &ldquo;review 
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Phil/fallacy.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Phil/fallacy.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1253,8 +1263,10 @@ One of the most familiar examples of contextomy is the ubiquitous &ldquo;review 
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#logical-fallacies-and-a-bit-more">Logical Fallacies (and a bit more)</a>
       <ul>
@@ -1300,14 +1312,14 @@ One of the most familiar examples of contextomy is the ubiquitous &ldquo;review 
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

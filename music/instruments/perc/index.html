@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Percussion # Theory # Before I even dive into Percussion, I think it&rsquo;s necessary to point out how generic the term is. Just looking at the Wikipedia page for drum kit, you&rsquo;ll see this: Drum Kit page on Wikipedia and clearly that&rsquo;s still not an exhaustive list. Just off the top of my head I can see it lacks the Cajon or Taiko as acoustic instruments, let alone anything more specific than electronic drum, which can make for a class all its own.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>Perc | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#percussion">Percussion</a>
       <ul>
@@ -593,6 +602,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -613,46 +623,46 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <!-- https://www.youtube.com/watch?v=Ez8Q68h9i4M -->
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Before I even dive into Percussion, I think it&rsquo;s necessary to point out how generic the term is. Just looking at the Wikipedia page for drum kit, you&rsquo;ll see this:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/drumkit.webp" alt="wikipedia drum kit list" height="500em">
 <p class="attribution ">
     <a href="https://en.wikipedia.org/wiki/Drum_kit">Drum Kit</a> page on Wikipedia
   </div>
-  
+
 </div>
 
 <p>and clearly that&rsquo;s still not an exhaustive list. Just off the top of my head I can see it lacks the Cajon or Taiko as acoustic instruments, let alone anything more specific than electronic drum, which can make for a class all its own.</p>
 <p>Wikipedia defines <a href="https://en.wikipedia.org/wiki/Percussion_instrument">Percussion Instrument</a> as &ldquo;a musical instrument that is sounded by being struck or scraped by a beater including attached or enclosed beaters or rattles struck, scraped or rubbed by hand or struck against another similar instrument.&rdquo; but, frankly, I think that definition really sucks. I think a better definition would be any tool that be used to make a sound with a sharp attack, that is typically not pitched/tuned and is used to establish the tempo of the song. I confess that this definition is still bad, but hey, it&rsquo;s better. Generally though, I think we all have a sort of intimate knowledge of what percussion is and I&rsquo;m not trying to turn this page into one on the philosophy of music or human experience, so let&rsquo;s jump back into my definition a bit- I said it (loosely) requires a sharp attack. What do I mean by that? Well, remember back when we looked at the ADSR in getting started?</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Here&rsquo;s that original ADSR gif again, see how the first stage, the attack can vary in time. If we imagine this as the volume of the sound, one with a more gradual fade in, instead of a vertical line, will have a smooth fade in. This is not how most percussive sounds are used. Usually, a percussive sound has a very loud <strong>transient</strong> and, usually, a short decay. Basically, the drum hit&rsquo;s hard, fast, and goes away fast.</p>
 <p><img src="/music/adsr.gif" alt="" /></p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>Look at this view of a bass drum hit on a scope. See how there&rsquo;s this sharp spike, right as it first starts? Also, see how it only moves up and down a few times before fading out? Think about this like smacking the head of a drum, you get that sharp hit, then the drum head will oscillate back and forth a few times before coming to rest. What&rsquo;s also of note is those peaks aren&rsquo;t evenly spaced. It actually gets lower pitch as it fades out (albeit not by much here). A lot of percussion does this, changing in pitch over its short lifespan.</p>
 <p><img src="/music/bassdrum.webp" alt="" /></p>
 
   </div>
-  
+
 </div>
 
 <p>It&rsquo;s also pretty common for percussion to have a noisy part to it, literally just &lsquo;polluting&rsquo; the entire frequency spectrum. That&rsquo;s really obvious here with both the snare and open hi-hat sounds, where on the scope you can see the jittery-ness of the noise:</p>
 <p><img src="/music/hatbasssnare.webp" alt="" /></p>
 <p>It&rsquo;s also worth noting just how clean of a sine wave the bass drum is. This isn&rsquo;t necessarily <em>required</em> of the lower pitch drums, but most bass sounds- drums or not- tend to sound muddy if anything but a pure sine wave.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     If you&rsquo;re wondering what the difference is between the snare and the hat given how similar they look in the waveform: the hat only really fills the 5khz to 20kHz range, with a peak around 6khz while the snare goes down to 320Hz (ish), with noise spreading up to 20khz as well, but with a strong peak at that 320Hz point.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/music/drumfrequencyanalysis.webp" alt="" /></p>
 <span class="smalltext ">
@@ -660,11 +670,11 @@ https://github.com/alex-shpak/hugo-book
 </span>
 
   </div>
-  
+
 </div>
 
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Alright, so this is nice and all, but, like, this is a guide about sound and that&rsquo;s a lot of pictures? Let&rsquo;s dive in then. I&rsquo;ve put together a VCV patch for you to learn on. It has a ton of notes built in and focuses on the sound design side of percussion, as we&rsquo;ll come back to actually sequencing drums (making patterns of drum hits, or playing them with sticks, whatever) in a bit, but I think it helps just to get a feel for how much sound design can go into percussion.</p>
 <div class="tip ">
@@ -672,31 +682,31 @@ https://github.com/alex-shpak/hugo-book
 </div>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/music/drumpatchscreenshot.webp" alt="drum patch screenshot" /></p>
 <p>The patch can be downloaded from patch storage <a href="https://patchstorage.com/percussion-explainer/">here</a>.</p>
 
   </div>
-  
+
 </div>
 
 <p>So just download this patch and poke around for a while. A big part of learning music is having a sort of mental catalog of sounds that you can make and how they can work together. The best way to build up this mental catalog is to experiment, that&rsquo;s why while this patch is pre-wired, I encourage you to twist and turn every knob. After all, worst case, you just re-open the original file and start over. So experiment! Find weird sounds!</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Once you&rsquo;ve done that, go ahead and try to make your own drum sound using basic modules (Oscillators, VCAs, etc.), thinking about the characteristics of the sounds you made and what I explained above, if you need a bit of an example for that, go ahead and check out this patch.</p>
 <p>(if you need a little push, you might try out <a href="https://library.vcvrack.com/Befaco/Percall">Befaco&rsquo;s Percall</a>, which makes it pretty easy to get drum sounds out of any oscillator)</p>
 <p>You might want to go back to sound sources and look at subtractive and FM synthesis again if you&rsquo;re still a bit rusty on how to make patches from scratch.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/music/drumpatchscreenshot2.webp" alt="drum patch screenshot" /></p>
 <p>The patch can be downloaded from patch storage <a href="https://patchstorage.com/percussion-explainer-2/">here</a>.</p>
 
   </div>
-  
+
 </div>
 
 <p>When you&rsquo;ve had your fill come back and we&rsquo;ll talk about some common percussive kits, that is sounds that you&rsquo;ll find together either in an acoustic drum kit or on an electronic drum machine. Then we can wrap percussion up by briefly diving into making drum patterns- though that will be covered more in depth in Chapter 5, <a href="/music/sequencing-and-midi/">Sequencing &amp; MIDI</a>.</p>
@@ -720,14 +730,14 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><strong>Bass Drum + Pedal</strong>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>This is the Big Ol&rsquo; drum on the floor, the one that often has the band&rsquo;s logo on it. Sometimes it&rsquo;s called the Kick Drum, and it&rsquo;s usually hit with a beater pedal.</p>
 <p>This is the main drum everyone obsesses over, because it&rsquo;s (usually) the one that people are going to tap along to and sets the tempo of the track.</p>
 <p>I do want to point out that it&rsquo;s not just the drum that matters, but also the beater. <a href="https://www.youtube.com/watch?v=OptsiOhFW5c">Especially in metal</a>, you&rsquo;ll often see <a href="https://www.sweetwater.com/c651--Double_Drum_Pedals__and__Beaters">Double Bass Drum Pedals</a>.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><audio controls src="/sounds/NYC/CD2 - KCK 01.wav"></audio></p>
 <p class="attribution ">
@@ -736,7 +746,7 @@ https://github.com/alex-shpak/hugo-book
 <iframe width="100%" height="200" src="https://www.youtube.com/embed/EFjZ1QaKHdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 </li>
 </ul>
@@ -744,7 +754,7 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><strong>Snare Drum</strong>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>This is the shallowest drum, usually about 6 inches deep. The snare is also used for rimshots, coming back to that in a bit. It&rsquo;s also pretty common to add extra things to the snare to spice it up:</p>
 <iframe width="100%" height="200" src="https://www.youtube.com/embed/Fh5sIZo1_1I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -753,7 +763,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><audio controls src="/sounds/NYC/CD2 - SNR 04.wav"></audio></p>
 <p class="attribution ">
@@ -765,7 +775,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 </li>
 </ul>
@@ -773,15 +783,15 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><strong>Floor Tom</strong>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Your &lsquo;Normal&rsquo; drum set will have 3 Tom drums, these are big, deep drums. Of them, the Floor Tom is the biggest.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     See the video below to hear a Tom drum in action
   </div>
-  
+
 </div>
 </li>
 </ul>
@@ -789,19 +799,19 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><strong>Toms (usually X2)</strong>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>The other two drums on &lsquo;Normal&rsquo; drum kit are toms too, but are typically a bit smaller, but not matched in size. Usually this is set up so you can have &ldquo;Descending Toms&rdquo; - more on this in a bit.</p>
 <p><a href="https://www.lowvolumedrumming.org/descending-toms/">Why do drum sets have descending toms? (Low Volume Drumming)</a></p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="200" src="https://www.youtube.com/embed/3yVaQ9ecrcA?start=602" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p class="attribution ">
     <a href="https://www.youtube.com/watch?v=3yVaQ9ecrcA">Deep, Detuned Tom Sounds S2E15 (Sounds Like A Drum, YouTube)</a>
   </div>
-  
+
 </div>
 </li>
 </ul>
@@ -809,11 +819,11 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><strong>HiHat Cymbals + Pedal</strong>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     The pedal here is used to close the two cymbals that make up the HiHat together. This gives it a shorter tail.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><audio controls src="/sounds/NYC/1.wav"></audio></p>
 <p class="attribution ">
@@ -825,7 +835,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 </li>
 </ul>
@@ -833,7 +843,7 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><strong>Crash, Ride, Splash, and China Cymbals</strong>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>This is basically a big disc of metal made to flop noise around everywhere, right? Well, it turns out there&rsquo;s a little more nuance to it than that. Here&rsquo;s a really informative link and an interesting video comparing some Cymbals. My point is just that there&rsquo;s more to it than a slab of metal.</p>
   <span class="best ">
@@ -842,13 +852,13 @@ https://github.com/alex-shpak/hugo-book
 </span>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="200" src="https://www.youtube.com/embed/h_8x3HbL-hM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p class="attribution ">
     <a href="https://www.youtube.com/watch?v=h_8x3HbL-hM">Effects Cymbal Comparison (Christian Baumgartner, YouTube)</a>
   </div>
-  
+
 </div>
 </li>
 </ul>
@@ -856,11 +866,11 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li><strong>Sticks</strong>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Don&rsquo;t forget the obvious! The drum sticks themselves can be tapped together.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><audio controls src="/sounds/LivePercSamplePack/LPSP_STICKS_1.wav"></audio></p>
 <p class="attribution ">
@@ -868,7 +878,7 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 </li>
 </ul>
@@ -888,17 +898,17 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>Most modern drum machines actually have a bit more than drums. The Elektron Digitakt, for example, is a sampling drum machine that can take those samples down to single cycle wave forms and loop them, turning it into a synth- and a quite competent one at that.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="200" src="https://www.youtube.com/embed/g5bHONbDXDI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="200" src="https://www.youtube.com/embed/WTAlt5ccvms" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
 <p><a href="https://www.youtube.com/watch?v=APrzOGCr2OU">Playing the Elektron Model:Cycles (Red Means Recroding, YouTube)</a></p>
@@ -908,17 +918,17 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#drum-effects">#</a>
 </h2>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="200" src="https://www.youtube.com/embed/yew08KqkLbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="200" src="https://www.youtube.com/embed/Bxz6jShW-3E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
 <h2 id="sometimes-less-is-more">
@@ -973,16 +983,16 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#bells-and-carillons">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <iframe width="100%" height="200" src="https://www.youtube.com/embed/VkRIMgTU7cA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
   </div>
-  
+
 </div>
 
 <h3 id="beatboxing">
@@ -1027,27 +1037,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Instruments/perc.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Instruments/perc.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1065,8 +1075,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#percussion">Percussion</a>
       <ul>
@@ -1099,14 +1111,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

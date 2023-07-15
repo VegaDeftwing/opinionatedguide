@@ -34,6 +34,7 @@ Linux Productivity Tools Presentation PDF (Ketan M.)
 What The Shell? # Okay, first question you probably have after I&rsquo;ve been using them interchangebly &lsquo;What is a Shell and is it different from a terminal?&rsquo;
 Yes, they&rsquo;re different, but before I talk about the shell it&rsquo;s easier to talk about the Terminal.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -57,11 +58,13 @@ Yes, they&rsquo;re different, but before I talk about the shell it&rsquo;s easie
 <title>Linuxshell | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -76,18 +79,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -540,7 +548,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -569,7 +577,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-1---using-the-linux-shell">Appendix 1 - Using the Linux Shell</a>
       <ul>
@@ -625,6 +634,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -636,6 +646,8 @@ https://github.com/alex-shpak/hugo-book
   Appendix 1 - Using the Linux Shell
   <a class="anchor" href="#appendix-1---using-the-linux-shell">#</a>
 </h1>
+<!-- TODO: Add xprop, xev, xrandr, xinput to command list -->
+<!-- Alt + <num> + . shortcut, and other navigation tricks grouped together -->
 <p><a href="https://missing.csail.mit.edu/2020/course-shell/">./missing-semester - The Shell</a></p>
 <p><a href="https://missing.csail.mit.edu/2020/shell-tools/">./missing-semester - Shell Tools and Scripting</a></p>
 <p><a href="https://missing.csail.mit.edu/2020/data-wrangling/">./missing-semester - Data Wrangling</a></p>
@@ -1147,11 +1159,11 @@ Aliases are useful if you have long commands that are used often. Entering <code
 <p><a href="https://shellmagic.xyz/">https://shellmagic.xyz/</a></p>
 <p><a href="https://wiki.bash-hackers.org/">https://wiki.bash-hackers.org/</a></p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     [TODO] text on what shell scripting is
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/eng/basherrorsb0rk.webp" alt="b0rk bash erros" title=":size=70%"/></p>
 <p class="attribution ">
@@ -1159,7 +1171,7 @@ Aliases are useful if you have long commands that are used often. Entering <code
 </p>
 
   </div>
-  
+
 </div>
 
 <p><a href="https://betterdev.blog/minimal-safe-bash-script-template/">Minimal Safe Bash Script Template (Maciej Radzikowski)</a></p>
@@ -1521,11 +1533,11 @@ Aliases are useful if you have long commands that are used often. Entering <code
   <a class="anchor" href="#displaying-data-in-the-terminal">#</a>
 </h2>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     [TODO] info about various librarier and tools that show data using text based graphics or via terminals that can render SVGs/images
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">💡FAQ about displaying stuff in a terminal <a href="https://t.co/XQBOezyJAx">pic.twitter.com/XQBOezyJAx</a></p>&mdash; Kate (but with plastic reindeer antlers on) (@thingskatedid) <a href="https://twitter.com/thingskatedid/status/1316074032379248640?ref_src=twsrc%5Etfw">October 13, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <span class="smalltext ">
@@ -1534,7 +1546,7 @@ Aliases are useful if you have long commands that are used often. Entering <code
 <p><a href="https://graphviz.org">graphviz</a> provides <code>dot</code> among other tools, this thread also mentions <a href="https://saitoha.github.io/libsixel/">libsixel</a>, <a href="https://gist.github.com/katef/fb4cb6d47decd8052bd0e8d88c03a102">plot.awk</a>, <a href="https://github.com/katef/kgt/">KGT (Kate&rsquo;s Grammer Tools)</a>, <a href="https://github.com/katef/libfsm/">libFSM</a> for turning regex into FSMs.</p>
 
   </div>
-  
+
 </div>
 
 <h2 id="a-note-on-graphical-ish-terminal-programs">
@@ -1724,27 +1736,27 @@ such as /Programs/LibX11/1.6.9 and /Programs/GCC/9.2.0.</p>
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/linuxshell.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/linuxshell.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1762,8 +1774,10 @@ such as /Programs/LibX11/1.6.9 and /Programs/GCC/9.2.0.</p>
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-1---using-the-linux-shell">Appendix 1 - Using the Linux Shell</a>
       <ul>
@@ -1818,14 +1832,14 @@ such as /Programs/LibX11/1.6.9 and /Programs/GCC/9.2.0.</p>
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

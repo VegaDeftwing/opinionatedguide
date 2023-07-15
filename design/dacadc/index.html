@@ -30,6 +30,7 @@
 <meta name="description" content="Analog Art to Digital Art # Scanning in your Analog Art # [TODO] Scanner DPI, etc.
 Background Removal # Via vector art tools # Before doing this, you should really know what vector art is and how it differs from the raster art you&rsquo;re probably used to. I&rsquo;ve talked about this a bit in the previous chapter, Digital Art . This process requires combining the two, and it&rsquo;s a bit odd if you haven&rsquo;t used vector art tools before.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ Background Removal # Via vector art tools # Before doing this, you should really
 <title>Dacadc | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#analog-art-to-digital-art">Analog Art to Digital Art</a>
       <ul>
@@ -585,6 +594,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -656,7 +666,7 @@ https://github.com/alex-shpak/hugo-book
 <img class=center src="/design/pedal.webp" alt=" " width="50%" style="border-radius:50px;">
 <p>You may want to experiment with the <em>multiple scans</em> → <em>colors</em> option if you want to convert something which was made with color, but has a limited palette. It can also be a cool effect anyway, as the output is, uh, well, I&rsquo;ll just show you:
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/blog/COMountain.jpg" alt=" " width="100%">
 <span class="smalltext ">
@@ -664,7 +674,7 @@ https://github.com/alex-shpak/hugo-book
 </span>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/blog/comountainsvg.svg" alt=" " width="100%">
 <span class="smalltext ">
@@ -672,7 +682,7 @@ https://github.com/alex-shpak/hugo-book
 </span>
 
   </div>
-  
+
 </div>
 
 Heads up, this will take a long time on high resolution, large images, and produce <strong>much</strong> larger vector files. The input image here is a 3.2MB JPEG, the output is a <u>17.9Mb</u> SVG! This is largely because this is the worst possible way to use an SVG. So why show it? The cool thing here is that you could easily delete one color, or pull out just one as a trace.</p>
@@ -681,7 +691,7 @@ Heads up, this will take a long time on high resolution, large images, and produ
 </span>
 <div style="">
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/blog/comountainsvg3.svg" alt=" " style="background-color: #fff;">
 <span class="smalltext ">
@@ -689,7 +699,7 @@ Heads up, this will take a long time on high resolution, large images, and produ
 </span>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div id="demoElement"></div>
 <span class="smalltext ">
@@ -697,7 +707,7 @@ Heads up, this will take a long time on high resolution, large images, and produ
 </span>
 
   </div>
-  
+
 </div>
 
 </div>
@@ -749,27 +759,27 @@ Pablo(demoElement).load("/nonfree/blog/comountainsvg.svg", function(comountainsv
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Design/dacadc.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Design/dacadc.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -787,8 +797,10 @@ Pablo(demoElement).load("/nonfree/blog/comountainsvg.svg", function(comountainsv
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#analog-art-to-digital-art">Analog Art to Digital Art</a>
       <ul>
@@ -813,14 +825,14 @@ Pablo(demoElement).load("/nonfree/blog/comountainsvg.svg", function(comountainsv
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

@@ -30,6 +30,7 @@
 <meta name="description" content="Plugins # This page is a massive work in progress. Even the things that look done may be wrong. [TODO] break list up more
 Sound Sources Vintage Synths Modern Synths Bass Synths Sampled / Acoustic Modeling Percussive Effects Dynamics Filter Reverb Delay Trivial Weird as fuck Misc Tools Organization MIDI generation This is probably where the most bias of any of the lists on this page will show as I obviously can&rsquo;t list every possible plugin.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ Sound Sources Vintage Synths Modern Synths Bass Synths Sampled / Acoustic Modeli
 <title>Plugin | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#plugins">Plugins</a>
       <ul>
@@ -580,6 +589,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -626,7 +636,7 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </li>
 </ul>
-<blockquote class="book-hint  ">
+<blockquote class="book-hint ">
   <p>This is probably where the most bias of any of the lists on this page will show as I obviously can&rsquo;t list every possible plugin. Instead, I&rsquo;ll list those that I think are particularly good both in terms of value and function. While the list below does have ranking (copper, silver, gold) <strong>everything</strong> I&rsquo;m listing I think is good, even the &lsquo;copper&rsquo; ones!</p>
 <p>You <em>DO NOT NEED</em> everything on these lists! Many of these plugins will have overlapping features, and as mentioned plenty of times before, your DAW probably has the majority of this functionality built in, as stated back in the start of the effects chapter: USE THESE FIRST. They&rsquo;re lighter on CPU, fit into the DAW&rsquo;s workflow better, and generally are good enough for most things. Check out <a href="https://www.youtube.com/watch?v=Xgm1bGh-eyM">I Made A Song Using Only Ableton Stock Plugins (YouTube, Composerily)</a> if you don&rsquo;t believe me.</p>
 <p>I have tried to put a pretty good mix of professional and weird, free and paid, and traditional and novel tools on this list. This means that some will absolutely not be to your taste. Some may be too sterile, or may be wacky and useless to you.</p>
@@ -1470,8 +1480,7 @@ https://github.com/alex-shpak/hugo-book
   Tools dependent on other hardware or software
   <a class="anchor" href="#tools-dependent-on-other-hardware-or-software">#</a>
 </h2>
-<details >
-  <summary>Max4Live Devices</summary>
+<details ><summary>Max4Live Devices</summary>
   <div class="markdown-inner">
     <p><strong>These devices only work inside of Ableton Live using Max For Live</strong></p>
 <p><a href="https://llllllll.co/t/smartphones-lil-pup/35749">lil&rsquo; pup</a> - &ldquo;Tools for generative music and live performance&rdquo;</p>
@@ -1498,11 +1507,10 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>Monme Norns Devices</summary>
+<details ><summary>Monme Norns Devices</summary>
   <div class="markdown-inner">
     </br>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   I previously maintained a &lsquo;best of&rsquo; list for Norns scripts, but the community has now made a much better resource <a href="https://norns.community">https://norns.community</a>
 </blockquote>
 <p><strong>These &lsquo;plugins&rsquo; only work on Monome&rsquo;s Norns hardware</strong></p>
@@ -1514,15 +1522,13 @@ https://github.com/alex-shpak/hugo-book
   </div>
 </details>
 
-<details >
-  <summary>JSFX and Scripts for Reaper DAW</summary>
+<details ><summary>JSFX and Scripts for Reaper DAW</summary>
   <div class="markdown-inner">
     <a href="https://github.com/JoepVanlier/JSFX">https://github.com/JoepVanlier/JSFX</a>
   </div>
 </details>
 
-<details >
-  <summary>Patches &amp; Info for Empress Zoia</summary>
+<details ><summary>Patches &amp; Info for Empress Zoia</summary>
   <div class="markdown-inner">
     <p><a href="https://sensai7.github.io/ZOIACheatsheet/">https://sensai7.github.io/ZOIACheatsheet/</a></p>
 <p><a href="https://patchstorage.com/platform/zoia/">https://patchstorage.com/platform/zoia/</a></p>
@@ -1698,27 +1704,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Software/plugin.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Software/plugin.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1736,8 +1742,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#plugins">Plugins</a>
       <ul>
@@ -1757,14 +1765,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

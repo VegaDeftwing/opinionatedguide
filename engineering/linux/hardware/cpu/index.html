@@ -29,6 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="1 - The CPU # Note, there&rsquo;s more the a CPU on some of these boards. On the big one, only the square thing in the middle is the CPU, on the pi-0 (the board with the HDMI and USB Ports) the CPU is under the metal heatsink - and in truth the CPU is actually an SOC (System On a Chip) - more on that in a bit. Finally, on the blue board, the CPU is only the black chip in the middle, though in this case it is again the definition is blurred, as in truth this is a microcontroller.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -47,11 +48,13 @@
 <title>CPU | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -66,18 +69,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -530,7 +538,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -559,7 +567,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#1---the-cpu">1 - The CPU</a>
       <ul>
@@ -588,6 +597,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -758,11 +768,11 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>Modern processors are very, very complicated. So complicated in fact that there is a full very tiny computer in your processor. This computer does multiple things, but the main one we&rsquo;ll talk about is the translation between types of machine code. In order to understand this we&rsquo;ll need to look a basic program written in the language &lsquo;C&rsquo;.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     This code first makes two integers, <code>a</code> and <code>b</code>, gives them values, then adds them together and stores the result back into a. Finally, the program returns a 0 to the operating system in order to say &ldquo;I ran without errors&rdquo;.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -788,15 +798,15 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div>
   </div>
-  
+
 </div>
 
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Unlike python, which get&rsquo;s converted to something the computer can understand as it executes, C is <strong>compiled</strong> before hand. This makes it so programs written in C are much, much faster than those written in python, though obviously C code is more difficult to write. <strong>Compilation</strong> is the process of turning a program into a file full of instructions the computer actually understands. This happens in two steps, first the program is turned into assembly code, for the above code this results in the output to the right:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -827,13 +837,13 @@ https://github.com/alex-shpak/hugo-book
 </p>
 
   </div>
-  
+
 </div>
 
 <p>This in turn gets turned into binary as can bee seen by this screenshot generated using <a href="https://godbolt.org/">https://godbolt.org/</a></p>
 <p><img src="/eng/godbolt.png" alt="godbolt" /></p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <table>
 <thead>
@@ -928,14 +938,14 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>See the weird numbers next to each instruction? like <strong>4004b255</strong>? That&rsquo;s a base 16 number or hexadecimal usually referred to as &lsquo;Hex&rsquo;. Hex is what is used by most computer guys to represent numbers because computers operate in base 2, or binary- like 01001100, which is very difficult to read and type accurately, however, base 10, the normal numbering system your used to, makes translating between binary and decimal a bit uncomfortable as the common factor is 5, an number that is both odd and in turn not a factor of two, where as 16 is 2^4 (2*2*2*2) so that means we can easily represent binary by using this conversion table here.</p>
 <p>Okay, so now those 1&rsquo;s and 0&rsquo;s are what your computer actually reads to run instructions. We&rsquo;ll come back to this later, but since we&rsquo;re here I&rsquo;ll drop this <a href="https://www-user.tu-chemnitz.de/~heha/viewchm.php/hs/x86.chm/x86.htm">link</a> where you can see how these 1&rsquo;s and 0&rsquo;s are arranged to tell the computer what to do. That is super advanced for where we are now though, so let&rsquo;s get back on track- what the hell is micro code already?</p>
 <p>Well, it turns out that modern processors are still compatible with some really, really old code. All the way back to the first 8086 processor made by Intel in 1978. It was here that the x86 instruction set - the instructions like &lsquo;mov&rsquo; , &lsquo;push&rsquo;, and &lsquo;add&rsquo; above that define the x86 architecture were born. Originally these were 16bit CPUs, that is each instruction only had 16 1&rsquo;s and 0&rsquo;s but soon the i386 came along and used 32bits. Back when 32 bit computers were common this is what this was in reference to.</p>
 
   </div>
-  
+
 </div>
 
 <p>As with all things technology progressed and 64bit cpu&rsquo;s came along. Many attempts were made to make 32bit programs run with backwards comparability at high speeds on these CPU&rsquo;s, though in the end AMD made the method used today, dubbed the x86_64 instruction set. Overtime this instruction set was expanded with various additions. We can actually see the names of these additions that are available on the CPU in the system by looking yet again at the output of <code>cat /proc/cpuinfo</code> and looking at the flags section. While not all of these signify instruction set additions, many do. The most common &lsquo;famous&rsquo; if you will is SSE, of which there have been multiple revision, the first version alone adds <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">70 instructions</a>, which are used to make math faster</p>
@@ -1035,11 +1045,11 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>I don&rsquo;t want to dive toooo deep into the weeds, but because of the Meltdown and Spectre vulnerabilities, I find it necessary to briefly talk about branch prediction.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Basically, modern CPUs do a very good job of guessing what path of code will be executed on branches, that is code like this:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1057,7 +1067,7 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div>
   </div>
-  
+
 </div>
 
 <p>The CPU will do a good job guessing which path will actually be taken. This is done because CPUs are actually <em>pipelined</em>.</p>
@@ -1129,27 +1139,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/cpu.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/hardware/cpu.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1167,8 +1177,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#1---the-cpu">1 - The CPU</a>
       <ul>
@@ -1198,14 +1210,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

@@ -30,6 +30,7 @@
 <meta name="description" content="Lexical analysis # The transformation of source code text into a series of tokens is the first task. Much like words in a sentence, each token has a specific meaning that will be used by later phases. It is this meaning that is is being captured, while the exact formatting or other details of the text itself are stripped away.
 In our calculator, lexing (as it is called for short) is just one operation: line.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ In our calculator, lexing (as it is called for short) is just one operation: lin
 <title>Lexing | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#lexical-analysis">Lexical analysis</a>
       <ul>
@@ -572,6 +581,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -682,9 +692,9 @@ syntax error: unknown token
 </span></span><span style="display:flex;"><span>        pos <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> len(line) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e"># try to match all of the token types starting at the line beginning</span>
-</span></span><span style="display:flex;"><span>            re_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>match(number_re, line)
-</span></span><span style="display:flex;"><span>            op_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>match(oper_re, line)
-</span></span><span style="display:flex;"><span>            ws_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>match(whitespace_re, line)
+</span></span><span style="display:flex;"><span>            re_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span><span style="color:#66d9ef">match</span>(number_re, line)
+</span></span><span style="display:flex;"><span>            op_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span><span style="color:#66d9ef">match</span>(oper_re, line)
+</span></span><span style="display:flex;"><span>            ws_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span><span style="color:#66d9ef">match</span>(whitespace_re, line)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e"># the matching regex returns a match object rather than None</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> re_m <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
@@ -750,8 +760,7 @@ error: unknown token
 <p>Let&rsquo;s integrate that into our program.</p>
 <p>Our token type is simple: a dictionary of values. It will have metadata related to position so that we can print the arrow in the right place. It will have the token type, and value if relevant.</p>
 <p>We will make it into a stand-alone function, taking a string and parsing it into a list of tokens which are returned.</p>
-<details >
-  <summary>The Final Lexer</summary>
+<details ><summary>The Final Lexer</summary>
   <div class="markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -805,9 +814,9 @@ error: unknown token
 </span></span><span style="display:flex;"><span>    output_tokens <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> len(line) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e"># try to match all of the token types with &#39;^&#39; -- beginning of the line</span>
-</span></span><span style="display:flex;"><span>        re_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>match(number_re, line)
-</span></span><span style="display:flex;"><span>        op_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>match(oper_re, line)
-</span></span><span style="display:flex;"><span>        ws_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>match(whitespace_re, line)
+</span></span><span style="display:flex;"><span>        re_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span><span style="color:#66d9ef">match</span>(number_re, line)
+</span></span><span style="display:flex;"><span>        op_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span><span style="color:#66d9ef">match</span>(oper_re, line)
+</span></span><span style="display:flex;"><span>        ws_m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span><span style="color:#66d9ef">match</span>(whitespace_re, line)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> re_m <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
 </span></span><span style="display:flex;"><span>            next_token <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;pos&#39;</span>: pos, <span style="color:#e6db74">&#39;kind&#39;</span>: <span style="color:#e6db74">&#39;int&#39;</span>, <span style="color:#e6db74">&#39;value&#39;</span>: int(re_m<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">0</span>))}
@@ -841,27 +850,27 @@ error: unknown token
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/Compilers/lexing.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/Compilers/lexing.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -879,8 +888,10 @@ error: unknown token
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#lexical-analysis">Lexical analysis</a>
       <ul>
@@ -892,14 +903,14 @@ error: unknown token
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

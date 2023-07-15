@@ -31,6 +31,7 @@
 Multiple files # In any language, once your code gets big enough, working in one really long file is going to become a clusterfuck.
 Python # In python, this is stupidly easy.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -51,11 +52,13 @@ Python # In python, this is stupidly easy." />
 <title>Prog10 | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -70,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -534,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -563,7 +571,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-1010---the-rest-of-the-owl">Chapter 10.10 - The rest of the Owl</a>
       <ul>
@@ -577,6 +586,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -767,29 +777,29 @@ https://github.com/alex-shpak/hugo-book
 <p>If you finish making a wing, that&rsquo;s now an object (.o) and, so long as how the wings attach (the .h) doesn&rsquo;t change, you could rebuild the body (change the .c and make a different .o for the body) repeatedly without re-building the wing.</p>
 <p>On a more technical level, this going from the .c to .o is compiling and assembling (yep, two steps, there&rsquo;s actually a .s in there too, but normally we don&rsquo;t care) and the .o to the finished executable program is linking.</p>
 <p>Doing all of this for a lot of files tends to get messy and hard to keep sorted though, so, naturally, we made a programming language for building our programs. Yep, not kidding. That language is Make and you&rsquo;ll make a <strong>Makefile</strong>. Super clear and not confusing at all, right?</p>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   A point of confusion from this - we&rsquo;ll call the entire process compiling/compilation and the tools to do it compilers even though they&rsquo;re usually full compilers, assemblers, and linkers. This is because, unlike ye&rsquo; olden days where these were separate tools, anymore you just shove it though GCC or Clang and it does everything for you. You really don&rsquo;t need to think about it being multiple steps except for when you&rsquo;re writing the <strong>Makefile</strong>
 </blockquote>
 
 <p>so, buckle up, because we&rsquo;re gonna learn Make. And by we&rsquo;re going to learn, I mean I&rsquo;m going to throw you at some links because, like writing code, I don&rsquo;t want to reinvent the wheel and, more importantly, leaning to read technical resources (like this website) is an important skill - and one you&rsquo;ll get better at if you see different styles of technical writing.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><a href="https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/">A Simple Makefile Tutorial (Bruce A. Maxwell @ Colby College)</a></p>
 <p><a href="https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html">Using make and writing Makefiles (Tia Newhall @ Swarthmore College)</a></p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="tip ">
     These are pretty dense and you may not actually understand everything! That&rsquo;s 100% okay. For now, we just need to <code>make</code> something that works. Even if it&rsquo;s almost entirely done via copy and paste.
 </div>
 
   </div>
-  
+
 </div>
 
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   <p>Both of these mention <strong>.o</strong> files along side the <strong>.c</strong> and <strong>.h</strong> you&rsquo;ve seen. <strong>.o</strong> files are &ldquo;object&rdquo; files and are (as a very minor simplification) the individual chunks of complied code from each file, they&rsquo;re not something you&rsquo;ll ever write directly. Instead, they exist as a sort of in-between as a program builds.</p>
 <p>As an analogy, imagine you&rsquo;re working with Legos and you&rsquo;re building a plane. You might have instructions for building a wing, engines, the main body, the nose, and the tail.</p>
 <p>The wings may say they need you to attach the engines, and the body the wings (with the engines on them), the nose, and the the tail. When you&rsquo;re done, you&rsquo;ll have a plane.</p>
@@ -823,27 +833,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/Intro/prog10.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/Intro/prog10.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -861,8 +871,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-1010---the-rest-of-the-owl">Chapter 10.10 - The rest of the Owl</a>
       <ul>
@@ -877,14 +889,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

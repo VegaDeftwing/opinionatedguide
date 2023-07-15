@@ -30,6 +30,7 @@
 <meta name="description" content="Appendix 6 - \(\LaTeX\) &amp; Markdown # Like the kink? # \(\LaTeX\) , pronounced Lay-Tech, is a document writing and formatting &rsquo;language&rsquo; that acts pretty different from MS Word. It&rsquo;s primarily used for writing fancy math equations, academic, journal, or conference papers, as such, you might have to use it at some point to conform to one standard or another (like IEEE).
 As an example of what \(\LaTeX\) formatting looks like, check this equation out:">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ As an example of what \(\LaTeX\) formatting looks like, check this equation out:
 <title>Latex | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-6---hahahugoshortcodes0hbhb--markdown">Appendix 6 - HAHAHUGOSHORTCODEs0HBHB &amp; Markdown</a>
       <ul>
@@ -571,6 +580,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -603,18 +613,18 @@ https://github.com/alex-shpak/hugo-book
 </span>
  formatting looks like, check this equation out:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     x = a_0 + \cfrac{1}{a_1+ \cfrac{1}{a_2 + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <span>
   \(x = a_0 &#43; \cfrac{1}{a_1&#43; \cfrac{1}{a_2 &#43; \cfrac{1}{a_3 &#43; \cfrac{1}{a_4} } } }\)
 </span>
 
   </div>
-  
+
 </div>
 
 <p>Of course, it can both be much simpler and much more complex than this. On the simple side, basic <span>
@@ -644,7 +654,7 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>Markdown is what most of this website is written in, though there are various additional features this site uses that are <em>not</em> part of the common markdown standard. In general, markdown is just a stupid fast way to spit out formatted text that can still be interpreted as plain text. If you&rsquo;re thinking &ldquo;Formatted Plain text? What the fuck?&rdquo; Yeah, that&rsquo;s a valid response. Let me show you:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <h1 id="this-is-a-title">
   This is a title
@@ -687,7 +697,7 @@ https://github.com/alex-shpak/hugo-book
 <p>This is a <a href="http://localhost:1313/engineering/latex/">link</a>.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -753,13 +763,13 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div>
   </div>
-  
+
 </div>
 
 <p>As you can see, it&rsquo;s pretty simple to read and write. With a markdown render, it will look pretty and formatted like it does on this page, but if you have to view it as raw, plain text, it&rsquo;s still totally human-readable, and syntax highlighting for Markdown is common.</p>
 <p>Some things in Markdown are a bit less obvious though, for example, images and tables:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <table>
 <thead>
@@ -789,7 +799,7 @@ https://github.com/alex-shpak/hugo-book
 </table>
 <p><img src="/nonfree/character/box.png" alt="this description helps for blind people" />
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -813,7 +823,7 @@ https://github.com/alex-shpak/hugo-book
 </div>
 </div>
   </div>
-  
+
 </div>
 
 <p>Weirder yet, a lot of Markdown supports mixed in HTML, CSS, and sometimes <span>
@@ -842,27 +852,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/WrappingUp/latex.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/WrappingUp/latex.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -880,8 +890,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#appendix-6---hahahugoshortcodes0hbhb--markdown">Appendix 6 - HAHAHUGOSHORTCODEs0HBHB &amp; Markdown</a>
       <ul>
@@ -892,14 +904,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

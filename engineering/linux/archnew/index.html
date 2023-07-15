@@ -32,6 +32,7 @@ Unlike Windows or Mac which are primarily differentiated by versions (Windows XP
 The distribution name (Arch, Ubuntu, Mint, Debian, etc.) Kernel version number (5.18 last time this page was updated) So, what do each of these mean?
 Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;distributions&rsquo;.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -53,11 +54,13 @@ Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of th
 <title>Archnew | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -72,18 +75,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -536,7 +544,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -565,7 +573,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-2---installing-arch-linux">Chapter 2 - Installing Arch Linux</a>
       <ul>
@@ -607,6 +616,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -634,17 +644,17 @@ https://github.com/alex-shpak/hugo-book
 <p>Well, Linux is actually just the name of the underlying &lsquo;core&rsquo; of the system, known as the kernel, as such, there are literally thousands of Linux variations or &lsquo;<strong>distributions</strong>&rsquo;. Some of the well known variants include Ubuntu, Fedora, OpenSuse, and Arch (No disrespect to the other distros out there!). Each of these has a different target audience, with some meant for servers, some meant for casual users as an alternative to Windows, others as work station for hard core computing. They also ship with different software pre-installed to be accessed after the first boot.</p>
 <p>The other differentiating factor is the version of the Linux <strong>Kernel</strong> that they use. Some chose to use an older, battle hardened kernel that is known to be very, very stable, others chose a nice middle ground, while yet others continuously release an update to the newest available kernel. There are pros and cons to each model and each has its place; however, the distro I&rsquo;m going to have you install, Arch, uses the (almost) the newest available, updating very regularly. Arch has a reputation as one of the hardest distros to work with, but also one of the most cutting edge, fun to tinker around in, and best documented.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Arch is what&rsquo;s known as a <em>rolling release</em> distribution, which means it gets the bleeding edge features and the newest kernel pretty much as fast as possible, though really the biggest thing that makes Arch special is how bare bones it is out of the box, shipping with basically <strong>no pre-installed software</strong>. In fact, when you first start it up the only thing you&rsquo;ll see is a screen to type and run commands, and that&rsquo;s where we&rsquo;re going to start.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/eng/archlogo.png" alt="Arch Logo" height="180em" style="display: block; margin-left: auto; margin-right: auto;">
 <p class="attribution ">
     Arch Linux Logo from <a href="https://archlinux.org">archlinux.org</a>
   </div>
-  
+
 </div>
 
 <p>For most distros like Ubuntu or OpenSuse (feel free to look these up, this page isn&rsquo;t going anywhere) there&rsquo;s a nice graphical, point and click installer which helps you install the system and somewhat mitigates potential risk of killing your original OS (Mac/Win) or losing data; however, the goal of this guide is to learn. Arch&rsquo;s install process, entirely by typing commands in this terminal is hard, but that difficulty leads to a deeper understanding and respect for the system as a whole</p>
@@ -1247,7 +1257,7 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
         - <a href="https://wiki.archlinux.org/title/installation_guide">Install Guide</a> - <a href="https://www.gnu.org/licenses/fdl-1.3.html">GNU Free Documentation License</a>
     </div>
 </div>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   I&rsquo;ve written this assuming you&rsquo;re installing alongside Windows. If it&rsquo;s a mac, it should be more-or-less the same, but mentally substitute NTFS for HFS+ - I&rsquo;ll explain what these are in a second.
 </blockquote>
 
@@ -1428,7 +1438,7 @@ ath10k_pci 0000:01:00.0: could not register to mac80211 (-22)
 <p>
     <p>Use <a href="https://wiki.archlinux.org/title/Fdisk">fdisk</a> or <a href="https://wiki.archlinux.org/title/Parted">parted</a> to modify partition tables. For example:</p>
 <pre tabindex="0"><code># fdisk /dev/the_disk_to_be_partitioned
-</code></pre><blockquote class="book-hint info ">
+</code></pre><blockquote class="book-hint info">
   <p><strong>Note:</strong></p>
 <ul>
 <li>If the disk does not show up, <a href="https://wiki.archlinux.org/title/Partitioning#Drives_are_not_visible_when_firmware_RAID_is_enabled">make sure the disk controller is not in RAID mode</a>.</li>
@@ -1562,11 +1572,11 @@ nvme1n1     CT4000P3SSD8                    nvme     3.6T
 <pre tabindex="0"><code># mkfs.ext4 /dev/root_partition
 </code></pre><p>If you created a partition for <a href="https://wiki.archlinux.org/title/Swap">swap</a>, initialize it with <a href="https://man.archlinux.org/man/mkswap.8">mkswap(8)</a>:</p>
 <pre tabindex="0"><code># mkswap /dev/swap_partition
-</code></pre><blockquote class="book-hint info ">
+</code></pre><blockquote class="book-hint info">
   <strong>Note:</strong> For stacked block devices replace <code>/dev/**_partition*</code> with the appropriate block device path.
 </blockquote>
 <p>If you created an EFI system partition, <a href="https://wiki.archlinux.org/title/EFI_system_partition#Format_the_partition">format it</a> to FAT32 using <a href="https://man.archlinux.org/man/mkfs.fat.8">mkfs.fat(8)</a>.</p>
-<blockquote class="book-hint warning ">
+<blockquote class="book-hint warning">
   <strong>Warning:</strong> Only format the EFI system partition if you created it during the partitioning step. If there already was an EFI system partition on disk beforehand, reformatting it can destroy the boot loaders of other installed operating systems.
 </blockquote>
 <pre tabindex="0"><code># mkfs.fat -F 32 /dev/efi_system_partition
@@ -1653,7 +1663,7 @@ nvme0n1     SPCC M.2 PCIe SSD               nvme   953.9G
 </h4>
 <p>Use the <a href="https://man.archlinux.org/man/pacstrap.8">pacstrap(8)</a> script to install the <a href="https://archlinux.org/packages/?name=base">base</a> package, Linux <a href="https://wiki.archlinux.org/title/Kernel">kernel</a> and firmware for common hardware:</p>
 <pre tabindex="0"><code># pacstrap /mnt base linux linux-firmware
-</code></pre><blockquote class="book-hint info ">
+</code></pre><blockquote class="book-hint info">
   <p><strong>Tip:</strong></p>
 <ul>
 <li>You can substitute <a href="https://archlinux.org/packages/?name=linux">linux</a> for a <a href="https://wiki.archlinux.org/title/Kernel">kernel</a> package of your choice, or you could omit it entirely when installing in a <a href="https://en.wikipedia.org/wiki/Container_%28virtualization%29">container</a>.</li>
@@ -2530,27 +2540,27 @@ nvme0n1                                            953.9G
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/archnew.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Linux/archnew.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -2568,8 +2578,10 @@ nvme0n1                                            953.9G
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-2---installing-arch-linux">Chapter 2 - Installing Arch Linux</a>
       <ul>
@@ -2610,14 +2622,14 @@ nvme0n1                                            953.9G
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

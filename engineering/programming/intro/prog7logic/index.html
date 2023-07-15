@@ -30,6 +30,7 @@
 <meta name="description" content="Chapter 10.7 - ＬＯＧＩＣ &amp; Functions # For this page, If you see that lines are ending with a semicolon, ;, then that code is C. If they don&rsquo;t, it&rsquo;s Python. Would you like to speak to an Operator? # The very first thing to understand before we can get to more intersting things is the list of operations available to us.
 This includes the operations your used to - addition, subtraction, etc.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ This includes the operations your used to - addition, subtraction, etc." />
 <title>Prog7logic | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-107---ｌｏｇｉｃ--functions">Chapter 10.7 - ＬＯＧＩＣ &amp; Functions</a>
       <ul>
@@ -597,6 +606,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -703,7 +713,7 @@ https://github.com/alex-shpak/hugo-book
 <p>While a binary number with 4 digits can only go up to 15, binary numbers can still get quite large. Most computers today are 64 bit, which means directly working on two 64 bit numbers should still be fast. These numbers, assuming they&rsquo;re unsigned (meaning they can&rsquo;t go negative), can be as high as 184,46,744,073,709,551,615</p>
 <p>Alright, so what about negative numbers? Well, for reasons, it works out that we do negatives by letting the <strong>most significant bit</strong> (the right most bit) represent the sign, and then flipping all the other bits. So, if we have 8 bits, -3 is 0b11111101, -42 is 0b11010110. Something to consider here is that if we have a really big positive number, say 0b01111111 (which is 127) and then add 1 to it we wind up with 0b10000000 which, for an 8 bit <strong>signed</strong> number is -128. This is called <strong>overflow</strong>.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Okay, this is almost everything you need to know for now. I do want to briefly mention <strong>hexadecimial</strong>. Basically, reading binary really sucks so we often don&rsquo;t. Instead, we let our numbers go from 0 to F, giving us 16 digits. This lets each symbol represent 4 bits, and two symbols represent a byte (8-bits).</p>
 <p>While binary is written with a 0b prefix, hexadecimal (often just called hex) is written with a 0x prefix.</p>
@@ -711,7 +721,7 @@ https://github.com/alex-shpak/hugo-book
 <p>This also gives rise to what is know as a hex editor. Very rarely, you may need to look at the binary output of something that doesn&rsquo;t have a better representation or meaning to you other than the actuall binary itself. In that case, you need a way to look at the hex (as a condensed view of the binary) directly. We&rsquo;re rapidly going off an a tangent though, so let&rsquo;s put a pin in that idea.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <table>
 <thead>
@@ -806,7 +816,7 @@ https://github.com/alex-shpak/hugo-book
 </table>
 
   </div>
-  
+
 </div>
 
 <h4 id="and-and-or-or-or-and-and">
@@ -1690,7 +1700,7 @@ https://github.com/alex-shpak/hugo-book
 <p>All your if&rsquo;s, for&rsquo;s, while&rsquo;s, etc. are built out of these. The complier (gcc, in your case) takes your C  code and turns it into these instructions and does so much more effeciently than you could by hand.</p>
 <p>By writing in the higher-level-than-assembly-but-still-pretty-low-level language of C, you get to not deal with these things. The same applies to writing <strong>functions</strong>. Functions are what we use as much more poweful, easier to read alternatives to direct jumping around by memory locations that is done by <code>goto</code>.</p>
 <p>Again, I can&rsquo;t stress this enough, don&rsquo;t use <code>goto</code>. Not even once. Don&rsquo;t try it. Don&rsquo;t think, &ldquo;This is neat and good to know!&rdquo;. Unknow it. Don&rsquo;t go &ldquo;this is a good use case!&rdquo;. It&rsquo;s not. Don&rsquo;t use <code>goto</code>.</p>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   &hellip; Okay, so, there are some legitimate reasons to use GOTO but they are exceptionally rare. <a href="https://blog.joren.ga/gotophobia-harmful">GOTOphobia considered harmful (in C)&quot; by Jorengarenar</a> does a good job of explaining these times - but even unless you&rsquo;re already a quite experienced programmer &hellip; just don&rsquo;t.
 </blockquote>
 
@@ -1994,27 +2004,27 @@ https://github.com/alex-shpak/hugo-book
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/Intro/prog7logic.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/Intro/prog7logic.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -2032,8 +2042,10 @@ https://github.com/alex-shpak/hugo-book
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-107---ｌｏｇｉｃ--functions">Chapter 10.7 - ＬＯＧＩＣ &amp; Functions</a>
       <ul>
@@ -2070,14 +2082,14 @@ https://github.com/alex-shpak/hugo-book
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

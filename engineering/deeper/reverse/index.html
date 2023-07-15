@@ -32,6 +32,7 @@ for me personally:
 know some assembly, and in particular make sure you know the calling conventions for your platform.
 when starting out, do it on binaries you can actually run in a debugger and see what&rsquo;s actually happening at runtime.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -53,11 +54,13 @@ when starting out, do it on binaries you can actually run in a debugger and see 
 <title>Reverse | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -72,18 +75,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -536,7 +544,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -565,7 +573,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-35---reverse-engineering">Chapter 35 - Reverse Engineering</a>
       <ul>
@@ -583,6 +592,7 @@ https://github.com/alex-shpak/hugo-book
     <li><a href="#342---resources">34.2 - Resources</a></li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -672,19 +682,20 @@ Not particular tools necessarily, but like theory and how to think
 <p>These let you take a compiled program and work your way back to source code&hellip; slowly. Of course, this sometimes isn&rsquo;t necessary. Hell, sometimes you just need to throw <code>strings</code> at the problem. Other times, the reverse engineering tool won&rsquo;t be enough, and you may need to throw <a href="https://github.com/horsicq/Detect-It-Easy">DIE</a>, <a href="https://github.com/endrazine/wcc">WCC</a>, <a href="https://github.com/ReFirmLabs/binwalk">Binwalk</a>, <a href="https://docs.pwntools.com/en/stable/">pwntools</a>, etc. at the problem. Of course, you shouldn&rsquo;t forget about watching the actually active state about the problam either, so GDB is still your friend - and <a href="https://rr-project.org">rr</a> and <a href="https://gef.readthedocs.io/en/master/">gef</a> make great companions to GDB. Other times, <a href="https://www.cheatengine.org">cheatengine</a> may be useful for finding an important piece of memory, Valgrind for finding when memory goes wrong, and you&rsquo;ve always got <code>strace</code> &amp; <code>ltrace</code> handy. Keep in mind that there may be special binary reversing tools for your platform too, like apktool or</p>
 <p>Resource hacker may be handy too.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     If all else fails, there&rsquo;s always the ever-unfriendly hex-editor at your disposal, or <a href="https://github.com/Mahlet-Inc/hobbits">Hobbits (GitHub)</a> if you&rsquo;re feeling fancy.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="https://github.com/Mahlet-Inc/hobbits/raw/master/docs/hobbits_screenshot.png" alt="" /></p>
 <p class="attribution ">
     Example image from <a href="https://github.com/Mahlet-Inc/hobbits">the Hobbits Github repo</a>
 </p>
+<p>There&rsquo;s also <a href="https://github.com/wader/fq">fq</a> which is a super nice tool for working with binary formats. Or maybe <a href="http://www.jemarch.net/poke">Poke</a>.</p>
 
   </div>
-  
+
 </div>
 
 <h4 id="networking">
@@ -747,27 +758,27 @@ Not particular tools necessarily, but like theory and how to think
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Deeper/reverse.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Deeper/reverse.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -785,8 +796,10 @@ Not particular tools necessarily, but like theory and how to think
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-35---reverse-engineering">Chapter 35 - Reverse Engineering</a>
       <ul>
@@ -805,14 +818,14 @@ Not particular tools necessarily, but like theory and how to think
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

@@ -30,6 +30,7 @@
 <meta name="description" content="Chapter 2: The Digital # Alright, now onto the fun stuff, I think I&rsquo;ve established that the physical side of how we use a computer is sub optimal, but what about how we actually do the things we do day to day? I think, for the most part, these things can be put into a few categories:
 Finding and Accessing shit Looking at shit Storing Shit Transferring Shit Making Shit Finding and Accessing Information Sucks # Search sucks # If you&rsquo;re like most people, you probably use Google Search, but also don&rsquo;t like Google Search.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -49,11 +50,13 @@ Finding and Accessing shit Looking at shit Storing Shit Transferring Shit Making
 <title>Digital | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -68,18 +71,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -532,7 +540,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -561,7 +569,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -630,6 +639,7 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
+
   </aside>
   
  
@@ -666,17 +676,17 @@ https://github.com/alex-shpak/hugo-book
 <p><img src="/hci/resultcount.webp" alt="" /></p>
 <p>So, what can be done about this? Well, there&rsquo;s already a fair amount of advanced search options:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/searchopts.webp" alt="" />
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/hci/advsearch.webp" alt="" /></p>
 <p>But I honestly think these more or less miss the point of how people want to search, not to mention they&rsquo;re not super easy to remember. Being able to take things out in large swaths is often rather helpful, so why are there not options like NO_SOCIAL to get rid of all social media results.</p>
 
   </div>
-  
+
 </div>
 
 <p>On a similar note, <a href="https://news.ycombinator.com/item?id=23202850">Ask HN: Is there a search engine which excludes the world&rsquo;s biggest websites?</a> was posted a while back, and I agree with idea: often I can find better information on smaller sites, so I think there should be an option to just say NO_10K to drop the top 10 thousand most popular sites from the search results. I don&rsquo;t know if this is really the right way to do this though. Fortunately, I do think the resurgence of <a href="https://en.wikipedia.org/wiki/Webring">Webrings</a> is improving that a bit.</p>
@@ -752,7 +762,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 <div class="tip ">
     Note, those USB security keys have updated in standard. The newer ones which support WebAuthn are a bit more expensive and less common. The standards are confusing to understand, but the TLDR is you want something that supports WebAuthn/FIDO2.</br>The older standard, U2F, is a two factor system while the FIDO2/Webauth keys can outright replace passwords on the service
 </div>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   <p>If you really want advice on what to use for your personal, daily password storage needs I think <a href="https://keepassxc.org">keepassxc</a> is probably the best option at the moment, though it&rsquo;s still a tad awkward.</p>
 <p>For advice on security and privacy see the 
 <a  href="/engineering/networking/security/"   class="book-btn ">
@@ -771,19 +781,19 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
   <a class="anchor" href="#authorization">#</a>
 </h4>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/character/shade/hack.webp" alt="Vega hacking on a laptop">
 <p class="attribution ">
     Character owned by Vega, art by <a href="https://twitter.com/shadepiplup10">Shade</a>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>Put simply, we need easier to use, fine grain authorization settings that can&rsquo;t be bypassed. I should be able to tell a program, website, or app that I don&rsquo;t want to give it my location, and then, if it asks anyway it should be fed garbage. Refusal should also not stop access to that service<a class="ptr">(1)</a>. Similarly for storage, microphone, contacts, etc.</p>
 <p>Newer versions of Android actually do this really well, including the ability to only grant those permissions for that session. This is amazing. It&rsquo;s not <em>perfect</em>, far from it. Like, Bluetooth requires location permissions and, unless you&rsquo;re on a rooted phone, there are some permissions the user can&rsquo;t even give. That&rsquo;s a load of shit, but I&rsquo;ll come back to that.</p>
 
   </div>
-  
+
 </div>
 
 <h3 id="content-linkage-sorta-sucks">
@@ -804,11 +814,11 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
     <a href="http://wiki.polyfra.me#">WikiGalaxy: Explore Wikipedia in 3D</a> (<a href="https://www.wikiverse.io">wikiverse.io</a> is very similar and worth checking out too)
 </p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Obviously this overly linked system is something that people would need to get used to. Until the advent of the WWW we&rsquo;ve read information linearly, page by page. The web has allowed this tree traversal style of navigation so that any missed topic can be reviewed, but generally this is a system where the tree only builds down, to simpler information, from the current node.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <div>
 <img src="/hci/Azlen.webp" style="border-radius:10px 10px 0px 0px;display: block;">
@@ -819,7 +829,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 </p>
 
   </div>
-  
+
 </div>
 
 <p>It seems weird to think about an algebra book where it suddenly references multidimensional calculus, but this is exactly what I&rsquo;m implying. In my education there was uncountable times I had to learn something because &lsquo;it will be used later&rsquo; with no explanation as to how or why. Linking back up the tree allows for information traversal in both directions, eliminating this problem.</p>
@@ -831,15 +841,15 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 <p><img src="/hci/gemini.webp" alt="" /></p>
 <p>This is the home page for a project called <a href="https://gemini.circumlunar.space">Gemini</a>, which is a sort of alternative internet, but, wait, hang on&hellip;</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/gemini2.webp" alt="" />
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/gemini3.webp" alt="" />
   </div>
-  
+
 </div>
 
 <p>These are both that same page, loaded in different browsers. Why do they look different?</p>
@@ -948,19 +958,19 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 </h3>
 <p>If I have to spend more than a fraction of a second to process what is being shown to me is an ad, it should be fucking illegal. If you want to put ads mixed into the content, then it should be required to be a lot of a lot more visually obvious.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><strong>Original:</strong></p>
 <p><img src="/hci/adbado.webp" alt="" /></p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><strong>Edited:</strong></p>
 <p><img src="/hci/adbade.webp" alt="" /></p>
 
   </div>
-  
+
 </div>
 
 <p>Here the original at least has some color differentiation (Using the Boost app to view Reddit) but on the official Twitter client I actually have to stop and look to avoid accidentally clicking an ad link. That&rsquo;s some bull shit.</p>
@@ -1061,7 +1071,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
   <a class="anchor" href="#cloud-storage-is-a-terrible-idea">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>To keep the core of this issue brief: The cloud is just someone else&rsquo;s computer. You can never be certain of what they&rsquo;ll do to your data.</p>
 <p>You can&rsquo;t be sure they won&rsquo;t have some random DMCA complaint take something down.</p>
@@ -1071,13 +1081,13 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 <p style="text-align: center;"> Just don't put your data in the cloud.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/character/yellsatcloud2.webp" alt="Old Vega Yells at Cloud">
 <p class="attribution ">
     Character owned by Vega, art by <a href="https://twitter.com/Talon_Creations">Talon Creations</a> and Vega
   </div>
-  
+
 </div>
 
 <p>That said, I will admit two valid uses:</p>
@@ -1229,7 +1239,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 </h3>
 <p>WYSIWYG (pronounced wizzy-wig) or <strong>W</strong>hat <strong>Y</strong>ou <strong>S</strong>ee <strong>I</strong>s <strong>W</strong>hat <strong>Y</strong>ou <strong>G</strong>et editors (usually for text and images) are those that do their best to make sure that what you see in the software directly relates to what you&rsquo;d get if you printed it out or sent it to someone else - Like Microsoft Word. Unfortunately, it&rsquo;s often true that WYSINWYW <strong>W</strong>hat <strong>Y</strong>ou <strong>S</strong>ee <strong>I</strong>s <strong>N</strong>ot <strong>W</strong>hat <strong>Y</strong>ou <strong>W</strong>ant. That is, controlling software like Word is a massive pain in the ass. So While WYSIWYG sounds great in theory, it&rsquo;s often hard to use, a menu-dive hell, and is slow compared to something more limited like Markdown. Markdown is what this website uses, in a nut shell</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>You write text like this</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -1272,7 +1282,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 </div>
 </div>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>And it turns into this</p>
 <h1 id="title">
@@ -1312,7 +1322,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 </blockquote>
 
   </div>
-  
+
 </div>
 
 <p>The advantage here being that once you&rsquo;ve memorized the special characters for formatting, they&rsquo;re really, really fast to type. Plus, if you want to change the style of the content you can just change the way it&rsquo;s rendered - for this website that&rsquo;s defined with the CSS (the &ldquo;style sheet&rdquo; of a website) but in an exported document to PDF a given markdown editor probably has a dozen different themes to choose from.</p>
@@ -1336,13 +1346,13 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 <p>Say you&rsquo;re working in Krita making some digital art and want to load your file into Affinity Photo to use it&rsquo;s lighting system on your art. Well, you <em>can</em> do this. One option would be to export the file from Krita as a final render, probably as a .PNG, trust that you wont find anything you won&rsquo;t have to go back and change, and do what you need to do. Another option is to <del>ab</del>use the .PSD format (<strong>P</strong>hoto<strong>s</strong>hop <strong>D</strong>ocument) which is, uh, <a href="https://github.com/gco/xee/blob/4fa3a6d609dd72b8493e52a68f316f7a02903276/XeePhotoshopLoader.m#L108">not a good format</a>. This would preserve the layer structure which will allow for more advanced editing, but is clearly not great.</p>
 <p>So, I&rsquo;m just arguing for standardized file formats, right?</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/nonfree/character/shade/yesbutno.webp" alt="Vega hacking on a laptop">
 <p class="attribution ">
     Character owned by Vega, art by <a href="https://twitter.com/shadepiplup10">Shade</a>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>Standardized file formats, where possible, do help. But I also realize why we don&rsquo;t have them. Sometimes you want a new feature that just doesn&rsquo;t have a place in the current format. If we wanted a generic format that worked everywhere, the format would effectively have to be able to include arbitary binaries in it to work on everything. So, uh, that doesn&rsquo;t work.</p>
 <p>Instead, what I&rsquo;d like to see is software that does three things to work around this:</p>
@@ -1351,7 +1361,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 <p><strong>Third,</strong> actions taken in software should be a log of events to recrate the final product (caching expensive actions as possible), not the actual result.</p>
 
   </div>
-  
+
 </div>
 
 <p>If you combine these three things, it would mean that <em>multiple</em> programs could actively work on the same file at the same time. They just have to look through the shared log file and perform their actions in order according to the log.</p>
@@ -1374,7 +1384,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 <p>Seriously. This idea just blows my mind. If we let data get re-intrepted as things it&rsquo;s not supposed to be, the options are nuts.</p>
 <p>Both would and should behave in strange way, and it&rsquo;s this very lack of defined behavior that could lead to interesting art forms. I&rsquo;d love to see a &lsquo;Master&rsquo; API that works across all formats and ideas with a common data type that allows for program⟺program, program⟺extension, program⟺hardware, etc. communication even in long, complicated chains. After all, if you&rsquo;ve taken a signals and systems course you know that basically any data can be treated as a signal.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>As for what this would actually look like, having an operating system which presents - as a core to the functionality - some sort of node based programming system would work. While I don&rsquo;t actually know how to use it, I think <a href="https://enso.org/#Overview">Enso</a> demonstrates this concept fairly well:</p>
 <p>If you&rsquo;d like to try it, you&rsquo;ll want to watch <a href="https://www.youtube.com/watch?v=3f6FE1dgMNw&amp;list=PLk8NuufOVK01GhaObYr1_gqeASlkj2um0">The tutorial video on YouTube</a>.</p>
@@ -1383,11 +1393,11 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 </p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/hci/enso.webp" alt="Luna" />
   </div>
-  
+
 </div>
 
 <p>though there are plenty of other examples, like the node editors used for making shaders or programming in Unreal Engine.</p>
@@ -1426,7 +1436,7 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 </h2>
 <p>Like many things in this far-to-long article, this could be post on its own, but I do think it&rsquo;s necessary to bring up the fact that there&rsquo;s an on going war against general purpose computation. If you&rsquo;ve got an hour to kill (or half an hour if you can tolerate 2x speed), this video is basically required viewing:</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/HUEvRyemKSg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   <p>A few notes on this video.</p>
 <p><a href="https://en.wikipedia.org/wiki/Stop_Online_Piracy_Act">SOPA</a>, the Stop Online Piracy Act, is mentioned because at the time it was a big deal. Thankfully, it was indeed stopped.</p>
 <p><a href="https://en.wikipedia.org/wiki/Illegal_number">Illegal Numbers</a> are a thing, and the history of them is incredibly interesting</p>
@@ -1453,27 +1463,27 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Other/HCI2/digital.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Other/HCI2/digital.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1491,8 +1501,10 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -1560,14 +1572,14 @@ Fast forward 10+ years and for knowledge-related queries search is going to be m
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

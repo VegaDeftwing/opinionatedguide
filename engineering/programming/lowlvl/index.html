@@ -31,6 +31,7 @@
 &lsquo;C Programming&rsquo; on badd10de.dev
 Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular(1). Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -51,11 +52,13 @@ Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;
 <title>Lowlvl | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -70,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -534,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -563,7 +571,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-14---low-level-programming">Chapter 14 - Low Level Programming</a>
       <ul>
@@ -599,6 +608,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -834,18 +844,18 @@ Hello World!
 <p>C is a statically typed language, this means that each variable has a defined type, but also that each function has a defined type it returns and expects to be given.</p>
 <p>so, with <code>int main() {</code> we&rsquo;re saying the <code>main()</code> function will return an integer. Skipping ahead a bit, we can see this is the case, as on line 5, <code>return(0)</code> it does exactly that, but, why?</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Let&rsquo;s run our code as is (<code>./hello</code>), then change this return code to <code>return(2);</code>, recompile with <code>gcc hello.cpp -o hello</code> and run <code>./hello</code> again.</p>
 <p>See that little <code>2 ↵</code> in my terminal? That&rsquo;s the return code, but why did it get printed?</p>
 <p>Well, when the program exits, it returns that number to the process that called it (In this case the shell - read up on shell vs terminal in Appendix A1) and if this number is anything but <code>0</code> the shell prints it, because anything but <code>0</code> is assumed to be an error condition, and that this number may indicate what that error was. So, if we know getting to that <code>return(0)</code> signifies that our program ran correctly, we should, in fact, return <code>0</code>.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/eng/returncodes.png" alt="Return Codes" height="300em"></br>
   </div>
-  
+
 </div>
 
 <p>Okay, So, other than the closing curly brace (<code>}</code>) on line <strong>6</strong> that defines the end of main, with</p>
@@ -874,7 +884,7 @@ Hello World!
 <p>Okay, so, we now have almost everything, last up is just the string that we&rsquo;re printing to the terminal, which is <code>&quot;Hello World!\n&quot;</code></p>
 <p>But what&rsquo;s with that <code>\n</code> on the end? Well, to understand this line we&rsquo;ll need our helpful friend, the ASCII table.</p>
 <img src="/eng/ASCII-Table-wide.svg" alt="Arch Logo" height="600em" style="-webkit-filter: invert(100%);">
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   On most unix based systems, you can access this at any time by running <code>man ascii</code>
 </blockquote>
 
@@ -1095,7 +1105,7 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
 </h4>
 <p>Yeah, it&rsquo;s literally named after the fluff you&rsquo;d find in your hoodie pockets, but, it&rsquo;s still a super necessary tool. A &lsquo;Linter&rsquo; is a <a href="https://en.wikipedia.org/wiki/Static_program_analysis">static analysis</a> tool, basically it makes sure your code is good before you run it. There&rsquo;s a whole bunch of linters out there. As a pretty stupid example, let&rsquo;s look at this python:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Here&rsquo;s our stupid simple example, here we want a program to show us the output of sin(1&hellip;10)</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -1120,7 +1130,7 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
 <pre tabindex="0"><code>&lt;div style=&#34;float: left; width: 30%;&#34;&gt;
 </code></pre>
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>This code intentionally has a few issues stopping it from running, thankfully the Linter, in my case VSCode&rsquo;s Pylance, found them both:</p>
 <pre tabindex="0"><code>[5,9]  : &#34;math&#34; is not defined
@@ -1150,7 +1160,7 @@ first checks a &lsquo;meta&rsquo; entry to see if the python code to change a pu
 </div>
 </div>
   </div>
-  
+
 </div>
 
 <p>now running our code yields this:</p>
@@ -1167,7 +1177,7 @@ the value of sine( 9 ) is  0.4121184852417566
 </code></pre><p>But, remember I said we want sine(1&hellip;10)? The linter no longer has any problems listed, so what&rsquo;s up? Well, that&rsquo;s a limit of static analysis, it can only find errors that occur statically and it&rsquo;s not able to read your mind. Here, the issue is that python&rsquo;s <code>range()</code> function is inclusive of the first number, and not the second, so it should be <code>range(1,11)</code> to work correctly.</p>
 <p>So, what can and can&rsquo;t static analysis do (with some exceptions depending on language and linter):</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p><strong>STATIC ANALYSIS CAN:</strong></p>
 <ul>
@@ -1193,7 +1203,7 @@ the value of sine( 9 ) is  0.4121184852417566
 </ul>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><strong>STATIC ANALYSIS CAN NOT:</strong></p>
 <ul>
@@ -1209,7 +1219,7 @@ the value of sine( 9 ) is  0.4121184852417566
 </ul>
 
   </div>
-  
+
 </div>
 
 <hr>
@@ -1225,13 +1235,13 @@ the value of sine( 9 ) is  0.4121184852417566
   <a class="anchor" href="#analyzing-the-assembly">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>[TODO]</p>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id tellus ultricies, tempor mi interdum, pulvinar orci. Proin volutpat tincidunt tellus, facilisis iaculis elit scelerisque vel. Integer auctor vulputate augue non vulputate. Duis id orci ac tortor sollicitudin semper. Sed vulputate ipsum in eros semper laoreet. Praesent justo odio, porttitor non rutrum vitae, dignissim vitae augue. Cras aliquam mi sit amet massa accumsan viverra. Sed nec malesuada libero, vel vestibulum lacus. Sed in facilisis turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis tempus lacus. Proin fringilla bibendum erat. Nullam auctor efficitur lacinia. Donec dapibus, tellus sed porta facilisis, sem magna maximus odio, quis semper purus orci interdum velit. Nulla et maximus urna. Maecenas sed nibh in ligula rutrum fringilla.</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p><img src="/nonfree/permissiongranted/awrhey.jpeg" alt="awrhey" /></p>
 <p class="attribution ">
@@ -1239,7 +1249,7 @@ the value of sine( 9 ) is  0.4121184852417566
 </p>
 
   </div>
-  
+
 </div>
 
 <p>[TODO]</p>
@@ -1257,17 +1267,17 @@ the value of sine( 9 ) is  0.4121184852417566
 <p>[TODO]</p>
 <p><a href="https://github.com/rby90/Project-Based-Tutorials-in-C">https://github.com/rby90/Project-Based-Tutorials-in-C</a></p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/fairuse/twitter/foglebird.webp" alt=" " style="border-radius:25px;">
 <p class="attribution ">
     <a href="https://twitter.com/FogleBird/status/954464508705234944">@FogleBird</a>
   </div>
-  
+
 </div>
 
 <p><a href="https://www.youtube.com/watch?v=p8u_k2LIZyo">Fast Inverse Square Root - A Quake III Algorithm (YouTube)</a></p>
@@ -1287,27 +1297,27 @@ the value of sine( 9 ) is  0.4121184852417566
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/lowlvl.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Engineering/Programming/lowlvl.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1325,8 +1335,10 @@ the value of sine( 9 ) is  0.4121184852417566
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#chapter-14---low-level-programming">Chapter 14 - Low Level Programming</a>
       <ul>
@@ -1363,14 +1375,14 @@ the value of sine( 9 ) is  0.4121184852417566
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 

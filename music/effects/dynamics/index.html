@@ -31,6 +31,7 @@
 Dynamics &amp; Transients # When thinking of effects, our lil&rsquo; brains like to think about them as being volume and having a nice simple relationship with what comes out. Distortions are not that.
 First, they do sound massively different depending on how much volume and the frequency content on the input. That&rsquo;s why in the above video he mentions that putting an EQ before and after a distortion that would normally cancel each other out can still sound wildly different than no EQ at all.">
 <meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
 
 
 
@@ -51,11 +52,13 @@ First, they do sound massively different depending on how much volume and the fr
 <title>Dynamics | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.585cd49dd3e5346a69be291292cefd26fa72c2f4e9b4e58edc50c7f118b20048.css" integrity="sha256-WFzUndPlNGppvikSks79JvpywvTptOWO3FDH8RiyAEg="><!--
+<link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+<!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
-
   <script src="/sw-register.js"></script>
 </head>
 
@@ -70,18 +73,23 @@ https://github.com/alex-shpak/hugo-book
         
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c6f9eeb56e4645ee9ca07afbee7e0462"}'></script>
-
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
     <aside class="book-menu">
-      
+        
   <nav>
 <h2 class="book-brand">
   <a href="/"><img src="/nonfree/logo/opguide2.png" alt="Logo" id="logo" style="float: left; margin: 10px 10px 0px 0px;" /><span>Opinionated Guides</span>
   </a>
 </h2>
 
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
 
 
 
@@ -534,7 +542,7 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-  <script>(function(){var e=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+  <script>document.addEventListener("DOMContentLoaded",function(){var n=localStorage.getItem("storedScrollTop"),t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu after DOM element:",t),t.scrollTop=n}),window.onbeforeunload=function(){var t=document.querySelector("body > main > aside.book-menu > nav");console.log("Menu bufore unload element:",t),localStorage.setItem("storedScrollTop",t.scrollTop)}</script>
 
 
  
@@ -563,7 +571,8 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  <nav id="TableOfContents">
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#dynamics">Dynamics</a>
       <ul>
@@ -598,6 +607,7 @@ https://github.com/alex-shpak/hugo-book
     </li>
   </ul>
 </nav>
+
 
 
   </aside>
@@ -730,18 +740,18 @@ canvas {
   <a class="anchor" href="#waveshaping">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <p>Wave shaping is a pretty broad term, but usually it refers to a method of mapping a wave onto another. It&rsquo;s basically just a function, like you&rsquo;ve seen in math class, if you think y=x, that&rsquo;s a simple 45° slope, and that corresponds to this:</p>
 <hr>
 <p>The dashed line represents an example input and output. Because here the line is that simple x=y the input and output values are exactly the same. If we change this line to be something else though, that&rsquo;s where the magic happens</p>
 
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/waveshaper.svg" alt="waveshaper" />
   </div>
-  
+
 </div>
 
 <p><img src="/music/waveshaping.gif" alt="waveshaping" /></p>
@@ -764,17 +774,17 @@ canvas {
   <a class="anchor" href="#wavefolding">#</a>
 </h3>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/wavefolding.gif" alt="" />
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <p>This is one of those things where while the name is pretty self-descriptive, you sorta just have to see the signal on a scope and hear it to see what it does.</p>
 <p>Like any distortion, it ultimately adds in more harmonics, so it will make any sound you give it have a lot more high frequency content; however, folding in particular adds a ludicrous amount, so much so they&rsquo;re sort of deemed &ldquo;Anti-Filters&rdquo;.</p>
 
   </div>
-  
+
 </div>
 
 <p>Wavefolding eats the transition between high and low, the slopes, so with a square wave it has nothing to grab onto and so does nothing except for maybe changing the level. Because of this, you&rsquo;ll usually see simple waves forms like sines fed into wavefolders, like sines, triangles, and saws.</p>
@@ -870,15 +880,15 @@ canvas {
 </h4>
 <p>There are two very super simple ways to get an octave up effect, the easiest to understand is <strong>rectification</strong>:</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     What this means is to take the negative bit and flip it positive - here, the blue sine wave is rectified to make the red wave:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/rectification.svg" alt="rectification" />
   </div>
-  
+
 </div>
 
 <p>Now, remember frequnecy = pitch = how often does the signal repeat. If it repeats twice as often that&rsquo;s twice the frequency or up 1 octave. If it repeats 3 times as fast, that&rsquo;s up two octaves, and so on.  So by doing this we&rsquo;ve made a new signal, one octave up.</p>
@@ -889,15 +899,15 @@ canvas {
 </ol>
 <p>The other way you can do it is by what the audio world calls &ldquo;Ring Mod&rdquo; but is really just multiplying two signals together. Now, Ring Mod can, and usually does, sound totallllllly different from an octave effect. Typically an entirely different signal is multiplied with the input, causing what&rsquo;s effectively a tremolo-that-can-invert-the signal effect, but really fast. Despite usually being done with analog electronics, this sounds similar to sample-rate-reduction (Some of what makes Lo-Fi sound Lo-Fi) &hellip; anyway&hellip;. Ring Mod <em>can</em> give an octave effect if you just multiply the signal with itself.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     If you&rsquo;re wondering why that works, it&rsquo;s because -1 * -1 = 1. That is, we&rsquo;re still rectifying the signal (making the negative bits positive) but we&rsquo;re doing it in a different way.
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/ringmodoctave.svg" alt="ringmodoctave" />
   </div>
-  
+
 </div>
 
 <p>The result is a much &ldquo;cleaner&rdquo; octave sound, as you can see, the output is a lot closer to the input this time. Depending on how this is done, it may also be inverted first - imagine flipping the red wave. The effect is nearly identical in sound if inverted, but may change how other effects in the chain respond.</p>
@@ -906,28 +916,28 @@ canvas {
   <a class="anchor" href="#octave-down">#</a>
 </h4>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     The easiest way to generate a signal an octave down is to just set some threshold and flip a signal every other time that threshold is crossed. Effectively, this means counting how many peaks you see and generating a square wave at half that frequency:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/basicsuboctave.svg" alt="basicsuboctave" />
   </div>
-  
+
 </div>
 
 <p>This, uh, isn&rsquo;t great? If out input was a square wave, awesome, we just got a perfect square an octave down back out. If it was anything else&hellip; we also just got a square. This <em>can</em> sound good, but isn&rsquo;t always what you want.</p>
 <div class="book-columns flex flex-wrap">
-  
+
   <div class="flex-even markdown-inner">
     Another option is to use that output square wave to allow the original signal though or not:
   </div>
-  
+
   <div class="flex-even markdown-inner">
     <img src="/music/bettersuboctave.svg" alt="bettersuboctave" />
   </div>
-  
+
 </div>
 
 <p>And that&rsquo;s getting a lot better, but most analog octave effects will be a bit fancier than this,</p>
@@ -1044,7 +1054,7 @@ canvas {
 </h2>
 <p><a href="https://patches.zone/compression-guide">The Animated Guide To Compression (patche.zone)</a> is a great place to start, but if you still need more, I recommend reading on:</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/BIVfpsoPnOo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<blockquote class="book-hint info ">
+<blockquote class="book-hint info">
   The above is a 3 part series that explains compressors better than anything I can really write here
 </blockquote>
 
@@ -1092,27 +1102,27 @@ canvas {
       <footer class="book-footer">
         
   <div class="flex flex-wrap justify-between">
-
-
-
-
-
-  <div>
-    <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Effects/dynamics.md" target="_blank" rel="noopener">
-      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
-      <span>Edit this page</span>
-    </a>
+  
+  
+  
+  
+  
+    <div>
+      <a class="flex align-center" href="https://github.com/VegaDeftwing/OpGuidesHugoSrc/tree/main/content//Music/Effects/dynamics.md" target="_blank" rel="noopener">
+        <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+        <span>Edit this page</span>
+      </a>
+    </div>
+  
   </div>
-
-</div>
-
-<hr/>
-<span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
-<p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
-</footer>
-
-<div id="webmentions"></div>
-
+  
+  <hr/>
+  <span><a href="https://webring.xxiivv.com/#random" target="_blank"><img id="webring-img" src="https://webring.xxiivv.com/icon.white.svg" style="width:100px;height:100px;opacity: .7;"/></a> </span>
+  <p>If you would like to support my development of OpGuides, please consider supporting me on <a href="https://github.com/sponsors/VegaDeftwing">GitHub Sponsors</a> or dropping me some spare change on Venmo @vegadeftwing - every little bit helps ❤️</p>
+  </footer>
+  
+  <div id="webmentions"></div>
+  
  
         
       </footer>
@@ -1130,8 +1140,10 @@ canvas {
 
     
     <aside class="book-toc">
-      
-  <nav id="TableOfContents">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
   <ul>
     <li><a href="#dynamics">Dynamics</a>
       <ul>
@@ -1167,14 +1179,14 @@ canvas {
   </ul>
 </nav>
 
+
  
+      </div>
     </aside>
     
   </main>
-
   
 </body>
-
 </html>
 
 
