@@ -56,7 +56,7 @@ when starting out, do it on binaries you can actually run in a debugger and see 
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.d314462a84654c65fbf01d86ac715f79e4004a11f33ed9d5901ef1f74d742449.js" integrity="sha256-0xRGKoRlTGX78B2GrHFfeeQAShHzPtnVkB7x9010JEk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -495,6 +495,21 @@ https://github.com/alex-shpak/hugo-book
                   <hr>
             
               <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/music/">music</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">9</dt>
+              </li>
+            
+              <li class="flex justify-between">
                 <dd><a href="/tags/technical/">technical</a><dt>
                 <dd class="blogdd" style="color: #fff;">11</dt>
               </li>
@@ -505,11 +520,6 @@ https://github.com/alex-shpak/hugo-book
               </li>
             
               <li class="flex justify-between">
-                <dd><a href="/tags/personal/">personal</a><dt>
-                <dd class="blogdd" style="color: #fff;">8</dt>
-              </li>
-            
-              <li class="flex justify-between">
                 <dd><a href="/tags/school/">school</a><dt>
                 <dd class="blogdd" style="color: #fff;">2</dt>
               </li>
@@ -517,11 +527,6 @@ https://github.com/alex-shpak/hugo-book
               <li class="flex justify-between">
                 <dd><a href="/tags/politics/">politics</a><dt>
                 <dd class="blogdd" style="color: #fff;">2</dt>
-              </li>
-            
-              <li class="flex justify-between">
-                <dd><a href="/tags/meta/">meta</a><dt>
-                <dd class="blogdd" style="color: #fff;">1</dt>
               </li>
             
             </dil>
@@ -641,11 +646,11 @@ Not particular tools necessarily, but like theory and how to think
 <p>Also, symbols obviously help- not just exported/local symbols either. Use imports! if something&rsquo;s passed as the first argument to <code>open</code>, that&rsquo;s a filename.</p>
 <ol start="2">
 <li>structs structs structs structs. again, binary ninja does really well here because it propagates type information. but for most binaries I encounter, figuring out a handful of structs and looking at how they&rsquo;re passed between functions pretty much makes it clear exactly what&rsquo;s going on.</li>
-<li>DON&rsquo;T GET STUCK. if you can&rsquo;t figure out roughly what a function does (enough to give it a name) within a few minutes or so of looking at it, bookmark the function and move on- reverse other stuff. Very good chance that&rsquo;ll make it obvious what the function does. If not - remember why you are reversing this binary. If you&rsquo;re doing it to hunt for vulns&hellip; does the function handle user input or do security-critical things? If not, MOVE ON.</li>
-<li>Cheat! see an interesting string? Google it, and search GitHub for it! You never know where open-source code pops up&hellip; (or where some helpful engineer has accidentally put proprietary code on GitHub). Not sure what protocol something&rsquo;s using? Look up the company&rsquo;s engineers on LinkedIn- what do they have experience with? Don&rsquo;t be afraid to use things other than the specific binary you&rsquo;re reversing to figure out how it works.</li>
+<li>DON&rsquo;T GET STUCK. if you can&rsquo;t figure out roughly what a function does (enough to give it a name) within a few minutes or so of looking at it, bookmark the function and move on- reverse other stuff. Very good chance that&rsquo;ll make it obvious what the function does. If not - remember why you are reversing this binary. If you&rsquo;re doing it to hunt for vulns… does the function handle user input or do security-critical things? If not, MOVE ON.</li>
+<li>Cheat! see an interesting string? Google it, and search GitHub for it! You never know where open-source code pops up… (or where some helpful engineer has accidentally put proprietary code on GitHub). Not sure what protocol something&rsquo;s using? Look up the company&rsquo;s engineers on LinkedIn- what do they have experience with? Don&rsquo;t be afraid to use things other than the specific binary you&rsquo;re reversing to figure out how it works.</li>
 </ol>
 <hr>
-<p>oh also if you see a function with loads of xrefs to it that seems really complicated, maybe does a bunch of bitwise operations, maybe uses weird vector instructions you don&rsquo;t understand, and takes at least one pointer as an argument&hellip; it&rsquo;s probably memcpy/memset/bzero/str[n]len/str[n]cpy. if it&rsquo;s not obviously something else, assume it is - if its prototype matches memcpy&rsquo;s, call it memcpy_maybe and DON&rsquo;T GET STUCK trying to figure it out exactly unless something else means you need to (e.g. if a vuln would be exploitable only if it&rsquo;s strncpy instead of memcpy</p>
+<p>oh also if you see a function with loads of xrefs to it that seems really complicated, maybe does a bunch of bitwise operations, maybe uses weird vector instructions you don&rsquo;t understand, and takes at least one pointer as an argument… it&rsquo;s probably memcpy/memset/bzero/str[n]len/str[n]cpy. if it&rsquo;s not obviously something else, assume it is - if its prototype matches memcpy&rsquo;s, call it memcpy_maybe and DON&rsquo;T GET STUCK trying to figure it out exactly unless something else means you need to (e.g. if a vuln would be exploitable only if it&rsquo;s strncpy instead of memcpy</p>
 
     </p>
 </div>
@@ -679,7 +684,7 @@ Not particular tools necessarily, but like theory and how to think
   <a class="anchor" href="#binaries">#</a>
 </h4>
 <p>As for software, the big one is an executable reverse engineering tool like Radare2, Cutter, Ida, BinaryNinja, etc.</p>
-<p>These let you take a compiled program and work your way back to source code&hellip; slowly. Of course, this sometimes isn&rsquo;t necessary. Hell, sometimes you just need to throw <code>strings</code> at the problem. Other times, the reverse engineering tool won&rsquo;t be enough, and you may need to throw <a href="https://github.com/horsicq/Detect-It-Easy">DIE</a>, <a href="https://github.com/endrazine/wcc">WCC</a>, <a href="https://github.com/ReFirmLabs/binwalk">Binwalk</a>, <a href="https://docs.pwntools.com/en/stable/">pwntools</a>, etc. at the problem. Of course, you shouldn&rsquo;t forget about watching the actually active state about the problam either, so GDB is still your friend - and <a href="https://rr-project.org">rr</a> and <a href="https://gef.readthedocs.io/en/master/">gef</a> make great companions to GDB. Other times, <a href="https://www.cheatengine.org">cheatengine</a> may be useful for finding an important piece of memory, Valgrind for finding when memory goes wrong, and you&rsquo;ve always got <code>strace</code> &amp; <code>ltrace</code> handy. Keep in mind that there may be special binary reversing tools for your platform too, like apktool or</p>
+<p>These let you take a compiled program and work your way back to source code… slowly. Of course, this sometimes isn&rsquo;t necessary. Hell, sometimes you just need to throw <code>strings</code> at the problem. Other times, the reverse engineering tool won&rsquo;t be enough, and you may need to throw <a href="https://github.com/horsicq/Detect-It-Easy">DIE</a>, <a href="https://github.com/endrazine/wcc">WCC</a>, <a href="https://github.com/ReFirmLabs/binwalk">Binwalk</a>, <a href="https://docs.pwntools.com/en/stable/">pwntools</a>, etc. at the problem. Of course, you shouldn&rsquo;t forget about watching the actually active state about the problam either, so GDB is still your friend - and <a href="https://rr-project.org">rr</a> and <a href="https://gef.readthedocs.io/en/master/">gef</a> make great companions to GDB. Other times, <a href="https://www.cheatengine.org">cheatengine</a> may be useful for finding an important piece of memory, Valgrind for finding when memory goes wrong, and you&rsquo;ve always got <code>strace</code> &amp; <code>ltrace</code> handy. Keep in mind that there may be special binary reversing tools for your platform too, like apktool or</p>
 <p>Resource hacker may be handy too.</p>
 <div class="book-columns flex flex-wrap">
 
@@ -721,8 +726,8 @@ Not particular tools necessarily, but like theory and how to think
 <li>netcat (or socat)</li>
 <li>Scapy</li>
 <li>Airmon-ng</li>
-<li>&hellip; and your firewall system, be it <a href="https://wiki.archlinux.org/title/iptables">iptables</a> or something else</li>
-<li>&hellip; and your network config tool. On Linux, <code>ip</code>; on Windows, pain &amp; suffering.</li>
+<li>… and your firewall system, be it <a href="https://wiki.archlinux.org/title/iptables">iptables</a> or something else</li>
+<li>… and your network config tool. On Linux, <code>ip</code>; on Windows, pain &amp; suffering.</li>
 </ul>
 <p>With those, you really should be able to about 99% of the reversing &amp; security reseach for networking you&rsquo;d want to do, at least assuming you don&rsquo;t need to setup some crazy, emulated networking environment or that you&rsquo;re not trying to just crack a wifi-password or router password or bypass a captive portal (which is boring <em>and</em> illegal, so not usually worth doing)</p>
 <h4 id="breaking-things-and-watching-them-scream">
@@ -730,7 +735,7 @@ Not particular tools necessarily, but like theory and how to think
   <a class="anchor" href="#breaking-things-and-watching-them-scream">#</a>
 </h4>
 <p>Of course, sometimes you just need to break things to see how they work. For that, having a whole pile of fuzzers tends to come in handy</p>
-<p>Trust me, you&rsquo;ll want a VM of basically every system you can think of ready to go. Windows XP through 11, Arch, Ubuntu, MacOS, android, <em>out of date</em> Ubuntu and Android&hellip; everything. <em>On each of these</em>, you&rsquo;ll want a full suite of system analsis tools. Task Manager and Top isn&rsquo;t going to cut it here - you&rsquo;re gonna want Process Explorer (or Process Hacker), Process Monitor for Windows and htop for Linux at minimum, though <a href="https://github.com/Sysinternals/ProcMon-for-Linux">procmon</a>, <a href="https://github.com/draios/sysdig">sysdig</a>, VmStat, lsof, netstat, iotop, nethogs, pmap, and nmon are all awesome in Linux too. Also, in Windows being able to trigger a BSOD is sometimes nice. For that there&rsquo;s <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/notmyfault">NotMyFault</a> and the good ol&rsquo; <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools">WinDbg</a>. Occasionally, <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/vmmap">vmmap</a> might come in handy as well. Keep in mind that on Linux systems you can dive into /proc, /sys, and /dev to get information too.</p>
+<p>Trust me, you&rsquo;ll want a VM of basically every system you can think of ready to go. Windows XP through 11, Arch, Ubuntu, MacOS, android, <em>out of date</em> Ubuntu and Android… everything. <em>On each of these</em>, you&rsquo;ll want a full suite of system analsis tools. Task Manager and Top isn&rsquo;t going to cut it here - you&rsquo;re gonna want Process Explorer (or Process Hacker), Process Monitor for Windows and htop for Linux at minimum, though <a href="https://github.com/Sysinternals/ProcMon-for-Linux">procmon</a>, <a href="https://github.com/draios/sysdig">sysdig</a>, VmStat, lsof, netstat, iotop, nethogs, pmap, and nmon are all awesome in Linux too. Also, in Windows being able to trigger a BSOD is sometimes nice. For that there&rsquo;s <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/notmyfault">NotMyFault</a> and the good ol&rsquo; <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools">WinDbg</a>. Occasionally, <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/vmmap">vmmap</a> might come in handy as well. Keep in mind that on Linux systems you can dive into /proc, /sys, and /dev to get information too.</p>
 <h4 id="but-what-about-x">
   But what about X?
   <a class="anchor" href="#but-what-about-x">#</a>

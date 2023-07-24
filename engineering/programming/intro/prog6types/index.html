@@ -50,7 +50,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.d314462a84654c65fbf01d86ac715f79e4004a11f33ed9d5901ef1f74d742449.js" integrity="sha256-0xRGKoRlTGX78B2GrHFfeeQAShHzPtnVkB7x9010JEk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -489,6 +489,21 @@ https://github.com/alex-shpak/hugo-book
                   <hr>
             
               <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/music/">music</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">9</dt>
+              </li>
+            
+              <li class="flex justify-between">
                 <dd><a href="/tags/technical/">technical</a><dt>
                 <dd class="blogdd" style="color: #fff;">11</dt>
               </li>
@@ -499,11 +514,6 @@ https://github.com/alex-shpak/hugo-book
               </li>
             
               <li class="flex justify-between">
-                <dd><a href="/tags/personal/">personal</a><dt>
-                <dd class="blogdd" style="color: #fff;">8</dt>
-              </li>
-            
-              <li class="flex justify-between">
                 <dd><a href="/tags/school/">school</a><dt>
                 <dd class="blogdd" style="color: #fff;">2</dt>
               </li>
@@ -511,11 +521,6 @@ https://github.com/alex-shpak/hugo-book
               <li class="flex justify-between">
                 <dd><a href="/tags/politics/">politics</a><dt>
                 <dd class="blogdd" style="color: #fff;">2</dt>
-              </li>
-            
-              <li class="flex justify-between">
-                <dd><a href="/tags/meta/">meta</a><dt>
-                <dd class="blogdd" style="color: #fff;">1</dt>
               </li>
             
             </dil>
@@ -712,7 +717,7 @@ https://github.com/alex-shpak/hugo-book
 </h3>
 <p>Chars are a pain in the ass.</p>
 <p>Historically, a char was always 1 byte, and you <strong>usually</strong> only used 7 bits of each byte for storing text. But, do the math, that&rsquo;s only 2^7 = 128 different characters. Clearly, with things like ∞√αβ🌢░ we have a lot of other things we think of as characters on computers. The confusion is because, historically, computers (mostly) used ASCII for storing text, which was a 7-bit standard and only had that many characters (0-9,a-z,A-Z, special characters, and some control characters, like one to go to the next line) but, we&rsquo;ve pretty much gone past that for all but very limited systems now and instead use Unicode.</p>
-<p>Unicode characters are complicated, but we can talk about that more later, to make my point what&rsquo;s relevant is there are <a href="https://stackoverflow.com/questions/27415935/does-unicode-have-a-defined-maximum-number-of-code-points">1,112,064</a> valid Unicode characters, which, happens to be a bit more than 127 (ever so slightly). What&rsquo;s weirder yet is due to some clever tricks, we can still use 8-bit <em>char</em> data types to represent all of those different points by abusing the 8th, unused-in-ASCII bit to indicate that 7-bit sequences with the 8th bit set are all actually part of the same character. <a href="https://stackoverflow.com/questions/1543613/how-does-utf-8-variable-width-encoding-work">You can read into this more</a>, but this I don&rsquo;t actually want to spend to much time on the specifics of Unicode and UTF-8. Instead, I want to point out that a char is a bad name because it was a datatype named as it was (char = character) because it was assumed to be used with a particular <strong>encoding</strong>. That is, a method of associating data with a meaning. Over time, that encoding fell out of favor, and now we have this mess. Weirder yet, because of this history, in C, we can always assume a char is 1 byte, which is not necessarily true about the other types -  integers defined with <code>int</code> may change how big they can be depending on the platform (On most modern desktops an int is 4 bytes, but on on the Arduino Uno, for example, they&rsquo;re only 2)</p>
+<p>Unicode characters are complicated, but we can talk about that more later, to make my point what&rsquo;s relevant is there are <a href="https://stackoverflow.com/questions/27415935/does-unicode-have-a-defined-maximum-number-of-code-points">1,112,064</a> valid Unicode characters, which, happens to be a bit more than 127 (ever so slightly). What&rsquo;s weirder yet is due to some clever tricks, we can still use 8-bit <em>char</em> data types to represent all of those different points by abusing the 8th, unused-in-ASCII bit to indicate that 7-bit sequences with the 8th bit set are all actually part of the same character. <a href="https://stackoverflow.com/questions/1543613/how-does-utf-8-variable-width-encoding-work">You can read into this more</a>, but this I don&rsquo;t actually want to spend to much time on the specifics of Unicode and UTF-8. Instead, I want to point out that a char is a bad name because it was a datatype named as it was (char = character) because it was assumed to be used with a particular <strong>encoding</strong>. That is, a method of associating data with a meaning. Over time, that encoding fell out of favor, and now we have this mess. Weirder yet, because of this history, in C, we can always assume a char is 1 byte, which is not necessarily true about the other types -  integers defined with <code>int</code> may change how big they can be depending on the platform (On most modern desktops an int is 4 bytes, but on the Arduino Uno, for example, they&rsquo;re only 2)</p>
 <p>Later we&rsquo;ll come back to this idea of standards and associating data to a larger meaning. We&rsquo;ll look at examples like having a list of numbers be interpreted as audio, colors, etc. We&rsquo;ll also briefly look at some hex editors and do some data bending, so buckle up, we&rsquo;re gonna have some fun!</p>
 <p>Before then, unfortunately, we need to suffer though pointers. Everybody hates pointers. You&rsquo;ll soon know why.</p>
 <h2 id="pointers-memory--arrays">
@@ -729,10 +734,10 @@ https://github.com/alex-shpak/hugo-book
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> my_variable <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As you&rsquo;ve been thinking about it so far, you&rsquo;ve probably been think about it like algebra, where this variable is just this abstract concept. That thinking works most of the time, but it&rsquo;s missing something. That variable isn&rsquo;t just abstract, it&rsquo;s bits in memory. There&rsquo;s actual electrical components holding a charge low or high in memory, and, importantly, that memory is at an ADDRESS. when you write <code>int my_variable = 42;</code> the computer grabs a new memory address and stores 42 in it. Any time you go to do something with <code>my_varible</code> what you&rsquo;re actually doing is is accessing the data stored at that address.</p>
+</div><p>As you&rsquo;ve been thinking about it so far, you&rsquo;ve probably been think about it like algebra, where this variable is just this abstract concept. That thinking works most of the time, but it&rsquo;s missing something. That variable isn&rsquo;t just abstract, it&rsquo;s bits in memory. There&rsquo;s actual electrical components holding a charge low or high in memory, and, importantly, that memory is at an ADDRESS. when you write <code>int my_variable = 42;</code> the computer grabs a new memory address and stores 42 in it. Any time you go to do something with <code>my_varible</code> what you&rsquo;re actually doing is accessing the data stored at that address.</p>
 <div class="speech math big">
     <p>
-        Okay, sort of. Technically, what&rsquo;s happening is <em>probably</em> that that variable is getting associated with a CPU register instead of a memory location at first&hellip;. and there&rsquo;s a whole layer of abstraction because of virtual memory. So, yes, for those that are reading this when they already know all of this, this is a simplification. But, shhhh. Let me build up to that.
+        Okay, sort of. Technically, what&rsquo;s happening is <em>probably</em> that variable is getting associated with a CPU register instead of a memory location at first&hellip;. and there&rsquo;s a whole layer of abstraction because of virtual memory. So, yes, for those that are reading this when they already know all of this, this is a simplification. But, shhhh. Let me build up to that.
     </p>
 </div>
 
@@ -952,7 +957,7 @@ A is 0b01<strong>0</strong>00001</p>
 </blockquote>
 
 <p>One of the real fuck-you&rsquo;s with strings (or, character arrays, rather) in C is that if you try to add more characters to them and you didn&rsquo;t make enough room for it to start with, very bad things happen (you&rsquo;ll try to access memory you shouldn&rsquo;t - crashing your program or over writing things you don&rsquo;t mean to).</p>
-<p>For this (and many other reasons) you may want want to declare your array&rsquo;s size directly:</p>
+<p>For this (and many other reasons) you may want to declare your array&rsquo;s size directly:</p>
 <p><code>char my_string[100] = &quot;Hello World\n&quot;</code></p>
 <p>This is different from the above in that the first example made exactly enough space while this one would let us put up to 100 characters in the string. If we know for sure that we won&rsquo;t need the extra space, we don&rsquo;t have to do this (though, if that&rsquo;s the case, this should really be <code>const char my_string[] = &quot;Hello World\n&quot;</code> - we&rsquo;ll get there)</p>
 <p>Also, this lets you declare an array before you use it. For example, if you know you need a place to put data before you&rsquo;ve actually computed it. As a sort of stupid example, this code will make an array with 10 elements and populate each element with the numbers 0, 10, 20, &hellip; 90.</p>

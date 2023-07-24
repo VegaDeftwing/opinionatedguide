@@ -50,7 +50,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.0bb95adf85d41eb9954304c8945bc3d8bd41c8583937c2686fd2a10afae4ae79.css" integrity="sha256-C7la34XUHrmVQwTIlFvD2L1ByFg5N8Job9KhCvrkrnk=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.40c36c194d806e9d6743b550dc6269900717a4af229abad5642ddb3850ff24d9.js" integrity="sha256-QMNsGU2Abp1nQ7VQ3GJpkAcXpK8imrrVZC3bOFD/JNk=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.d314462a84654c65fbf01d86ac715f79e4004a11f33ed9d5901ef1f74d742449.js" integrity="sha256-0xRGKoRlTGX78B2GrHFfeeQAShHzPtnVkB7x9010JEk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -489,6 +489,21 @@ https://github.com/alex-shpak/hugo-book
                   <hr>
             
               <li class="flex justify-between">
+                <dd><a href="/tags/meta/">meta</a><dt>
+                <dd class="blogdd" style="color: #fff;">2</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/music/">music</a><dt>
+                <dd class="blogdd" style="color: #fff;">1</dt>
+              </li>
+            
+              <li class="flex justify-between">
+                <dd><a href="/tags/personal/">personal</a><dt>
+                <dd class="blogdd" style="color: #fff;">9</dt>
+              </li>
+            
+              <li class="flex justify-between">
                 <dd><a href="/tags/technical/">technical</a><dt>
                 <dd class="blogdd" style="color: #fff;">11</dt>
               </li>
@@ -499,11 +514,6 @@ https://github.com/alex-shpak/hugo-book
               </li>
             
               <li class="flex justify-between">
-                <dd><a href="/tags/personal/">personal</a><dt>
-                <dd class="blogdd" style="color: #fff;">8</dt>
-              </li>
-            
-              <li class="flex justify-between">
                 <dd><a href="/tags/school/">school</a><dt>
                 <dd class="blogdd" style="color: #fff;">2</dt>
               </li>
@@ -511,11 +521,6 @@ https://github.com/alex-shpak/hugo-book
               <li class="flex justify-between">
                 <dd><a href="/tags/politics/">politics</a><dt>
                 <dd class="blogdd" style="color: #fff;">2</dt>
-              </li>
-            
-              <li class="flex justify-between">
-                <dd><a href="/tags/meta/">meta</a><dt>
-                <dd class="blogdd" style="color: #fff;">1</dt>
               </li>
             
             </dil>
@@ -654,7 +659,7 @@ https://github.com/alex-shpak/hugo-book
 <p>So, there&rsquo;s a bit of complexity between how programs see memory and what is actually available going on that is really important to understand. You see, in ye olden days, computers were simple- you&rsquo;d have a big ol&rsquo; pool of available memory and each program would just be told &ldquo;You get the memory between ADDRESS1 and ADDRESS2&rdquo; but there wasn&rsquo;t actually anything checking to make sure this was upheld. If one program wanted to maliciously read another&rsquo;s memory values, it could! If a program decided &ldquo;You know what, I think I need more memory than this!&rdquo; it could just go right out of it&rsquo;s allotted space and overwrite the memory of another process. Further, it was really awkward to handle the problem of a process, halfway though running, requesting more or less memory be allocated to it, as dealing with non-contiguous regions of memory would be awkward.</p>
 <p>Enter Virtual memory</p>
 <p>Each program is now given a virtual address and virtual pages of memory. These pages are mapped to physical memory by using the <em>Memory Management Unit</em> or MMU in the processor in conjunction with the OS coordinating what process gets what memory allocated to it. Put very basically, each process is essentially given what <em>looks to it</em> to be access to the real, physical memory, say, the process is told &ldquo;You have access to address 0x000A to 0x000C&rdquo; but the operating system and MMU know that, in reality, that the memory is actually, physically, in two segments, 0xF32C to 0xF32D and 0x3D2A and 0x3D2B. The program has no idea about this mapping, and no idea that the memory isn&rsquo;t actually contiguous.</p>
-<p>This has another benefit- we can actually allocate more memory than we really have. Say we&rsquo;re working on a system with limited RAM, like the Raspberry Pi 3B+ with only 1GB to go around. The operating system is going to need some of that to do its duties, says 200Mb, and then say you open two programs- LibreOffice Writer (a word processor) and Firefox, each of which needs 500Mb of memory. That&rsquo;s already 1200Mb of memory, more than the 1024Mb in the 1Gb of physical memory the Pi has! So, what happens? Well, the system will start <em>Swapping</em> memory to disk (in this case the SD card) this means that whatever the OS deems what you haven&rsquo;t used in the longest or that you&rsquo;re least likely to use again soon gets taken out of RAM and is instead written to your long term storage (SD card here, but normally an SSD or HDD in a bigger computer) this is <em>good</em> because it means you can run more programs than you really have the RAM for, but <em>bad</em> because this secondary storage is very very very very very slow compared to the speed of RAM, so when you do actually need that information, it will take a long time to work its way to the processor. If we continually end up swapping memory from disk and physical memory, this is called <em>Thrashing</em>, and it is extremely bad. Even when the system isn&rsquo;t being thrashed, the hiccup from swapping is often very noticeable to the user, so you really don&rsquo;t want to run out of RAM.</p>
+<p>This has another benefit- we can actually allocate more memory than we really have. Say we&rsquo;re working on a system with limited RAM, like the Raspberry Pi 3B+ with only 1GB to go around. The operating system is going to need some of that to do its duties, says 200Mb, and then say you open two programs- LibreOffice Writer (a word processor) and Firefox, each of which needs 500Mb of memory. That&rsquo;s already 1200Mb of memory, more than the 1024Mb in the 1Gb of physical memory the Pi has! So, what happens? Well, the system will start <em>Swapping</em> memory to disk (in this case the SD card) this means that whatever the OS deems what you haven&rsquo;t used in the longest or that you&rsquo;re least likely to use again soon gets taken out of RAM and is instead written to your long term storage (SD card here, but normally an SSD or HDD in a bigger computer) this is <em>good</em> because it means you can run more programs than you really have the RAM for, but <em>bad</em> because this secondary storage is glacially slow compared to the speed of RAM, so when you do actually need that information, it will take a long time to work its way to the processor. If we continually end up swapping memory from disk and physical memory, this is called <em>Thrashing</em>, and it is extremely bad. Even when the system isn&rsquo;t being thrashed, the hiccup from swapping is often very noticeable to the user, so you really don&rsquo;t want to run out of RAM.</p>
 <h3 id="faults--the-dirty-bit">
   Faults &amp; The Dirty Bit
   <a class="anchor" href="#faults--the-dirty-bit">#</a>
@@ -718,7 +723,7 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>It may seem like RAM is simple enough as to not really have any opportunities for massive changes in the future. This is not the case. Currently, there are real, commercially available products implementing both Processing In Memory (PIM) and memory persistence (non-volatile main memory)</p>
 <p>This article, <a href="https://www.anandtech.com/show/14750/hot-chips-31-analysis-inmemory-processing-by-upmem">In-Memory Processing by UPMEM</a>, from AnandTech goes into the former, while the <a href="https://www.storagereview.com/news/intel-optane-dc-persistent-memory-module-pmm">Intel Optane Persistent Memory</a> article from StorageReview and <a href="https://www.youtube.com/watch?v=uHAfTty9UWY">this video from Linus Tech Tips</a> cover the latter.</p>
-<p>It&rsquo;s also very likely we&rsquo;ll see new form factors as we run into problems with signal integrity. We&rsquo;re already seeing the start of this with laptop&rsquo;s (<a href="https://www.youtube.com/watch?v=WXp4g-KzdAI">CAMM Memory (Linus Tech Tips)</a>) but given the signal integrity woes at hand and the rapid progress of stacking silicon in recent years, it&rsquo;s not even out of the question we&rsquo;ll see it be be on a silicon interposer soon- RIP upgradability, but hello speed.</p>
+<p>It&rsquo;s also very likely we&rsquo;ll see new form factors as we run into problems with signal integrity. We&rsquo;re already seeing the start of this with laptop&rsquo;s (<a href="https://www.youtube.com/watch?v=WXp4g-KzdAI">CAMM Memory (Linus Tech Tips)</a>) but given the signal integrity woes at hand and the rapid progress of stacking silicon in recent years, it&rsquo;s not even out of the question we&rsquo;ll see it be on a silicon interposer soon- RIP upgradability, but hello speed.</p>
 <h2 id="row-hammer">
   Row Hammer
   <a class="anchor" href="#row-hammer">#</a>
