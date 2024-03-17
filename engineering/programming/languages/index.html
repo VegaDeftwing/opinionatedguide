@@ -56,7 +56,7 @@ This page is meant to give you a taste, not a full list." />
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.d8ed0d5b6e11fe50876a3de9ecf6356b8d3f968ce2482c70de668de848b7e621.js" integrity="sha256-2O0NW24R/lCHaj3p7PY1a40/loziSCxw3maN6Ei35iE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ee64dffcc83c68da4e335acf79197f54d60b4c3fb9cfc955d7b4de5bcb0ac44d.js" integrity="sha256-7mTf/Mg8aNpOM1rPeRl/VNYLTD&#43;5z8lV17TeW8sKxE0=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -191,7 +191,7 @@ https://github.com/alex-shpak/hugo-book
 <dt>15 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
 <dt>15½</dt><dd> <a href="/engineering/programming/data/">Data is hard</a></dd>
 <dt>16 </dt><dd> <a href="/engineering/programming/gitcicd/">Git, Testing, CI & CD</a></dd>
-<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/optimization/">Optimization</a></dd>
 <dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
 <dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
 <dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
@@ -905,7 +905,138 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The big claim to fame for go is its <code>go</code> keyword, which lets you do really easy threading. (<a href="https://gobyexample.com/goroutines%29">https://gobyexample.com/goroutines)</a>. This has made it a favorite among those writing networking utilities and servers - just look at the list of programs that use it on its <a href="https://en.wikipedia.org/wiki/Go_%28programming_language%29#Applications">Wikipedia page</a>.</p>
-<p>If you&rsquo;re wanting to learn go, you should go to <a href="https://tour.golang.org/welcome/1">https://tour.golang.org/welcome/1</a> as your first stop.</p>
+<style>
+.glitch {
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+	height: 10em;
+}
+.glitch img {
+	position: relative;
+	z-index: 1;
+	display: block;
+    filter: brightness(50%)
+}
+.glitch__layers {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+    filter: brightness(70%)
+}
+.glitch__layer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-image: url(/pixabay/glitch-2463363_1280.webp);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+.glitch__layer:nth-child(1) {
+	transform: translateX(-5%);
+	animation: glitch-anim-1 2s infinite linear alternate;
+}
+.glitch__layer:nth-child(2) {
+	transform: translateX(3%) translateY(3%);
+	animation: glitch-anim-2 2.3s -.8s infinite linear alternate;
+}
+.glitch__layer:nth-child(3) {
+	transform: translateX(5%);
+	animation: glitch-anim-flash 1s infinite linear;
+}
+@keyframes glitch-anim-1 {
+	0% {
+		clip-path: polygon(0 0%, 100% 0%, 100% 5%, 0 5%);
+	}
+	10% {
+		clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%);
+	}
+	20% {
+		clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%);
+	}
+	30% {
+		clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%);
+	}
+	40% {
+		clip-path: polygon(0 35%, 100% 35%, 100% 35%, 0 35%);
+	}
+	50% {
+		clip-path: polygon(0 45%, 100% 45%, 100% 46%, 0 46%);
+	}
+	60% {
+		clip-path: polygon(0 50%, 100% 50%, 100% 70%, 0 70%);
+	}
+	70% {
+		clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%);
+	}
+	80% {
+		clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
+	}
+	90% {
+		clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
+	}
+	100% {
+		clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%);
+	}
+}
+@keyframes glitch-anim-2 {
+	0% {
+		clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%);
+	}
+	15% {
+		clip-path: polygon(0 3%, 100% 3%, 100% 3%, 0 3%);
+	}
+	25% {
+		clip-path: polygon(0 8%, 100% 8%, 100% 20%, 0 20%);
+	}
+	30% {
+		clip-path: polygon(0 20%, 100% 20%, 100% 20%, 0 20%);
+	}
+	45% {
+		clip-path: polygon(0 45%, 100% 45%, 100% 45%, 0 45%);
+	}
+	50% {
+		clip-path: polygon(0 50%, 100% 50%, 100% 57%, 0 57%);
+	}
+	65% {
+		clip-path: polygon(0 60%, 100% 60%, 100% 60%, 0 60%);
+	}
+	75% {
+		clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
+	}
+	80% {
+		clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%);
+	}
+	95% {
+		clip-path: polygon(0 45%, 100% 45%, 100% 60%, 0 60%);
+	}
+	100% {
+		clip-path: polygon(0 11%, 100% 11%, 100% 15%, 0 15%);
+	}
+}
+@keyframes glitch-anim-flash {
+	0% {
+		opacity: .2;
+	}
+	30%, 100% {
+		opacity: 0;
+	}
+}
+.centered-over-image {
+  position: absolute;
+  left: 40%;
+  transform: translate(-50%, -30%);
+  color: #fff; 
+  font-size: 1.2em; 
+  text-align: center;
+  z-index: 3;
+}
+</style>
 <h3 id="zig">
   Zig
   <a class="anchor" href="#zig">#</a>

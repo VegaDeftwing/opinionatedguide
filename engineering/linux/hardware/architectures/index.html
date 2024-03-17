@@ -54,7 +54,7 @@ Let&rsquo;s say we have a fictional computer, really old, that&rsquo;s only 8-bi
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.d8ed0d5b6e11fe50876a3de9ecf6356b8d3f968ce2482c70de668de848b7e621.js" integrity="sha256-2O0NW24R/lCHaj3p7PY1a40/loziSCxw3maN6Ei35iE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ee64dffcc83c68da4e335acf79197f54d60b4c3fb9cfc955d7b4de5bcb0ac44d.js" integrity="sha256-7mTf/Mg8aNpOM1rPeRl/VNYLTD&#43;5z8lV17TeW8sKxE0=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -189,7 +189,7 @@ https://github.com/alex-shpak/hugo-book
 <dt>15 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
 <dt>15½</dt><dd> <a href="/engineering/programming/data/">Data is hard</a></dd>
 <dt>16 </dt><dd> <a href="/engineering/programming/gitcicd/">Git, Testing, CI & CD</a></dd>
-<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/optimization/">Optimization</a></dd>
 <dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
 <dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
 <dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
@@ -617,8 +617,8 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>Today, there are two main computer architectures you&rsquo;ll use x86_64 and ARM. You&rsquo;ve probably heard this in passing, but you may not know what they are. These are Instruction Set Architectures (ISA), and they define the list of instructions your computer can understand and the basics about how those instructions are laid out.</p>
 <p>Let&rsquo;s say we have a fictional computer, really old, that&rsquo;s only 8-bit (most modern systems are 32 or 64bit) this would mean we get eight 1&rsquo;s and 0&rsquo;s to define our instruction. We might decide to have the first 4 bits hold the Opcode (short for Operation Code) We might decide that any instruction starting with 0000 is a store, 0001 a move, 0010 a jump, 0011 an add, and so on. Then, we might say the other four bits should represent registers, that is, locations of other numbers. So we might have 00110110 where the 0011 means add, and the next two bits, 01, mean registers 1 and the next two bits,  10, mean register 2. For this, we&rsquo;d probably have to assume the result gets stored in one of these registers, so it might be that 00110110 means add the numbers in register 1 and register 2 and store the result back into register 1.</p>
-<p>Alright, so, that&rsquo;s pretty easy to understand.</p>
-<p>The next thing you should know is that generally, there&rsquo;s two kinds of instruction sets, CISC and RISC. CISC is Complex Instruction Set Computer, and RISC is Reduced Instruction Set Computer. The names are pretty self-explanatory. While CISC may have a ton of specialty instructions for doing bigger tasks in one instruction (for example, <a href="https://www.felixcloutier.com/x86/pshufb">PSHUFB: Packed Shuffle Bytes</a> or <a href="https://www.felixcloutier.com/x86/mpsadbw">MPSADBW: Compute Multiple Packed Sums of Absolute Difference</a>, if you&rsquo;d like to have your brain hurt for a moment). This is compared to RISC, where there&rsquo;s usually dramatically less instructions. A bit counterintuitively, RISC has generally been found to be a bit faster now, because even though the individual instructions can&rsquo;t do as much, they can be pipelined (a topic we&rsquo;ll go over later) much more easily.</p>
+<p>The next thing you should know is that there are two kinds of instruction sets: CISC and RISC. CISC is Complex Instruction Set Computer, and RISC is Reduced Instruction Set Computer.</p>
+<p>The names are pretty self-explanatory. While CISC may have a ton of specialty instructions for doing bigger tasks in one instruction (for example, <a href="https://www.felixcloutier.com/x86/pshufb">PSHUFB: Packed Shuffle Bytes</a> or <a href="https://www.felixcloutier.com/x86/mpsadbw">MPSADBW: Compute Multiple Packed Sums of Absolute Difference</a>, if you&rsquo;d like to have your brain hurt for a moment). This is compared to RISC, where there&rsquo;s usually dramatically less instructions. A bit counterintuitively, RISC has generally been found to be a bit faster (or at least more efficient, and in many system you&rsquo;re limited by how much heat you can get rid of - so, it&rsquo;s faster by way of being more efficient), because even though the individual instructions can&rsquo;t do as much, they can be pipelined (a topic we&rsquo;ll go over later) much more easily.</p>
 <p>Just for comparison, check out this ARM assembly code cheat sheet from <a href="https://azeria-labs.com/assembly-basics-cheatsheet/">Azeria Labs</a> vs this x86 opcode cheat sheet:</p>
 <p><img src="/eng/armcheat.webp" alt="cheatsheetv1.3-1920x1080" /></p>
 <p><img src="/eng/x86_opcode_structure_and_instruction_overview.webp" alt="x86_opcode_structure_and_instruction_overview" /></p>

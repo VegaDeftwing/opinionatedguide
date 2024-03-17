@@ -27,7 +27,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 11½ - Ethics &amp; Copyright # Ethics # Programming is awesome. If you get into creative coding, you&rsquo;ll be able to use it to make art. You&rsquo;ll likely use it to automate tasks you find boring. If you&rsquo;re like me, you might use it to make your own website or start to make products you intend to sell. That&rsquo;s great. But there are a few things you need to consider as what you make becomes more professional.">
+<meta name="description" content="Chapter 11½ - Ethics &amp; Copyright # Programming is awesome. If you get into creative coding, you&rsquo;ll be able to use it to make art. You&rsquo;ll likely use it to automate tasks you find boring. If you&rsquo;re like me, you might use it to make your own website or start to make products you intend to sell. That&rsquo;s great. But there are a few things you need to consider as what you make becomes more professional.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -41,7 +41,7 @@
   ::-webkit-scrollbar-thumb {background: #009CDF !important;}
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 11½ - Ethics &amp; Copyright # Ethics # Programming is awesome. If you get into creative coding, you&rsquo;ll be able to use it to make art. You&rsquo;ll likely use it to automate tasks you find boring. If you&rsquo;re like me, you might use it to make your own website or start to make products you intend to sell. That&rsquo;s great. But there are a few things you need to consider as what you make becomes more professional." />
+<meta property="og:description" content="Chapter 11½ - Ethics &amp; Copyright # Programming is awesome. If you get into creative coding, you&rsquo;ll be able to use it to make art. You&rsquo;ll likely use it to automate tasks you find boring. If you&rsquo;re like me, you might use it to make your own website or start to make products you intend to sell. That&rsquo;s great. But there are a few things you need to consider as what you make becomes more professional." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/programming/ethics/" /><meta property="article:section" content="engineering" />
 
@@ -52,7 +52,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.d8ed0d5b6e11fe50876a3de9ecf6356b8d3f968ce2482c70de668de848b7e621.js" integrity="sha256-2O0NW24R/lCHaj3p7PY1a40/loziSCxw3maN6Ei35iE=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ee64dffcc83c68da4e335acf79197f54d60b4c3fb9cfc955d7b4de5bcb0ac44d.js" integrity="sha256-7mTf/Mg8aNpOM1rPeRl/VNYLTD&#43;5z8lV17TeW8sKxE0=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -187,7 +187,7 @@ https://github.com/alex-shpak/hugo-book
 <dt>15 </dt><dd> <a href="/engineering/programming/algorithms/">Algorithms and More</a></dd>
 <dt>15½</dt><dd> <a href="/engineering/programming/data/">Data is hard</a></dd>
 <dt>16 </dt><dd> <a href="/engineering/programming/gitcicd/">Git, Testing, CI & CD</a></dd>
-<dt>17 </dt><dd> <a href="/engineering/programming/multithread/">We've Got Cores!</a></dd>
+<dt>17 </dt><dd> <a href="/engineering/programming/optimization/">Optimization</a></dd>
 <dt>18 </dt><dd> <a href="/engineering/programming/guiprog/">Graphical Programming</a></dd>
 <dt>19 </dt><dd> <a href="/engineering/programming/shaders/">Shaders + GpGPU</a></dd>
 <dt>20 </dt><dd> <a href="/engineering/programming/funcprog/">(((())(()((()(()))))))</a></dd>
@@ -588,17 +588,31 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-11---ethics--copyright">Chapter 11½ - Ethics &amp; Copyright</a>
       <ul>
-        <li><a href="#ethics">Ethics</a></li>
-        <li><a href="#open-source-licenses-and-copyright">Open Source, Licenses, and Copyright</a>
+        <li>
           <ul>
-            <li><a href="#disclaimer">Disclaimer</a></li>
-            <li><a href="#to-begin">To Begin</a></li>
-            <li><a href="#choosing-a-license">Choosing a License</a></li>
-            <li><a href="#special-case-cryptography">Special Case: Cryptography</a></li>
-            <li><a href="#what-if-i-dont-have-a-project">What if I don&rsquo;t have a project?</a></li>
-            <li><a href="#links">Links</a></li>
+            <li><a href="#user-data--privacy"><strong>User Data &amp; Privacy</strong></a></li>
+            <li><a href="#development-considerations"><strong>Development Considerations</strong></a></li>
+            <li><a href="#localization"><strong>Localization</strong></a></li>
+            <li><a href="#monetization"><strong>Monetization</strong></a></li>
+            <li><a href="#user-experience"><strong>User Experience</strong></a></li>
+            <li><a href="#social-duties"><strong>Social Duties</strong></a></li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li><a href="#open-source-licenses-and-copyright">Open Source, Licenses, and Copyright</a>
+      <ul>
+        <li><a href="#to-begin">To Begin</a></li>
+        <li><a href="#choosing-a-license">Choosing a License</a>
+          <ul>
+            <li><a href="#strong-copyleft-the-gpl-and-friends">Strong Copyleft: the GPL and friends</a></li>
+            <li><a href="#weaker-copyleft-apache-20">Weaker Copyleft: Apache 2.0</a></li>
+            <li><a href="#other-licenses-bsd-mit-x11-oh-my">Other Licenses: BSD, MIT, X11, Oh My!</a></li>
+          </ul>
+        </li>
+        <li><a href="#special-case-cryptography">Special Case: Cryptography</a></li>
+        <li><a href="#what-if-i-dont-have-a-project">What if I don&rsquo;t have a project?</a></li>
+        <li><a href="#links">Links</a></li>
       </ul>
     </li>
   </ul>
@@ -617,25 +631,16 @@ https://github.com/alex-shpak/hugo-book
   Chapter 11½ - Ethics &amp; Copyright
   <a class="anchor" href="#chapter-11---ethics--copyright">#</a>
 </h1>
-<h2 id="ethics">
-  Ethics
-  <a class="anchor" href="#ethics">#</a>
-</h2>
 <p>Programming is awesome. If you get into creative coding, you&rsquo;ll be able to use it to make art. You&rsquo;ll likely use it to automate tasks you find boring. If you&rsquo;re like me, you might use it to make your own website or start to make products you intend to sell. That&rsquo;s great. But there are a few things you need to consider as what you make becomes more professional. If you&rsquo;re just making something for you and a few friends, don&rsquo;t worry about it- hack it together and have fun. But as you start making things for a business or that something impact systems that are deeply meaningful in someone&rsquo;s life, you need to be careful.</p>
 <p><span class="best ">
     <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
     <a href="https://www.freecodecamp.org/news/the-code-im-still-ashamed-of-e4c021dff55e/">The Code I&rsquo;m Still Ashamed Of</a>
 </span> is great. Ever since I read it, it has come back to me every now and then. And sure, it&rsquo;s a pretty extreme example, but it&rsquo;s also a lot easier to put into that kind of situation than you&rsquo;d probably like to think.</p>
 <p>There&rsquo;s a pretty big list of considerations you should keep in mind when what you&rsquo;re making starts to grow in impact, but honestly most of them just come down to being an empathetic, good person as best you can.</p>
-<hr>
-<div class="book-columns flex flex-wrap">
-  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
-  
-  <div class="flex-even markdown-inner">
-    <h5 id="user-data--privacy">
+<h3 id="user-data--privacy">
   <strong>User Data &amp; Privacy</strong>
   <a class="anchor" href="#user-data--privacy">#</a>
-</h5>
+</h3>
 <ul>
 <li>Is user data secure?</li>
 <li>Do users have control over their data?</li>
@@ -649,11 +654,10 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </li>
 </ul>
-<hr>
-<h5 id="development-considerations">
+<h3 id="development-considerations">
   <strong>Development Considerations</strong>
   <a class="anchor" href="#development-considerations">#</a>
-</h5>
+</h3>
 <ul>
 <li>Does it rely on other tools or libraries that don&rsquo;t follow these ideals?
 <ul>
@@ -673,11 +677,10 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </li>
 </ul>
-<hr>
-<h5 id="localization">
+<h3 id="localization">
   <strong>Localization</strong>
   <a class="anchor" href="#localization">#</a>
-</h5>
+</h3>
 <ul>
 <li>Can users of other in other regions still use it?</li>
 <li>Qwerty isn&rsquo;t standard everywhere, neither is left-to-right text.
@@ -692,15 +695,25 @@ https://github.com/alex-shpak/hugo-book
 </li>
 <li>Does it force units of measurement?</li>
 </ul>
-<hr>
-<h5 id="monetization">
+<h3 id="monetization">
   <strong>Monetization</strong>
   <a class="anchor" href="#monetization">#</a>
-</h5>
+</h3>
 <ul>
 <li>How is copyright infringement handled?
 <ul>
-<li>This gets <em>very</em> complicated, read more in  <a href="/phil/copyright/">Philosophy Ch.8 - Copyright</a></li>
+<li>This gets <em>very</em> complicated, read more in 
+
+
+
+
+  
+
+
+<a  href="/phil/copyright/"   class="book-btn phil">
+  Philosophy: Copyright
+</a>
+ after finishing the Copyright secion focused on code specifically below!</li>
 </ul>
 </li>
 <li>If something on what you&rsquo;re making is paid,  is <a href="https://en.wikipedia.org/wiki/Purchasing_power_parity">Purchasing Power Parity</a> an option so that users in less fortunate areas can still have access?
@@ -709,71 +722,47 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </li>
 </ul>
-
-  </div>
-  
-  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
-  
-  
-  <div class="flex-even markdown-inner">
-    <h5 id="user-experience">
+<h3 id="user-experience">
   <strong>User Experience</strong>
   <a class="anchor" href="#user-experience">#</a>
-</h5>
+</h3>
 <ul>
-<li>
-<p>Can differently-abled people still use it?</p>
+<li>Can differently-abled people still use it?
 <ul>
-<li>
-<p style="background: -webkit-linear-gradient(90deg, #F00, #0F0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"> Color Blindness? </p>
-<ul>
-<li>check out this <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">color blindness simulator (color-blindness.com)</a></li>
-</ul>
-</li>
-<li>
-<p>Deaf?</p>
-</li>
-<li>
-<p>Bad vision?</p>
+<li><a href="https://www.color-blindness.com/coblis-color-blindness-simulator/"><p style="background: -webkit-linear-gradient(90deg, #F00, #0F0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"> Color Blindness? </p> </a></li>
+<li>Hearing Impaired?</li>
+<li>Bad vision?
 <ul>
 <li>
 <p style="font-size:.3em"> super tiny text </p>
 </li>
 </ul>
 </li>
-<li>
-<p>Motion? Flashing Lights? Light sensitivity?</p>
-</li>
+<li>Motion? Flashing Lights? Light sensitivity?</li>
 </ul>
 </li>
-<li>
-<p>Are the elements of interaction standard / automatable</p>
+<li>Are the elements of interaction standard / automatable
 <ul>
 <li>This largely ties into differently-abled access</li>
 </ul>
 </li>
-<li>
-<p>Does it really need to use as many resources as it does?</p>
+<li>Does it really need to use as many resources as it does?
 <ul>
 <li>Could it still work if your internet was 100x slower?</li>
 <li>Could it still work if your hardware was 10 years older?</li>
 </ul>
 </li>
-<li>
-<p>How long does it take a user to find a feature they know exists without help?</p>
-</li>
-<li>
-<p>Avoid <a href="https://darkpatterns.org">&lsquo;Dark Patterns&rsquo;</a></p>
+<li>How long does it take a user to find a feature they know exists without help?</li>
+<li>Avoid <a href="https://darkpatterns.org">&lsquo;Dark Patterns&rsquo;</a>
 <ul>
 <li>Don&rsquo;t use stupid <a href="https://web.eecs.utk.edu/~azh/blog/fixprogressbars.html">progress bars</a></li>
 </ul>
 </li>
 </ul>
-<hr>
-<h5 id="social-duties">
+<h3 id="social-duties">
   <strong>Social Duties</strong>
   <a class="anchor" href="#social-duties">#</a>
-</h5>
+</h3>
 <ul>
 <li>Can it be used for Hate Speech? Spreading misinformation?
 <ul>
@@ -798,14 +787,6 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </li>
 </ul>
-
-  </div>
-  
-  <div style="min-width: 1px; width: 1px; padding: 0 0 0 0; margin: 6px 0;background:rgba(255, 255, 255, 0.1);;"></div>
-  
-  
-</div>
-<hr>
 <p>Here&rsquo;s a nice video from TomScott on this topic:</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/LZM9YdO_QKk?list=PL96C35uN7xGLLeET0dOWaKHkAlPsrkcha" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p><a href="https://den.dev/blog/user-hostile-software/">The Rise of User Hostile Software (Den Delimarsky)</a> and <a href="https://news.ycombinator.com/item?id=28291478">Hacker News Comments</a></p>
@@ -814,23 +795,31 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://www.moralmachine.net">Moral Machine</a> - &ldquo;A platform for gathering a human perspective on moral decisions made by machine intelligence, such as self-driving cars.&rdquo;</p>
 <p>[TODO] Racist AI, Deepfake loods</p>
 <p>[TODO] <a href="https://nitter.net/jason_koebler/status/1303383712160190469#m">Amazon Demands Echo not be referred to as a Microphone (Jason Koebler on Twitter, from Vice.com) </a></p>
-<h2 id="open-source-licenses-and-copyright">
+<hr>
+<h1 id="open-source-licenses-and-copyright">
   Open Source, Licenses, and Copyright
   <a class="anchor" href="#open-source-licenses-and-copyright">#</a>
-</h2>
-<blockquote>
-<p>Open source enables a development method for software that harnesses the power of distributed peer review and transparency of process. The promise of open source is higher quality, better reliability, greater flexibility, lower cost, and an end to predatory vendor lock-in.</p>
-</blockquote>
-<p>&ndash; The Open Source Initiative Mission Statement</p>
-<h3 id="disclaimer">
+</h1>
+<div class="quote The Open Source Initiative Mission Statement">
+<p>
+    Open source enables a development method for software that harnesses the power of distributed peer review and transparency of process. The promise of open source is higher quality, better reliability, greater flexibility, lower cost, and an end to predatory vendor lock-in.
+</p>
+    <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
+        <p style="font-size:.85em;color:var(--text-color);"> 
+        - The Open Source Initiative Mission Statement
+    </div>
+</div>
+<div class="tip ">
+    <h6 id="disclaimer">
   Disclaimer
   <a class="anchor" href="#disclaimer">#</a>
-</h3>
-<p>I am not a lawyer, and neither are any of my contributors to this section. This is not legal advice.</p>
-<h3 id="to-begin">
+</h6>
+<p>I am not a lawyer, and neither are any of my contributors to this section. This is not legal or financial advice.</p>
+</div>
+<h2 id="to-begin">
   To Begin
   <a class="anchor" href="#to-begin">#</a>
-</h3>
+</h2>
 <p>So you&rsquo;ve decided to make your project open source. Great! Before you publish anything, there are two things you should do.</p>
 <p>First, <a href="https://dzone.com/articles/running-a-successful-open-source-project-1">decide on a definition of success for your project.</a> There is more than one, and open source is all about community. Establishing community rules and expectations early is critical.</p>
 <p>Second, decide on a license. That&rsquo;s what this section is about.</p>
@@ -843,10 +832,10 @@ https://github.com/alex-shpak/hugo-book
 <li>Who are my contributors and why do they contribute?</li>
 </ul>
 <p>The next section will address how licenses can help support your intentions.</p>
-<h3 id="choosing-a-license">
+<h2 id="choosing-a-license">
   Choosing a License
   <a class="anchor" href="#choosing-a-license">#</a>
-</h3>
+</h2>
 <p>Except for edge cases, there are really only three options you should consider:</p>
 <ul>
 <li>If you want to encourage maximum adoption among a variety of users and contributors, use <a href="https://www.apache.org/licenses/LICENSE-2.0.html">the Apache 2.0 Software License</a>.</li>
@@ -857,10 +846,10 @@ https://github.com/alex-shpak/hugo-book
 <div class="tip ">
     If you want to put it in the public domain, why not just put a note saying so? Because in some countries, there are restrictions on the public domain which make it useless or impossible to use for open source software. Creative Commons Zero acts as a license in such countries, granting the same terms and waivers as the United States public domain.
 </div>
-<h4 id="strong-copyleft-the-gpl-and-friends">
+<h3 id="strong-copyleft-the-gpl-and-friends">
   Strong Copyleft: the GPL and friends
   <a class="anchor" href="#strong-copyleft-the-gpl-and-friends">#</a>
-</h4>
+</h3>
 <p>The Free Software Foundation envisioned open source software as a collaborative community. To keep it that way, they basically wanted everyone who used the software to become a part of that community and share.</p>
 <p>They created the term <em>copyleft</em> <a href="https://www.gnu.org/licenses/copyleft.en.html">to capture this principle</a>:</p>
 <blockquote>
@@ -871,16 +860,16 @@ https://github.com/alex-shpak/hugo-book
 <p>If you think this sounds far-fetched, it isn&rsquo;t. <a href="https://www.eff.org/search/site/stupid%20patent%20of%20the%20month?f%5B0%5D=type%3Ablog">The craziest things have been patented</a>, and patent lawyers are extremely expensive &mdash; even by the standards of other lawyers.</p>
 <p>The main drawback (and main source of pushback on the internet) is the way this license interacts with other software. Because the GPL requires that all the same rights be included in the software you distribute, creating software out of both GPL and non-GPL code binds your users to terms that may be confusing, or in the worst case, impossible to follow.</p>
 <p>The Free Software Foundation has <a href="https://www.gnu.org/licenses/license-list.html">given their own legal analysis of common licenses, and whether they are GPL compatible</a>.</p>
-<h4 id="weaker-copyleft-apache-20">
+<h3 id="weaker-copyleft-apache-20">
   Weaker Copyleft: Apache 2.0
   <a class="anchor" href="#weaker-copyleft-apache-20">#</a>
-</h4>
+</h3>
 <p>The Apache Software foundation exists as a charity to give its software away for the greater good. As a result, it is also a copyleft license, using the terms to encourage use and distribution instead of restriction. Unlike the GPL, it does not require its downstream users to be just as open. In particular, they may use it in closed source software and turn a profit.</p>
 <p>This is one of the &ldquo;least political&rdquo; licenses in the license debates, and is a safe default if you really don&rsquo;t know what to do about licensing.</p>
-<h4 id="other-licenses-bsd-mit-x11-oh-my">
+<h3 id="other-licenses-bsd-mit-x11-oh-my">
   Other Licenses: BSD, MIT, X11, Oh My!
   <a class="anchor" href="#other-licenses-bsd-mit-x11-oh-my">#</a>
-</h4>
+</h3>
 <p>There are other licenses, that are much shorter, that seem to be similar to the Apache 2.0 License in spirit. However, I don&rsquo;t recommend them, and will explain why.</p>
 <p>Common other open source licenses include:</p>
 <ul>
@@ -893,26 +882,26 @@ https://github.com/alex-shpak/hugo-book
 <p>First, they lack the protections of the Apache 2.0 and GPL family of licenses against patent trolls.</p>
 <p>Second, they may not have been examined by non-US courts. Aside from the Unlicense which relies on the US public domain, the liability protections in the licenses may not fit with product liability law in Europe.</p>
 <p>If you still don&rsquo;t like any of the three recommended options, the Free Software Foundation has <a href="https://www.gnu.org/licenses/license-list.html">given their own legal analysis of common licenses, whether they are GPL compatible, and any flaws in their opinion</a>. It is worth reading before choosing anything else.</p>
-<h3 id="special-case-cryptography">
+<h2 id="special-case-cryptography">
   Special Case: Cryptography
   <a class="anchor" href="#special-case-cryptography">#</a>
-</h3>
+</h2>
 <p>If you are writing your own cryptography and live in the United States, there are extra legal steps you have to do. This has to do with the history of <a href="https://en.wikipedia.org/wiki/Crypto_Wars">The Crypto Wars</a>.</p>
 <p>But you know what? I&rsquo;m not going to talk about it. It&rsquo;s a bit murky without actual lawyers, but more importantly, <strong>you shouldn&rsquo;t be writing your own cryptography, period.</strong> <a href="https://security.stackexchange.com/questions/18197/why-shouldnt-we-roll-our-own">Seriously. Don&rsquo;t do it.</a></p>
 <p>Just use the open source algorithms placed into the public domain already. Let Bruce Schneier, Dan Bernstein, and other famous cryptographers worry about export regulations, and just use their stuff.</p>
 <p>If you are trying to write your own cryptography to learn, I recommend <a href="https://www.cryptopals.com/">doing the Cryptopals Crypto Challenges</a> instead. If that&rsquo;s not enough, do <a href="https://www.schneier.com/wp-content/uploads/2016/02/paper-self-study.pdf">A Self Study Course in Block Ciphers by Bruce Schneier</a>.</p>
 <p>You will learn more, and avoid regulations, mockery, and public facepalms all over the internet.</p>
-<h3 id="what-if-i-dont-have-a-project">
+<h2 id="what-if-i-dont-have-a-project">
   What if I don&rsquo;t have a project?
   <a class="anchor" href="#what-if-i-dont-have-a-project">#</a>
-</h3>
+</h2>
 <p>Simple: contribute to someone else&rsquo;s! That&rsquo;s what makes open source work!</p>
 <p>[TODO]</p>
 <p>actually contribute on GitHub, make an issue, submit a pull request, make a custom repo,</p>
-<h3 id="links">
+<h2 id="links">
   Links
   <a class="anchor" href="#links">#</a>
-</h3>
+</h2>
 <p><a href="https://opensource.com/article/21/8/open-source-maintainers">Setting new expectations for open source maintainers</a></p>
 <p><a href="https://www.youtube.com/watch?v=aAWCN0Jed8g">How to break the Internet: Cory Doctorow at TEDxOxbridge (YouTube)</a></p>
 <p><a href="https://github.com/Marak/faker.js/issues/1046">https://github.com/Marak/faker.js/issues/1046</a></p>
@@ -970,17 +959,31 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#chapter-11---ethics--copyright">Chapter 11½ - Ethics &amp; Copyright</a>
       <ul>
-        <li><a href="#ethics">Ethics</a></li>
-        <li><a href="#open-source-licenses-and-copyright">Open Source, Licenses, and Copyright</a>
+        <li>
           <ul>
-            <li><a href="#disclaimer">Disclaimer</a></li>
-            <li><a href="#to-begin">To Begin</a></li>
-            <li><a href="#choosing-a-license">Choosing a License</a></li>
-            <li><a href="#special-case-cryptography">Special Case: Cryptography</a></li>
-            <li><a href="#what-if-i-dont-have-a-project">What if I don&rsquo;t have a project?</a></li>
-            <li><a href="#links">Links</a></li>
+            <li><a href="#user-data--privacy"><strong>User Data &amp; Privacy</strong></a></li>
+            <li><a href="#development-considerations"><strong>Development Considerations</strong></a></li>
+            <li><a href="#localization"><strong>Localization</strong></a></li>
+            <li><a href="#monetization"><strong>Monetization</strong></a></li>
+            <li><a href="#user-experience"><strong>User Experience</strong></a></li>
+            <li><a href="#social-duties"><strong>Social Duties</strong></a></li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li><a href="#open-source-licenses-and-copyright">Open Source, Licenses, and Copyright</a>
+      <ul>
+        <li><a href="#to-begin">To Begin</a></li>
+        <li><a href="#choosing-a-license">Choosing a License</a>
+          <ul>
+            <li><a href="#strong-copyleft-the-gpl-and-friends">Strong Copyleft: the GPL and friends</a></li>
+            <li><a href="#weaker-copyleft-apache-20">Weaker Copyleft: Apache 2.0</a></li>
+            <li><a href="#other-licenses-bsd-mit-x11-oh-my">Other Licenses: BSD, MIT, X11, Oh My!</a></li>
+          </ul>
+        </li>
+        <li><a href="#special-case-cryptography">Special Case: Cryptography</a></li>
+        <li><a href="#what-if-i-dont-have-a-project">What if I don&rsquo;t have a project?</a></li>
+        <li><a href="#links">Links</a></li>
       </ul>
     </li>
   </ul>
