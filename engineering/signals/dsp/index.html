@@ -27,12 +27,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="30 - Digital Signal Processing # Spectral Audio Signal Processing by JULIUS O. SMITH III at the Center for Computer Research in Music and Acoustics (CCRMA) The Scientist and Engineer&rsquo;s Guide to Digital Signal Processing By Steven W. Smith, Ph.D.
-Awesome MusicDSP (GitHub)
-Tom Erbe, Design the Erbe Verb (YouTube)
-https://zserge.com/posts/etude-in-c/ &amp; https://zserge.com/posts/beep/
-Diospyros - Search-based compiler for high-performance DSP programming
-Think DSP - DSP in Python, Free book">
+<meta name="description" content="30 - Digital Signal Processing # Spectral Audio Signal Processing by JULIUS O. SMITH III at the Center for Computer Research in Music and Acoustics (CCRMA) Sampling &amp; Quantization # Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -48,12 +43,7 @@ Think DSP - DSP in Python, Free book">
   ::-webkit-scrollbar-thumb { background: #009CDF !important; }
 </style>
 <meta property="og:title" content="" />
-<meta property="og:description" content="30 - Digital Signal Processing # Spectral Audio Signal Processing by JULIUS O. SMITH III at the Center for Computer Research in Music and Acoustics (CCRMA) The Scientist and Engineer&rsquo;s Guide to Digital Signal Processing By Steven W. Smith, Ph.D.
-Awesome MusicDSP (GitHub)
-Tom Erbe, Design the Erbe Verb (YouTube)
-https://zserge.com/posts/etude-in-c/ &amp; https://zserge.com/posts/beep/
-Diospyros - Search-based compiler for high-performance DSP programming
-Think DSP - DSP in Python, Free book" />
+<meta property="og:description" content="30 - Digital Signal Processing # Spectral Audio Signal Processing by JULIUS O. SMITH III at the Center for Computer Research in Music and Acoustics (CCRMA) Sampling &amp; Quantization # Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://opguides.info/engineering/signals/dsp/" /><meta property="article:section" content="engineering" />
 
@@ -63,7 +53,7 @@ Think DSP - DSP in Python, Free book" />
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.cd15961d51fd98483307c8dd4fee281de492de7a448efd5f7552e7106fb8fdd4.js" integrity="sha256-zRWWHVH9mEgzB8jdT&#43;4oHeSS3npEjv1fdVLnEG&#43;4/dQ=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -597,7 +587,19 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#30---digital-signal-processing">30 - Digital Signal Processing</a></li>
+    <li><a href="#30---digital-signal-processing">30 - Digital Signal Processing</a>
+      <ul>
+        <li><a href="#sampling--quantization">Sampling &amp; Quantization</a></li>
+        <li><a href="#digital-signal-processing">Digital Signal Processing</a></li>
+        <li><a href="#digital-to-analog-conversion">Digital to Analog Conversion</a></li>
+        <li><a href="#discrete-time-system">Discrete Time System</a></li>
+        <li><a href="#nyquist--aliasing">Nyquist &amp; Aliasing</a></li>
+        <li><a href="#upsampling--downsampling">Upsampling &amp; Downsampling</a></li>
+        <li><a href="#iir--fir-filters">IIR &amp; FIR Filters</a></li>
+        <li><a href="#envelopes">Envelopes</a></li>
+        <li><a href="#optimization--numerical-effects">Optimization &amp; Numerical Effects</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -620,6 +622,74 @@ https://github.com/alex-shpak/hugo-book
     <img src="/nonfree/logo/best.svg" width="20em" style="margin: -10px 0px 0px 0px; margin-bottom: -10px;"/>
     <a href="https://ccrma.stanford.edu/~jos/sasp/">Spectral Audio Signal Processing</a> by JULIUS O. SMITH III at the Center for Computer Research in Music and Acoustics (CCRMA)
 </span>
+<p><span style="clear: both;"></span></p>
+<img style="float: left;height:20em;" src="/nonfree/art/mushrooms1_small.avif">
+<p><span style="clear: both;overflow: auto;"></span></p>
+<h2 id="sampling--quantization">
+  Sampling &amp; Quantization
+  <a class="anchor" href="#sampling--quantization">#</a>
+</h2>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<h2 id="digital-signal-processing">
+  Digital Signal Processing
+  <a class="anchor" href="#digital-signal-processing">#</a>
+</h2>
+<img style="float: right;height:20em;" src="/nonfree/art/mushrooms2_small.avif">
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<img style="float: left;height:20em;" src="/nonfree/art/mushrooms3_small.avif">
+<p><span style="clear: both;"></span></p>
+<h2 id="digital-to-analog-conversion">
+  Digital to Analog Conversion
+  <a class="anchor" href="#digital-to-analog-conversion">#</a>
+</h2>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<img style="float: right;height:20em;" src="/nonfree/art/mushrooms4_small.avif">
+<p><span style="clear: both;"></span></p>
+<h2 id="discrete-time-system">
+  Discrete Time System
+  <a class="anchor" href="#discrete-time-system">#</a>
+</h2>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<p>+ Reconstruction filtering</p>
+<img style="float: left;height:20em;" src="/nonfree/art/mushrooms5_small.avif">
+<p><span style="clear: both;"></span></p>
+<h2 id="nyquist--aliasing">
+  Nyquist &amp; Aliasing
+  <a class="anchor" href="#nyquist--aliasing">#</a>
+</h2>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<img style="float: right;height:20em;" src="/nonfree/art/mushrooms6_small.avif">
+<p><span style="clear: both;"></span></p>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<img style="float: left;height:20em;" src="/nonfree/art/mushrooms7_small.avif">
+<h2 id="upsampling--downsampling">
+  Upsampling &amp; Downsampling
+  <a class="anchor" href="#upsampling--downsampling">#</a>
+</h2>
+<p><span style="clear: both;"></span></p>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<img style="float: right;height:20em;" src="/nonfree/art/mushrooms8_small.avif">
+<p><span style="clear: both;"></span></p>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<img style="float: left;height:20em;" src="/nonfree/art/mushrooms9_small.avif">
+<p><span style="clear: both;"> </span></p>
+<h2 id="iir--fir-filters">
+  IIR &amp; FIR Filters
+  <a class="anchor" href="#iir--fir-filters">#</a>
+</h2>
+<p>Lorem sed risus ultricies tristique. Vestibulum sed arcu non odio euismod lacinia at. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Accumsan tortor posuere ac ut consequat semper viverra nam libero. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Et malesuada fames ac turpis. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. In fermentum posuere urna nec tincidunt praesent semper. Aliquet bibendum enim facilisis gravida. Aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus.</p>
+<h2 id="envelopes">
+  Envelopes
+  <a class="anchor" href="#envelopes">#</a>
+</h2>
+<h2 id="optimization--numerical-effects">
+  Optimization &amp; Numerical Effects
+  <a class="anchor" href="#optimization--numerical-effects">#</a>
+</h2>
 <p><a href="http://www.dspguide.com/pdfbook.htm">The Scientist and Engineer&rsquo;s Guide to Digital Signal Processing</a>  By Steven W. Smith, Ph.D.</p>
 <p><a href="https://github.com/olilarkin/awesome-musicdsp">Awesome MusicDSP (GitHub)</a></p>
 <p><a href="https://www.youtube.com/watch?v=Il_qdtQKnqk">Tom Erbe, Design the Erbe Verb (YouTube)</a></p>
@@ -712,7 +782,19 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#30---digital-signal-processing">30 - Digital Signal Processing</a></li>
+    <li><a href="#30---digital-signal-processing">30 - Digital Signal Processing</a>
+      <ul>
+        <li><a href="#sampling--quantization">Sampling &amp; Quantization</a></li>
+        <li><a href="#digital-signal-processing">Digital Signal Processing</a></li>
+        <li><a href="#digital-to-analog-conversion">Digital to Analog Conversion</a></li>
+        <li><a href="#discrete-time-system">Discrete Time System</a></li>
+        <li><a href="#nyquist--aliasing">Nyquist &amp; Aliasing</a></li>
+        <li><a href="#upsampling--downsampling">Upsampling &amp; Downsampling</a></li>
+        <li><a href="#iir--fir-filters">IIR &amp; FIR Filters</a></li>
+        <li><a href="#envelopes">Envelopes</a></li>
+        <li><a href="#optimization--numerical-effects">Optimization &amp; Numerical Effects</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 

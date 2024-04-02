@@ -53,7 +53,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.cd15961d51fd98483307c8dd4fee281de492de7a448efd5f7552e7106fb8fdd4.js" integrity="sha256-zRWWHVH9mEgzB8jdT&#43;4oHeSS3npEjv1fdVLnEG&#43;4/dQ=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -600,7 +600,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#soc-microcrontrollers">SOC? Microcrontrollers?</a></li>
         <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
         <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
-        <li><a href="#managment-engine">&ldquo;Managment Engine&rdquo;</a></li>
+        <li><a href="#management-engine">&ldquo;Management Engine&rdquo;</a></li>
         <li><a href="#the-future">The future</a>
           <ul>
             <li><a href="#from-the-past-analog-computers">From the past: Analog Computers</a></li>
@@ -965,7 +965,7 @@ https://github.com/alex-shpak/hugo-book
 
 </div>
 
-<p>As with all things technology progressed and 64bit cpu&rsquo;s came along. Many attempts were made to make 32bit programs run with backwards comparability at high speeds on these CPU&rsquo;s, though in the end AMD made the method used today, dubbed the x86_64 instruction set. Overtime this instruction set was expanded with various additions. We can actually see the names of these additions that are available on the CPU in the system by looking yet again at the output of <code>cat /proc/cpuinfo</code> and looking at the flags section. While not all of these signify instruction set additions, many do. The most common &lsquo;famous&rsquo; if you will is SSE, of which there have been multiple revision, the first version alone adds <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">70 instructions</a>, which are used to make math faster</p>
+<p>As with all things technology progressed and 64bit cpu&rsquo;s came along. Many attempts were made to make 32bit programs run with backwards comparability at high speeds on these CPU&rsquo;s, though in the end AMD made the method used today, dubbed the x86_64 instruction set. Overtime this instruction set was expanded with various additions. We can actually see the names of these additions that are available on the CPU in the system by looking yet again at the output of <code>cat /proc/cpuinfo</code> and looking at the flags section. While not all of these signify instruction set additions, many do. The most common &lsquo;famous&rsquo; if you will is SSE, of which there have been multiple revision, the first version alone adds <span style="font-family: Arial">𝐖</span> <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions">70 instructions</a>, which are used to make math faster</p>
 <p>Alright, so finally, enter Mircocode. At some point all of this became a lot to manage and processor designs evolved even further, getting exponentially more complicated and faster with more and more instructions, so they added this little computer which has the primary duty of turning the mess of countless possible instructions into yet even smaller instructions that the heavy duty &lsquo;real&rsquo; processor does. Every once in a while a problem will be found in the way this is done, or a security vulnerability in the hardware itself may be found, and your CPU manufacture will release a microcode update.</p>
 <p>That update version is what you see on that line of <code>cat /proc/cpuinfo</code></p>
 <p>Now, at the beginning of this guide I said I wouldn&rsquo;t provide useless information, and I&rsquo;m sure that all looks pretty useless without more context. In general, this is interesting because you can (and will need to) write some assembly code by hand every now and then. Thankfully, its usually not x86 assembly which is very, very difficult to write but instead assembly on much smaller, micro controllers (basically really tiny computers), where that assembly is necessary because the system is so limited.</p>
@@ -982,7 +982,7 @@ https://github.com/alex-shpak/hugo-book
 </a>
 </p>
 <span class="smalltext ">
-    If you&rsquo;re interested, check out the <a href="https://en.wikipedia.org/wiki/Microcode">Wikipedia article on Microcode</a> and <a href="https://github.com/chip-red-pill/MicrocodeDecryptor">MicrocodeDecryptor (GitHub)</a>
+    If you&rsquo;re interested, check out <span style="font-family: Arial">𝐖</span> <a href="https://en.wikipedia.org/wiki/Microcode">Microcode</a> and <img src="/common/github-mark-white.svg" style="height:0.8em"> <a href="https://github.com/chip-red-pill/MicrocodeDecryptor">MicrocodeDecryptor</a>
 </span>
 <h2 id="cache">
   Cache
@@ -1042,7 +1042,7 @@ https://github.com/alex-shpak/hugo-book
 <img src="/eng/cpupower.webp" alt="sudo cpupower frequency-info" style="border-radius:20px;">
 <p>If you want to actually see how much power is used, <code>rapl</code> should do the trick, just be sure to actually put the system under load first- <code>stress-ng --cpu 16</code> (or whatever your thread count is) should work.</p>
 <span class="smalltext ">
-    If you are also on a Ryzen system, you may need to use <a href="https://github.com/djselbeck/rapl-read-ryzen">rapl-read-ryzen (github)</a> / <a href="https://aur.archlinux.org/packages/rapl-read-ryzen-git/">(aur)</a> to get this output
+    If you are also on a Ryzen system, you may need to use <img src="/common/github-mark-white.svg" style="height:0.8em"> <a href="https://github.com/djselbeck/rapl-read-ryzen">rapl-read-ryzen</a> / <a href="https://aur.archlinux.org/packages/rapl-read-ryzen-git/">(aur)</a> to get this output
 </span>
 <img src="/eng/rapl.png" alt="sudo rapl" style="border-radius:20px;">
 <p>We&rsquo;ll talk about delivering power to the CPU in a bit, when we talk about the Voltage Regulation Module (VRM) on the Motherboard.</p>
@@ -1055,7 +1055,8 @@ https://github.com/alex-shpak/hugo-book
   Numa Nodes? Chiplets? Die Yield?
   <a class="anchor" href="#numa-nodes-chiplets-die-yield">#</a>
 </h2>
-<p>[TODO] + CCX Groups and pinning processes to cores - <a href="https://github.com/AdelKS/LinuxGamingGuide">https://github.com/AdelKS/LinuxGamingGuide</a></p>
+<p>[TODO] + CCX Groups and pinning processes to cores -</p>
+<p><img src="/common/github-mark-white.svg" style="height:0.8em"> <a href="https://github.com/AdelKS/LinuxGamingGuide">https://github.com/AdelKS/LinuxGamingGuide</a></p>
 <h2 id="branch-prediction--pipelining">
   Branch Prediction &amp; Pipelining
   <a class="anchor" href="#branch-prediction--pipelining">#</a>
@@ -1115,9 +1116,9 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#other-things-done-by-the-cpu">#</a>
 </h2>
 <p>The CPU has a lot of dedicated hardware inside for specific functions, for example many CPUs have a dedicated hardware random number generator, a &ldquo;media engine&rdquo; (encoders/decoders) (<a href="https://en.wikipedia.org/wiki/Intel_Quick_Sync_Video">Quick Sync</a>), Encryption, DSP</p>
-<h2 id="managment-engine">
-  &ldquo;Managment Engine&rdquo;
-  <a class="anchor" href="#managment-engine">#</a>
+<h2 id="management-engine">
+  &ldquo;Management Engine&rdquo;
+  <a class="anchor" href="#management-engine">#</a>
 </h2>
 <h2 id="the-future">
   The future
@@ -1150,7 +1151,7 @@ https://github.com/alex-shpak/hugo-book
     <a href="https://cpu.land">Putting the &ldquo;You&rdquo; in CPU (Lex Mattick &amp; Hack Club)</a>
 </span>
 <p><a href="https://www.flamingspork.com/blog/2020/11/25/why-you-should-use-nproc-and-not-grep-proc-cpuinfo/">Why you should use &rsquo;nproc&rsquo; and not grep /proc/cpuinfo</a></p>
-<p><a href="https://youtu.be/HNwWQ9zGT-8">Spyware at The Hardware Level - Intel ME &amp; AMD PSP (YouTube, Mental Outlaw)</a></p>
+<p><img src="/common/youtube_social_icon_red.webp" style="height:0.8em">  <a href="https://youtu.be/HNwWQ9zGT-8">Spyware at The Hardware Level - Intel ME &amp; AMD PSP (Mental Outlaw)</a></p>
 <p><a href="https://comsec.ethz.ch/research/hardware-design-security/cascade-cpu-fuzzing-via-intricate-program-generation/">Cascade: CPU Fuzzing via Intricate Program Generation</a></p>
 <ol hidden id="footnotes">
     <li>With the exception of Apple's newer hardware, which runs <a href="https://en.wikipedia.org/wiki/Apple_silicon">their own silicon</a>, and some low end devices like chromebooks which may run processors like you'd find in phones.</li>
@@ -1217,7 +1218,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#soc-microcrontrollers">SOC? Microcrontrollers?</a></li>
         <li><a href="#a-note-on-x86-vendors-and-cpu-politics">A note on x86, vendors, and CPU politics</a></li>
         <li><a href="#other-things-done-by-the-cpu">Other things done by the CPU:</a></li>
-        <li><a href="#managment-engine">&ldquo;Managment Engine&rdquo;</a></li>
+        <li><a href="#management-engine">&ldquo;Management Engine&rdquo;</a></li>
         <li><a href="#the-future">The future</a>
           <ul>
             <li><a href="#from-the-past-analog-computers">From the past: Analog Computers</a></li>
