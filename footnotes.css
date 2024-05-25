@@ -1,50 +1,49 @@
-a.footptr {
-    vertical-align: super;
-    font-size: .83em;
-    text-decoration: none;
-}
-a.refptr {
-    text-decoration: none;
-}
-.foot-tooltip {
-    background-color: #AAAAAA22;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    padding-left: 1em;
-    opacity: 0;
-	-webkit-transition: opacity 0.3s linear;
-	-moz-transition: opacity 0.3s linear;
-	-o-transition: opacity 0.3s linear;
-	-ms-transition: opacity 0.3s linear;
-	transition: opacity 0.3s linear;
+footnote {
+    display: none;
 }
 
-li:target {
-    background-color: #BFEFFF;
+.footnote-index {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    position: relative;
 }
 
-ol#references {
-    list-style:none;
-	margin-left: 0;
-	padding-left: 1.8em;
-	text-indent: -1.8em;
-
-    counter-reset: refcounter;
+.popover {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    max-width: 50ch;
+    /* Limit to 50 characters wide */
+    word-wrap: break-word;
 }
-ol#references > li:before {
-  content: "[" counter(refcounter) "] ";
-  counter-increment: refcounter;
+
+.popover::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    /* Position the triangle */
+    left: 10px;
+    /* Center the triangle */
+    border-width: 0 10px 10px 10px;
+    /* Make it upwards facing */
+    border-style: solid;
+    border-color: transparent transparent white transparent;
 }
 
-ol#footnotes {
-    list-style:none;
-	margin-left: 0;
-	padding-left: 1.8em;
-	text-indent: -1.8em;
-
-    counter-reset: footcounter;
-}
-ol#footnotes > li:before {
-  content: "(" counter(footcounter) ") ";
-  counter-increment: footcounter;
+.popover::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    /* Position the shadow triangle */
+    left: 11px;
+    /* Center the triangle */
+    border-width: 0 11px 11px 11px;
+    /* Make it upwards facing */
+    border-style: solid;
+    border-color: transparent transparent #ccc transparent;
 }

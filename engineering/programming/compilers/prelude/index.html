@@ -43,21 +43,23 @@ All operations are binary, so they take two operands from the stack and replace 
   a { color: #42b9f3; }
   a:active { color: #42b9f3; }
   ::-webkit-scrollbar-thumb { background: #009CDF !important; }
+  .footnote-index { color: #42b9f3; }
 </style>
-<meta property="og:title" content="" />
-<meta property="og:description" content="Prelude: A Reverse Polish Notation Calculator # In order to get a footing, we&rsquo;ll start with an example: a calculator that uses postfix operator notation, sometimes called &ldquo;reverse polish notation.&rdquo;
+<meta property="og:url" content="https://opguides.info/engineering/programming/compilers/prelude/">
+  <meta property="og:site_name" content="Opinionated Guides">
+  <meta property="og:title" content="Opinionated Guides">
+  <meta property="og:description" content="Prelude: A Reverse Polish Notation Calculator # In order to get a footing, we’ll start with an example: a calculator that uses postfix operator notation, sometimes called “reverse polish notation.”
 In this calculator, all arguments are placed onto a stack. Whenever an operator occurs, it pops values off the stack at that point, performs the operation, and pushes the answer back on.
-All operations are binary, so they take two operands from the stack and replace it with one result." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/programming/compilers/prelude/" /><meta property="article:section" content="engineering" />
-
-
+All operations are binary, so they take two operands from the stack and replace it with one result.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="engineering">
 <title>Prelude | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.9901140685630ad93b1e380d7fdc575747b20b61bec6b42c903d812e7bf31558.css" integrity="sha256-mQEUBoVjCtk7HjgNf9xXV0eyC2G&#43;xrQskD2BLnvzFVg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f364965c016c9189a8bb19f886e20ba4ea17335a1e58106de7f9380cfb3d8586.js" integrity="sha256-82SWXAFskYmouxn4huILpOoXM1oeWBBt5/k4DPs9hYY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -757,15 +759,9 @@ https://github.com/alex-shpak/hugo-book
 <p>It is doing lexical analysis: splitting up the program into numbers and the operators to execute on them.</p>
 <p>It is doing syntax analysis: identifying what operations to do, and keeping track of the order to do them in, which determines their operands.</p>
 <p>It is using those syntax understandings to take action. It executes them immediately, which makes it an interpreter rather than a compiler, and isn&rsquo;t really &ldquo;translation&rdquo;, but the idea is still there.</p>
-<p>It is so simple mostly because of the simplicty of the &ldquo;language.&rdquo; It has only one type (integer), no variables, and not even any control flow. In fact, it is not even Turing Complete!<a class="ptr">(1)</a></p>
+<p>It is so simple mostly because of the simplicty of the &ldquo;language.&rdquo; It has only one type (integer), no variables, and not even any control flow. In fact, it is not even Turing Complete!<footnote>Aside from the lack of control flow, this is because our abstract machine requires data to be accessed in stack order (LIFO).</br></br>Even if memory and the number of operations were infinite (as is the case in a Turing machine), this data access pattern makes certain problems uncomputable. In order to make it Turing complete, at least one operation that allows random access (i.e. read from the middle without deleting the data above it) is necessary. This was proven several decades ago.</br></br>It would suffice, for example, to add a second parallel stack, and let operations choose between them. It would also suffice to force data accesses into queue order (FIFO) instead.</footnote></p>
 <p>While there is no way to make this into a language like C or Python without a total re-write, perhaps we can fix these shortcomings and come up with something more powerful in the course of these sections. And perhaps we can learn something along the way.</p>
 <p>To make things easier to follow, and facilitate changing one piece at a time, I&rsquo;m going to create a python package called <code>calc_lang</code>. If you&rsquo;re not familiar with python packages, <a href="https://pythongeeks.org/python-packages/">here&rsquo;s an overview</a>. From now on, all &ldquo;final code&rdquo; examples will be in the package.</p>
-<ol hidden id="footnotes">
-<li>Aside from the lack of control flow, this is because our abstract machine requires data to be accessed in stack order (LIFO).
-<p>Even if memory and the number of operations were infinite (as is the case in a Turing machine), this data access pattern makes certain problems uncomputable. In order to make it Turing complete, at least one operation that allows random access (i.e. read from the middle without deleting the data above it) is necessary. This was proven several decades ago.</p>
-<p>It would suffice, for example, to add a second parallel stack, and let operations choose between them. It would also suffice to force data accesses into queue order (FIFO) instead.</p>
-</li>
-</ol>
 </article>
  
       

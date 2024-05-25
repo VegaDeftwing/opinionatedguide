@@ -41,19 +41,21 @@
   a { color: #42b9f3; }
   a:active { color: #42b9f3; }
   ::-webkit-scrollbar-thumb { background: #009CDF !important; }
+  .footnote-index { color: #42b9f3; }
 </style>
-<meta property="og:title" content="" />
-<meta property="og:description" content="10 - The Bigger Picture # Something that&rsquo;s most people get wrong about computers is thinking that the majority of what makes a computer go faster at something is being able to do math faster. After all, if you can add, divide, multiply, subtract, etc. numbers faster, that&rsquo;s everything a computer does, right? So making math twice as fast means everything is twice as fast? No. Very much so no." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/linux/hardware/biggerpicture/" /><meta property="article:section" content="engineering" />
-
-
+<meta property="og:url" content="https://opguides.info/engineering/linux/hardware/biggerpicture/">
+  <meta property="og:site_name" content="Opinionated Guides">
+  <meta property="og:title" content="Opinionated Guides">
+  <meta property="og:description" content="10 - The Bigger Picture # Something that’s most people get wrong about computers is thinking that the majority of what makes a computer go faster at something is being able to do math faster. After all, if you can add, divide, multiply, subtract, etc. numbers faster, that’s everything a computer does, right? So making math twice as fast means everything is twice as fast? No. Very much so no.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="engineering">
 <title>Biggerpicture | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.9901140685630ad93b1e380d7fdc575747b20b61bec6b42c903d812e7bf31558.css" integrity="sha256-mQEUBoVjCtk7HjgNf9xXV0eyC2G&#43;xrQskD2BLnvzFVg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f364965c016c9189a8bb19f886e20ba4ea17335a1e58106de7f9380cfb3d8586.js" integrity="sha256-82SWXAFskYmouxn4huILpOoXM1oeWBBt5/k4DPs9hYY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -651,7 +653,7 @@ https://github.com/alex-shpak/hugo-book
 <p>If when it goes to read from cache, the memory still isn&rsquo;t there, that&rsquo;s called a <strong>cache miss</strong>.</p>
 <p>When this happens the CPU has to go read from RAM (well, actually it gets another page from RAM and puts it into the cache). Now, remember before how with the normal analogy you hear people say RAM is like our short term memory? This is why I don&rsquo;t love that analogy - reading from RAM compared to Cache or registers is insanely slow. It&rsquo;s so slow that the CPU will almost certainly run out of work to do. The term for when this happens is actually a <strong>CPU Stall</strong>.</p>
 <p>Numbers vary, but while reading from registers is instant (by definition of how they work), reading from the cache may take anywhere from 3 to ~80 cycles (depending on the cache layer/level, again, skipping this for the moment). Assuming one cycle per instruction (which is its own weird conversation), that&rsquo;s up to 80 instructions like adds and multiplies and what not. But what if we have to go all the way to RAM? That&rsquo;s usually around 300 cycles. Yikes! See why I said memory access is so important now?</p>
-<p>Obviously, this is a huge problem. There are ways to make it less-bad, such as getting the CPU to go do something else while it finishes<a class="ptr">(1)</a>, trying to re-order instructions to have data be ready when it&rsquo;s needed (<a href="https://en.wikipedia.org/wiki/Out-of-order_execution">out of order execution (Wikipedia)</a>), guessing what result from a branch (<code>if a do b, else do c</code>) will actually run and computing it early (<a href="https://en.wikipedia.org/wiki/Speculative_execution">Speculative Execution (Wikipedia)</a>), and generally just loading data in intelligently, such as assuming a program executes with a reasonable level of spatial locality (that is, if we&rsquo;re reading memory at locations 1, 2, and 3, we probably want 4 next) and temporal locality (if we keep reading 1,2,1,2,1,2, we probably want 1 next), or, yunno&rsquo;, just making the CPU cache bigger and adding more registers, which is something that generally happens which each new processor release.</p>
+<p>Obviously, this is a huge problem. There are ways to make it less-bad, such as getting the CPU to go do something else while it finishes<footnote>Ever wondered what Hyper Threading is, or why you have more cores than threads? This is a big part of it. Basically, it lets something else run when the CPU is waiting on the cache to populate.</footnote>, trying to re-order instructions to have data be ready when it&rsquo;s needed (<a href="https://en.wikipedia.org/wiki/Out-of-order_execution">out of order execution (Wikipedia)</a>), guessing what result from a branch (<code>if a do b, else do c</code>) will actually run and computing it early (<a href="https://en.wikipedia.org/wiki/Speculative_execution">Speculative Execution (Wikipedia)</a>), and generally just loading data in intelligently, such as assuming a program executes with a reasonable level of spatial locality (that is, if we&rsquo;re reading memory at locations 1, 2, and 3, we probably want 4 next) and temporal locality (if we keep reading 1,2,1,2,1,2, we probably want 1 next), or, yunno&rsquo;, just making the CPU cache bigger and adding more registers, which is something that generally happens which each new processor release.</p>
 <p>Learning more about this, such as about how different <a href="https://en.wikipedia.org/wiki/Cache_placement_policies">Cache placement policies (Wikipedia)</a> and <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies">Cache <strong>re</strong>placement policies (Wikipedia)</a> as well as how the interact with <a href="https://en.wikipedia.org/wiki/Page_replacement_algorithm">Virtual Memory page replacement algorithms (Wikipedia)</a>, <a href="https://en.wikipedia.org/wiki/Scheduling_%28computing%29">CPU Scheduling (Wikipedia)</a>, and <a href="https://en.wikipedia.org/wiki/Pipeline_%28computing%29">CPU Pipeling (Wikipedia)</a> and then actually decide how to get data from bulk storage (be it from something like a NVMe SSD - hence the advent of <a href="https://en.wikipedia.org/wiki/Xbox_Series_X_and_Series_S#Storage_architecture">Direct Storage (Wikipedia)</a> - or as slow as hard drive) is why studying modern computer architecture is super difficult and confusing. It&rsquo;s this gross interplay of hardware, operating systems, memory technologies, and about a million other variables where the reason things are slow is literally because we&rsquo;re fighting the speed of light (as that dictates how quickly electrical signals can get from one point to another), switching speed of transistors that are nanometers wide, and the effects of data corruption when we&rsquo;re sending this data at the crazy rates we are. Fortunately, for 99.9% of things, you really don&rsquo;t need to know how all of that works. All you really need to know is that while, yes, a CPU with a faster clock will process things faster, if that just means stalling, waiting for data more often it&rsquo;s not really a big win.</p>
 <p>At then end of the day, I&rsquo;m telling you all of this to make it clear that a lot of really smart people have thought really hard to make the CPU in your computer try it&rsquo;s very best to move data around as little as it can and have the data it needs ready when it needs it, yet still over ⅓ of your computer&rsquo;s time is spent moving things around. So, when we actually get to writing code (I swear we&rsquo;ll get there eventually…) we&rsquo;ll cover doing some what-should-currently-sound-like-black-magic like:</p>
 <p>TODO: I want to link to a page doing each of these, that is, each bullet should have a button.</p>
@@ -709,9 +711,6 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#--abstractions-are-only-usually-good--">#</a>
 </h2>
 <!--Useful for getting work done, a massive pain in the ass when the issue is down the stack-->
-<ol hidden id="footnotes">
-    <li>Ever wondered what Hyper Threading is, or why you have more cores than threads? This is a big part of it. Basically, it lets something else run when the CPU is waiting on the cache to populate.</li>
-</ol>
 </article>
  
       

@@ -41,19 +41,21 @@
   a { color: #42b9f3; }
   a:active { color: #42b9f3; }
   ::-webkit-scrollbar-thumb { background: #009CDF !important; }
+  .footnote-index { color: #42b9f3; }
 </style>
-<meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 10.6 - What&rsquo;s a Type? &amp; Going Down Rabbit Holes # Alright, I&rsquo;ll cut to the chase. When programming, you&rsquo;ll need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make appearances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at ints" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/programming/intro/prog6types/" /><meta property="article:section" content="engineering" />
-
-
+<meta property="og:url" content="https://opguides.info/engineering/programming/intro/prog6types/">
+  <meta property="og:site_name" content="Opinionated Guides">
+  <meta property="og:title" content="Opinionated Guides">
+  <meta property="og:description" content="Chapter 10.6 - What’s a Type? &amp; Going Down Rabbit Holes # Alright, I’ll cut to the chase. When programming, you’ll need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make appearances. While the exact names of each type and what they’re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let’s start with the C language and look at ints">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="engineering">
 <title>Prog6types | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.9901140685630ad93b1e380d7fdc575747b20b61bec6b42c903d812e7bf31558.css" integrity="sha256-mQEUBoVjCtk7HjgNf9xXV0eyC2G&#43;xrQskD2BLnvzFVg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f364965c016c9189a8bb19f886e20ba4ea17335a1e58106de7f9380cfb3d8586.js" integrity="sha256-82SWXAFskYmouxn4huILpOoXM1oeWBBt5/k4DPs9hYY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -840,7 +842,7 @@ https://github.com/alex-shpak/hugo-book
 <p>This means, to get the first number, the one listed here as &lsquo;1&rsquo; we&rsquo;d access it by doing <code>my_array[0]</code>. If we did <code>my_array[1]</code> the value held there would be 2, because, again, we start counting from 0.</p>
 <p>It&rsquo;s weird, but - to spoil the mystery - it&rsquo;s because C really wants you to think about the index not as what index it is but as how many offsets from the base address you are.</p>
 <p>You see, in C, if you were to just set a variable equal to <code>my_array</code> you wouldn&rsquo;t actually be copying the data, you&rsquo;d actually only be setting the variable to hold the address of the first element in the array. C arrays are really just allocating a bunch of consecutive places in memory for you. So, if you think about it as address and offsets from a base address, starting at 0 - that is, no offset - makes a lot of sense.</p>
-<p>By the way, while we&rsquo;ll get to it later, if you did actually want to copy the data. In C at least, you&rsquo;d actually have to use a function called <code>memcpy()</code> <a class="ptr">(1)</a>which is literally for copying memory from one place to another. In Python, you can do it by directly doing the assignment as you&rsquo;d expect.</p>
+<p>By the way, while we&rsquo;ll get to it later, if you did actually want to copy the data. In C at least, you&rsquo;d actually have to use a function called <code>memcpy()</code> <footnote>Well, okay, not &ldquo;have to&rdquo;. You could make a loop to iterate over every element in the array. But, memcpy will likely be dramatically faster because some really smart people have optimized the hell out of it.</footnote>which is literally for copying memory from one place to another. In Python, you can do it by directly doing the assignment as you&rsquo;d expect.</p>
 <blockquote>
 <p>Err, okay, this is confusing. What I mean is in C if you have this:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -1778,9 +1780,6 @@ Triode Killjoy
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/p8u_k2LIZyo" title="Fast Inverse Square Root — A Quake III Algorithm" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <hr>
 <p>Okay, we&rsquo;re getting there. We&rsquo;ve gone over some of the mind set of programming, you&rsquo;ve now ran some code in two different languages, stepped though it, and have learned a lot about data types - next up, we&rsquo;ll finally look at actual logic and doing stuff on these data types.</p>
-<ol hidden id="footnotes">
-    <li>Well, okay, not "have to". You could make a loop to iterate over every element in the array. But, memcpy will likely be dramatically faster because some really smart people have optimized the hell out of it.</li>
-</ol>
 </article>
  
       

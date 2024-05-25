@@ -41,19 +41,21 @@
   a { color: #42b9f3; }
   a:active { color: #42b9f3; }
   ::-webkit-scrollbar-thumb { background: #009CDF !important; }
+  .footnote-index { color: #42b9f3; }
 </style>
-<meta property="og:title" content="" />
-<meta property="og:description" content="16 - Git, Testing, CI, and CD # Testing # @jnesselr replying to @alicegoldfuss (Nov 13, 2018) &#43;----------------------------------------------------&#43; |Me: *does major refactor* | |Tests: ✓ | |Me: I don&#39;t believe you | &#43;----------------------------------------------------&#43; [Suspended User] &#43;----------------------------------------------------&#43; |Me: *deliberately breaks something, just to be sure*| |Tests: ✓ | |Me: oh no | &#43;----------------------------------------------------&#43; @boo_radley &#43;----------------------------------------------------&#43; |Me: *changes nothing* | |Tests: ✗ | |Me: oh no | &#43;----------------------------------------------------&#43; [Suspended User] &#43;----------------------------------------------------&#43; |Me: *runs tests again* | |Tests: ✔ | |Me: oh no no no | &#43;----------------------------------------------------&#43; src: https://twitter." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/programming/gitcicd/" /><meta property="article:section" content="engineering" />
-
-
+<meta property="og:url" content="https://opguides.info/engineering/programming/gitcicd/">
+  <meta property="og:site_name" content="Opinionated Guides">
+  <meta property="og:title" content="Opinionated Guides">
+  <meta property="og:description" content="16 - Git, Testing, CI, and CD # Testing # @jnesselr replying to @alicegoldfuss (Nov 13, 2018) &#43;----------------------------------------------------&#43; |Me: *does major refactor* | |Tests: ✓ | |Me: I don&#39;t believe you | &#43;----------------------------------------------------&#43; [Suspended User] &#43;----------------------------------------------------&#43; |Me: *deliberately breaks something, just to be sure*| |Tests: ✓ | |Me: oh no | &#43;----------------------------------------------------&#43; @boo_radley &#43;----------------------------------------------------&#43; |Me: *changes nothing* | |Tests: ✗ | |Me: oh no | &#43;----------------------------------------------------&#43; [Suspended User] &#43;----------------------------------------------------&#43; |Me: *runs tests again* | |Tests: ✔ | |Me: oh no no no | &#43;----------------------------------------------------&#43; src: https://twitter.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="engineering">
 <title>Gitcicd | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.9901140685630ad93b1e380d7fdc575747b20b61bec6b42c903d812e7bf31558.css" integrity="sha256-mQEUBoVjCtk7HjgNf9xXV0eyC2G&#43;xrQskD2BLnvzFVg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f364965c016c9189a8bb19f886e20ba4ea17335a1e58106de7f9380cfb3d8586.js" integrity="sha256-82SWXAFskYmouxn4huILpOoXM1oeWBBt5/k4DPs9hYY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -685,7 +687,7 @@ src: https://twitter.com/boo_radley/status/1062513898954391552
 <p>There are a lot of different git platforms out there, and many of them have their own CI. In addition, the most popular ones are owned by companies who have a sketchy track record in open source &ndash; or once had good ones, but then were acquired by others who did.</p>
 <p>As a result, I want to push toward a tool that is platform independent: docker. This has some trade-offs:</p>
 <ul>
-<li>It&rsquo;s independent of any CI provider <a class="ptr">(1)</a></li>
+<li>It&rsquo;s independent of any CI provider <footnote>This may or may not be important to you. I would simply note that many platforms and CI systems have been taken over or bought by open-source hostile companies. Even formerly visionary ones that don&rsquo;t start with G.</footnote></li>
 <li>It&rsquo;s well supported by most of them (a &ldquo;command&rdquo; makes it easy to handle containers)</li>
 <li>You can run the full CI on your own machine, e.g. to debug it without 20 pushes to trigger a rerun</li>
 <li>It doesn&rsquo;t rely on their support for a particular OS (especially ancient or exotic ones)</li>
@@ -747,7 +749,7 @@ RUN apt update &amp;&amp; apt install -y libopengl-dev build-essential $cc_pkgs
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Then you can test it on any compiler you wish. <a class="ptr">(2)</a></p>
+</div><p>Then you can test it on any compiler you wish.<footnote>Why have different versions of the same compiler? Because they default to different versions of the C++ standard. Not only will C++ &ldquo;retcon&rdquo; keywords, but semantics will change. Suffice to say this has caught issues in open source projects.</footnote></p>
 <p>If your CI provider supports &ldquo;build matrix&rdquo; definition (most do), then you don&rsquo;t even need to do that! Just put matrix variables for each one (so that the line up as a <em>group</em>, rather than a <em>cross product</em>).</p>
 <p>(Note: this is not exact for any vendor, but gives the idea.)</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -790,10 +792,6 @@ RUN apt update &amp;&amp; apt install -y libopengl-dev build-essential $cc_pkgs
   Continuous Deployment
   <a class="anchor" href="#continuous-deployment">#</a>
 </h2>
-<ol hidden id="footnotes">
-  <li>This may or may not be important to you. I would simply note that many platforms and CI systems have been taken over or bought by open-source hostile companies. Even formerly visionary ones that don't start with G.</li>
-  <li>Why have different versions of the same compiler? Because they default to different versions of the C++ standard. Not only will C++ "retcon" keywords, but semantics will change. Suffice to say this has caught issues in open source projects.</li>
-</ol>
 </article>
  
       

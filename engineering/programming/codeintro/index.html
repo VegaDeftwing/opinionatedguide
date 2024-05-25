@@ -41,19 +41,21 @@
   a { color: #42b9f3; }
   a:active { color: #42b9f3; }
   ::-webkit-scrollbar-thumb { background: #009CDF !important; }
+  .footnote-index { color: #42b9f3; }
 </style>
-<meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 10 - Let&rsquo;s write some Code # Hello! If you&rsquo;re here, you should know you&rsquo;re on a deprecated page. All work has now been refocused on getting the new programming intro (Chapter 10 in the menu bar) to being much, much better than this page ever was. Starting Minimal # Code is mostly math # Here&rsquo;s the thing: Code is mostly math. If you&rsquo;re anything like me, you probably just went ugggggghhhhhhh." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/programming/codeintro/" /><meta property="article:section" content="engineering" />
-
-
+<meta property="og:url" content="https://opguides.info/engineering/programming/codeintro/">
+  <meta property="og:site_name" content="Opinionated Guides">
+  <meta property="og:title" content="Opinionated Guides">
+  <meta property="og:description" content="Chapter 10 - Let’s write some Code # Hello! If you’re here, you should know you’re on a deprecated page. All work has now been refocused on getting the new programming intro (Chapter 10 in the menu bar) to being much, much better than this page ever was. Starting Minimal # Code is mostly math # Here’s the thing: Code is mostly math. If you’re anything like me, you probably just went ugggggghhhhhhh.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="engineering">
 <title>Codeintro | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.9901140685630ad93b1e380d7fdc575747b20b61bec6b42c903d812e7bf31558.css" integrity="sha256-mQEUBoVjCtk7HjgNf9xXV0eyC2G&#43;xrQskD2BLnvzFVg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f364965c016c9189a8bb19f886e20ba4ea17335a1e58106de7f9380cfb3d8586.js" integrity="sha256-82SWXAFskYmouxn4huILpOoXM1oeWBBt5/k4DPs9hYY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -817,7 +819,7 @@ http://composingprograms.com
 <p>You may ask, why Python? Why not any of the other languages you may have heard of?</p>
 <p>There are a couple reasons:</p>
 <ul>
-<li><strong>It Looks Like Math</strong>. As I said above, code is mostly math, so why not choose a language that looks like it? Python does not require a lot of typing or understanding weird characters with special meaning. The most subtle thing about it is whitespace. <a class="ptr">(1)</a></li>
+<li><strong>It Looks Like Math</strong>. As I said above, code is mostly math, so why not choose a language that looks like it? Python does not require a lot of typing or understanding weird characters with special meaning. The most subtle thing about it is whitespace. <footnote>whitespace literally means the &lsquo;blank&rsquo; characters - like spaces and tabs, which do actually matter in python.</footnote></li>
 <li><strong>Accessibility</strong>. Python was designed from the beginning to be easy to learn and read, including for non-programmers.</li>
 <li><strong>Features</strong>. Python has most of the features common in other languages. That makes it good for teaching the features in other languages.</li>
 <li><strong>Popularity</strong>. There are dozens of tutorials about how to use it to solve any problem you could imagine. Once this guide gets you started, the internet is full of paths to follow.</li>
@@ -855,7 +857,7 @@ http://composingprograms.com
 </div>
 </div><p>you should notice a few weird things here though, namely, on line 5 we used two equal signs to check equality. This is the case in most programming languages because a single equal sign, like is used on the first two lines, is used for assignment that is assigning the value of <code>a</code> to 1 and <code>b</code> to 1 or as on line 6 assigning the value of <code>( a - 3 )</code> to <code>c</code>, because we&rsquo;ve already used a single equal sign for assignment, two equal signs is used for checking that two things are actual equal. That is, one equal sign <em>sets</em> things to be equal (<strong>assignment)</strong>, two <em>checks</em> that they are equal (<strong>equality</strong>).</p>
 <p>You&rsquo;ll also see there&rsquo;s normal english after the <code>#</code> character. In python <code>#</code> means the following text is a comment.</p>
-<p>If you follow the logic here, <code>a</code> and <code>b</code> are both 1, so line 5 checks that both are equal, and this is true, so line 6 does happen. Now &lsquo;c&rsquo; which previously held the value &lsquo;1&rsquo; is now equal to &lsquo;a-3&rsquo;, where &lsquo;a&rsquo; is &lsquo;1&rsquo;, so &lsquo;c&rsquo; becomes &lsquo;-2&rsquo;. on line 8 we check if <code>c</code> is less than &lsquo;0&rsquo;, and because it is we print the word &lsquo;hello&rsquo;. Here, you&rsquo;ll notice &lsquo;hello&rsquo; is in quotes. This is because if it were not, that is if it were <code>print(hello)</code> it would try to print the value of the variable &lsquo;hello&rsquo; which since hello isn&rsquo;t defined, <a class="ptr">(2)</a>wouldn&rsquo;t work. Let&rsquo;s try this in the Python interpreter. You can find install instructions for your operating system here: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>. If you&rsquo;re on Linux simply type <code>python</code> into the terminal.</p>
+<p>If you follow the logic here, <code>a</code> and <code>b</code> are both 1, so line 5 checks that both are equal, and this is true, so line 6 does happen. Now &lsquo;c&rsquo; which previously held the value &lsquo;1&rsquo; is now equal to &lsquo;a-3&rsquo;, where &lsquo;a&rsquo; is &lsquo;1&rsquo;, so &lsquo;c&rsquo; becomes &lsquo;-2&rsquo;. on line 8 we check if <code>c</code> is less than &lsquo;0&rsquo;, and because it is we print the word &lsquo;hello&rsquo;. Here, you&rsquo;ll notice &lsquo;hello&rsquo; is in quotes. This is because if it were not, that is if it were <code>print(hello)</code> it would try to print the value of the variable &lsquo;hello&rsquo; which since hello isn&rsquo;t defined, <footnote>meaning we didn&rsquo;t make a varible called &lsquo;hello&rsquo; and give it a value</footnote>wouldn&rsquo;t work. Let&rsquo;s try this in the Python interpreter. You can find install instructions for your operating system here: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>. If you&rsquo;re on Linux simply type <code>python</code> into the terminal.</p>
 <p>With the Python interpreter open try without quotes:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1268,7 +1270,7 @@ c = a + b
 </span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>When we do this, the computer has to store them somewhere in it&rsquo;s memory. We can (kinda) see this location in memory by using the <code>id()</code> command. The first weird thing you&rsquo;ll notice is that while <code>id(a)</code> will stay the same if you run it repeatedly, if you close python, set <code>a=1</code> again, and rerun <code>id(a)</code> the number will change. That&rsquo;s because this &lsquo;id&rsquo; is really where in memory the data is being stored, and each time to run python the computer is going to put it somewhere else<a class="ptr">(3)</a>. The <code>is</code> command is python is actually checking if these id&rsquo;s are the same, not if the value is the same. This harkens back to object orientation- remember, we could make a bunch of objects, lets say cows, we could have two cows with the same name, same color, same age, etc. but if they&rsquo;re two different cows, they&rsquo;re still two different cows, and is will reflect this. They make be equal in every other regard, but one cow is not the other cow, they&rsquo;re still distinct <em>objects</em>.</p>
+</div><p>When we do this, the computer has to store them somewhere in it&rsquo;s memory. We can (kinda) see this location in memory by using the <code>id()</code> command. The first weird thing you&rsquo;ll notice is that while <code>id(a)</code> will stay the same if you run it repeatedly, if you close python, set <code>a=1</code> again, and rerun <code>id(a)</code> the number will change. That&rsquo;s because this &lsquo;id&rsquo; is really where in memory the data is being stored, and each time to run python the computer is going to put it somewhere else<footnote>There&rsquo;s a lot of &ldquo;uhm, actually&rdquo; to be said here, but go with it.</footnote>. The <code>is</code> command is python is actually checking if these id&rsquo;s are the same, not if the value is the same. This harkens back to object orientation- remember, we could make a bunch of objects, lets say cows, we could have two cows with the same name, same color, same age, etc. but if they&rsquo;re two different cows, they&rsquo;re still two different cows, and is will reflect this. They make be equal in every other regard, but one cow is not the other cow, they&rsquo;re still distinct <em>objects</em>.</p>
 <p>This can get really fucking weird. One of the weirdest things about python in regards to this is (usually) python will pre-allocate a place to store low integer numbers, so, if you make two variables with low integer numbers, they&rsquo;ll actually point to the same memory location at first…</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1516,11 +1518,6 @@ articles: NAME, PUBLISHED, TPUB, TEDIT</p>
 <p><a href="https://www.youtube.com/watch?v=Cp5WWtMoeKg">Coding Adventure: Ray Marching (YouTube)</a></p>
 <p><a href="https://www.youtube.com/watch?v=M3iI2l0ltbE">Coding Adventure: Marching Cubes(Youtube)</a></p>
 <p><a href="https://www.youtube.com/watch?v=cWpFZbjtSQg&amp;list=PL5cGwrD7cv8hK-qxPqRB25Dzs0BtLWhXz">Coding Adventure: Portals (YouTube)</a></p>
-<ol hidden id="footnotes">
-    <li>whitespace literally means the 'blank' characters - like spaces and tabs, which do actually matter in python.</li>    
-    <li>meaning we didn't make a varible called 'hello' and give it a value</li>
-    <li>There's a lot of "uhm, actually" to be said here, but go with it.<li>
-</ol>
 </article>
  
       

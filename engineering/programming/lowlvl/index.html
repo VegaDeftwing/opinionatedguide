@@ -29,7 +29,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Chapter 14 - Low Level Programming # Ashlyn Black&rsquo;s C Cheat Sheet
 &lsquo;C Programming&rsquo; on badd10de.dev
-Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular(1). Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn.">
+Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular&hellip;because it&rsquo;s old and everything already uses it.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -43,21 +43,23 @@ Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;
   a { color: #42b9f3; }
   a:active { color: #42b9f3; }
   ::-webkit-scrollbar-thumb { background: #009CDF !important; }
+  .footnote-index { color: #42b9f3; }
 </style>
-<meta property="og:title" content="" />
-<meta property="og:description" content="Chapter 14 - Low Level Programming # Ashlyn Black&rsquo;s C Cheat Sheet
-&lsquo;C Programming&rsquo; on badd10de.dev
-Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular(1). Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://opguides.info/engineering/programming/lowlvl/" /><meta property="article:section" content="engineering" />
-
-
+<meta property="og:url" content="https://opguides.info/engineering/programming/lowlvl/">
+  <meta property="og:site_name" content="Opinionated Guides">
+  <meta property="og:title" content="Opinionated Guides">
+  <meta property="og:description" content="Chapter 14 - Low Level Programming # Ashlyn Black’s C Cheat Sheet
+‘C Programming’ on badd10de.dev
+Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there’s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the ‘big three’ that come to mind. C is what is most popular…because it’s old and everything already uses it.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="engineering">
 <title>Lowlvl | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.2bf0a8991b63fcb04b01fce847b895d364e7cb55987f09e20b04003ef243ea21.css" integrity="sha256-K/ComRtj/LBLAfzoR7iV02Tny1WYfwniCwQAPvJD6iE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.9901140685630ad93b1e380d7fdc575747b20b61bec6b42c903d812e7bf31558.css" integrity="sha256-mQEUBoVjCtk7HjgNf9xXV0eyC2G&#43;xrQskD2BLnvzFVg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.5c8bf0676cb07852a58c6287bacf4892dc4b871e8d243345a4e7dc0c6494497b.js" integrity="sha256-XIvwZ2yweFKljGKHus9IktxLhx6NJDNFpOfcDGSUSXs=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.f364965c016c9189a8bb19f886e20ba4ea17335a1e58106de7f9380cfb3d8586.js" integrity="sha256-82SWXAFskYmouxn4huILpOoXM1oeWBBt5/k4DPs9hYY=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -647,7 +649,7 @@ https://github.com/alex-shpak/hugo-book
   Why C?
   <a class="anchor" href="#why-c">#</a>
 </h2>
-<p>This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C++, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular<a class="ptr">(1)</a>. Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn. It forces you to know the low level, which in this case is great. C++ has grown into a behemoth where anything can be done in about a dozen different ways and each development team is effectively writing in their own dialect of C++. Rust, while better than C for a million reasons, (see the footnote) also sort of assumes you have experience in language like C before using it, so&hellip; the answer to why C is because we sorta have to.</p>
+<p>This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C++, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular<footnote>&hellip;because it&rsquo;s old and everything already uses it. There are dozens of ways it&rsquo;s horribly fucked, like the lack of protected data/functions, the ability to write in memory bugs that are hard to catch and lead to security problems as they&rsquo;re not found at compile time, the inconsistency in implementations of the standard library, &hellip; I could go on. If you&rsquo;re not doing low level dev, don&rsquo;t use C. If you&rsquo;re doing low level dev and have the choice to not use C, don&rsquo;t use C.</footnote>. Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn. It forces you to know the low level, which in this case is great. C++ has grown into a behemoth where anything can be done in about a dozen different ways and each development team is effectively writing in their own dialect of C++. Rust, while better than C for a million reasons, (see the footnote) also sort of assumes you have experience in language like C before using it, so&hellip; the answer to why C is because we sorta have to.</p>
 <p>To be clear, C has a lot of annoyances due to its minimalism. For example, there are no strings - only arrays of characters - and all memory management is manual. If you followed the programming intro chapters, you should&rsquo;ve known that first part.</p>
 <div class="speech big ">
     <p>
@@ -1302,9 +1304,6 @@ the value of sine( 9 ) is  0.4121184852417566
 <p><a href="https://en.wikipedia.org/wiki/Pragma_once">https://en.wikipedia.org/wiki/Pragma_once</a> vs include guards, why they exist</p>
 <p><a href="https://embeddedartistry.com/blog/2019/04/08/a-general-overview-of-what-happens-before-main/">https://embeddedartistry.com/blog/2019/04/08/a-general-overview-of-what-happens-before-main/</a></p>
 <p><a href="https://8bitworkshop.com">https://8bitworkshop.com</a></p>
-<ol hidden id="footnotes">
-<li>...because it's old and everything already uses it. There are dozens of ways it's horribly fucked, like the lack of protected data/functions, the ability to write in memory bugs that are hard to catch and lead to security problems as they're not found at compile time, the inconsistency in implementations of the standard library, ... I could go on. If you're not doing low level dev, don't use C. If you're doing low level dev and have the choice to not use C, don't use C.</li>
-</ol>
 </article>
  
       
