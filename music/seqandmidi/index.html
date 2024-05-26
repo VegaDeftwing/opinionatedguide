@@ -818,6 +818,80 @@ https://github.com/alex-shpak/hugo-book
 
 </div>
 
+<style>
+    /* Custom player style */
+midi-player {
+  display: block;
+  width: inherit;
+  margin: 4px;
+  margin-bottom: 0;
+}
+midi-player::part(control-panel) {
+  background: #0000;
+  border: 2px solid #000;
+}
+midi-player::part(play-button) {
+  color: #353;
+  border: 2px solid currentColor;
+  background-color: #4d4;
+  transition: all 0.2s;
+  content: '';
+}
+midi-player::part(time) {
+  font-family: monospace;
+}
+midi-visualizer .piano-roll-visualizer {
+  background: #0003;
+  border: 2px solid black;
+  margin: 4px;
+  margin-top: 0;
+  overflow: auto;
+}
+midi-visualizer .staff-visualizer {
+  background: #fff;
+  border: 2px solid black;
+  margin: 4px;
+  margin-top: 0;
+  overflow: auto;
+}
+midi-visualizer svg rect.note {
+  opacity: 0.6;
+  stroke-width: 2;
+}
+midi-visualizer svg rect.note[data-instrument="0"]{
+  fill: #FFF;
+  stroke: #FFF;
+}
+midi-visualizer svg rect.note[data-instrument="1"]{
+  fill: #30F;
+  stroke: #055;
+}
+midi-visualizer svg rect.note[data-instrument="2"]{
+  fill: #F5F;
+  stroke: #055;
+}
+midi-visualizer svg rect.note[data-is-drum="true"]{
+  fill: #0F0;
+  stroke: #0F0;
+}
+midi-visualizer svg rect.note.active {
+  opacity: 0.9;
+  stroke: #0F0;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+<p><midi-visualizer
+type="piano-roll"
+src="/fairuse/other/halo2.mid">
+</midi-visualizer>
+<midi-visualizer
+type="staff"
+src="/fairuse/other/halo2.mid">
+</midi-visualizer>
+<midi-player
+src="/fairuse/other/halo2.mid"
+sound-font visualizer="midi-visualizer">
+</midi-player></p>
 <p>The idea is still pretty much the same:</p>
 <h3 id="timeline">
   Timeline
