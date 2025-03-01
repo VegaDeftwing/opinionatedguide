@@ -13,6 +13,7 @@
 <script src="/webmention.min.js" async></script>
 
 <script src="/footnotes.js"> </script>
+<script src="/keybed.js"> </script>
 <script src="/js/egg.min.js"> </script>
 
 <script>
@@ -54,9 +55,9 @@ This means that developers (which, I assume, is a large portion of those still r
 <title>Whatelse | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.d404d5258d028be8ed248ee42ea864c776480d817518d291049287503ee9cc0a.css" integrity="sha256-1ATVJY0Ci&#43;jtJI7kLqhkx3ZIDYF1GNKRBJKHUD7pzAo=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.5e547eb27897068e85cec09758535e9ea757a11dfa15b321b9e8e756ac3a6b01.css" integrity="sha256-XlR&#43;sniXBo6FzsCXWFNenqdXoR36FbMhuejnVqw6awE=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.388859d0c8bef94b315a829317e999882f25f2dd885801d1cc81cf045256c00a.js" integrity="sha256-OIhZ0Mi&#43;&#43;UsxWoKTF&#43;mZiC8l8t2IWAHRzIHPBFJWwAo=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.b6efc2ab425d2c752d40cda2dc32c4c1717e5bde6ebcc44df5dc71b4eebfe4fa.js" integrity="sha256-tu/Cq0JdLHUtQM2i3DLEwXF&#43;W95uvMRN9dxxtO6/5Po=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -695,12 +696,13 @@ https://github.com/alex-shpak/hugo-book
 
 </p>
     <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
-        <p style="font-size:.85em;color:var(--text-color);"> 
+        <p style="font-size:.85em;color:var(--text-color);" class="qsource"> 
         - <a href="https://en.wikipedia.org/wiki/TempleOS">Wikipedia</a>
+        </p>
     </div>
 </div>
 <p>But the part that&rsquo;s cool to me? TempleOS gives no, and I mean absolutely zero, fucks about security, now, that&rsquo;s at least in part because it doesn&rsquo;t have networking (though there is a <a href="https://github.com/minexew/Shrine">fork with networking</a>) but even then, there&rsquo;s no concept of an admin or &rsquo;normal&rsquo; user. There&rsquo;s no system-protected processes. You want to flip arbitrary bits, directly send data over IO lines, whatever. The OS will not stop you. The entire thing runs in ring 0, which means you always have total control over the hardware, but it also means there&rsquo;s nothing stopping you from massively fucking everything up and crashing the system, corrupting everything, etc.</p>
-<p>( You may want to watch <a href="https://youtu.be/LtlyeDAJR7A">TempleOS (Linus Tech Tips, YouTube)</a> if this is interesting to you)</p>
+<p>( You may want to watch <a href="https://youtu.be/LtlyeDAJR7A">TempleOS (Linus Tech Tips)</a> if this is interesting to you)</p>
 <p>And, okay, yeah, that&rsquo;s obviously not ideal for <em>normal</em> use, but I think there&rsquo;s something to be said for having the <em>option</em> to say fuck it, slam your fist down on the manual override button, and take full control of the system. This is what I mean by optional security - no HAL 9000 in the way. No <code>sudo</code>, no &rsquo;no&rsquo;. In this mode it should also be easy to turn off all networking and malware protection, so a super-fuckit No firewalls, no threat scanning, etc. switch.</p>
 <p>Running as root in Linux is <em>almost</em> this. It could even be argued that it&rsquo;s better, since toying with memory though <code>/dev/kmem</code> is probably easier than trying to deduce the physical memory map. That said, there are still <em><a href="https://stackoverflow.com/questions/21761185/is-there-a-difference-between-sudo-mode-and-kernel-mode">some</a></em> restrictions on the root account compared to running directly in &lsquo;kernel mode&rsquo;.</p>
 <h2 id="backwards-compatibility-via-compatibility-layers">
@@ -715,8 +717,9 @@ https://github.com/alex-shpak/hugo-book
 </ol>
 </p>
     <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
-        <p style="font-size:.85em;color:var(--text-color);"> 
+        <p style="font-size:.85em;color:var(--text-color);" class="qsource"> 
         - <a href="https://news.ycombinator.com/user?id=AnIdiotOnTheNet">AnIdiotONTheNet</a> comment on the <a href="https://twitter.com/patrickc/status/1316475471203360769">Re-Thinking the Desktop OS</a> Hacker News Submission
+        </p>
     </div>
 </div>
 <p>And yeah, that pretty much sums it up. Currently, backwards compatibility is often a choice of actually going to better technology and fixing bugs - like the Excel <a href="https://docs.microsoft.com/en-us/office/troubleshoot/excel/wrongly-assumes-1900-is-leap-year">leap year problem</a> or supporting older files without them massively breaking. There&rsquo;s really no reason we couldn&rsquo;t do both using comparability layers. The cost, I think, would mostly be in accepting that the transition to those comparability layers will be rough and that something will just have to be upgraded until that compatibility infrastructure is in place.</p>
@@ -872,7 +875,7 @@ https://github.com/alex-shpak/hugo-book
   Stop wasting time on stupid shit that nobody cares about
   <a class="anchor" href="#stop-wasting-time-on-stupid-shit-that-nobody-cares-about">#</a>
 </h2>
-<p>Microsoft has been spending a lot of time changing to the new UI, and their calculator has been updated like a dozen times for UI now but still <a href="http://speedcrunch.org">SpeedCrunch</a> remains 1000x more usable and tools like <a href="https://www.wolframalpha.com">WolframAlpha</a> remain superior yet. Stop spending time on shit literally nobody gives a shit about and that nobody should be using. If something is dumb for the sake of being dumb, like <a href="https://www.youtube.com/watch?v=JcJSW7Rprio">Harder Drive: Hard drives we didn&rsquo;t want or need (Tom7, YouTube)</a> sure, but otherwise, let&rsquo;s make things <em>actually</em> better.</p>
+<p>Microsoft has been spending a lot of time changing to the new UI, and their calculator has been updated like a dozen times for UI now but still <a href="http://speedcrunch.org">SpeedCrunch</a> remains 1000x more usable and tools like <a href="https://www.wolframalpha.com">WolframAlpha</a> remain superior yet. Stop spending time on shit literally nobody gives a shit about and that nobody should be using. If something is dumb for the sake of being dumb, like <a href="https://www.youtube.com/watch?v=JcJSW7Rprio">Harder Drive: Hard drives we didn&rsquo;t want or need (Tom7)</a> sure, but otherwise, let&rsquo;s make things <em>actually</em> better.</p>
 <h2 id="give-me-a-fucking-physical-knob">
   Give me a fucking physical knob
   <a class="anchor" href="#give-me-a-fucking-physical-knob">#</a>
@@ -887,8 +890,9 @@ https://github.com/alex-shpak/hugo-book
     I wonder if Apple iPhone will meet with the same success, as its touchscreen offers no tactile feedback. Will people get tired of having to look down every time they dial a number?
 </p>
     <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
-        <p style="font-size:.85em;color:var(--text-color);"> 
+        <p style="font-size:.85em;color:var(--text-color);" class="qsource"> 
         - <a href="https://www.popularmechanics.com/technology/gadgets/a1385/4212910/">Popular Mechanics</a>
+        </p>
     </div>
 </div>
 <p>We should be careful of getting too comfortable with our touch screens and not forget the value of having a physical interface. Hell, in that same picture above is a ROLI Seaboard Block (a product I actually recommend against, for various reasons) which is <em>Amazing</em> for its ability to convey a boatload of information to the computer in a tactile way, like, seriously, look at the MIDI data from this little jam session:</p>

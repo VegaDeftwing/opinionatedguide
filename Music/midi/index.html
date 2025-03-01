@@ -13,6 +13,7 @@
 <script src="/webmention.min.js" async></script>
 
 <script src="/footnotes.js"> </script>
+<script src="/keybed.js"> </script>
 <script src="/js/egg.min.js"> </script>
 
 <script>
@@ -56,9 +57,9 @@ For the most part, yeah. Everything works together and you can make all your har
 <title>Midi | Opinionated Guides</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="/book.min.d404d5258d028be8ed248ee42ea864c776480d817518d291049287503ee9cc0a.css" integrity="sha256-1ATVJY0Ci&#43;jtJI7kLqhkx3ZIDYF1GNKRBJKHUD7pzAo=" crossorigin="anonymous">
+<link rel="stylesheet" href="/book.min.5e547eb27897068e85cec09758535e9ea757a11dfa15b321b9e8e756ac3a6b01.css" integrity="sha256-XlR&#43;sniXBo6FzsCXWFNenqdXoR36FbMhuejnVqw6awE=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.388859d0c8bef94b315a829317e999882f25f2dd885801d1cc81cf045256c00a.js" integrity="sha256-OIhZ0Mi&#43;&#43;UsxWoKTF&#43;mZiC8l8t2IWAHRzIHPBFJWwAo=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.b6efc2ab425d2c752d40cda2dc32c4c1717e5bde6ebcc44df5dc71b4eebfe4fa.js" integrity="sha256-tu/Cq0JdLHUtQM2i3DLEwXF&#43;W95uvMRN9dxxtO6/5Po=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -1166,7 +1167,7 @@ word-wrap: break-word;
 <p>Anyway, here we are. So, what are the implications of this:</p>
 <ul>
 <li>MIDI clock does not have built in time-correction. If there&rsquo;s a 2ms delay coming out your computer, a 2ms delay for the device to process the midi input, and a 5ms delay on the audio from the device back into your recording interface, you&rsquo;ll need to offset the input by -7ms. This is extraordianly awkward, as the device now needs to know <em>future</em> inputs.</li>
-<li>MIDI clock can have stability issues. If the tempo is 120BPM, that&rsquo;s 2 notes a second, so at 24ppqn, 48 pulses a second, which comes out to be 1 pulse every 20.833 milliseconds. This will absolutely varry a bit, if we assume the clock varries even by ±1 millisecond that will thow us off to anywhere from 45.8 to 50.4 pulses a second, which equates to about 114.5 to 126.1 BPM. That&rsquo;s a lot of varience for a pretty minor hickup in our clock signal. Even if it averages out, there&rsquo;s still a good chance some of the beats will hit at weird times, causing phasing issues. See <a href="https://www.youtube.com/watch?v=qyuSIR0z-lQ">this video from Expert Sleepers (YouTube)</a> to see how this actually looks.</li>
+<li>MIDI clock can have stability issues. If the tempo is 120BPM, that&rsquo;s 2 notes a second, so at 24ppqn, 48 pulses a second, which comes out to be 1 pulse every 20.833 milliseconds. This will absolutely varry a bit, if we assume the clock varries even by ±1 millisecond that will thow us off to anywhere from 45.8 to 50.4 pulses a second, which equates to about 114.5 to 126.1 BPM. That&rsquo;s a lot of varience for a pretty minor hickup in our clock signal. Even if it averages out, there&rsquo;s still a good chance some of the beats will hit at weird times, causing phasing issues. See <a href="https://www.youtube.com/watch?v=qyuSIR0z-lQ">this video from Expert Sleepers</a> to see how this actually looks.</li>
 </ul>
 <p>Just be aware this may cause you problems and that none of the solutions to the problem are any fun. Also, MIDI Through only makes the problem worse- more on that in a bit</p>
 <h4 id="transport--mmc">
@@ -1325,11 +1326,52 @@ graph LR
 
 <p>The FH-2 appears to just try to throw as much data down the pipe as it can muster, while the Befaco modules seem to apply sane rate limiting- but that also means that they will not feel as smooth or support as fast of input LFOs.</p>
 <p>If you can, you&rsquo;re probably better off either using something like the ExpertSleepers ES-8, ES-9, or ES-3+ES-6 to take audio in directly and using software that supports using audio as modulation (some workarounds may be necessary, such as using envelope followers) or using one of the very few modules that impliment OSC (more on that later). Honestly though, doing CV→MIDI is a bit of a fools errand, especially for modulation (CCs). The only real practical use is if you <em>really</em> want to sequence something that doesn&rsquo;t have a CV input with a eurorack sequencer, otherwise you&rsquo;re better off just finding dedicated MIDI equipment that does the kind of input you want.</p>
+<h4 id="over-bluetooth">
+  Over Bluetooth
+  <a class="anchor" href="#over-bluetooth">#</a>
+</h4>
+<p>If you&rsquo;re on Mac, Linux, or Android it should just work. If it doesn&rsquo;t, I don&rsquo;t know how to help.</p>
+<p>At least until Microsoft actually pushes <a href="https://devblogs.microsoft.com/windows-music-dev/announcing-windows-midi-services-customer-preview-1/">their big MIDI update</a> (Because, afaik, the same update is also fixing viltual MIDI port creation and Bluetooth) the bluetooth MIDI situation very much so sucks.</p>
+<blockquote class="book-hint warning">
+  <p>This isn&rsquo;t just being said to say &ldquo;Oh, it&rsquo;s getting better soon&rdquo;. It&rsquo;s possible that you&rsquo;re reading this page in the future such that this is less of a pain. Try just connecting it first, maybe that update is already out. This was written on March 1st, 2025.</p>
+<p>Of course, even if it&rsquo;s out, you&rsquo;d have to have that update on your system, which might not be the case anyway.</p>
+
+</blockquote>
+
+<p>First, you&rsquo;ll need a bluetooth adapter. Take care, most MIDI devices that do MIDI over Bluetooth actually use Bluetooth Low Energy, so while your laptop or USB bluetooth adapter or whatever might support bluetooth, what you actually need is <em>probably</em> Bluetooth Low Energy. Anything modern with Bluetooth should support this, but it can be a point of confusion.</p>
+<p>For example, I&rsquo;m using the <a href="https://www.amazon.com/dp/B09DMP6T22">TP-Link UB500</a> adapter with my <a href="https://jamstik.com/collections/midi-guitars/products/studio-midi-guitar">Jamstik MIDI Guitar</a> which seems to work fine.</p>
+<p>Now, we need to actually connect the device in Windows. For most Bluetooth devices this means long holding some button or just restarting the device. You&rsquo;ll need to search for how to do it for whatever it is you&rsquo;re trying to connect. Likely, it will start blinking an LED to indicate it&rsquo;s in pairing mode.</p>
+<p>Now, in Windows, open the <a href="ms-settings:bluetooth">Bluetooth Settings Page</a>. There will be a big <kbd>Add Device</kbd> button.</p>
+<p>At this point, depending on your version of Windows 11, things differ. Either way, the device won&rsquo;t show up immediatey because Windows has deemed Bluetooth MIDI devices weird and things they&rsquo;ll confuse normal people since they&rsquo;re not just like Bluetooth headphones (🖕 Microsoft).</p>
+<p>If you&rsquo;re on a <strong>recent version of Windows 11</strong>, at the bottom of the list when you click the <kbd>Add Device</kbd> button you should see a smaller &ldquo;Show All Devices&rdquo; text. That is a button. Click it. After that, your Bluetooth MIDI device (if it&rsquo;s still in pairing mode) <em>should</em> show up.</p>
+<p>If you&rsquo;re on an <strong>older version of Windows 11</strong> and don&rsquo;t see the &ldquo;Show All Devices&rdquo; button, you will need to get out of that Add Device menu, go back to the main <a href="ms-settings:bluetooth">Bluetooth Settings Page</a>, and scroll down to the &ldquo;Device Settings&rdquo; section and change the &ldquo;Bluetooth Devices Discovery&rdquo; option from &ldquo;Default&rdquo; to &ldquo;Advanced&rdquo;.
+Now, go back click the <kbd>Add Device</kbd> button, and it should show up.</p>
+<p>It should connect sucessfully, for all of a second. Once you go back to the list of devices, it&rsquo;ll show up, but say disconnected.</p>
+<p>This is because Windows is extraordinarly fucking stupid and unlike every other major OS doesn&rsquo;t go &ldquo;Oh, this is a MIDI device, let&rsquo;s open a MIDI port for it and leave it open to be used&rdquo;, instead, it just goes &ldquo;Oh, nothing is using this, so lets disconnect it&rdquo; AHHHHH.</p>
+<p>So, to fix <em>that</em> problem, you&rsquo;ll need to install <a href="https://apps.microsoft.com/detail/9n39720h2m05?hl=en-US&amp;gl=US">MIDIberry</a>.</p>
+<p>Only, that will only hold the bluetooth connection open as a MIDI device for you, you&rsquo;ll still need a virtual MIDI port to connect to. For that, use <a href="https://www.tobias-erichsen.de/software/loopmidi.html">LoopMIDI</a>.</p>
+<ol>
+<li>Connect your Bluetooth MIDI device in Windows Settings.</li>
+<li>Install and run LoopMIDI. That will make a virtual MIDI port.<footnote>The order you setup loop MIDI or connect the bluetooth device doesn&rsquo;t matter.</footnote></li>
+<li>Install and run MIDIBerry.</li>
+<li>In the INPUT devices list, you should see <code>your device name (Bluetooth MIDI IN) [#######]</code>. Select It.
+<ul>
+<li>If you don&rsquo;t see it, now that MIDIBerry is running, go back to the <a href="ms-settings:bluetooth">Bluetooth settings page</a>, disconnect the device, and reconnect it. Hopefully that fixes it.</li>
+</ul>
+</li>
+<li>Set the output to the Virtual MIDI created by loopMIDI.</li>
+<li>In your DAW, configure the virtual MIDI port as an input. This will vary by DAW.
+<ul>
+<li>Take care if your DAW and device support MPE to mark it as an MPE device.</li>
+</ul>
+</li>
+<li>Curse Microsoft, MIDI, and technology in general for how annoying this is.</li>
+</ol>
 <h4 id="over-network">
   Over Network
   <a class="anchor" href="#over-network">#</a>
 </h4>
-<p>Look, I&rsquo;m not going to say you can&rsquo;t do wireless or networked midi. You definitely can. It&rsquo;s just that there&rsquo;s alway something that goes wrong. The &rsquo;normal&rsquo; way to do it is using RTP MIDI. This should work cross platform:</p>
+<p>Look, I&rsquo;m not going to say you can&rsquo;t do networked midi. You definitely can. It&rsquo;s just that there&rsquo;s alway something that goes wrong. The &rsquo;normal&rsquo; way to do it is using RTP MIDI. This should work cross platform:</p>
 <ul>
 <li>Windows, use <a href="https://www.tobias-erichsen.de/software/rtpmidi.html">rtpMIDI</a> by Tobias Erichsen</li>
 <li>Mac, use the built in network-MIDI tools</li>
@@ -1356,8 +1398,9 @@ graph LR
     Human User Interface Protocol (commonly abbreviated to HUI) is a proprietary MIDI communications protocol for interfacing between a hardware audio control surface and digital audio workstation (DAW) software. It was first created by Mackie and Digidesign in 1997 for use with Pro Tools, and is now part of the Mackie Control Universal (MCU) protocol.
 </p>
     <div style="display: block; text-align: right; width: 100%; margin-left: auto; margin-right: auto; line-height: 0px;">
-        <p style="font-size:.85em;color:var(--text-color);"> 
+        <p style="font-size:.85em;color:var(--text-color);" class="qsource"> 
         - <a href="https://en.wikipedia.org/wiki/Human_User_Interface_Protocol">Wikipedia</a>
+        </p>
     </div>
 </div>
 <p>So, MCU and HUI are <em>technically</em> different things, but they seem to be used interchangeably. But, what is it good for?</p>
