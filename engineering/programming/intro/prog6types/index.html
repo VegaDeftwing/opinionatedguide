@@ -28,7 +28,12 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 10.6 - What&rsquo;s a Type? &amp; Going Down Rabbit Holes # Alright, I&rsquo;ll cut to the chase. When programming, you&rsquo;ll need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make appearances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at ints">
+<meta name="description" content="
+  Chapter 10.6 - What&rsquo;s a Type? &amp; Going Down Rabbit Holes
+  #
+
+
+Alright, I&rsquo;ll cut to the chase. When programming, you&rsquo;ll need to deal with types. On the last page, there was a mix of types, int, uint8_t, float, and char all make appearances. While the exact names of each type and what they&rsquo;re capable of may vary a bit from language to language and platform to platform understanding the basics here will help you out a lot, so, let&rsquo;s start with the C language and look at ints">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -56,7 +61,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -665,8 +670,7 @@ https://github.com/alex-shpak/hugo-book
 <script defer src="/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script><span>
   \(2^{4\times8} = 2^{32} = 4,294,967,296\)
 </span>
-. 2&rsquo;s complement is clever in letting us use nearly the full range of the number, so if we divide it by 2 we&rsquo;d expect -2,147,483,648 to +2,147,483,648, but, we do need to use one bit for sign, and that bit is 1 for negative, which means we get to use the full range for negatives but sacrifice one on the positives, hence the final range of -2,147,483,648 to 2,147,483,64<strong>7</strong>. Read that linked 2&rsquo;s complement page if you want more depth.</p>
-</blockquote>
+. 2&rsquo;s complement is clever in letting us use nearly the full range of the number, so if we divide it by 2 we&rsquo;d expect -2,147,483,648 to +2,147,483,648, but, we do need to use one bit for sign, and that bit is 1 for negative, which means we get to use the full range for negatives but sacrifice one on the positives, hence the final range of -2,147,483,648 to 2,147,483,64<strong>7</strong>. Read that linked 2&rsquo;s complement page if you want more depth.</p></blockquote>
 <p>Now, there&rsquo;s also a variant for <em><strong>unsigned</strong></em> integers or <code>uint</code>, these, as you might expect, can only be positive, but this means you get the full range from 0 up to 4,294,967,295 to play with before you wrap around.</p>
 <p>Finally, you might find times when you&rsquo;ll want to specify the number of bits in a number, and in the language I&rsquo;ve been showing so far, <strong>C</strong>, you can do that by including a library (more on this later) and using <code>uint8_t</code>, for example, to get an unsigned, 8 bit integer. This can only range from 0 to 255.</p>
 <div class="tip ">
@@ -963,13 +967,9 @@ https://github.com/alex-shpak/hugo-book
 <p>Note-in-a-note-in-a-note-in-a-note, there&rsquo;s a neat trick possible here. If you look closely you&rsquo;ll see that <code>a</code> has a value of <code>0x61</code> and <code>A</code> is <code>0x41</code>, if we look at those in binary:</p>
 <p>a is 0b01<strong>1</strong>00001</br>
 A is 0b01<strong>0</strong>00001</p>
-<p>They&rsquo;re only different by flipping one bit. We can abuse this later to go from upper to lower case or vis-versa.</p>
-</blockquote>
+<p>They&rsquo;re only different by flipping one bit. We can abuse this later to go from upper to lower case or vis-versa.</p></blockquote>
 <blockquote>
-<p>If you looked though that table, you&rsquo;ll probably notice some weird ones like 7, which is literally &ldquo;Bell&rdquo;. That&rsquo;s because ASCII was made back when people still used Teletype machines (effectively terminals that used real, physical printers) there was <a href="https://en.wikipedia.org/wiki/Bell_character">literally a bell.</a></p>
-</blockquote>
-</blockquote>
-</blockquote>
+<p>If you looked though that table, you&rsquo;ll probably notice some weird ones like 7, which is literally &ldquo;Bell&rdquo;. That&rsquo;s because ASCII was made back when people still used Teletype machines (effectively terminals that used real, physical printers) there was <a href="https://en.wikipedia.org/wiki/Bell_character">literally a bell.</a></p></blockquote></blockquote></blockquote>
 <p>&hellip; Well, almost. Actually, saying the array version of that is the same is a lie. C actually adds in an extra character for us automatically when we make the string like <code>char my_string[] = &quot;Hello World\n&quot;;</code>.</p>
 <p>There&rsquo;s an added <code>\0</code> after the <code>\n</code> when we make the string like this, and we do want it. It&rsquo;s what tells other functions in C (like <code>printf()</code>) where the end of a string is. If we make it using the array, we&rsquo;d have to add this ourselves. That <code>\0</code> is called a &ldquo;Null Terminator&rdquo;. Without this, things would just keep on printing or processing the string not knowing where to stop.</p>
 <div class="tip ">
@@ -1793,9 +1793,7 @@ Triode Killjoy
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   

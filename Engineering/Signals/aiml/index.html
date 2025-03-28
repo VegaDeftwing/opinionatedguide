@@ -28,7 +28,14 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 33 - Fine, I&rsquo;ll talk about AI # This chapter is very much a work in progress, and is really more of just a list of topics, despite how much content there appears to be. I&rsquo;d really like to have code examples under each concept as well, as otherwise it&rsquo;s like reading a fucking math textbook from hell.In the meantime, please see https://sebastianraschka.com/blog/2021/dl-course.html#l01-introduction-to-deep-learning for a good intro to Deep Learning [TODO] https://www.">
+<meta name="description" content="
+  Chapter 33 - Fine, I&rsquo;ll talk about AI
+  #
+
+
+    This chapter is very much a work in progress, and is really more of just a list of topics, despite how much content there appears to be. I&rsquo;d really like to have code examples under each concept as well, as otherwise it&rsquo;s like reading a fucking math textbook from hell.In the meantime, please see https://sebastianraschka.com/blog/2021/dl-course.html#l01-introduction-to-deep-learning for a good intro to Deep Learning
+
+[TODO] https://www.asimovinstitute.org/author/fjodorvanveen/">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -47,7 +54,7 @@
 <meta property="og:url" content="https://opguides.info/engineering/signals/aiml/">
   <meta property="og:site_name" content="Opinionated Guides">
   <meta property="og:title" content="Opinionated Guides">
-  <meta property="og:description" content="Chapter 33 - Fine, I’ll talk about AI # This chapter is very much a work in progress, and is really more of just a list of topics, despite how much content there appears to be. I’d really like to have code examples under each concept as well, as otherwise it’s like reading a fucking math textbook from hell.In the meantime, please see https://sebastianraschka.com/blog/2021/dl-course.html#l01-introduction-to-deep-learning for a good intro to Deep Learning [TODO] https://www.">
+  <meta property="og:description" content="Chapter 33 - Fine, I’ll talk about AI # This chapter is very much a work in progress, and is really more of just a list of topics, despite how much content there appears to be. I’d really like to have code examples under each concept as well, as otherwise it’s like reading a fucking math textbook from hell.In the meantime, please see https://sebastianraschka.com/blog/2021/dl-course.html#l01-introduction-to-deep-learning for a good intro to Deep Learning [TODO] https://www.asimovinstitute.org/author/fjodorvanveen/">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="engineering">
@@ -56,7 +63,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -816,42 +823,42 @@ https://github.com/alex-shpak/hugo-book
 <p>a bad learning rate, η,  can cause very slow convergence (too small) or even divergence (too large)</p>
 <p>It&rsquo;s best to adjust the learning rate per schedule (iteration) rather than just use a constant. For this, we want to start with a high learning rate, then decrease it.</p>
 <table>
-<thead>
-<tr>
-<th>Schedule</th>
-<th>Formula</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Power Scheduling</td>
-<td><span>
+  <thead>
+      <tr>
+          <th>Schedule</th>
+          <th>Formula</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Power Scheduling</td>
+          <td><span>
   \(\eta(t)=\eta_0/(1&#43;t/s)^c​\)
 </span>
 </td>
-</tr>
-<tr>
-<td>Exponential Scheduling</td>
-<td><span>
+      </tr>
+      <tr>
+          <td>Exponential Scheduling</td>
+          <td><span>
   \(\eta(t)=\eta_0(0.1)^{t/s}​\)
 </span>
 </td>
-</tr>
-<tr>
-<td>Performance Scheduling</td>
-<td>reduce η by λ when no improvement in validation</td>
-</tr>
-<tr>
-<td>1cycle Scheduling</td>
-<td>increase from <span>
+      </tr>
+      <tr>
+          <td>Performance Scheduling</td>
+          <td>reduce η by λ when no improvement in validation</td>
+      </tr>
+      <tr>
+          <td>1cycle Scheduling</td>
+          <td>increase from <span>
   \(\eta_0 \text{ linearly to } \eta_1​\)
 </span>
  then back down to  ​<span>
   \(\eta_0​\)
 </span>
 </td>
-</tr>
-</tbody>
+      </tr>
+  </tbody>
 </table>
 <h2 id="gradient-descent">
   Gradient Descent
@@ -873,35 +880,35 @@ https://github.com/alex-shpak/hugo-book
 </div>
 <p>XOR</p>
 <table>
-<thead>
-<tr>
-<th>Input A</th>
-<th>Input B</th>
-<th>Output</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Input A</th>
+          <th>Input B</th>
+          <th>Output</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+      </tr>
+  </tbody>
 </table>
 <p>No single linear threshold unit can describe this</p>
 <p>in 2d a line, in 3d a plane, 4+d hyperplane</p>
@@ -976,26 +983,26 @@ https://github.com/alex-shpak/hugo-book
 <p>We used to initialize parameters to random numbers near 0, but now Glorot is used,</p>
 <p>with $n_{in} \text{ inputs and } n_{out} \text{ outputs}$, initialize with a uniform from $[-r,r]$ with $r=a\sqrt{\frac{6}{n_{in}+n_{out}}}$ or normal, $\mathcal{N}(0,\sigma)$, with $\sigma=a\sqrt{\frac{2}{n_{in}+n_{out}}}$</p>
 <table>
-<thead>
-<tr>
-<th>Activation</th>
-<th>a</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Logistic</td>
-<td>1</td>
-</tr>
-<tr>
-<td>tanh</td>
-<td>4</td>
-</tr>
-<tr>
-<td>ReLU</td>
-<td>√2</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Activation</th>
+          <th>a</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Logistic</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>tanh</td>
+          <td>4</td>
+      </tr>
+      <tr>
+          <td>ReLU</td>
+          <td>√2</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="gradient-descent-1">
   Gradient Descent
@@ -1042,43 +1049,42 @@ https://github.com/alex-shpak/hugo-book
 <p>We need a function to measure performance - a loss function</p>
 <p>Given instance x, with label y, and a prediction $\hat{y}$, then $J(y,\hat{y})$ is the loss on that instance</p>
 <table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Common Use</th>
-<th>Formula</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0-1 Loss</td>
-<td></td>
-<td>$J(y,\hat{y})=1$ if $y\neq\hat{y}$, 0 otherwise</td>
-</tr>
-<tr>
-<td>Square Loss</td>
-<td>Regression</td>
-<td>$J(y,\hat{y}) = (y - \hat{y})^2$</td>
-</tr>
-<tr>
-<td>Cross-Entropy</td>
-<td>y and $\hat{y}$ are considered probabilities of a &lsquo;1&rsquo; label. Allows for two probability distributions. Good for when the input data also has probability. Often used for classifying images</td>
-<td>$J(y,\hat{y})$ = $(-y)ln(\hat{y})-(1-y)ln(1-\hat{y})$</td>
-</tr>
-<tr>
-<td>Hinge Loss</td>
-<td>Large Margin Classifier</td>
-<td>$J(y,\hat{y}) = max(0,1-y\hat{y})$</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Function</th>
+          <th>Common Use</th>
+          <th>Formula</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0-1 Loss</td>
+          <td></td>
+          <td>$J(y,\hat{y})=1$ if $y\neq\hat{y}$, 0 otherwise</td>
+      </tr>
+      <tr>
+          <td>Square Loss</td>
+          <td>Regression</td>
+          <td>$J(y,\hat{y}) = (y - \hat{y})^2$</td>
+      </tr>
+      <tr>
+          <td>Cross-Entropy</td>
+          <td>y and $\hat{y}$ are considered probabilities of a &lsquo;1&rsquo; label. Allows for two probability distributions. Good for when the input data also has probability. Often used for classifying images</td>
+          <td>$J(y,\hat{y})$ = $(-y)ln(\hat{y})-(1-y)ln(1-\hat{y})$</td>
+      </tr>
+      <tr>
+          <td>Hinge Loss</td>
+          <td>Large Margin Classifier</td>
+          <td>$J(y,\hat{y}) = max(0,1-y\hat{y})$</td>
+      </tr>
+  </tbody>
 </table>
 <p>given a loss function, J, and a dataset, X, $error_x(h)=\sum_{x\in h}J(y_x,\hat{y}_x)$ where $y_x$ is x&rsquo;s label, and $\hat{y}_x$ is h&rsquo;s prediction</p>
 <p>But, it&rsquo;s more important that the model generalizes, so given a new example (picked i.i.d) according to unknown probability distribution D, we want to minimize h&rsquo;s <strong>expected</strong> loss $error_D(h)=\mathbb{E}_{x\sim{D}}[J(y_x,\hat{y}_x)]$</p>
 <p>minimizing training loss isn&rsquo;t the same as minimizing expected loss? <strong>NO</strong></p>
 <p>By doing <em>to good</em> on the training set, the over fitting will make results pretty bad. That is a specific parameter h overfits the training data, X, if there is an alternative hypothesis, $h^\prime$ such that $error_x(h) &lt; error_x(h^{\prime})$ and  $error_D(h) &gt; error_D(h^{\prime})$</p>
 <blockquote>
-<p>This is literally just the formal defn&rsquo; of overfitting. Don&rsquo;t over think it.</p>
-</blockquote>
+<p>This is literally just the formal defn&rsquo; of overfitting. Don&rsquo;t over think it.</p></blockquote>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Overfitting.svg/1920px-Overfitting.svg.png" alt="overfitting" style="-webkit-filter: invert(.85);zoom:15%;">
 <p class="attribution ">
     <a href="https://en.wikipedia.org/wiki/Overfitting#/media/File:Overfitting.svg">Overfitting example by Chabacano - CC BY-SA 4.0</a>
@@ -1168,9 +1174,7 @@ https://github.com/alex-shpak/hugo-book
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   

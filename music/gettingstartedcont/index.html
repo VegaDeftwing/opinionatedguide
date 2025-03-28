@@ -28,9 +28,17 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Continuing our Adventure # Picking up where we left off,
+<meta name="description" content="
+  Continuing our Adventure
+  #
+
+Picking up where we left off,
+
 This lil&rsquo; synth works, but it doesn&rsquo;t give us much control, and unlike a real instrument, after we let go of the key it just immediately stops. Similarly, most real instruments have a either a bit of a pluck at the start or a more gentle fade in.
-This leads us to the idea of envelopes. In music, you&rsquo;ll often want to draw a shape that evelopes a signal.">
+
+
+  
+    This leads us to the idea of envelopes. In music, you&rsquo;ll often want to draw a shape that evelopes a signal. That is, it contains it and determines when it is active and how much. We want to envelope our volume signal - that is, we want to shape it more than the basic on/off that we have right now.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -50,7 +58,7 @@ This leads us to the idea of envelopes. In music, you&rsquo;ll often want to dra
   <meta property="og:title" content="Opinionated Guides">
   <meta property="og:description" content="Continuing our Adventure # Picking up where we left off,
 This lil’ synth works, but it doesn’t give us much control, and unlike a real instrument, after we let go of the key it just immediately stops. Similarly, most real instruments have a either a bit of a pluck at the start or a more gentle fade in.
-This leads us to the idea of envelopes. In music, you’ll often want to draw a shape that evelopes a signal.">
+This leads us to the idea of envelopes. In music, you’ll often want to draw a shape that evelopes a signal. That is, it contains it and determines when it is active and how much. We want to envelope our volume signal - that is, we want to shape it more than the basic on/off that we have right now.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="music">
@@ -59,7 +67,7 @@ This leads us to the idea of envelopes. In music, you’ll often want to draw a 
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -746,8 +754,7 @@ https://github.com/alex-shpak/hugo-book
 <p>The need for this may seem a bit weird at first, as if we&rsquo;re playing a note at exactly one frequency, say A at 220Hz, then why would we need to filter out anything? Well, most oscillators and real instruments alike will actually have multiple &lsquo;harmonics&rsquo;, that is it will play an A at 220, 440, 880, and so on with decreasing amplitude or even on other frequencies entirely that still have a musical influence on the signal. On the &lsquo;VCO-1&rsquo; Oscillator loaded into the default patch here you can lessen these harmonics by switching the ANLG (Analog) and DIGI (Digital) switch on the right. This is because this oscillator can emulate either an &lsquo;ideal&rsquo; digital oscillator which outputs a clean, sharp signal with less harmonics or an analog signal oscillator which includes a subtle amount of pitch drift and some smoothing of the output wave- of note, usually the analog characteristics, while technically flaws, are desirable.</p>
 <p><img src="/music/harmonics.webp" alt="harmonics" /></p>
 <blockquote>
-<p>The top VCO is outputting an &lsquo;analog&rsquo; emulating signal while the bottom is in digital mode. Look at how the Triangle output shape on the analog mode is smoothed out compared to the digital mode&rsquo;s sharp edges</p>
-</blockquote>
+<p>The top VCO is outputting an &lsquo;analog&rsquo; emulating signal while the bottom is in digital mode. Look at how the Triangle output shape on the analog mode is smoothed out compared to the digital mode&rsquo;s sharp edges</p></blockquote>
 <p>You&rsquo;ll also notice there&rsquo;s a third wire running into the filter though- into an input labeled &lsquo;freq&rsquo;. This input modulates the filter&rsquo;s cut off frequency. You wont visually see the knob change but you will hear the filter&rsquo;s cut off change based on the signal applied to this input but only if the &lsquo;Freq CV&rsquo; knob is turned up. The &lsquo;Freq CV&rsquo; knob is what&rsquo;s known as an attenuverter (a portamento of &lsquo;Attenuator&rsquo; and &lsquo;Inverter&rsquo;). This knob, when facing dead center says &rsquo;let nothing though&rsquo; while all the way right lets the full signal (from the freq input) though, and all the way left lets the full signal though but inverts it first. Leaning right but not all the way will &lsquo;Attenuate&rsquo; or weaken the signal first. I think you get the idea.</p>
 <p>So say we put the big &lsquo;FREQ&rsquo; knob dead center, and give the &lsquo;FREQ&rsquo; input jack wire carrying a very slow sine wave that goes between 0 and 10V, and set the &lsquo;FREQ CV&rsquo; knob all the way right: This will bring the cut off higher and higher from it&rsquo;s starting position, and then bring it back to the starting level. If we instead turn the &lsquo;FREQ CV&rsquo; knob all the way left, it&rsquo;ll bring the cut off frequency lower before turning back around and coming to it&rsquo;s starting position. Putting it at a slight lean right will still do the same as we started with, but will have less of an impact, making the sound much less &lsquo;jumpy&rsquo; and tame. Really, that&rsquo;s what attenuverter&rsquo;s are for, taming an input signal.</p>
 <p>Here, I&rsquo;m showing modulating the filter frequency manually as well as showing what resonance is- it boots the signal right at the cut off frequency</p>
@@ -769,8 +776,7 @@ https://github.com/alex-shpak/hugo-book
 <p>To get modules from the <a href="https://library.vcvrack.com">VCV library</a> you&rsquo;ll need to make an account on that website, add the module collections you want, sign in the VCV rack software, and update your modules. Once the modules are done downloading you&rsquo;ll be promoted to restart rack and they should be installed. If you&rsquo;re looking for a few packs to grab to get started, but not be overwhelmed, I recommend Valley, Bogaudio, Impromptu, Vult, Befaco, Alright Devices, Audible Instruments, Erica Synths, Hora, and MindMeld. This will still probably be enough to overwhelm you a bit, but it&rsquo;s a really good starting place.</p>
 <p>When you&rsquo;re looking to grow a bit: Aria Salvatrice, Blamsoft, Flag, Frozen Wasteland, Lindenberg Research, Geodesics, Instruo, Nysthi, Starling Via, Stoermelder, Wiqid, and ZZC are all very good.</p>
 <p>Of course, this list is far from exhaustive, there are a ton of other good modules in VCV, but these are the collections I find myself using the most. If yo&rsquo;re down to pay for some modules, I really recommend VCV&rsquo;s Parametra and Host, as well as Vult&rsquo;s Premum and Compacts collections. Slime Child Audio&rsquo;s Moog Subharmonicon inspired modules are great too. If you&rsquo;re a fan of 808 sytle drums, Hora&rsquo;s analog drums collection is worth a look. If you&rsquo;re really itching for a better sequener and don&rsquo;t want to use an external program, check out ZZC&rsquo;s Phaseque or Geodesics+Vult Hexaquark.</p>
-<p>Note, that a few modules are not available in the VCV library, and instead you may need to install them manually.   see <a href="https://vcvrack.com/manual/Installing#Installing-plugins-not-available-on-the-VCV-Library">Installing plugins not available on the VCV Library</a> from the offical VCV manual for more information.</p>
-</blockquote>
+<p>Note, that a few modules are not available in the VCV library, and instead you may need to install them manually.   see <a href="https://vcvrack.com/manual/Installing#Installing-plugins-not-available-on-the-VCV-Library">Installing plugins not available on the VCV Library</a> from the offical VCV manual for more information.</p></blockquote>
 <p>Finally, the output of just the first channel of the mixer is fed into the scope so that when you press a key you can see the signal your generating. To understand this it&rsquo;s easiest to just drag the cable coming out of the VCO&rsquo;s &lsquo;SAW&rsquo; output to the VCO&rsquo;s &lsquo;Sine&rsquo; Output. Now when you press a key instead of seeing a saw wave you should see a sine wave.</p>
 <p>Finally, I want to mention that at least by default this setup is &lsquo;Monophonic&rsquo; (Mono = One , Phonic = Voice) meaning that even if you hit 2 keys at once you&rsquo;ll only hear the note from the last key you pressed. We&rsquo;ll explore Polyphonic (Many Voice) and Paraphonic (Para = beside, or side by side) systems later.</p>
 <hr>
@@ -796,9 +802,7 @@ https://github.com/alex-shpak/hugo-book
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   

@@ -28,7 +28,16 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="5 - Storage # Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the other a &rsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe SSD on a carrier card. Under the CD is a micro SD card and a flash drive.">
+<meta name="description" content="
+  5 - Storage
+  #
+
+
+
+
+    Pictured here are 3 hard drives, 2 of which are &lsquo;full size&rsquo; at 3.5&quot; and the other a &rsquo;laptop drive&rsquo; at 2.5&quot;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe SSD on a carrier card. Under the CD is a micro SD card and a flash drive. The micro SD, NVMe SSD, and flash drive all use &ldquo;flash storage&rdquo;.
+
+Permanent storage is rapidly evolving, but the old guard: hard drives and tape storage aren&rsquo;t going anywhere either. But why use one over the other? How do you interact with them in Linux?">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -47,7 +56,7 @@
 <meta property="og:url" content="https://opguides.info/engineering/linux/hardware/storage/">
   <meta property="og:site_name" content="Opinionated Guides">
   <meta property="og:title" content="Opinionated Guides">
-  <meta property="og:description" content="5 - Storage # Pictured here are 3 hard drives, 2 of which are ‘full size’ at 3.5&#34; and the other a ’laptop drive’ at 2.5&#34;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe SSD on a carrier card. Under the CD is a micro SD card and a flash drive.">
+  <meta property="og:description" content="5 - Storage # Pictured here are 3 hard drives, 2 of which are ‘full size’ at 3.5&#34; and the other a ’laptop drive’ at 2.5&#34;, the right most hard drive has been opened up, which has certainly ruined it as dust has gotten in. Below the smaller Hard drive is an NVMe SSD on a carrier card. Under the CD is a micro SD card and a flash drive. The micro SD, NVMe SSD, and flash drive all use “flash storage”. Permanent storage is rapidly evolving, but the old guard: hard drives and tape storage aren’t going anywhere either. But why use one over the other? How do you interact with them in Linux?">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="engineering">
@@ -56,7 +65,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -644,8 +653,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Most hard drives connect though either SATA or SAS, with almost all consumer drives being SATA, and enterprise drives using a mix. SAS has some extra features and depending on the drive may be capable of writing and reading at the same time, a nifty trick SATA drives can&rsquo;t do without alternating between the two rapidly.</p>
 <p>For bulk storage servers, you can get insane capacities, and building one yourself isn&rsquo;t all that hard. Here&rsquo;s mine:<img src="/eng/powervault.webp" alt="powervault" /></p>
 <blockquote>
-<p>A modified powervault MD1000 with a hard drive poking out and the computer - being used an archive server - it connects to. It currently is only housing three, 3Tb SAS hard drives.</p>
-</blockquote>
+<p>A modified powervault MD1000 with a hard drive poking out and the computer - being used an archive server - it connects to. It currently is only housing three, 3Tb SAS hard drives.</p></blockquote>
 <p>For working with hard drives in Linux, your best friend is <code>hdparm</code> lets use it to look at some disks. First we need to pick a disk to look at, running <code>lsblk</code> you should be able to see all the disks on your system, and I&rsquo;ll be looking at my main data drive which is a 3.7Tb drive on /dev/sdg</p>
 <p>The first thing we should do is get an idea about the disk usage, to do that I&rsquo;ll go to the mount point of the disk on my system ( it&rsquo;s mounted at /run/media/vega/raid despite the fact it&rsquo;s no longer in a raid array, we&rsquo;ll come back to this)</p>
 <p>so first I&rsquo;ll run <code>df -h</code> , that <code>-h</code> on most Linux commands means to make the output human-readable, printing things in terms of Gigabytes or Terabytes etc. instead of just a raw byte count.</p>
@@ -704,8 +712,7 @@ WD supply a WDIDLE3.EXE DOS utility for tweaking this setting, and you should us
 in hdparm is not as complete as the original official program, even though it does seem to work on at a least a few drives.  A full power cycle is required for any change
 in setting to take effect, regardless of which program is used to tweak things.
 A setting of 30 seconds is recommended for Linux use.  Permitted values are from 8 to 12 seconds, and from 30 to 300 seconds in 30-second increments.  Specify a value of
-zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p>
-</blockquote>
+zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p></blockquote>
 <p><a href="https://arstechnica.com/gadgets/2020/09/western-digital-is-trying-to-redefine-the-word-rpm/">Western Digital is trying to redefine the word “RPM” (arstechnica)</a></p>
 <p><a href="https://www.youtube.com/watch?v=lsFDp-W1Ks0">What Is ZFS?: A Brief Primer (Level1Linux)</a></p>
 <p><a href="https://weinholt.se/articles/non-posix-filesystems/">Non-Posix File Systems (Göran Weinholt&rsquo;s Blog)</a></p>
@@ -772,9 +779,7 @@ zero (0) to disable the WD idle3 timer completely (NOT RECOMMENDED!).</p>
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   

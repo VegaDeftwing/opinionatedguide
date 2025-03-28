@@ -28,9 +28,19 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 17 - Optimization # If you&rsquo;re here, you&rsquo;re probably able to at least write some code. Is it perfect code? Probably not - but what code is.
+<meta name="description" content="
+  Chapter 17 - Optimization
+  #
+
+If you&rsquo;re here, you&rsquo;re probably able to at least write some code. Is it perfect code? Probably not - but what code is.
 Good code should be:
-Malleable - You should be able to change it if requirements change. Simple - It should be easy to read Portable - It should be able to run almost everywhere Performant - It should go fast Unfortunately, those things are a bit at odds with each other.">
+
+Malleable - You should be able to change it if requirements change.
+Simple - It should be easy to read
+Portable - It should be able to run almost everywhere
+Performant - It should go fast
+
+Unfortunately, those things are a bit at odds with each other. Hyper-optimized, fast code often requires breaking though layers of abstractions and doing things in ways that are far from simple, making assumptions about what hardware it will be running on, and using subtle details to eek out extra performance - trading knowledge about how the code will run under the current understanding with flexibility should the requirements change.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -51,7 +61,7 @@ Malleable - You should be able to change it if requirements change. Simple - It 
   <meta property="og:title" content="Opinionated Guides">
   <meta property="og:description" content="Chapter 17 - Optimization # If you’re here, you’re probably able to at least write some code. Is it perfect code? Probably not - but what code is.
 Good code should be:
-Malleable - You should be able to change it if requirements change. Simple - It should be easy to read Portable - It should be able to run almost everywhere Performant - It should go fast Unfortunately, those things are a bit at odds with each other.">
+Malleable - You should be able to change it if requirements change. Simple - It should be easy to read Portable - It should be able to run almost everywhere Performant - It should go fast Unfortunately, those things are a bit at odds with each other. Hyper-optimized, fast code often requires breaking though layers of abstractions and doing things in ways that are far from simple, making assumptions about what hardware it will be running on, and using subtle details to eek out extra performance - trading knowledge about how the code will run under the current understanding with flexibility should the requirements change.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="engineering">
@@ -60,7 +70,7 @@ Malleable - You should be able to change it if requirements change. Simple - It 
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -776,8 +786,7 @@ https://github.com/alex-shpak/hugo-book
 <p>There&rsquo;s also some systems (like Goroutines in the Go programming language) where the user-space scheduler will dispatch threads to the kernel level one at times providing a sort of hybrid approach, presumably giving you the best of both worlds - similar to using multiple green threads on multiple processes.</p>
 <blockquote>
 <p>As I lack a better place to talk about it: There are also &ldquo;<a href="https://en.wikipedia.org/wiki/Coroutine">Coroutines</a>&rdquo;, which have a rather fuzzy definition, but generally the difference is that while threads will preempt each other - that is, the OS or Scheduler will not let one thread sit there and hog all the processor time - coroutines are cooperative, they depend on one-another saying &ldquo;Hey, I need to wait on something for a bit so I&rsquo;m <code>yield()</code>ing&rdquo;. Importantly, this system makes sense because it&rsquo;s only one one thread/processes - it is not trying to run things at the same time, only give up control to another function if it doesn&rsquo;t have anything to do.</p>
-<p>If you see something about &ldquo;<a href="https://en.wikipedia.org/wiki/Protothread">prototheads</a>&rdquo; it&rsquo;s basically just a fancy coroutine.</p>
-</blockquote>
+<p>If you see something about &ldquo;<a href="https://en.wikipedia.org/wiki/Protothread">prototheads</a>&rdquo; it&rsquo;s basically just a fancy coroutine.</p></blockquote>
 <p>Finally, we need to talk about a few terms relating to how these threads or processes talk.</p>
 <p>If you&rsquo;re using different processes (not threads!), they need some way to communicate data other than directly with shared address space because, well, they no longer share address space. This is <a href="https://en.wikipedia.org/wiki/Inter-process_communication"><strong>I</strong>nter-<strong>P</strong>rocess <strong>C</strong>ommunication</a>, or IPC. That Wikipedia page is actually great for listing the the different ways it can be done.</p>
 <p>If you&rsquo;re using threading, it&rsquo;s common that the language you&rsquo;re using provides some sort of asynchronous, usually abbreviated &ldquo;async&rdquo; programming model. For example, <a href="https://docs.python.org/3/library/asyncio-task.html">Python&rsquo;s <code>asyncio</code></a>, <a href="https://rust-lang.github.io/async-book/01_getting_started/02_why_async.html">Rust&rsquo;s async</a>, etc.</p>
@@ -831,9 +840,7 @@ https://github.com/alex-shpak/hugo-book
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   

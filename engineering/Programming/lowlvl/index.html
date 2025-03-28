@@ -28,9 +28,19 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chapter 14 - Low Level Programming # Ashlyn Black&rsquo;s C Cheat Sheet
+<meta name="description" content="
+  Chapter 14 - Low Level Programming
+  #
+
+
+Ashlyn Black&rsquo;s C Cheat Sheet
 &lsquo;C Programming&rsquo; on badd10de.dev
-Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular&hellip;because it&rsquo;s old and everything already uses it.">
+
+
+  Why C?
+  #
+
+This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the &lsquo;big three&rsquo; that come to mind. C is what is most popular&hellip;because it&rsquo;s old and everything already uses it. There are dozens of ways it&rsquo;s horribly fucked, like the lack of protected data/functions, the ability to write in memory bugs that are hard to catch and lead to security problems as they&rsquo;re not found at compile time, the inconsistency in implementations of the standard library, &hellip; I could go on. If you&rsquo;re not doing low level dev, don&rsquo;t use C. If you&rsquo;re doing low level dev and have the choice to not use C, don&rsquo;t use C.. Its spec is small, it&rsquo;s been kept minimal, and it&rsquo;s got a ton of tools to help you learn. It forces you to know the low level, which in this case is great. C&#43;&#43; has grown into a behemoth where anything can be done in about a dozen different ways and each development team is effectively writing in their own dialect of C&#43;&#43;. Rust, while better than C for a million reasons, (see the footnote) also sort of assumes you have experience in language like C before using it, so&hellip; the answer to why C is because we sorta have to.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -51,7 +61,7 @@ Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there&rsquo;
   <meta property="og:title" content="Opinionated Guides">
   <meta property="og:description" content="Chapter 14 - Low Level Programming # Ashlyn Black’s C Cheat Sheet
 ‘C Programming’ on badd10de.dev
-Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there’s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the ‘big three’ that come to mind. C is what is most popular…because it’s old and everything already uses it.">
+Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there’s only really a few options for learning low level programming that make sense to start with. C, C&#43;&#43;, Rust are the ‘big three’ that come to mind. C is what is most popular…because it’s old and everything already uses it. There are dozens of ways it’s horribly fucked, like the lack of protected data/functions, the ability to write in memory bugs that are hard to catch and lead to security problems as they’re not found at compile time, the inconsistency in implementations of the standard library, … I could go on. If you’re not doing low level dev, don’t use C. If you’re doing low level dev and have the choice to not use C, don’t use C.. Its spec is small, it’s been kept minimal, and it’s got a ton of tools to help you learn. It forces you to know the low level, which in this case is great. C&#43;&#43; has grown into a behemoth where anything can be done in about a dozen different ways and each development team is effectively writing in their own dialect of C&#43;&#43;. Rust, while better than C for a million reasons, (see the footnote) also sort of assumes you have experience in language like C before using it, so… the answer to why C is because we sorta have to.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="engineering">
@@ -60,7 +70,7 @@ Why C? # This chapter of OpGuides will be mostly C, but, why? Well, there’s on
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -847,8 +857,7 @@ Hello World!
 <li>Using weird compiler macros like <a href="">typeof()</a> (which doesn&rsquo;t do work how you&rsquo;d want it to)</li>
 <li>Making an enum of valid types and passing a extra variable of that enum type in to indicate the type of the argument</li>
 </ul>
-<p>All of these options are awful.</p>
-</blockquote>
+<p>All of these options are awful.</p></blockquote>
 <p>In printf the order of the different format characters like <code>%d</code> tells printf how to interpret each arg, but because it really has no idea what type you&rsquo;re actually passing it there&rsquo;s nothing stopping you from doing something weird like <code>printf(%s, 3.14);</code> - printing a float as a string (this has the potential to go very bad, actually).</p>
 <p>varargs could easily be a whole page, but you&rsquo;re better off just searching the web and reading up on them if you want to know more.</p>
 
@@ -1317,9 +1326,7 @@ the value of sine( 9 ) is  0.4121184852417566
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   

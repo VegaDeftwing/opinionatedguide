@@ -28,8 +28,20 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Methods of making noise* # * Excluding traditional instruments. We&rsquo;ll get there soon.
-Samples # A snippet of a .wav file open in audacity A sample is exactly as the name implies- a &lsquo;sample&rsquo; of audio. Sample is a pretty broad term though, so usually some more terms are applied to help categorize them. Still, for the generic term what is usually meant is a small audio file that contains one sound, like one drum hit or one piano key press.">
+<meta name="description" content="
+  Methods of making noise*
+  #
+
+* Excluding traditional instruments. We&rsquo;ll get there soon.
+
+  Samples
+  #
+
+
+
+    A snippet of a .wav file open in audacity
+
+A sample is exactly as the name implies- a &lsquo;sample&rsquo; of audio. Sample is a pretty broad term though, so usually some more terms are applied to help categorize them. Still, for the generic term what is usually meant is a small audio file that contains one sound, like one drum hit or one piano key press.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -57,7 +69,7 @@ Samples # A snippet of a .wav file open in audacity A sample is exactly as the n
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -607,7 +619,7 @@ https://github.com/alex-shpak/hugo-book
         </li>
         <li><a href="#basic-oscillators">Basic Oscillators</a></li>
         <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
-        <li><a href="#span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan"><span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span></a></li>
+        <li><a href="#wavetables"><span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span></a></li>
         <li><a href="#fm-synthesis">FM Synthesis</a></li>
         <li><a href="#phase-distortion">Phase Distortion</a></li>
         <li><a href="#granular-synthesis">Granular Synthesis</a></li>
@@ -754,8 +766,7 @@ https://github.com/alex-shpak/hugo-book
 <p>Because Math, digital systems can only understand frequencies up to half their sample rate. This is how often a new sample (in the single &lsquo;dot&rsquo; of the waveform sense) is taken. If you try to go over this frequency, they &ldquo;alias&rdquo;.</p>
 <p>The audible ramification of this is sound not being reproduced at the right frequency. This is a problem because things like distortion add that flavor to a wave by adding more and more higher-pitched frequencies that are related to the original sound. If they try to add too many, they alias. This adds those unexpected frequencies which generally sound bad.</p>
 <p>Audio rate modulation, that is doing something such having a 5khz sine wave change the frequency of another sine wave at, say, 4khz, generates a ton of these same distortions. In an analog system, there in no sample rate so this isn&rsquo;t a problem.</p>
-<p>If this doesn&rsquo;t make sense right now, that&rsquo;s okay. We&rsquo;ll se more on it later.</p>
-</blockquote>
+<p>If this doesn&rsquo;t make sense right now, that&rsquo;s okay. We&rsquo;ll se more on it later.</p></blockquote>
 </li>
 <li>
 <p>If you record at very high bit depth / rate or direct to analog media (tape), it&rsquo;s relevent to not have the computational overhead on the sources, so analog oscilators help with that.</p>
@@ -763,8 +774,7 @@ https://github.com/alex-shpak/hugo-book
 <li>
 <p>Analog is low latency: a digital source/effect will incur latency due to the necessity of a sample buffer.</p>
 <blockquote>
-<p>Almost everything that uses sound digitally will work on a group of samples at a time as it is significantly easier on the computer to do so. Unfortunately, this means you&rsquo;ll have a delay of how long it takes to collect that many samples at that sample rate. For example, if you&rsquo;re sampling at 48kHz and you have a buffer size of 512, you&rsquo;ll end up with 48,000/512 = .0106 seconds = 10.6 milliseconds of delay. for context, 10 milliseconds is right on the edge of the limit of time between plucking a string on a guitar and hearing the result though an amp that most guitarist find comfortable to play it.</p>
-</blockquote>
+<p>Almost everything that uses sound digitally will work on a group of samples at a time as it is significantly easier on the computer to do so. Unfortunately, this means you&rsquo;ll have a delay of how long it takes to collect that many samples at that sample rate. For example, if you&rsquo;re sampling at 48kHz and you have a buffer size of 512, you&rsquo;ll end up with 48,000/512 = .0106 seconds = 10.6 milliseconds of delay. for context, 10 milliseconds is right on the edge of the limit of time between plucking a string on a guitar and hearing the result though an amp that most guitarist find comfortable to play it.</p></blockquote>
 <ul>
 <li>
 <p>This also means analog systems are great for feedback patching</p>
@@ -851,9 +861,9 @@ https://github.com/alex-shpak/hugo-book
 <p>If you want a gentle intro, check out this 3 part video series (Of which only the first in embedded directly below.)</p>
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=PLrnjie9klQEkZGar3zZ4hRurU_kUDk7Md" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p>To learn more about Additive Synthesis, I really recommend <a href="https://www.youtube.com/watch?v=SCujIf5eJ2w">Additive Synthesis Magical Mystery Tour (Loopop)</a>.</p>
-<h2 id="span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan">
+<h2 id="wavetables">
   <span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span>
-  <a class="anchor" href="#span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan">#</a>
+  <a class="anchor" href="#wavetables">#</a>
 </h2>
 <p>There&rsquo;s more to life than Sines, Saws, Tris, and Squares. Welcome to the future, Baby! We&rsquo;ve got WAVETABLES.</p>
 <div style="float: right; width: 15%; padding: 10px;">
@@ -967,9 +977,7 @@ Download all WAV at once (ZIP file)</a>&rdquo; &hellip; or click this link direc
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   
@@ -1021,7 +1029,7 @@ Download all WAV at once (ZIP file)</a>&rdquo; &hellip; or click this link direc
         </li>
         <li><a href="#basic-oscillators">Basic Oscillators</a></li>
         <li><a href="#additive-and-subtractive-synthesis">Additive and Subtractive Synthesis</a></li>
-        <li><a href="#span-styletext-shadow2px-2px-0-222-4px-4px-0-ddd6px-6px-0-2228px-8px-0-ddd10px-10px-0-22212px-12px-0-ddd14px-14px-0-222wavetablesspan"><span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span></a></li>
+        <li><a href="#wavetables"><span style="text-shadow:2px 2px 0 #222, 4px 4px 0 #DDD,6px 6px 0 #222,8px 8px 0 #DDD,10px 10px 0 #222,12px 12px 0 #DDD,14px 14px 0 #222;"> WAVETABLES</span></a></li>
         <li><a href="#fm-synthesis">FM Synthesis</a></li>
         <li><a href="#phase-distortion">Phase Distortion</a></li>
         <li><a href="#granular-synthesis">Granular Synthesis</a></li>

@@ -28,8 +28,13 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Lexical analysis # The transformation of source code text into a series of tokens is the first task. Much like words in a sentence, each token has a specific meaning that will be used by later phases. It is this meaning that is being captured, while the exact formatting or other details of the text itself are stripped away.
-In our calculator, lexing (as it is called for short) is just one operation: line.">
+<meta name="description" content="
+  Lexical analysis
+  #
+
+
+The transformation of source code text into a series of tokens is the first task. Much like words in a sentence, each token has a specific meaning that will be used by later phases. It is this meaning that is being captured, while the exact formatting or other details of the text itself are stripped away.
+In our calculator, lexing (as it is called for short) is just one operation: line.split(). That&rsquo;s it.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark">
 
@@ -49,7 +54,7 @@ In our calculator, lexing (as it is called for short) is just one operation: lin
   <meta property="og:site_name" content="Opinionated Guides">
   <meta property="og:title" content="Opinionated Guides">
   <meta property="og:description" content="Lexical analysis # The transformation of source code text into a series of tokens is the first task. Much like words in a sentence, each token has a specific meaning that will be used by later phases. It is this meaning that is being captured, while the exact formatting or other details of the text itself are stripped away.
-In our calculator, lexing (as it is called for short) is just one operation: line.">
+In our calculator, lexing (as it is called for short) is just one operation: line.split(). That’s it.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="engineering">
@@ -58,7 +63,7 @@ In our calculator, lexing (as it is called for short) is just one operation: lin
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.35429f72a69cd687e5b8685a285d1d42c50d4ab26c9d7fec4aa5ce5ce35d1560.css" integrity="sha256-NUKfcqac1ofluGhaKF0dQsUNSrJsnX/sSqXOXONdFWA=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.31e691561b7b0671b76ff6a8027f0f9ec28a02a8545043c9f4c56b405766cbe5.js" integrity="sha256-MeaRVht7BnG3b/aoAn8PnsKKAqhUUEPJ9MVrQFdmy&#43;U=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.ddd17f2d2a73fba14fa321f5489a03e680f224e6b7784d45c65d3567d9bb1099.js" integrity="sha256-3dF/LSpz&#43;6FPoyH1SJoD5oDyJOa3eE1Fxl01Z9m7EJk=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -641,26 +646,26 @@ syntax error: unknown token
 <p>Rather than using these tools, our language is simple enough, we can use our own state machine seen all over the Linux world: regular expressions (&ldquo;regexes&rdquo; for short). They do exactly what a lexer does: match text against a specified pattern. In fact, many lexer generators allow tokens to be &ldquo;described&rdquo; with regular expressions!</p>
 <p>For our language, here is an example of the table we will use, containing the tokens we have and how to match them:</p>
 <table>
-<thead>
-<tr>
-<th>Token Type</th>
-<th>Regex</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Number</td>
-<td><code>0|([1-9][0-9]*)</code></td>
-</tr>
-<tr>
-<td>Operator</td>
-<td><code>\+|\*</code></td>
-</tr>
-<tr>
-<td>Whitespace</td>
-<td><code>\s+</code></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Token Type</th>
+          <th>Regex</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Number</td>
+          <td><code>0|([1-9][0-9]*)</code></td>
+      </tr>
+      <tr>
+          <td>Operator</td>
+          <td><code>\+|\*</code></td>
+      </tr>
+      <tr>
+          <td>Whitespace</td>
+          <td><code>\s+</code></td>
+      </tr>
+  </tbody>
 </table>
 <p>The syntax of regular expressions is quite complex, so if you cannot read this, I would recommend <a href="https://regexr.com/">a regex &ldquo;calculator&rdquo; such as this one</a> in order to explore them.</p>
 <p>For now, though, let&rsquo;s build a simple test program to try them out. Rather than matching on specific characters, we will try each regular expression in the order they were in our table.</p>
@@ -875,9 +880,7 @@ error: unknown token
 
       <footer class="book-footer">
         
-  <div class="flex flex-wrap justify-between">
-  
-  
+  <div class="flex flex-wrap justify-between">  
   
   
   
